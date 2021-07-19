@@ -47,7 +47,7 @@
               <span class="text-muted">Remember me</span>
             </base-checkbox>
             <div class="text-center">
-              <base-button type="primary" class="my-4">Sign in</base-button>
+              <base-button  type="primary" class="my-4">Sign in</base-button>
             </div>
           </form>
         </div>
@@ -63,10 +63,12 @@
         </div>
       </div>
     </div>
+    <button @click="table()"> index</button>
   </div>
 </template>
 <script>
-import axios from "axios"
+
+  import axios from "axios"
 export default {
   name: "login",
   data() {
@@ -81,23 +83,25 @@ export default {
     this.table()
 
   },
-  methods: {
-    table() {
+  methods:{
+    table(){
       axios({
-        method: 'post',
-        url: 'http://localhost:1926',
-        data: {
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {},
-          "method": "GetCandidate"
-        }
-      }).then((res) => {
-        console.log(res);
-      }).catch(error => console.log(error, "error"));
+        method:'post',
+        url:'/api',
+        data:{
+        "jsonrpc": "2.0",
+                "id": 1,
+                "params": {"Limit":10,"Skip":0},
+        "method": "GetContractList"
+      },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res)=>{
+        console.log(res.data);
+      });
     }
-  }
 
   }
+};
 </script>
 <style></style>
