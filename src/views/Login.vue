@@ -66,6 +66,7 @@
   </div>
 </template>
 <script>
+import axios from "axios"
 export default {
   name: "login",
   data() {
@@ -76,6 +77,27 @@ export default {
       },
     };
   },
-};
+  created() {
+    this.table()
+
+  },
+  methods: {
+    table() {
+      axios({
+        method: 'post',
+        url: 'http://localhost:1926',
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {},
+          "method": "GetCandidate"
+        }
+      }).then((res) => {
+        console.log(res);
+      }).catch(error => console.log(error, "error"));
+    }
+  }
+
+  }
 </script>
 <style></style>
