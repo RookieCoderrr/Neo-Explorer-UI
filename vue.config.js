@@ -5,7 +5,7 @@ module.exports = {
     proxy: {
       '/api': {//业务类的接口请求地址，这里的api可以是后端的工程名
         changeOrigin: true,
-        target: 'http://47.100.89.102:1926/'
+        target: 'http://127.0.0.1:1926/'
       },
 
     }
