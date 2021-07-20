@@ -7,6 +7,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Icons from "../views/Icons.vue";
 import Maps from "../views/Maps.vue";
 import Profile from "../views/UserProfile.vue";
+import Account from "../views/AccountsList";
 import Tables from "../views/Tables.vue";
 
 import Login from "../views/Login.vue";
@@ -55,6 +56,12 @@ const routes = [
         name: "profile",
         components: { default: Profile },
       },
+      // TODO: 需要加到主页的路径中，通过api可以获得account的总数
+      {
+        path: "/account",
+        name: "Accounts",
+        components: { default: Account },
+      },
       {
         path: "/tables",
         name: "tables",
@@ -62,7 +69,6 @@ const routes = [
       },
     ],
   },
-
 ];
 
 const router = createRouter({
