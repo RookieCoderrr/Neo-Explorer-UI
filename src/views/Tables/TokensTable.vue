@@ -17,6 +17,11 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -48,7 +53,10 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge class="badge-dot mr-4" type="primary">
+            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
+              <span class="">{{ row.item.standard }}</span>
+            </badge>
+            <badge v-else class="badge-dot mr-4" type="success">
               <span class="">{{ row.item.standard }}</span>
             </badge>
           </td>
@@ -73,6 +81,9 @@
 </template>
 <script>
 import axios from "axios";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
   name: "tokens-table",
   props: {
@@ -81,12 +92,16 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading
+  },
   data() {
     return {
       tokenList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
+      isLoading: true,
     };
   },
   created() {
@@ -94,6 +109,7 @@ export default {
   },
   methods: {
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTokenList(skip);
@@ -114,9 +130,9 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.isLoading = false;
       });
     },
   },
