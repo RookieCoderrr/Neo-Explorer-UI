@@ -91,7 +91,7 @@ export default {
         "jsonrpc": "2.0",
                 "id": 1,
                 "params": {"Limit":10,"Skip":0},
-        "method": "GetContractList"
+        "method": "GetTokenList"
       },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
