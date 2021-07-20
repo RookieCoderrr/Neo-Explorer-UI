@@ -73,18 +73,18 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <projects-table title="Token List"></projects-table>
+          <tokens-table title="Token List"></tokens-table>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import ProjectsTable from "./Tables/TokensTable";
+import TokensTable from "./Tables/TokensTable";
 export default {
   name: "tables",
   components: {
-    ProjectsTable,
+    TokensTable,
   },
 };
 </script>

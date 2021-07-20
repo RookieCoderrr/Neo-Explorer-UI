@@ -74,7 +74,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "projects-table",
+  name: "tokens-table",
   props: {
     type: {
       type: String,
