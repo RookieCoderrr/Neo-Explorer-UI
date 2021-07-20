@@ -9,6 +9,7 @@ import Maps from "../views/Maps.vue";
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
 import Tables from "../views/Tables.vue";
+import AccountProfile from "../views/AccountProfile";
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
@@ -66,6 +67,11 @@ const routes = [
         path: "/tables",
         name: "tables",
         components: { default: Tables },
+      },
+      {
+        path: "/accountprofile/:accountAddress",
+        name: "AccountProfile",
+        components: { default: AccountProfile },
       },
     ],
   },

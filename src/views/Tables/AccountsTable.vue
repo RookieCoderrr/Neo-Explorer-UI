@@ -30,13 +30,12 @@
           <th>Created Time</th>
           <th></th>
         </template>
-
         <template v-slot:default="row">
           <td>
             {{ row.item._id }}
           </td>
           <td class="address">
-            {{ row.item.address }}
+            <a @click="getAddress(row.item.address)">{{ row.item.address }}</a>
           </td>
           <td class="firstusetime">
             {{ row.item.firstusetime }}
@@ -108,6 +107,11 @@ export default {
         .catch((err) => {
           console.log("Error", err);
         });
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
   },
 };
