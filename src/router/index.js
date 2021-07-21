@@ -1,6 +1,7 @@
 // import { createRouter, createWebHashHistory } from "vue-router";
 
 import {createRouter, createWebHistory} from 'vue-router'  //引入vue-router
+//import { createRouter,createWebHashHistory} from 'vue-router'  //引入vue-router
 import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
@@ -73,6 +74,7 @@ import Register from "../views/Register.vue";
 
  const router = createRouter({
 
+  //history: createWebHashHistory(),
   history: createWebHistory(),
   linkActiveClass: "active",
   routes,
