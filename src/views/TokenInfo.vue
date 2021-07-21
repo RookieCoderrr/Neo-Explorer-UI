@@ -88,7 +88,7 @@ export default {
   },
   data() {
     return {
-      token_id: "0xc3b4f3b4b7c6c399cb44e8076192a8a9ee980a28",
+      token_id: this.$route.params.hash,
       isLoading: true,
       token_info: [],
       standard: 0,
@@ -120,11 +120,6 @@ export default {
         this.token_info = raw;
         this.isLoading = false;
       });
-    },
-    onCopy(el) {
-      var test = document.getElementById(el);
-      test.select();
-      document.execCommand("copy");
     },
   },
 };

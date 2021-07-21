@@ -24,7 +24,7 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <span class="name mb-0 text-sm" style="color: #4f40ff">{{ row.item.address}}</span>
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
               </div>
             </div>
           </th>

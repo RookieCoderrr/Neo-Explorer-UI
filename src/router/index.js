@@ -4,10 +4,10 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
-import Icons from "../views/Icons.vue";
+import TokenInfo from "../views/TokenInfo.vue";
 import Maps from "../views/Maps.vue";
 import Profile from "../views/UserProfile.vue";
-import Tables from "../views/Tables.vue";
+import Tokens from "../views/Tokens.vue";
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
@@ -41,9 +41,14 @@ const routes = [
         components: { default: Dashboard },
       },
       {
-        path: "/icons",
-        name: "icons",
-        components: { default: Icons },
+        path: "/tokens",
+        name: "tokens",
+        components: { default: Tokens },
+      },
+      {
+        path: "/tokeninfo/:hash",
+        name: "tokeninfo",
+        components: { default: TokenInfo },
       },
       {
         path: "/maps",
@@ -55,14 +60,8 @@ const routes = [
         name: "profile",
         components: { default: Profile },
       },
-      {
-        path: "/tables",
-        name: "tables",
-        components: { default: Tables },
-      },
     ],
   },
-
 ];
 
 const router = createRouter({

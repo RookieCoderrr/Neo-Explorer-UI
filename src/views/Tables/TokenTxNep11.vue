@@ -25,19 +25,19 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body">
-                <span class="name mb-0 text-sm txid" style="color: #4f40ff">{{row.item.txid}}</span>
+              <div class="media-body txid">
+                <a class="name mb-0 text-sm ">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
           <td class="From">
             <div class="addr">
-              {{ row.item.from }}
+              <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.from === null ? "Null Account" : row.item.from }}</a>
             </div>
           </td>
           <td class="To">
             <div class="addr">
-              {{ row.item.to }}
+              <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.to }}</a>
             </div>
           </td>
           <td class="Value">
@@ -47,7 +47,9 @@
             {{ convertTime(row.item.time) }}
           </td>
           <td class="TokenID">
-            {{ row.item.tokenId }}
+            <div class="addr">
+              {{ row.item.tokenId }}
+            </div>
           </td>
         </template>
       </base-table>
@@ -107,7 +109,7 @@ export default {
         this.firstTime = false;
       }
     },
-    convertTime(ts){
+    convertTime(ts) {
       return format(ts);
     },
     getTokenList(skip) {
@@ -126,7 +128,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.NEP17TxList = res["data"]["result"]["result"];
+        this.NEP11TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
@@ -142,7 +144,7 @@ export default {
   text-overflow: ellipsis;
 }
 .addr {
-  width: 100px !important;
+  width: 150px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

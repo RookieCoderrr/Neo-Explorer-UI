@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {//业务类的接口请求地址，这里的api可以是后端的工程名
+      '/api': {
         changeOrigin: true,
         target: 'http://47.100.89.102:50559/'
       },

@@ -25,18 +25,23 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <span class="name mb-0 text-sm" style="color: #4f40ff">{{row.item.txid}}</span>
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
           <td class="From">
             <div class="addr">
-              {{ row.item.from }}
+              <a class="name mb-0 text-sm" style="cursor: pointer">
+                {{ row.item.from === null ? "Null Address" : row.item.from }}
+              </a>
             </div>
+
           </td>
           <td class="To">
             <div class="addr">
-              {{ row.item.to }}
+              <a class="name mb-0 text-sm" style="cursor: pointer">
+                {{ row.item.to }}
+              </a>
             </div>
           </td>
           <td class="Value">
@@ -138,7 +143,7 @@ export default {
   text-overflow: ellipsis;
 }
 .addr {
-  width: 100px !important;
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

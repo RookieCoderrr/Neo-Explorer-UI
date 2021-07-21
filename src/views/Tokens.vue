@@ -15,7 +15,7 @@
 <script>
 import TokensTable from "./Tables/TokensTable";
 export default {
-  name: "tables",
+  name: "tokens",
   components: {
     TokensTable,
   },

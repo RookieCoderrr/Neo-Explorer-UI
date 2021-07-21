@@ -38,8 +38,8 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body">
-                <span class="name mb-0 text-sm">{{ row.item.hash }}</span>
+              <div class="media-body" >
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
               </div>
             </div>
           </th>
@@ -115,6 +115,9 @@ export default {
       } else {
         this.firstTime = false;
       }
+    },
+    getToken(hash) {
+      this.$router.push(`/tokeninfo/${hash}`);
     },
     getTokenList(skip) {
       axios({

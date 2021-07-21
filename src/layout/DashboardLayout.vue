@@ -37,9 +37,9 @@
         />
         <sidebar-item
           :link="{
-            name: 'Tables',
+            name: 'Tokens',
             icon: 'ni ni-bullet-list-67 text-red',
-            path: '/tables',
+            path: '/tokens',
           }"
         />
         <sidebar-item
