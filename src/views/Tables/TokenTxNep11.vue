@@ -30,11 +30,15 @@
               </div>
             </div>
           </th>
-          <td class="From addr">
-            {{ row.item.from }}
+          <td class="From">
+            <div class="addr">
+              {{ row.item.from }}
+            </div>
           </td>
-          <td class="To addr">
-            {{ row.item.to}}
+          <td class="To">
+            <div class="addr">
+              {{ row.item.to }}
+            </div>
           </td>
           <td class="Value">
             {{row.item.value}}
@@ -133,13 +137,13 @@ export default {
 </script>
 <style>
 .txid {
-  width: 250px;
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .addr {
-  width: 250px;
+  width: 100px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
