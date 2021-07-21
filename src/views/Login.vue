@@ -67,7 +67,6 @@
   </div>
 </template>
 <script>
-
   import axios from "axios"
 export default {
   name: "login",
@@ -89,11 +88,11 @@ export default {
         method:'post',
         url:'/api',
         data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {},
-          "method": "GetCandidate"
-        },
+        "jsonrpc": "2.0",
+                "id": 1,
+                "params": {"Limit":10,"Skip":0},
+        "method": "GetTokenList"
+      },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
