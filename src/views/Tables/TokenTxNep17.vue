@@ -129,13 +129,13 @@ export default {
 </script>
 <style>
 .txid {
-  width: 250px;
+  width: 100px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .addr {
-  width: 250px;
+  width: 100px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
