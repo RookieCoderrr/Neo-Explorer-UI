@@ -85,8 +85,8 @@ export default {
   name: "tokens-table",
   props: {
     type: {
-      type: String,
-    },
+        type: String,
+      },
     title: String,
   },
   components: {

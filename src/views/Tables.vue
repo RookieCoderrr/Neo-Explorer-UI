@@ -6,18 +6,20 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <tokens-table title="Token List"></tokens-table>
+          <blocks-table title="Block List"></blocks-table>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import TokensTable from "./Tables/TokensTable";
+//import TokensTable from "./Tables/TokensTable";
+import BlocksTable from "./Tables/BlocksTable";
 export default {
   name: "tables",
   components: {
-    TokensTable,
+   // TokensTable,
+    BlocksTable,
   },
 };
 </script>

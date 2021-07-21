@@ -6,6 +6,7 @@
         :opacity="0.9"
         :active="isLoading"
       ></loading>
+
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"

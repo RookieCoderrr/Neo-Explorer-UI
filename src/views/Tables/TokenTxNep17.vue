@@ -23,14 +23,16 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center">
-              <div class="media-body">
-                <span class="name mb-0 text-sm txid" style="color: #4f40ff">{{row.item.txid}}</span>
+            <div class="media align-items-center ">
+              <div class="media-body txid" >
+                <span class="name mb-0 text-sm " style="color: #4f40ff" >{{row.item.txid}}</span>
               </div>
             </div>
           </th>
-          <td class="From addr">
+          <td >
+            <div class="media-body txid" >
             {{ row.item.from }}
+            </div>
           </td>
           <td class="To addr">
             {{ row.item.to}}
@@ -129,13 +131,13 @@ export default {
 </script>
 <style>
 .txid {
-  width: 100px;
+  width: 50px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .addr {
-  width: 100px;
+  width: 50px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
