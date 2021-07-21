@@ -63,6 +63,16 @@
             </template>
         </base-table>
     </div>
+       <base-dropdown>
+           <template v-slot:title>
+               <base-button type="secondary" class="dropdown-toggle">
+                   Regular
+               </base-button>
+           </template>
+           <a class="dropdown-item" href="#">Action</a>
+           <a class="dropdown-item" href="#">Another action</a>
+           <a class="dropdown-item" href="#">Something else here</a>
+       </base-dropdown>
 
         <div
                 class="card-footer d-flex justify-content-end"
@@ -111,7 +121,7 @@ methods: {
             this.isLoading = true;
             this.pagination = pageNumber;
             const skip = (pageNumber - 1) * this.resultsPerPage;
-            this.getTokenList(skip);
+            this.getBlockList(skip);
         } else {
             this.firstTime = false;
         }
@@ -130,9 +140,8 @@ methods: {
          "Content-Type": "application/json",
         },
     }).then((res) => {
-        this.blockList = res["data"]["result"];
-        console.log(this.blockList)
-       // this.totalCount = res["data"]["result"]["totalCount"];
+        this.blockList = res["data"]["result"]["result"];
+       this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
     });
 },

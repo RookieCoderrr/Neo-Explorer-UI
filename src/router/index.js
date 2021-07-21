@@ -1,5 +1,6 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+// import { createRouter, createWebHashHistory } from "vue-router";
 
+import {createRouter, createWebHistory} from 'vue-router'  //引入vue-router
 import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
@@ -12,64 +13,71 @@ import Tables from "../views/Tables.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 
-const routes = [
 
-  {
-    path: "/",
-    redirect: "/dashboard",
-    component: DashboardLayout,
-    children: [
-      {
-        path: "/dashboard",
-        name: "dashboard",
-        components: { default: Dashboard },
-      },
-      {
-        path: "/icons",
-        name: "icons",
-        components: { default: Icons },
-      },
-      {
-        path: "/maps",
-        name: "maps",
-        components: { default: Maps },
-      },
-      {
-        path: "/profile",
-        name: "profile",
-        components: { default: Profile },
-      },
-      {
-        path: "/tables",
-        name: "tables",
-        components: { default: Tables },
-      },
-    ],
-  },
-  {
-    path: "/",
-    redirect: "login",
-    component: AuthLayout,
-    children: [
-      {
-        path: "/login",
-        name: "login",
-        components: { default: Login },
-      },
-      {
-        path: "/register",
-        name: "register",
-        components: { default: Register },
-      },
-    ],
-  },
 
-];
+ const routes =  [
+    {
+      path: "/",
+      redirect: "/dashboard",
+      component: DashboardLayout,
+      children: [
+        {
+          path: "/dashboard",
+          name: "dashboard",
+          components: { default: Dashboard },
+        },
+        {
+          path: "/icons",
+          name: "icons",
+          components: { default: Icons },
+        },
+        {
+          path: "/maps",
+          name: "maps",
+          components: { default: Maps },
+        },
+        {
+          path: "/profile",
+          name: "profile",
+          components: { default: Profile },
+        },
+        {
+          path: "/tables",
+          name: "tables",
+          components: { default: Tables },
+        },
+      ],
+    },
+    {
+      path: "/",
+      redirect: "login",
+      component: AuthLayout,
+      children: [
+        {
+          path: "/login",
+          name: "login",
+          components: { default: Login },
+        },
+        {
+          path: "/register",
+          name: "register",
+          components: { default: Register },
+        },
+      ],
+    },
 
-const router = createRouter({
-  history: createWebHashHistory(),
+  ]
+
+
+
+
+ const router = createRouter({
+
+  history: createWebHistory(),
   linkActiveClass: "active",
   routes,
 });
 
-export default router;
+
+ export default router;
+
