@@ -10,9 +10,6 @@
             {{ title }}
           </h3>
         </div>
-        <div class="col text-right">
-          <base-button type="primary" size="sm">See all</base-button>
-        </div>
       </div>
     </div>
 
@@ -102,6 +99,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
+      firstTime: true,
     };
   },
   created() {
@@ -109,10 +107,14 @@ export default {
   },
   methods: {
     pageChange(pageNumber) {
-      this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTokenList(skip);
+      if (!this.firstTime) {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTokenList(skip);
+      } else {
+        this.firstTime = false;
+      }
     },
     getTokenList(skip) {
       axios({

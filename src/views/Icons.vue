@@ -1,109 +1,75 @@
 <template>
   <div>
     <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
-      <!-- Card stats -->
-      <div class="row">
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Total traffic"
-            type="gradient-red"
-            sub-title="350,897"
-            icon="ni ni-active-40"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-                ><i class="fa fa-arrow-up"></i> 3.48%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Total traffic"
-            type="gradient-orange"
-            sub-title="2,356"
-            icon="ni ni-chart-pie-35"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-                ><i class="fa fa-arrow-up"></i> 12.18%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Sales"
-            type="gradient-green"
-            sub-title="924"
-            icon="ni ni-money-coins"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-danger mr-2"
-                ><i class="fa fa-arrow-down"></i> 5.72%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <stats-card
-            title="Performance"
-            type="gradient-info"
-            sub-title="49,65%"
-            icon="ni ni-chart-bar-32"
-            class="mb-4 mb-xl-0"
-          >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-                ><i class="fa fa-arrow-up"></i> 54.8%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
-          </stats-card>
-        </div>
-      </div>
     </base-header>
-
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <div class="card shadow">
+            <loading
+              :is-full-page="false"
+              :opacity="0.9"
+              :active="isLoading"
+            ></loading>
             <div class="card-header bg-transparent">
-              <h3 class="mb-0">Icons</h3>
+              <h1 class="mb-0">{{ this.token_info["tokenname"] }}</h1>
+              <h4 class="text-muted">{{this.token_info["hash"]}}</h4>
             </div>
             <div class="card-body">
-              <div class="row icon-examples">
-                <div
-                  class="col-lg-3 col-md-6"
-                  v-for="(icon, index) in icons"
-                  :key="icon.name + index"
-                >
-                  <el-tooltip placement="top" :content="icon.name">
-                    <button
-                      type="button"
-                      v-on:click="onCopy(icon.name)"
-                      class="btn-icon-clipboard my-0"
-                      data-clipboard-text="air-baloon"
-                    >
-                      <div>
-                        <i :class="icon.name"></i>
-                        <span id="test">{{ icon.name.substring(6) }}</span>
-                      </div>
-                    </button>
-                  </el-tooltip>
-                  <input
-                    class="opacity-0 h-0"
-                    :value="icon.name"
-                    :id="icon.name"
-                  />
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Token Symbol</div>
                 </div>
+                <div class="col-3"><h3>{{ this.token_info["symbol"] }}</h3></div>
+                <div class="col-2">
+                  <div class="text-muted">Supported Standard</div>
+                </div>
+                <div class="col-3"><h3>{{ this.token_info["standard"] }}</h3></div>
               </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Decimal</div>
+                </div>
+                <div class="col-3"><h3>{{ this.token_info["decimals"] }}</h3></div>
+                <div class="col-2">
+                  <div class="text-muted">Total Supply</div>
+                </div>
+                <div class="col-3"><h3>{{ this.token_info["totalsupply"] }}</h3></div>
+              </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Total Holders</div>
+                </div>
+                <div class="col-3"><h3>{{ this.token_info["total_holders"] }}</h3></div>
+                <div class="col-2">
+                  <div class="text-muted">First Transferred</div>
+                </div>
+                <div class="col-3"><h3>{{ this.token_info["firsttransfertime"] }}</h3></div>
+              </div>
+              <div class="row mt-5"></div>
+              <tabs fill class="flex-column flex-md-row">
+                <card shadow>
+                  <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                    <p class="description">Raw denim you probably haven't heard of them jean shorts
+                      Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
+                      cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+                      keffiyeh dreamcatcher synth.</p>
+                  </tab-pane>
+                  <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
+                    <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex
+                      squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan
+                      american apparel, butcher voluptate nisi qui.</p>
+                  </tab-pane>
+                  <tab-pane icon="ni ni-collection" title="Contract Info">
+                    <p class="description">Raw denim you probably haven't heard of them jean shorts
+                      Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
+                      cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+                      keffiyeh dreamcatcher synth.</p>
+                  </tab-pane>
+                </card>
+              </tabs>
             </div>
           </div>
         </div>
@@ -113,114 +79,48 @@
 </template>
 
 <script>
+import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import { format } from "timeago.js";
+
 export default {
   data() {
     return {
-      icons: [
-        { name: "ni ni-active-40" },
-        { name: "ni ni-air-baloon" },
-        { name: "ni ni-album-2" },
-        { name: "ni ni-align-center" },
-        { name: "ni ni-align-left-2" },
-        { name: "ni ni-ambulance" },
-        { name: "ni ni-app" },
-        { name: "ni ni-archive-2" },
-        { name: "ni ni-atom" },
-        { name: "ni ni-badge" },
-        { name: "ni ni-bag-17" },
-        { name: "ni ni-basket" },
-        { name: "ni ni-bell-55" },
-        { name: "ni ni-bold-down" },
-        { name: "ni ni-bold-left" },
-        { name: "ni ni-bold-right" },
-        { name: "ni ni-bold-up" },
-        { name: "ni ni-bold" },
-        { name: "ni ni-book-bookmark" },
-        { name: "ni ni-books" },
-        { name: "ni ni-box-2" },
-        { name: "ni ni-briefcase-24" },
-        { name: "ni ni-building" },
-        { name: "ni ni-bulb-61" },
-        { name: "ni ni-bullet-list-67" },
-        { name: "ni ni-bus-front-12" },
-        { name: "ni ni-button-pause" },
-        { name: "ni ni-button-play" },
-        { name: "ni ni-button-power" },
-        { name: "ni ni-calendar-grid-58" },
-        { name: "ni ni-camera-compact" },
-        { name: "ni ni-caps-small" },
-        { name: "ni ni-cart" },
-        { name: "ni ni-chart-bar-32" },
-        { name: "ni ni-chart-pie-35" },
-        { name: "ni ni-chat-round" },
-        { name: "ni ni-check-bold" },
-        { name: "ni ni-circle-08" },
-        { name: "ni ni-cloud-download-95" },
-        { name: "ni ni-cloud-upload-96" },
-        { name: "ni ni-compass-04" },
-        { name: "ni ni-controller" },
-        { name: "ni ni-credit-card" },
-        { name: "ni ni-curved-next" },
-        { name: "ni ni-delivery-fast" },
-        { name: "ni ni-diamond" },
-        { name: "ni ni-email-83" },
-        { name: "ni ni-fat-add" },
-        { name: "ni ni-fat-delete" },
-        { name: "ni ni-fat-remove" },
-        { name: "ni ni-favourite-28" },
-        { name: "ni ni-folder-17" },
-        { name: "ni ni-glasses-2" },
-        { name: "ni ni-hat-3" },
-        { name: "ni ni-headphones" },
-        { name: "ni ni-html5" },
-        { name: "ni ni-istanbul" },
-        { name: "ni ni-key-25" },
-        { name: "ni ni-laptop" },
-        { name: "ni ni-like-2" },
-        { name: "ni ni-lock-circle-open" },
-        { name: "ni ni-map-big" },
-        { name: "ni ni-mobile-button" },
-        { name: "ni ni-money-coins" },
-        { name: "ni ni-note-03" },
-        { name: "ni ni-notification-70" },
-        { name: "ni ni-palette" },
-        { name: "ni ni-paper-diploma" },
-        { name: "ni ni-pin-3" },
-        { name: "ni ni-planet" },
-        { name: "ni ni-ruler-pencil" },
-        { name: "ni ni-satisfied" },
-        { name: "ni ni-scissors" },
-        { name: "ni ni-send" },
-        { name: "ni ni-settings-gear-65" },
-        { name: "ni ni-settings" },
-        { name: "ni ni-single-02" },
-        { name: "ni ni-single-copy-04" },
-        { name: "ni ni-sound-wave" },
-        { name: "ni ni-spaceship" },
-        { name: "ni ni-square-pin" },
-        { name: "ni ni-support-16" },
-        { name: "ni ni-tablet-button" },
-        { name: "ni ni-tag" },
-        { name: "ni ni-tie-bow" },
-        { name: "ni ni-time-alarm" },
-        { name: "ni ni-trophy" },
-        { name: "ni ni-tv-2" },
-        { name: "ni ni-umbrella-13" },
-        { name: "ni ni-user-run" },
-        { name: "ni ni-vector" },
-        { name: "ni ni-watch-time" },
-        { name: "ni ni-world" },
-        { name: "ni ni-zoom-split-in" },
-        { name: "ni ni-collection" },
-        { name: "ni ni-image" },
-        { name: "ni ni-shop" },
-        { name: "ni ni-ungroup" },
-        { name: "ni ni-world-2" },
-        { name: "ni ni-ui-04" },
-      ],
+      token_id: "0x1d299b0169592a3652385b10ee1a40805caf605f",
+      isLoading: true,
+      token_info: [],
     };
   },
+  components: {
+    Loading,
+  },
+  created() {
+    this.getToken(this.token_id);
+  },
   methods: {
+    getToken(token_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {"ContractHash": token_id},
+          method: "GetAssetInfoByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        const raw = res["data"]["result"];
+        raw["firsttransfertime"] = format(raw["firsttransfertime"]);
+        this.token_info = raw;
+        this.isLoading = false;
+      });
+    },
     onCopy(el) {
       var test = document.getElementById(el);
       test.select();
