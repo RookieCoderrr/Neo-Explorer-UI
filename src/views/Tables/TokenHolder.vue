@@ -11,43 +11,31 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="NEP11TxList"
+        :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th>Txid</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Amount</th>
-          <th>Time</th>
-          <th>TokenID</th>
+          <th>Address</th>
+          <th>Balance</th>
+          <th>First Used</th>
+          <th>Percentage</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <span class="name mb-0 text-sm txid" style="color: #4f40ff">{{row.item.txid}}</span>
+                <span class="name mb-0 text-sm" style="color: #4f40ff">{{ row.item.address}}</span>
               </div>
             </div>
           </th>
-          <td class="From">
-            <div class="addr">
-              {{ row.item.from }}
-            </div>
+          <td class="balance">
+            {{ row.item.balance }}
           </td>
-          <td class="To">
-            <div class="addr">
-              {{ row.item.to }}
-            </div>
+          <td class="firstused">
+            {{ convertTime(row.item.firstusetime) }}
           </td>
-          <td class="Value">
-            {{row.item.value}}
-          </td>
-          <td class="time">
-            {{ convertTime(row.item.time) }}
-          </td>
-          <td class="TokenID">
-            {{ row.item.tokenId }}
+          <td class="percentage">
+            {{ toPercentage(row.item.percentage) }}
           </td>
         </template>
       </base-table>
@@ -73,7 +61,7 @@ import { format } from "timeago.js";
 
 
 export default {
-  name: "tokens-tx-nep11",
+  name: "token-holder",
   props: {
     type: {
       type: String,
@@ -85,7 +73,7 @@ export default {
   },
   data() {
     return {
-      NEP11TxList: [],
+      NEP17TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -97,6 +85,11 @@ export default {
     this.getTokenList(0);
   },
   methods: {
+    toPercentage(num) {
+      let s = Number(num * 100).toFixed(4);
+      s += "%";
+      return s;
+    },
     pageChange(pageNumber) {
       if (!this.firstTime) {
         this.isLoading = true;
@@ -118,7 +111,7 @@ export default {
           jsonrpc: "2.0",
           id: 1,
           params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
-          method: "GetNep11TransferByContractHash",
+          method: "GetAssetHoldersByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -134,17 +127,4 @@ export default {
   },
 };
 </script>
-<style>
-.txid {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.addr {
-  width: 100px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
+<style></style>

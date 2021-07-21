@@ -56,15 +56,10 @@
                   <tokens-tx-nep11 v-else-if="standard===2"  :contractHash="token_id"></tokens-tx-nep11>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
-                  <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex
-                    squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan
-                    american apparel, butcher voluptate nisi qui.</p>
+                  <token-holder :contract-hash="token_id"></token-holder>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contract Info">
-                  <p class="description">Raw denim you probably haven't heard of them jean shorts
-                    Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
-                    cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-                    keffiyeh dreamcatcher synth.</p>
+                  <p class="description">This page should do something else.</p>
                 </tab-pane>
               </tabs>
             </div>
@@ -82,16 +77,18 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import TokensTxNep17 from "./Tables/TokenTxNep17";
 import TokensTxNep11 from "./Tables/TokenTxNep11";
+import TokenHolder from "./Tables/TokenHolder";
 
 export default {
   components: {
     TokensTxNep17,
     TokensTxNep11,
+    TokenHolder,
     Loading,
   },
   data() {
     return {
-      token_id: "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5",
+      token_id: "0xc3b4f3b4b7c6c399cb44e8076192a8a9ee980a28",
       isLoading: true,
       token_info: [],
       standard: 0,
