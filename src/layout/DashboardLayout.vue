@@ -44,6 +44,13 @@
         />
         <sidebar-item
           :link="{
+            name: 'Contracts',
+            icon: 'ni ni-circle-08 text-pink',
+            path: '/contracts',
+          }"
+        />
+        <sidebar-item
+          :link="{
             name: 'Login',
             icon: 'ni ni-key-25 text-info',
             path: '/login',

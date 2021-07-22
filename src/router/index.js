@@ -2,7 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
-
+import Contracts from "../views/Contracts";
+import ContractInfo from "../views/ContractInfo";
 import Dashboard from "../views/Dashboard.vue";
 import TokenInfo from "../views/TokenInfo.vue";
 import Maps from "../views/Maps.vue";
@@ -49,6 +50,16 @@ const routes = [
         path: "/tokeninfo/:hash",
         name: "tokeninfo",
         components: { default: TokenInfo },
+      },
+      {
+        path: "/contracts",
+        name: "contracts",
+        components: { default: Contracts },
+      },
+      {
+        path: "/contractinfo/:hash",
+        name: "contractinfo",
+        components: { default: ContractInfo },
       },
       {
         path: "/maps",

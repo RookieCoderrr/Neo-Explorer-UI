@@ -135,6 +135,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
