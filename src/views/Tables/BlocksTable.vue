@@ -45,11 +45,13 @@
                     </div>
                 </th>
                 <td style="padding-left: 100px">
+                    <el-tooltip placement="top" :content="row.item.hash">
                     <div class="blockid" >
                     <span >
                         {{row.item.hash}}
                     </span>
                     </div>
+                    </el-tooltip>
                 </td>
                 <td>
                     {{ row.item.timestamp }}
@@ -63,16 +65,6 @@
             </template>
         </base-table>
     </div>
-       <base-dropdown>
-           <template v-slot:title>
-               <base-button type="secondary" class="dropdown-toggle">
-                   Regular
-               </base-button>
-           </template>
-           <a class="dropdown-item" href="#">Action</a>
-           <a class="dropdown-item" href="#">Another action</a>
-           <a class="dropdown-item" href="#">Something else here</a>
-       </base-dropdown>
 
         <div
                 class="card-footer d-flex justify-content-end"
@@ -82,6 +74,7 @@
                     :total="this.totalCount"
                     :value="pagination"
                     v-on:input="pageChange($event)"
+                    v-on:changeInput = "pageChange($event)"
             ></base-pagination>
         </div>
     </div>
@@ -110,12 +103,14 @@ data() {
         pagination: 1,
         isLoading: true,
         firstTime: true,
+        return1:1,
     };
 },
 created() {
     this.getBlockList(0);
 },
 methods: {
+
     pageChange(pageNumber) {
         if (!this.firstTime) {
             this.isLoading = true;
