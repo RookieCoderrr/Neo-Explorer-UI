@@ -27,6 +27,8 @@
         <template v-slot:columns>
           <th>ID.</th>
           <th>Address</th>
+          <th>Neo Balance</th>
+          <th>Gas Balance</th>
           <th>Created Time</th>
           <th></th>
         </template>
@@ -36,6 +38,12 @@
           </td>
           <td class="address">
             <a @click="getAddress(row.item.address)">{{ row.item.address }}</a>
+          </td>
+          <td class="neoBalance">
+            {{row.item.neoBalance}}
+          </td>
+          <td class="gasBalance">
+            {{row.item.gasBalance}}
           </td>
           <td class="firstusetime">
             {{ row.item.firstusetime }}
@@ -73,11 +81,17 @@ export default {
       totalAccount: 100,
       pagination: 1,
       resultsPerPage: 10,
+      neoBalance: 0,
     };
   },
   created() {
     this.getAccoutsList(0);
   },
+  mounted() {
+    this.getBalance();
+
+  },
+
   methods: {
     pageChange(pageNumber) {
       this.pagination = pageNumber;
@@ -104,9 +118,12 @@ export default {
           let temp = res["data"]["result"]["result"]
           for(let k=0; k<temp.length; k++) {
             temp[k]["firstusetime"] = format(temp[k]["firstusetime"])
+            temp[k]["neoBalance"] = ""
+            temp[k]["gasBalance"] = ""
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
+          this.getBalance()
         })
         .catch((err) => {
           console.log("Error", err);
@@ -116,6 +133,123 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
       });
+    },
+    async getBalance() {
+      for (let k = 0; k < this.tableData.length; k++) {
+        console.log(k.toString())
+        let addr = this.tableData[k].address;
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            method: "GetBalanceByContractHashAddress",
+            params: {
+              Address: addr,
+              ContractHash: "0xd2a4cff31913016155e38e474a2c06d08be276cf", // gas
+            },
+            id: 1,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: "true",
+            crossDomain: "true",
+          },
+        })
+            .then((res) => {
+              this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
+              //this.neoBalance = res["data"]["result"]["balance"];
+            })
+            .catch((err) => {
+              this.tableData[k]["gasBalance"] = "0";
+              console.log("Error", err);
+            });
+
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            method: "GetBalanceByContractHashAddress",
+            params: {
+              Address: addr,
+              ContractHash: "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5",
+            },
+            id: 1,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: "true",
+            crossDomain: "true",
+          },
+        })
+            .then((res) => {
+              this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
+            })
+            .catch((err) => {
+              this.tableData[k]["neoBalance"] = "0";
+              console.log("Error", err);
+            });
+
+
+      }
+      console.log("print data")
+      for (let k=0; k<this.tableData.length; k++) {
+        console.log(this.tableData)
+      }
+    },
+    getNeoBalance(accountAddress) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetBalanceByContractHashAddress",
+          params: {
+            Address: accountAddress,
+            ContractHash: "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5",
+          },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
+          .then((res) => {
+            console.log(res)
+            return res["data"]["result"]["balance"]
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
+    },
+    getGasBalance(accountAddress) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetBalanceByContractHashAddress",
+          params: {
+            Address: accountAddress,
+            ContractHash: "0xd2a4cff31913016155e38e474a2c06d08be276cf",
+          },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
+          .then((res) => {
+            return res["data"]["result"]["balance"];
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
     },
   },
 };

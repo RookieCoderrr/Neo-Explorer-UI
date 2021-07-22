@@ -119,6 +119,7 @@ export default {
       txnsTotalNumbers: 0,
       isLoading: true,
       createdTime: "",
+      tokenList: [],
     };
   },
   components: {
@@ -130,6 +131,7 @@ export default {
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();
+    this.getToken();
 
   },
   methods: {
@@ -204,7 +206,8 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // TODO: 这个还没处理
+          console.log("get transactions", res)
           this.isLoading = false;
 
         })
@@ -231,14 +234,47 @@ export default {
         },
       })
           .then((res) => {
-            console.log(this.accountAddress)
             this.createdTime = format(res["data"]["result"]["firstusetime"])
 
           })
           .catch((err) => {
             console.log("Error", err);
           });
-    }
+    },
+    getToken() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAssetsHeldByAddress",
+          params: {
+            Address: this.accountAddress,
+          },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
+          .then((res) => {
+            //this.tokenList = res["data"]["result"]["result"]
+            //console.log(this.tokenList[0].tokenname)
+            //console.log(this.tokenList[0].balanceinfo.balance)
+            let temp_data = res["data"]["result"]["result"];
+            for(let k=0; k<temp_data.length; k++){
+              let temp = {"tokenname": res["data"]["result"]["result"][0].tokenname, "balance": res["data"]["result"]["result"][0].balanceinfo.balance}
+              this.tokenList.push(temp)
+            }
+            console.log(this.tokenList)
+
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
+    },
   },
 };
 </script>
