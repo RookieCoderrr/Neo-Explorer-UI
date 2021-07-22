@@ -4,7 +4,7 @@
       class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
       style="
         min-height: 600px;
-        background-image: url(img/theme/profile-cover.jpg);
+
         background-size: cover;
         background-position: center top;
       "
@@ -61,23 +61,49 @@
                     class="card-profile-stats d-flex justify-content-center mt-md-5"
                   >
                     <div>
-                      <span class="heading">22</span>
-                      <span class="description">Friends</span>
+                      <span class="heading">{{this.blocktime}}</span>
+                      <span class="description">Time</span>
                     </div>
                     <div>
                       <span class="heading">10</span>
-                      <span class="description">Photos</span>
+                      <span class="description">Block Index</span>
                     </div>
                     <div>
                       <span class="heading">89</span>
-                      <span class="description">Comments</span>
+                      <span class="description">Size</span>
+                    </div>
+                    <div>
+                      <span class="heading">89</span>
+                      <span class="description">Version</span>
+                    </div>
+                    <div>
+                      <span class="heading">89</span>
+                      <span class="description">Tx hash</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="text-center">
                 <h3>
-                  Jessica Jones<span class="font-weight-light">, 27</span>
+                  Sender<span class="font-weight-light"> 27</span>
+                </h3>
+                <h3>
+                  Block Hash<span class="font-weight-light">, 27</span>
+                </h3>
+                <h3>
+                  Network Fee<span class="font-weight-light">, 27</span>
+                </h3>
+                <h3>
+                  System Fee<span class="font-weight-light">, 27</span>
+                </h3>
+                <h3>
+                  Signers<span class="font-weight-light">, 27</span>
+                </h3>
+                <h3>
+                  witnesses<span class="font-weight-light">, 27</span>
+                </h3>
+                <h3>
+                  Script<span class="font-weight-light">, 27</span>
                 </h3>
                 <div class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>Bucharest, Romania
@@ -225,12 +251,29 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
           </card>
         </div>
       </div>
+      <div class="container-fluid mt--7">
+        <div class="row">
+          <div class="col">
+            <transfers-table title="Nep17Transfer List"></transfers-table>
+          </div>
+        </div>
+        <!--            <div class="row mt-5">-->
+        <!--              <div class="col">-->
+        <!--                <candidates-table type="dark" title="Candidate List"></candidates-table>-->
+        <!--              </div>-->
+        <!--            </div>-->
+      </div>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios"
+import TransfersTable from "./Tables/TransfersTable";
 export default {
   name: "user-profile",
+  components: {
+    TransfersTable,
+  },
   data() {
     return {
       model: {
@@ -244,8 +287,98 @@ export default {
         zipCode: "",
         about: "",
       },
+      tableData:[],
+      txhash:0,
+      blocktime: 1,
+      blockhash: "",
+      size:1,
+      version:0,
+      sender:"",
+      networkfee:0,
+      systemfee:0,
+      account:"",
+      scopes:"",
+      invocation:"",
+      verification:"",
+      script:"",
+
+
+
+
+
+
     };
   },
+  created() {
+    this.getTransactionByTransactionHash()
+
+  },
+  methods:{
+
+
+    getNep17TransferByTransactionHash(){
+      axios({
+        method:'post',
+        url:'/api',
+        data:{
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"TransactionHash":"0xd8f9887c1ed3ceccef42637e70e97ba668760c22e1ceabe5b510ccf70a328c68"},
+          "method": "GetNep17TransferByTransactionHash"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res)=> {
+          console.log(res)
+      })
+    },
+
+    getTransactionByTransactionHash(){
+
+      axios({
+        method:'post',
+        url:'/api',
+        data:{
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"TransactionHash":"0x9a52bbd5b14304b6643074377719dc52eaa1b3458c5860037b5af22126cd44b3"},
+          "method": "GetRawTransactionByTransactionHash"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res)=>{
+        console.log(res.data)
+        this.tableData = res["data"]["result"];
+        this.blocktime = res["data"]["result"]["blocktime"];
+        this.txhash = res["data"]["result"]["hash"];
+        this.blockhash = res["data"]["result"]["blockhash"];
+        this.size = res["data"]["result"]["size"];
+        this.version =res["data"]["result"]["version"];
+        this.sender = res["data"]["result"]["sender"];
+        this.networkfee = res["data"]["result"]["netfee"];
+        this.systemfee = res["data"]["result"]["sysfee"];
+        this.account = res["data"]["result"]["signers"][0]["account"];
+        this.scopes = res["data"]["result"]["signers"][0]["scopes"];
+        this.invocation = res["data"]["result"]["witnesses"][0]["invocation"];
+        this.verification = res["data"]["result"]["witnesses"][0]["verification"];
+        this.script = res["data"]["result"]["script"];
+
+        console.log(this.blocktime);
+        console.log(this.txhash);
+        console.log(this.blockhash);
+        console.log(this.size);
+        console.log(this.version);
+        console.log(this.sender);
+        console.log(this.networkfee);
+        console.log(this.systemfee);
+        console.log(this.account);
+        console.log(this.scopes);
+        console.log(this.invocation);
+        console.log(this.verification);
+        console.log(this.script);
+      });
+    }
+  }
 };
 </script>
 <style></style>

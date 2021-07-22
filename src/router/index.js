@@ -60,6 +60,11 @@ const routes = [
         name: "tables",
         components: { default: Tables },
       },
+      {
+        path: '/icons/:txhash',
+        name: 'icons',
+        components: { default: Icons },
+      }
     ],
   },
 
