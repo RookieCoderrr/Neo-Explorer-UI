@@ -63,7 +63,7 @@
             </div>
             <tabs fill class="flex-column flex-md-row">
               <card shadow>
-                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                <tab-pane icon="ni ni-money-coins" title="Token Balance">
                   <p class="description">
                     Raw denim you probably haven't heard of them jean shorts
                     Austin. Nesciunt tofu stumptown aliqua, retro synth master
@@ -71,14 +71,22 @@
                     keffiyeh dreamcatcher synth.
                   </p>
                 </tab-pane>
-                <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
+                <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
                   <p class="description">
                     Cosby sweater eu banh mi, qui irure terry richardson ex
                     squid. Aliquip placeat salvia cillum iphone. Seitan aliquip
                     quis cardigana merican apparel, butcher voluptate nisi qui.
                   </p>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="Contract Info">
+                <tab-pane icon="ni ni-collection" title="Transfers">
+                  <p class="description">
+                    Raw denim you probably haven't heard of them jean shorts
+                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
+                    cliche tempor, williamsburg carles vegan helvetica.
+                    Reprehenderit butcher retro keffiyeh dreamcatcher synth.
+                  </p>
+                </tab-pane>
+                <tab-pane icon="ni ni-collection" title="Contracts">
                   <p class="description">
                     Raw denim you probably haven't heard of them jean shorts
                     Austin. Nesciunt tofu stumptown aliqua, retro synth master
