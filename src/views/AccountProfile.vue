@@ -70,6 +70,11 @@
                     cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
                     keffiyeh dreamcatcher synth.
                   </p>
+                  <div class="row">
+                    <div class="col">
+                      <tokens-table title="Token List"></tokens-table>
+                    </div>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
                   <p class="description">
@@ -108,6 +113,8 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
+import TokensTable from "./Tables/TokensTable";
+
 export default {
   name: "account-profile",
   data() {
@@ -119,11 +126,11 @@ export default {
       txnsTotalNumbers: 0,
       isLoading: true,
       createdTime: "",
-      tokenList: [],
     };
   },
   components: {
     Loading,
+    TokensTable
   },
   created() {
     this.accountAddress = this.$route.params.accountAddress;
@@ -131,8 +138,6 @@ export default {
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();
-    this.getToken();
-
   },
   methods: {
     getNeoBalance() {
@@ -241,40 +246,7 @@ export default {
             console.log("Error", err);
           });
     },
-    getToken() {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          method: "GetAssetsHeldByAddress",
-          params: {
-            Address: this.accountAddress,
-          },
-          id: 1,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: "true",
-          crossDomain: "true",
-        },
-      })
-          .then((res) => {
-            //this.tokenList = res["data"]["result"]["result"]
-            //console.log(this.tokenList[0].tokenname)
-            //console.log(this.tokenList[0].balanceinfo.balance)
-            let temp_data = res["data"]["result"]["result"];
-            for(let k=0; k<temp_data.length; k++){
-              let temp = {"tokenname": res["data"]["result"]["result"][0].tokenname, "balance": res["data"]["result"]["result"][0].balanceinfo.balance}
-              this.tokenList.push(temp)
-            }
-            console.log(this.tokenList)
 
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
-    },
   },
 };
 </script>
