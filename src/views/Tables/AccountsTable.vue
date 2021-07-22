@@ -58,6 +58,7 @@
 </template>
 <script>
 import axios from "axios";
+import { format } from "timeago.js";
 export default {
   name: "accounts-table",
   props: {
@@ -100,8 +101,11 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res["data"]["result"]["totalCount"]);
-          this.tableData = res["data"]["result"]["result"];
+          let temp = res["data"]["result"]["result"]
+          for(let k=0; k<temp.length; k++) {
+            temp[k]["firstusetime"] = format(temp[k]["firstusetime"])
+          }
+          this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
         })
         .catch((err) => {

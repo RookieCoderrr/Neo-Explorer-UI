@@ -1,70 +1,95 @@
 <template>
   <div>
-    <base-header
-      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-      style="
-        min-height: 600px;
-        background-image: url(img/theme/profile-cover.jpg);
-        background-size: cover;
-        background-position: center top;
-      "
-    >
-      <!-- Mask -->
-      <span class="mask bg-gradient-success opacity-8"></span>
-      <!-- Header container -->
-      <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h3 class="display-2 text-white">
-              Account: {{ this.accountAddress }}
-            </h3>
-          </div>
-        </div>
-      </div>
+    <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
     </base-header>
 
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-8 order-xl-1">
-          <card shadow type="secondary">
-            <template v-slot:header>
-              <div class="bg-white border-0">
-                <div class="row align-items-center">
-                  <div class="col-8">
-                    <h3 class="mb-0">My account {{ this.accountAddress }}</h3>
-                  </div>
-                </div>
-              </div>
-            </template>
+        <div class="col">
+          <div class="card shadow">
+            <loading
+              :is-full-page="false"
+              :opacity="0.9"
+              :active="isLoading"
+            ></loading>
+          <div class="card-header bg-transparent">
+            <h1 class="mb-0">Account:</h1>
+            <h4 class="text-muted">{{ this.accountAddress }}</h4>
+          </div>
 
-            <form>
-              <h6 class="heading-small text-muted mb-4">User information</h6>
-              <div class="pl-lg-4">
-                <div class="row">Neo balance: {{ this.neoBalance }}</div>
-                <div class="row">Gas balance: {{ this.gasBalance }}</div>
-                <div class="row">Type:</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2">
+                <div class="text-muted">Neo balance: </div>
               </div>
-              <hr class="my-4" />
-              <!-- Address -->
-              <h6 class="heading-small text-muted mb-4">Contact information</h6>
-              <hr class="my-4" />
-              <!-- Description -->
-              <h6 class="heading-small text-muted mb-4">About me</h6>
-              <div class="pl-lg-4">
-                <div class="form-group">
-                  <base-input alternative="" label="About Me">
-                    <textarea
-                      rows="4"
-                      class="form-control form-control-alternative"
-                      placeholder="A few words about you ..."
-                    >
-A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
-                    >
-                  </base-input>
-                </div>
+              <div class="col-3"><h3>{{ this.neoBalance }}</h3></div>
+              <div class="col-2">
+                <div class="text-muted">Transactions: </div>
               </div>
-            </form>
-          </card>
+              <div class="col-3"><h3>{{  }}</h3></div>
+            </div>
+            <div class="row mt-5"></div>
+            <div class="row">
+              <div class="col-2">
+                <div class="text-muted">Gas balance: </div>
+              </div>
+              <div class="col-3"><h3>{{ this.gasBalance }}</h3></div>
+              <div class="col-2">
+                <div class="text-muted">Transfers: </div>
+              </div>
+              <div class="col-3"><h3>{{  }}</h3></div>
+            </div>
+            <div class="row mt-5"></div>
+            <div class="row">
+              <div class="col-2">
+                <div class="text-muted">Type: </div>
+              </div>
+              <div class="col-3"><h3>{{  }}</h3></div>
+              <div class="col-2">
+                <div class="text-muted">Contract deployment: </div>
+              </div>
+              <div class="col-3"><h3>{{  }}</h3></div>
+            </div>
+            <div class="row mt-5"></div>
+            <div class="row">
+              <div class="col-2">
+                <div class="text-muted">Created Time: </div>
+              </div>
+              <div class="col-3"><h3>{{ this.createdTime }}</h3></div>
+              <div class="col-2">
+                <div class="text-muted">Contract deployment: </div>
+              </div>
+              <div class="col-3"><h3>{{  }}</h3></div>
+            </div>
+            <tabs fill class="flex-column flex-md-row">
+              <card shadow>
+                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                  <p class="description">
+                    Raw denim you probably haven't heard of them jean shorts
+                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
+                    cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+                    keffiyeh dreamcatcher synth.
+                  </p>
+                </tab-pane>
+                <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
+                  <p class="description">
+                    Cosby sweater eu banh mi, qui irure terry richardson ex
+                    squid. Aliquip placeat salvia cillum iphone. Seitan aliquip
+                    quis cardigana merican apparel, butcher voluptate nisi qui.
+                  </p>
+                </tab-pane>
+                <tab-pane icon="ni ni-collection" title="Contract Info">
+                  <p class="description">
+                    Raw denim you probably haven't heard of them jean shorts
+                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
+                    cliche tempor, williamsburg carles vegan helvetica.
+                    Reprehenderit butcher retro keffiyeh dreamcatcher synth.
+                  </p>
+                </tab-pane>
+              </card>
+            </tabs>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -72,6 +97,9 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
 </template>
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import { format } from "timeago.js";
 export default {
   name: "account-profile",
   data() {
@@ -81,13 +109,20 @@ export default {
       gasBalance: "0",
       txns: [],
       txnsTotalNumbers: 0,
+      isLoading: true,
+      createdTime: "",
     };
+  },
+  components: {
+    Loading,
   },
   created() {
     this.accountAddress = this.$route.params.accountAddress;
     this.getNeoBalance();
     this.getGasBalance();
     this.getTransactions();
+    this.getCreatedTime();
+
   },
   methods: {
     getNeoBalance() {
@@ -142,7 +177,7 @@ export default {
           console.log("Error", err);
         });
     },
-    getTransactions(){
+    getTransactions() {
       axios({
         method: "post",
         url: "/api",
@@ -160,8 +195,37 @@ export default {
           crossDomain: "true",
         },
       })
+        .then((res) => {
+          console.log(res);
+          this.isLoading = false;
+
+        })
+          .catch((err) => {
+          console.log("Error", err);
+        });
+    },
+    getCreatedTime() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAccountInfoByAddress",
+          params: {
+            address: this.accountAddress,
+          },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
           .then((res) => {
-            console.log(res)
+            console.log(this.accountAddress)
+            this.createdTime = format(res["data"]["result"]["firstusetime"])
+
           })
           .catch((err) => {
             console.log("Error", err);
