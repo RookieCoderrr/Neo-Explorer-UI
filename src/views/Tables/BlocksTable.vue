@@ -70,11 +70,17 @@
                 class="card-footer d-flex justify-content-end"
                 :class="type === 'dark' ? 'bg-transparent' : ''"
         >
+            <div style="margin-right: 20px; font-size: 3%;"  class="class">
+                <base-input   type="number"
+                              :style="text(pagination)"
+                              :placeholder="placeHolder"
+                              v-on:changeinput="pageChangeByInput($event)"></base-input>
+            </div>
+
             <base-pagination
-                    :total="this.totalCount"
+                    :total="totalCount"
                     :value="pagination"
                     v-on:input="pageChange($event)"
-                    v-on:changeInput = "pageChange($event)"
             ></base-pagination>
         </div>
     </div>
@@ -103,21 +109,36 @@ data() {
         pagination: 1,
         isLoading: true,
         firstTime: true,
-        return1:1,
+        placeHolder:0,
     };
 },
 created() {
     this.getBlockList(0);
 },
-methods: {
+computed:{
+    text () {
+        return function (value) {
+            let inputLength = value.toString().length*5 +145
+           return "width: "+inputLength + "px!important;text-align: center"
 
+            }
+        }
+
+},
+methods: {
+    pageChangeByInput(pageNumber) {
+            this.isLoading = true;
+            this.pagination = pageNumber;
+            const skip = (pageNumber - 1) * this.resultsPerPage;
+            this.getBlockList(skip);
+    },
     pageChange(pageNumber) {
         if (!this.firstTime) {
             this.isLoading = true;
             this.pagination = pageNumber;
             const skip = (pageNumber - 1) * this.resultsPerPage;
             this.getBlockList(skip);
-        } else {
+} else {
             this.firstTime = false;
         }
     },
@@ -136,8 +157,11 @@ methods: {
         },
     }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
-       this.totalCount = res["data"]["result"]["totalCount"];
+        console.log(this.blockList)
+        this.totalCount = res["data"]["result"]["totalCount"];
+        this.placeHolder = "Page "+ this.pagination + " of "+(parseInt(this.totalCount/this.resultsPerPage)+1).toString()
         this.isLoading = false;
+
     });
 },
 },
@@ -150,6 +174,13 @@ methods: {
     overflow: hidden;
     text-overflow: ellipsis;
     }
+.class /deep/  .a input::-webkit-outer-spin-button,
+.class /deep/  .a input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 
+}
+.class /deep/  .a input[type="number"]{
+    -moz-appearance: textfield;
+}
 
 </style>

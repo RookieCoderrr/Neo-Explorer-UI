@@ -10,6 +10,7 @@
       { 'has-danger': valid === false },
       formClasses,
     ]"
+    @keyup.enter = "updateValue"
   >
     <slot name="label">
       <label v-if="label" class="form-control-label" :class="labelClasses">
@@ -132,7 +133,7 @@ export default {
   methods: {
     updateValue(evt) {
       let value = evt.target.value;
-      this.$emit("input", value);
+      this.$emit("changeinput", parseInt(value));
     },
     onFocus(value) {
       this.focused = true;

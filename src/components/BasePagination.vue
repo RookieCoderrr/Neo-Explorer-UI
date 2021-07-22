@@ -1,24 +1,9 @@
 <template>
-  <h1> {{this.number}}</h1>
-  <div class="col-md-6">
-    <base-input :placeholder="this.total" :value="this.number"  v- @keypress.enter="onEnterPress"></base-input>
-  </div>
+
   <ul
     class="pagination"
     :class="[size && `pagination-${size}`, align && `justify-content-${align}`]"
   >
-
-
-<!--    <base-dropdown>-->
-<!--      <template v-slot:title>-->
-<!--        <base-button type="secondary" class="dropdown-toggle" >-->
-<!--          {{this.perPage}}-->
-<!--        </base-button>-->
-<!--      </template>-->
-<!--      <span class="dropdown-item" @click="changPerPage(10)" >10</span>-->
-<!--      <span class="dropdown-item"  @click="changPerPage(25)" >25</span>-->
-<!--      <span class="dropdown-item"  @click="changPerPage(50)" >50</span>-->
-<!--    </base-dropdown>-->
 
     <li class="page-item prev-page" :class="{ disabled: value === 1 }">
       <a class="page-link" aria-label="Previous" @click="prevPage">
@@ -126,16 +111,13 @@ export default {
     return {
       defaultPagesToDisplay: 5,
       return1:1,
-      number:"1221",
+      number:"",
     };
   },
 
   methods: {
-      onEnterPress() {
-          console.log(this.number)
-      },
-    changPerPage(number) {
-      this.$emit("changeInput", number);
+    changPage(number) {
+      this.$emit("input", number);
     },
     range(min, max) {
       let arr = [];
@@ -159,12 +141,12 @@ export default {
     },
   },
   watch: {
-    perPage() {
-      this.$emit("input", 1);
-    },
-    total() {
-      this.$emit("input", 1);
-    },
+    // perPage() {
+    //   this.$emit("input", 1);
+    // },
+    // total() {
+    //   this.$emit("input", 1);
+    // },
   },
 };
 </script>
