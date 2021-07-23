@@ -26,7 +26,7 @@
               <div class="col-2">
                 <div class="text-muted">Transactions: </div>
               </div>
-              <div class="col-3"><h3>{{  }}</h3></div>
+              <div class="col-3"><h3>{{ this.numOfTxns }}</h3></div>
             </div>
             <div class="row mt-5"></div>
             <div class="row">
@@ -126,6 +126,7 @@ export default {
       txnsTotalNumbers: 0,
       isLoading: true,
       createdTime: "",
+      numOfTxns: 0,
     };
   },
   components: {
@@ -135,6 +136,7 @@ export default {
   created() {
     this.accountAddress = this.$route.params.accountAddress;
     this.getNeoBalance();
+    this.isLoading = false
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();
@@ -163,7 +165,8 @@ export default {
           this.neoBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
-          console.log("Error", err);
+          this.neoBalance = "0";
+          console.log("Get Neo balance failed, Error", err);
         });
     },
     getGasBalance() {
@@ -198,9 +201,9 @@ export default {
         url: "/api",
         data: {
           jsonrpc: "2.0",
-          method: "GetRawTransactionBySender",
+          method: "GetRawTransactionByAddress",
           params: {
-            Sender: this.accountAddress,
+            Address: this.accountAddress,
           },
           id: 1,
         },
@@ -213,7 +216,7 @@ export default {
         .then((res) => {
           // TODO: 这个还没处理
           console.log("get transactions", res)
-          this.isLoading = false;
+          this.numOfTxns = res["data"]["result"]["result"].length
 
         })
           .catch((err) => {
@@ -243,7 +246,7 @@ export default {
 
           })
           .catch((err) => {
-            console.log("Error", err);
+            console.log("Get created time failed, Error", err);
           });
     },
 
