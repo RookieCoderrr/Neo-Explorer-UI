@@ -95,6 +95,7 @@ export default {
     },
     value: {
       type: [String, Number],
+      default: undefined,
       description: "Input value",
     },
     addonRightIcon: {
@@ -134,10 +135,12 @@ export default {
     updateValue(evt) {
       let value = evt.target.value;
       this.$emit("changeinput", parseInt(value));
+      evt.target.value = ''
     },
     onFocus(value) {
       this.focused = true;
       this.$emit("focus", value);
+      this.focused = false
     },
     onBlur(value) {
       this.focused = false;

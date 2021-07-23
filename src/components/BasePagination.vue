@@ -110,7 +110,6 @@ export default {
   data() {
     return {
       defaultPagesToDisplay: 5,
-      return1:1,
       number:"",
     };
   },
