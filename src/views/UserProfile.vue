@@ -253,9 +253,9 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
       </div>
       <div class="container-fluid mt--7">
         <div class="row">
-          <div class="col">
-            <transfers-table title="Nep17Transfer List"></transfers-table>
-          </div>
+<!--          <div class="col">-->
+<!--            <transfers-table title="Nep17Transfer List"></transfers-table>-->
+<!--          </div>-->
         </div>
         <!--            <div class="row mt-5">-->
         <!--              <div class="col">-->
@@ -268,11 +268,11 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
 </template>
 <script>
 import axios from "axios"
-import TransfersTable from "./Tables/TransfersTable";
+// import TransfersTable from "./Tables/TransfersTable";
 export default {
   name: "user-profile",
   components: {
-    TransfersTable,
+    // TransfersTable,
   },
   data() {
     return {
@@ -310,7 +310,7 @@ export default {
     };
   },
   created() {
-    this.getTransactionByTransactionHash()
+
 
   },
   methods:{

@@ -17,7 +17,7 @@
     </div>
 
     <div class="table-responsive">
-      <base-table
+      <base-table id ="myTable"
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
@@ -39,7 +39,7 @@
             {{ row.item.candidate }}
           </td>
           <td class="budget">
-            {{ row.item.state }}
+            {{ row.item.isCommittee}}
           </td>
           <td class="budget">
             1
@@ -108,7 +108,21 @@ export default {
     this.getTransactionList(0)
 
   },
-  methods:{
+  columns: [
+    {
+      title: '序号',
+      field: '',
+      align: 'center',
+      formatter: function (value, row, index) {
+        var pageSize = this.$('#myTable').bootstrapTable('getOptions').pageSize;     //通过table的#id 得到每页多少条
+        var pageNumber = this.$('#myTable').bootstrapTable('getOptions').pageNumber; //通过table的#id 得到当前第几页
+        return pageSize * (pageNumber - 1) + index + 1;    // 返回每条的序号： 每页条数 *（当前页 - 1 ）+ 序号
+      }
+    },
+
+  ],
+
+    methods:{
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -123,7 +137,7 @@ export default {
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"Limit":this.resultsPerPage,"Skip":skip},
+          "params": {"Limit":this.resultsPerPage,"Skip":skip,"Sort":"votesOfCandidate = -1"},
           "method": "GetCandidate"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',

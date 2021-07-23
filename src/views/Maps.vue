@@ -69,28 +69,29 @@
         </div>
       </div>
     </base-header>
-
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <div class="card shadow border-0">
-            <div
-              id="map"
-              class="map-canvas"
-              data-lat="40.748817"
-              data-lng="-73.985428"
-              style="height: 600px"
-            ></div>
-          </div>
+          <candidates-table title="Candidate List"></candidates-table>
         </div>
       </div>
+      <!--      <div class="row mt-5">-->
+      <!--        <div class="col">-->
+      <!--          <candidates-table type="dark" title="Candidate List"></candidates-table>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
+
   </div>
 </template>
 <script>
 import { Loader } from "google-maps";
+import CandidatesTable from "./Tables/CandidatesTable";
 const loader = new Loader("YOUR_API_KEY");
 export default {
+  components:{
+    CandidatesTable,
+  },
   data() {
     return {
       nav: null,

@@ -85,6 +85,20 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+            parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
   </div>
@@ -106,12 +120,26 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination : 1,
+      placeHolder: 0,
+
     };
   },
 
   created() {
     this.getTransactionList(0)
 
+  },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 50;
+        return (
+            "width: " +
+            inputLength +
+            "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
   },
   methods:{
 
@@ -140,6 +168,24 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
     },
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+            parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }else if(pageNumber <= 0){
+        this.pagination = 1;
+        const skip =
+            this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+      else {
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+    },
 
     getTransactionList(skip){
 
@@ -158,6 +204,8 @@ export default {
 
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+
+        console.log(this.tableData)
 
         //
         // console.log("成功")

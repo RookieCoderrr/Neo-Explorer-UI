@@ -1,6 +1,17 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-
+  <div v-show = "this.length != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+    <div
+        class="card-header border-0"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+    >
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+            {{ title }}
+          </h3>
+        </div>
+      </div>
+    </div>
 
     <div class="table-responsive">
       <base-table
@@ -8,6 +19,7 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
+        :data="tableData"
 
       >
         <template v-slot:columns>
@@ -26,41 +38,43 @@
           <td class="budget">
             <div class="contract" >
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer">{{this.tableData["contract"]}}</a>
+                  style="cursor: pointer">{{row.item.contract}}</a>
             </div>
 
           </td>
           <td class="budget">
             <div class="from">
-              {{ this.tableData["tokenname"] }}
+              {{ row.item.tokenname }}
             </div>
           </td>
           <td class="budget">
             <div class="from">
-              {{ this.tableData["tokenId"] }}
+              {{ row.item.tokenId }}
             </div>
           </td>
           <td class="budget">
             <div class="from">
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer"  @click="getFromAccount(row.item.from)">{{ this.tableData["from"] }}</a>
+                  style="cursor: pointer"  @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
 
             </div>
           </td>
           <td class="budget">
-            {{ this.tableData["frombalance"] }}
+            {{ row.item.frombalance }}
           </td>
           <td class="budget">
+            <div class="to">
             <a  class="name mb-0 text-sm"
-                style="cursor: pointer"  @click="getToAccount(row.item.to)">{{this.tableData["to"] }}</a>
+                style="cursor: pointer"  @click="getToAccount(row.item.to)">{{row.item.to}}</a>
+            </div>
           </td>
 
           <td class="budget">
-            {{this.tableData["tobalance"] }}
+            {{row.item.tobalance }}
           </td>
 
           <td class="budget">
-            {{ this.tableData["value"] }}
+            {{ row.item.value }}
           </td>
 
           <td class="text-right">
@@ -104,11 +118,12 @@ export default {
       type: String,
     },
     title: String,
+    txhash: String
   },
   data() {
     return {
       tableData: [],
-      txhash:"0x9a52bbd5b14304b6643074377719dc52eaa1b3458c5860037b5af22126cd44b3"
+      length,
     };
   },
 
@@ -152,8 +167,20 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=> {
-        this.tableData = res["data"]["result"]
-        console.log(this.tableData["contract"])
+        this.tableData[0] = res["data"]["result"]
+        if(this.tableData[0]==null) {
+          this.length = 0
+          console.log(this.length)
+          this.tableData[0]=[]
+        } else {
+          this.length =1
+        }
+        // console.log(this.tableData[0])
+        // this.length = this.tableData[0]["length"]
+        // console.log(this.tableData[0])
+        // console.log(this.length)
+
+        // console.log(this.tableData)
       })
     }
   }

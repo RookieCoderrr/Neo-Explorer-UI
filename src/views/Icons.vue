@@ -10,6 +10,7 @@
             <div class="card-header bg-transparent">
               <h1 class="mb-0">Tx ID</h1>
               <h4 class="text-muted">{{this.tabledata["hash"]}}</h4>
+
             </div>
             <div class="card-body">
               <div class="row">
@@ -33,7 +34,7 @@
                         Block Height
                       </div>
                       <div class="panel-body">
-                        {{this.tabledata["validUntilBlock"]}}
+                        {{this.tabledata["blockIndex"]}}
                       </div>
                     </div>
                   </card>
@@ -149,22 +150,14 @@
                 </div>
               </card>
 
+              <div class="row mt-3"></div>
+
+              <transfers-table title="Nep17Transfer" :txhash = this.txhash ></transfers-table>
+
+              <nft-table title="Nep11Transfer" :txhash = this.txhash ></nft-table>
 
 
-              <tabs fill class="flex-column flex-md-row">
 
-                  <tab-pane icon="ni ni-money-coins" title="Nep17 Transfer" >
-                        <transfers-table title="Nep17Transfer" :txhash = this.txhash ></transfers-table>
-                  </tab-pane>
-
-              </tabs>
-              <tabs fill class="flex-column flex-md-row">
-
-                  <tab-pane icon="ni ni-money-coins" title="Nep11 Transfer" >
-                        <nft-table title="Nep11Transfer" ></nft-table>
-                  </tab-pane>
-
-              </tabs>
             </div>
           </div>
         </div>
@@ -216,7 +209,7 @@ export default {
         raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
         this.txhash = this.tabledata["hash"]
-        console.log(this.txhash)
+        // console.log(this.txhash)
 
       });
     },
