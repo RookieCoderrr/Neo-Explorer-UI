@@ -72,7 +72,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <tokens-table title="Token List"></tokens-table>
+                      <address-tokens-table title="Token List"></address-tokens-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -82,6 +82,11 @@
                     squid. Aliquip placeat salvia cillum iphone. Seitan aliquip
                     quis cardigana merican apparel, butcher voluptate nisi qui.
                   </p>
+                  <div class="row">
+                    <div class="col">
+                      <transactions-table title="Transaction List"></transactions-table>
+                    </div>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Transfers">
                   <p class="description">
@@ -90,6 +95,11 @@
                     cliche tempor, williamsburg carles vegan helvetica.
                     Reprehenderit butcher retro keffiyeh dreamcatcher synth.
                   </p>
+                  <div class="row">
+                    <div class="col">
+                      <transfers-table title="Transfer List"></transfers-table>
+                    </div>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contracts">
                   <p class="description">
@@ -113,7 +123,9 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
-import TokensTable from "./Tables/TokensTable";
+import AddressTokensTable from "./Tables/AddressTokensTable";
+import TransactionsTable from "./Tables/TransactionsTable";
+import TransfersTable from "./Tables/TransfersTable";
 
 export default {
   name: "account-profile",
@@ -131,7 +143,9 @@ export default {
   },
   components: {
     Loading,
-    TokensTable
+    AddressTokensTable,
+    TransactionsTable,
+    TransfersTable,
   },
   created() {
     this.accountAddress = this.$route.params.accountAddress;
