@@ -38,7 +38,6 @@
             <div class="from">
               <a  class="name mb-0 text-sm"
                   style="cursor: pointer"  @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
-
             </div>
           </td>
           <td class="budget">
@@ -56,7 +55,6 @@
           <td class="budget">
             {{ convertToken(row.item.value,row.item.decimals) }}
           </td>
-
           <td class="text-right">
             <base-dropdown class="dropdown" position="right">
               <template v-slot:title>
@@ -98,18 +96,16 @@ export default {
       type: String,
     },
     title: String,
-    txhash:String,
+    txhash: String,
   },
   data() {
     return {
       tableData: [],
     };
   },
-
   created() {
     console.log(this.txhash)
     this.getNep17TransferByTransactionHash(this.txhash)
-
   },
   methods:{
 

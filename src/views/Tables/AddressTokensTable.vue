@@ -190,7 +190,6 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          console.log("token name: ", k.toString(), res["data"]["result"])
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"]
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"]
           this.tokenList[k]["standard"] = res["data"]["result"]["standard"]

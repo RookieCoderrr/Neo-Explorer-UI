@@ -72,7 +72,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <address-tokens-table title="Token List" :account_address= "accountAddress"></address-tokens-table>
+                      <address-tokens-table title="Token List" :account_address="accountAddress"></address-tokens-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -84,7 +84,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <transactions-table title="Transaction List"></transactions-table>
+                      <transactions-table title="Transaction List" :account_address="accountAddress"></transactions-table>
                     </div>
                   </div>
                 </tab-pane>

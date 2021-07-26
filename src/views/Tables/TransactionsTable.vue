@@ -100,6 +100,7 @@ export default {
       type: String,
     },
     title: String,
+    account_address: String,
   },
   data() {
     return {
@@ -111,7 +112,7 @@ export default {
   },
 
   created() {
-    this.getTransactionList(0)
+    this.getTransactions()
 
   },
   methods:{
@@ -141,6 +142,36 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
     },
+    getTransactions(skip) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetRawTransactionByAddress",
+          params: {
+            Limit: this.resultsPerPage,
+            Skip: skip,
+            Address: this.account_address,
+          },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
+          .then((res) => {
+            // TODO: 这个还没处理
+            console.log("get transaction list", res)
+            this.tableData = res["data"]["result"]["result"]
+
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
+    },
 
     getTransactionList(skip){
 
@@ -156,12 +187,11 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-
-        this.tableData = res["data"]["result"]["result"];
-        this.totalCount = res["data"]["result"]["totalCount"];
-
+        //this.tableData = res["data"]["result"]["result"];
+        //this.totalCount = res["data"]["result"]["totalCount"];
         //
-        // console.log("成功")
+        console.log(res)
+        this.tableData = res["data"]["result"]["result"]
       });
     }
   }
