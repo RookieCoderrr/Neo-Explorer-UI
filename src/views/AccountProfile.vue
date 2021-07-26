@@ -72,7 +72,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <address-tokens-table title="Token List"></address-tokens-table>
+                      <address-tokens-table title="Token List" :account_address= "accountAddress"></address-tokens-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -131,7 +131,7 @@ export default {
   name: "account-profile",
   data() {
     return {
-      accountAddress: "",
+      accountAddress: this.$route.params.accountAddress,
       neoBalance: "0",
       gasBalance: "0",
       txns: [],
@@ -148,7 +148,6 @@ export default {
     TransfersTable,
   },
   created() {
-    this.accountAddress = this.$route.params.accountAddress;
     this.getNeoBalance();
     this.isLoading = false
     this.getGasBalance();

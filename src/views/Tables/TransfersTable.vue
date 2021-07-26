@@ -9,7 +9,6 @@
           :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
           tbody-classes="list"
           :data="tableData"
-
       >
         <template v-slot:columns>
           <th>Contract</th>

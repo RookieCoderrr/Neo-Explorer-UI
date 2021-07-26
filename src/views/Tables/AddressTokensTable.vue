@@ -88,6 +88,7 @@ export default {
       type: String,
     },
     title: String,
+    account_address: String
   },
   components: {
     Loading
@@ -100,6 +101,7 @@ export default {
       pagination: 1,
       isLoading: true,
       firstTime: true,
+      address_list: [],
     };
   },
   created() {
@@ -120,6 +122,7 @@ export default {
       this.$router.push(`/tokeninfo/${hash}`);
     },
     getTokenList(skip) {
+      console.log("account address: ", this.account_address)
       axios({
         method: "post",
         url: "/api",
@@ -135,10 +138,39 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         this.tokenList = res["data"]["result"]["result"];
+
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
+        for(let k=0; k<this.tokenList.length; k++) {
+          // TODO: 删除address_list这个变量
+          //this.address_list.push(this.tokenList[k]["hash"]);
+          axios({
+            method: "post",
+            url: "/api",
+            data: {
+              jsonrpc: "2.0",
+              method: "GetBalanceByContractHashAddress",
+              params: {
+                Address: this.accountAddress,
+                ContractHash: "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5",
+              },
+              id: 1,
+            },
+            headers: {
+              "Content-Type": "application/json",
+              withCredentials: "true",
+              crossDomain: "true",
+            },
+          })
+              .then((res) => {
+                this.neoBalance = res["data"]["result"]["balance"];
+              })
+              .catch((err) => {
+                this.neoBalance = "0";
+                console.log("Get Neo balance failed, Error", err);
+              });
+        }
       });
     },
   },
