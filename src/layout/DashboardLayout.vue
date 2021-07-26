@@ -13,14 +13,6 @@
             path: '/dashboard',
           }"
         />
-
-        <sidebar-item
-          :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
-            path: '/icons',
-          }"
-        />
         <sidebar-item
           :link="{
             name: 'Maps',
@@ -38,14 +30,14 @@
         <sidebar-item
           :link="{
             name: 'Tokens',
-            icon: 'ni ni-bullet-list-67 text-red',
+            icon: 'ni ni-money-coins text-red',
             path: '/tokens',
           }"
         />
         <sidebar-item
           :link="{
             name: 'Contracts',
-            icon: 'ni ni-circle-08 text-pink',
+            icon: 'ni ni-collection text-green',
             path: '/contracts',
           }"
         />

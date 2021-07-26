@@ -43,7 +43,7 @@
                   <div class="col-2">
                     <div class="text-muted">Compiler</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["nef"]["compiler"] }}</h3></div>
+                  <div class="col-3"><h3>{{ this.nef["compiler"] }}</h3></div>
                   <div class="col-2">
                     <div class="text-muted">Transactions</div>
                   </div>
@@ -52,13 +52,85 @@
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
-                  something
                 </tab-pane>
-                <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
-                  something
+                <tab-pane icon="ni ni-active-40" title="Recent Events">
+                  <events-table :contractHash="contract_id"></events-table>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contract Info">
-                  something
+                  <card shadow type="secondary">
+                    <div class="extra" v-if="this.manifest.extra">
+                      <h3 class="mt-2">Extras</h3>
+                      <card shadow>
+                        <div class="row">
+                          <div class="col-auto">
+                            Email : {{this.manifest.extra['Email']}}
+                          </div>
+                          <div class="col-auto">
+                            Author : {{this.manifest.extra['Author']}}
+                          </div>
+                          <div class="col-auto">
+                            Description : {{this.manifest.extra['Description']}}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                    <div class="abi" v-if="this.manifest.abi">
+                      <div class="events" v-if="this.manifest.abi.events.length!==0">
+                        <h3 class="mt-2">Events</h3>
+                        <card shadow  v-for="(item, index) in this.manifest['abi']['events']" :key="index">
+                          <h3 class="method-name">{{item['name']}}</h3>
+                          <div class="row">
+                            <div class="col">
+                              <div class="params">
+                                <div class="text-muted">parameters:</div>
+                                <div v-if="item['parameters'].length !== 0">
+                                  <li v-for="(param, ind) in item['parameters']" :key="ind">
+                                    {{param['name']}}: {{param['type']}}
+                                  </li>
+                                </div>
+                                <div v-else>
+                                  null
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </card>
+                      </div>
+                      <h3 class="mt-2">Methods</h3>
+                      <card shadow  v-for="(item, index) in this.manifest['abi']['methods']" :key="index">
+                        <h3 class="method-name">{{item['name']}}</h3>
+                        <div class="row">
+                          <div class="col">
+                            <div class="params">
+                              <div class="text-muted">parameters:</div>
+                              <div v-if="item['parameters'].length !== 0">
+                                <li v-for="(param, ind) in item['parameters']" :key="ind">
+                                  {{param['name']}}: {{param['type']}}
+                                </li>
+                              </div>
+                              <div v-else>
+                                null
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="return">
+                              <div class="text-muted">return type:</div>
+                              {{item['returntype']}}
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="text-muted">offset:</div>
+                            {{item['offset']}}
+                          </div>
+                          <div class="col">
+                            <div class="text-muted">safe:</div>
+                            {{item['safe']}}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                  </card>
                 </tab-pane>
               </tabs>
             </div>
@@ -74,16 +146,20 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
+import EventsTable from "./Tables/EventsTable";
 
 export default {
   components: {
     Loading,
+    EventsTable,
   },
   data() {
     return {
       contract_id: this.$route.params.hash,
       isLoading: true,
       contract_info: [],
+      nef: "",
+      manifest: "",
     };
   },
   created() {
@@ -108,9 +184,8 @@ export default {
       }).then((res) => {
         const raw = res["data"]["result"];
         raw["createtime"] = format(raw["createtime"]);
-        raw["nef"] = JSON.parse(raw["nef"]);
-        raw["manifest"] = JSON.parse(raw["manifest"]);
-        console.log(raw)
+        this.nef = JSON.parse(raw["nef"]);
+        this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
         this.isLoading = false;
       });

@@ -16,7 +16,7 @@
         <template v-slot:columns>
           <th>Address</th>
           <th>Balance</th>
-          <th>First Used</th>
+          <th>Last Transferred</th>
           <th>Percentage</th>
         </template>
 
@@ -32,7 +32,7 @@
             {{ row.item.balance }}
           </td>
           <td class="firstused">
-            {{ convertTime(row.item.firstusetime) }}
+            {{ convertTime(row.item.lasttx.timestamp) }}
           </td>
           <td class="percentage">
             {{ toPercentage(row.item.percentage) }}
@@ -119,6 +119,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;

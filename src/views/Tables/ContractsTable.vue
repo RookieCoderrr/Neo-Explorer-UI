@@ -53,7 +53,7 @@
             {{row.item.id}}
           </td>
           <td class="time">
-            {{ convertTime(row.item.createTime) }}
+            {{ convertTime(row.item.createtime) }}
           </td>
         </template>
       </base-table>
@@ -134,7 +134,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         this.contractList = res["data"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;

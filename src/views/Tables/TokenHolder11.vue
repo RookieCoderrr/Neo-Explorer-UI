@@ -14,41 +14,39 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th>Txid</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Amount</th>
-          <th>Time</th>
+          <th>Address</th>
+          <th>Balance</th>
+          <th>Last Transferred</th>
+          <th>Percentage</th>
+          <th>Tokens</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body txid">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{row.item.txid}}</a>
+              <div class="media-body">
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
               </div>
             </div>
           </th>
-          <td class="From">
-            <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer">
-                {{ row.item.from === null ? "Null Address" : row.item.from }}
-              </a>
-            </div>
-
+          <td class="balance">
+            <div>{{ row.item.balance }}</div>
           </td>
-          <td class="To">
-            <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer">
-                {{ row.item.to }}
-              </a>
-            </div>
+          <td class="firstused" v-if="row.item.tokenlist">
+            {{ convertTime(row.item.tokenlist[0]["time"]) }}
           </td>
-          <td class="Value">
-            {{row.item.value}}
+          <td class="percentage">
+            {{ toPercentage(row.item.percentage) }}
           </td>
-          <td class="time">
-            {{ convertTime(row.item.time) }}
+          <td>
+            <card shadow v-for="(item, index) in row.item.tokenlist" :key="index">
+              <div class="row">
+                  Token ID: {{item.tokenid}}
+              </div>
+              <div class="row">
+                Last Transferred: {{convertTime(item.time)}}
+              </div>
+            </card>
           </td>
         </template>
       </base-table>
@@ -71,10 +69,8 @@ import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
-
-
 export default {
-  name: "tokens-tx-nep17",
+  name: "token-holder11",
   props: {
     type: {
       type: String,
@@ -98,6 +94,11 @@ export default {
     this.getTokenList(0);
   },
   methods: {
+    toPercentage(num) {
+      let s = Number(num * 100).toFixed(4);
+      s += "%";
+      return s;
+    },
     pageChange(pageNumber) {
       if (!this.firstTime) {
         this.isLoading = true;
@@ -119,7 +120,7 @@ export default {
           jsonrpc: "2.0",
           id: 1,
           params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
-          method: "GetNep17TransferByContractHash",
+          method: "GetNep11HoldersByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -127,6 +128,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
@@ -135,17 +137,4 @@ export default {
   },
 };
 </script>
-<style>
-.txid {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.addr {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
+<style></style>
