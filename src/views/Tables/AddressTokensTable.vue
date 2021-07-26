@@ -31,7 +31,7 @@
           <th>Name</th>
           <th>Symbol</th>
           <th>Standard</th>
-          <th>Total Holders</th>
+          <th>Balance</th>
           <th></th>
         </template>
 
@@ -39,7 +39,7 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.asset)">{{ row.item.asset }}</a>
               </div>
             </div>
           </th>
@@ -57,8 +57,8 @@
               <span class="">{{ row.item.standard }}</span>
             </badge>
           </td>
-          <td class="holders">
-            {{ row.item.total_holders }}
+          <td class="balance">
+            {{ row.item.balance }}
           </td>
         </template>
       </base-table>
@@ -105,7 +105,8 @@ export default {
     };
   },
   created() {
-    this.getTokenList(0);
+    //this.getTokenList(0);
+    this.getTokenListWithBalance(0);
   },
   methods: {
     pageChange(pageNumber) {
@@ -122,7 +123,6 @@ export default {
       this.$router.push(`/tokeninfo/${hash}`);
     },
     getTokenList(skip) {
-      console.log("account address: ", this.account_address)
       axios({
         method: "post",
         url: "/api",
@@ -139,39 +139,63 @@ export default {
         },
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
-
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
-        for(let k=0; k<this.tokenList.length; k++) {
-          // TODO: 删除address_list这个变量
-          //this.address_list.push(this.tokenList[k]["hash"]);
-          axios({
-            method: "post",
-            url: "/api",
-            data: {
-              jsonrpc: "2.0",
-              method: "GetBalanceByContractHashAddress",
-              params: {
-                Address: this.accountAddress,
-                ContractHash: "0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5",
-              },
-              id: 1,
-            },
-            headers: {
-              "Content-Type": "application/json",
-              withCredentials: "true",
-              crossDomain: "true",
-            },
-          })
-              .then((res) => {
-                this.neoBalance = res["data"]["result"]["balance"];
-              })
-              .catch((err) => {
-                this.neoBalance = "0";
-                console.log("Get Neo balance failed, Error", err);
-              });
-        }
       });
+    },
+    getTokenListWithBalance(skip) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {Address: this.account_address, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetAssetsBalanceByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        let temp =res["data"]["result"]["result"];
+        let address_list = []
+        for(let k=0; k<temp.length; k++) {
+          address_list.push(temp[k]["asset"])
+        }
+        console.log("address list: ", address_list)
+        this.tokenList = temp;
+        this.getTokenInfo(address_list);
+      });
+    },
+    getTokenInfo(address_list) {
+      for (let k=0; k<address_list.length; k++) {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {
+              ContractHash: address_list[k],
+              Limit: this.resultsPerPage,
+            },
+            method: "GetAssetInfoByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          console.log("token name: ", k.toString(), res["data"]["result"])
+          this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"]
+          this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"]
+          this.tokenList[k]["standard"] = res["data"]["result"]["standard"]
+        });
+      }
     },
   },
 };

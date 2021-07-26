@@ -87,11 +87,6 @@ export default {
   created() {
     this.getAccoutsList(0);
   },
-  mounted() {
-    this.getBalance();
-
-  },
-
   methods: {
     pageChange(pageNumber) {
       this.pagination = pageNumber;
@@ -190,8 +185,6 @@ export default {
               this.tableData[k]["neoBalance"] = "0";
               console.log("Error", err);
             });
-
-
       }
       console.log("print data")
       for (let k=0; k<this.tableData.length; k++) {

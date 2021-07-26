@@ -150,7 +150,7 @@ export default {
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"Limit":this.resultsPerPage,"Skip":skip},
+          "params": {"Limit":this.resultsPerPage, "Skip":skip},
           "method": "GetTransactionList"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
