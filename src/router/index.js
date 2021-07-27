@@ -13,7 +13,10 @@ import Account from "../views/AccountsList";
 import TransactionList from "../views/TransactionList.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
+
 import TransactionInfo from "../views/TransactionInfo.vue"
+
+
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";

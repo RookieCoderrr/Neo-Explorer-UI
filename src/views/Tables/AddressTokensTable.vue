@@ -165,7 +165,6 @@ export default {
         for(let k=0; k<temp.length; k++) {
           address_list.push(temp[k]["asset"])
         }
-        console.log("address list: ", address_list)
         this.tokenList = temp;
         this.getTokenInfo(address_list);
       });

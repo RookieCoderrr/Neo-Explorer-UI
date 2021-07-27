@@ -152,7 +152,7 @@ export default {
       if (gas == 0) {
         return  0
       }
-      return (gas * Math.pow(0.1,8)).toFixed(6)
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
 
     convertTime(time) {

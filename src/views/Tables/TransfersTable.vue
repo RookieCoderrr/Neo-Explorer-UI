@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <template >
   <div  v-show = "this.length != 0">
@@ -52,7 +53,6 @@
               <div class="from">
                 <a  class="name mb-0 text-sm"
                     style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}</a>
-
               </div>
             </td>
             <td class="budget">
@@ -101,6 +101,7 @@
       <div
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
+
       >
       </div>
     </div>
