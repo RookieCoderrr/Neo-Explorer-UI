@@ -7,7 +7,7 @@ import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import Dashboard from "../views/Dashboard.vue";
 import TokenInfo from "../views/TokenInfo.vue";
-import Maps from "../views/Maps.vue";
+//import Maps from "../views/Maps.vue";
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
 //import Tables from "../views/Tables.vue";
@@ -33,6 +33,11 @@ const routes = [
         path: "/register",
         name: "register",
         components: { default: Register },
+      },
+      {
+        path: "/accounts",
+        name: "account",
+        components: {default: Account},
       },
     ],
   },
@@ -69,7 +74,7 @@ const routes = [
       {
         path: "/maps",
         name: "maps",
-        components: { default: Maps },
+        components: { default: Account },
       },
       {
         path: "/profile",
