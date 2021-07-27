@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template >
   <div v-show = "this.length != 0" >
     <div  v-show = "this.length != 0" class="card shadow"  :class="type === 'dark' ? 'bg-default' : ''">
@@ -115,40 +116,20 @@ export default {
       type: String,
     },
     title: String,
-    txhash:String,
+    account_address: String,
   },
   data() {
     return {
       tableData: [],
-      length,
     };
   },
-
   created() {
-    this.getNep17TransferByTransactionHash(this.txhash)
-    // this.hasContent(this.length)
-
+    this.GetNep17TransferByAddress(0)
   },
   methods:{
 
-    // hasContent(length){
-    //   var t = document.getElementById("isHidden")
-    //   console.log(t)
-    //   t.style.display = "none"
-    //   if (length == 0 ) {
-    //     t.style.display = 'none';	// 隐藏选择的元素
-    //   }else {
-    //     t.style.display = 'block';	// 以块级样式显示
-    //   }
-    // },
-
     convertToken(token,decimal) {
-      var temp = token * Math.pow(0.1,decimal)
-      if (temp % 1 === 0) {
-        return temp
-      } else {
-        return (token * Math.pow(0.1,decimal)).toFixed(2)
-      }
+      return (token * Math.pow(0.1,decimal)).toFixed(6)
     },
 
     mouseHover(contract){
@@ -159,7 +140,7 @@ export default {
     },
 
     getContract(ctrHash){
-          return ctrHash
+      return ctrHash
     },
 
     getFromAccount(){
@@ -170,25 +151,43 @@ export default {
       return
     },
 
-    getNep17TransferByTransactionHash(txhash){
+    GetNep17TransferByAddress(skip) {
       axios({
         method:'post',
         url:'/api',
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"TransactionHash":txhash},
-          "method": "GetNep17TransferByTransactionHash"
+          "params": {Address: this.account_address, Limit:this.resultsPerPage, Skip:skip},
+          "method": "GetNep17TransferByAddress"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
-      }).then((res)=> {
-          this.tableData = res["data"]["result"]["result"]
-          this.length = this.tableData["length"]
-          console.log(this.tableData)
-          console.log(this.length)
-      })
-    }
+      }).then((res)=>{
+        //this.tableData = res["data"]["result"]["result"];
+        //this.totalCount = res["data"]["result"]["totalCount"];
+        //
+        console.log("transfer", res["data"]["result"]["result"])
+        this.tableData = res["data"]["result"]["result"]
+        for(let k=0; this.tableData.length; k++) {
+          axios({
+            method:'post',
+            url:'/api',
+            data:{
+              "jsonrpc": "2.0",
+              "id": 1,
+              "params": {ContractHash: this.tableData[k]["contract"], Limit:this.resultsPerPage, Skip:skip},
+              "method": "GetAssetInfoByContractHash"
+            },
+            headers:{'Content-Type': 'application/json','withCredentials':' true',
+              'crossDomain':'true',},
+          }).then((res)=> {
+            this.tableData[k]["tokenname"]  = res["data"]["result"]["tokenname"]
+          });
+        }
+      });
+    },
+
   }
 };
 </script>
