@@ -1,14 +1,26 @@
-<template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-
+<template >
+  <div  v-show = "this.length != 0" class="card shadow"  :class="type === 'dark' ? 'bg-default' : ''">
+    <div
+        class="card-header border-0"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+    >
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+            {{ title }}
+          </h3>
+        </div>
+      </div>
+    </div>
 
     <div class="table-responsive">
       <base-table
-          class="table align-items-center table-flush"
-          :class="type === 'dark' ? 'table-dark' : ''"
-          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-          tbody-classes="list"
-          :data="tableData"
+        class="table align-items-center table-flush"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tableData"
+
       >
         <template v-slot:columns>
           <th>Contract</th>
@@ -37,24 +49,28 @@
           <td class="budget">
             <div class="from">
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer" @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
+                  style="cursor: pointer"  @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
+
             </div>
           </td>
           <td class="budget">
-            {{ row.item.frombalance }}
+            {{ convertToken(row.item.frombalance,row.item.decimals) }}
           </td>
           <td class="budget">
+            <div class="to">
             <a  class="name mb-0 text-sm"
-                style="cursor: pointer" @click="getToAccount(row.item.to)">{{ row.item.to }}</a>
+                style="cursor: pointer"  @click="getToAccount(row.item.to)">{{ row.item.to }}</a>
+            </div>
           </td>
 
           <td class="budget">
-            {{row.item.tobalance}}
+            {{ convertToken(row.item.tobalance,row.item.decimals) }}
           </td>
 
           <td class="budget">
-            {{ row.item.value }}
+            {{ convertToken(row.item.value,row.item.decimals) }}
           </td>
+
           <td class="text-right">
             <base-dropdown class="dropdown" position="right">
               <template v-slot:title>
@@ -96,20 +112,41 @@ export default {
       type: String,
     },
     title: String,
+    txhash:String,
     account_address: String,
   },
   data() {
     return {
       tableData: [],
+      length,
     };
   },
+
   created() {
-    this.GetNep17TransferByAddress(0)
+    this.getNep17TransferByTransactionHash(this.txhash)
+    // this.hasContent(this.length)
+
   },
   methods:{
 
+    // hasContent(length){
+    //   var t = document.getElementById("isHidden")
+    //   console.log(t)
+    //   t.style.display = "none"
+    //   if (length == 0 ) {
+    //     t.style.display = 'none';	// 隐藏选择的元素
+    //   }else {
+    //     t.style.display = 'block';	// 以块级样式显示
+    //   }
+    // },
+
     convertToken(token,decimal) {
-      return (token * Math.pow(0.1,decimal)).toFixed(6)
+      var temp = token * Math.pow(0.1,decimal)
+      if (temp % 1 === 0) {
+        return temp
+      } else {
+        return (token * Math.pow(0.1,decimal)).toFixed(2)
+      }
     },
 
     mouseHover(contract){
@@ -131,43 +168,25 @@ export default {
       return
     },
 
-    GetNep17TransferByAddress(skip) {
+    getNep17TransferByTransactionHash(txhash){
       axios({
         method:'post',
         url:'/api',
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {Address: this.account_address, Limit:this.resultsPerPage, Skip:skip},
-          "method": "GetNep17TransferByAddress"
+          "params": {"TransactionHash":txhash},
+          "method": "GetNep17TransferByTransactionHash"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
-      }).then((res)=>{
-        //this.tableData = res["data"]["result"]["result"];
-        //this.totalCount = res["data"]["result"]["totalCount"];
-        //
-        console.log("transfer", res["data"]["result"]["result"])
-        this.tableData = res["data"]["result"]["result"]
-        for(let k=0; this.tableData.length; k++) {
-          axios({
-            method:'post',
-            url:'/api',
-            data:{
-              "jsonrpc": "2.0",
-              "id": 1,
-              "params": {ContractHash: this.tableData[k]["contract"], Limit:this.resultsPerPage, Skip:skip},
-              "method": "GetAssetInfoByContractHash"
-            },
-            headers:{'Content-Type': 'application/json','withCredentials':' true',
-              'crossDomain':'true',},
-          }).then((res)=> {
-            this.tableData[k]["tokenname"]  = res["data"]["result"]["tokenname"]
-          });
-        }
-      });
-    },
-
+      }).then((res)=> {
+          this.tableData = res["data"]["result"]["result"]
+          this.length = this.tableData["length"]
+          console.log(this.tableData)
+          console.log(this.length)
+      })
+    }
   }
 };
 </script>

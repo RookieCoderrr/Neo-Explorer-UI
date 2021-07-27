@@ -150,6 +150,8 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "projects-table",
   props: {
@@ -202,8 +204,32 @@ export default {
           completion: 100,
         },
       ],
+      tokenList: [],
     };
   },
+  created() {
+    this.getTokenList()
+
+  },
+  methods:{
+    getTokenList(){
+      axios({
+        method:'post',
+        url:'/api',
+        data:{
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"Limit":10,"Skip":0},
+          "method": "GetTokenList"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res)=>{
+        this.tokenList = res;
+      });
+    },
+
+  }
 };
 </script>
 <style></style>

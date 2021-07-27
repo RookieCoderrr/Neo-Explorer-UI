@@ -1,8 +1,13 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div
+<<<<<<< HEAD
+      class="card-header border-0"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
+=======
         class="card-header border-0"
         :class="type === 'dark' ? 'bg-transparent' : ''"
+>>>>>>> main
     >
       <div class="row align-items-center">
         <div class="col">
@@ -18,11 +23,19 @@
 
     <div class="table-responsive">
       <base-table
+<<<<<<< HEAD
+        class="table align-items-center table-flush"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tableData"
+=======
           class="table align-items-center table-flush"
           :class="type === 'dark' ? 'table-dark' : ''"
           :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
           tbody-classes="list"
           :data="tableData"
+>>>>>>> main
 
       >
         <template v-slot:columns>
@@ -82,15 +95,38 @@
     </div>
 
     <div
+<<<<<<< HEAD
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
+    >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+            parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
+=======
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+>>>>>>> main
       <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
   </div>
 </template>
 <script>
+<<<<<<< HEAD
+=======
 // by zilie cdde2b58d09e04290f9eabd8a6ebdbb3078d8cf4
+>>>>>>> main
 import axios from "axios"
 import { format } from "timeago.js";
 export default {
@@ -100,7 +136,10 @@ export default {
       type: String,
     },
     title: String,
+<<<<<<< HEAD
+=======
     account_address: String,
+>>>>>>> main
   },
   data() {
     return {
@@ -108,19 +147,46 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination : 1,
+<<<<<<< HEAD
+      placeHolder: 0,
+
+=======
+>>>>>>> main
     };
   },
 
   created() {
+<<<<<<< HEAD
+    this.getTransactionList(0)
+
+  },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 50;
+        return (
+            "width: " +
+            inputLength +
+            "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
+  },
+=======
     this.getTransactions()
 
   },
+>>>>>>> main
   methods:{
 
     mouseHover(txid){
       var a = document.getElementsByClassName("txid");
       a.onmouseover = function () {}
+<<<<<<< HEAD
+        a.style.display = txid
+=======
       a.style.display = txid
+>>>>>>> main
     },
     convertGas(gas) {
       if (gas == 0) {
@@ -130,7 +196,11 @@ export default {
     },
 
     convertTime(time) {
+<<<<<<< HEAD
+     return format(time)
+=======
       return format(time)
+>>>>>>> main
     },
     getTransaction(txhash) {
       this.$router.push({
@@ -142,6 +212,25 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
     },
+<<<<<<< HEAD
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+            parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }else if(pageNumber <= 0){
+        this.pagination = 1;
+        const skip =
+            this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+      else {
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+=======
     getTransactions(skip) {
       axios({
         method: "post",
@@ -171,6 +260,7 @@ export default {
           .catch((err) => {
             console.log("Error", err);
           });
+>>>>>>> main
     },
 
     getTransactionList(skip){
@@ -181,17 +271,32 @@ export default {
         data:{
           "jsonrpc": "2.0",
           "id": 1,
+<<<<<<< HEAD
+          "params": {"Limit":this.resultsPerPage,"Skip":skip},
+=======
           "params": {"Limit":this.resultsPerPage, "Skip":skip},
+>>>>>>> main
           "method": "GetTransactionList"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
+<<<<<<< HEAD
+
+        this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+
+        console.log(this.tableData)
+
+        //
+        // console.log("成功")
+=======
         //this.tableData = res["data"]["result"]["result"];
         //this.totalCount = res["data"]["result"]["totalCount"];
         //
         console.log(res)
         this.tableData = res["data"]["result"]["result"]
+>>>>>>> main
       });
     }
   }
@@ -204,4 +309,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> main

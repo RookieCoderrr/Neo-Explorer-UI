@@ -47,7 +47,7 @@
               <span class="text-muted">Remember me</span>
             </base-checkbox>
             <div class="text-center">
-              <base-button  type="primary" class="my-4">Sign in</base-button>
+              <base-button type="primary" class="my-4">Sign in</base-button>
             </div>
           </form>
         </div>
@@ -63,11 +63,9 @@
         </div>
       </div>
     </div>
-    <button @click="table()"> index</button>
   </div>
 </template>
 <script>
-  import axios from "axios"
 export default {
   name: "login",
   data() {
