@@ -152,7 +152,7 @@
 
               <div class="row mt-3"></div>
 
-              <transfers-table title="Nep17Transfer" :txhash = this.txhash ></transfers-table>
+              <transfers-list title="Nep17Transfer" :txhash = this.txhash ></transfers-list>
 
               <nft-table title="Nep11Transfer" :txhash = this.txhash ></nft-table>
 
@@ -169,11 +169,11 @@
 <script>
 import axios from "axios";
 import { format } from "timeago.js";
-import TransfersTable from "./Tables/TransfersTable";
+import TransfersList from "./Tables/TransfersList";
 import NftTable from "./Tables/NftTable"
 export default {
   components: {
-    TransfersTable,
+    TransfersList,
     NftTable
   },
   data() {

@@ -110,7 +110,7 @@
 <script>
 import axios from "axios"
 export default {
-  name: "transfers-table",
+  name: "transfers-list",
   props: {
     type: {
       type: String,
