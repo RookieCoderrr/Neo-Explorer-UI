@@ -7,11 +7,7 @@ import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import Dashboard from "../views/Dashboard.vue";
 import TokenInfo from "../views/TokenInfo.vue";
-<<<<<<< HEAD
-//import Maps from "../views/Maps.vue";
-=======
 import CandiateList from "../views/CandiateList.vue";
->>>>>>> 1a45044505ac3c3e73b7fdb30625427a2f2baebd
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
 import TransactionList from "../views/TransactionList.vue";
