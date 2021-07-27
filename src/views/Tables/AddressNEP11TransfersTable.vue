@@ -133,7 +133,6 @@ export default {
     getToAccount(){
       return
     },
-    
     GetNep11TransferByAddress(skip) {
       axios({
         method:'post',
