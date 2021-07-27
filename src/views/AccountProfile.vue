@@ -110,8 +110,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import AddressNEP17TransfersTable from "./Tables/AddressNEP17TransfersTable.vue";
-import AddressNEP11TransfersTable from "./Tables/AddressNEP11TransfersTable.vue";
+import Addressnep17TransfersTable from "./Tables/Addressnep17TransfersTable.vue";
+import Addressnep11TransfersTable from "./Tables/Addressnep11TransfersTable.vue";
 
 export default {
   name: "account-profile",
@@ -131,8 +131,8 @@ export default {
     Loading,
     AddressTokensTable,
     AddressTransactionsTable,
-    AddressNEP17TransfersTable,
-    AddressNEP11TransfersTable,
+    Addressnep17TransfersTable,
+    Addressnep11TransfersTable,
   },
   created() {
     this.getNeoBalance();
