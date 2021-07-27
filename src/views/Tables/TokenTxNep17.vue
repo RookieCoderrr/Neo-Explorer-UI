@@ -31,7 +31,7 @@
           </th>
           <td class="From">
             <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer">
+              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">
                 {{ row.item.from === null ? "Null Address" : row.item.from }}
               </a>
             </div>
@@ -39,7 +39,7 @@
           </td>
           <td class="To">
             <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer">
+              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">
                 {{ row.item.to }}
               </a>
             </div>
@@ -71,7 +71,6 @@ import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
-
 
 export default {
   name: "tokens-tx-nep17",
@@ -130,6 +129,11 @@ export default {
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
+      });
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
       });
     },
   },
