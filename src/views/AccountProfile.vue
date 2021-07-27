@@ -84,7 +84,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <transactions-table title="Transaction List" :account_address="accountAddress"></transactions-table>
+                      <address-transactions-table title="Transaction List" :account_address="accountAddress"></address-transactions-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -124,7 +124,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
-import TransactionsTable from "./Tables/TransactionsTable";
+import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import TransfersTable from "./Tables/TransfersTable";
 
 export default {
@@ -144,7 +144,7 @@ export default {
   components: {
     Loading,
     AddressTokensTable,
-    TransactionsTable,
+    AddressTransactionsTable,
     TransfersTable,
   },
   created() {
