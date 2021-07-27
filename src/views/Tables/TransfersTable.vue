@@ -37,23 +37,23 @@
           <td class="budget">
             <div class="from">
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer"  @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
+                  style="cursor: pointer" @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
             </div>
           </td>
           <td class="budget">
-            {{ convertToken(row.item.frombalance,row.item.decimals) }}
+            {{ row.item.frombalance }}
           </td>
           <td class="budget">
             <a  class="name mb-0 text-sm"
-                style="cursor: pointer"  @click="getToAccount(row.item.to)">{{ row.item.to }}</a>
+                style="cursor: pointer" @click="getToAccount(row.item.to)">{{ row.item.to }}</a>
           </td>
 
           <td class="budget">
-            {{ convertToken(row.item.tobalance,row.item.decimals) }}
+            {{row.item.tobalance}}
           </td>
 
           <td class="budget">
-            {{ convertToken(row.item.value,row.item.decimals) }}
+            {{ row.item.value }}
           </td>
           <td class="text-right">
             <base-dropdown class="dropdown" position="right">
@@ -96,7 +96,7 @@ export default {
       type: String,
     },
     title: String,
-    txhash: String,
+    account_address: String,
   },
   data() {
     return {
@@ -104,8 +104,7 @@ export default {
     };
   },
   created() {
-    console.log(this.txhash)
-    this.getNep17TransferByTransactionHash(this.txhash)
+    this.GetNep17TransferByAddress(0)
   },
   methods:{
 
@@ -132,23 +131,43 @@ export default {
       return
     },
 
-    getNep17TransferByTransactionHash(txhash){
+    GetNep17TransferByAddress(skip) {
       axios({
         method:'post',
         url:'/api',
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"TransactionHash":txhash},
-          "method": "GetNep17TransferByTransactionHash"
+          "params": {Address: this.account_address, Limit:this.resultsPerPage, Skip:skip},
+          "method": "GetNep17TransferByAddress"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
-      }).then((res)=> {
+      }).then((res)=>{
+        //this.tableData = res["data"]["result"]["result"];
+        //this.totalCount = res["data"]["result"]["totalCount"];
+        //
+        console.log("transfer", res["data"]["result"]["result"])
         this.tableData = res["data"]["result"]["result"]
-        console.log(this.tableData)
-      })
-    }
+        for(let k=0; this.tableData.length; k++) {
+          axios({
+            method:'post',
+            url:'/api',
+            data:{
+              "jsonrpc": "2.0",
+              "id": 1,
+              "params": {ContractHash: this.tableData[k]["contract"], Limit:this.resultsPerPage, Skip:skip},
+              "method": "GetAssetInfoByContractHash"
+            },
+            headers:{'Content-Type': 'application/json','withCredentials':' true',
+              'crossDomain':'true',},
+          }).then((res)=> {
+            this.tableData[k]["tokenname"]  = res["data"]["result"]["tokenname"]
+          });
+        }
+      });
+    },
+
   }
 };
 </script>

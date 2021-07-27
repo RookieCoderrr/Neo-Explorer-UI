@@ -97,7 +97,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <transfers-table title="Transfer List"></transfers-table>
+                      <transfers-table title="Transfer List" :account_address="accountAddress"></transfers-table>
                     </div>
                   </div>
                 </tab-pane>
