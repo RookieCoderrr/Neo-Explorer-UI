@@ -42,7 +42,7 @@
             {{ row.item.isCommittee}}
           </td>
           <td class="budget">
-            {{}}
+            {{ row.index + 1 + this.count}}
           </td>
           <td class="budget">
             {{ row.item.votesOfCandidate }}
@@ -101,8 +101,15 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination : 1,
+      skip:0,
+      count:0
     };
   },
+  // computed:{
+  //   multiple(){
+  //     return  this.resultsPerPage*(this.pagination-1) ;
+  //   }
+  // },
 
   created() {
     this.getCandidateList(0)
@@ -112,8 +119,8 @@ export default {
     methods:{
     pageChange(pageNumber) {
       this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getCandidateList(skip);
+      this.skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getCandidateList(this.skip);
     },
 
     getCandidateList(skip){
@@ -134,6 +141,7 @@ export default {
         this.tableData = res["data"]["result"]["result"];
         console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.count = this.skip
         // console.log("成功")
       });
     }
