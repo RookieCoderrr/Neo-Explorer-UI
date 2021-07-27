@@ -80,6 +80,7 @@
                 <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
                   <div class="row">
                     <div class="col">
+                       
                       <address-nep17-transfers-table title="NEP17 Transfer List" :account_address="accountAddress">
                       </address-nep17-transfers-table>
                     </div>
@@ -110,8 +111,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import AddressNEP17TransfersTable from "./Tables/AddressNEP17TransfersTable.vue";
-import AddressNEP11TransfersTable from "./Tables/AddressNEP11TransfersTable.vue";
+import AddressNEP17TransfersTable from "./Tables/AddressNEP17TransfersTable";
+import AddressNEP11TransfersTable from "./Tables/AddressNEP11TransfersTable";
 
 export default {
   name: "account-profile",
@@ -131,7 +132,9 @@ export default {
     Loading,
     AddressTokensTable,
     AddressTransactionsTable,
+    // eslint-disable-next-line vue/no-unused-components
     AddressNEP17TransfersTable,
+    // eslint-disable-next-line vue/no-unused-components
     AddressNEP11TransfersTable,
   },
   created() {
