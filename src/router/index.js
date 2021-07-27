@@ -10,7 +10,7 @@ import TokenInfo from "../views/TokenInfo.vue";
 import Maps from "../views/Maps.vue";
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
-import Tables from "../views/Tables.vue";
+//import Tables from "../views/Tables.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
 
@@ -81,11 +81,11 @@ const routes = [
         name: "Accounts",
         components: { default: Account },
       },
-      {
-        path: "/tables",
-        name: "tables",
-        components: { default: Tables },
-      },
+      //{
+      //  path: "/tables",
+      //  name: "tables",
+      //  components: { default: Tables },
+      //},
       {
         path: "/accountprofile/:accountAddress",
         name: "AccountProfile",
