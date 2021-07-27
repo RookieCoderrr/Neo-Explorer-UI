@@ -301,21 +301,11 @@ export default {
       invocation:"",
       verification:"",
       script:"",
-
-
-
-
-
-
     };
   },
   created() {
-
-
   },
   methods:{
-
-
     getNep17TransferByTransactionHash(){
       axios({
         method:'post',
