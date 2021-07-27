@@ -36,7 +36,11 @@
 
         <template v-slot:default="row">
           <td class="budget">
-            {{ row.item.candidate }}
+            <div class="address"   >
+              <a  class="name mb-0 text-sm"
+                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate }}</a>
+            </div>
+
           </td>
           <td class="budget">
             {{ row.item.isCommittee}}
@@ -117,6 +121,12 @@ export default {
   },
 
     methods:{
+
+    getAddress(addr) {
+      this.$router.push({
+        path: `/contractinfo/${addr}`,
+      })
+    },
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       this.skip = (pageNumber - 1) * this.resultsPerPage;
@@ -148,4 +158,11 @@ export default {
   }
 };
 </script>
-<style></style>
+<style>
+.address {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

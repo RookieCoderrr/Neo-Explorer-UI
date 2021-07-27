@@ -68,7 +68,7 @@ const routes = [
       },
       {
         path: "/candidates",
-        name: "candidates",
+        name: "Candidates",
         components: { default: CandiateList },
       },
       {
@@ -79,11 +79,11 @@ const routes = [
       // TODO: 需要加到主页的路径中，通过api可以获得account的总数
       {
         path: "/account",
-        name: "accounts",
+        name: "Accounts",
         components: { default: Account },
       },
       {
-       path: "/transactions",
+       path: "/Transactions",
        name: "transactions",
        components: { default: TransactionList},
       },
@@ -93,9 +93,9 @@ const routes = [
         components: { default: AccountProfile },
       },
       {
-        path: 'transactionInfo//:txhash',
+        path: '/transactionInfo/:txhash',
         name: 'transactionInfo',
-        components: { default: TransactionInfo },
+        components: { default:TransactionInfo },
       }
     ],
   },
