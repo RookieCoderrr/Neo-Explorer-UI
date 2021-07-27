@@ -97,7 +97,7 @@
                   </p>
                   <div class="row">
                     <div class="col">
-                      <transfers-table title="Transfer List" :account_address="accountAddress"></transfers-table>
+                      <address-transfers-table title="Transfer List" :account_address="accountAddress"></address-transfers-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -125,7 +125,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import TransfersTable from "./Tables/TransfersTable";
+import AddressTransfersTable from "./Tables/AddressTransfersTable";
 
 export default {
   name: "account-profile",
@@ -145,11 +145,11 @@ export default {
     Loading,
     AddressTokensTable,
     AddressTransactionsTable,
-    TransfersTable,
+    AddressTransfersTable,
   },
   created() {
     this.getNeoBalance();
-    this.isLoading = false
+    this.isLoading = false;
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();
