@@ -1,8 +1,8 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div
-        class="card-header border-0"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
+      class="card-header border-0"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
         <div class="col">
@@ -18,11 +18,11 @@
 
     <div class="table-responsive">
       <base-table
-          class="table align-items-center table-flush"
-          :class="type === 'dark' ? 'table-dark' : ''"
-          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-          tbody-classes="list"
-          :data="tableData"
+        class="table align-items-center table-flush"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tableData"
 
       >
         <template v-slot:columns>
@@ -60,11 +60,11 @@
             <base-dropdown class="dropdown" position="right">
               <template v-slot:title>
                 <a
-                    class="btn btn-sm btn-icon-only text-light"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                  class="btn btn-sm btn-icon-only text-light"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
                 >
                   <i class="fas fa-ellipsis-v"></i>
                 </a>
@@ -82,15 +82,28 @@
     </div>
 
     <div
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+            parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
   </div>
 </template>
 <script>
-// by zilie cdde2b58d09e04290f9eabd8a6ebdbb3078d8cf4
 import axios from "axios"
 import { format } from "timeago.js";
 export default {
@@ -100,7 +113,6 @@ export default {
       type: String,
     },
     title: String,
-    account_address: String,
   },
   data() {
     return {
@@ -108,12 +120,26 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination : 1,
+      placeHolder: 0,
+
     };
   },
 
   created() {
-    this.getTransactions()
+    this.getTransactionList(0)
 
+  },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 50;
+        return (
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
   },
   methods:{
 
@@ -134,7 +160,7 @@ export default {
     },
     getTransaction(txhash) {
       this.$router.push({
-        path: `/icons/${txhash}`,
+        path: `/transactionInfo/${txhash}`,
       })
     },
     pageChange(pageNumber) {
@@ -142,35 +168,23 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
     },
-    getTransactions(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          method: "GetRawTransactionByAddress",
-          params: {
-            Limit: this.resultsPerPage,
-            Skip: skip,
-            Address: this.account_address,
-          },
-          id: 1,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: "true",
-          crossDomain: "true",
-        },
-      })
-          .then((res) => {
-            // TODO: 这个还没处理
-            console.log("get transaction list", res)
-            this.tableData = res["data"]["result"]["result"]
-
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }else if(pageNumber <= 0){
+        this.pagination = 1;
+        const skip =
+          this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+      else {
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
     },
 
     getTransactionList(skip){
@@ -181,17 +195,20 @@ export default {
         data:{
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"Limit":this.resultsPerPage, "Skip":skip},
+          "params": {"Limit":this.resultsPerPage,"Skip":skip},
           "method": "GetTransactionList"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-        //this.tableData = res["data"]["result"]["result"];
-        //this.totalCount = res["data"]["result"]["totalCount"];
+
+        this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+
+        console.log(this.tableData)
+
         //
-        console.log(res)
-        this.tableData = res["data"]["result"]["result"]
+        // console.log("成功")
       });
     }
   }

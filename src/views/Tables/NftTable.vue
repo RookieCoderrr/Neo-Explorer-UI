@@ -175,12 +175,7 @@ export default {
         } else {
           this.length =1
         }
-        // console.log(this.tableData[0])
-        // this.length = this.tableData[0]["length"]
-        // console.log(this.tableData[0])
-        // console.log(this.length)
 
-        // console.log(this.tableData)
       })
     }
   }
