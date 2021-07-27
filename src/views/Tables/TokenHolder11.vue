@@ -1,18 +1,5 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
-          </h3>
-        </div>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -24,41 +11,42 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="tokenList"
+        :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Standard</th>
-          <th>Total Holders</th>
-          <th></th>
+          <th>Address</th>
+          <th>Balance</th>
+          <th>Last Transferred</th>
+          <th>Percentage</th>
+          <th>Tokens</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
+              <div class="media-body">
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
               </div>
             </div>
           </th>
-          <td class="name">
-            {{ row.item.tokenname }}
+          <td class="balance">
+            <div>{{ row.item.balance }}</div>
           </td>
-          <td class="symbol">
-            {{ row.item.symbol }}
+          <td class="firstused" v-if="row.item.tokenlist">
+            {{ convertTime(row.item.tokenlist[0]["time"]) }}
+          </td>
+          <td class="percentage">
+            {{ toPercentage(row.item.percentage) }}
           </td>
           <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-            <badge v-else class="badge-dot mr-4" type="success">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-          </td>
-          <td class="holders">
-            {{ row.item.total_holders }}
+            <card shadow v-for="(item, index) in row.item.tokenlist" :key="index">
+              <div class="row">
+                  Token ID: {{item.tokenid}}
+              </div>
+              <div class="row">
+                Last Transferred: {{convertTime(item.time)}}
+              </div>
+            </card>
           </td>
         </template>
       </base-table>
@@ -80,21 +68,21 @@
 import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
+import { format } from "timeago.js";
 export default {
-  name: "tokens-table",
+  name: "token-holder11",
   props: {
     type: {
       type: String,
     },
-    title: String,
+    contractHash: String,
   },
   components: {
     Loading
   },
   data() {
     return {
-      tokenList: [],
+      NEP17TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -106,6 +94,11 @@ export default {
     this.getTokenList(0);
   },
   methods: {
+    toPercentage(num) {
+      let s = Number(num * 100).toFixed(4);
+      s += "%";
+      return s;
+    },
     pageChange(pageNumber) {
       if (!this.firstTime) {
         this.isLoading = true;
@@ -116,8 +109,8 @@ export default {
         this.firstTime = false;
       }
     },
-    getToken(hash) {
-      this.$router.push(`/tokeninfo/${hash}`);
+    convertTime(ts){
+      return format(ts);
     },
     getTokenList(skip) {
       axios({
@@ -126,8 +119,8 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
+          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetNep11HoldersByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +129,7 @@ export default {
         },
       }).then((res) => {
         console.log(res);
-        this.tokenList = res["data"]["result"]["result"];
+        this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });

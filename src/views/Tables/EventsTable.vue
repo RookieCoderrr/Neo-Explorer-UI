@@ -24,14 +24,14 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="tokenList"
+        :data="contractList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Standard</th>
-          <th>Total Holders</th>
+          <th>Txid</th>
+          <th>Event Name</th>
+          <th>VM State</th>
+          <th>Index</th>
+          <th>Fired</th>
           <th></th>
         </template>
 
@@ -39,26 +39,21 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.txid }}</a>
               </div>
             </div>
           </th>
           <td class="name">
-            {{ row.item.tokenname }}
+            {{ row.item.eventname }}
           </td>
-          <td class="symbol">
-            {{ row.item.symbol }}
+          <td class="vm">
+            {{row.item.Vmstate}}
           </td>
-          <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-            <badge v-else class="badge-dot mr-4" type="success">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
+          <td class="index">
+            {{row.item.index}}
           </td>
-          <td class="holders">
-            {{ row.item.total_holders }}
+          <td class="event">
+            {{convertTime(row.item.timestamp)}}
           </td>
         </template>
       </base-table>
@@ -80,21 +75,22 @@
 import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import { format } from "timeago.js";
 
 export default {
-  name: "tokens-table",
+  name: "events-table",
   props: {
     type: {
       type: String,
     },
-    title: String,
+    contractHash: String,
   },
   components: {
     Loading
   },
   data() {
     return {
-      tokenList: [],
+      contractList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -103,31 +99,34 @@ export default {
     };
   },
   created() {
-    this.getTokenList(0);
+    this.getContractList(0);
   },
   methods: {
+    convertTime(ts) {
+      return format(ts);
+    },
     pageChange(pageNumber) {
       if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getContractList(skip);
       } else {
         this.firstTime = false;
       }
     },
-    getToken(hash) {
-      this.$router.push(`/tokeninfo/${hash}`);
+    getContract(hash) {
+      this.$router.push(`/contractinfo/${hash}`);
     },
-    getTokenList(skip) {
+    getContractList(skip) {
       axios({
         method: "post",
         url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
+          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetNotificationByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +135,7 @@ export default {
         },
       }).then((res) => {
         console.log(res);
-        this.tokenList = res["data"]["result"]["result"];
+        this.contractList = res["data"]["result"]['result'];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });

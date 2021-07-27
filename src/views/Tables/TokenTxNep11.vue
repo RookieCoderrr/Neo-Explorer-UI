@@ -1,18 +1,5 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
-          </h3>
-        </div>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -24,41 +11,45 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="tokenList"
+        :data="NEP11TxList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Standard</th>
-          <th>Total Holders</th>
-          <th></th>
+          <th>Txid</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Time</th>
+          <th>TokenID</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
+              <div class="media-body txid">
+                <a class="name mb-0 text-sm ">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
-          <td class="name">
-            {{ row.item.tokenname }}
+          <td class="From">
+            <div class="addr">
+              <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.from === null ? "Null Account" : row.item.from }}</a>
+            </div>
           </td>
-          <td class="symbol">
-            {{ row.item.symbol }}
+          <td class="To">
+            <div class="addr">
+              <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.to }}</a>
+            </div>
           </td>
-          <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-            <badge v-else class="badge-dot mr-4" type="success">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
+          <td class="Value">
+            {{row.item.value}}
           </td>
-          <td class="holders">
-            {{ row.item.total_holders }}
+          <td class="time">
+            {{ convertTime(row.item.time) }}
+          </td>
+          <td class="TokenID">
+            <div class="addr">
+              {{ row.item.tokenId }}
+            </div>
           </td>
         </template>
       </base-table>
@@ -80,21 +71,23 @@
 import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import { format } from "timeago.js";
+
 
 export default {
-  name: "tokens-table",
+  name: "tokens-tx-nep11",
   props: {
     type: {
       type: String,
     },
-    title: String,
+    contractHash: String,
   },
   components: {
     Loading
   },
   data() {
     return {
-      tokenList: [],
+      NEP11TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -116,8 +109,8 @@ export default {
         this.firstTime = false;
       }
     },
-    getToken(hash) {
-      this.$router.push(`/tokeninfo/${hash}`);
+    convertTime(ts) {
+      return format(ts);
     },
     getTokenList(skip) {
       axios({
@@ -126,8 +119,8 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
+          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetNep11TransferByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -135,8 +128,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
-        this.tokenList = res["data"]["result"]["result"];
+        this.NEP11TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
@@ -144,4 +136,17 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.txid {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.addr {
+  width: 150px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
