@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 <template >
   <div  v-show = "this.length != 0">
