@@ -66,6 +66,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "login",
   data() {
@@ -77,26 +78,8 @@ export default {
     };
   },
   created() {
-    this.table()
-
   },
   methods:{
-    table(){
-      axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"Limit":5},
-          "method": "GetTransactionList"
-        },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
-      }).then((res)=>{
-      });
-    }
-
   }
 };
 </script>

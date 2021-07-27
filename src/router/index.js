@@ -13,6 +13,7 @@ import Account from "../views/AccountsList";
 //import Tables from "../views/Tables.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
+import Icons from "../views/Icons.vue"
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
