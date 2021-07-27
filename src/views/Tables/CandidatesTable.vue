@@ -36,13 +36,17 @@
 
         <template v-slot:default="row">
           <td class="budget">
-            {{ row.item.candidate }}
+            <div class="address"   >
+              <a  class="name mb-0 text-sm"
+                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate }}</a>
+            </div>
+
           </td>
           <td class="budget">
             {{ row.item.isCommittee}}
           </td>
           <td class="budget">
-            {{}}
+            {{ row.index + 1 + this.count}}
           </td>
           <td class="budget">
             {{ row.item.votesOfCandidate }}
@@ -101,8 +105,15 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination : 1,
+      skip:0,
+      count:0
     };
   },
+  // computed:{
+  //   multiple(){
+  //     return  this.resultsPerPage*(this.pagination-1) ;
+  //   }
+  // },
 
   created() {
     this.getCandidateList(0)
@@ -110,10 +121,16 @@ export default {
   },
 
     methods:{
+
+    getAddress(addr) {
+      this.$router.push({
+        path: `/contractinfo/${addr}`,
+      })
+    },
     pageChange(pageNumber) {
       this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getCandidateList(skip);
+      this.skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getCandidateList(this.skip);
     },
 
     getCandidateList(skip){
@@ -134,10 +151,18 @@ export default {
         this.tableData = res["data"]["result"]["result"];
         console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.count = this.skip
         // console.log("成功")
       });
     }
   }
 };
 </script>
-<style></style>
+<style>
+.address {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
