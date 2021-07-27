@@ -163,8 +163,6 @@ export default {
         },
       })
           .then((res) => {
-            // TODO: 这个还没处理
-            console.log("get transaction list", res)
             this.tableData = res["data"]["result"]["result"]
 
           })
@@ -187,10 +185,6 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-        //this.tableData = res["data"]["result"]["result"];
-        //this.totalCount = res["data"]["result"]["totalCount"];
-        //
-        console.log(res)
         this.tableData = res["data"]["result"]["result"]
       });
     }

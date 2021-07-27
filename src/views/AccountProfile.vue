@@ -64,12 +64,6 @@
             <tabs fill class="flex-column flex-md-row">
               <card shadow>
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
-                  <p class="description">
-                    Raw denim you probably haven't heard of them jean shorts
-                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                    cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-                    keffiyeh dreamcatcher synth.
-                  </p>
                   <div class="row">
                     <div class="col">
                       <address-tokens-table title="Token List" :account_address="accountAddress"></address-tokens-table>
@@ -77,37 +71,28 @@
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
-                  <p class="description">
-                    Cosby sweater eu banh mi, qui irure terry richardson ex
-                    squid. Aliquip placeat salvia cillum iphone. Seitan aliquip
-                    quis cardigana merican apparel, butcher voluptate nisi qui.
-                  </p>
                   <div class="row">
                     <div class="col">
                       <address-transactions-table title="Transaction List" :account_address="accountAddress"></address-transactions-table>
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="Transfers">
-                  <p class="description">
-                    Raw denim you probably haven't heard of them jean shorts
-                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                    cliche tempor, williamsburg carles vegan helvetica.
-                    Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-                  </p>
+                <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
                   <div class="row">
                     <div class="col">
-                      <address-transfers-table title="Transfer List" :account_address="accountAddress"></address-transfers-table>
+                      <address-nep17-transfers-table title="NEP17 Transfer List" :account_address="accountAddress">
+                      </address-nep17-transfers-table>
+                    </div>
+                  </div>
+                </tab-pane>
+                <tab-pane icon="ni ni-collection" title="NEP11 Transfers">
+                  <div class="row">
+                    <div class="col">
+                      <address-nep11-transfers-table title="NEP11 Transfer List" :account_address="accountAddress"></address-nep11-transfers-table>
                     </div>
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contracts">
-                  <p class="description">
-                    Raw denim you probably haven't heard of them jean shorts
-                    Austin. Nesciunt tofu stumptown aliqua, retro synth master
-                    cliche tempor, williamsburg carles vegan helvetica.
-                    Reprehenderit butcher retro keffiyeh dreamcatcher synth.
-                  </p>
                 </tab-pane>
               </card>
             </tabs>
@@ -125,7 +110,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import AddressTransfersTable from "./Tables/AddressTransfersTable";
+import AddressNEP17TransfersTable from "./Tables/AddressNEP17TransfersTable.vue";
+import AddressNEP11TransfersTable from "./Tables/AddressNEP11TransfersTable.vue";
 
 export default {
   name: "account-profile",
@@ -145,7 +131,8 @@ export default {
     Loading,
     AddressTokensTable,
     AddressTransactionsTable,
-    AddressTransfersTable,
+    AddressNEP17TransfersTable,
+    AddressNEP11TransfersTable,
   },
   created() {
     this.getNeoBalance();
@@ -228,7 +215,6 @@ export default {
       })
         .then((res) => {
           // TODO: 这个还没处理
-          console.log("get transactions", res)
           this.numOfTxns = res["data"]["result"]["result"].length
 
         })
@@ -262,7 +248,6 @@ export default {
             console.log("Get created time failed, Error", err);
           });
     },
-
   },
 };
 </script>

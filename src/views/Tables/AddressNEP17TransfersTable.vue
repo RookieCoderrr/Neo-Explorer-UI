@@ -87,7 +87,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "address-transfers-table",
+  name: "address-nep17-transfers-table",
   props: {
     type: {
       type: String,
@@ -103,15 +103,13 @@ export default {
     };
   },
   created() {
-    this.GetNep17TransferByAddress(0)
-    this.GetNep11TransferByAddress(0)
+    this.GetNep17TransferByAddress(0);
   },
   methods:{
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.GetNep17TransferByAddress(skip);
-      this.GetNep11TransferByAddress(skip)
     },
     convertToken(token,decimal) {
       return (token * Math.pow(0.1,decimal)).toFixed(6)
@@ -168,40 +166,6 @@ export default {
         }
       });
     },
-    GetNep11TransferByAddress(skip) {
-      axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {Address: this.account_address, Limit:this.resultsPerPage, Skip:skip},
-          "method": "GetNep11TransferByAddress"
-        },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
-      }).then((res)=>{
-        console.log("transfer", res["data"]["result"]["result"])
-        this.tableData = res["data"]["result"]["result"]
-        for(let k=0; this.tableData.length; k++) {
-          axios({
-            method:'post',
-            url:'/api',
-            data:{
-              "jsonrpc": "2.0",
-              "id": 1,
-              "params": {ContractHash: this.tableData[k]["contract"], Limit:this.resultsPerPage, Skip:skip},
-              "method": "GetAssetInfoByContractHash"
-            },
-            headers:{'Content-Type': 'application/json','withCredentials':' true',
-              'crossDomain':'true',},
-          }).then((res)=> {
-            this.tableData[k]["tokenname"]  = res["data"]["result"]["tokenname"]
-          });
-        }
-      });
-    }
-
   }
 };
 </script>
