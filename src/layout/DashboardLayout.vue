@@ -15,16 +15,16 @@
         />
         <sidebar-item
           :link="{
-            name: 'Maps',
+            name: 'Candidates',
             icon: 'ni ni-pin-3 text-orange',
-            path: '/maps',
+            path: '/candidates',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'User Profile',
+            name: 'Transactions',
             icon: 'ni ni-single-02 text-yellow',
-            path: '/profile',
+            path: '/transactions',
           }"
         />
         <sidebar-item

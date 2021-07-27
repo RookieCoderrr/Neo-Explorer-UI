@@ -178,7 +178,6 @@ export default {
   },
   data() {
     return {
-      tx_id: "0x9a52bbd5b14304b6643074377719dc52eaa1b3458c5860037b5af22126cd44b3",
       tabledata: [],
       txhash:""
     };

@@ -7,13 +7,20 @@ import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import Dashboard from "../views/Dashboard.vue";
 import TokenInfo from "../views/TokenInfo.vue";
+<<<<<<< HEAD
 //import Maps from "../views/Maps.vue";
+=======
+import CandiateList from "../views/CandiateList.vue";
+>>>>>>> 1a45044505ac3c3e73b7fdb30625427a2f2baebd
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
-//import Tables from "../views/Tables.vue";
+import TransactionList from "../views/TransactionList.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
-import Icons from "../views/Icons.vue";
+
+import TransactionInfo from "../views/TransactionInfo.vue"
+
+
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
@@ -72,9 +79,9 @@ const routes = [
         components: { default: ContractInfo },
       },
       {
-        path: "/maps",
-        name: "maps",
-        components: { default: Account },
+        path: "/candidates",
+        name: "Candidates",
+        components: { default: CandiateList },
       },
       {
         path: "/profile",
@@ -87,20 +94,20 @@ const routes = [
         name: "Accounts",
         components: { default: Account },
       },
-      //{
-      //  path: "/tables",
-      //  name: "tables",
-      //  components: { default: Tables },
-      //},
+      {
+       path: "/Transactions",
+       name: "transactions",
+       components: { default: TransactionList},
+      },
       {
         path: "/accountprofile/:accountAddress",
         name: "AccountProfile",
         components: { default: AccountProfile },
       },
       {
-        path: '/icons/:txhash',
-        name: 'icons',
-        components: { default: Icons },
+        path: '/transactionInfo/:txhash',
+        name: 'transactionInfo',
+        components: { default:TransactionInfo },
       }
     ],
   },
