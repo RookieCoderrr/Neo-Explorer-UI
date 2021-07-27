@@ -42,7 +42,7 @@
             {{ row.item.isCommittee}}
           </td>
           <td class="budget">
-            1
+            {{}}
           </td>
           <td class="budget">
             {{ row.item.votesOfCandidate }}
@@ -105,31 +105,18 @@ export default {
   },
 
   created() {
-    this.getTransactionList(0)
+    this.getCandidateList(0)
 
   },
-  columns: [
-    {
-      title: '序号',
-      field: '',
-      align: 'center',
-      formatter: function (value, row, index) {
-        var pageSize = this.$('#myTable').bootstrapTable('getOptions').pageSize;     //通过table的#id 得到每页多少条
-        var pageNumber = this.$('#myTable').bootstrapTable('getOptions').pageNumber; //通过table的#id 得到当前第几页
-        return pageSize * (pageNumber - 1) + index + 1;    // 返回每条的序号： 每页条数 *（当前页 - 1 ）+ 序号
-      }
-    },
-
-  ],
 
     methods:{
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
+      this.getCandidateList(skip);
     },
 
-    getTransactionList(skip){
+    getCandidateList(skip){
 
       axios({
         method:'post',
