@@ -1,18 +1,5 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
-        class="card-header border-0"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
-          </h3>
-        </div>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <base-table
           class="table align-items-center table-flush"
@@ -75,7 +62,6 @@ export default {
     type: {
       type: String,
     },
-    title: String,
     account_address: String,
   },
   data() {
