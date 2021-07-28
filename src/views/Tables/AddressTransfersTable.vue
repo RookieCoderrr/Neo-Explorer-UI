@@ -52,27 +52,6 @@
           <td class="budget">
             {{ row.item.value }}
           </td>
-          <td class="text-right">
-            <base-dropdown class="dropdown" position="right">
-              <template v-slot:title>
-                <a
-                    class="btn btn-sm btn-icon-only text-light"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                  <i class="fas fa-ellipsis-v"></i>
-                </a>
-              </template>
-
-              <template>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </template>
-            </base-dropdown>
-          </td>
         </template>
       </base-table>
     </div>
@@ -181,7 +160,6 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-        console.log("transfer", res["data"]["result"]["result"])
         this.tableData = res["data"]["result"]["result"]
         for(let k=0; this.tableData.length; k++) {
           axios({

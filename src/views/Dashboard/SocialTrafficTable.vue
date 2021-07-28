@@ -5,9 +5,6 @@
         <div class="col">
           <h3 class="mb-0">Social traffic</h3>
         </div>
-        <div class="col text-right">
-          <base-button size="sm" type="primary">See all</base-button>
-        </div>
       </div>
     </div>
 

@@ -1,3 +1,4 @@
+
 <template>
   <div v-show = "this.length != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div
@@ -77,27 +78,6 @@
             {{ row.item.value }}
           </td>
 
-          <td class="text-right">
-            <base-dropdown class="dropdown" position="right">
-              <template v-slot:title>
-                <a
-                    class="btn btn-sm btn-icon-only text-light"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                  <i class="fas fa-ellipsis-v"></i>
-                </a>
-              </template>
-
-              <template>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </template>
-            </base-dropdown>
-          </td>
         </template>
       </base-table>
     </div>
@@ -128,7 +108,6 @@ export default {
   },
 
   created() {
-    console.log(this.txhash)
     this.getNep11TransferByTransactionHash(this.txhash)
 
   },
@@ -170,7 +149,6 @@ export default {
         this.tableData[0] = res["data"]["result"]
         if(this.tableData[0]==null) {
           this.length = 0
-          console.log(this.length)
           this.tableData[0]=[]
         } else {
           this.length =1
