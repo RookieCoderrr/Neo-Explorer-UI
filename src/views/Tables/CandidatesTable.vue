@@ -24,7 +24,7 @@
       >
         <template v-slot:columns>
           <th>Account</th>
-          <th>Committee</th>
+
           <th>Ranking</th>
           <th>Votes</th>
           <th>Percentage</th>
@@ -35,13 +35,11 @@
           <td class="budget">
             <div class="address"   >
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate }}</a>
+                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate}}  {{row.item.isCommittee ? "✅": ""}}</a>
             </div>
 
           </td>
-          <td class="budget">
-            {{ row.item.isCommittee}}
-          </td>
+
           <td class="budget">
             {{ row.index + 1 + this.count}}
           </td>
@@ -97,9 +95,9 @@ export default {
 
     methods:{
 
-    getAddress(addr) {
+    getAddress(accountAddress) {
       this.$router.push({
-        path: `/contractinfo/${addr}`,
+        path: `/accountprofile/${accountAddress}`,
       })
     },
     pageChange(pageNumber) {
@@ -136,7 +134,7 @@ export default {
 .address {
   width: 200px !important;
   white-space: nowrap;
-  overflow: hidden;
+  /*overflow: hidden;*/
   text-overflow: ellipsis;
 }
 </style>
