@@ -12,6 +12,7 @@ import Account from "../views/AccountsList";
 import TransactionList from "../views/TransactionList.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
+import Search from "../views/Search.vue"
 
 import TransactionInfo from "../views/TransactionInfo.vue"
 
@@ -73,6 +74,11 @@ const routes = [
         path: "/transactionInfo/:txhash",
         name: "transactionInfo",
         components: { default: TransactionInfo },
+      },
+      {
+        path: "/search",
+        name: "search",
+        components: { default: Search },
       },
     ],
   },

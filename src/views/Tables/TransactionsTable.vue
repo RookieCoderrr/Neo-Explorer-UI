@@ -201,7 +201,6 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
 

@@ -202,6 +202,7 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res) => {
+        console.log(res)
         var raw = res["data"]["result"]
         raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
@@ -210,6 +211,7 @@ export default {
 
       });
     },
+
     onCopy(el) {
       var test = document.getElementById(el);
       test.select();
