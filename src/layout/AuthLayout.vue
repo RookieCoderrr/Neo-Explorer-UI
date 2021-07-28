@@ -37,25 +37,25 @@
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/">
               <i class="ni ni-planet"></i>
-              <span class="nav-link-inner--text">Dashboard</span>
+              <span class="nav-link-inner--text">Commitee</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/register">
               <i class="ni ni-circle-08"></i>
-              <span class="nav-link-inner--text">Register</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/login">
-              <i class="ni ni-key-25"></i>
-              <span class="nav-link-inner--text">Login</span>
+              <span class="nav-link-inner--text">Blocks</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/transactions">
               <i class="ni ni-single-02"></i>
               <span class="nav-link-inner--text">Transactions</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/login">
+              <i class="ni ni-key-25"></i>
+              <span class="nav-link-inner--text">Tokens</span>
             </router-link>
           </li>
           <li class="nav-item">
