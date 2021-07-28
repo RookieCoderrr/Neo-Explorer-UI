@@ -35,27 +35,33 @@
         <!-- Navbar items -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/">
-              <i class="ni ni-planet"></i>
-              <span class="nav-link-inner--text">Commitee</span>
+            <router-link class="nav-link nav-link-icon" to="/candidates">
+              <i class="ni ni-badge"></i>
+              <span class="nav-link-inner--text">Committee</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/register">
-              <i class="ni ni-circle-08"></i>
+            <router-link class="nav-link nav-link-icon" to="/blocks">
+              <i class="ni ni-ungroup"></i>
               <span class="nav-link-inner--text">Blocks</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/transactions">
-              <i class="ni ni-single-02"></i>
+              <i class="ni ni-cart"></i>
               <span class="nav-link-inner--text">Transactions</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/login">
-              <i class="ni ni-key-25"></i>
+            <router-link class="nav-link nav-link-icon" to="/tokens">
+              <i class="ni ni-money-coins"></i>
               <span class="nav-link-inner--text">Tokens</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/contracts">
+              <i class="ni ni-collection"></i>
+              <span class="nav-link-inner--text">Contracts</span>
             </router-link>
           </li>
           <li class="nav-item">
@@ -94,9 +100,7 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
     <footer class="py-5">
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
