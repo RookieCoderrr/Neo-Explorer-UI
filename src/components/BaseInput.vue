@@ -10,6 +10,7 @@
       { 'has-danger': valid === false },
       formClasses,
     ]"
+    @keyup.enter = "updateValue"
   >
     <slot name="label">
       <label v-if="label" class="form-control-label" :class="labelClasses">
@@ -94,6 +95,7 @@ export default {
     },
     value: {
       type: [String, Number],
+      default: undefined,
       description: "Input value",
     },
     addonRightIcon: {
@@ -132,11 +134,13 @@ export default {
   methods: {
     updateValue(evt) {
       let value = evt.target.value;
-      this.$emit("input", value);
+      this.$emit("changeinput", parseInt(value));
+      evt.target.value = ''
     },
     onFocus(value) {
       this.focused = true;
       this.$emit("focus", value);
+      this.focused = false
     },
     onBlur(value) {
       this.focused = false;

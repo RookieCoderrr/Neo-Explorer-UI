@@ -1,8 +1,10 @@
 <template>
+
   <ul
     class="pagination"
     :class="[size && `pagination-${size}`, align && `justify-content-${align}`]"
   >
+
     <li class="page-item prev-page" :class="{ disabled: value === 1 }">
       <a class="page-link" aria-label="Previous" @click="prevPage">
         <span aria-hidden="true"
@@ -108,9 +110,14 @@ export default {
   data() {
     return {
       defaultPagesToDisplay: 5,
+      number:"",
     };
   },
+
   methods: {
+    changPage(number) {
+      this.$emit("input", number);
+    },
     range(min, max) {
       let arr = [];
       for (let i = min; i <= max; i++) {
@@ -133,12 +140,12 @@ export default {
     },
   },
   watch: {
-    perPage() {
-      this.$emit("input", 1);
-    },
-    total() {
-      this.$emit("input", 1);
-    },
+    // perPage() {
+    //   this.$emit("input", 1);
+    // },
+    // total() {
+    //   this.$emit("input", 1);
+    // },
   },
 };
 </script>

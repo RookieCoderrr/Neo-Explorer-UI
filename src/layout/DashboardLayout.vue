@@ -1,62 +1,62 @@
 <template>
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <side-bar
-      :background-color="sidebarBackground"
-      short-title="Argon"
-      title="Argon"
-    >
-      <template v-slot:links>
-        <sidebar-item
-          :link="{
-            name: 'Dashboard',
-            icon: 'ni ni-tv-2 text-primary',
-            path: '/dashboard',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Candidates',
-            icon: 'ni ni-pin-3 text-orange',
-            path: '/candidates',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Transactions',
-            icon: 'ni ni-single-02 text-yellow',
-            path: '/transactions',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Tokens',
-            icon: 'ni ni-money-coins text-red',
-            path: '/tokens',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Contracts',
-            icon: 'ni ni-collection text-green',
-            path: '/contracts',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Login',
-            icon: 'ni ni-key-25 text-info',
-            path: '/login',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Register',
-            icon: 'ni ni-circle-08 text-pink',
-            path: '/register',
-          }"
-        />
-      </template>
-    </side-bar>
+<!--    <side-bar-->
+<!--      :background-color="sidebarBackground"-->
+<!--      short-title="Argon"-->
+<!--      title="Argon"-->
+<!--    >-->
+<!--      <template v-slot:links>-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Dashboard',-->
+<!--            icon: 'ni ni-tv-2 text-primary',-->
+<!--            path: '/dashboard',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Candidates',-->
+<!--            icon: 'ni ni-pin-3 text-orange',-->
+<!--            path: '/candidates',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Transactions',-->
+<!--            icon: 'ni ni-single-02 text-yellow',-->
+<!--            path: '/transactions',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Tokens',-->
+<!--            icon: 'ni ni-money-coins text-red',-->
+<!--            path: '/tokens',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Contracts',-->
+<!--            icon: 'ni ni-collection text-green',-->
+<!--            path: '/contracts',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Login',-->
+<!--            icon: 'ni ni-key-25 text-info',-->
+<!--            path: '/login',-->
+<!--          }"-->
+<!--        />-->
+<!--        <sidebar-item-->
+<!--          :link="{-->
+<!--            name: 'Register',-->
+<!--            icon: 'ni ni-circle-08 text-pink',-->
+<!--            path: '/register',-->
+<!--          }"-->
+<!--        />-->
+<!--      </template>-->
+<!--    </side-bar>-->
     <div class="main-content" :data="sidebarBackground">
       <dashboard-navbar></dashboard-navbar>
 
