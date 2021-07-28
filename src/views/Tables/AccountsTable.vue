@@ -10,9 +10,6 @@
             {{ title }}
           </h3>
         </div>
-        <div class="col text-right">
-          <base-button type="primary" size="sm">See all</base-button>
-        </div>
       </div>
     </div>
 
@@ -185,10 +182,6 @@ export default {
               this.tableData[k]["neoBalance"] = "0";
               console.log("Error", err);
             });
-      }
-      console.log("print data")
-      for (let k=0; k<this.tableData.length; k++) {
-        console.log(this.tableData)
       }
     },
     getNeoBalance(accountAddress) {
