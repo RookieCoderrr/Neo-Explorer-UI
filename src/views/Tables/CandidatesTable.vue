@@ -14,6 +14,11 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
+      ></loading>
       <base-table id ="myTable"
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -63,7 +68,10 @@
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   name: "candidates-table",
   props: {
@@ -72,6 +80,9 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
@@ -79,7 +90,8 @@ export default {
       resultsPerPage: 10,
       pagination : 1,
       skip:0,
-      count:0
+      count:0,
+      isLoading: true,
     };
   },
   // computed:{
@@ -101,6 +113,7 @@ export default {
       })
     },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       this.skip = (pageNumber - 1) * this.resultsPerPage;
       this.getCandidateList(this.skip);
@@ -120,11 +133,10 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-        // console.log(res.data)
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.count = this.skip
-        // console.log("成功")
+        this.count = this.skip;
       });
     }
   }

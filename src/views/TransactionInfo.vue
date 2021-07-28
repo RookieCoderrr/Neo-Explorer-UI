@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="container-fluid mt--9">
+      <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+      ></loading>
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -168,16 +173,21 @@
 import axios from "axios";
 import { format } from "timeago.js";
 import TransfersList from "./Tables/TransfersList";
-import NftTable from "./Tables/NftTable"
+import NftTable from "./Tables/NftTable";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   components: {
     TransfersList,
-    NftTable
+    NftTable,
+    Loading,
   },
   data() {
     return {
       tabledata: [],
-      txhash:""
+      txhash:"",
+      isLoading: true,
     };
   },
   created() {
@@ -186,38 +196,32 @@ export default {
   methods: {
 
     convertGas(gas) {
-      return (gas * Math.pow(0.1,8)).toFixed(6)
+      return (gas * Math.pow(0.1, 8)).toFixed(6)
     },
 
-    getTransactionByTransactionHash(tx_id){
+    getTransactionByTransactionHash(tx_id) {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
+        method: 'post',
+        url: '/api',
+        data: {
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"TransactionHash":tx_id},
+          "params": {"TransactionHash": tx_id},
           "method": "GetRawTransactionByTransactionHash"
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
+        headers: {
+          'Content-Type': 'application/json', 'withCredentials': ' true',
+          'crossDomain': 'true',
+        },
       }).then((res) => {
-        console.log(res)
+        this.isLoading = false;
         var raw = res["data"]["result"]
         raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
         this.txhash = this.tabledata["hash"]
-        // console.log(this.txhash)
-
       });
     },
-
-    onCopy(el) {
-      var test = document.getElementById(el);
-      test.select();
-      document.execCommand("copy");
-    },
-  },
+  }
 };
 </script>
 
