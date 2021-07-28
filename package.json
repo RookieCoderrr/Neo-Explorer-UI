@@ -18,12 +18,14 @@
     "google-maps": "4.3.3",
     "javascript-time-ago": "^2.3.8",
     "jquery": "^3.6.0",
+    "less-loader": "^10.0.1",
     "nouislider": "14.6.0",
     "timeago.js": "^4.0.2",
     "vue": "3.0.5",
     "vue-loading-overlay": "^4.0.3",
     "vue-router": "4.0.1",
-    "vue-toastification": "1.7.11"
+    "vue-toastification": "1.7.11",
+    "vux": "^2.10.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.10",
@@ -40,6 +42,6 @@
     "eslint-plugin-vue": "7.4.1",
     "node-sass": "5.0.0",
     "prettier": "2.2.1",
-    "sass-loader": "10.1.1"
+    "sass-loader": "^10.1.1"
   }
 }

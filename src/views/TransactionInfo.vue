@@ -196,21 +196,23 @@ export default {
   methods: {
 
     convertGas(gas) {
-      return (gas * Math.pow(0.1,8)).toFixed(6)
+      return (gas * Math.pow(0.1, 8)).toFixed(6)
     },
 
-    getTransactionByTransactionHash(tx_id){
+    getTransactionByTransactionHash(tx_id) {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
+        method: 'post',
+        url: '/api',
+        data: {
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"TransactionHash":tx_id},
+          "params": {"TransactionHash": tx_id},
           "method": "GetRawTransactionByTransactionHash"
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
+        headers: {
+          'Content-Type': 'application/json', 'withCredentials': ' true',
+          'crossDomain': 'true',
+        },
       }).then((res) => {
         this.isLoading = false;
         var raw = res["data"]["result"]
@@ -219,7 +221,7 @@ export default {
         this.txhash = this.tabledata["hash"]
       });
     },
-  },
+  }
 };
 </script>
 

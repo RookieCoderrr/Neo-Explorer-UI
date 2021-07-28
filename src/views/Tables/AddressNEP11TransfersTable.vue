@@ -1,5 +1,4 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <base-table
           class="table align-items-center table-flush"
@@ -60,9 +59,8 @@
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-    <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
+    <base-pagination :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
-  </div>
 </template>
 <script>
 import axios from "axios";
@@ -72,7 +70,6 @@ export default {
     type: {
       type: String,
     },
-    title: String,
     account_address: String,
   },
   data() {
