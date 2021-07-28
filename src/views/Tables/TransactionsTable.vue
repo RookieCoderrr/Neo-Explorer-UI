@@ -10,9 +10,6 @@
             {{ title }}
           </h3>
         </div>
-        <div class="col text-right">
-          <base-button type="primary" size="sm">See all</base-button>
-        </div>
       </div>
     </div>
 
@@ -26,11 +23,11 @@
 
       >
         <template v-slot:columns>
-          <th>交易ID</th>
-          <th>区块高度</th>
-          <th>大小</th>
-          <th>时间</th>
-          <th>花费的GAS</th>
+          <th>Transaction ID</th>
+          <th>Block Height</th>
+          <th>Size</th>
+          <th>Time</th>
+          <th>GAS Consumed</th>
           <th></th>
         </template>
 
@@ -56,27 +53,6 @@
             {{ this.convertGas(row.item.netfee + row.item.sysfee)}}
           </td>
 
-          <td class="text-right">
-            <base-dropdown class="dropdown" position="right">
-              <template v-slot:title>
-                <a
-                  class="btn btn-sm btn-icon-only text-light"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-ellipsis-v"></i>
-                </a>
-              </template>
-
-              <template>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </template>
-            </base-dropdown>
-          </td>
         </template>
       </base-table>
     </div>

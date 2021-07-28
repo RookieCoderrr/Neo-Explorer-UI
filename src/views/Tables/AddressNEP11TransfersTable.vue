@@ -1,5 +1,4 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <base-table
           class="table align-items-center table-flush"
@@ -52,27 +51,7 @@
           <td class="budget">
             {{ row.item.value }}
           </td>
-          <td class="text-right">
-            <base-dropdown class="dropdown" position="right">
-              <template v-slot:title>
-                <a
-                    class="btn btn-sm btn-icon-only text-light"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                  <i class="fas fa-ellipsis-v"></i>
-                </a>
-              </template>
 
-              <template>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </template>
-            </base-dropdown>
-          </td>
         </template>
       </base-table>
     </div>
@@ -80,9 +59,8 @@
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-    <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
+    <base-pagination :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
-  </div>
 </template>
 <script>
 import axios from "axios";
@@ -92,7 +70,6 @@ export default {
     type: {
       type: String,
     },
-    title: String,
     account_address: String,
   },
   data() {

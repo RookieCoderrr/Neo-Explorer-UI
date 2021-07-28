@@ -134,7 +134,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         this.contractList = res["data"]["result"]['result'];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;

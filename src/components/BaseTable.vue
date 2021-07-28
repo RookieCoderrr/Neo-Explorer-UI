@@ -10,15 +10,33 @@
     <tbody :class="tbodyClasses">
       <tr v-for="(item, index) in data" :key="index">
         <slot :item="item" :index = "index">
-          <td v-for="column in columns" :key="column">
+          <th v-for="column in columns" :key="column">
             <template v-if="hasValue(item, column)">
               {{ itemValue(item, column) }}
             </template>
-          </td>
+          </th>
         </slot>
       </tr>
     </tbody>
   </table>
+
+  <!--        <tr>-->
+  <!--            <card shadow v-for="(item, index) in data" :key="index">-->
+  <!--                <slot :item="item" :index = "index">-->
+  <!--                    <th v-for="column in columns" :key="column">-->
+  <!--                        <template v-if="hasValue(item, column)">-->
+  <!--                            {{ itemValue(item, column) }}-->
+  <!--                        </template>-->
+  <!--                    </th>-->
+  <!--                </slot>-->
+  <!--                <div class="row">-->
+  <!--                    Token ID:-->
+  <!--                </div>-->
+  <!--                <div class="row">-->
+  <!--                    Last Transferred:-->
+  <!--                </div>-->
+  <!--            </card>-->
+  <!--        </tr>-->
 </template>
 <script>
 export default {

@@ -12,7 +12,8 @@ import Account from "../views/AccountsList";
 import TransactionList from "../views/TransactionList.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
-import Search from "../views/Search.vue"
+import Blocks from "../views/Blocks.vue";
+import Test from "../views/test.vue"
 
 import TransactionInfo from "../views/TransactionInfo.vue"
 
@@ -29,6 +30,16 @@ const routes = [
         path: "/tokens",
         name: "tokens",
         components: { default: Tokens },
+      },
+      {
+        path: "/blocks",
+        name: "blocks",
+        components: { default: Blocks },
+      },
+      {
+        path: "/test",
+        name: "test",
+        components: { default: Test },
       },
       {
         path: "/tokeninfo/:hash",
@@ -74,11 +85,6 @@ const routes = [
         path: "/transactionInfo/:txhash",
         name: "transactionInfo",
         components: { default: TransactionInfo },
-      },
-      {
-        path: "/search",
-        name: "search",
-        components: { default: Search },
       },
     ],
   },
