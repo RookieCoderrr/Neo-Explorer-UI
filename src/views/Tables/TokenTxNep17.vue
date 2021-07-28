@@ -23,19 +23,26 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center ">
-              <div class="media-body txid" >
-                <span class="name mb-0 text-sm " style="color: #4f40ff" >{{row.item.txid}}</span>
+            <div class="media align-items-center">
+              <div class="media-body txid">
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
-          <td >
-            <div class="media-body txid" >
-            {{ row.item.from }}
+          <td class="From">
+            <div class="addr">
+              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">
+                {{ row.item.from === null ? "Null Address" : row.item.from }}
+              </a>
             </div>
+
           </td>
-          <td class="To addr">
-            {{ row.item.to}}
+          <td class="To">
+            <div class="addr">
+              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">
+                {{ row.item.to }}
+              </a>
+            </div>
           </td>
           <td class="Value">
             {{row.item.value}}
@@ -64,7 +71,6 @@ import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
-
 
 export default {
   name: "tokens-tx-nep17",
@@ -120,10 +126,14 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
+      });
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
       });
     },
   },
@@ -131,13 +141,13 @@ export default {
 </script>
 <style>
 .txid {
-  width: 50px !important;
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .addr {
-  width: 50px !important;
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

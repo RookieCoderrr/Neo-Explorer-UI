@@ -16,7 +16,7 @@
 //import TokensTable from "./Tables/TokensTable";
 import BlocksTable from "./Tables/BlocksTable";
 export default {
-  name: "tables",
+  name: "tokens",
   components: {
    // TokensTable,
     BlocksTable,

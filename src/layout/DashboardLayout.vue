@@ -13,33 +13,32 @@
             path: '/dashboard',
           }"
         />
-
         <sidebar-item
           :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
-            path: '/icons',
-          }"
-        />
-        <sidebar-item
-          :link="{
-            name: 'Maps',
+            name: 'Candidates',
             icon: 'ni ni-pin-3 text-orange',
-            path: '/maps',
+            path: '/candidates',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'User Profile',
+            name: 'Transactions',
             icon: 'ni ni-single-02 text-yellow',
-            path: '/profile',
+            path: '/transactions',
           }"
         />
         <sidebar-item
           :link="{
-            name: 'Tables',
-            icon: 'ni ni-bullet-list-67 text-red',
-            path: '/tables',
+            name: 'Tokens',
+            icon: 'ni ni-money-coins text-red',
+            path: '/tokens',
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'Contracts',
+            icon: 'ni ni-collection text-green',
+            path: '/contracts',
           }"
         />
         <sidebar-item

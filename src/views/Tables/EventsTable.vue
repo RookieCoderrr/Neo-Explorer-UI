@@ -1,56 +1,59 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+    <div
+      class="card-header border-0"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
+    >
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+            {{ title }}
+          </h3>
+        </div>
+      </div>
+    </div>
+
     <div class="table-responsive">
       <loading
         :is-full-page="false"
         :opacity="0.9"
         :active="isLoading"
       ></loading>
-
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="NEP11TxList"
+        :data="contractList"
       >
         <template v-slot:columns>
           <th>Txid</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Amount</th>
-          <th>Time</th>
-          <th>TokenID</th>
+          <th>Event Name</th>
+          <th>VM State</th>
+          <th>Index</th>
+          <th>Fired</th>
+          <th></th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body txid">
-                <a class="name mb-0 text-sm ">{{row.item.txid}}</a>
+              <div class="media-body" >
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.txid }}</a>
               </div>
             </div>
           </th>
-          <td class="From">
-            <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from === null ? "Null Account" : row.item.from }}</a>
-            </div>
+          <td class="name">
+            {{ row.item.eventname }}
           </td>
-          <td class="To">
-            <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
-            </div>
+          <td class="vm">
+            {{row.item.Vmstate}}
           </td>
-          <td class="Value">
-            {{row.item.value}}
+          <td class="index">
+            {{row.item.index}}
           </td>
-          <td class="time">
-            {{ convertTime(row.item.time) }}
-          </td>
-          <td class="TokenID">
-            <div class="addr">
-              {{ row.item.tokenId }}
-            </div>
+          <td class="event">
+            {{convertTime(row.item.timestamp)}}
           </td>
         </template>
       </base-table>
@@ -74,9 +77,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
 
-
 export default {
-  name: "tokens-tx-nep11",
+  name: "events-table",
   props: {
     type: {
       type: String,
@@ -88,7 +90,7 @@ export default {
   },
   data() {
     return {
-      NEP11TxList: [],
+      contractList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -97,23 +99,26 @@ export default {
     };
   },
   created() {
-    this.getTokenList(0);
+    this.getContractList(0);
   },
   methods: {
+    convertTime(ts) {
+      return format(ts);
+    },
     pageChange(pageNumber) {
       if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getContractList(skip);
       } else {
         this.firstTime = false;
       }
     },
-    convertTime(ts) {
-      return format(ts);
+    getContract(hash) {
+      this.$router.push(`/contractinfo/${hash}`);
     },
-    getTokenList(skip) {
+    getContractList(skip) {
       axios({
         method: "post",
         url: "/api",
@@ -121,7 +126,7 @@ export default {
           jsonrpc: "2.0",
           id: 1,
           params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
-          method: "GetNep11TransferByContractHash",
+          method: "GetNotificationByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -129,30 +134,13 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.NEP11TxList = res["data"]["result"]["result"];
+        console.log(res);
+        this.contractList = res["data"]["result"]['result'];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
-      });
-    },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
       });
     },
   },
 };
 </script>
-<style>
-.txid {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.addr {
-  width: 150px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
+<style></style>

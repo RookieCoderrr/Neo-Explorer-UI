@@ -73,92 +73,40 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <div class="card shadow border-0">
-            <div
-              id="map"
-              class="map-canvas"
-              data-lat="40.748817"
-              data-lng="-73.985428"
-              style="height: 600px"
-            ></div>
-          </div>
+          <transactions-table title="Transaction List"></transactions-table>
         </div>
       </div>
+<!--      <div class="row mt-5">-->
+<!--        <div class="col">-->
+<!--          <transactions-table type="dark" title="Transaction List"></transactions-table>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
+
+<!--    <div class="container-fluid mt&#45;&#45;7">-->
+<!--      <div class="row">-->
+<!--        <div class="col">-->
+<!--          <transfers-table title="Nep17Transfer List"></transfers-table>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--&lt;!&ndash;            <div class="row mt-5">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="col">&ndash;&gt;-->
+<!--&lt;!&ndash;                <candidates-table type="dark" title="Candidate List"></candidates-table>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--    </div>-->
   </div>
 </template>
 <script>
-import { Loader } from "google-maps";
-const loader = new Loader("YOUR_API_KEY");
+import TransactionsTable from "./Tables/TransactionsTable";
+// import CandidatesTable from "./Tables/CandidatesTable";
+// import TransfersTable from "./Tables/TransfersTable";
 export default {
-  data() {
-    return {
-      nav: null,
-    };
-  },
-  mounted() {
-    loader.load().then(function (google) {
-      // Regular Map
-      const myLatlng = new google.maps.LatLng(40.748817, -73.985428);
-      const mapOptions = {
-        zoom: 13,
-        center: myLatlng,
-        scrollwheel: false, // we disable de scroll over the map, it is a really annoing when you scroll through page
-        disableDefaultUI: true, // a way to quickly hide all controls
-        zoomControl: true,
-        styles: [
-          {
-            featureType: "administrative",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#444444" }],
-          },
-          {
-            featureType: "landscape",
-            elementType: "all",
-            stylers: [{ color: "#f2f2f2" }],
-          },
-          {
-            featureType: "poi",
-            elementType: "all",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "road",
-            elementType: "all",
-            stylers: [{ saturation: -100 }, { lightness: 45 }],
-          },
-          {
-            featureType: "road.highway",
-            elementType: "all",
-            stylers: [{ visibility: "simplified" }],
-          },
-          {
-            featureType: "road.arterial",
-            elementType: "labels.icon",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "transit",
-            elementType: "all",
-            stylers: [{ visibility: "off" }],
-          },
-          {
-            featureType: "water",
-            elementType: "all",
-            stylers: [{ color: "#5e72e4" }, { visibility: "on" }],
-          },
-        ],
-      };
-      const map = new google.maps.Map(
-        document.getElementById("map"),
-        mapOptions
-      );
-      const marker = new google.maps.Marker({
-        position: myLatlng,
-        title: "Regular Map!",
-      });
-      marker.setMap(map);
-    });
+  name: "tables",
+  components: {
+    TransactionsTable,
+    // CandidatesTable,
+    // TransfersTable,
   },
 };
 </script>
