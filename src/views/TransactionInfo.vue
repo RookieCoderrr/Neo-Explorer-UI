@@ -181,6 +181,7 @@ export default {
     };
   },
   created() {
+    this.txhash = this.$route.params.txhash
     this.getTransactionByTransactionHash(this.$route.params.txhash);
   },
   methods: {

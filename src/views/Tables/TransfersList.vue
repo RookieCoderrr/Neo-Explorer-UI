@@ -155,11 +155,8 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=> {
-        console.log( res)
         this.tableData = res["data"]["result"]["result"]
         this.length = this.tableData["length"]
-        console.log(this.tableData)
-        console.log(this.length)
       })
     }
   }
