@@ -9,7 +9,6 @@
       <!-- <router-link slot="brand" class="navbar-brand" to="/">
                 <img src="img/brand/white.png"/>
             </router-link> -->
-
       <template v-slot="{ closeMenu }">
         <!-- Collapse header -->
         <div class="navbar-collapse-header d-md-none">
@@ -75,14 +74,6 @@
     </base-nav>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-7">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg
           x="0"
