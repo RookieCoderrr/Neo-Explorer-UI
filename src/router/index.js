@@ -15,11 +15,8 @@ import Tokens from "../views/Tokens.vue";
 
 import TransactionInfo from "../views/TransactionInfo.vue"
 
-<<<<<<< HEAD
-=======
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
->>>>>>> hong-dev-account
 
 const routes = [
   {
