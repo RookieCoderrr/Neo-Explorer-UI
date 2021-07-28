@@ -35,8 +35,8 @@
             <th></th>
           </template>
 
-          <template v-slot:default="row">
-            <td class="budget">
+          <template v-slot:default="row" >
+            <td class="budget" >
               <div class="contract" @mouseover="mouseHover(row.item.contract)">
                 <a  class="name mb-0 text-sm"
                     style="cursor: pointer"  @click="getContract(row.item.contract)">{{ row.item.contract}}</a>
@@ -155,6 +155,7 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=> {
+        console.log( res)
         this.tableData = res["data"]["result"]["result"]
         this.length = this.tableData["length"]
         console.log(this.tableData)

@@ -110,11 +110,11 @@
                 <div class="col-2 font-weight-bold mb-0">
                   Account
                 </div>
-                <div class="col-4">{{  this.tabledata["signers"][0]["account"]}}</div>
+                <div class="col-4" v-if="this.tabledata.signers">{{  this.tabledata["signers"][0]["account"]}}</div>
                 <div class="col-2 font-weight-bold mb-0">
                   Scopes
                 </div>
-                <div class="col-4">{{ this.tabledata["signers"][0]["scopes"]}}</div>
+                <div class="col-4" v-if="this.tabledata.signers" >{{ this.tabledata["signers"][0]["scopes"]}}</div>
               </div>
             </card>
 
@@ -129,11 +129,11 @@
                   <div class="col-2">
                     <div class="text-muted"><h3>Invocation</h3></div>
                   </div>
-                  <div class="col-4">{{  this.tabledata["witnesses"][0]["invocation"]}}</div>
+                  <div class="col-4" v-if="this.tabledata.witnesses">{{  this.tabledata["witnesses"][0]["invocation"]}}</div>
                   <div class="col-2">
                     <div class="text-muted"><h3>Verification</h3></div>
                   </div>
-                  <div class="col-4">{{ this.tabledata["witnesses"][0]["verification"]}}</div>
+                  <div class="col-4" v-if="this.tabledata.witnesses" >{{ this.tabledata["witnesses"][0]["verification"]}}</div>
                 </div>
               </card>
 

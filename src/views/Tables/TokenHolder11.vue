@@ -61,6 +61,20 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+          parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -98,7 +112,40 @@ export default {
   created() {
     this.getTokenList(0);
   },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
+  },
   methods: {
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.isLoading = true;
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getBlockList(skip);
+      }else if(pageNumber <= 0){
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip =
+                this.resultsPerPage;
+        this.getTokenList(skip);
+      }
+      else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTokenList(skip);
+      }
+    },
     toPercentage(num) {
       let s = Number(num * 100).toFixed(4);
       s += "%";

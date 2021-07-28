@@ -180,9 +180,6 @@ export default {
 
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-
-        console.log(this.tableData)
-
         //
         // console.log("成功")
       });
