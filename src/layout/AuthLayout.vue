@@ -53,9 +53,15 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/profile">
+            <router-link class="nav-link nav-link-icon" to="/transactions">
               <i class="ni ni-single-02"></i>
-              <span class="nav-link-inner--text">Profile</span>
+              <span class="nav-link-inner--text">Transactions</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/account">
+              <i class="ni ni-single-02"></i>
+              <span class="nav-link-inner--text">Accounts</span>
             </router-link>
           </li>
         </ul>
@@ -67,11 +73,6 @@
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-white">
-                Use these awesome forms to login or create new account in your
-                project for free.
-              </p>
             </div>
           </div>
         </div>

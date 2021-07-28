@@ -1,7 +1,7 @@
 //import { createRouter, createWebHashHistory } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 
-import DashboardLayout from "@/layout/DashboardLayout";
+//import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
@@ -45,9 +45,9 @@ const routes = [
     ],
   },
   {
-    path: "/",
+    path: "/dashboard",
     redirect: "/dashboard",
-    component: DashboardLayout,
+    component: AuthLayout,
     children: [
       {
         path: "/dashboard",
