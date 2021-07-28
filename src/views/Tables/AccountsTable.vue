@@ -115,7 +115,6 @@ export default {
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
-          this.getBalance()
         })
         .catch((err) => {
           console.log("Error", err);
