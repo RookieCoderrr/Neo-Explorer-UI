@@ -1,5 +1,7 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+
+
     <div class="table-responsive">
       <base-table
           class="table align-items-center table-flush"
@@ -25,6 +27,7 @@
               <a  class="name mb-0 text-sm"
                   style="cursor: pointer"  @click="getContract(row.item.contract)">{{ row.item.contract}}</a>
             </div>
+
           </td>
           <td class="budget">
             <div class="from">
@@ -76,18 +79,18 @@
         </template>
       </base-table>
     </div>
+
     <div
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-    <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from "axios"
 export default {
-  name: "address-nep11-transfers-table",
+  name: "address-transfers-table",
   props: {
     type: {
       type: String,
@@ -98,19 +101,13 @@ export default {
   data() {
     return {
       tableData: [],
-      resultsPerPage: 10,
-      pagination: 1,
     };
   },
   created() {
-    this.GetNep11TransferByAddress(0);
+    this.GetNep17TransferByAddress(0)
   },
   methods:{
-    pageChange(pageNumber) {
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.GetNep11TransferByAddress(skip);
-    },
+
     convertToken(token,decimal) {
       return (token * Math.pow(0.1,decimal)).toFixed(6)
     },
@@ -133,7 +130,8 @@ export default {
     getToAccount(){
       return
     },
-    GetNep11TransferByAddress(skip) {
+
+    GetNep17TransferByAddress(skip) {
       axios({
         method:'post',
         url:'/api',
@@ -141,11 +139,14 @@ export default {
           "jsonrpc": "2.0",
           "id": 1,
           "params": {Address: this.account_address, Limit:this.resultsPerPage, Skip:skip},
-          "method": "GetNep11TransferByAddress"
+          "method": "GetNep17TransferByAddress"
         },
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
+        //this.tableData = res["data"]["result"]["result"];
+        //this.totalCount = res["data"]["result"]["totalCount"];
+        //
         console.log("transfer", res["data"]["result"]["result"])
         this.tableData = res["data"]["result"]["result"]
         for(let k=0; this.tableData.length; k++) {
@@ -165,7 +166,7 @@ export default {
           });
         }
       });
-    }
+    },
 
   }
 };

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
-    </base-header>
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--9">
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -53,7 +51,7 @@
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
                   <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id"></tokens-tx-nep17>
-                  <tokens-tx-nep11 v-else-if="standard===2"  :contractHash="token_id"></tokens-tx-nep11>
+                  <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id"></tokens-tx-nep11>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
                   <token-holder v-if="standard===1" :contract-hash="token_id"></token-holder>

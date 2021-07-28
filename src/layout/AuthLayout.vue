@@ -9,7 +9,6 @@
       <!-- <router-link slot="brand" class="navbar-brand" to="/">
                 <img src="img/brand/white.png"/>
             </router-link> -->
-
       <template v-slot="{ closeMenu }">
         <!-- Collapse header -->
         <div class="navbar-collapse-header d-md-none">
@@ -35,27 +34,39 @@
         <!-- Navbar items -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/">
-              <i class="ni ni-planet"></i>
-              <span class="nav-link-inner--text">Dashboard</span>
+            <router-link class="nav-link nav-link-icon" to="/candidates">
+              <i class="ni ni-badge"></i>
+              <span class="nav-link-inner--text">Committee</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/register">
-              <i class="ni ni-circle-08"></i>
-              <span class="nav-link-inner--text">Register</span>
+            <router-link class="nav-link nav-link-icon" to="/blocks">
+              <i class="ni ni-ungroup"></i>
+              <span class="nav-link-inner--text">Blocks</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/login">
-              <i class="ni ni-key-25"></i>
-              <span class="nav-link-inner--text">Login</span>
+            <router-link class="nav-link nav-link-icon" to="/transactions">
+              <i class="ni ni-cart"></i>
+              <span class="nav-link-inner--text">Transactions</span>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/profile">
+            <router-link class="nav-link nav-link-icon" to="/tokens">
+              <i class="ni ni-money-coins"></i>
+              <span class="nav-link-inner--text">Tokens</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/contracts">
+              <i class="ni ni-collection"></i>
+              <span class="nav-link-inner--text">Contracts</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/account">
               <i class="ni ni-single-02"></i>
-              <span class="nav-link-inner--text">Profile</span>
+              <span class="nav-link-inner--text">Accounts</span>
             </router-link>
           </li>
         </ul>
@@ -63,19 +74,6 @@
     </base-nav>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-7">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-white">
-                Use these awesome forms to login or create new account in your
-                project for free.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg
           x="0"
@@ -93,9 +91,7 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
     <footer class="py-5">
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
