@@ -6,7 +6,7 @@
         :opacity="0.9"
         :active="isLoading"
       ></loading>
-      <base-table
+      <collapse-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
@@ -21,14 +21,19 @@
           <th>Tokens</th>
         </template>
 
-        <template v-slot:default="row">
-          <th scope="row">
+        <template v-slot:default="row" >
+          <th v-if="row.item">
+            <a   data-toggle="collapse"
+                 :href="`#${row.item.address}`"> >  </a>
+          </th>
+          <th scope="row" >
             <div class="media align-items-center">
               <div class="media-body">
                 <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
               </div>
             </div>
           </th>
+
           <td class="balance">
             <div>{{ row.item.balance }}</div>
           </td>
@@ -38,18 +43,18 @@
           <td class="percentage">
             {{ toPercentage(row.item.percentage) }}
           </td>
-          <td>
-            <card shadow v-for="(item, index) in row.item.tokenlist" :key="index">
-              <div class="row">
-                  Token ID: {{item.tokenid}}
-              </div>
-              <div class="row">
-                Last Transferred: {{convertTime(item.time)}}
-              </div>
-            </card>
-          </td>
+<!--          <td   class="collapse" :id="row.item.address" >-->
+<!--            <card shadow v-for="(item, index) in row.item.tokenlist" :key="index">-->
+<!--              <div class="row">-->
+<!--                  Token ID: {{item.tokenid}}-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                Last Transferred: {{convertTime(item.time)}}-->
+<!--              </div>-->
+<!--            </card>-->
+<!--          </td>-->
         </template>
-      </base-table>
+      </collapse-table>
     </div>
 
     <div

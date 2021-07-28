@@ -40,18 +40,14 @@
           <th scope="row">
             <div class="media align-items-center" style="text-align: center">
               <div class="media-body">
-                <span class="name mb-0 text-sm">{{ row.item.index }}</span>
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.index }}</a>
               </div>
             </div>
           </th>
           <td style="padding-left: 100px">
-            <el-tooltip placement="top" :content="row.item.hash">
               <div class="blockid">
-                <span>
-                  {{ row.item.hash }}
-                </span>
+                  <a class="name mb-0 text-sm" style="cursor: pointer" >{{ row.item.hash }}</a>
               </div>
-            </el-tooltip>
           </td>
           <td>
             {{ row.item.timestamp }}
