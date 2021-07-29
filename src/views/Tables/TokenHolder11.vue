@@ -35,7 +35,7 @@
           </th>
 
           <td class="balance">
-            <div>{{ row.item.balance }}</div>
+            <div>{{ convertToken(row.item.balance, this.decimal) }}</div>
           </td>
           <td class="firstused" v-if="row.item.tokenlist">
             {{ convertTime(row.item.tokenlist[0]["time"]) }}
@@ -95,6 +95,7 @@ export default {
       type: String,
     },
     contractHash: String,
+    decimal: Number,
   },
   components: {
     Loading
@@ -163,6 +164,9 @@ export default {
     },
     convertTime(ts){
       return format(ts);
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
     },
     getAddress(accountAddress) {
       this.$router.push({

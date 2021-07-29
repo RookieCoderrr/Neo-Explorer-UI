@@ -45,7 +45,7 @@
             </div>
           </td>
           <td class="Value">
-            {{row.item.value}}
+            {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="time">
             {{ convertTime(row.item.time) }}
@@ -87,8 +87,8 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 
 
@@ -99,6 +99,7 @@ export default {
       type: String,
     },
     contractHash: String,
+    decimal: Number,
   },
   components: {
     Loading
@@ -121,9 +122,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -133,17 +134,15 @@ export default {
       if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getBlockList(skip);
-      }else if(pageNumber <= 0){
+      } else if(pageNumber <= 0){
         this.isLoading = true;
         this.pagination = 1;
         const skip =
                 this.resultsPerPage;
         this.getTokenList(skip);
-      }
-      else {
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -162,6 +161,9 @@ export default {
     },
     convertTime(ts) {
       return format(ts);
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
     },
     getTokenList(skip) {
       axios({
