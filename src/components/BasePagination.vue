@@ -1,10 +1,8 @@
 <template>
-
   <ul
     class="pagination"
     :class="[size && `pagination-${size}`, align && `justify-content-${align}`]"
   >
-
     <li class="page-item prev-page" :class="{ disabled: value === 1 }">
       <a class="page-link" aria-label="Previous" @click="prevPage">
         <span aria-hidden="true"
@@ -110,7 +108,7 @@ export default {
   data() {
     return {
       defaultPagesToDisplay: 5,
-      number:"",
+      number: "",
     };
   },
 

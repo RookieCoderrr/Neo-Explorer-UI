@@ -112,7 +112,6 @@
               </div>
             </div>
           </td>
-
         </template>
       </base-table>
     </div>
@@ -184,28 +183,29 @@ export default {
     };
   },
   created() {
-    this.getTokenList()
-
+    this.getTokenList();
   },
-  methods:{
-    getTokenList(){
+  methods: {
+    getTokenList() {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"Limit":10,"Skip":0},
-          "method": "GetTokenList"
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Limit: 10, Skip: 0 },
+          method: "GetTokenList",
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
-      }).then((res)=>{
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
         this.tokenList = res;
       });
     },
-
-  }
+  },
 };
 </script>
 <style></style>

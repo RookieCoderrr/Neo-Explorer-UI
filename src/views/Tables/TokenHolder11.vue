@@ -29,13 +29,13 @@
           <th scope="row" >
             <div class="media align-items-center">
               <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address}}</a>
               </div>
             </div>
           </th>
 
           <td class="balance">
-            <div>{{ row.item.balance }}</div>
+            <div>{{ convertToken(row.item.balance, this.decimal) }}</div>
           </td>
           <td class="firstused" v-if="row.item.tokenlist">
             {{ convertTime(row.item.tokenlist[0]["time"]) }}
@@ -61,6 +61,20 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+          parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -81,6 +95,7 @@ export default {
       type: String,
     },
     contractHash: String,
+    decimal: Number,
   },
   components: {
     Loading
@@ -92,30 +107,67 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      firstTime: true,
     };
   },
   created() {
     this.getTokenList(0);
   },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
+  },
   methods: {
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.isLoading = true;
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getBlockList(skip);
+      }else if(pageNumber <= 0){
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip =
+                this.resultsPerPage;
+        this.getTokenList(skip);
+      }
+      else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTokenList(skip);
+      }
+    },
     toPercentage(num) {
       let s = Number(num * 100).toFixed(4);
       s += "%";
       return s;
     },
     pageChange(pageNumber) {
-      if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTokenList(skip);
-      } else {
-        this.firstTime = false;
-      }
+
     },
     convertTime(ts){
       return format(ts);
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
     getTokenList(skip) {
       axios({

@@ -1,7 +1,10 @@
-
-<template >
-  <div  v-show = "this.length != 0">
-    <div  v-show = "this.length != 0" class="card shadow"  :class="type === 'dark' ? 'bg-default' : ''">
+<template>
+  <div v-show="this.length != 0">
+    <div
+      v-show="this.length != 0"
+      class="card shadow"
+      :class="type === 'dark' ? 'bg-default' : ''"
+    >
       <div
         class="card-header border-0"
         :class="type === 'dark' ? 'bg-transparent' : ''"
@@ -22,7 +25,6 @@
           :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
           tbody-classes="list"
           :data="tableData"
-
         >
           <template v-slot:columns>
             <th>Contract</th>
@@ -38,10 +40,13 @@
           <template v-slot:default="row">
             <td class="budget">
               <div class="contract" @mouseover="mouseHover(row.item.contract)">
-                <a  class="name mb-0 text-sm"
-                    style="cursor: pointer"  @click="getContract(row.item.contract)">{{ row.item.contract}}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getContract(row.item.contract)"
+                  >{{ row.item.contract }}</a
+                >
               </div>
-
             </td>
             <td class="budget">
               <div class="from">
@@ -50,28 +55,37 @@
             </td>
             <td class="budget">
               <div class="from">
-                <a  class="name mb-0 text-sm"
-                    style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from === null ? "Null Address" : row.item.from}}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAccount(row.item.from)"
+                  >{{
+                    row.item.from === null ? "Null Address" : row.item.from
+                  }}</a
+                >
               </div>
             </td>
             <td class="budget">
-              {{ convertToken(row.item.frombalance,row.item.decimals) }}
+              {{ convertToken(row.item.frombalance, row.item.decimals) }}
             </td>
             <td class="budget">
               <div class="to">
-                <a  class="name mb-0 text-sm"
-                    style="cursor: pointer"  @click="getAccount(row.item.to)">{{ row.item.to }}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAccount(row.item.to)"
+                  >{{ row.item.to }}</a
+                >
               </div>
             </td>
 
             <td class="budget">
-              {{ convertToken(row.item.tobalance,row.item.decimals) }}
+              {{ convertToken(row.item.tobalance, row.item.decimals) }}
             </td>
 
             <td class="budget">
-              {{ convertToken(row.item.value,row.item.decimals) }}
+              {{ convertToken(row.item.value, row.item.decimals) }}
             </td>
-
           </template>
         </base-table>
       </div>
@@ -79,15 +93,12 @@
       <div
         class="card-footer d-flex justify-content-end"
         :class="type === 'dark' ? 'bg-transparent' : ''"
-
-      >
-      </div>
+      ></div>
     </div>
   </div>
-
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
   name: "transfers-list",
   props: {
@@ -95,7 +106,7 @@ export default {
       type: String,
     },
     title: String,
-    txhash:String,
+    txhash: String,
   },
   data() {
     return {
@@ -104,10 +115,10 @@ export default {
     };
   },
   created() {
-    this.getNep17TransferByTransactionHash(this.txhash)
+    this.getNep17TransferByTransactionHash(this.txhash);
     // this.hasContent(this.length)
   },
-  methods:{
+  methods: {
     // hasContent(length){
     //   var t = document.getElementById("isHidden")
     //   console.log(t)
@@ -118,50 +129,51 @@ export default {
     //     t.style.display = 'block';	// 以块级样式显示
     //   }
     // },
-    convertToken(token,decimal) {
-      var temp = token * Math.pow(0.1,decimal)
+    convertToken(token, decimal) {
+      var temp = token * Math.pow(0.1, decimal);
       if (temp % 1 === 0) {
-        return temp
+        return temp;
       } else {
-        return (token * Math.pow(0.1,decimal)).toFixed(2)
+        return (token * Math.pow(0.1, decimal)).toFixed(2);
       }
     },
-    mouseHover(contract){
+    mouseHover(contract) {
       var a = document.getElementById("contract");
-      a.addEventListener("mouseover",function (event){
-        event.target.style.display= contract;
-      })
+      a.addEventListener("mouseover", function (event) {
+        event.target.style.display = contract;
+      });
     },
-    getContract(ctrHash){
+    getContract(ctrHash) {
       this.$router.push({
-          path: `/contractinfo/${ctrHash}`,
-      })
+        path: `/contractinfo/${ctrHash}`,
+      });
     },
-    getAccount(accHash){
+    getAccount(accHash) {
       this.$router.push({
         path: `/accountprofile/${accHash}`,
-      })
+      });
     },
-    getNep17TransferByTransactionHash(txhash){
+    getNep17TransferByTransactionHash(txhash) {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"TransactionHash":txhash},
-          "method": "GetNep17TransferByTransactionHash"
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: txhash },
+          method: "GetNep17TransferByTransactionHash",
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
-      }).then((res)=> {
-        this.tableData = res["data"]["result"]["result"]
-        this.length = this.tableData["length"]
-        console.log(this.tableData)
-        console.log(this.length)
-      })
-    }
-  }
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.tableData = res["data"]["result"]["result"];
+        this.length = this.tableData["length"];
+      });
+    },
+  },
 };
 </script>
 <style>

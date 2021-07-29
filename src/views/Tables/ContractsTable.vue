@@ -36,7 +36,7 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row">
+          <th scope="row" v-if="row.item">
             <div class="media align-items-center">
               <div class="media-body" >
                 <a class="name mb-0 text-sm" style="cursor: pointer" @click="getContract(row.item.hash)">{{ row.item.hash }}</a>
@@ -63,6 +63,20 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+          parseInt(this.totalCount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -95,25 +109,53 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      firstTime: true,
     };
   },
   created() {
     this.getContractList(0);
   },
-  methods: {
-    convertTime(ts) {
-      return format(ts);
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
     },
-    pageChange(pageNumber) {
-      if (!this.firstTime) {
+  },
+  methods: {
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.isLoading = true;
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip =
+                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getContractList(skip);
+      }else if(pageNumber <= 0){
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip =
+                this.resultsPerPage;
+        this.getContractList(skip);
+      }
+      else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getContractList(skip);
-      } else {
-        this.firstTime = false;
       }
+    },
+    convertTime(ts) {
+      return format(ts);
+    },
+    pageChange(pageNumber) {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getContractList(skip);
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
@@ -134,7 +176,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.contractList = res["data"]["result"];
+        // console.log(["data"]["result"])
+        this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });

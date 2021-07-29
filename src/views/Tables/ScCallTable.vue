@@ -1,18 +1,5 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
-          </h3>
-        </div>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -24,46 +11,49 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="tableData"
+        :data="ScCallList"
       >
         <template v-slot:columns>
-          <th>Transaction ID</th>
-          <th>Block Height</th>
-          <th>Size</th>
+          <th>Txid</th>
+          <th>Sender</th>
+          <th>Method</th>
+          <th>Call Flags</th>
           <th>Time</th>
-          <th>GAS Consumed</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">
-          <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getTransaction(row.item.hash)"
-                >{{ row.item.hash }}</a
-              >
+          <th scope="row">
+            <div class="media align-items-center">
+              <div class="media-body txid">
+                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+              </div>
             </div>
-          </td>
-          <td class="budget">
-            {{ row.item.blockIndex }}
-          </td>
-          <td class="budget">{{ row.item.size }} bytes</td>
-          <td class="budget">
-            {{ this.convertTime(row.item.blocktime) }}
-          </td>
+          </th>
+          <td class="Sender">
+            <div class="addr">
+              <span class="text-muted" v-if="row.item.originSender === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ row.item.originSender }}</a>
+            </div>
 
-          <td class="budget">
-            {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
+          </td>
+          <td class="Method">
+            {{ row.item.method }}
+          </td>
+          <td class="Call Flags">
+            {{ row.item.callFlags }}
+          </td>
+          <td class="time">
+            Currently Unavailable
+<!--            //{{ convertTime(row.item.time) }}-->
           </td>
         </template>
       </base-table>
     </div>
 
     <div
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
@@ -89,38 +79,38 @@
 </template>
 <script>
 import axios from "axios";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import { format } from "timeago.js";
+
 export default {
-  name: "transactions-table",
+  name: "sc-call-table",
   props: {
     type: {
       type: String,
     },
-    title: String,
+    contractHash: String,
   },
   components: {
     Loading,
   },
   data() {
     return {
-      tableData: [],
+      ScCallList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
-      placeHolder: 0,
       isLoading: true,
     };
   },
-
   created() {
-    this.getTransactionList(0);
+    this.getScCallList(0);
+    console.log(this.decimal);
   },
   computed: {
     text() {
       return function (value) {
-        let inputLength = value.toString().length * 10 + 50;
+        let inputLength = value.toString().length * 10 + 30;
         return (
           "width: " +
           inputLength +
@@ -130,58 +120,43 @@ export default {
     },
   },
   methods: {
-    mouseHover(txid) {
-      var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {};
-      a.style.display = txid;
-    },
-    convertGas(gas) {
-      if (gas === 0) {
-        return 0;
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+        this.isLoading = true;
+        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        this.getScCallList(skip);
+      } else if(pageNumber <= 0){
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip =
+            this.resultsPerPage;
+        this.getScCallList(skip);
+      } else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getScCallList(skip);
       }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
-
-    convertTime(time) {
-      return format(time);
-    },
-    getTransaction(txhash) {
-      this.$router.push({
-        path: `/transactionInfo/${txhash}`,
-      });
     },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
+      this.getScCallList(skip);
     },
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else if (pageNumber <= 0) {
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else {
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      }
+    convertTime(ts) {
+      return format(ts);
     },
-
-    getTransactionList(skip) {
+    getScCallList(skip) {
       axios({
         method: "post",
         url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTransactionList",
+          params: { ContractHash: this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetScCallByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -189,16 +164,35 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
-        this.tableData = res["data"]["result"]["result"];
+        this.ScCallList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.isLoading = false;
       });
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
     },
   },
 };
 </script>
 <style>
 .txid {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.addr {
   width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
