@@ -1,13 +1,9 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
-    export default {
-        name: "BlockInfo"
-    }
+export default {
+  name: "BlockInfo",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

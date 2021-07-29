@@ -107,7 +107,6 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      firstTime: true,
     };
   },
   created() {
@@ -153,14 +152,11 @@ export default {
       return s;
     },
     pageChange(pageNumber) {
-      if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTokenList(skip);
-      } else {
-        this.firstTime = false;
-      }
+
     },
     convertTime(ts){
       return format(ts);

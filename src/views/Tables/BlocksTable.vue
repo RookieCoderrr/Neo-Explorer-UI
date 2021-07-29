@@ -112,7 +112,6 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      firstTime: true,
       placeHolder: 0,
     };
   },
@@ -154,14 +153,10 @@ export default {
       }
     },
     pageChange(pageNumber) {
-      if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getBlockList(skip);
-      } else {
-        this.firstTime = false;
-      }
     },
     getBlockList(skip) {
       axios({
