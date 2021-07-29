@@ -1,18 +1,25 @@
 <template>
-  <div class="search-content">
-    <div class="search">
-      <input
-        type="text"
-        class="over-ellipsis"
-        :placeholder="'Block Height, Hash, Address or Transaction id'"
-        v-model="searchVal"
-        autocomplete="off"
-        @keyup.enter="search()"
-      /><button class="button" @click="search()">
-        <img class="img" src="../assets/search.png" alt="search" />
-      </button>
+  <section class="page-content">
+    <div class="search-content">
+      <div class="h2 font-weight-bold mb-0">
+        {{ 'Sorry, Your search height, hash, address or transaction id does not exist.' }}
+      </div>
+      <div class="row mt-3"></div>
+      <div class="h2 font-weight-bold mb-0">{{ 'Try going back to where you were or heading to the home page.' }}</div>
+      <div class="row mt-3"></div>
+      <div class="search">
+        <input
+            type="text"
+            class="over-ellipsis"
+            :placeholder="'Block Height, Hash, Address or Transaction id'"
+            v-model ="searchVal"
+            autocomplete="off"
+            @keyup.enter="search()"
+        /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
+      </div>
     </div>
-  </div>
+  </section>
+
 </template>
 
 <script>
@@ -21,68 +28,85 @@ export default {
   name: "Home",
   data() {
     return {
-      searchVal: "",
+      searchVal: '',
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
-      isAssetPattern: /^([0-9a-f]{40})$/,
-      isAddressPattern: /^A([0-9a-zA-Z]{33})$/,
+      isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
+      // isAddressPattern: /^A([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-    };
+      count256:0,
+      count160:0,
+
+    }
   },
   methods: {
     search() {
       var value = this.searchVal;
       // const inputValue = this.searchVal;
       value = value.trim();
-      if (value === "") {
+      if (value === '') {
         return;
       }
-      this.searchVal = "";
+      this.searchVal = '';
       if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
-          value = "0x" + value;
-          console.log(value);
+          value = '0x' + value;
+          console.log(value)
         }
-        this.getTransactionByTransactionHash(value);
-      } else if (this.isAssetPattern.test(value)) {
-        this.getAssetInfoByContractHash(value);
-      } else if (this.isAddressPattern.test(value)) {
-        this.getAddressByAddress(value);
-      } else if (Number(value[0]) >= 0) {
-        value = value.replace(/[,，]/g, "");
+          this.getTransactionByTransactionHash(value)
+        if (this.count256 === 1) {
+          this.getBlockByBlockHash(value)
+        }
+
+
+      }
+
+      else if (this.isAssetPattern.test(value)) {
+        if (value.length === 40) {
+          value = '0x' + value;
+          console.log(value)
+        }
+        this.getToken(value)
+        console.log(this.count160)
+        if (this.count160 === 1) {
+          this.getContractInfoByContractHash(value)
+          console.log(this.count160)
+        }
+        if (this.count160 === 2) {
+          this.getAddressByAddress(value)
+          console.log(this.count160)
+        }
+      }
+      else if (Number(value[0]) >= 0){
+        value = value.replace(/[,，]/g, '');
         if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
           if (Number.isInteger(Number(value))) {
-            this.getBlockByBlockHash(value);
+            this.getBlockByBlockHeight(value)
           }
-        } else {
+        }
+        else {
           this.$router.push({
-            path: `/profile`,
+            path: `/search`,
           });
         }
-      } else {
+      }
+      else {
         this.$router.push({
-          path: `/profile`,
+          path: `/search`,
         });
       }
     },
-    getBlockByBlockHash(blockheight) {
-      console.log(blockheight);
+    getBlockByBlockHash(block_hash) {
+      console.log(block_hash)
     },
-    getAddressByAddress(addr) {
-      console.log(addr);
-    },
-    getAssetInfoByContractHash(ass_id) {
-      console.log(ass_id);
-    },
-
-    getTransactionByTransactionHash(tx_id) {
+    getBlockByBlockHeight(blockheight){
       axios({
         method: "post",
         url: "/api",
         data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { TransactionHash: tx_id },
-          method: "GetRawTransactionByTransactionHash",
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHeight":blockheight},
+          "method": "GetBlockByBlockHeight"
         },
         headers: {
           "Content-Type": "application/json",
@@ -90,21 +114,137 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        if (res["data"]["error"] == null) {
+          if (res["data"]["error"] ==null) {
+              this.$router.push({
+                path: `/blockinfo/${blockheight}`,
+              });
+              console.log(res.status)
+           }
+          else {
+            this.$router.push({
+              path: `/search`,
+            });
+          }
+        },
+      )},
+    getAddressByAddress(addr){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAddressByAddress",
+          params: {"Address": addr},
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      })
+          .then((res) => {
+            if (res["data"]["error"] ==null) {
+              this.$router.push({
+                path: `/accountprofile/${addr}`,
+              });
+              console.log(res.status)
+            }
+            else {
+              this.$router.push({
+                path: `/search`,
+              });
+            }
+          })
+    },
+    getToken(token_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {"ContractHash": token_id},
+          method: "GetAssetInfoByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        if (res["data"]["error"] ==null) {
+          this.$router.push({
+            path: `/tokeninfo/${token_id}`,
+          });
+          console.log(res.status)
+        }
+        else {
+          this.count160 +=1;
+          console.log(res["data"]["error"])
+        }
+      });
+    },
+    getContractInfoByContractHash(contract_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {"Hash": contract_id},
+          method: "GetContractInfoByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        if (res["data"]["error"] ==null) {
+          this.$router.push({
+            path: `/contractinfo/${contract_id}`,
+          });
+          console.log(res.status)
+        }
+        else {
+          this.count160 +=1
+          console.log(res["data"]["error"])
+        }
+
+      });
+    },
+
+    getTransactionByTransactionHash(tx_id){
+      axios({
+        method:'post',
+        url:'/api',
+        data:{
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"TransactionHash":tx_id},
+          "method": "GetRawTransactionByTransactionHash"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res) => {
+        if (res["data"]["error"] ==null) {
           this.$router.push({
             path: `/transactionInfo/${tx_id}`,
           });
-          console.log(res.status);
-        } else {
-          this.$router.push({
-            path: `/profile`,
-          });
-          console.log(res.status);
+            console.log(res.status)
+          }
+        else {
+          // this.$router.push({
+          //   path: `/profile`,
+          // });
+          this.count256 += 1
+          console.log(res["data"]["error"])
         }
       });
     },
   },
-};
+}
 </script>
 <style>
 .search-content {
@@ -156,4 +296,5 @@ export default {
   border-radius: 4px;
   color: #282828;
 }
+
 </style>
