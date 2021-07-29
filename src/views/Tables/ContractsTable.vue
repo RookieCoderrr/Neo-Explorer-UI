@@ -5,10 +5,23 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
-        <div class="col">
+        <div class="col-8">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
             {{ title }}
           </h3>
+        </div>
+        <div class="col-4">
+          <div class="search">
+            <input
+              type="text"
+              class="over-ellipsis"
+              :placeholder="'Search by Contract Name'"
+              v-model="searchVal"
+              autocomplete="off"
+              @keyup.enter="search()"
+            /><button class="button" @click="search()">
+            <img class="img" src="../../assets/search.png" alt="search" /></button>
+          </div>
         </div>
       </div>
     </div>
@@ -109,6 +122,8 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
+      searchVal: "",
+      name: "",
     };
   },
   created() {
@@ -119,9 +134,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -152,10 +167,13 @@ export default {
       return format(ts);
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getContractList(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      if (this.name !== "") {
+        this.getContractListByName(name, skip);
+      }
+      this.getContractList(skip);
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
@@ -181,6 +199,39 @@ export default {
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
+    },
+    getContractListByName(name, skip) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetContractListByName",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.contractList = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+        this.isLoading = false;
+      });
+    },
+    search() {
+      this.isLoading = true;
+      let value = this.searchVal;
+      // const inputValue = this.searchVal;
+      value = value.trim();
+      if (value === "") {
+        return;
+      }
+      this.name = value;
+      this.searchVal = "";
+      this.getContractListByName(value, 0);
     },
   },
 };

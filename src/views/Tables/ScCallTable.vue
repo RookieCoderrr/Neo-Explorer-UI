@@ -105,7 +105,6 @@ export default {
   },
   created() {
     this.getScCallList(0);
-    console.log(this.decimal);
   },
   computed: {
     text() {
