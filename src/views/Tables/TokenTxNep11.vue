@@ -27,7 +27,8 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <a class="name mb-0 text-sm " style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+                <span class="text-muted" v-if="row.item.txid === 0">Null Transaction</span>
+                <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
