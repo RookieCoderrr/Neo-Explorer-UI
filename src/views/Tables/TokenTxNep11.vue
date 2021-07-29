@@ -27,7 +27,8 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <a class="name mb-0 text-sm " style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+                <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
@@ -109,6 +110,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
+      firstTime: true,
     };
   },
   created() {
@@ -149,11 +151,14 @@ export default {
       }
     },
     pageChange(pageNumber) {
+      if (!this.firstTime) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTokenList(skip);
-
+      } else {
+        this.firstTime = false;
+      }
     },
     convertTime(ts) {
       return format(ts);
