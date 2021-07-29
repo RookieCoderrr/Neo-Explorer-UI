@@ -152,12 +152,10 @@ export default {
       return format(ts);
     },
     pageChange(pageNumber) {
-
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getContractList(skip);
-
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
