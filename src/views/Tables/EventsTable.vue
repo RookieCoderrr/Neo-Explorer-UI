@@ -37,7 +37,8 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.txid }}</a>
+                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
@@ -158,6 +159,11 @@ export default {
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
     },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
     getContractList(skip) {
       axios({
         method: "post",
@@ -174,7 +180,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.contractList = res["data"]["result"]['result'];
+        this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
