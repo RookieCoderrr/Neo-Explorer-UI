@@ -34,6 +34,12 @@
         <!-- Navbar items -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/homepage">
+              <i class="ni ni-collection"></i>
+              <span class="nav-link-inner--text">Home</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/candidates">
               <i class="ni ni-badge"></i>
               <span class="nav-link-inner--text">Committee</span>

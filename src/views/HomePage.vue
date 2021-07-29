@@ -1,11 +1,6 @@
 <template>
   <section class="page-content">
     <div class="search-content">
-      <div class="h2 font-weight-bold mb-0">
-        {{ 'Sorry, Your search height, hash, address or transaction id does not exist.' }}
-      </div>
-      <div class="row mt-3"></div>
-      <div class="h2 font-weight-bold mb-0">{{ 'Try going back to where you were or heading to the home page.' }}</div>
       <div class="row mt-3"></div>
       <div class="search">
         <input

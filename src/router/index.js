@@ -15,6 +15,7 @@ import Tokens from "../views/Tokens.vue";
 import Blocks from "../views/Blocks.vue";
 import Test from "../views/test.vue";
 import Search from "../views/Search";
+import HomePage from "../views/HomePage";
 
 import TransactionInfo from "../views/TransactionInfo.vue";
 
@@ -81,6 +82,11 @@ const routes = [
         path: "/Transactions",
         name: "transactions",
         components: { default: TransactionList },
+      },
+      {
+        path: "/homepage",
+        name: "homepage",
+        components: { default: HomePage },
       },
       {
         path: "/transactionInfo/:txhash",
