@@ -175,9 +175,7 @@ export default {
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
           this.getBalance();
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1500);
+          this.isLoading = false;
         })
         .catch((err) => {
           console.log("Error", err);

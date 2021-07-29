@@ -41,7 +41,7 @@
                   <div class="text-muted">NEP17 Transfers:</div>
                 </div>
                 <div class="col-3">
-                  <h3>{{ this.numOfTransfers }}</h3>
+                  <h3>{{ this.numOfnep17Transfers }}</h3>
                 </div>
               </div>
               <div class="row mt-5"></div>
@@ -50,13 +50,13 @@
                   <div class="text-muted">Type:</div>
                 </div>
                 <div class="col-3">
-                  <h3>{{}}</h3>
+                  <h3>{{ this.type }}</h3>
                 </div>
                 <div class="col-2">
                   <div class="text-muted">NEP11 Transfers:</div>
                 </div>
                 <div class="col-3">
-                  <h3>{{}}</h3>
+                  <h3>{{ this.numOlnep11Transfers }}</h3>
                 </div>
               </div>
               <div class="row mt-5"></div>
@@ -143,7 +143,9 @@ export default {
       isLoading: true,
       createdTime: "",
       numOfTxns: 0,
-      numOfTransfers: 0,
+      numOfnep17Transfers: 0,
+      numOlnep11Transfers: 0,
+      type: "normal",
     };
   },
   components: {
@@ -162,6 +164,7 @@ export default {
     this.getTransactions();
     this.getCreatedTime();
     this.getTransfers();
+    this.getCandidateByAddress();
   },
   methods: {
     getNeoBalance() {
@@ -269,7 +272,83 @@ export default {
           console.log("Get created time failed, Error", err);
         });
     },
-    getTransfers() {},
+    getTransfers() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.accountAddress,
+          },
+          method: "GetNep17TransferByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
+      }).catch((err) => {
+        console.log("Get nep 17 transfers error: ", err)
+      });
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.accountAddress,
+          },
+          method: "GetNep11TransferByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
+      }).catch((err) => {
+        console.log("Get nep 11 transfers error: ", err)
+      });
+    },
+    getCandidateByAddress() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.accountAddress,
+          },
+          method: "GetCandidateByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        console.log(res)
+        this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
+        if(res["data"]["result"] == null) {
+          this.type = "null"
+        }
+        else if(res["data"]["result"]["isCommittee"] == true) {
+          this.type = "Committee"
+        }
+        else {
+          this.type = "Candidate"
+        }
+      }).catch((err) => {
+        console.log("Get nep 11 transfers error: ", err)
+      });
+    },
   },
 };
 </script>

@@ -58,10 +58,10 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-            type="number"
-            :style="text(pagination)"
-            :placeholder="pagination"
-            v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{
@@ -70,9 +70,9 @@
         </div>
       </div>
       <base-pagination
-          :total="this.totalCount"
-          :value="pagination"
-          v-on:input="pageChange($event)"
+        :total="this.totalCount"
+        :value="pagination"
+        v-on:input="pageChange($event)"
       ></base-pagination>
     </div>
   </div>

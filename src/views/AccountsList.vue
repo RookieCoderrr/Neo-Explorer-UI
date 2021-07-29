@@ -14,21 +14,6 @@ export default {
   components: {
     AccountsTable,
   },
-  data() {
-    return {
-      model: {
-        username: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        city: "",
-        country: "",
-        zipCode: "",
-        about: "",
-      },
-    };
-  },
 };
 </script>
 <style></style>

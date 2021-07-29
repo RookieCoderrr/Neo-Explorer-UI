@@ -57,7 +57,7 @@
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Recent ScCalls">
+                <tab-pane icon="ni ni-folder-17" title="Recent ScCalls">
                   <div v-if="!this.isLoading">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
