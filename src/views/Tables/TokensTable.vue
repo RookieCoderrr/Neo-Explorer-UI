@@ -38,8 +38,13 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
+              <div class="media-body">
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getToken(row.item.hash)"
+                  >{{ row.item.hash }}</a
+                >
               </div>
             </div>
           </th>
@@ -50,7 +55,11 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
+            <badge
+              v-if="row.item.standard === 'NEP17'"
+              class="badge-dot mr-4"
+              type="primary"
+            >
               <span class="">{{ row.item.standard }}</span>
             </badge>
             <badge v-else class="badge-dot mr-4" type="success">
@@ -71,14 +80,14 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{
-          parseInt(this.totalCount / this.resultsPerPage) + 1
+            parseInt(this.totalCount / this.resultsPerPage) + 1
           }}
         </div>
       </div>
@@ -99,12 +108,12 @@ export default {
   name: "tokens-table",
   props: {
     type: {
-        type: String,
-      },
+      type: String,
+    },
     title: String,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -123,9 +132,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -136,16 +145,14 @@ export default {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
         const skip =
-                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getBlockList(skip);
-      }else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getTokenList(skip);
-      }
-      else {
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -153,11 +160,10 @@ export default {
       }
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
-
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getTokenList(skip);
     },
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);

@@ -6,6 +6,7 @@ import AuthLayout from "@/layout/AuthLayout";
 import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import TokenInfo from "../views/TokenInfo.vue";
+import BlockInfo from "../views/BlockInfo.vue";
 import CandiateList from "../views/CandiateList.vue";
 import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
@@ -46,6 +47,11 @@ const routes = [
         path: "/tokeninfo/:hash",
         name: "tokeninfo",
         components: { default: TokenInfo },
+      },
+      {
+        path: "/blockinfo/:hash",
+        name: "blockinfo",
+        components: { default: BlockInfo },
       },
       {
         path: "/contracts",
