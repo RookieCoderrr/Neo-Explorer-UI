@@ -14,6 +14,11 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
+      ></loading>
       <base-table id ="myTable"
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -24,7 +29,7 @@
       >
         <template v-slot:columns>
           <th>Account</th>
-          <th>Committee</th>
+
           <th>Ranking</th>
           <th>Votes</th>
           <th>Percentage</th>
@@ -35,13 +40,11 @@
           <td class="budget">
             <div class="address"   >
               <a  class="name mb-0 text-sm"
-                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate }}</a>
+                  style="cursor: pointer" @click="getAddress(row.item.candidate)">{{ row.item.candidate}}  {{row.item.isCommittee ? "✅": ""}}</a>
             </div>
 
           </td>
-          <td class="budget">
-            {{ row.item.isCommittee}}
-          </td>
+
           <td class="budget">
             {{ row.index + 1 + this.count}}
           </td>
@@ -59,26 +62,16 @@
     <div
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
-    >      <div style="margin-right: 10px; width: 250px" class="row">
-      <div class="text">Page &nbsp;</div>
-      <base-input
-              type="number"
-              :style="text(pagination)"
-              :placeholder="pagination"
-              v-on:changeinput="pageChangeByInput($event)"
-      ></base-input>
-      <div class="text">
-        &nbsp; of &nbsp;{{
-        parseInt(this.totalCount / this.resultsPerPage) + 1
-        }}
-      </div>
-    </div>
+    >
       <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   name: "candidates-table",
   props: {
@@ -87,6 +80,9 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
@@ -94,7 +90,8 @@ export default {
       resultsPerPage: 10,
       pagination : 1,
       skip:0,
-      count:0
+      count:0,
+      isLoading: true,
     };
   },
   // computed:{
@@ -107,46 +104,16 @@ export default {
     this.getCandidateList(0)
 
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-  },
-  methods: {
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
-        this.isLoading = true;
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
-        this.getCandidateList(skip);
-      }else if(pageNumber <= 0){
-        this.isLoading = true;
-        this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
-        this.getCandidateList(skip);
-      }
-      else {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getCandidateList(skip);
-      }
-    },
-    getAddress(addr) {
+
+    methods:{
+
+    getAddress(accountAddress) {
       this.$router.push({
-        path: `/contractinfo/${addr}`,
+        path: `/accountprofile/${accountAddress}`,
       })
     },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       this.skip = (pageNumber - 1) * this.resultsPerPage;
       this.getCandidateList(this.skip);
@@ -166,11 +133,10 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-        // console.log(res.data)
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.count = this.skip
-        // console.log("成功")
+        this.count = this.skip;
       });
     }
   }
@@ -180,7 +146,7 @@ export default {
 .address {
   width: 200px !important;
   white-space: nowrap;
-  overflow: hidden;
+  /*overflow: hidden;*/
   text-overflow: ellipsis;
 }
 </style>

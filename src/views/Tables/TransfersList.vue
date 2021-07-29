@@ -51,7 +51,7 @@
             <td class="budget">
               <div class="from">
                 <a  class="name mb-0 text-sm"
-                    style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}</a>
+                    style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from === null ? "Null Address" : row.item.from}}</a>
               </div>
             </td>
             <td class="budget">

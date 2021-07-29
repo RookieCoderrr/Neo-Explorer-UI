@@ -14,6 +14,11 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+              :is-full-page="false"
+              :opacity="0.9"
+              :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -23,11 +28,11 @@
 
       >
         <template v-slot:columns>
-          <th>交易ID</th>
-          <th>区块高度</th>
-          <th>大小</th>
-          <th>时间</th>
-          <th>花费的GAS</th>
+          <th>Transaction ID</th>
+          <th>Block Height</th>
+          <th>Size</th>
+          <th>Time</th>
+          <th>GAS Consumed</th>
           <th></th>
         </template>
 
@@ -82,6 +87,8 @@
 <script>
 import axios from "axios"
 import { format } from "timeago.js";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "transactions-table",
   props: {
@@ -90,6 +97,9 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
@@ -97,7 +107,7 @@ export default {
       resultsPerPage: 10,
       pagination : 1,
       placeHolder: 0,
-
+      isLoading: true,
     };
   },
 
@@ -125,7 +135,7 @@ export default {
       a.style.display = txid
     },
     convertGas(gas) {
-      if (gas == 0) {
+      if (gas === 0) {
         return  0
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
@@ -140,6 +150,7 @@ export default {
       })
     },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
@@ -152,8 +163,7 @@ export default {
         this.getTransactionList(skip);
       }else if(pageNumber <= 0){
         this.pagination = 1;
-        const skip =
-          this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getTransactionList(skip);
       }
       else {
@@ -177,11 +187,10 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res)=>{
-
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        //
-        // console.log("成功")
+
       });
     }
   }
