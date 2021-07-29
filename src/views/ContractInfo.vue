@@ -12,7 +12,7 @@
               ></loading>
               <div class="card-header bg-transparent">
                 <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
-                <h4 class="text-muted">{{this.contract_info["hash"]}}</h4>
+                <h4 class="text-muted">{{ this.contract_info["hash"] }}</h4>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -23,25 +23,33 @@
                   <div class="col-2">
                     <div class="text-muted">Created</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["createtime"] }}</h3></div>
+                  <div class="col-3">
+                    <h3>{{ this.contract_info["createtime"] }}</h3>
+                  </div>
                 </div>
                 <div class="row mt-5"></div>
                 <div class="row">
                   <div class="col-2">
                     <div class="text-muted">Updates</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["updatecounter"] }}</h3></div>
+                  <div class="col-3">
+                    <h3>{{ this.contract_info["updatecounter"] }}</h3>
+                  </div>
                   <div class="col-2">
                     <div class="text-muted">ID</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["id"] }}</h3></div>
+                  <div class="col-3">
+                    <h3>{{ this.contract_info["id"] }}</h3>
+                  </div>
                 </div>
                 <div class="row mt-5"></div>
                 <div class="row">
                   <div class="col-2">
                     <div class="text-muted">Compiler</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.nef["compiler"] }}</h3></div>
+                  <div class="col-3">
+                    <h3>{{ this.nef["compiler"] }}</h3>
+                  </div>
                   <div class="col-2">
                     <div class="text-muted">Transactions</div>
                   </div>
@@ -61,69 +69,85 @@
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
-                            Email : {{this.manifest.extra['Email']}}
+                            Email : {{ this.manifest.extra["Email"] }}
                           </div>
                           <div class="col-auto">
-                            Author : {{this.manifest.extra['Author']}}
+                            Author : {{ this.manifest.extra["Author"] }}
                           </div>
                           <div class="col-auto">
-                            Description : {{this.manifest.extra['Description']}}
+                            Description :
+                            {{ this.manifest.extra["Description"] }}
                           </div>
                         </div>
                       </card>
                     </div>
                     <div class="abi" v-if="this.manifest.abi">
-                      <div class="events" v-if="this.manifest.abi.events.length!==0">
+                      <div
+                        class="events"
+                        v-if="this.manifest.abi.events.length !== 0"
+                      >
                         <h3 class="mt-2">Events</h3>
-                        <card shadow  v-for="(item, index) in this.manifest['abi']['events']" :key="index">
-                          <h3 class="method-name">{{item['name']}}</h3>
+                        <card
+                          shadow
+                          v-for="(item, index) in this.manifest['abi'][
+                            'events'
+                          ]"
+                          :key="index"
+                        >
+                          <h3 class="method-name">{{ item["name"] }}</h3>
                           <div class="row">
                             <div class="col">
                               <div class="params">
                                 <div class="text-muted">parameters:</div>
                                 <div v-if="item['parameters'].length !== 0">
-                                  <li v-for="(param, ind) in item['parameters']" :key="ind">
-                                    {{param['name']}}: {{param['type']}}
+                                  <li
+                                    v-for="(param, ind) in item['parameters']"
+                                    :key="ind"
+                                  >
+                                    {{ param["name"] }}: {{ param["type"] }}
                                   </li>
                                 </div>
-                                <div v-else>
-                                  null
-                                </div>
+                                <div v-else>null</div>
                               </div>
                             </div>
                           </div>
-                      </card>
+                        </card>
                       </div>
                       <h3 class="mt-2">Methods</h3>
-                      <card shadow  v-for="(item, index) in this.manifest['abi']['methods']" :key="index">
-                        <h3 class="method-name">{{item['name']}}</h3>
+                      <card
+                        shadow
+                        v-for="(item, index) in this.manifest['abi']['methods']"
+                        :key="index"
+                      >
+                        <h3 class="method-name">{{ item["name"] }}</h3>
                         <div class="row">
                           <div class="col">
                             <div class="params">
                               <div class="text-muted">parameters:</div>
                               <div v-if="item['parameters'].length !== 0">
-                                <li v-for="(param, ind) in item['parameters']" :key="ind">
-                                  {{param['name']}}: {{param['type']}}
+                                <li
+                                  v-for="(param, ind) in item['parameters']"
+                                  :key="ind"
+                                >
+                                  {{ param["name"] }}: {{ param["type"] }}
                                 </li>
                               </div>
-                              <div v-else>
-                                null
-                              </div>
+                              <div v-else>null</div>
                             </div>
                           </div>
                           <div class="col">
                             <div class="return">
                               <div class="text-muted">return type:</div>
-                              {{item['returntype']}}
+                              {{ item["returntype"] }}
                             </div>
                           </div>
                           <div class="col">
                             <div class="text-muted">offset:</div>
-                            {{item['offset']}}
+                            {{ item["offset"] }}
                           </div>
                           <div class="col">
                             <div class="text-muted">safe:</div>
-                            {{item['safe']}}
+                            {{ item["safe"] }}
                           </div>
                         </div>
                       </card>
@@ -171,7 +195,7 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {"Hash": contract_id},
+          params: { Hash: contract_id },
           method: "GetContractInfoByContractHash",
         },
         headers: {

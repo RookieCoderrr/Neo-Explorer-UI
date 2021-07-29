@@ -15,9 +15,9 @@
 
     <div class="table-responsive">
       <loading
-          :is-full-page="false"
-          :opacity="0.9"
-          :active="isLoading"
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
       ></loading>
       <base-table
         class="table align-items-center table-flush"
@@ -42,10 +42,10 @@
             <a @click="getAddress(row.item.address)">{{ row.item.address }}</a>
           </td>
           <td class="neoBalance">
-            {{row.item.neoBalance}}
+            {{ row.item.neoBalance }}
           </td>
           <td class="gasBalance">
-            {{row.item.gasBalance}}
+            {{ row.item.gasBalance }}
           </td>
           <td class="firstusetime">
             {{ row.item.firstusetime }}
@@ -61,14 +61,14 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{
-          parseInt(this.totalAccount / this.resultsPerPage) + 1
+            parseInt(this.totalAccount / this.resultsPerPage) + 1
           }}
         </div>
       </div>
@@ -115,9 +115,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -128,16 +128,15 @@ export default {
         this.isLoading = true;
         this.pagination = parseInt(this.totalAccount / this.resultsPerPage) + 1;
         const skip =
-                parseInt(this.totalAccount / this.resultsPerPage) * this.resultsPerPage;
+          parseInt(this.totalAccount / this.resultsPerPage) *
+          this.resultsPerPage;
         this.getAccoutsList(skip);
-      }else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getAccoutsList(skip);
-      }
-      else {
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -166,17 +165,19 @@ export default {
           crossDomain: "true",
         },
       })
-        .then( (res) => {
-          let temp = res["data"]["result"]["result"]
-          for (let k=0; k<temp.length; k++) {
-            temp[k]["firstusetime"] = format(temp[k]["firstusetime"])
-            temp[k]["neoBalance"] = ""
-            temp[k]["gasBalance"] = ""
+        .then((res) => {
+          let temp = res["data"]["result"]["result"];
+          for (let k = 0; k < temp.length; k++) {
+            temp[k]["firstusetime"] = format(temp[k]["firstusetime"]);
+            temp[k]["neoBalance"] = "";
+            temp[k]["gasBalance"] = "";
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
           this.getBalance();
-          setTimeout(() => {this.isLoading = false;}, 1500);
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1500);
         })
         .catch((err) => {
           console.log("Error", err);
@@ -189,7 +190,7 @@ export default {
     },
     getBalance() {
       for (let k = 0; k < this.tableData.length; k++) {
-        console.log(k.toString())
+        console.log(k.toString());
         let addr = this.tableData[k].address;
         axios({
           method: "post",
@@ -265,8 +266,8 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res)
-          return res["data"]["result"]["balance"]
+          console.log(res);
+          return res["data"]["result"]["balance"];
         })
         .catch((err) => {
           console.log("Error", err);
@@ -291,12 +292,12 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            return res["data"]["result"]["balance"];
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          return res["data"]["result"]["balance"];
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
   },
 };

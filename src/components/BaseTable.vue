@@ -9,7 +9,7 @@
     </thead>
     <tbody :class="tbodyClasses">
       <tr v-for="(item, index) in data" :key="index">
-        <slot :item="item" :index = "index">
+        <slot :item="item" :index="index">
           <th v-for="column in columns" :key="column">
             <template v-if="hasValue(item, column)">
               {{ itemValue(item, column) }}

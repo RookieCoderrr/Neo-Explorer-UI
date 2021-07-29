@@ -92,7 +92,6 @@
     </div>
     <!-- Page content -->
     <router-view></router-view>
-
   </div>
 </template>
 <script>

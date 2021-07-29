@@ -1,11 +1,11 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = {
   devServer: {
     proxy: {
-      '/api': {
+      "/api": {
         changeOrigin: true,
-        target: 'http://192.168.1.47:1926'
+        target: "http://192.168.1.47:1926",
       },
     },
   },
@@ -21,11 +21,11 @@ module.exports = {
     name: "Vue Argon Design",
     themeColor: "#172b4d",
     msTileColor: "#172b4d",
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: '#172b4d'
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "#172b4d",
   },
   css: {
     // Enable CSS source maps.
-    sourceMap: process.env.NODE_ENV !== 'production'
-  }
+    sourceMap: process.env.NODE_ENV !== "production",
+  },
 };

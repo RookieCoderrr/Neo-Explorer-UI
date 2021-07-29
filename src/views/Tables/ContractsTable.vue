@@ -38,19 +38,22 @@
         <template v-slot:default="row">
           <th scope="row" v-if="row.item">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getContract(row.item.hash)">{{ row.item.hash }}</a>
+              <div class="media-body">
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getContract(row.item.hash)"
+                  >{{ row.item.hash }}</a
+                >
               </div>
             </div>
           </th>
           <td class="name">
             {{ row.item.name }}
           </td>
-          <td class="Creator">
-            Currently Unavailable
-          </td>
+          <td class="Creator">Currently Unavailable</td>
           <td class="index">
-            {{row.item.id}}
+            {{ row.item.id }}
           </td>
           <td class="time">
             {{ convertTime(row.item.createtime) }}
@@ -66,14 +69,14 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{
-          parseInt(this.totalCount / this.resultsPerPage) + 1
+            parseInt(this.totalCount / this.resultsPerPage) + 1
           }}
         </div>
       </div>
@@ -87,8 +90,8 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 
 export default {
@@ -100,7 +103,7 @@ export default {
     title: String,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -119,9 +122,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -132,16 +135,14 @@ export default {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
         const skip =
-                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getContractList(skip);
-      }else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getContractList(skip);
-      }
-      else {
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -152,12 +153,10 @@ export default {
       return format(ts);
     },
     pageChange(pageNumber) {
-
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getContractList(skip);
-
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getContractList(skip);
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);

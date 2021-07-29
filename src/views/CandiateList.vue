@@ -12,15 +12,13 @@
       <!--        </div>-->
       <!--      </div>-->
     </div>
-
   </div>
 </template>
 <script>
-
 import CandidatesTable from "./Tables/CandidatesTable";
 
 export default {
-  components:{
+  components: {
     CandidatesTable,
   },
   data() {
@@ -28,7 +26,6 @@ export default {
       nav: null,
     };
   },
-
 };
 </script>
 <style></style>

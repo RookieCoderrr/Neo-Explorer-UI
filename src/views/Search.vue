@@ -5,10 +5,12 @@
         type="text"
         class="over-ellipsis"
         :placeholder="'Block Height, Hash, Address or Transaction id'"
-        v-model ="searchVal"
+        v-model="searchVal"
         autocomplete="off"
         @keyup.enter="search()"
-      /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
+      /><button class="button" @click="search()">
+        <img class="img" src="../assets/search.png" alt="search" />
+      </button>
     </div>
   </div>
 </template>
@@ -19,98 +21,90 @@ export default {
   name: "Home",
   data() {
     return {
-      searchVal: '',
+      searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^([0-9a-f]{40})$/,
       isAddressPattern: /^A([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-
-    }
+    };
   },
   methods: {
     search() {
       var value = this.searchVal;
       // const inputValue = this.searchVal;
       value = value.trim();
-      if (value === '') {
+      if (value === "") {
         return;
       }
-      this.searchVal = '';
+      this.searchVal = "";
       if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
-          value = '0x' + value;
-          console.log(value)
+          value = "0x" + value;
+          console.log(value);
         }
-          this.getTransactionByTransactionHash(value)
-      }
-
-      else if (this.isAssetPattern.test(value)) {
-        this.getAssetInfoByContractHash(value)
-      }
-
-      else if (this.isAddressPattern.test(value)) {
-        this.getAddressByAddress(value)
-      }
-
-      else if (Number(value[0]) >= 0){
-        value = value.replace(/[,，]/g, '');
+        this.getTransactionByTransactionHash(value);
+      } else if (this.isAssetPattern.test(value)) {
+        this.getAssetInfoByContractHash(value);
+      } else if (this.isAddressPattern.test(value)) {
+        this.getAddressByAddress(value);
+      } else if (Number(value[0]) >= 0) {
+        value = value.replace(/[,，]/g, "");
         if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
           if (Number.isInteger(Number(value))) {
-            this.getBlockByBlockHash(value)
+            this.getBlockByBlockHash(value);
           }
-        }
-        else {
+        } else {
           this.$router.push({
             path: `/profile`,
           });
         }
-      }
-
-      else {
+      } else {
         this.$router.push({
           path: `/profile`,
         });
       }
     },
-    getBlockByBlockHash(blockheight){
-        console.log(blockheight)
+    getBlockByBlockHash(blockheight) {
+      console.log(blockheight);
     },
-    getAddressByAddress(addr){
-        console.log(addr)
+    getAddressByAddress(addr) {
+      console.log(addr);
     },
-    getAssetInfoByContractHash(ass_id){
-        console.log(ass_id)
+    getAssetInfoByContractHash(ass_id) {
+      console.log(ass_id);
     },
 
-    getTransactionByTransactionHash(tx_id){
+    getTransactionByTransactionHash(tx_id) {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"TransactionHash":tx_id},
-          "method": "GetRawTransactionByTransactionHash"
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: tx_id },
+          method: "GetRawTransactionByTransactionHash",
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
       }).then((res) => {
-        if (res["data"]["error"] ==null) {
+        if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/transactionInfo/${tx_id}`,
           });
-            console.log(res.status)
-          }
-        else {
+          console.log(res.status);
+        } else {
           this.$router.push({
             path: `/profile`,
           });
-          console.log(res.status)
+          console.log(res.status);
         }
       });
     },
   },
-}
+};
 </script>
 <style>
 .search-content {
@@ -162,5 +156,4 @@ export default {
   border-radius: 4px;
   color: #282828;
 }
-
 </style>
