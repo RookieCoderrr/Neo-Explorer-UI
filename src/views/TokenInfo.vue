@@ -45,9 +45,7 @@
                   <div class="col-2">
                     <div class="text-muted">Total Supply</div>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["totalsupply"] }}</h3>
-                  </div>
+                  <div class="col-3"><h3>{{ convertToken(this.token_info["totalsupply"], this.decimal) }}</h3></div>
                 </div>
                 <div class="row mt-5"></div>
                 <div class="row">
@@ -66,25 +64,13 @@
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
-                  <tokens-tx-nep17
-                    v-if="standard === 1"
-                    :contractHash="token_id"
-                  ></tokens-tx-nep17>
-                  <tokens-tx-nep11
-                    v-else-if="standard === 2"
-                    :contractHash="token_id"
-                  ></tokens-tx-nep11>
+                <tab-pane icon="ni ni-money-coins" title="Recent Transfers">
+                  <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id" :decimal="decimal"></tokens-tx-nep17>
+                  <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal"></tokens-tx-nep11>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
-                  <token-holder
-                    v-if="standard === 1"
-                    :contract-hash="token_id"
-                  ></token-holder>
-                  <token-holder11
-                    v-else-if="standard === 2"
-                    :contract-hash="token_id"
-                  ></token-holder11>
+                  <token-holder v-if="standard===1" :contract-hash="token_id" :decimal="decimal"></token-holder>
+                  <token-holder11 v-else-if="standard===2" :contract-hash="token_id" :decimal="decimal"></token-holder11>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contract Info">
                   <card shadow type="secondary">
@@ -212,6 +198,7 @@ export default {
       token_info: [],
       standard: 0,
       manifest: "",
+      decimal: "",
     };
   },
   created() {
@@ -222,7 +209,10 @@ export default {
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
     },
-    getToken(token_id) {
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
+    },
+    getToken(token_id){
       axios({
         method: "post",
         url: "/api",
@@ -241,6 +231,7 @@ export default {
         const raw = res["data"]["result"];
         raw["firsttransfertime"] = format(raw["firsttransfertime"]);
         this.standard = raw["standard"] === "NEP17" ? 1 : 2;
+        this.decimal = raw["decimals"];
         this.token_info = raw;
         this.isLoading = false;
       });
