@@ -2,16 +2,16 @@
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
-          :is-full-page="false"
-          :opacity="0.9"
-          :active="isLoading"
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
       ></loading>
       <base-table
-          class="table align-items-center table-flush"
-          :class="type === 'dark' ? 'table-dark' : ''"
-          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-          tbody-classes="list"
-          :data="tokenList"
+        class="table align-items-center table-flush"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tokenList"
       >
         <template v-slot:columns>
           <th>Hash</th>
@@ -25,8 +25,13 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.asset)">{{ row.item.asset }}</a>
+              <div class="media-body">
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getToken(row.item.asset)"
+                  >{{ row.item.asset }}</a
+                >
               </div>
             </div>
           </th>
@@ -37,7 +42,11 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
+            <badge
+              v-if="row.item.standard === 'NEP17'"
+              class="badge-dot mr-4"
+              type="primary"
+            >
               <span class="">{{ row.item.standard }}</span>
             </badge>
             <badge v-else class="badge-dot mr-4" type="success">
@@ -52,21 +61,21 @@
     </div>
 
     <div
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <base-pagination
-          :total="this.totalCount"
-          :value="pagination"
-          v-on:input="pageChange($event)"
+        :total="this.totalCount"
+        :value="pagination"
+        v-on:input="pageChange($event)"
       ></base-pagination>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   name: "address-tokens-table",
@@ -74,10 +83,10 @@ export default {
     type: {
       type: String,
     },
-    account_address: String
+    account_address: String,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -136,7 +145,11 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {Address: this.account_address, Limit: this.resultsPerPage, Skip: skip },
+          params: {
+            Address: this.account_address,
+            Limit: this.resultsPerPage,
+            Skip: skip,
+          },
           method: "GetAssetsBalanceByAddress",
         },
         headers: {
@@ -146,17 +159,17 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
-        let temp =res["data"]["result"]["result"];
-        let address_list = []
-        for(let k=0; k<temp.length; k++) {
-          address_list.push(temp[k]["asset"])
+        let temp = res["data"]["result"]["result"];
+        let address_list = [];
+        for (let k = 0; k < temp.length; k++) {
+          address_list.push(temp[k]["asset"]);
         }
         this.tokenList = temp;
         this.getTokenInfo(address_list);
       });
     },
     getTokenInfo(address_list) {
-      for (let k=0; k<address_list.length; k++) {
+      for (let k = 0; k < address_list.length; k++) {
         axios({
           method: "post",
           url: "/api",
@@ -175,9 +188,9 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"]
-          this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"]
-          this.tokenList[k]["standard"] = res["data"]["result"]["standard"]
+          this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
+          this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
+          this.tokenList[k]["standard"] = res["data"]["result"]["standard"];
         });
       }
     },

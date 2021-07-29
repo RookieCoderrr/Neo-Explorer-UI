@@ -9,75 +9,96 @@
               :opacity="0.9"
               :active="isLoading"
             ></loading>
-          <div class="card-header bg-transparent">
-            <h1 class="mb-0">Account:</h1>
-            <h4 class="text-muted">{{ this.accountAddress }}</h4>
-          </div>
+            <div class="card-header bg-transparent">
+              <h1 class="mb-0">Account:</h1>
+              <h4 class="text-muted">{{ this.accountAddress }}</h4>
+            </div>
 
-          <div class="card-body">
-            <div class="row">
-              <div class="col-2">
-                <div class="text-muted">Neo balance: </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Neo balance:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{ this.neoBalance }}</h3>
+                </div>
+                <div class="col-2">
+                  <div class="text-muted">Transactions:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{ this.numOfTxns }}</h3>
+                </div>
               </div>
-              <div class="col-3"><h3>{{ this.neoBalance }}</h3></div>
-              <div class="col-2">
-                <div class="text-muted">Transactions: </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Gas balance:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{ this.gasBalance }}</h3>
+                </div>
+                <div class="col-2">
+                  <div class="text-muted">NEP17 Transfers:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{ this.numOfTransfers }}</h3>
+                </div>
               </div>
-              <div class="col-3"><h3>{{ this.numOfTxns }}</h3></div>
-            </div>
-            <div class="row mt-5"></div>
-            <div class="row">
-              <div class="col-2">
-                <div class="text-muted">Gas balance: </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Type:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{}}</h3>
+                </div>
+                <div class="col-2">
+                  <div class="text-muted">NEP11 Transfers:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{}}</h3>
+                </div>
               </div>
-              <div class="col-3"><h3>{{ this.gasBalance }}</h3></div>
-              <div class="col-2">
-                <div class="text-muted">NEP17 Transfers: </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="text-muted">Created Time:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{ this.createdTime }}</h3>
+                </div>
+                <div class="col-2">
+                  <div class="text-muted">Contract deployment:</div>
+                </div>
+                <div class="col-3">
+                  <h3>{{}}</h3>
+                </div>
               </div>
-              <div class="col-3"><h3>{{ this.numOfTransfers }}</h3></div>
-            </div>
-            <div class="row mt-5"></div>
-            <div class="row">
-              <div class="col-2">
-                <div class="text-muted">Type: </div>
-              </div>
-              <div class="col-3"><h3>{{  }}</h3></div>
-              <div class="col-2">
-                <div class="text-muted"> NEP11 Transfers: </div>
-              </div>
-              <div class="col-3"><h3>{{  }}</h3></div>
-            </div>
-            <div class="row mt-5"></div>
-            <div class="row">
-              <div class="col-2">
-                <div class="text-muted">Created Time: </div>
-              </div>
-              <div class="col-3"><h3>{{ this.createdTime }}</h3></div>
-              <div class="col-2">
-                <div class="text-muted">Contract deployment: </div>
-              </div>
-              <div class="col-3"><h3>{{  }}</h3></div>
-            </div>
-            <tabs fill class="flex-column flex-md-row">
+              <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
                   <div class="row">
                     <div class="col">
-                      <address-tokens-table :account_address="accountAddress"></address-tokens-table>
+                      <address-tokens-table
+                        :account_address="accountAddress"
+                      ></address-tokens-table>
                     </div>
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
                   <div class="row">
                     <div class="col">
-                      <address-transactions-table :account_address="accountAddress"></address-transactions-table>
+                      <address-transactions-table
+                        :account_address="accountAddress"
+                      ></address-transactions-table>
                     </div>
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
                   <div class="row">
                     <div class="col">
-
-                      <address-nep17-transfers-table :account_address="accountAddress">
+                      <address-nep17-transfers-table
+                        :account_address="accountAddress"
+                      >
                       </address-nep17-transfers-table>
                     </div>
                   </div>
@@ -85,14 +106,15 @@
                 <tab-pane icon="ni ni-collection" title="NEP11 Transfers">
                   <div class="row">
                     <div class="col">
-                      <address-nep11-transfers-table :account_address="accountAddress"></address-nep11-transfers-table>
+                      <address-nep11-transfers-table
+                        :account_address="accountAddress"
+                      ></address-nep11-transfers-table>
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="Contracts">
-                </tab-pane>
-            </tabs>
-          </div>
+                <tab-pane icon="ni ni-collection" title="Contracts"> </tab-pane>
+              </tabs>
+            </div>
           </div>
         </div>
       </div>
@@ -192,7 +214,7 @@ export default {
           this.gasBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
-          this.getGasBalance = "0"
+          this.getGasBalance = "0";
           console.log("Error", err);
         });
     },
@@ -216,10 +238,9 @@ export default {
       })
         .then((res) => {
           // TODO: 这个还没处理
-          this.numOfTxns = res["data"]["result"]["result"].length
-
+          this.numOfTxns = res["data"]["result"]["result"].length;
         })
-          .catch((err) => {
+        .catch((err) => {
           console.log("Error", err);
         });
     },
@@ -241,17 +262,14 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            this.createdTime = format(res["data"]["result"]["firstusetime"])
-
-          })
-          .catch((err) => {
-            console.log("Get created time failed, Error", err);
-          });
+        .then((res) => {
+          this.createdTime = format(res["data"]["result"]["firstusetime"]);
+        })
+        .catch((err) => {
+          console.log("Get created time failed, Error", err);
+        });
     },
-    getTransfers() {
-      
-    },
+    getTransfers() {},
   },
 };
 </script>

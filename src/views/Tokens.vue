@@ -15,8 +15,7 @@ import TokensTable from "./Tables/TokensTable";
 export default {
   name: "tokens",
   components: {
-   TokensTable,
-
+    TokensTable,
   },
 };
 </script>

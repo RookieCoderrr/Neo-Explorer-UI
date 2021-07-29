@@ -14,6 +14,11 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -37,10 +42,10 @@
             <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a>
           </td>
           <td class="neoBalance">
-            {{row.item.neoBalance}}
+            {{ row.item.neoBalance }}
           </td>
           <td class="gasBalance">
-            {{row.item.gasBalance}}
+            {{ row.item.gasBalance }}
           </td>
           <td class="firstusetime">
             {{ row.item.firstusetime }}
@@ -53,6 +58,20 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{
+            parseInt(this.totalAccount / this.resultsPerPage) + 1
+          }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalAccount"
         :value="this.pagination"
@@ -64,6 +83,9 @@
 <script>
 import axios from "axios";
 import { format } from "timeago.js";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
 export default {
   name: "accounts-table",
   props: {
@@ -72,6 +94,9 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
@@ -79,13 +104,47 @@ export default {
       pagination: 1,
       resultsPerPage: 10,
       neoBalance: 0,
+      isLoading: true,
     };
   },
   created() {
     this.getAccoutsList(0);
   },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
+  },
   methods: {
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= parseInt(this.totalAccount / this.resultsPerPage) + 1) {
+        this.isLoading = true;
+        this.pagination = parseInt(this.totalAccount / this.resultsPerPage) + 1;
+        const skip =
+          parseInt(this.totalAccount / this.resultsPerPage) *
+          this.resultsPerPage;
+        this.getAccoutsList(skip);
+      } else if (pageNumber <= 0) {
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip = this.resultsPerPage;
+        this.getAccoutsList(skip);
+      } else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getAccoutsList(skip);
+      }
+    },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getAccoutsList(skip);
@@ -107,14 +166,18 @@ export default {
         },
       })
         .then((res) => {
-          let temp = res["data"]["result"]["result"]
-          for(let k=0; k<temp.length; k++) {
-            temp[k]["firstusetime"] = format(temp[k]["firstusetime"])
-            temp[k]["neoBalance"] = ""
-            temp[k]["gasBalance"] = ""
+          let temp = res["data"]["result"]["result"];
+          for (let k = 0; k < temp.length; k++) {
+            temp[k]["firstusetime"] = format(temp[k]["firstusetime"]);
+            temp[k]["neoBalance"] = "";
+            temp[k]["gasBalance"] = "";
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
+          this.getBalance();
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1500);
         })
         .catch((err) => {
           console.log("Error", err);
@@ -125,9 +188,9 @@ export default {
         path: `/accountprofile/${accountAddress}`,
       });
     },
-    async getBalance() {
+    getBalance() {
       for (let k = 0; k < this.tableData.length; k++) {
-        console.log(k.toString())
+        console.log(k.toString());
         let addr = this.tableData[k].address;
         axios({
           method: "post",
@@ -147,14 +210,14 @@ export default {
             crossDomain: "true",
           },
         })
-            .then((res) => {
-              this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
-              //this.neoBalance = res["data"]["result"]["balance"];
-            })
-            .catch((err) => {
-              this.tableData[k]["gasBalance"] = "0";
-              console.log("Error", err);
-            });
+          .then((res) => {
+            this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
+            //this.neoBalance = res["data"]["result"]["balance"];
+          })
+          .catch((err) => {
+            this.tableData[k]["gasBalance"] = "0";
+            console.log("Error", err);
+          });
 
         axios({
           method: "post",
@@ -174,13 +237,13 @@ export default {
             crossDomain: "true",
           },
         })
-            .then((res) => {
-              this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
-            })
-            .catch((err) => {
-              this.tableData[k]["neoBalance"] = "0";
-              console.log("Error", err);
-            });
+          .then((res) => {
+            this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
+          })
+          .catch((err) => {
+            this.tableData[k]["neoBalance"] = "0";
+            console.log("Error", err);
+          });
       }
     },
     getNeoBalance(accountAddress) {
@@ -202,13 +265,13 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            console.log(res)
-            return res["data"]["result"]["balance"]
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          console.log(res);
+          return res["data"]["result"]["balance"];
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
     getGasBalance(accountAddress) {
       axios({
@@ -229,12 +292,12 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            return res["data"]["result"]["balance"];
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          return res["data"]["result"]["balance"];
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
   },
 };

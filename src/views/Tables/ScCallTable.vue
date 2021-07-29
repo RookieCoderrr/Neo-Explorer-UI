@@ -11,58 +11,68 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="NEP17TxList"
+        :data="ScCallList"
       >
         <template v-slot:columns>
-          <th>Address</th>
-          <th>Balance</th>
-          <th>Last Transferred</th>
-          <th>Percentage</th>
+          <th>Txid</th>
+          <th>Sender</th>
+          <th>Method</th>
+          <th>Call Flags</th>
+          <th>Time</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address}}</a>
+              <div class="media-body txid">
+                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
-          <td class="balance">
-            {{ convertToken(row.item.balance, this.decimal) }}
+          <td class="Sender">
+            <div class="addr">
+              <span class="text-muted" v-if="row.item.originSender === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ row.item.originSender }}</a>
+            </div>
+
           </td>
-          <td class="firstused">
-            {{ convertTime(row.item.lasttx.timestamp) }}
+          <td class="Method">
+            {{ row.item.method }}
           </td>
-          <td class="percentage">
-            {{ toPercentage(row.item.percentage) }}
+          <td class="Call Flags">
+            {{ row.item.callFlags }}
+          </td>
+          <td class="time">
+            Currently Unavailable
+<!--            //{{ convertTime(row.item.time) }}-->
           </td>
         </template>
       </base-table>
     </div>
 
     <div
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{
-          parseInt(this.totalCount / this.resultsPerPage) + 1
+            parseInt(this.totalCount / this.resultsPerPage) + 1
           }}
         </div>
       </div>
       <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
+          :total="this.totalCount"
+          :value="pagination"
+          v-on:input="pageChange($event)"
       ></base-pagination>
     </div>
   </div>
@@ -73,22 +83,20 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 
-
 export default {
-  name: "token-holder",
+  name: "sc-call-table",
   props: {
     type: {
       type: String,
     },
     contractHash: String,
-    decimal: Number,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
-      NEP17TxList: [],
+      ScCallList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
@@ -96,7 +104,8 @@ export default {
     };
   },
   created() {
-    this.getTokenList(0);
+    this.getScCallList(0);
+    console.log(this.decimal);
   },
   computed: {
     text() {
@@ -116,51 +125,38 @@ export default {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
         const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
-        this.getBlockList(skip);
+        this.getScCallList(skip);
       } else if(pageNumber <= 0){
         this.isLoading = true;
         this.pagination = 1;
         const skip =
-                this.resultsPerPage;
-        this.getTokenList(skip);
+            this.resultsPerPage;
+        this.getScCallList(skip);
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getScCallList(skip);
       }
     },
-    toPercentage(num) {
-      let s = Number(num * 100).toFixed(4);
-      s += "%";
-      return s;
-    },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getScCallList(skip);
     },
-    convertTime(ts){
+    convertTime(ts) {
       return format(ts);
     },
-    convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
-    },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
-      });
-    },
-    getTokenList(skip) {
+    getScCallList(skip) {
       axios({
         method: "post",
         url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
-          method: "GetAssetHoldersByContractHash",
+          params: { ContractHash: this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetScCallByContractHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -168,12 +164,38 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.NEP17TxList = res["data"]["result"]["result"];
+        this.ScCallList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
     },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
+    },
   },
 };
 </script>
-<style></style>
+<style>
+.txid {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.addr {
+  width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

@@ -14,13 +14,17 @@
     </div>
 
     <div class="table-responsive">
+      <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
         :data="tableData"
-
       >
         <template v-slot:columns>
           <th>Transaction ID</th>
@@ -33,26 +37,26 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid"   @οnmοuseοver="mouseHover(row.item.hash)">
-              <a  class="name mb-0 text-sm"
-                  style="cursor: pointer" @click="getTransaction(row.item.hash)">{{ row.item.hash }}</a>
+            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+              <a
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getTransaction(row.item.hash)"
+                >{{ row.item.hash }}</a
+              >
             </div>
-
           </td>
           <td class="budget">
             {{ row.item.blockIndex }}
           </td>
-          <td class="budget">
-            {{ row.item.size }} bytes
-          </td>
+          <td class="budget">{{ row.item.size }} bytes</td>
           <td class="budget">
             {{ this.convertTime(row.item.blocktime) }}
           </td>
 
           <td class="budget">
-            {{ this.convertGas(row.item.netfee + row.item.sysfee)}}
+            {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
           </td>
-
         </template>
       </base-table>
     </div>
@@ -75,13 +79,19 @@
           }}
         </div>
       </div>
-      <base-pagination  :total="this.totalCount" :value="pagination" v-on:input="pageChange($event)"></base-pagination>
+      <base-pagination
+        :total="this.totalCount"
+        :value="pagination"
+        v-on:input="pageChange($event)"
+      ></base-pagination>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 import { format } from "timeago.js";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "transactions-table",
   props: {
@@ -90,20 +100,22 @@ export default {
     },
     title: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination : 1,
+      pagination: 1,
       placeHolder: 0,
-
+      isLoading: true,
     };
   },
 
   created() {
-    this.getTransactionList(0)
-
+    this.getTransactionList(0);
   },
   computed: {
     text() {
@@ -117,29 +129,29 @@ export default {
       };
     },
   },
-  methods:{
-
-    mouseHover(txid){
+  methods: {
+    mouseHover(txid) {
       var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {}
-      a.style.display = txid
+      a.onmouseover = function () {};
+      a.style.display = txid;
     },
     convertGas(gas) {
-      if (gas == 0) {
-        return  0
+      if (gas === 0) {
+        return 0;
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
 
     convertTime(time) {
-      return format(time)
+      return format(time);
     },
     getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,
-      })
+      });
     },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
@@ -150,44 +162,39 @@ export default {
         const skip =
           parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getTransactionList(skip);
-      }else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.pagination = 1;
-        const skip =
-          this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getTransactionList(skip);
-      }
-      else {
+      } else {
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTransactionList(skip);
       }
     },
 
-    getTransactionList(skip){
-
+    getTransactionList(skip) {
       axios({
-        method:'post',
-        url:'/api',
-        data:{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"Limit":this.resultsPerPage,"Skip":skip},
-          "method": "GetTransactionList"
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Limit: this.resultsPerPage, Skip: skip },
+          method: "GetTransactionList",
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
-      }).then((res)=>{
-
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-
-        console.log(this.tableData)
-
-        //
-        // console.log("成功")
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
