@@ -25,23 +25,21 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{row.item.txid}}</a>
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
           <td class="From">
             <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">
-                {{ row.item.from === null ? "Null Address" : row.item.from }}
-              </a>
+              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
 
           </td>
           <td class="To">
             <div class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">
-                {{ row.item.to }}
-              </a>
+              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
             </div>
           </td>
           <td class="Value">
@@ -134,6 +132,11 @@ export default {
     getAddress(accountAddress) {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
+      });
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
       });
     },
   },

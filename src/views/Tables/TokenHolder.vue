@@ -24,7 +24,7 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.address}}</a>
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address}}</a>
               </div>
             </div>
           </th>
@@ -102,6 +102,11 @@ export default {
     },
     convertTime(ts){
       return format(ts);
+    },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
     getTokenList(skip) {
       axios({
