@@ -19,7 +19,7 @@
                   <div class="col-2">
                     <div class="text-muted">Creator</div>
                   </div>
-                  <div class="col-3"><h3>Currently Unavailable</h3></div>
+                  <div class="col-3"><h3>{{ this.contract_info["sender"]}}</h3></div>
                   <div class="col-2">
                     <div class="text-muted">Created</div>
                   </div>
@@ -53,7 +53,7 @@
                   <div class="col-2">
                     <div class="text-muted">Transactions</div>
                   </div>
-                  <div class="col-3"><h3>Currently not available</h3></div>
+                  <div class="col-3"><h3>{{ this.contract_info["totalSccall"]}}</h3></div>
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
