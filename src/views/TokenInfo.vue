@@ -64,7 +64,7 @@
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                <tab-pane icon="ni ni-money-coins" title="Recent Transfers">
                   <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id" :decimal="decimal"></tokens-tx-nep17>
                   <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal"></tokens-tx-nep11>
                 </tab-pane>

@@ -9,11 +9,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>交易ID</th>
-          <th>区块高度</th>
-          <th>大小</th>
-          <th>时间</th>
-          <th>花费的GAS</th>
+          <th>Transaction ID</th>
+          <th>Block Height</th>
+          <th>Size</th>
+          <th>Time</th>
+          <th>GAS Consumed</th>
           <th></th>
         </template>
 

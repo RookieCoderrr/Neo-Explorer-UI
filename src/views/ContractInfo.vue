@@ -57,7 +57,10 @@
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                <tab-pane icon="ni ni-money-coins" title="Recent ScCalls">
+                  <div v-if="!this.isLoading">
+                    <sc-call-table :contract-hash="contract_id"></sc-call-table>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-active-40" title="Recent Events">
                   <events-table :contractHash="contract_id"></events-table>
@@ -169,11 +172,13 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import EventsTable from "./Tables/EventsTable";
+import ScCallTable from "./Tables/ScCallTable";
 
 export default {
   components: {
     Loading,
     EventsTable,
+    ScCallTable,
   },
   data() {
     return {
