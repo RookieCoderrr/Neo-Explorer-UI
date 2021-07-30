@@ -44,21 +44,21 @@
         </div>
         <div class="col-2">
           <stats-card
-              title="Total /\n Candi"
-              type="gradient-blue"
-              :sub-title="candidateCount.toLocaleString()"
-              icon="ni ni-badge"
-              class="mb-4 mb-xl-0"
+            title="Total Cndidtes"
+            type="gradient-blue"
+            :sub-title="candidateCount.toLocaleString()"
+            icon="ni ni-badge"
+            class="mb-4 mb-xl-0"
           >
          </stats-card>
         </div>
         <div class="col-2">
           <stats-card
-              title="Total Contra"
-              type="gradient-red"
-              :sub-title="contractCount.toLocaleString()"
-              icon="ni ni-collection"
-              class="mb-4 mb-xl-0"
+            title="Total Cntrts"
+            type="gradient-red"
+            :sub-title="contractCount.toLocaleString()"
+            icon="ni ni-collection"
+            class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
@@ -68,7 +68,7 @@
           <blocks-table-homepage title="Recent Blocks"></blocks-table-homepage>
         </div>
         <div class="col-6">
-            <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
+          <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
         </div>
       </div>
     </div>

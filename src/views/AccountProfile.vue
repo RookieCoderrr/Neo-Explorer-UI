@@ -96,19 +96,18 @@
                 <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
                   <div class="row">
                     <div class="col">
-                      <address-nep17-transfers-table
+                      <address17-ts-table
                         :account_address="accountAddress"
                       >
-                      </address-nep17-transfers-table>
+                      </address17-ts-table>
                     </div>
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="NEP11 Transfers">
                   <div class="row">
                     <div class="col">
-                      <address-nep11-transfers-table
-                        :account_address="accountAddress"
-                      ></address-nep11-transfers-table>
+                      <address11-ts-table :account_address="accountAddress">
+                        </address11-ts-table>
                     </div>
                   </div>
                 </tab-pane>
@@ -128,8 +127,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import AddressNEP17TransfersTable from "./Tables/AddressNEP17TransfersTable";
-import AddressNEP11TransfersTable from "./Tables/AddressNEP11TransfersTable";
+import Address17TsTable from "./Tables/Address17TsTable";
+import Address11TsTable from "./Tables/Address11TsTable";
 
 export default {
   name: "account-profile",
@@ -152,10 +151,8 @@ export default {
     Loading,
     AddressTokensTable,
     AddressTransactionsTable,
-    // eslint-disable-next-line vue/no-unused-components
-    AddressNEP17TransfersTable,
-    // eslint-disable-next-line vue/no-unused-components
-    AddressNEP11TransfersTable,
+    Address17TsTable,
+    Address11TsTable,
   },
   created() {
     this.getNeoBalance();
@@ -349,7 +346,7 @@ export default {
       }).then((res) => {
         console.log(res)
         if(res["data"]["result"] == null) {
-          this.type = "null"
+          this.type = "normal"
         }
         else if(res["data"]["result"]["isCommittee"] == true) {
           this.type = "Committee"

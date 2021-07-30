@@ -97,7 +97,7 @@ export default {
     },
     getTransaction(txhash) {
       this.$router.push({
-        path: `/icons/${txhash}`,
+        path: `/transactionInfo/${txhash}`,
       });
     },
     pageChange(pageNumber) {

@@ -39,7 +39,7 @@
         <template v-slot:default="row">
           <td class="budget">
             <div class="contract">
-              <a class="name mb-0 text-sm" style="cursor: pointer">{{
+              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getContract(row.item.contract)">{{
                 row.item.contract
               }}</a>
             </div>
@@ -56,14 +56,9 @@
           </td>
           <td class="budget">
             <div class="from">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getFromAccount(row.item.from)"
-                >{{
-                  row.item.from === null ? "Null Account" : row.item.from
-                }}</a
-              >
+              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}
+              </a>
             </div>
           </td>
           <td class="budget">
@@ -71,12 +66,9 @@
           </td>
           <td class="budget">
             <div class="to">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getToAccount(row.item.to)"
-                >{{ row.item.to }}</a
-              >
+              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.to)">{{ row.item.to }}
+              </a>
             </div>
           </td>
 
@@ -127,16 +119,17 @@ export default {
     },
 
     getContract(ctrHash) {
-      return ctrHash;
+      this.$router.push({
+        path: `/contractinfo/${ctrHash}`,
+      });
     },
 
-    getFromAccount() {
-      return;
+    getAccount(accHash) {
+      this.$router.push({
+        path: `/accountprofile/${accHash}`,
+      });
     },
 
-    getToAccount() {
-      return;
-    },
 
     getNep11TransferByTransactionHash(txhash) {
       axios({

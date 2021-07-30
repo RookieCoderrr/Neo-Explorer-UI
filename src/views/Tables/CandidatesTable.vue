@@ -54,7 +54,7 @@
           <td class="budget">
             {{ row.item.votesOfCandidate }}
           </td>
-          <td class="budget">{{ getVotePercentage(row.item.votesOfCandidate) }}</td>
+          <td class="budget">{{getVotePercentage(row.item.votesOfCandidate) }}</td>
         </template>
       </base-table>
     </div>
@@ -107,7 +107,7 @@ export default {
 
   created() {
     this.getCandidateList(0);
-    this.getTotalVotes();
+    // this.getTotalVotes();
   },
 
   methods: {
