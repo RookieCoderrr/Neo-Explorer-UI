@@ -10,6 +10,9 @@
             {{ title }}
           </h3>
         </div>
+        <div class="col text-right">
+          <base-button type="primary" size="sm" @click="toTransactionsTable()">See all</base-button>
+        </div>
       </div>
     </div>
 
@@ -28,10 +31,9 @@
       >
         <template v-slot:columns>
           <th>Transaction ID</th>
-          <th>Block Height</th>
           <th>Size</th>
           <th>Time</th>
-          <th>GAS Consumed</th>
+          <th>Gas</th>
         </template>
 
         <template v-slot:default="row">
@@ -45,9 +47,6 @@
               >
             </div>
           </td>
-          <td class="budget">
-            {{ row.item.blockIndex }}
-          </td>
           <td class="budget">{{ row.item.size }} bytes</td>
           <td class="budget">
             {{ this.convertTime(row.item.blocktime) }}
@@ -60,30 +59,6 @@
       </base-table>
     </div>
 
-    <div
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{
-            parseInt(this.totalCount / this.resultsPerPage) + 1
-          }}
-        </div>
-      </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
-    </div>
   </div>
 </template>
 <script>
@@ -92,7 +67,7 @@ import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 export default {
-  name: "transactions-table",
+  name: "transactions-table-homepage",
   props: {
     type: {
       type: String,
@@ -107,7 +82,6 @@ export default {
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
       placeHolder: 0,
       isLoading: true,
     };
@@ -116,19 +90,12 @@ export default {
   created() {
     this.getTransactionList(0);
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 50;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-  },
   methods: {
+    toTransactionsTable(){
+      this.$router.push({
+        path: `/Transactions`,
+      });
+    },
     mouseHover(txid) {
       var a = document.getElementsByClassName("txid");
       a.onmouseover = function () {};
@@ -149,29 +116,6 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
-    pageChange(pageNumber) {
-      this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
-    },
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else if (pageNumber <= 0) {
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else {
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      }
-    },
-
     getTransactionList(skip) {
       axios({
         method: "post",
