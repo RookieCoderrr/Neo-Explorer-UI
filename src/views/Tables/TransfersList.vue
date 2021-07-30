@@ -55,14 +55,10 @@
             </td>
             <td class="budget">
               <div class="from">
-                <a
-                  class="name mb-0 text-sm"
-                  style="cursor: pointer"
-                  @click="getAccount(row.item.from)"
-                  >{{
-                    row.item.from === null ? "Null Address" : row.item.from
-                  }}</a
-                >
+                <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}
+                </a>
+
               </div>
             </td>
             <td class="budget">
