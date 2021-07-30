@@ -1,68 +1,95 @@
 <template>
-  <section class="page-content">
-
-  </section>
-
+  <div>
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <stats-card
+            title="Total traffic"
+            type="gradient-red"
+            sub-title="350,897"
+            icon="ni ni-active-40"
+            class="mb-4 mb-xl-0"
+          >
+            <template v-slot:footer>
+              <span class="text-success mr-2"
+              ><i class="fa fa-arrow-up"></i> 3.48%</span
+              >
+              <span class="text-nowrap">Since last month</span>
+            </template>
+          </stats-card>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <stats-card
+            title="Total traffic"
+            type="gradient-orange"
+            sub-title="2,356"
+            icon="ni ni-chart-pie-35"
+            class="mb-4 mb-xl-0"
+          >
+            <template v-slot:footer>
+              <span class="text-success mr-2"
+              ><i class="fa fa-arrow-up"></i> 12.18%</span
+              >
+              <span class="text-nowrap">Since last month</span>
+            </template>
+          </stats-card>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <stats-card
+            title="Sales"
+            type="gradient-green"
+            sub-title="924"
+            icon="ni ni-money-coins"
+            class="mb-4 mb-xl-0"
+          >
+            <template v-slot:footer>
+              <span class="text-danger mr-2"
+              ><i class="fa fa-arrow-down"></i> 5.72%</span
+              >
+              <span class="text-nowrap">Since last month</span>
+            </template>
+          </stats-card>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <stats-card
+            title="Performance"
+            type="gradient-info"
+            sub-title="49,65%"
+            icon="ni ni-chart-bar-32"
+            class="mb-4 mb-xl-0"
+          >
+            <template v-slot:footer>
+              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 54.8%</span>
+              <span class="text-nowrap">Since last month</span>
+            </template>
+          </stats-card>
+        </div>
+      </div>
+      <div class="row mt-8">
+        <div class="col-6">
+          <blocks title="Recent Blocks"></blocks>
+        </div>
+        <div class="col-6">
+          <transaction-list title="Recent Transactions"></transaction-list>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import Blocks from "./Blocks";
+import TransactionList from "./TransactionList";
 export default {
   name: "Home",
+  components: {
+    Blocks,
+    TransactionList,
+  },
   data() {
     return {}
   },
   methods: {},
 };
 </script>
-<style>
-.search-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 380px;
-  background: #fff;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  color: #282828;
-  margin-top: 36px;
-  width: 100%;
-}
-.search {
-  width: 100%;
-  max-width: 565px;
-  height: 50px;
-  position: relative;
-}
-.button {
-  cursor: pointer;
-  position: absolute;
-  right: 0;
-  bottom: 1px;
-  top: 1px;
-  background: #00af92;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  width: 50px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.img {
-  width: 26px;
-}
-
-.over-ellipsis {
-  width: 100%;
-  height: 100%;
-  padding-right: 61px;
-  padding-left: 11px;
-  font-size: 16px;
-  background: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(191, 191, 191, 1);
-  border-radius: 4px;
-  color: #282828;
-}
-
-</style>
+<style></style>

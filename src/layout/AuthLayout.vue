@@ -303,4 +303,33 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  top: 1px;
+  background: #00af92;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  width: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.img {
+  width: 26px;
+}
+.over-ellipsis {
+  width: 100%;
+  height: 100%;
+  padding-right: 61px;
+  padding-left: 11px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(191, 191, 191, 1);
+  border-radius: 4px;
+  color: #282828;
+}
+</style>
