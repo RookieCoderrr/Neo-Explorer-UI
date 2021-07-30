@@ -19,7 +19,7 @@
                   <div class="col-2">
                     <div class="text-muted">Creator</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["sender"]}}</h3></div>
+                  <div class="col-3"><h3>{{ this.contract_info["sender"] === null ? "Not Available" : this.contract_info["sender"]}}</h3></div>
                   <div class="col-2">
                     <div class="text-muted">Created</div>
                   </div>
@@ -200,8 +200,8 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Hash: contract_id },
-          method: "GetContractInfoByContractHash",
+          params: { ContractHash: contract_id },
+          method: "GetContractByContractHash",
         },
         headers: {
           "Content-Type": "application/json",

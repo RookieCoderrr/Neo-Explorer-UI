@@ -60,7 +60,7 @@
             {{ row.item.name }}
           </td>
           <td class="Creator">
-            Currently Unavailable
+            {{ row.item.Transaction.length > 0 ? row.item.Transaction[0]["sender"] : "Not Available" }}
           </td>
           <td class="index">
             {{row.item.id}}
