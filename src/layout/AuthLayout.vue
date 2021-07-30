@@ -152,7 +152,31 @@ export default {
       }
     },
     getBlockByBlockHash(block_hash) {
-      console.log(block_hash);
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHash":block_hash},
+          "method": "GetBlockByBlockHash"
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+                if (res["data"]["error"] == null) {
+                  this.$router.push({
+                    path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+                  });
+
+                } else {
+                  alert("Invalid input!");
+                }
+              },
+      )
     },
     getBlockByBlockHeight(blockheight){
       axios({
@@ -161,7 +185,7 @@ export default {
         data: {
           "jsonrpc": "2.0",
           "id": 1,
-          "params": {"BlockHeight":blockheight},
+          "params": {"BlockHeight":parseInt(blockheight)},
           "method": "GetBlockByBlockHeight"
         },
         headers: {
@@ -172,9 +196,9 @@ export default {
       }).then((res) => {
         if (res["data"]["error"] == null) {
           this.$router.push({
-            path: `/blockinfo/${blockheight}`,
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
           });
-          console.log(res.status);
+
         } else {
           alert("Invalid input!");
         }
@@ -288,8 +312,9 @@ export default {
             path: `/transactionInfo/${value}`,
           });
           console.log(res.status);
-          this.getBlockByBlockHash(value);
+
         } else {
+          this.getBlockByBlockHash(value);
           console.log(res["data"]["error"]);
         }
       });

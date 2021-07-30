@@ -14,7 +14,7 @@
           <th>Size</th>
           <th>Time</th>
           <th>GAS Consumed</th>
-          <th></th>
+
         </template>
 
         <template v-slot:default="row">

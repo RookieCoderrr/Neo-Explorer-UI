@@ -34,7 +34,6 @@
             <th>To</th>
             <th>To Balance</th>
             <th>Amount</th>
-            <th></th>
           </template>
 
           <template v-slot:default="row">

@@ -33,7 +33,6 @@
           <th>Ranking</th>
           <th>Votes</th>
           <th>Percentage</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

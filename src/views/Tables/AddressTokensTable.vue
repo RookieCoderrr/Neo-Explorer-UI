@@ -19,7 +19,6 @@
           <th>Symbol</th>
           <th>Standard</th>
           <th>Balance</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

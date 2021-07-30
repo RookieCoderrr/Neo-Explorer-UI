@@ -32,7 +32,6 @@
                     <th>Size</th>
                     <th>Time</th>
                     <th>GAS Consumed</th>
-                    <th></th>
                 </template>
 
                 <template v-slot:default="row">
@@ -46,18 +45,18 @@
                             >
                         </div>
                     </td>
-                    <td class="budget">
+                    <td >
                         {{ row.item.blockIndex }}
                     </td>
-                    <td class="budget">
+                    <td>
                         {{ row.item.size }} bytes
                     </td>
-                    <td class="budget">
-                        {{ this.convertTime(row.item.blocktime) }}
+                    <td >
+                        {{ convertTime(row.item.blocktime) }}
                     </td>
 
-                    <td class="budget">
-                        {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
+                    <td >
+                        {{ convertGas(row.item.netfee + row.item.sysfee) }}
                     </td>
                 </template>
             </base-table>
@@ -132,7 +131,14 @@ export default {
             };
         },
     },
+    watch:{
+        blockHash: 'watchBlockHash'
+    },
     methods: {
+        watchBlockHash(){
+            this.getTransactionList(0);
+        },
+
         convertGas(gas) {
             if (gas === 0) {
                 return 0;

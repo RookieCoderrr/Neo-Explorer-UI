@@ -28,31 +28,24 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th>index</th>
+          <th>Index</th>
           <th>Hash</th>
           <th>TimeStamp</th>
           <th>TxNumber</th>
           <th>Size</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center" style="text-align: center">
-              <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{
-                  row.item.index
-                }}</a>
-              </div>
-            </div>
+            {{row.item.index }}
           </th>
           <td style="padding-left: 100px">
-            <div class="blockid">
+            <div >
               <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getBlock(row.item.hash)"
-                >{{ row.item.hash }}</a
+                      class="name mb-0 text-sm"
+                      style="cursor: pointer"
+                      @click="getBlock(row.item.hash)"
+              >{{ row.item.hash }}</a
               >
             </div>
           </td>

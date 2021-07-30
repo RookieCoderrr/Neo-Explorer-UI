@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7" >
       <div class="row">
         <div class="col-xl-3 col-lg-6">
           <stats-card
@@ -65,31 +65,30 @@
           </stats-card>
         </div>
       </div>
-      <div class="row mt-4">
+      <div class="row mt-4 ">
         <div class="col-6">
-          <blocks-table title="Recent Blocks"></blocks-table>
+          <blocks-table-homepage title="Recent Blocks"></blocks-table-homepage>
         </div>
         <div class="col-6">
-
             <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
-
-
         </div>
       </div>
+
     </div>
   </div>
+
 </template>
 
 <script>
 
-import BlocksTable from '../views/Tables/BlocksTable'
+import BlocksTableHomepage from '../views/Tables/BlocksTableHomepage'
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
 
 
 export default {
   name: "Home",
   components: {
-    BlocksTable,
+    BlocksTableHomepage,
     TransactionTableHomepage,
   },
   data() {

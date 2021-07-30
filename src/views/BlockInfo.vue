@@ -150,7 +150,14 @@ export default {
   created() {
     this.getBlock(this.BlockHash);
   },
+  watch:{
+    $route:'watchrouter'
+  },
   methods: {
+    watchrouter() {//如果路由有变化，执行的对应的动作
+      this.BlockHash = this.$route.params.hash
+      this.getBlock(this.BlockHash);
+    },
     convertTime(ts) {
       return format(ts);
     },

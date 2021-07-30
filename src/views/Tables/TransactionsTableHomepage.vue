@@ -38,7 +38,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+            <div class="txid" @mouseover="mouseHover(row.item.hash)">
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -47,12 +47,12 @@
               >
             </div>
           </td>
-          <td class="budget">{{ row.item.size }} bytes</td>
-          <td class="budget">
+          <td >{{ row.item.size }} bytes</td>
+          <td >
             {{ this.convertTime(row.item.blocktime) }}
           </td>
 
-          <td class="budget">
+          <td >
             {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
           </td>
         </template>

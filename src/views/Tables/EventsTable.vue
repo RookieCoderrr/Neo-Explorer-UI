@@ -28,7 +28,6 @@
           <th>VM State</th>
           <th>Index</th>
           <th>Fired</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

@@ -45,7 +45,6 @@
           <th>Creator</th>
           <th>Index</th>
           <th>Create Time</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

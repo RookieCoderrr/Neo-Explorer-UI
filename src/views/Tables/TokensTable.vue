@@ -45,7 +45,6 @@
           <th>Symbol</th>
           <th>Standard</th>
           <th>Total Holders</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

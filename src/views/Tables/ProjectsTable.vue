@@ -27,7 +27,6 @@
           <th>Status</th>
           <th>Users</th>
           <th>Completion</th>
-          <th></th>
         </template>
 
         <template v-slot:default="row">

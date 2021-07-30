@@ -32,7 +32,6 @@
           <th>Neo Balance</th>
           <th>Gas Balance</th>
           <th>Created Time</th>
-          <th></th>
         </template>
         <template v-slot:default="row">
           <td>
