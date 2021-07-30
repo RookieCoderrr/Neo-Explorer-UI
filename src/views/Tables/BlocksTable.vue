@@ -45,9 +45,9 @@
             </div>
           </th>
           <td style="padding-left: 100px">
-              <div class="blockid">
-                  <a class="name mb-0 text-sm" style="cursor: pointer" >{{ row.item.hash }}</a>
-              </div>
+            <div class="blockid">
+                <a class="name mb-0 text-sm" style="cursor: pointer" >{{ row.item.hash }}</a>
+            </div>
           </td>
           <td>
             {{ row.item.timestamp }}
@@ -138,14 +138,12 @@ export default {
         const skip =
           parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getBlockList(skip);
-      }else if(pageNumber <= 0){
-          this.isLoading = true;
-          this.pagination = 1;
-          const skip =
-               this.resultsPerPage;
-          this.getBlockList(skip);
-      }
-      else {
+      } else if (pageNumber <= 0){
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip = this.resultsPerPage;
+        this.getBlockList(skip);
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -153,10 +151,10 @@ export default {
       }
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getBlockList(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getBlockList(skip);
     },
     getBlockList(skip) {
       axios({

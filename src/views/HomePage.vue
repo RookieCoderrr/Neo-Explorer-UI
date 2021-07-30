@@ -2,66 +2,64 @@
   <div>
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-2">
           <stats-card
-            title="Total traffic"
+            title="Total Blocks"
             type="gradient-red"
-            sub-title="350,897"
-            icon="ni ni-active-40"
+            :sub-title="blockCount.toLocaleString()"
+            icon="ni ni-ungroup"
             class="mb-4 mb-xl-0"
           >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-              ><i class="fa fa-arrow-up"></i> 3.48%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
           </stats-card>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-2">
           <stats-card
-            title="Total traffic"
+            title="Total Txns"
             type="gradient-orange"
-            sub-title="2,356"
-            icon="ni ni-chart-pie-35"
+            :sub-title="txCount.toLocaleString()"
+            icon="ni ni-cart"
             class="mb-4 mb-xl-0"
           >
-            <template v-slot:footer>
-              <span class="text-success mr-2"
-              ><i class="fa fa-arrow-up"></i> 12.18%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
           </stats-card>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-2">
           <stats-card
-            title="Sales"
+            title="Total Users"
             type="gradient-green"
-            sub-title="924"
+            :sub-title="accountCount.toLocaleString()"
+            icon="ni ni-single-02"
+            class="mb-4 mb-xl-0"
+          >
+          </stats-card>
+        </div>
+        <div class="col-2">
+          <stats-card
+            title="Total Assets"
+            type="gradient-purple"
+            :sub-title="assetCount.toLocaleString()"
             icon="ni ni-money-coins"
             class="mb-4 mb-xl-0"
           >
-            <template v-slot:footer>
-              <span class="text-danger mr-2"
-              ><i class="fa fa-arrow-down"></i> 5.72%</span
-              >
-              <span class="text-nowrap">Since last month</span>
-            </template>
           </stats-card>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-2">
           <stats-card
-            title="Performance"
-            type="gradient-info"
-            sub-title="49,65%"
-            icon="ni ni-chart-bar-32"
-            class="mb-4 mb-xl-0"
+              title="Total Candi"
+              type="gradient-blue"
+              :sub-title="candidateCount.toLocaleString()"
+              icon="ni ni-badge"
+              class="mb-4 mb-xl-0"
           >
-            <template v-slot:footer>
-              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 54.8%</span>
-              <span class="text-nowrap">Since last month</span>
-            </template>
+         </stats-card>
+        </div>
+        <div class="col-2">
+          <stats-card
+              title="Total Contra"
+              type="gradient-red"
+              :sub-title="contractCount.toLocaleString()"
+              icon="ni ni-collection"
+              class="mb-4 mb-xl-0"
+          >
           </stats-card>
         </div>
       </div>
@@ -70,10 +68,7 @@
           <blocks-table title="Recent Blocks"></blocks-table>
         </div>
         <div class="col-6">
-
-            <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
-
-
+          <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
         </div>
       </div>
     </div>
@@ -84,18 +79,139 @@
 
 import BlocksTable from '../views/Tables/BlocksTable'
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
-
+import axios from "axios";
+import StatsCard from "../components/StatsCard";
 
 export default {
   name: "Home",
   components: {
+    StatsCard,
     BlocksTable,
     TransactionTableHomepage,
   },
   data() {
-    return {}
+    return {
+      blockCount: 0,
+      txCount: 0,
+      accountCount: 0,
+      assetCount: 0,
+      contractCount: 0,
+      candidateCount: 0,
+    };
   },
-  methods: {},
+  created() {
+    this.getBlockCount();
+    this.getTxCount();
+    this.getAccountCount();
+    this.getAssetCount();
+    this.getContractCount();
+    this.getCandidateCount();
+  },
+  methods: {
+    getBlockCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetBlockCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.blockCount = res["data"]["result"]["index"];
+      });
+    },
+    getTxCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetTransactionCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.txCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getAccountCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetAccountCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.accountCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getAssetCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetAssetCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.assetCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getContractCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetContractCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.contractCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getCandidateCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetCandidateCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.candidateCount = res["data"]["result"]["total counts"];
+      });
+    },
+  },
+
 };
 </script>
 <style></style>
