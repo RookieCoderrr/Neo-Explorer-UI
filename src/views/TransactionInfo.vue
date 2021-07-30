@@ -63,7 +63,11 @@
               <card shadow>
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Block Hash</div>
-                  <div class="col-10">{{ this.tabledata["blockhash"] }}</div>
+                  <div class="col-10">
+                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToBlockInfo(this.blockhash)">
+                    {{ this.blockhash }}
+                    </a>
+                  </div>
                 </div>
               </card>
 
@@ -186,6 +190,7 @@ export default {
       tabledata: [],
       txhash: "",
       isLoading: true,
+      blockhash:""
     };
   },
   created() {
@@ -196,7 +201,11 @@ export default {
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
-
+    goToBlockInfo(hash){
+      this.$router.push({
+        path: `/blockinfo/${hash}`,
+      });
+    },
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
@@ -217,7 +226,7 @@ export default {
         var raw = res["data"]["result"];
         raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
-        this.txhash = this.tabledata["hash"];
+        this.blockhash = this.tabledata["blockhash"]
       });
     },
   },
