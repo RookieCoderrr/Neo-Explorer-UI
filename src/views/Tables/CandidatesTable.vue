@@ -54,7 +54,7 @@
           <td class="budget">
             {{ row.item.votesOfCandidate }}
           </td>
-          <td class="budget">20%</td>
+          <td class="budget">{{ getVotePercentage(row.item.votesOfCandidate) }}</td>
         </template>
       </base-table>
     </div>
@@ -91,6 +91,7 @@ export default {
     return {
       tableData: [],
       totalCount: 0,
+      votesCount:0,
       resultsPerPage: 10,
       pagination: 1,
       skip: 0,
@@ -98,17 +99,22 @@ export default {
       isLoading: true,
     };
   },
-  // computed:{
-  //   multiple(){
-  //     return  this.resultsPerPage*(this.pagination-1) ;
-  //   }
-  // },
+  computed:{
+    multiple(){
+      return  this.resultsPerPage*(this.pagination-1) ;
+    }
+  },
 
   created() {
     this.getCandidateList(0);
+    this.getTotalVotes();
   },
 
   methods: {
+
+    getVotePercentage(votes){
+        return votes/this.votesCount
+    },
     getAddress(accountAddress) {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
@@ -147,6 +153,25 @@ export default {
         this.count = this.skip;
       });
     },
+    getTotalVotes(){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {},
+          method: "GetTotalVotes",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+          this.votesCount = res["data"]["result"]["total votes"]
+      });
+    }
   },
 };
 </script>
