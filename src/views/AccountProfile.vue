@@ -333,7 +333,7 @@ export default {
       }).then((res) => {
         console.log(res)
         if(res["data"]["result"] == null) {
-          this.type = "null"
+          this.type = "normal"
         }
         else if(res["data"]["result"]["isCommittee"] == true) {
           this.type = "Committee"
