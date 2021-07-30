@@ -11,7 +11,7 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <img src="../assets/Neo.png" />
+              <img src="../assets/logo.png" />
             </div>
             <div class="col-6 collapse-close">
 
