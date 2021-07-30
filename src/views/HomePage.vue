@@ -6,7 +6,7 @@
         <input
             type="text"
             class="over-ellipsis"
-            :placeholder="'Block Height, Hash, Address or Transaction id'"
+            :placeholder="'Block Height, Contract/Address/Account/Transaction hash'"
             v-model ="searchVal"
             autocomplete="off"
             @keyup.enter="search()"

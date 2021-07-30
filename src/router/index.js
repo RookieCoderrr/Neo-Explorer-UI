@@ -25,7 +25,7 @@ import TransactionInfo from "../views/TransactionInfo.vue";
 const routes = [
   {
     path: "/",
-    redirect: "tokens",
+    redirect: "homepage",
     component: AuthLayout,
     children: [
       {
