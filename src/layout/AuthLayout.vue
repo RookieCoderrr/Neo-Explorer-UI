@@ -76,6 +76,16 @@
     </base-nav>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8">
+      <div class="search mt--5 ml-5">
+        <input
+          type="text"
+          class="over-ellipsis"
+          :placeholder="'Block Height, Hash, Address or Transaction id'"
+          v-model ="searchVal"
+          autocomplete="off"
+          @keyup.enter="search()"
+        /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
+      </div>
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg
           x="0"
@@ -97,13 +107,195 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "auth-layout",
   data() {
     return {
-      year: new Date().getFullYear(),
-      showMenu: false,
+      searchVal: "",
+      isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
+      isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
+      isNumberPattern: /^\d+$/,
     };
+  },
+  methods: {
+    search() {
+      let value = this.searchVal;
+      value = value.trim();
+      this.searchVal = "";
+      if (value === "") {
+        alert("Please input a value to search!");
+      } else if (this.isHashPattern.test(value)) {
+        if (value.length === 64) {
+          value = "0x" + value;
+          console.log(value);
+        }
+        this.getTransactionByTransactionHash(value);
+      } else if (this.isAssetPattern.test(value)) {
+        if (value.length === 40) {
+          value = "0x" + value;
+          console.log(value);
+        }
+        this.getToken(value);
+      } else if (Number(value[0]) >= 0) {
+        value = value.replace(/[,，]/g, "");
+        if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
+          if (Number.isInteger(Number(value))) {
+            this.getBlockByBlockHeight(value);
+          }
+        } else {
+          alert("Invalid input!");
+        }
+      } else {
+        alert("Invalid input!");
+      }
+    },
+    getBlockByBlockHash(block_hash) {
+      console.log(block_hash);
+    },
+    getBlockByBlockHeight(blockheight){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHeight":blockheight},
+          "method": "GetBlockByBlockHeight"
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/blockinfo/${blockheight}`,
+          });
+          console.log(res.status);
+        } else {
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      },
+    )},
+    getAddressByAddress(addr) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAddressByAddress",
+          params: {"Address": addr},
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/accountprofile/${addr}`,
+          });
+          console.log(res["data"]["error"]);
+        } else {
+          console.log(res["data"]["error"]);
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      })
+    },
+
+    getToken(value) {
+      return new Promise(() => {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {"ContractHash": value},
+            method: "GetAssetInfoByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          if (res["data"]["error"] == null) {
+            this.$router.push({
+              path: `/tokeninfo/${value}`,
+            });
+            console.log(res["data"]["error"]);
+          } else {
+            console.log(res["data"]["error"]);
+            console.log(this.count160);
+            this.getContractInfoByContractHash(value);
+          }
+        });
+      });
+    },
+    getContractInfoByContractHash(value) {
+      return new Promise(() => {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {"Hash": value},
+            method: "GetContractInfoByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          if (res["data"]["error"] == null) {
+            this.$router.push({
+              path: `/contractinfo/${value}`,
+            });
+            console.log(res.status);
+          } else {
+            console.log(res["data"]["error"]);
+            this.getAddressByAddress(value);
+          }
+        });
+      });
+    },
+
+    getTransactionByTransactionHash(value) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"TransactionHash":value},
+          "method": "GetRawTransactionByTransactionHash"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res) => {
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/transactionInfo/${value}`,
+          });
+          console.log(res.status);
+          this.getBlockByBlockHash(value);
+        } else {
+          console.log(res["data"]["error"]);
+        }
+      });
+    },
   },
 };
 </script>
