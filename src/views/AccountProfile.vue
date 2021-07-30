@@ -335,7 +335,6 @@ export default {
         },
       }).then((res) => {
         console.log(res)
-        this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
         if(res["data"]["result"] == null) {
           this.type = "null"
         }

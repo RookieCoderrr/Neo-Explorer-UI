@@ -28,16 +28,21 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th>Index</th>
+          <th>index</th>
           <th>Hash</th>
           <th>TimeStamp</th>
           <th>TxNumber</th>
           <th>Size</th>
+          <th></th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
-            {{row.item.index }}
+            <div class="media align-items-center" style="text-align: center">
+              <div class="media-body">
+                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.index }}</a>
+              </div>
+            </div>
           </th>
           <td style="padding-left: 100px">
             <div >
@@ -131,9 +136,6 @@ export default {
     },
   },
   methods: {
-    getBlock(hash) {
-      this.$router.push(`/blockinfo/${hash}`);
-    },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
         this.isLoading = true;
