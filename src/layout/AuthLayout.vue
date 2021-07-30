@@ -176,9 +176,7 @@ export default {
           });
           console.log(res.status);
         } else {
-          this.$router.push({
-            path: `/search`,
-          });
+          alert("Invalid input!");
         }
       },
     )},

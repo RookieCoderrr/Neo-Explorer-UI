@@ -70,7 +70,10 @@
           <blocks-table title="Recent Blocks"></blocks-table>
         </div>
         <div class="col-6">
+
             <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
+
+
         </div>
       </div>
     </div>
@@ -78,8 +81,11 @@
 </template>
 
 <script>
+
 import BlocksTable from '../views/Tables/BlocksTable'
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
+
+
 export default {
   name: "Home",
   components: {
