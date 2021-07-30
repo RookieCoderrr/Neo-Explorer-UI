@@ -39,7 +39,7 @@
             {{ row.item._id }}
           </td>
           <td class="address">
-            <a @click="getAddress(row.item.address)">{{ row.item.address }}</a>
+            <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a>
           </td>
           <td class="neoBalance">
             {{ row.item.neoBalance }}
@@ -175,9 +175,7 @@ export default {
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
           this.getBalance();
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1500);
+          this.isLoading = false;
         })
         .catch((err) => {
           console.log("Error", err);

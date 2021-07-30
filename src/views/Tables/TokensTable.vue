@@ -5,10 +5,23 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
-        <div class="col">
+        <div class="col-8">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
             {{ title }}
           </h3>
+        </div>
+        <div class="col-4">
+          <div class="search">
+            <input
+              type="text"
+              class="over-ellipsis"
+              :placeholder="'Search by Token Name'"
+              v-model="searchVal"
+              autocomplete="off"
+              @keyup.enter="search()"
+            /><button class="button" @click="search()">
+            <img class="img" src="../../assets/search.png" alt="search" /></button>
+          </div>
         </div>
       </div>
     </div>
@@ -38,13 +51,8 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body">
-                <a
-                  class="name mb-0 text-sm"
-                  style="cursor: pointer"
-                  @click="getToken(row.item.hash)"
-                  >{{ row.item.hash }}</a
-                >
+              <div class="media-body" >
+                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getToken(row.item.hash)">{{ row.item.hash }}</a>
               </div>
             </div>
           </th>
@@ -55,11 +63,7 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge
-              v-if="row.item.standard === 'NEP17'"
-              class="badge-dot mr-4"
-              type="primary"
-            >
+            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
               <span class="">{{ row.item.standard }}</span>
             </badge>
             <badge v-else class="badge-dot mr-4" type="success">
@@ -86,9 +90,7 @@
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
-          &nbsp; of &nbsp;{{
-            parseInt(this.totalCount / this.resultsPerPage) + 1
-          }}
+          &nbsp; of &nbsp;{{parseInt( this.totalCount / this.resultsPerPage) + 1 }}
         </div>
       </div>
       <base-pagination
@@ -107,21 +109,22 @@ import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "tokens-table",
   props: {
-    type: {
-      type: String,
-    },
+    type: { type: String},
     title: String,
   },
   components: {
-    Loading,
+    Loading
   },
   data() {
     return {
       tokenList: [],
+      tokenListName: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
+      name: "",
+      searchVal: "",
     };
   },
   created() {
@@ -144,10 +147,9 @@ export default {
       if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getBlockList(skip);
-      } else if (pageNumber <= 0) {
+      } else if(pageNumber <= 0){
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
@@ -163,6 +165,9 @@ export default {
       this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
+      if (this.name !== "") {
+        this.getTokenListByName(name, skip);
+      }
       this.getTokenList(skip);
     },
     getToken(hash) {
@@ -188,6 +193,38 @@ export default {
         this.totalCount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
+    },
+    getTokenListByName(name, skip) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip },
+          method: "GetTokenListByName",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.tokenList = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+        this.isLoading = false;
+      });
+    },
+    search() {
+      this.isLoading = true;
+      let value = this.searchVal;
+      value = value.trim();
+      if (value === "") {
+        return;
+      }
+      this.name = value;
+      this.searchVal = "";
+      this.getTokenListByName(value, 0);
     },
   },
 };

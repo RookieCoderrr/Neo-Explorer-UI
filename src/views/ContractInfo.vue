@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--9">
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -19,7 +19,7 @@
                   <div class="col-2">
                     <div class="text-muted">Creator</div>
                   </div>
-                  <div class="col-3"><h3>Currently Unavailable</h3></div>
+                  <div class="col-3"><h3>{{ this.contract_info["sender"]}}</h3></div>
                   <div class="col-2">
                     <div class="text-muted">Created</div>
                   </div>
@@ -53,11 +53,14 @@
                   <div class="col-2">
                     <div class="text-muted">Transactions</div>
                   </div>
-                  <div class="col-3"><h3>Currently not available</h3></div>
+                  <div class="col-3"><h3>{{ this.contract_info["totalSccall"]}}</h3></div>
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Recent Transactions">
+                <tab-pane icon="ni ni-folder-17" title="Recent ScCalls">
+                  <div v-if="!this.isLoading">
+                    <sc-call-table :contract-hash="contract_id"></sc-call-table>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-active-40" title="Recent Events">
                   <events-table :contractHash="contract_id"></events-table>
@@ -169,11 +172,13 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import EventsTable from "./Tables/EventsTable";
+import ScCallTable from "./Tables/ScCallTable";
 
 export default {
   components: {
     Loading,
     EventsTable,
+    ScCallTable,
   },
   data() {
     return {

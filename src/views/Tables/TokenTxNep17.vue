@@ -25,54 +25,26 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <span
-                  class="text-muted"
-                  v-if="
-                    row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000'
-                  "
-                  >Null Transaction</span
-                >
-                <a
-                  class="name mb-0 text-sm"
-                  v-else
-                  style="cursor: pointer"
-                  @click="getTransaction(row.item.txid)"
-                  >{{ row.item.txid }}</a
-                >
+                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
             </div>
           </th>
           <td class="From">
             <div class="addr">
-              <span class="text-muted" v-if="row.item.from === null">
-                Null Account
-              </span>
-              <a
-                class="name mb-0 text-sm"
-                v-else
-                style="cursor: pointer"
-                @click="getAddress(row.item.from)"
-                >{{ row.item.from }}</a
-              >
+              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
+
           </td>
           <td class="To">
             <div class="addr">
-              <span class="text-muted" v-if="row.item.to === null">
-                Null Account
-              </span>
-              <a
-                class="name mb-0 text-sm"
-                v-else
-                style="cursor: pointer"
-                @click="getAddress(row.item.to)"
-                >{{ row.item.to }}</a
-              >
+              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
             </div>
           </td>
           <td class="Value">
-            {{ row.item.value }}
+            {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="time">
             {{ convertTime(row.item.time) }}
@@ -86,19 +58,19 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{
-            parseInt(this.totalCount / this.resultsPerPage) + 1
-          }}
-        </div>
+      <div class="text">Page &nbsp;</div>
+      <base-input
+        type="number"
+        :style="text(pagination)"
+        :placeholder="pagination"
+        v-on:changeinput="pageChangeByInput($event)"
+      ></base-input>
+      <div class="text">
+        &nbsp; of &nbsp;{{
+        parseInt(this.totalCount / this.resultsPerPage) + 1
+        }}
       </div>
+    </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -109,8 +81,8 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
 
 export default {
@@ -120,9 +92,10 @@ export default {
       type: String,
     },
     contractHash: String,
+    decimal: Number,
   },
   components: {
-    Loading,
+    Loading
   },
   data() {
     return {
@@ -153,10 +126,9 @@ export default {
       if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
         this.isLoading = true;
         this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip =
-          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+        const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
         this.getTokenList(skip);
-      } else if (pageNumber <= 0) {
+      } else if(pageNumber <= 0){
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
@@ -169,12 +141,12 @@ export default {
       }
     },
     pageChange(pageNumber) {
-      this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTokenList(skip);
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTokenList(skip);
     },
-    convertTime(ts) {
+    convertTime(ts){
       return format(ts);
     },
     getTokenList(skip) {
@@ -184,11 +156,7 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {
-            ContractHash: this.contractHash,
-            Limit: this.resultsPerPage,
-            Skip: skip,
-          },
+          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
           method: "GetNep17TransferByContractHash",
         },
         headers: {
@@ -211,6 +179,9 @@ export default {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,
       });
+    },
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
     },
   },
 };
