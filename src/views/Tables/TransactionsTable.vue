@@ -73,9 +73,7 @@
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
-          &nbsp; of &nbsp;{{
-            parseInt(this.totalCount / this.resultsPerPage) + 1
-          }}
+          &nbsp; of &nbsp;{{countPage }}
         </div>
       </div>
       <base-pagination
@@ -110,6 +108,7 @@ export default {
       pagination: 1,
       placeHolder: 0,
       isLoading: true,
+      countPage:0,
     };
   },
 
@@ -156,10 +155,10 @@ export default {
       this.getTransactionList(skip);
     },
     pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+      if (pageNumber >= this.countPage) {
+        this.pagination = this.countPage;
         const skip =
-          parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+          (this.countPage - 1 ) * this.resultsPerPage;
         this.getTransactionList(skip);
       } else if (pageNumber <= 0) {
         this.pagination = 1;
@@ -191,6 +190,7 @@ export default {
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
       });
     },
   },

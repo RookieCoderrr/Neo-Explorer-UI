@@ -114,9 +114,6 @@
                 <tab-pane icon="ni ni-money-coins" title=" Transactions">
                   <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
                 </tab-pane>
-                <tab-pane icon="ni ni-single-02 mr-2" title="Transfers">
-                  <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
-                </tab-pane>
               </tabs>
             </div>
           </div>

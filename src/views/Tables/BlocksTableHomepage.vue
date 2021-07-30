@@ -110,7 +110,7 @@
             },
         },
         methods: {
-            toBlcoksTable(){
+            toBlocksTable(){
                 this.$router.push({
                     path: `/blocks`,
                 });

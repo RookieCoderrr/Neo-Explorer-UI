@@ -84,13 +84,11 @@
                 v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
-          &nbsp; of &nbsp;{{
-          parseInt(this.totalCount / this.resultsPerPage) + 1
-          }}
+          &nbsp; of &nbsp;{{this.countPage }}
         </div>
       </div>
       <base-pagination
-        :total="this.totalCount"
+        :total="totalCount"
         :value="pagination"
         v-on:input="pageChange($event)"
       ></base-pagination>
@@ -123,6 +121,7 @@ export default {
       isLoading: true,
       searchVal: "",
       name: "",
+      countPage:0,
     };
   },
   created() {
@@ -142,11 +141,12 @@ export default {
   },
   methods: {
     pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+
+      if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
+        this.pagination =this.countPage ;
         const skip =
-                parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
+                (this.countPage -1) * this.resultsPerPage;
         this.getContractList(skip);
       }else if(pageNumber <= 0){
         this.isLoading = true;
@@ -193,9 +193,10 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        // console.log(["data"]["result"])
+         console.log(res["data"]["result"])
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
         this.isLoading = false;
       });
     },
@@ -217,6 +218,7 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
         this.isLoading = false;
       });
     },

@@ -89,7 +89,7 @@
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
-          &nbsp; of &nbsp;{{parseInt( this.totalCount / this.resultsPerPage) + 1 }}
+          &nbsp; of &nbsp;{{countPage }}
         </div>
       </div>
       <base-pagination
@@ -124,6 +124,7 @@ export default {
       isLoading: true,
       name: "",
       searchVal: "",
+      countPage: 0,
     };
   },
   created() {
@@ -143,11 +144,11 @@ export default {
   },
   methods: {
     pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalCount / this.resultsPerPage) + 1) {
+      if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination = parseInt(this.totalCount / this.resultsPerPage) + 1;
-        const skip = parseInt(this.totalCount / this.resultsPerPage) * this.resultsPerPage;
-        this.getBlockList(skip);
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1 ) * this.resultsPerPage;
+        this.getTokenList(skip);
       } else if(pageNumber <= 0){
         this.isLoading = true;
         this.pagination = 1;
@@ -190,6 +191,7 @@ export default {
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = Math.ceil( this.totalCount / this.resultsPerPage )
         this.isLoading = false;
       });
     },
@@ -211,6 +213,7 @@ export default {
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = Math.ceil( this.totalCount / this.resultsPerPage )
         this.isLoading = false;
       });
     },

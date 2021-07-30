@@ -66,9 +66,7 @@
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
-          &nbsp; of &nbsp;{{
-            parseInt(this.totalAccount / this.resultsPerPage) + 1
-          }}
+          &nbsp; of &nbsp;{{countPage}}
         </div>
       </div>
       <base-pagination
@@ -104,6 +102,7 @@ export default {
       resultsPerPage: 10,
       neoBalance: 0,
       isLoading: true,
+      countPage:0,
     };
   },
   created() {
@@ -123,12 +122,11 @@ export default {
   },
   methods: {
     pageChangeByInput(pageNumber) {
-      if (pageNumber >= parseInt(this.totalAccount / this.resultsPerPage) + 1) {
+      if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination = parseInt(this.totalAccount / this.resultsPerPage) + 1;
+        this.pagination = this.countPage;
         const skip =
-          parseInt(this.totalAccount / this.resultsPerPage) *
-          this.resultsPerPage;
+                ( this.countPage - 1 ) * this.resultsPerPage;
         this.getAccoutsList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -173,6 +171,7 @@ export default {
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
+          this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage)
           this.getBalance();
           this.isLoading = false;
         })

@@ -114,16 +114,6 @@ export default {
     // this.hasContent(this.length)
   },
   methods: {
-    // hasContent(length){
-    //   var t = document.getElementById("isHidden")
-    //   console.log(t)
-    //   t.style.display = "none"
-    //   if (length == 0 ) {
-    //     t.style.display = 'none';	// 隐藏选择的元素
-    //   }else {
-    //     t.style.display = 'block';	// 以块级样式显示
-    //   }
-    // },
     convertToken(token, decimal) {
       var temp = token * Math.pow(0.1, decimal);
       if (temp % 1 === 0) {
