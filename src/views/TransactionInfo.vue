@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--9">
+    <div class="container-fluid mt--7">
       <loading
         :is-full-page="false"
         :opacity="0.9"

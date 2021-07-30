@@ -1,16 +1,11 @@
 <template>
   <div>
-    <div class="container-fluid mt--9">
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <candidates-table title="Candidate List"></candidates-table>
         </div>
       </div>
-      <!--      <div class="row mt-5">-->
-      <!--        <div class="col">-->
-      <!--          <candidates-table type="dark" title="Candidate List"></candidates-table>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
 </template>
