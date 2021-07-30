@@ -65,12 +65,12 @@
           </stats-card>
         </div>
       </div>
-      <div class="row mt-8">
+      <div class="row mt-4">
         <div class="col-6">
-          <blocks title="Recent Blocks"></blocks>
+          <blocks-table title="Recent Blocks"></blocks-table>
         </div>
         <div class="col-6">
-          <transaction-list title="Recent Transactions"></transaction-list>
+          <transaction-table title="Recent Transactions"></transaction-table>
         </div>
       </div>
     </div>
@@ -78,13 +78,13 @@
 </template>
 
 <script>
-import Blocks from "./Blocks";
-import TransactionList from "./TransactionList";
+import BlocksTable from "./Tables/BlocksTable";
+import TransactionTable from "./Tables/TransactionsTable";
 export default {
   name: "Home",
   components: {
-    Blocks,
-    TransactionList,
+    BlocksTable,
+    TransactionTable,
   },
   data() {
     return {}
