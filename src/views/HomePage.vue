@@ -44,7 +44,7 @@
         </div>
         <div class="col-2">
           <stats-card
-              title="Total Candi"
+              title="Total /\n Candi"
               type="gradient-blue"
               :sub-title="candidateCount.toLocaleString()"
               icon="ni ni-badge"
@@ -60,10 +60,6 @@
               icon="ni ni-collection"
               class="mb-4 mb-xl-0"
           >
-            <template v-slot:footer>
-              <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 54.8%</span>
-              <span class="text-nowrap">Since last month</span>
-            </template>
           </stats-card>
         </div>
       </div>
