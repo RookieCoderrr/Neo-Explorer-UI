@@ -205,7 +205,15 @@ export default {
     this.getToken(this.token_id);
     this.getContractManifest(this.token_id);
   },
+  watch:{
+    $route:'watchrouter'
+  },
   methods: {
+    watchrouter() {//如果路由有变化，执行的对应的动作
+      this.token_id = this.$route.params.hash
+      this.getToken(this.token_id);
+      this.getContractManifest(this.token_id);
+    },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
     },

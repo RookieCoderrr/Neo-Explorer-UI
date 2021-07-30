@@ -111,9 +111,7 @@
                 </div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title=" Transactions">
                   <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
-                </tab-pane>
               </tabs>
             </div>
           </div>

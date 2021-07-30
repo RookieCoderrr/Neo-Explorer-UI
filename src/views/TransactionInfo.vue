@@ -192,7 +192,14 @@ export default {
     this.txhash = this.$route.params.txhash;
     this.getTransactionByTransactionHash(this.$route.params.txhash);
   },
+  watch:{
+    $route:'watchrouter'
+  },
   methods: {
+    watchrouter() {//如果路由有变化，执行的对应的动作
+      this.txhash = this.$route.params.hash
+      this.getTransactionByTransactionHash(this.$route.params.txhash)
+    },
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },

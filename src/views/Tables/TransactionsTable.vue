@@ -188,6 +188,7 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
+        console.log(res)
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
