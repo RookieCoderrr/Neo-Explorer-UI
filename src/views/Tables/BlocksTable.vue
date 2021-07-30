@@ -38,11 +38,7 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center" style="text-align: center">
-              <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer">{{ row.item.index }}</a>
-              </div>
-            </div>
+            {{ row.item.index }}
           </th>
           <td style="padding-left: 100px">
             <div >
