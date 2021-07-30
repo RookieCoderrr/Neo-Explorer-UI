@@ -44,7 +44,7 @@
         </div>
         <div class="col-2">
           <stats-card
-              title="Total /\n Candi"
+              title="Total Cndidtes"
               type="gradient-blue"
               :sub-title="candidateCount.toLocaleString()"
               icon="ni ni-badge"
@@ -54,7 +54,7 @@
         </div>
         <div class="col-2">
           <stats-card
-              title="Total Contra"
+              title="Total Cntrts"
               type="gradient-red"
               :sub-title="contractCount.toLocaleString()"
               icon="ni ni-collection"
