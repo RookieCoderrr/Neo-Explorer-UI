@@ -254,6 +254,7 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
 </template>
 <script>
 import axios from "axios";
+//import Neon from "@cityofzion/neon-js";
 // import TransfersTable from "./Tables/TransfersTable";
 export default {
   name: "user-profile",
