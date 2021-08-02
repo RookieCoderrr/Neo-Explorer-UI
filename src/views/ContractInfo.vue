@@ -19,7 +19,10 @@
                   <div class="col-2">
                     <div class="text-muted">Creator</div>
                   </div>
-                  <div class="col-3"><h3>{{ this.contract_info["sender"] === null ? "Not Available" : this.contract_info["sender"]}}</h3></div>
+                  <div class="col-3">
+                    <h3 class="text-muted" v-if="this.contract_info['sender'] === null">Not Available</h3>
+                    <a class="text-md" v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
+                  </div>
                   <div class="col-2">
                     <div class="text-muted">Created</div>
                   </div>
@@ -173,6 +176,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   components: {
@@ -224,6 +228,15 @@ export default {
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
         this.isLoading = false;
+      });
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
+    },
+    getSender(addr) {
+      this.$router.push({
+        path: `/accountprofile/${this.addressToScriptHash(addr)}`
       });
     },
   },
