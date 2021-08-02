@@ -27,7 +27,7 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>ID.</th>
+          <th>No.</th>
           <th>Address</th>
           <th>Neo Balance</th>
           <th>Gas Balance</th>
@@ -35,7 +35,7 @@
         </template>
         <template v-slot:default="row">
           <td>
-            {{ row.item._id }}
+            {{ row.item.number }}
           </td>
           <td class="address">
             <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a>
@@ -82,6 +82,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+//import Neon from "@cityofzion/neon-js"
 
 export default {
   name: "accounts-table",
@@ -106,6 +107,9 @@ export default {
     };
   },
   created() {
+    //console.log("accounts table")
+    //var c = Neon.create.account("0x0a9dccb4625e79a884409489cbc5cef8b981c492")
+    //console.log(c.address)
     this.getAccoutsList(0);
   },
   computed: {
@@ -168,6 +172,7 @@ export default {
             temp[k]["firstusetime"] = format(temp[k]["firstusetime"]);
             temp[k]["neoBalance"] = "";
             temp[k]["gasBalance"] = "";
+            temp[k]["number"] = (k+1)+this.resultsPerPage*(this.pagination-1)
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
