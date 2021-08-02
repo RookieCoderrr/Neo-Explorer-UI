@@ -75,11 +75,13 @@
               <card shadow>
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Sender</div>
-                  <div class="col-10">
+                  <div class="col-9">
                     <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </a>
-                    <button type="primary" size="sm" @click="changeFormat()">format</button>
+                  </div>
+                  <div class="col-1">
+                    <button  class="btn btn-primary btn-xs" @click="changeFormat()">{{this.buttonName}}</button>
                   </div>
                 </div>
               </card>
@@ -198,7 +200,8 @@ export default {
       isLoading: true,
       blockhash:"",
       address:"",
-      state: true
+      state: true,
+      buttonName:"Hash"
     };
   },
   created() {
@@ -218,11 +221,13 @@ export default {
     changeFormat(){
       if(this.state === true) {
         this.state = false
+        this.buttonName = "WIF"
         console.log(this.state)
         return
       } else {
         this.state = true
         console.log(this.state)
+        this.buttonName = "Hash"
         return
       }
     },
