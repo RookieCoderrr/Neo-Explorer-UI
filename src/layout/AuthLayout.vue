@@ -103,16 +103,26 @@
       </div>
     </div>
     <!-- Page content -->
+    <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+    ></loading>
     <router-view></router-view>
   </div>
 </template>
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
 
 export default {
   name: "auth-layout",
+  components: {
+    Loading,
+  },
   data() {
     return {
+      isLoading: false,
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
@@ -121,6 +131,7 @@ export default {
   },
   methods: {
     search() {
+      this.isLoading = true;
       let value = this.searchVal;
       value = value.trim();
       this.searchVal = "";
@@ -143,9 +154,11 @@ export default {
             this.getBlockByBlockHeight(value);
           }
         } else {
+          this.isLoading = false;
           alert("Invalid input!");
         }
       } else {
+        this.isLoading = false;
         alert("Invalid input!");
       }
     },
@@ -165,15 +178,16 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-                if (res["data"]["error"] == null) {
-                  this.$router.push({
-                    path: `/blockinfo/${res["data"]["result"]["hash"]}`,
-                  });
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
 
-                } else {
-                  alert("Invalid input!");
-                }
-              },
+        } else {
+          alert("Invalid input!");
+        }
+      },
       )
     },
     getBlockByBlockHeight(blockheight){
@@ -192,6 +206,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -218,14 +233,13 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/accountprofile/${addr}`,
           });
         } else {
-          this.$router.push({
-            path: `/search`,
-          });
+          alert("Invalid input!");
         }
       })
     },
@@ -247,6 +261,7 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
+          this.isLoading = false;
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/tokeninfo/${value}`,
@@ -274,6 +289,7 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
+          this.isLoading = false;
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/contractinfo/${value}`,
@@ -298,6 +314,7 @@ export default {
         headers:{'Content-Type': 'application/json','withCredentials':' true',
           'crossDomain':'true',},
       }).then((res) => {
+        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/transactionInfo/${value}`,
