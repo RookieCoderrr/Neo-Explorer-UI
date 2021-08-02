@@ -80,7 +80,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Block Height, Hash, Address or Transaction id'"
+          :placeholder="'Search by Block Hash, Transaction ID, Address or Contract ID'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"

@@ -76,10 +76,11 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Sender</div>
                   <div class="col-10">
-                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
-                      {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
+                    <a class="name mb-0 text-sm" style="cursor: pointer" @click="goToAddressInfo(addressToScriptHash(this.address))">
+                      {{addressToScriptHash(this.address)}}
+<!--                    @click="goToAddressInfo(addressToScriptHash(this.address))"{{ this.state ===true ? this.address :addressToScriptHash(this.address)}}-->
                     </a>
-                    <button type="primary" size="sm" @click="changeFormat()">format</button>
+<!--                    <button type="primary" size="sm" @click="changeFormat()">format</button>-->
                   </div>
                 </div>
               </card>
