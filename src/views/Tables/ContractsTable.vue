@@ -196,7 +196,7 @@ export default {
          console.log(res["data"]["result"])
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         this.isLoading = false;
       });
     },
@@ -218,7 +218,7 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         this.isLoading = false;
       });
     },

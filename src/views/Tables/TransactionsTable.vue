@@ -191,7 +191,7 @@ export default {
         console.log(res)
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
       });
     },
   },

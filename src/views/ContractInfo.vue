@@ -197,8 +197,10 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
+      if( this.$route.name === 'contracts'){
       this.contract_id = this.$route.params.hash
       this.getContract(this.contract_id);
+      }
     },
     getContract(contract_id) {
       axios({

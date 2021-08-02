@@ -224,9 +224,7 @@ export default {
           this.$router.push({
             path: `/accountprofile/${addr}`,
           });
-          console.log(res["data"]["error"]);
         } else {
-          console.log(res["data"]["error"]);
           this.$router.push({
             path: `/search`,
           });
@@ -255,10 +253,7 @@ export default {
             this.$router.push({
               path: `/tokeninfo/${value}`,
             });
-            console.log(res["data"]["error"]);
           } else {
-            console.log(res["data"]["error"]);
-            console.log(this.count160);
             this.getContractInfoByContractHash(value);
           }
         });
@@ -285,9 +280,7 @@ export default {
             this.$router.push({
               path: `/contractinfo/${value}`,
             });
-            console.log(res.status);
           } else {
-            console.log(res["data"]["error"]);
             this.getAddressByAddress(value);
           }
         });
@@ -311,11 +304,9 @@ export default {
           this.$router.push({
             path: `/transactionInfo/${value}`,
           });
-          console.log(res.status);
 
         } else {
           this.getBlockByBlockHash(value);
-          console.log(res["data"]["error"]);
         }
       });
     },
