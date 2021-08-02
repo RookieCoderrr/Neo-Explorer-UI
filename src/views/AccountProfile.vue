@@ -67,12 +67,12 @@
                 <div class="col-3">
                   <h3>{{ this.createdTime }}</h3>
                 </div>
-                <div class="col-2">
+                <!--div class="col-2">
                   <div class="text-muted">Contract deployment:</div>
                 </div>
                 <div class="col-3">
                   <h3>{{}}</h3>
-                </div>
+                </div-->
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
@@ -111,7 +111,7 @@
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="Contracts"> </tab-pane>
+                <!--tab-pane icon="ni ni-collection" title="Contracts"> </tab-pane-->
               </tabs>
             </div>
           </div>
