@@ -47,6 +47,18 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{ countPage }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -73,11 +85,24 @@ export default {
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
+      countPage:0,
     };
   },
 
   created() {
     this.getTransactions();
+  },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
   },
   methods: {
     mouseHover(txid) {
@@ -105,6 +130,25 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactionList(skip);
     },
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= this.countPage) {
+        this.isLoading = true;
+        this.pagination =this.countPage;
+        const skip =
+                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      } else if (pageNumber <= 0) {
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip = this.resultsPerPage;
+        this.getTransactionList(skip);
+      } else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getTransactionList(skip);
+      }
+    },
     getTransactions(skip) {
       axios({
         method: "post",
@@ -127,6 +171,8 @@ export default {
       })
         .then((res) => {
           this.tableData = res["data"]["result"]["result"];
+          this.totalCount = res["data"]["result"]["totalCount"];
+          this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         })
         .catch((err) => {
           console.log("Error", err);
@@ -150,6 +196,8 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
       });
     },
   },
