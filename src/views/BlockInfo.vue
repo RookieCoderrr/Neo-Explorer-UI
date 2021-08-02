@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
-      if(this.$route.name === 'blocks') {
+      if(this.$route.name === 'blockinfo') {
         this.BlockHash = this.$route.params.hash
         this.getBlock(this.BlockHash);
       }

@@ -203,7 +203,7 @@ export default {
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
       if(this.$route.name === 'transactionInfo'){
-      this.txhash = this.$route.params.hash
+      this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
       }
     },

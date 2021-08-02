@@ -210,11 +210,11 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
-      console.log(this.$route.name)
-      if(this.$route.name === 'transactions')
+      if(this.$route.name === 'tokeninfo'){
       this.token_id = this.$route.params.hash
-      this.getToken(this.token_id);
-      this.getContractManifest(this.token_id);
+      this.getToken(this.$route.params.hash);
+      this.getContractManifest(this.$route.params.hash);
+      }
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);

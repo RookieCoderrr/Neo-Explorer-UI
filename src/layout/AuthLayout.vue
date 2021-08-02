@@ -129,13 +129,11 @@ export default {
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
           value = "0x" + value;
-          console.log(value);
         }
         this.getTransactionByTransactionHash(value);
       } else if (this.isAssetPattern.test(value)) {
         if (value.length === 40) {
           value = "0x" + value;
-          console.log(value);
         }
         this.getToken(value);
       } else if (Number(value[0]) >= 0) {
