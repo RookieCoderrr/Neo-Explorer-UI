@@ -75,7 +75,12 @@
               <card shadow>
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Sender</div>
-                  <div class="col-10">{{ this.tabledata["sender"] }}</div>
+                  <div class="col-10">
+                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
+                      {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
+                    </a>
+                    <button type="primary" size="sm" @click="changeFormat()">format</button>
+                  </div>
                 </div>
               </card>
 
@@ -178,6 +183,7 @@ import TransfersList from "./Tables/TransfersList";
 import NftTable from "./Tables/NftTable";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   components: {
@@ -190,7 +196,9 @@ export default {
       tabledata: [],
       txhash: "",
       isLoading: true,
-      blockhash:""
+      blockhash:"",
+      address:"",
+      state: true
     };
   },
   created() {
@@ -205,6 +213,17 @@ export default {
       this.txhash = this.$route.params.hash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
     },
+    changeFormat(){
+      if(this.state === true) {
+        this.state = false
+        console.log(this.state)
+        return
+      } else {
+        this.state = true
+        console.log(this.state)
+        return
+      }
+    },
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
@@ -212,6 +231,15 @@ export default {
       this.$router.push({
         path: `/blockinfo/${hash}`,
       });
+    },
+    goToAddressInfo(addr){
+      this.$router.push({
+        path: `/accountprofile/${addr}`,
+      });
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
     },
     getTransactionByTransactionHash(tx_id) {
       axios({
@@ -234,6 +262,7 @@ export default {
         raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
         this.blockhash = this.tabledata["blockhash"]
+        this.address = this.tabledata["sender"]
       });
     },
   },
