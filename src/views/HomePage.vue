@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7" style="padding-bottom: 50px">
       <div class="row">
         <div class="col-2">
           <stats-card
@@ -12,6 +12,7 @@
           >
           </stats-card>
         </div>
+
         <div class="col-2">
           <stats-card
             title="Total Txns"
@@ -24,7 +25,27 @@
         </div>
         <div class="col-2">
           <stats-card
-            title="Total Users"
+                  title="Total Tokens"
+                  type="gradient-purple"
+                  :sub-title="assetCount.toLocaleString()"
+                  icon="ni ni-money-coins"
+                  class="mb-4 mb-xl-0"
+          >
+          </stats-card>
+        </div>
+        <div class="col-2">
+          <stats-card
+                  title="Total Cntrts"
+                  type="gradient-red"
+                  :sub-title="contractCount.toLocaleString()"
+                  icon="ni ni-collection"
+                  class="mb-4 mb-xl-0"
+          >
+          </stats-card>
+        </div>
+        <div class="col-2">
+          <stats-card
+            title="Total Accts"
             type="gradient-green"
             :sub-title="accountCount.toLocaleString()"
             icon="ni ni-single-02"
@@ -32,16 +53,7 @@
           >
           </stats-card>
         </div>
-        <div class="col-2">
-          <stats-card
-            title="Total Assets"
-            type="gradient-purple"
-            :sub-title="assetCount.toLocaleString()"
-            icon="ni ni-money-coins"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
+
         <div class="col-2">
           <stats-card
             title="Total Cndidtes"
@@ -52,16 +64,7 @@
           >
          </stats-card>
         </div>
-        <div class="col-2">
-          <stats-card
-            title="Total Cntrts"
-            type="gradient-red"
-            :sub-title="contractCount.toLocaleString()"
-            icon="ni ni-collection"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
+
       </div>
       <div class="row mt-4">
         <div class="col-6">

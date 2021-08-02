@@ -36,12 +36,6 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/candidates">
-              <i class="ni ni-badge"></i>
-              <span class="nav-link-inner--text">Committee</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/blocks">
               <i class="ni ni-ungroup"></i>
               <span class="nav-link-inner--text">Blocks</span>
@@ -69,6 +63,12 @@
             <router-link class="nav-link nav-link-icon" to="/account">
               <i class="ni ni-single-02"></i>
               <span class="nav-link-inner--text">Accounts</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/candidates">
+              <i class="ni ni-badge"></i>
+              <span class="nav-link-inner--text">Committee</span>
             </router-link>
           </li>
         </ul>
