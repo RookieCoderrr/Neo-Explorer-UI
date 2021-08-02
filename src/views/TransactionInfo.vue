@@ -202,8 +202,10 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
-      this.txhash = this.$route.params.hash
+      if(this.$route.name === 'transactionInfo'){
+      this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
+      }
     },
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
@@ -231,7 +233,7 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         var raw = res["data"]["result"];
-        raw["blocktime"] = format(raw["blocktime"]);
+       raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
         this.blockhash = this.tabledata["blockhash"]
       });
