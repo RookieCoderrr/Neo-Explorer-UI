@@ -59,7 +59,8 @@
             {{ row.item.name }}
           </td>
           <td class="Creator">
-            {{ row.item.Transaction.length > 0 ? row.item.Transaction[0]["sender"] : "Not Available" }}
+            <span class="text-muted" v-if="row.item.Transaction.length === 0">Not Available</span>
+            <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{addressToScriptHash(row.item.Transaction[0]["sender"])}} </a>
           </td>
           <td class="index">
             {{row.item.id}}
@@ -78,10 +79,10 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{this.countPage }}
@@ -100,6 +101,7 @@ import axios from "axios";
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import { format } from "timeago.js";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "contracts-table",
@@ -175,7 +177,9 @@ export default {
       this.getContractList(skip);
     },
     getContract(hash) {
-      this.$router.push(`/contractinfo/${hash}`);
+      this.$router.push({
+        path: `/contractinfo/${hash}`
+      });
     },
     getContractList(skip) {
       axios({
@@ -193,10 +197,10 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-         console.log(res["data"]["result"])
+        console.log(res);
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },
@@ -218,14 +222,22 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
+      });
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
+    },
+    getSender(addr) {
+      this.$router.push({
+        path: `/accountprofile/${this.addressToScriptHash(addr)}`
       });
     },
     search() {
       this.isLoading = true;
       let value = this.searchVal;
-      // const inputValue = this.searchVal;
       value = value.trim();
       if (value === "") {
         return;
