@@ -48,7 +48,6 @@ export default {
       if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
           value = '0x' + value;
-          console.log(value)
         }
           this.getTransactionByTransactionHash(value)
 
@@ -58,7 +57,6 @@ export default {
       else if (this.isAssetPattern.test(value)) {
         if (value.length === 40) {
           value = '0x' + value;
-          console.log(value)
         }
         this.getToken(value)
 
@@ -83,7 +81,33 @@ export default {
       }
     },
     getBlockByBlockHash(block_hash) {
-      console.log(block_hash)
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHeight":block_hash},
+          "method": "GetBlockByBlockHash"
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+                if (res["data"]["error"] ==null) {
+                  this.$router.push({
+                    path: `/blockinfo/${block_hash}`,
+                  });
+                }
+                else {
+                  this.$router.push({
+                    path: `/search`,
+                  });
+                }
+              },
+      )
     },
     getBlockByBlockHeight(blockheight){
       axios({
