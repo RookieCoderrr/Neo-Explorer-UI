@@ -39,7 +39,7 @@
               class="name mb-0 text-sm"
               style="cursor: pointer"
               @click="getFromAccount(row.item.from)"
-              >{{ row.item.from }}</a
+              >{{ row.item.from === null ? "Null Accounts" : row.item.from }}</a
             >
           </div>
         </td>
