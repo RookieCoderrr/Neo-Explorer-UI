@@ -114,6 +114,7 @@
 <script>
 import axios from "axios";
 import Loading from "vue-loading-overlay";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "auth-layout",
@@ -126,6 +127,7 @@ export default {
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
+      isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
     };
   },
@@ -153,14 +155,22 @@ export default {
           if (Number.isInteger(Number(value))) {
             this.getBlockByBlockHeight(value);
           }
-        } else {
+        }
+        else {
           this.isLoading = false;
           alert("Invalid input!");
         }
-      } else {
+      } else if (this.isAddressPattern.test(value)){
+        this.getAddressByAddress(this.addressToScriptHash(value))
+      }
+      else {
         this.isLoading = false;
         alert("Invalid input!");
       }
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
     },
     getBlockByBlockHash(block_hash) {
       axios({
