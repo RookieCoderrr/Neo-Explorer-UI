@@ -58,7 +58,7 @@
                   <div class="col-2">
                     <div class="text-muted">First Transferred</div>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3" v-if="this.token_info.firsttransfertime" >
                     <h3>{{ this.token_info["firsttransfertime"] }}</h3>
                   </div>
                 </div>
@@ -210,6 +210,8 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if(this.$route.name === 'transactions')
       this.token_id = this.$route.params.hash
       this.getToken(this.token_id);
       this.getContractManifest(this.token_id);
@@ -236,8 +238,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        const raw = res["data"]["result"];
-        raw["firsttransfertime"] = format(raw["firsttransfertime"]);
+         let raw = res["data"]["result"];
+       raw["firsttransfertime"] = format(raw["firsttransfertime"]);
         this.standard = raw["standard"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;

@@ -168,14 +168,16 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
-      this.accountAddress = this.$route.params.accountAddress
-      this.getNeoBalance();
-      this.isLoading = false;
-      this.getGasBalance();
-      this.getTransactions();
-      this.getCreatedTime();
-      this.getTransfers();
-      this.getCandidateByAddress();
+      if(this.$route.name === 'AccountProfile') {
+        this.accountAddress = this.$route.params.accountAddress
+        this.getNeoBalance();
+        this.isLoading = false;
+        this.getGasBalance();
+        this.getTransactions();
+        this.getCreatedTime();
+        this.getTransfers();
+        this.getCandidateByAddress();
+      }
     },
     getNeoBalance() {
       axios({
