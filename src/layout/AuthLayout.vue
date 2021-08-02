@@ -36,12 +36,6 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/candidates">
-              <i class="ni ni-badge"></i>
-              <span class="nav-link-inner--text">Committee</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/blocks">
               <i class="ni ni-ungroup"></i>
               <span class="nav-link-inner--text">Blocks</span>
@@ -71,6 +65,12 @@
               <span class="nav-link-inner--text">Accounts</span>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link nav-link-icon" to="/candidates">
+              <i class="ni ni-badge"></i>
+              <span class="nav-link-inner--text">Committee</span>
+            </router-link>
+          </li>
         </ul>
       </template>
     </base-nav>
@@ -80,7 +80,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Block Height, Hash, Address or Transaction id'"
+          :placeholder="'Search by Block Hash, Transaction ID, Address or Contract ID'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"

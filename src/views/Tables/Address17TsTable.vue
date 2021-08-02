@@ -70,6 +70,18 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{ countPage }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -94,10 +106,23 @@ export default {
       tableData: [],
       resultsPerPage: 10,
       pagination: 1,
+      countPage:0,
     };
   },
   created() {
     this.GetNep17TransferByAddress(0);
+  },
+  computed: {
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
   },
   methods: {
     pageChange(pageNumber) {
@@ -115,7 +140,25 @@ export default {
         event.target.style.display = contract;
       });
     },
-
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= this.countPage) {
+        this.isLoading = true;
+        this.pagination =this.countPage;
+        const skip =
+                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.GetNep17TransferByAddress(skip);
+      } else if (pageNumber <= 0) {
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip = this.resultsPerPage;
+        this.GetNep17TransferByAddress(skip);
+      } else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.GetNep17TransferByAddress(skip);
+      }
+    },
     getContract(ctrHash) {
       return ctrHash;
     },
@@ -149,6 +192,8 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         for (let k = 0; this.tableData.length; k++) {
           axios({
             method: "post",
@@ -170,6 +215,7 @@ export default {
             },
           }).then((res) => {
             this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+
           });
         }
       });
