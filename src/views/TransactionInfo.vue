@@ -10,8 +10,8 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <h1 class="mb-0">Tx ID</h1>
-              <h4 class="text-muted">{{ this.tabledata["hash"] }}</h4>
+              <div class="mb-0">Tx ID</div>
+              <div class="text-muted">{{ this.tabledata["hash"] }}</div>
             </div>
             <div class="card-body">
               <div class="row">
@@ -102,6 +102,17 @@
 
               <div class="row mt-3"></div>
 
+              <transfers-list
+                  title="Nep17Transfer"
+                  :txhash="this.txhash"
+              ></transfers-list>
+
+              <nft-table
+                  title="Nep11Transfer"
+                  :txhash="this.txhash"
+              ></nft-table>
+
+              <div class="row mt-3"></div>
               <card shadow>
                 <div
                   class="col-2 font-weight-bold mb-0"
@@ -192,15 +203,7 @@
 
               <div class="row mt-3"></div>
 
-              <transfers-list
-                title="Nep17Transfer"
-                :txhash="this.txhash"
-              ></transfers-list>
 
-              <nft-table
-                title="Nep11Transfer"
-                :txhash="this.txhash"
-              ></nft-table>
             </div>
           </div>
         </div>
@@ -217,7 +220,7 @@ import NftTable from "./Tables/NftTable";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
-// import { rpc, sc, u } from "@cityofzion/neon-core";
+// import { u } from "@cityofzion/neon-core";
 
 export default {
   components: {
@@ -299,10 +302,11 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         var raw = res["data"]["result"];
-       raw["blocktime"] = format(raw["blocktime"]);
+        raw["blocktime"] = format(raw["blocktime"]);
         this.tabledata = raw;
         this.blockhash = this.tabledata["blockhash"]
         this.address = this.tabledata["sender"]
+        console.log(Neon.u.str2hexstring(this.tabledata["script"]))
       });
     },
   },
