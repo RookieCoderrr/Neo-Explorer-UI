@@ -11,7 +11,12 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 class="mb-0">BlockInfo</h1>
+                <div class="row">
+                  <h1 class="mb-0">BlockInfo</h1>
+                </div>
+                <div class="row">
+                  <h4 class="text-muted">{{ this.block_info.hash}}</h4>
+                </div>
 <!--                <a-->
 <!--                  class="mb-0"-->
 <!--                  style="cursor: pointer"-->
@@ -64,18 +69,7 @@
 
 
                 </div>
-
                 <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2 font-weight-bold mb-0">
-                      <div >BlockHash</div>
-                    </div>
-                    <div class="col-10">{{ this.block_info.hash }}
-                    </div>
-                  </div>
-                </card>
-                <div class="row mt-3">    </div>
                 <card shadow>
                   <div class="row">
                     <div class="col-2 font-weight-bold mb-0">
@@ -88,7 +82,7 @@
                 </card>
 
 
-                <div class="row mt-3">    </div>
+                <div class="row mt-3"> </div>
                 <card shadow>
                   <div class="row">
 
