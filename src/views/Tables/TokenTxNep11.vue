@@ -16,8 +16,8 @@
       >
         <template v-slot:columns>
           <th>Txid</th>
-          <th>From</th>
-          <th>To</th>
+          <th>From <button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
+          <th>To <button class="btn btn-sm btn-primary"  @click="changeToFormat()">{{this.toButton}}</button></th>
           <th>Amount</th>
           <th>Time</th>
           <th>TokenID</th>
@@ -35,13 +35,15 @@
           <td class="From">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
+              <a v-else-if="fromState" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ scriptHashToAddress(row.item.from) }}</a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
           </td>
           <td class="To">
             <div class="addr">
               <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+              <a v-else-if="toState" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
             </div>
           </td>
           <td class="Value">
@@ -88,6 +90,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
+import Neon from "@cityofzion/neon-js";
 
 
 export default {
@@ -111,6 +114,10 @@ export default {
       isLoading: true,
       firstTime: true,
       countPage: 0,
+      fromState: true,
+      toState: true,
+      fromButton: "Hash",
+      toButton: "Hash",
     };
   },
   created() {
@@ -155,6 +162,29 @@ export default {
         this.getTokenList(skip);
       } else {
         this.firstTime = false;
+      }
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    changeFromFormat() {
+      if (this.fromState === true) {
+        this.fromState = false;
+        this.fromButton = "WIF";
+      } else {
+        this.fromState = true;
+        this.fromButton = "Hash";
+      }
+    },
+    changeToFormat() {
+      if (this.toState === true) {
+        this.toState = false;
+        this.toButton = "WIF";
+      } else {
+        this.toState = true;
+        this.toButton = "Hash";
       }
     },
     convertTime(ts) {

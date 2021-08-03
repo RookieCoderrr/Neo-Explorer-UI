@@ -17,7 +17,6 @@
           <th>To Balance</th>
           <th>Amount</th>
         </template>
-
         <template v-slot:default="row">
           <td class="budget">
             <div class="contract" @mouseover="mouseHover(row.item.contract)">
@@ -35,25 +34,19 @@
             </div>
           </td>
           <td class="budget">
-            <div class="from">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getFromAccount(row.item.from)"
-                >{{ row.item.from === null ? "Null Account" : row.item.from }}</a
-              >
+            <div class="addr">
+              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
           </td>
           <td class="budget">
             {{ row.item.frombalance }}
           </td>
           <td class="budget">
-            <a
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              @click="getToAccount(row.item.to)"
-              >{{ row.item.to }}</a
-            >
+            <div class="addr">
+              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+            </div>
           </td>
 
           <td class="budget">
@@ -125,6 +118,19 @@ export default {
     },
   },
   methods: {
+    watchrouter() {
+      //console.log("watch router")
+      //if(this.$route.name === 'AccountProfile') {
+      //  this.accountAddress = this.$route.params.accountAddress
+      //  this.getNeoBalance();
+      //  this.isLoading = false;
+      //  this.getGasBalance();
+      //  this.getTransactions();
+      //  this.getCreatedTime();
+      //  this.getTransfers();
+      //  this.getCandidateByAddress();
+      //}
+    },
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -160,9 +166,16 @@ export default {
       }
     },
     getContract(ctrHash) {
-      return ctrHash;
+      this.$router.push({
+        path: `/tokeninfo/${ctrHash}`,
+      });
     },
 
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
     getFromAccount() {
       return;
     },

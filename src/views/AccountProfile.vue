@@ -168,6 +168,7 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
+      //console.log("watch router")
       if(this.$route.name === 'AccountProfile') {
         this.accountAddress = this.$route.params.accountAddress
         this.getNeoBalance();
@@ -178,6 +179,12 @@ export default {
         this.getTransfers();
         this.getCandidateByAddress();
       }
+    },
+    convertGas(gas) {
+      if (gas === 0) {
+        return 0;
+      }
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     getNeoBalance() {
       axios({
@@ -202,8 +209,12 @@ export default {
           this.neoBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
-          this.neoBalance = "0";
-          console.log("Get Neo balance failed, Error", err);
+          if (Object.getPrototypeOf(TypeError) === Error) {
+            this.neoBalance = "0";
+          }
+          else {
+            console.log("Get Neo balance failed, Error", err);
+          }
         });
     },
     getGasBalance() {
@@ -226,11 +237,15 @@ export default {
         },
       })
         .then((res) => {
-          this.gasBalance = res["data"]["result"]["balance"];
+          this.gasBalance = this.convertGas(res["data"]["result"]["balance"]);
         })
         .catch((err) => {
-          this.getGasBalance = "0";
-          console.log("Error", err);
+          if (Object.getPrototypeOf(TypeError) === Error) {
+            this.getGasBalance = "0";
+          }
+          else {
+            console.log("Error", err);
+          }
         });
     },
     getTransactions() {
@@ -346,7 +361,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
+        //console.log(res)
         if(res["data"]["result"] == null) {
           this.type = "normal"
         }

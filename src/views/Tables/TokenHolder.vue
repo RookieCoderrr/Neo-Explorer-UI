@@ -14,7 +14,7 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th>Address</th>
+          <th>Address <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>Balance</th>
           <th>Last Transferred</th>
           <th>Percentage</th>
@@ -24,7 +24,8 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address}}</a>
+                <a v-if="this.state" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ scriptHashToAddress(row.item.address) }}</a>
+                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{row.item.address}}</a>
               </div>
             </div>
           </th>
@@ -70,7 +71,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
-
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "token-holder",
@@ -92,6 +93,8 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage:0,
+      state: true,
+      buttonName: "Hash",
     };
   },
   created() {
@@ -135,10 +138,10 @@ export default {
       return s;
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getTokenList(skip);
     },
     convertTime(ts){
       return format(ts);
@@ -150,6 +153,20 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
       });
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    changeFormat() {
+      if (this.state === true) {
+        this.state = false;
+        this.buttonName = "WIF";
+      } else {
+        this.state = true;
+        this.buttonName = "Hash";
+      }
     },
     getTokenList(skip) {
       axios({

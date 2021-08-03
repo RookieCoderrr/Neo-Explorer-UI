@@ -11,7 +11,14 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
+                <div class="row">
+                  <div class="col-11">
+                    <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
+                  </div>
+                  <div class="col-1">
+                    <button  class="btn btn-primary btn-xs" @click="changeFormat()">{{this.buttonName}}</button>
+                  </div>
+                </div>
                 <h4 class="text-muted">{{ this.contract_info["hash"] }}</h4>
               </div>
               <div class="card-body">
@@ -21,6 +28,7 @@
                   </div>
                   <div class="col-3">
                     <h3 class="text-muted" v-if="this.contract_info['sender'] === null">Not Available</h3>
+                    <a class="text-md" v-else-if="this.state" style="cursor: pointer" @click="getSender(contract_info['sender'])">{{this.contract_info["sender"]}}</a>
                     <a class="text-md" v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
                   </div>
                   <div class="col-2">
@@ -191,6 +199,8 @@ export default {
       contract_info: [],
       nef: "",
       manifest: "",
+      state: true,
+      buttonName:"Hash"
     };
   },
   created() {
@@ -233,6 +243,15 @@ export default {
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
+    },
+    changeFormat() {
+      if (this.state === true) {
+        this.state = false;
+        this.buttonName = "WIF";
+      } else {
+        this.state = true;
+        this.buttonName = "Hash";
+      }
     },
     getSender(addr) {
       this.$router.push({
