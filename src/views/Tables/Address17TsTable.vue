@@ -11,9 +11,9 @@
         <template v-slot:columns>
           <th>Contract</th>
           <th>Token</th>
-          <th>From</th>
+          <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
           <th>From Balance</th>
-          <th>To</th>
+          <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
           <th>To Balance</th>
           <th>Amount</th>
         </template>
@@ -36,7 +36,8 @@
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
+              <a class="mb-0 text-sm" v-else-if="this.fromState" style="cursor: pointer" @click="getAddress(row.item.from)"> {{scriptHashToAddress(row.item.from)}} </a>
+              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)"> {{row.item.from}} </a>
             </div>
           </td>
           <td class="budget">
@@ -45,7 +46,8 @@
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+              <a class="mb-0 text-sm" v-else-if="this.toState" style="cursor: pointer" @click="getAddress(row.item.to)"> {{scriptHashToAddress(row.item.to)}} </a>
+              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)"> {{row.item.to}} </a>
             </div>
           </td>
 
@@ -85,6 +87,7 @@
 </template>
 <script>
 import axios from "axios";
+import Neon from "@cityofzion/neon-js";
 export default {
   name: "address17-ts-table",
   props: {
@@ -100,6 +103,10 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       countPage:0,
+      fromState: true,
+      fromButton: "Hash",
+      toState: true,
+      toButton: "Hash",
     };
   },
   created() {
@@ -118,19 +125,6 @@ export default {
     },
   },
   methods: {
-    watchrouter() {
-      //console.log("watch router")
-      //if(this.$route.name === 'AccountProfile') {
-      //  this.accountAddress = this.$route.params.accountAddress
-      //  this.getNeoBalance();
-      //  this.isLoading = false;
-      //  this.getGasBalance();
-      //  this.getTransactions();
-      //  this.getCreatedTime();
-      //  this.getTransfers();
-      //  this.getCandidateByAddress();
-      //}
-    },
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -232,6 +226,33 @@ export default {
           });
         }
       });
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
+    },
+    changeFrom() {
+      if (this.fromState === true) {
+        this.fromState = false;
+        this.fromButton = "WIF";
+      } else {
+        this.fromState = true;
+        this.fromButton = "Hash";
+      }
+    },
+    changeTo() {
+      if (this.toState === true) {
+        this.toState = false;
+        this.toButton = "WIF";
+      } else {
+        this.toState = true;
+        this.toButton = "Hash";
+      }
     },
   },
 };
