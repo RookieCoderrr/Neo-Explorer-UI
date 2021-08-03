@@ -82,7 +82,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search by Block Hash, Transaction, Address, Asset or Contract ID'"
+          :placeholder="'Search for a Block, a Transaction, an Account, a Token or a Contract'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
@@ -233,7 +233,9 @@ export default {
           });
 
         } else {
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
         }
       },
     )},
@@ -259,7 +261,9 @@ export default {
             path: `/accountprofile/${addr}`,
           });
         } else {
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
         }
       })
     },
