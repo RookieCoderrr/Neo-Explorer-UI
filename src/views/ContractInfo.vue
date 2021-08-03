@@ -23,49 +23,73 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Creator</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Creator</div>
+                        <div class="panel-body">
+                          <span  v-if="this.contract_info['sender'] === null">Not Available</span>
+                          <a  v-else-if="this.state" style="cursor: pointer" @click="getSender(contract_info['sender'])">{{this.contract_info["sender"]}}</a>
+                          <a  v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3 class="text-muted" v-if="this.contract_info['sender'] === null">Not Available</h3>
-                    <a class="text-md" v-else-if="this.state" style="cursor: pointer" @click="getSender(contract_info['sender'])">{{this.contract_info["sender"]}}</a>
-                    <a class="text-md" v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Created</div>
+                        <div class="panel-body">
+                          {{this.contract_info["createtime"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-2">
-                    <div class="text-muted">Created</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.contract_info["createtime"] }}</h3>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Updates</div>
+                        <div class="panel-body">
+                          {{this.contract_info["updatecounter"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
                 </div>
-                <div class="row mt-5"></div>
+                <div class="row mt-3"></div>
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Updates</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">ID</div>
+                        <div class="panel-body">
+                          {{this.contract_info["id"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.contract_info["updatecounter"] }}</h3>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Compiler</div>
+                        <div class="panel-body">
+                          {{this.nef["compiler"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-2">
-                    <div class="text-muted">ID</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.contract_info["id"] }}</h3>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Transactions</div>
+                        <div class="panel-body">
+                          {{this.contract_info["totalSccall"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
                 </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Compiler</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.nef["compiler"] }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Transactions</div>
-                  </div>
-                  <div class="col-3"><h3>{{ this.contract_info["totalSccall"]}}</h3></div>
-                </div>
+                <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Recent ScCalls">

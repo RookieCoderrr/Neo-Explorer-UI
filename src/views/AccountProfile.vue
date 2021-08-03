@@ -15,65 +15,65 @@
             </div>
 
             <div class="card-body">
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Neo balance:</div>
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">Created Time</div>
+                  <div class="col-4">
+                    {{ this.createdTime }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Type</div>
+                  <div class="col-4">
+                    {{ this.type }}
+                  </div>
                 </div>
-                <div class="col-3">
-                  <h3>{{ this.neoBalance }}</h3>
+              </card>
+              <div class="row mt-3"></div>
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">Neo balance</div>
+                  <div class="col-4">
+                    {{ this.neoBalance }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Gas balance</div>
+                  <div class="col-4">
+                    {{ this.gasBalance  }}
+                  </div>
                 </div>
-                <div class="col-2">
-                  <div class="text-muted">Transactions:</div>
+              </card>
+              <div class="row mt-3"></div>
+              <div class ="row">
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">Transactions</div>
+                      <div class="panel-body">
+                        {{  this.numOfTxns }}
+                      </div>
+                    </div>
+                  </card>
                 </div>
-                <div class="col-3">
-                  <h3>{{ this.numOfTxns }}</h3>
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">NEP17 Transfers</div>
+                      <div class="panel-body">
+                        {{  this.numOfnep17Transfers  }}
+                      </div>
+                    </div>
+                  </card>
+                </div>
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">NEP11 Transferss</div>
+                      <div class="panel-body">
+                        {{  this.numOlnep11Transfers}}
+                      </div>
+                    </div>
+                  </card>
                 </div>
               </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Gas balance:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.gasBalance }}</h3>
-                </div>
-                <div class="col-2">
-                  <div class="text-muted">NEP17 Transfers:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.numOfnep17Transfers }}</h3>
-                </div>
-              </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Type:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.type }}</h3>
-                </div>
-                <div class="col-2">
-                  <div class="text-muted">NEP11 Transfers:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.numOlnep11Transfers }}</h3>
-                </div>
-              </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Created Time:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.createdTime }}</h3>
-                </div>
-                <!--div class="col-2">
-                  <div class="text-muted">Contract deployment:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{}}</h3>
-                </div-->
-              </div>
+
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
                   <div class="row">

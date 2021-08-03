@@ -11,19 +11,15 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 class="mb-0">BlockInfo</h1>
-<!--                <a-->
-<!--                  class="mb-0"-->
-<!--                  style="cursor: pointer"-->
-<!--                  >{{ this.block_info["hash"] }}-->
-<!--                </a>-->
+                  <h1 class="mb-0">{{this.block_info.index}}</h1>
+                  <h4 class="text-muted">{{ this.block_info.hash}}</h4>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Time</div>
+                        <div class="h2 font-weight-bold mb-0">Time</div>
                         <div class="panel-body">
                           {{ convertTime(this.block_info.timestamp) }}
                         </div>
@@ -33,9 +29,9 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">BlockSize</div>
+                        <div class="h2 font-weight-bold mb-0">BlockSize</div>
                         <div class="panel-body">
-                          {{this.block_info.size}}
+                          {{this.block_info.size}} Bytes
                         </div>
                       </div>
                     </card>
@@ -43,7 +39,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">Block Height</div>
+                        <div class="h2 font-weight-bold mb-0">Block Height</div>
                         <div class="panel-body">
                           {{this.block_info.index }}
                         </div>
@@ -52,9 +48,10 @@
                   </div>
 
                   <div class="col-3">
+
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">Version Number</div>
+                        <div class="h2 font-weight-bold mb-0">Version Number</div>
                         <div class="panel-body">
                           {{this.block_info.version}}
                         </div>
@@ -64,14 +61,13 @@
 
 
                 </div>
-
                 <div class="row mt-3"></div>
                 <card shadow>
                   <div class="row">
                     <div class="col-2 font-weight-bold mb-0">
                       <div >BlockHash</div>
                     </div>
-                    <div class="col-10">{{ this.block_info.hash }}
+                    <div class="col-10 name mb-0 text-sm">{{ this.block_info.hash }}
                     </div>
                   </div>
                 </card>
@@ -79,6 +75,7 @@
                 <card shadow>
                   <div class="row">
                     <div class="col-2 font-weight-bold mb-0">
+
                       <div  >PreHash</div>
                     </div>
                     <div class="col-10"  @click="preBlock(this.block_info.prevhash)">
@@ -88,7 +85,7 @@
                 </card>
 
 
-                <div class="row mt-3">    </div>
+                <div class="row mt-3"> </div>
                 <card shadow>
                   <div class="row">
 
