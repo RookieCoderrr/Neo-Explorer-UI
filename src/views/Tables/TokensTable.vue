@@ -62,15 +62,15 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge v-if="row.item.standard==='NEP17'" class="badge-dot mr-4" type="primary">
-              <span class="">{{ row.item.standard }}</span>
+            <badge v-if="row.item.type==='NEP17'" class="badge-dot mr-4" type="primary">
+              <span class="">{{ row.item.type }}</span>
             </badge>
             <badge v-else class="badge-dot mr-4" type="success">
-              <span class="">{{ row.item.standard }}</span>
+              <span class="">{{ row.item.type }}</span>
             </badge>
           </td>
           <td class="holders">
-            {{ row.item.total_holders }}
+            {{ row.item.holders }}
           </td>
         </template>
       </base-table>
@@ -181,7 +181,7 @@ export default {
           jsonrpc: "2.0",
           id: 1,
           params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
+          method: "GetAssetInfos",
         },
         headers: {
           "Content-Type": "application/json",

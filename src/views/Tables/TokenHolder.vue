@@ -16,7 +16,7 @@
         <template v-slot:columns>
           <th>Address <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>Balance</th>
-          <th>Last Transferred</th>
+<!--          <th>Last Transferred</th>-->
           <th>Percentage</th>
         </template>
 
@@ -32,9 +32,9 @@
           <td class="balance">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
-          <td class="firstused">
-            {{ convertTime(row.item.lasttx.timestamp) }}
-          </td>
+<!--          <td class="firstused">-->
+<!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
+<!--          </td>-->
           <td class="percentage">
             {{ toPercentage(row.item.percentage) }}
           </td>
@@ -184,6 +184,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount - this.resultsPerPage)
