@@ -144,7 +144,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("transfer", res["data"]["result"]["result"]);
+        //console.log("transfer", res["data"]["result"]["result"]);
         this.tableData = res["data"]["result"]["result"];
         for (let k = 0; this.tableData.length; k++) {
           axios({

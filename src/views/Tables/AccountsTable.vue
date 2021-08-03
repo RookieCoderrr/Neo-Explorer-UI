@@ -191,7 +191,7 @@ export default {
     },
     getBalance() {
       for (let k = 0; k < this.tableData.length; k++) {
-        console.log(k.toString());
+        //console.log(k.toString());
         let addr = this.tableData[k].address;
         axios({
           method: "post",
@@ -212,12 +212,21 @@ export default {
           },
         })
           .then((res) => {
+            //console.log("balance", res["data"]["result"])
+            //if (res["data"]["result"] != null)
+            //  this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
+            //else
+            //  this.tableData[k]["gasBalance"] = "0";
             this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
-            //this.neoBalance = res["data"]["result"]["balance"];
           })
           .catch((err) => {
-            this.tableData[k]["gasBalance"] = "0";
-            console.log("Error", err);
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["gasBalance"] = "0";
+            }
+            else {
+              console.log("Error", err);
+            }
+
           });
 
         axios({
@@ -242,8 +251,12 @@ export default {
             this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
           })
           .catch((err) => {
-            this.tableData[k]["neoBalance"] = "0";
-            console.log("Error", err);
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["neoBalance"] = "0";
+            }
+            else {
+              console.log("Error", err);
+            }
           });
       }
     },
@@ -267,7 +280,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           return res["data"]["result"]["balance"];
         })
         .catch((err) => {

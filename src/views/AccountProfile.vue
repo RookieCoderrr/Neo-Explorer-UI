@@ -229,8 +229,12 @@ export default {
           this.gasBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
-          this.getGasBalance = "0";
-          console.log("Error", err);
+          if (Object.getPrototypeOf(TypeError) === Error) {
+            this.getGasBalance = "0";
+          }
+          else {
+            console.log("Error", err);
+          }
         });
     },
     getTransactions() {
@@ -346,7 +350,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
+        //console.log(res)
         if(res["data"]["result"] == null) {
           this.type = "normal"
         }
