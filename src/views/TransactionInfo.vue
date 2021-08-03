@@ -10,7 +10,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <div class="mb-0">Tx ID</div>
+              <div class="h2 font-weight-bold mb-0">Tx ID</div>
               <div class="text-muted">{{ this.tabledata["hash"] }}</div>
             </div>
             <div class="card-body">

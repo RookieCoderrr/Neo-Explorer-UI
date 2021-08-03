@@ -11,7 +11,9 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <img src="../assets/logo.png" />
+              <router-link to="/">
+                <img src="src/assets/logo.png" />
+              </router-link>
             </div>
             <div class="col-6 collapse-close">
 
@@ -80,7 +82,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search by Block Hash, Transaction ID, Address or Contract ID'"
+          :placeholder="'Search for Blocks, Transactions, Accounts, Tokens or Contracts'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
@@ -138,7 +140,9 @@ export default {
       value = value.trim();
       this.searchVal = "";
       if (value === "") {
-        alert("Please input a value to search!");
+        this.$router.push({
+          path: `/search`,
+        });
         this.isLoading = false;
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
@@ -159,14 +163,18 @@ export default {
         }
         else {
           this.isLoading = false;
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/search`,
+          });
         }
       } else if (this.isAddressPattern.test(value)){
         this.getAddressByAddress(this.addressToScriptHash(value))
       }
       else {
         this.isLoading = false;
-        alert("Invalid input!");
+        this.$router.push({
+          path: `/search`,
+        });
       }
     },
     addressToScriptHash(addr) {
@@ -225,7 +233,9 @@ export default {
           });
 
         } else {
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
         }
       },
     )},
@@ -251,7 +261,9 @@ export default {
             path: `/accountprofile/${addr}`,
           });
         } else {
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
         }
       })
     },
@@ -341,6 +353,25 @@ export default {
 };
 </script>
 <style>
+.search-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  background: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  color: #282828;
+  margin-top: 36px;
+  width: 100%;
+}
+.search {
+  width: 100%;
+  max-width: 565px;
+  height: 50px;
+  position: relative;
+}
 .button {
   cursor: pointer;
   position: absolute;
@@ -355,9 +386,11 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .img {
   width: 26px;
 }
+
 .over-ellipsis {
   width: 100%;
   height: 100%;

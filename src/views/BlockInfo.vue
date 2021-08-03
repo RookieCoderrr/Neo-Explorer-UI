@@ -20,99 +20,129 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Block Height</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>{{ this.block_info.index }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Tx Count</div>
+                  <div class="col-3">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Time</div>
+                        <div class="panel-body">
+                          {{ convertTime(this.block_info.timestamp) }}
+                        </div>
+                      </div>
+                    </card>
                   </div>
                   <div class="col-3">
-                    <h3>{{ this.block_info.transactionNumber }}</h3>
-                  </div>
-                </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">BlockHash</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>{{ this.block_info.hash }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Transfers</div>
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class=" font-weight-bold mb-0">BlockSize</div>
+                        <div class="panel-body">
+                          {{this.block_info.size}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
                   <div class="col-3">
-                    <h3>{{ this.block_info.transfersNumber }}</h3>
-                  </div>
-                </div>
-                <div class="row mt-5">    </div>
-                  <div class="row">
-                    <div class="col-2">
-                      <div class="text-muted">Time</div>
-                    </div>
-                    <div class="col-5">
-                      <h3>{{  convertTime(this.block_info.timestamp) }}</h3>
-                    </div>
-                    <div class="col-2">
-                      <div class="text-muted">BlockSize</div>
-                    </div>
-                    <div class="col-3">
-                      <h3>{{ this.block_info.size }}Bytes</h3>
-                    </div>
-                  </div>
-                <div class="row mt-5">    </div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Total SystemFee</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>{{  this.block_info.systemFee}}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Total NetworkFee</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{this.block_info.networkFee}}</h3>
-                  </div>
-                </div>
-                <div class="row mt-5">    </div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Miner</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>Unknown</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Miner Order</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{this.block_info.primary}}</h3>
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class=" font-weight-bold mb-0">Block Height</div>
+                        <div class="panel-body">
+                          {{this.block_info.index }}
+                        </div>
+                      </div>
+                    </card>
                   </div>
 
-                </div>
-                <div class="row mt-5">    </div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">PreHash</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>{{this.block_info.prevhash}}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Version Number</div>
-                  </div>
                   <div class="col-3">
-                    <h3>{{this.block_info.version}}</h3>
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class=" font-weight-bold mb-0">Version Number</div>
+                        <div class="panel-body">
+                          {{this.block_info.version}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
+
+
                 </div>
+
+                <div class="row mt-3"></div>
+                <card shadow>
+                  <div class="row">
+                    <div class="col-2 font-weight-bold mb-0">
+                      <div >BlockHash</div>
+                    </div>
+                    <div class="col-10">{{ this.block_info.hash }}
+                    </div>
+                  </div>
+                </card>
+                <div class="row mt-3">    </div>
+                <card shadow>
+                  <div class="row">
+                    <div class="col-2 font-weight-bold mb-0">
+                      <div  >PreHash</div>
+                    </div>
+                    <div class="col-10"  @click="preBlock(this.block_info.prevhash)">
+                      <a class="name mb-0 text-sm" style="cursor: pointer; " >{{this.block_info.prevhash}}</a>
+                    </div>
+                  </div>
+                </card>
+
+
+                <div class="row mt-3">    </div>
+                <card shadow>
+                  <div class="row">
+
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">Tx Count</div>
+                    </div>
+                    <div class="col-4">{{ this.block_info.transactionNumber }}
+                    </div>
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">Transfers</div>
+                    </div>
+                    <div class="col-4">{{ this.block_info.transfersNumber }}
+                    </div>
+
+                  </div>
+                </card>
+                <div class="row mt-3">    </div>
+                <card shadow>
+                  <div class="row">
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">Total SystemFee</div>
+                    </div>
+                    <div class="col-4">{{  this.block_info.systemFee}}
+                    </div>
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">Total NetworkFee</div>
+                    </div>
+                    <div class="col-4">{{this.block_info.networkFee}}
+                    </div>
+                  </div>
+                </card>
+
+<!--                <div class="row mt-5">    </div>-->
+<!--                <div class="row">-->
+<!--                  <div class="col-2">-->
+<!--                    <div class="text-muted">Speaker</div>-->
+<!--                  </div>-->
+<!--                  <div class="col-5">-->
+<!--                   TBC-->
+<!--                  </div>-->
+<!--                  <div class="col-2">-->
+<!--                    <div class="text-muted">Miner Order</div>-->
+<!--                  </div>-->
+<!--                  <div class="col-3">-->
+<!--                   {{this.block_info.primary}}-->
+<!--                  </div>-->
+
+<!--                </div>-->
+                <div class="row mt-3">    </div>
+
+                <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
               </div>
-              <tabs fill class="flex-column flex-md-row">
-                  <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
-              </tabs>
+
+
             </div>
           </div>
         </div>
@@ -158,6 +188,11 @@ export default {
     convertTime(ts) {
       return format(ts);
     },
+    preBlock(hash){
+      this.isLoading =true
+      this.getBlock(hash)
+    }
+    ,
     getBlock(hash) {
       axios({
         method: "post",
