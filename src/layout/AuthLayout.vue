@@ -141,7 +141,7 @@ export default {
       this.searchVal = "";
       if (value === "") {
         this.$router.push({
-          path: `/search`,
+          path: `/homepage`,
         });
         this.isLoading = false;
       } else if (this.isHashPattern.test(value)) {
