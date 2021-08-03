@@ -30,7 +30,7 @@
             </div>
           </th>
           <td class="balance">
-            {{ row.item.balance }}
+            {{ convertToken(row.item.balance, this.decimal) }}
           </td>
           <td class="firstused">
             {{ convertTime(row.item.lasttx.timestamp) }}
