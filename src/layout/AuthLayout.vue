@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img src="src/assets/logo.png" />
+                <img src="src/assets/search.png" />
               </router-link>
             </div>
             <div class="col-6 collapse-close">
@@ -234,7 +234,7 @@ export default {
 
         } else {
           this.$router.push({
-            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+            path: `/search`,
           });
         }
       },
