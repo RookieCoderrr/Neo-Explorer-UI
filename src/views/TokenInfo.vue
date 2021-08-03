@@ -46,7 +46,7 @@
                       <div class="panel panel-primary">
                         <div class="font-weight-bold mb-0">Supported Standard</div>
                         <div class="panel-body">
-                          {{this.token_info["standard"] }}
+                          {{this.token_info["type"] }}
                         </div>
                       </div>
                     </card>
@@ -81,7 +81,7 @@
                         <div class="panel panel-primary">
                           <div class=" font-weight-bold mb-0">Total Holders</div>
                           <div class="panel-body">
-                            {{ this.token_info["total_holders"] }}
+                            {{ this.token_info["holders"] }}
                           </div>
                         </div>
                       </card>
@@ -265,9 +265,9 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-         let raw = res["data"]["result"];
-       raw["firsttransfertime"] = format(raw["firsttransfertime"]);
-        this.standard = raw["standard"] === "NEP17" ? 1 : 2;
+        let raw = res["data"]["result"];
+        raw["firsttransfertime"] = format(raw["firsttransfertime"]);
+        this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;
         this.isLoading = false;
