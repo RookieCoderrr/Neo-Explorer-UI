@@ -202,8 +202,12 @@ export default {
           this.neoBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
-          this.neoBalance = "0";
-          console.log("Get Neo balance failed, Error", err);
+          if (Object.getPrototypeOf(TypeError) === Error) {
+            this.neoBalance = "0";
+          }
+          else {
+            console.log("Get Neo balance failed, Error", err);
+          }
         });
     },
     getGasBalance() {

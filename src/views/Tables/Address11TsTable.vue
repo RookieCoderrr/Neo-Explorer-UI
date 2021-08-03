@@ -37,7 +37,7 @@
           <div class="from">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getFromAccount(row.item.from)">{{ row.item.from }}</a>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
           </div>
         </td>
@@ -47,7 +47,7 @@
         <td class="budget">
           <div class="addr">
             <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-            <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getFromAccount(row.item.to)">{{ row.item.to }}</a>
+            <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
           </div>
         </td>
 
@@ -110,11 +110,15 @@ export default {
     },
 
     getContract(ctrHash) {
-      return ctrHash;
+      this.$router.push({
+        path: `/tokeninfo/${ctrHash}`,
+      });
     },
 
-    getFromAccount() {
-      return;
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
 
     getToAccount() {

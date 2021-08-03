@@ -212,11 +212,6 @@ export default {
           },
         })
           .then((res) => {
-            //console.log("balance", res["data"]["result"])
-            //if (res["data"]["result"] != null)
-            //  this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
-            //else
-            //  this.tableData[k]["gasBalance"] = "0";
             this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
           })
           .catch((err) => {
