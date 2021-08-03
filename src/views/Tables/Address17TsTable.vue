@@ -17,7 +17,6 @@
           <th>To Balance</th>
           <th>Amount</th>
         </template>
-
         <template v-slot:default="row">
           <td class="budget">
             <div class="contract" @mouseover="mouseHover(row.item.contract)">
@@ -94,6 +93,19 @@ export default {
     this.GetNep17TransferByAddress(0);
   },
   methods: {
+    watchrouter() {
+      //console.log("watch router")
+      //if(this.$route.name === 'AccountProfile') {
+      //  this.accountAddress = this.$route.params.accountAddress
+      //  this.getNeoBalance();
+      //  this.isLoading = false;
+      //  this.getGasBalance();
+      //  this.getTransactions();
+      //  this.getCreatedTime();
+      //  this.getTransfers();
+      //  this.getCandidateByAddress();
+      //}
+    },
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
