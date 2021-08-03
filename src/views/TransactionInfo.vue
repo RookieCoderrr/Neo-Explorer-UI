@@ -81,7 +81,7 @@
                     </a>
                   </div>
                   <div class="col-1">
-                    <button  class="btn btn-primary btn-xs" @click="changeFormat()">{{this.buttonName}}</button>
+                    <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
                   </div>
                 </div>
               </card>

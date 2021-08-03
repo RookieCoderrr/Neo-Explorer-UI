@@ -21,47 +21,74 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Token Symbol</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Token Symbol</div>
+                        <div class="panel-body">
+                          {{this.token_info["symbol"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["symbol"] }}</h3>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class=" font-weight-bold mb-0">Decimal</div>
+                        <div class="panel-body">
+                          {{this.token_info["decimals"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-2">
-                    <div class="text-muted">Supported Standard</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Supported Standard</div>
+                        <div class="panel-body">
+                          {{this.token_info["standard"] }}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["standard"] }}</h3>
                   </div>
+                <div class="row mt-3"></div>
+                  <div class="row">
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">First Transferred</div>
+                          <div class="panel-body">
+                            <div v-if="this.token_info.firsttransfertime" >
+                              {{ this.token_info["firsttransfertime"] }}
+                            </div>
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">Total Supply</div>
+                          <div class="panel-body">
+                            {{ convertToken(this.token_info["totalsupply"], this.decimal) }}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">Total Holders</div>
+                          <div class="panel-body">
+                            {{ this.token_info["total_holders"] }}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
                 </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Decimal</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["decimals"] }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Total Supply</div>
-                  </div>
-                  <div class="col-3"><h3>{{ convertToken(this.token_info["totalsupply"], this.decimal) }}</h3></div>
-                </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Total Holders</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["total_holders"] }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">First Transferred</div>
-                  </div>
-                  <div class="col-3" v-if="this.token_info.firsttransfertime" >
-                    <h3>{{ this.token_info["firsttransfertime"] }}</h3>
-                  </div>
-                </div>
+
+                <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-diamond" title="Recent Transfers">

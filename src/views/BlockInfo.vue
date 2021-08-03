@@ -23,7 +23,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Time</div>
+                        <div class="h2 font-weight-bold mb-0">Time</div>
                         <div class="panel-body">
                           {{ convertTime(this.block_info.timestamp) }}
                         </div>
@@ -33,7 +33,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">BlockSize</div>
+                        <div class="h2 font-weight-bold mb-0">BlockSize</div>
                         <div class="panel-body">
                           {{this.block_info.size}}
                         </div>
@@ -43,7 +43,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">Block Height</div>
+                        <div class="h2 font-weight-bold mb-0">Block Height</div>
                         <div class="panel-body">
                           {{this.block_info.index }}
                         </div>
@@ -54,7 +54,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">Version Number</div>
+                        <div class="h2 font-weight-bold mb-0">Version Number</div>
                         <div class="panel-body">
                           {{this.block_info.version}}
                         </div>
@@ -71,7 +71,7 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div >BlockHash</div>
                     </div>
-                    <div class="col-10">{{ this.block_info.hash }}
+                    <div class="col-10 name mb-0 text-sm">{{ this.block_info.hash }}
                     </div>
                   </div>
                 </card>
