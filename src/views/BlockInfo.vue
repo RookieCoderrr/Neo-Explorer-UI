@@ -78,29 +78,29 @@
                     <h3>{{this.block_info.networkFee}}</h3>
                   </div>
                 </div>
-                <div class="row mt-5">    </div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Miner</div>
-                  </div>
-                  <div class="col-5">
-                    <h3>Unknown</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Miner Order</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{this.block_info.primary}}</h3>
-                  </div>
+<!--                <div class="row mt-5">    </div>-->
+<!--                <div class="row">-->
+<!--                  <div class="col-2">-->
+<!--                    <div class="text-muted">Speaker</div>-->
+<!--                  </div>-->
+<!--                  <div class="col-5">-->
+<!--                    <h3>TBC</h3>-->
+<!--                  </div>-->
+<!--                  <div class="col-2">-->
+<!--                    <div class="text-muted">Miner Order</div>-->
+<!--                  </div>-->
+<!--                  <div class="col-3">-->
+<!--                    <h3>{{this.block_info.primary}}</h3>-->
+<!--                  </div>-->
 
-                </div>
+<!--                </div>-->
                 <div class="row mt-5">    </div>
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">PreHash</div>
+                  <div class="col-2" >
+                    <div class="text-muted" >PreHash</div>
                   </div>
-                  <div class="col-5">
-                    <h3>{{this.block_info.prevhash}}</h3>
+                  <div class="col-5"  @click="preBlock(this.block_info.prevhash)">
+                    <a class="name mb-0 text-lg" style="cursor: pointer;font-size: 1.11rem!important; " >{{this.block_info.prevhash}}</a>
                   </div>
                   <div class="col-2">
                     <div class="text-muted">Version Number</div>
@@ -158,6 +158,11 @@ export default {
     convertTime(ts) {
       return format(ts);
     },
+    preBlock(hash){
+      this.isLoading =true
+      this.getBlock(hash)
+    }
+    ,
     getBlock(hash) {
       axios({
         method: "post",
