@@ -11,7 +11,7 @@
             ></loading>
             <div class="card-header bg-transparent">
               <h1 class="mb-0">Account:</h1>
-              <h4 class="text-muted">{{ this.accountAddress }}</h4>
+              <h4 class="text-muted">{{ this.scriptHashToAddress(this.accountAddress) }}</h4>
             </div>
 
             <div class="card-body">
@@ -129,6 +129,7 @@ import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "account-profile",
@@ -186,7 +187,12 @@ export default {
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
-    getNeoBalance() {
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+      getNeoBalance() {
       axios({
         method: "post",
         url: "/api",
