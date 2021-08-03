@@ -28,7 +28,7 @@
       >
         <template v-slot:columns>
           <th>No.</th>
-          <th>Address</th>
+          <th>Address <button class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>Neo Balance</th>
           <th>Gas Balance</th>
           <th>Created Time</th>
@@ -38,7 +38,9 @@
             {{ row.item.number }}
           </td>
           <td class="address">
-            <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a>
+            <a class="mb-0 text-sm" v-if="this.state" style="cursor: pointer" @click="getAddress(row.item.address)"> {{scriptHashToAddress(row.item.address)}} </a>
+            <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.address)"> {{row.item.address}} </a>
+            <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
           <td class="neoBalance">
             {{ row.item.neoBalance }}
@@ -82,7 +84,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-//import Neon from "@cityofzion/neon-js"
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "accounts-table",
@@ -104,6 +106,8 @@ export default {
       neoBalance: 0,
       isLoading: true,
       countPage:0,
+      buttonName: "Hash",
+      state: true,
     };
   },
   created() {
@@ -313,6 +317,24 @@ export default {
         .catch((err) => {
           console.log("Error", err);
         });
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
+    },
+    changeFormat() {
+      if (this.state === true) {
+        this.state = false;
+        this.buttonName = "WIF";
+      } else {
+        this.state = true;
+        this.buttonName = "Hash";
+      }
     },
   },
 };

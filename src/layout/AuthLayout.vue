@@ -82,7 +82,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search for a Block, a Transaction, an Account, a Token or a Contract'"
+          :placeholder="'Search for Blocks, Transactions, Accounts, Tokens or Contracts'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
