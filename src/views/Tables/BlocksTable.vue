@@ -51,7 +51,7 @@
             </div>
           </td>
           <td>
-            {{ row.item.timestamp }}
+            {{ this.convertTime(row.item.timestamp) }}
           </td>
           <td class="txnumber">
             {{ row.item.transactionNumber }}
@@ -92,6 +92,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import {format} from "timeago.js";
 
 export default {
   name: "blocks-table",
@@ -152,6 +153,9 @@ export default {
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getBlockList(skip);
       }
+    },
+    convertTime(time) {
+      return format(time);
     },
     pageChange(pageNumber) {
       this.isLoading = true;

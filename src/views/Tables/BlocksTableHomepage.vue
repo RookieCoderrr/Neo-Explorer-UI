@@ -54,7 +54,7 @@
                     </th>
 
                     <td >
-                        {{ row.item.timestamp }}
+                        {{ convertTime(row.item.timestamp) }}
                     </td>
                     <td >
                         {{ row.item.transactionNumber }}
@@ -72,6 +72,7 @@
     import axios from "axios";
     import Loading from "vue-loading-overlay";
     import "vue-loading-overlay/dist/vue-loading.css";
+    import {format} from "timeago.js";
 
     export default {
         name: "blocks-table-homepage",
@@ -110,6 +111,9 @@
             },
         },
         methods: {
+            convertTime(time) {
+              return format(time);
+            },
             toBlocksTable(){
                 this.$router.push({
                     path: `/blocks`,
