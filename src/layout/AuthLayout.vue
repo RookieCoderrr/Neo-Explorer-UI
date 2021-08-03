@@ -11,7 +11,9 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <img src="../assets/logo.png" />
+              <router-link to="/">
+                <img src="src/assets/logo.png" />
+              </router-link>
             </div>
             <div class="col-6 collapse-close">
 
@@ -80,7 +82,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search by Block Hash, Transaction ID, Address or Contract ID'"
+          :placeholder="'Search by Block Hash, Transaction, Address, Asset or Contract ID'"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
