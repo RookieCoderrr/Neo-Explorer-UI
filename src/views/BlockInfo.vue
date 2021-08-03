@@ -11,21 +11,12 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <div class="row">
-                  <h1 class="mb-0">BlockInfo</h1>
-                </div>
-                <div class="row">
+                  <h1 class="mb-0">{{this.block_info.index}}</h1>
                   <h4 class="text-muted">{{ this.block_info.hash}}</h4>
-                </div>
-<!--                <a-->
-<!--                  class="mb-0"-->
-<!--                  style="cursor: pointer"-->
-<!--                  >{{ this.block_info["hash"] }}-->
-<!--                </a>-->
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-3">
+                  <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
                         <div class="font-weight-bold mb-0">Time</div>
@@ -35,28 +26,17 @@
                       </div>
                     </card>
                   </div>
-                  <div class="col-3">
+                  <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
                         <div class=" font-weight-bold mb-0">BlockSize</div>
                         <div class="panel-body">
-                          {{this.block_info.size}}
+                          {{this.block_info.size}} Bytes
                         </div>
                       </div>
                     </card>
                   </div>
-                  <div class="col-3">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">Block Height</div>
-                        <div class="panel-body">
-                          {{this.block_info.index }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-
-                  <div class="col-3">
+                  <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
                         <div class=" font-weight-bold mb-0">Version Number</div>

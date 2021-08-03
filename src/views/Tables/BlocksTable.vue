@@ -31,7 +31,7 @@
           <th>index</th>
           <th>Hash</th>
           <th>TimeStamp</th>
-          <th>TxNumber</th>
+          <th>Total Txs</th>
           <th>Size</th>
           <th></th>
         </template>
@@ -57,7 +57,7 @@
             {{ row.item.transactionNumber }}
           </td>
           <td>
-            {{ row.item.size }}
+            {{ row.item.size }} Bytes
           </td>
         </template>
       </base-table>
