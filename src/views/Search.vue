@@ -2,10 +2,16 @@
   <section class="page-content">
     <div class="search-content">
       <div class="h2 font-weight-bold mb-0">
-        {{ 'Sorry, Your search height, hash, address, asset or transaction id does not exist.' }}
+        Sorry, your entry did not match any results in our database.
       </div>
       <div class="row mt-3"></div>
-      <div class="h2 font-weight-bold mb-0">{{ 'Try going back to where you were or heading to the home page.' }}</div>
+      <div class="h2 font-weight-bold mb-0">
+        Data formats we currently support:
+      </div>
+      <p class="h3 font-weight-bold mb-0">Block Hash (UInt256)</p>
+      <p class="h3 font-weight-bold mb-0">Transaction ID (UInt256)</p>
+      <p class="h3 font-weight-bold mb-0">Account Script Hash (UInt160), Account Address (WIF)</p>
+      <p class="h3 font-weight-bold mb-0">Token / Contract Script Hash (UInt160)</p>
       <div class="row mt-3"></div>
       <div>
         <base-button type="primary"  @click="toHomePage()">Back Home</base-button>
