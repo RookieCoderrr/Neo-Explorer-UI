@@ -179,6 +179,12 @@ export default {
         this.getCandidateByAddress();
       }
     },
+    convertGas(gas) {
+      if (gas === 0) {
+        return 0;
+      }
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
+    },
     getNeoBalance() {
       axios({
         method: "post",
@@ -230,7 +236,7 @@ export default {
         },
       })
         .then((res) => {
-          this.gasBalance = res["data"]["result"]["balance"];
+          this.gasBalance = this.convertGas(res["data"]["result"]["balance"]);
         })
         .catch((err) => {
           if (Object.getPrototypeOf(TypeError) === Error) {

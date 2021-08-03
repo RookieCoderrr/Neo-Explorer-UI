@@ -150,6 +150,12 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getAccoutsList(skip);
     },
+    convertGas(gas) {
+      if (gas === 0) {
+        return 0;
+      }
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
+    },
     getAccoutsList(skip) {
       axios({
         method: "post",
@@ -212,7 +218,7 @@ export default {
           },
         })
           .then((res) => {
-            this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
+            this.tableData[k]["gasBalance"] = this.convertGas(res["data"]["result"]["balance"]);
           })
           .catch((err) => {
             if (Object.getPrototypeOf(TypeError) === Error) {
@@ -302,7 +308,7 @@ export default {
         },
       })
         .then((res) => {
-          return res["data"]["result"]["balance"];
+          return this.convertGas(res["data"]["result"]["balance"]);
         })
         .catch((err) => {
           console.log("Error", err);
