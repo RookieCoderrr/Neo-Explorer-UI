@@ -15,7 +15,7 @@
       >
         <template v-slot:columns>
           <th>Txid</th>
-          <th>Sender</th>
+          <th>Sender <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>Method</th>
           <th>Call Flags</th>
           <th>Time</th>
@@ -33,7 +33,8 @@
           <td class="Sender">
             <div class="addr">
               <span class="text-muted" v-if="row.item.originSender === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ row.item.originSender }}</a>
+              <a v-else-if="state===true" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ scriptHashToAddress(row.item.originSender) }}</a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ row.item.originSender }}</a>
             </div>
 
           </td>
@@ -80,6 +81,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "sc-call-table",
@@ -100,6 +102,8 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage:0,
+      state: true,
+      buttonName: "Hash",
     };
   },
   created() {
@@ -146,6 +150,11 @@ export default {
     convertTime(ts) {
       return format(ts);
     },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
     getScCallList(skip) {
       axios({
         method: "post",
@@ -167,6 +176,15 @@ export default {
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         this.isLoading = false;
       });
+    },
+    changeFormat() {
+      if (this.state === true) {
+        this.state = false;
+        this.buttonName = "WIF";
+      } else {
+        this.state = true;
+        this.buttonName = "Hash";
+      }
     },
     getAddress(accountAddress) {
       this.$router.push({
