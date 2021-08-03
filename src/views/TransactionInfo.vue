@@ -110,7 +110,8 @@
                   Signers
                 </div>
                 <hr />
-                <div class="row" v-if="this.tabledata.signers">
+                <div v-if="this.tabledata.signers">
+                <div class="row" v-if="this.tabledata.signers[0]">
                   <div class="col-2 font-weight-bold mb-0">Account</div>
                   <div class="col-4">
                     {{ this.tabledata["signers"][0]["account"] }}
@@ -119,6 +120,18 @@
                   <div class="col-4">
                     {{ this.tabledata["signers"][0]["scopes"] }}
                   </div>
+                </div>
+                <div class="row mt-3"></div>
+                <div class="row" v-if="this.tabledata.signers[1]">
+                  <div class="col-2 font-weight-bold mb-0">Account</div>
+                  <div class="col-4">
+                    {{ this.tabledata["signers"][1]["account"] }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Scopes</div>
+                  <div class="col-4">
+                    {{ this.tabledata["signers"][1]["scopes"] }}
+                  </div>
+                </div>
                 </div>
               </card>
 
@@ -132,20 +145,38 @@
                   Witnesses
                 </div>
                 <hr />
-                <div class="row" v-if="tabledata.witnesses">
-                  <div class="col-2">
-                    <div class="text-muted"><h3>Invocation</h3></div>
+                <div v-if="tabledata.witnesses">
+                  <div class="row" v-if="tabledata.witnesses[0]">
+                    <div class="col-2">
+                      <div class="text-muted"><h3>Invocation</h3></div>
+                    </div>
+                    <div class="col-4">
+                      {{ this.tabledata["witnesses"][0]["invocation"] }}
+                    </div>
+                    <div class="col-2">
+                      <div class="text-muted"><h3>Verification</h3></div>
+                    </div>
+                    <div class="col-4">
+                      {{ this.tabledata["witnesses"][0]["verification"] }}
+                    </div>
                   </div>
-                  <div class="col-4">
-                    {{ this.tabledata["witnesses"][0]["invocation"] }}
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted"><h3>Verification</h3></div>
-                  </div>
-                  <div class="col-4">
-                    {{ this.tabledata["witnesses"][0]["verification"] }}
+                  <div class="row mt-3"></div>
+                  <div class="row" v-if="tabledata.witnesses[1]">
+                    <div class="col-2">
+                      <div class="text-muted"><h3>Invocation</h3></div>
+                    </div>
+                    <div class="col-4">
+                      {{ this.tabledata["witnesses"][1]["invocation"] }}
+                    </div>
+                    <div class="col-2">
+                      <div class="text-muted"><h3>Verification</h3></div>
+                    </div>
+                    <div class="col-4">
+                      {{ this.tabledata["witnesses"][1]["verification"] }}
+                    </div>
                   </div>
                 </div>
+
               </card>
 
               <div class="row mt-3"></div>
@@ -186,6 +217,7 @@ import NftTable from "./Tables/NftTable";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
+// import { rpc, sc, u } from "@cityofzion/neon-core";
 
 export default {
   components: {
@@ -247,6 +279,7 @@ export default {
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
+
     },
     getTransactionByTransactionHash(tx_id) {
       axios({

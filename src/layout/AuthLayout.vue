@@ -171,6 +171,7 @@ export default {
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
+
     },
     getBlockByBlockHash(block_hash) {
       axios({
