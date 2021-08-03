@@ -15,7 +15,7 @@
                   <div class="col-11">
                     <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
                   </div>
-                  <div class="col-1">
+                  <div v-if="this.contract_info['sender'] !== null" class="col-1">
                     <button  class="btn btn-primary btn-xs" @click="changeFormat()">{{this.buttonName}}</button>
                   </div>
                 </div>

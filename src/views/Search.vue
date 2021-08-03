@@ -8,13 +8,13 @@
       <div class="h2 font-weight-bold mb-0">
         Data formats we currently support:
       </div>
-      <p class="text-muted font-weight-bold  mb-0">Block Hash (UInt256)</p>
+      <p class="text-muted font-weight-bold  mb-0">Block Hash (UInt256), Block Height (Int)</p>
       <p class="text-muted font-weight-bold  mb-0">Transaction ID (UInt256)</p>
       <p class="text-muted font-weight-bold  mb-0">Account Script Hash (UInt160), Account Address (WIF)</p>
       <p class="text-muted font-weight-bold  mb-0">Token / Contract Script Hash (UInt160)</p>
       <div class="row mt-3"></div>
       <div>
-        <base-button type="primary"  @click="toHomePage()">Back Home</base-button>
+        <base-button type="primary"  @click="toHomePage()">Back to Home Page</base-button>
       </div>
     </div>
   </section>
