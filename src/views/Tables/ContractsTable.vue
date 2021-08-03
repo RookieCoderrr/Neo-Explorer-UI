@@ -5,11 +5,12 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
-        <div class="col">
+        <div class="col-2">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
             {{ title }}
           </h3>
         </div>
+        <div class="col-6"></div>
         <div class="col-4">
           <div class="search">
             <input
@@ -42,7 +43,7 @@
         <template v-slot:columns>
           <th>Hash</th>
           <th>Name</th>
-          <th>Creator</th>
+          <th>Creator <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
           <th>Index</th>
           <th>Create Time</th>
         </template>
@@ -60,6 +61,7 @@
           </td>
           <td class="Creator">
             <span class="text-muted" v-if="row.item.Transaction.length === 0">Not Available</span>
+            <a class="mb-0 text-sm" v-else-if="this.state" style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{row.item.Transaction[0]["sender"]}} </a>
             <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{addressToScriptHash(row.item.Transaction[0]["sender"])}} </a>
           </td>
           <td class="index">
@@ -123,7 +125,9 @@ export default {
       isLoading: true,
       searchVal: "",
       name: "",
-      countPage:0,
+      countPage: 0,
+      state: true,
+      buttonName: "Hash",
     };
   },
   created() {
@@ -234,6 +238,15 @@ export default {
       this.$router.push({
         path: `/accountprofile/${this.addressToScriptHash(addr)}`
       });
+    },
+    changeFormat() {
+      if (this.state === true) {
+        this.state = false;
+        this.buttonName = "WIF";
+      } else {
+        this.state = true;
+        this.buttonName = "Hash";
+      }
     },
     search() {
       this.isLoading = true;
