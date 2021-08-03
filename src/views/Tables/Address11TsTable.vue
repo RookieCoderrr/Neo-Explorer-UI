@@ -35,24 +35,20 @@
         </td>
         <td class="budget">
           <div class="from">
-            <a
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              @click="getFromAccount(row.item.from)"
-              >{{ row.item.from === null ? "Null Accounts" : row.item.from }}</a
-            >
+            <div class="addr">
+              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
+            </div>
           </div>
         </td>
         <td class="budget">
           {{ row.item.frombalance }}
         </td>
         <td class="budget">
-          <a
-            class="name mb-0 text-sm"
-            style="cursor: pointer"
-            @click="getToAccount(row.item.to)"
-            >{{ row.item.to }}</a
-          >
+          <div class="addr">
+            <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+            <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+          </div>
         </td>
 
         <td class="budget">
@@ -158,11 +154,15 @@ export default {
     },
 
     getContract(ctrHash) {
-      return ctrHash;
+      this.$router.push({
+        path: `/tokeninfo/${ctrHash}`,
+      });
     },
 
-    getFromAccount() {
-      return;
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
 
     getToAccount() {
@@ -188,7 +188,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("transfer", res["data"]["result"]["result"]);
+        //console.log("transfer", res["data"]["result"]["result"]);
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))

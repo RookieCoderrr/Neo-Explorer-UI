@@ -139,6 +139,7 @@ export default {
       this.searchVal = "";
       if (value === "") {
         alert("Please input a value to search!");
+        this.isLoading = false;
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
           value = "0x" + value;
@@ -171,6 +172,7 @@ export default {
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
+
     },
     getBlockByBlockHash(block_hash) {
       axios({

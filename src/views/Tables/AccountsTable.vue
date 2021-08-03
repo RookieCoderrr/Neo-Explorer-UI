@@ -150,6 +150,12 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getAccoutsList(skip);
     },
+    convertGas(gas) {
+      if (gas === 0) {
+        return 0;
+      }
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
+    },
     getAccoutsList(skip) {
       axios({
         method: "post",
@@ -191,7 +197,7 @@ export default {
     },
     getBalance() {
       for (let k = 0; k < this.tableData.length; k++) {
-        console.log(k.toString());
+        //console.log(k.toString());
         let addr = this.tableData[k].address;
         axios({
           method: "post",
@@ -212,12 +218,16 @@ export default {
           },
         })
           .then((res) => {
-            this.tableData[k]["gasBalance"] = res["data"]["result"]["balance"];
-            //this.neoBalance = res["data"]["result"]["balance"];
+            this.tableData[k]["gasBalance"] = this.convertGas(res["data"]["result"]["balance"]);
           })
           .catch((err) => {
-            this.tableData[k]["gasBalance"] = "0";
-            console.log("Error", err);
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["gasBalance"] = "0";
+            }
+            else {
+              console.log("Error", err);
+            }
+
           });
 
         axios({
@@ -242,8 +252,12 @@ export default {
             this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
           })
           .catch((err) => {
-            this.tableData[k]["neoBalance"] = "0";
-            console.log("Error", err);
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["neoBalance"] = "0";
+            }
+            else {
+              console.log("Error", err);
+            }
           });
       }
     },
@@ -267,7 +281,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           return res["data"]["result"]["balance"];
         })
         .catch((err) => {
@@ -294,7 +308,7 @@ export default {
         },
       })
         .then((res) => {
-          return res["data"]["result"]["balance"];
+          return this.convertGas(res["data"]["result"]["balance"]);
         })
         .catch((err) => {
           console.log("Error", err);

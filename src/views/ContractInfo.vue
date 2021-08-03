@@ -210,8 +210,8 @@ export default {
     $route:'watchrouter'
   },
   methods: {
-    watchrouter() {//如果路由有变化，执行的对应的动作
-      if( this.$route.name === 'contracts'){
+    watchrouter() {//如果路由有变化，执行的对应的动
+      if( this.$route.name === 'contractinfo'){
       this.contract_id = this.$route.params.hash
       this.getContract(this.contract_id);
       }
