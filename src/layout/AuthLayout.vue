@@ -178,8 +178,15 @@ export default {
       }
     },
     addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
+      try {
+        const acc = Neon.create.account(addr);
+        return "0x" + acc.scriptHash;
+      }catch (err){
+        this.$router.push({
+          path: `/search`,
+        });
+      }
+
 
     },
     getBlockByBlockHash(block_hash) {
@@ -205,7 +212,9 @@ export default {
           });
 
         } else {
-          alert("Invalid input!");
+          this.$router.push({
+            path: `/search`,
+          });
         }
       },
       )
@@ -261,8 +270,9 @@ export default {
             path: `/accountprofile/${addr}`,
           });
         } else {
+          this.isLoading = false;
           this.$router.push({
-            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+            path: `/search`,
           });
         }
       })
