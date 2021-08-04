@@ -9,26 +9,20 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Contract</th>
-          <th>Token</th>
-          <th>Time</th>
           <th>Tx ID</th>
+          <th>Token</th>
           <th>Type</th>
           <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-          <th>From Balance</th>
           <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-          <th>To Balance</th>
           <th>Amount</th>
+          <th>Time</th>
         </template>
         <template v-slot:default="row">
+
           <td class="budget">
-            <div class="contract" @mouseover="mouseHover(row.item.contract)">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getContract(row.item.contract)"
-                >{{ row.item.contract }}</a
-              >
+            <div class="txid">
+              <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+              <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
             </div>
           </td>
           <td class="budget">
@@ -38,18 +32,7 @@
           </td>
           <td class="budget">
             <div >
-              {{convertTime(row.item.timestamp) }}
-            </div>
-          </td>
-          <td class="budget">
-            <div class="txid">
-              <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
-              <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
-            </div>
-          </td>
-          <td class="budget">
-            <div >
-              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
+              <span class="text-success" v-if="row.item.from === null" type="primary"> Reward </span>
               <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
               <span class="text-info" v-else> Transfer</span>
             </div>
@@ -57,31 +40,26 @@
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="mb-0 text-sm" v-else-if="this.fromState" style="cursor: pointer" @click="getAddress(row.item.from)"> {{scriptHashToAddress(row.item.from)}} </a>
-              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)"> {{row.item.from}} </a>
+              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.from" style="cursor: pointer" @click="getAddress(row.item.from)"><h3>&#129332;</h3> </a>
+              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)"> {{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}  </a>
             </div>
           </td>
-          <td class="budget">
-            <span class="text-muted" v-if="row.item.from === null"> Null Balance </span>
-            <span  v-else > {{ convertToken(row.item.frombalance ,row.item.decimals)}}</span>
 
-          </td>
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-              <a class="mb-0 text-sm" v-else-if="this.toState" style="cursor: pointer" @click="getAddress(row.item.to)"> {{scriptHashToAddress(row.item.to)}} </a>
-              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)"> {{row.item.to}} </a>
+              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.to" style="cursor: pointer" @click="getAddress(row.item.to)"><h3>&#129332;</h3> </a>
+              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)"> {{this.toState? scriptHashToAddress(row.item.to):row.item.to}}  </a>
             </div>
-          </td>
-
-          <td class="budget">
-            <span class="text-muted" v-if="row.item.to === null"> Null Balance </span>
-            <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
-
           </td>
 
           <td class="budget">
             {{ convertToken(row.item.value ,row.item.decimals) }}
+          </td>
+          <td class="budget">
+            <div >
+              {{convertTime(row.item.timestamp) }}
+            </div>
           </td>
         </template>
       </base-table>
