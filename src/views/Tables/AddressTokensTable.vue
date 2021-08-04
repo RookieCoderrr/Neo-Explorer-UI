@@ -126,35 +126,17 @@ export default {
     },
   },
   methods: {
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
+    },
     pageChange(pageNumber) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
     },
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);
-    },
-    getTokenList(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        this.tokenList = res["data"]["result"]["result"];
-
-        this.isLoading = false;
-      });
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
@@ -162,17 +144,17 @@ export default {
         this.pagination =this.countPage;
         const skip =
                 ( this.countPage - 1 ) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       }
     },
     getTokenListWithBalance(skip) {
@@ -187,6 +169,7 @@ export default {
             Limit: this.resultsPerPage,
             Skip: skip,
           },
+          // TODO: 上线后改成GetAssetsHeldByAddress
           method: "GetAssetsBalanceByAddress",
         },
         headers: {
@@ -203,6 +186,7 @@ export default {
         for (let k = 0; k < temp.length; k++) {
           address_list.push(temp[k]["asset"]);
         }
+        console.log("address_list", address_list)
         this.tokenList = temp;
         this.getTokenInfo(address_list);
       });
