@@ -57,7 +57,7 @@
                         {{ convertTime(row.item.timestamp) }}
                     </td>
                     <td >
-                        {{ row.item.transactionNumber }}
+                        {{ row.item.transactioncount }}
                     </td>
                     <td >
                         {{ row.item.size }}

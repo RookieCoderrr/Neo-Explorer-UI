@@ -142,6 +142,7 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
+
         this.txCount = res["data"]["result"]["total counts"];
       });
     },
@@ -153,7 +154,7 @@ export default {
           params: {},
           jsonrpc: "2.0",
           id: 1,
-          method: "GetAccountCount",
+          method: "GetAddressCount",
         },
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +171,7 @@ export default {
           params: {},
           jsonrpc: "2.0",
           id: 1,
-          method: "GetAssetCount",
+            method: "GetAssetCount",
         },
         headers: {
           "Content-Type": "application/json",

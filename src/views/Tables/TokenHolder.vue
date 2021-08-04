@@ -186,7 +186,7 @@ export default {
       }).then((res) => {
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount - this.resultsPerPage)
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
         this.isLoading = false;
       });
     },

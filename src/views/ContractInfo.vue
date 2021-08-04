@@ -83,7 +83,7 @@
                       <div class="panel panel-primary">
                         <div class="font-weight-bold mb-0">Transactions</div>
                         <div class="panel-body">
-                          {{this.contract_info["totalSccall"]}}
+                          {{this.contract_info["totalsccall"]}}
                         </div>
                       </div>
                     </card>

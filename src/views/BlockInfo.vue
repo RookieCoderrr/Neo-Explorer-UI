@@ -92,12 +92,12 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">Tx Count</div>
                     </div>
-                    <div class="col-4">{{ this.block_info.transactionNumber }}
+                    <div class="col-4">{{ this.block_info.transactioncount }}
                     </div>
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">Transfers</div>
                     </div>
-                    <div class="col-4">{{ this.block_info.transfersNumber }}
+                    <div class="col-4">{{ this.block_info.transfercount }}
                     </div>
 
                   </div>

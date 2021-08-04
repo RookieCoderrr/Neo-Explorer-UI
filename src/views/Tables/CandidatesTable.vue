@@ -63,6 +63,18 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+                type="number"
+                :style="text(pagination)"
+                :placeholder="pagination"
+                v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">
+          &nbsp; of &nbsp;{{ countPage }}
+        </div>
+      </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -97,9 +109,20 @@ export default {
       skip: 0,
       count: 0,
       isLoading: true,
+      countPage:0,
     };
   },
   computed:{
+    text() {
+      return function (value) {
+        let inputLength = value.toString().length * 10 + 30;
+        return (
+                "width: " +
+                inputLength +
+                "px!important;text-align: center;height:80%;margin-top:5%;"
+        );
+      };
+    },
     multiple(){
       return  this.resultsPerPage*(this.pagination-1) ;
     }
@@ -119,6 +142,25 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
       });
+    },
+    pageChangeByInput(pageNumber) {
+      if (pageNumber >= this.countPage) {
+        this.isLoading = true;
+        this.pagination =this.countPage;
+        const skip =
+                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.getCandidateList(skip);
+      } else if (pageNumber <= 0) {
+        this.isLoading = true;
+        this.pagination = 1;
+        const skip = this.resultsPerPage;
+        this.getCandidateList(skip);
+      } else {
+        this.isLoading = true;
+        this.pagination = pageNumber;
+        const skip = (pageNumber - 1) * this.resultsPerPage;
+        this.getCandidateList(skip);
+      }
     },
     pageChange(pageNumber) {
       this.isLoading = true;
@@ -150,6 +192,7 @@ export default {
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         this.count = this.skip;
       });
     },
