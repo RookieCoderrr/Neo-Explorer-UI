@@ -295,7 +295,7 @@ export default {
         url: "/api",
         data: {
           jsonrpc: "2.0",
-          method: "GetAccountInfoByAddress",
+          method: "GetAddressByAddress",
           params: {
             address: this.accountAddress,
           },
@@ -308,6 +308,7 @@ export default {
         },
       })
         .then((res) => {
+          console.log(res["data"]["result"],"?????????")
           this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {
