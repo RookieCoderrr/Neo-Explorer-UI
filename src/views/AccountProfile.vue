@@ -19,7 +19,7 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Created Time</div>
                   <div class="col-4">
-                    {{ this.createdTime }}
+                    {{ convertTime(this.createdTime) }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">Type</div>
                   <div class="col-4">
@@ -124,7 +124,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
@@ -186,6 +186,16 @@ export default {
         return 0;
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
+    },
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
     },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);
@@ -298,7 +308,7 @@ export default {
         },
       })
         .then((res) => {
-          this.createdTime = format(res["data"]["result"]["firstusetime"]);
+          this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {
           console.log("Get created time failed, Error", err);
