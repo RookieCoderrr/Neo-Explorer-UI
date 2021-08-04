@@ -11,6 +11,9 @@
         <template v-slot:columns>
           <th>Contract</th>
           <th>Token</th>
+          <th>Time</th>
+          <th>Tx ID</th>
+          <th>Type</th>
           <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
           <th>From Balance</th>
           <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
@@ -29,8 +32,26 @@
             </div>
           </td>
           <td class="budget">
-            <div class="from">
+            <div >
               {{ row.item.tokenname }}
+            </div>
+          </td>
+          <td class="budget">
+            <div >
+              {{convertTime(row.item.timestamp) }}
+            </div>
+          </td>
+          <td class="budget">
+            <div class="txid">
+              <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+              <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+            </div>
+          </td>
+          <td class="budget">
+            <div >
+              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
+              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
+              <span class="text-muted" v-else> Transfer</span>
             </div>
           </td>
           <td class="budget">
@@ -41,7 +62,9 @@
             </div>
           </td>
           <td class="budget">
-            {{ row.item.frombalance }}
+            <span class="text-muted" v-if="row.item.from === null"> Null Balance </span>
+            <span  v-else > {{ convertToken(row.item.frombalance ,row.item.decimals)}}</span>
+
           </td>
           <td class="budget">
             <div class="addr">
@@ -52,11 +75,13 @@
           </td>
 
           <td class="budget">
-            {{ row.item.tobalance }}
+            <span class="text-muted" v-if="row.item.to === null"> Null Balance </span>
+            <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
+
           </td>
 
           <td class="budget">
-            {{ row.item.value }}
+            {{ convertToken(row.item.value ,row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -88,6 +113,7 @@
 <script>
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
+import {format} from "timeago.js";
 export default {
   name: "address17-ts-table",
   props: {
@@ -107,6 +133,8 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
+      txId:"",
+      timeStamp:0
     };
   },
   created() {
@@ -131,9 +159,18 @@ export default {
       this.GetNep17TransferByAddress(skip);
     },
     convertToken(token, decimal) {
-      return (token * Math.pow(0.1, decimal)).toFixed(6);
-    },
+      if(decimal===0) {
+        return token
+      }else {
+        return (token * Math.pow(0.1, decimal)).toFixed(8);
+      }
 
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
     mouseHover(contract) {
       var a = document.getElementById("contract");
       a.addEventListener("mouseover", function (event) {
@@ -177,6 +214,9 @@ export default {
     getToAccount() {
       return;
     },
+    convertTime(time) {
+      return format(time);
+    },
 
     GetNep17TransferByAddress(skip) {
       axios({
@@ -200,6 +240,8 @@ export default {
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.txId = res["data"]["result"]["result"]["txid"];
+        this.timeStamp =res["data"]["result"]["result"]["timestamp"]
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         for (let k = 0; this.tableData.length; k++) {
           axios({
@@ -222,6 +264,7 @@ export default {
             },
           }).then((res) => {
             this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            this.tableData[k]["decimals"] = res["data"]["result"]["decimals"]
 
           });
         }
@@ -260,6 +303,12 @@ export default {
 <style>
 .contract {
   width: 150px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txid {
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

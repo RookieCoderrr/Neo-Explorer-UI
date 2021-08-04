@@ -125,10 +125,11 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
+    // TODO 替换这个gettransactionslist的bug
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
+      this.getTransactions(skip);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
@@ -136,17 +137,17 @@ export default {
         this.pagination =this.countPage;
         const skip =
                 ( this.countPage - 1 ) * this.resultsPerPage;
-        this.getTransactionList(skip);
+        this.getTransactions(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
-        this.getTransactionList(skip);
+        this.getTransactions(skip);
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
+        this.getTransactions(skip);
       }
     },
     getTransactions(skip) {
@@ -177,28 +178,6 @@ export default {
         .catch((err) => {
           console.log("Error", err);
         });
-    },
-
-    getTransactionList(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTransactionList",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        this.tableData = res["data"]["result"]["result"];
-        this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
-      });
     },
   },
 };

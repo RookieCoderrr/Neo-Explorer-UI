@@ -119,7 +119,7 @@ export default {
       if (temp % 1 === 0) {
         return temp;
       } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(2);
+        return (token * Math.pow(0.1, decimal)).toFixed(6);
       }
     },
     mouseHover(contract) {
