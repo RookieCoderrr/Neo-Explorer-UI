@@ -65,7 +65,7 @@
                 <div class="col-4">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class=" font-weight-bold mb-0">NEP11 Transferss</div>
+                      <div class=" font-weight-bold mb-0">NEP11 Transfers</div>
                       <div class="panel-body">
                         {{  this.numOlnep11Transfers}}
                       </div>

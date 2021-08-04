@@ -53,7 +53,7 @@
             </badge>
           </td>
           <td class="balance">
-            {{ row.item.balance }}
+            {{ convertToken(row.item.balance,row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -126,8 +126,13 @@ export default {
     },
   },
   methods: {
-    convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
+    convertToken(token, decimal) {
+      if(decimal===0) {
+        return token
+      }else {
+        return (token * Math.pow(0.1, decimal)).toFixed(8);
+      }
+
     },
     pageChange(pageNumber) {
         this.isLoading = true;
@@ -214,6 +219,7 @@ export default {
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
           this.tokenList[k]["standard"] = res["data"]["result"]["standard"];
+          this.tokenList[k]["decimals"] =res["data"]["result"]["decimals"];
         });
       }
     },
