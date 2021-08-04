@@ -267,8 +267,7 @@ export default {
         },
       })
         .then((res) => {
-          // TODO: 这个还没处理
-          this.numOfTxns = res["data"]["result"]["result"].length;
+          this.numOfTxns = res["data"]["result"]["totalCount"];
         })
         .catch((err) => {
           console.log("Error", err);
