@@ -40,7 +40,7 @@
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.from" style="cursor: pointer" @click="getAddress(row.item.from)"><h3>&#129332;</h3> </a>
+              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.from" style="cursor: pointer" @click="getAddress(row.item.from)"><h3>&#128100;</h3> </a>
               <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)"> {{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}  </a>
             </div>
           </td>
@@ -48,7 +48,7 @@
           <td class="budget">
             <div class="addr">
               <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.to" style="cursor: pointer" @click="getAddress(row.item.to)"><h3>&#129332;</h3> </a>
+              <a class="mb-0 text-sm" v-else-if="this.account_address===row.item.to" style="cursor: pointer" @click="getAddress(row.item.to)"><h3>&#128100;</h3> </a>
               <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)"> {{this.toState? scriptHashToAddress(row.item.to):row.item.to}}  </a>
             </div>
           </td>
