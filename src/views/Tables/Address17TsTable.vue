@@ -13,6 +13,7 @@
           <th>Token</th>
           <th>Time</th>
           <th>Tx ID</th>
+          <th>Type</th>
           <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
           <th>From Balance</th>
           <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
@@ -41,8 +42,16 @@
             </div>
           </td>
           <td class="budget">
+            <div class="txid">
+              <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
+              <a class="name mb-0 text-sm " v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+            </div>
+          </td>
+          <td class="budget">
             <div >
-              {{ row.item.txid }}
+              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
+              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
+              <span class="text-muted" v-else> Transfer</span>
             </div>
           </td>
           <td class="budget">
@@ -53,7 +62,9 @@
             </div>
           </td>
           <td class="budget">
-            {{ convertToken(row.item.frombalance,row.item.decimals) }}
+            <span class="text-muted" v-if="row.item.from === null"> Null Balance </span>
+            <span  v-else > {{ convertToken(row.item.frombalance ,row.item.decimals)}}</span>
+
           </td>
           <td class="budget">
             <div class="addr">
@@ -64,7 +75,9 @@
           </td>
 
           <td class="budget">
-            {{ convertToken(row.item.tobalance ,row.item.decimals)}}
+            <span class="text-muted" v-if="row.item.to === null"> Null Balance </span>
+            <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
+
           </td>
 
           <td class="budget">
@@ -146,9 +159,18 @@ export default {
       this.GetNep17TransferByAddress(skip);
     },
     convertToken(token, decimal) {
-      return (token * Math.pow(0.1, decimal)).toFixed(8);
-    },
+      if(decimal===0) {
+        return token
+      }else {
+        return (token * Math.pow(0.1, decimal)).toFixed(8);
+      }
 
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
     mouseHover(contract) {
       var a = document.getElementById("contract");
       a.addEventListener("mouseover", function (event) {
@@ -281,6 +303,12 @@ export default {
 <style>
 .contract {
   width: 150px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txid {
+  width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
