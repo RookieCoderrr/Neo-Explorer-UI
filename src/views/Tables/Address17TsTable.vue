@@ -51,7 +51,7 @@
             <div >
               <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
               <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-              <span class="text-muted" v-else> Transfer</span>
+              <span class="text-info" v-else> Transfer</span>
             </div>
           </td>
           <td class="budget">
