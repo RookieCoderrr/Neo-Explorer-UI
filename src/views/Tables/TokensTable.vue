@@ -56,7 +56,8 @@
             </div>
           </th>
           <td class="name">
-            {{ row.item.tokenname }}
+            <span v-if="row.item.ispopular">{{ row.item.tokenname }} &#x1F525; </span>
+            <span v-else>{{ row.item.tokenname}}</span>
           </td>
           <td class="symbol">
             {{ row.item.symbol }}
@@ -189,6 +190,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil( this.totalCount / this.resultsPerPage )
