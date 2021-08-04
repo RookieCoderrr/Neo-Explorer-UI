@@ -175,7 +175,7 @@ export default {
             Skip: skip,
           },
           // TODO: 上线后改成GetAssetsHeldByAddress
-          method: "GetAssetsBalanceByAddress",
+          method: "GetAssetsHeldByAddress",
         },
         headers: {
           "Content-Type": "application/json",
