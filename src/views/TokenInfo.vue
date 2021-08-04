@@ -61,7 +61,7 @@
                           <div class=" font-weight-bold mb-0">First Transferred</div>
                           <div class="panel-body">
                             <div v-if="this.token_info.firsttransfertime" >
-                              {{ this.token_info["firsttransfertime"] }}
+                              {{ this.convertTime(this.token_info["firsttransfertime"]) }}
                             </div>
                           </div>
                         </div>
@@ -204,7 +204,6 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
 import TokensTxNep17 from "./Tables/TokenTxNep17";
 import TokensTxNep11 from "./Tables/TokenTxNep11";
 import TokenHolder from "./Tables/TokenHolder";
@@ -247,6 +246,16 @@ export default {
     convertToken(val, decimal) {
       return val * Math.pow(10, -decimal);
     },
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+    },
     getToken(token_id){
       axios({
         method: "post",
@@ -264,7 +273,6 @@ export default {
         },
       }).then((res) => {
         let raw = res["data"]["result"];
-        raw["firsttransfertime"] = format(raw["firsttransfertime"]);
         this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;
