@@ -29,6 +29,7 @@
           <template v-slot:columns>
             <th>Contract</th>
             <th>Token</th>
+            <th>Type</th>
             <th>From</th>
             <th>From Balance</th>
             <th>To</th>
@@ -53,6 +54,13 @@
               </div>
             </td>
             <td class="budget">
+              <div >
+                <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
+                <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
+                <span class="text-info" v-else> Transfer</span>
+              </div>
+            </td>
+            <td class="budget">
               <div class="from">
                 <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
                 <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}
@@ -61,7 +69,8 @@
               </div>
             </td>
             <td class="budget">
-              {{ convertToken(row.item.frombalance, row.item.decimals) }}
+              <span class="text-muted" v-if="row.item.from === null"> Null Balance </span>
+              <span  v-else >{{ convertToken(row.item.frombalance, row.item.decimals) }}</span>
             </td>
             <td class="budget">
               <div class="to">
@@ -75,7 +84,8 @@
             </td>
 
             <td class="budget">
-              {{ convertToken(row.item.tobalance, row.item.decimals) }}
+              <span class="text-muted" v-if="row.item.to === null"> Null Balance </span>
+              <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
             </td>
 
             <td class="budget">
@@ -119,7 +129,7 @@ export default {
       if (temp % 1 === 0) {
         return temp;
       } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(2);
+        return (token * Math.pow(0.1, decimal)).toFixed(6);
       }
     },
     mouseHover(contract) {

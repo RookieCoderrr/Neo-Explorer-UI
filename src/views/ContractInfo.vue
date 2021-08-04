@@ -40,7 +40,7 @@
                       <div class="panel panel-primary">
                         <div class="font-weight-bold mb-0">Created</div>
                         <div class="panel-body">
-                          {{this.contract_info["createtime"]}}
+                          {{convertTime(this.contract_info["createtime"])}}
                         </div>
                       </div>
                     </card>
@@ -205,7 +205,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
@@ -240,6 +240,16 @@ export default {
       this.getContract(this.contract_id);
       }
     },
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+    },
     getContract(contract_id) {
       axios({
         method: "post",
@@ -257,7 +267,6 @@ export default {
         },
       }).then((res) => {
         const raw = res["data"]["result"];
-        raw["createtime"] = format(raw["createtime"]);
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;

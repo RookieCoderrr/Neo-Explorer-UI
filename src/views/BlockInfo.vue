@@ -152,7 +152,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import BlockTransaction from "./Tables/BlockTransaction";
 export default {
   components: {
@@ -182,9 +182,17 @@ export default {
         this.getBlock(this.BlockHash);
       }
     },
-    convertTime(ts) {
-      return format(ts);
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
     },
+
     preBlock(hash){
       this.isLoading =true
       this.getBlock(hash)

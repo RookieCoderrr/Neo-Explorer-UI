@@ -11,7 +11,7 @@
             ></loading>
             <div class="card-header bg-transparent">
               <h1 class="mb-0">Account:</h1>
-              <h4 class="text-muted">{{ this.accountAddress }}</h4>
+              <h4 class="text-muted">{{ this.scriptHashToAddress(this.accountAddress) }}</h4>
             </div>
 
             <div class="card-body">
@@ -19,7 +19,7 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">Created Time</div>
                   <div class="col-4">
-                    {{ this.createdTime }}
+                    {{ convertTime(this.createdTime) }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">Type</div>
                   <div class="col-4">
@@ -65,7 +65,7 @@
                 <div class="col-4">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class=" font-weight-bold mb-0">NEP11 Transferss</div>
+                      <div class=" font-weight-bold mb-0">NEP11 Transfers</div>
                       <div class="panel-body">
                         {{  this.numOlnep11Transfers}}
                       </div>
@@ -124,11 +124,12 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "account-profile",
@@ -186,7 +187,22 @@ export default {
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
-    getNeoBalance() {
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+      getNeoBalance() {
       axios({
         method: "post",
         url: "/api",
@@ -267,8 +283,7 @@ export default {
         },
       })
         .then((res) => {
-          // TODO: 这个还没处理
-          this.numOfTxns = res["data"]["result"]["result"].length;
+          this.numOfTxns = res["data"]["result"]["totalCount"];
         })
         .catch((err) => {
           console.log("Error", err);
@@ -293,7 +308,7 @@ export default {
         },
       })
         .then((res) => {
-          this.createdTime = format(res["data"]["result"]["firstusetime"]);
+          this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {
           console.log("Get created time failed, Error", err);

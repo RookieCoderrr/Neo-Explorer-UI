@@ -125,6 +125,7 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
+    // TODO 替换这个gettransactionslist的bug
     pageChange(pageNumber) {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -178,7 +179,6 @@ export default {
           console.log("Error", err);
         });
     },
-
   },
 };
 </script>

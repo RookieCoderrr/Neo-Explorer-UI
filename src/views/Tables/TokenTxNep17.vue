@@ -15,6 +15,7 @@
       >
         <template v-slot:columns>
           <th>Txid</th>
+          <th>Type</th>
           <th>From <button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
           <th>To <button class="btn btn-sm btn-primary"  @click="changeToFormat()">{{this.toButton}}</button></th>
           <th>Amount</th>
@@ -30,13 +31,19 @@
               </div>
             </div>
           </th>
+          <td class="Type">
+            <div >
+              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
+              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
+              <span class="text-info" v-else> Transfer</span>
+            </div>
+          </td>
           <td class="From">
             <div class="addr">
               <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
               <a v-else-if="fromState" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ scriptHashToAddress(row.item.from) }}</a>
               <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
             </div>
-
           </td>
           <td class="To">
             <div class="addr">
@@ -49,7 +56,7 @@
             {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="time">
-            {{ convertTime(row.item.time) }}
+            {{ convertTime(row.item.timestamp) }}
           </td>
         </template>
       </base-table>
@@ -147,10 +154,10 @@ export default {
       }
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getTokenList(skip);
     },
     convertTime(ts) {
       return format(ts);

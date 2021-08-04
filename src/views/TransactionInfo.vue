@@ -20,7 +20,7 @@
                     <div class="panel panel-primary">
                       <div class="h2 font-weight-bold mb-0">Time</div>
                       <div class="panel-body">
-                        {{ this.tabledata["blocktime"] }}
+                        {{ convertTime(this.blocktime) }}
                       </div>
                     </div>
                   </card>
@@ -214,13 +214,13 @@
 
 <script>
 import axios from "axios";
-import { format } from "timeago.js";
 import TransfersList from "./Tables/TransfersList";
 import NftTable from "./Tables/NftTable";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 // import { u } from "@cityofzion/neon-core";
+// import moment from 'moment';
 
 export default {
   components: {
@@ -236,7 +236,8 @@ export default {
       blockhash:"",
       address:"",
       state: true,
-      buttonName:"Hash"
+      buttonName:"Hash",
+      blocktime:0
     };
   },
   created() {
@@ -252,6 +253,19 @@ export default {
       this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
       }
+    },
+    convertTime(time){
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)
+      var d = (date.getDate() <10 ? ('0' +date.getDate()): date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()): date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()): date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
+      return m+'-'+d+'-'+y+' '+h+':'+mi+':'+s +' +' + "UTC";
+      // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
+      // console.log(res)
+      // return res
     },
     changeFormat(){
       if(this.state === true) {
@@ -301,12 +315,10 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
-        var raw = res["data"]["result"];
-        raw["blocktime"] = format(raw["blocktime"]);
-        this.tabledata = raw;
+        this.tabledata = res["data"]["result"];
         this.blockhash = this.tabledata["blockhash"]
         this.address = this.tabledata["sender"]
-        console.log(Neon.u.str2hexstring(this.tabledata["script"]))
+        this.blocktime = this.tabledata["blocktime"]
       });
     },
   },

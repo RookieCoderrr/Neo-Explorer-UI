@@ -50,7 +50,7 @@
             {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="time">
-            {{ convertTime(row.item.time) }}
+            {{ convertTime(row.item.timestamp) }}
           </td>
           <td class="TokenID">
             <div class="addr">

@@ -53,7 +53,7 @@
             </badge>
           </td>
           <td class="balance">
-            {{ row.item.balance }}
+            {{ convertToken(row.item.balance,row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -66,10 +66,10 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{ countPage }}
@@ -126,35 +126,22 @@ export default {
     },
   },
   methods: {
+    convertToken(token, decimal) {
+      if(decimal===0) {
+        return token
+      }else {
+        return (token * Math.pow(0.1, decimal)).toFixed(8);
+      }
+
+    },
     pageChange(pageNumber) {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
     },
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);
-    },
-    getTokenList(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenList",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        this.tokenList = res["data"]["result"]["result"];
-
-        this.isLoading = false;
-      });
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
@@ -162,17 +149,17 @@ export default {
         this.pagination =this.countPage;
         const skip =
                 ( this.countPage - 1 ) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        this.getTokenListWithBalance(skip);
       }
     },
     getTokenListWithBalance(skip) {
@@ -187,6 +174,7 @@ export default {
             Limit: this.resultsPerPage,
             Skip: skip,
           },
+          // TODO: 上线后改成GetAssetsHeldByAddress
           method: "GetAssetsBalanceByAddress",
         },
         headers: {
@@ -203,6 +191,7 @@ export default {
         for (let k = 0; k < temp.length; k++) {
           address_list.push(temp[k]["asset"]);
         }
+        console.log("address_list", address_list)
         this.tokenList = temp;
         this.getTokenInfo(address_list);
       });
@@ -230,6 +219,7 @@ export default {
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
           this.tokenList[k]["standard"] = res["data"]["result"]["standard"];
+          this.tokenList[k]["decimals"] =res["data"]["result"]["decimals"];
         });
       }
     },
