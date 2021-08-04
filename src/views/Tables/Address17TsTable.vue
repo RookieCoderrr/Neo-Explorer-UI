@@ -11,6 +11,8 @@
         <template v-slot:columns>
           <th>Contract</th>
           <th>Token</th>
+          <th>Time</th>
+          <th>Tx ID</th>
           <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
           <th>From Balance</th>
           <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
@@ -29,8 +31,18 @@
             </div>
           </td>
           <td class="budget">
-            <div class="from">
+            <div >
               {{ row.item.tokenname }}
+            </div>
+          </td>
+          <td class="budget">
+            <div >
+              {{convertTime(row.item.timestamp) }}
+            </div>
+          </td>
+          <td class="budget">
+            <div >
+              {{ row.item.txid }}
             </div>
           </td>
           <td class="budget">
@@ -41,7 +53,7 @@
             </div>
           </td>
           <td class="budget">
-            {{ row.item.frombalance }}
+            {{ convertToken(row.item.frombalance,row.item.decimals) }}
           </td>
           <td class="budget">
             <div class="addr">
@@ -52,11 +64,11 @@
           </td>
 
           <td class="budget">
-            {{ row.item.tobalance }}
+            {{ convertToken(row.item.tobalance ,row.item.decimals)}}
           </td>
 
           <td class="budget">
-            {{ row.item.value }}
+            {{ convertToken(row.item.value ,row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -88,6 +100,7 @@
 <script>
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
+import {format} from "timeago.js";
 export default {
   name: "address17-ts-table",
   props: {
@@ -107,6 +120,8 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
+      txId:"",
+      timeStamp:0
     };
   },
   created() {
@@ -131,7 +146,7 @@ export default {
       this.GetNep17TransferByAddress(skip);
     },
     convertToken(token, decimal) {
-      return (token * Math.pow(0.1, decimal)).toFixed(6);
+      return (token * Math.pow(0.1, decimal)).toFixed(8);
     },
 
     mouseHover(contract) {
@@ -177,6 +192,9 @@ export default {
     getToAccount() {
       return;
     },
+    convertTime(time) {
+      return format(time);
+    },
 
     GetNep17TransferByAddress(skip) {
       axios({
@@ -200,6 +218,8 @@ export default {
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        this.txId = res["data"]["result"]["result"]["txid"];
+        this.timeStamp =res["data"]["result"]["result"]["timestamp"]
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
         for (let k = 0; this.tableData.length; k++) {
           axios({
@@ -222,6 +242,7 @@ export default {
             },
           }).then((res) => {
             this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            this.tableData[k]["decimals"] = res["data"]["result"]["decimals"]
 
           });
         }
