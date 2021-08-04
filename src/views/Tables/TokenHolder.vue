@@ -184,6 +184,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res);
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount - this.resultsPerPage)

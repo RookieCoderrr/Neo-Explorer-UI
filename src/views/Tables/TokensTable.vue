@@ -205,7 +205,7 @@ export default {
           jsonrpc: "2.0",
           id: 1,
           params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTokenListByName",
+          method: "GetAssetInfosByName",
         },
         headers: {
           "Content-Type": "application/json",
