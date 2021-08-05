@@ -30,7 +30,7 @@ const en = {
             hash:"BlockHash",
             height:"Height",
             txs:"Txns",
-            size:"size",
+            size:"Size",
             time:"Time",
         },
         txTable:{
