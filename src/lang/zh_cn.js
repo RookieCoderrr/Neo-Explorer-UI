@@ -78,6 +78,34 @@ module.exports = {
         },
         conInfo:"合约信息"
     },
+    transactionList:{
+        title: "交易列表",
+        transactionId:"交易哈希",
+        blockHeight:"区块高度",
+        size:"大小",
+        time:"时间",
+        gasConsumed:"Gas",
+        page:"页数"
+
+    },
+    transactionInfo:{
+        txId:"交易哈希",
+        time:"时间",
+        blockHeight:"区块高度",
+        size:"大小",
+        version:"版本",
+        blockHash:"区块哈希",
+        sender:"发件人",
+        netFee:"网络费",
+        sysFee:"系统费",
+        signers:"签名人",
+        account:"账户",
+        scopes:"范围",
+        witness:"证人",
+        invocation:"调用脚本",
+        verification:"验证脚本",
+        script:"运行脚本",
+    },
     tokensTable: {
         title: "通证列表",
         hash: "哈希",

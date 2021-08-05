@@ -81,6 +81,9 @@
         <div  style="cursor: pointer" @click="switch_the_language('cn')">
           中文
         </div>
+          <div  style="cursor: pointer" @click="switch_the_language('fr')">
+            Français
+          </div>
         </li>
 
       </template>

@@ -1,0 +1,128 @@
+const fr = {
+    na: "non disponible",
+    blockReward: " Bloc Récompense",
+    transferReward: "Récompense Transfert",
+    mint: "Mouler",
+    burn: "Brûler",
+    transfer: "transférer",
+    nullAddress: "Addresse vide",
+    hash: "Hash",
+    wif: "WIF",
+    authLayout:{
+        home:"Accueil",
+        blocks:"Blocs",
+        txs:"Transactions",
+        tokens:"Jetons",
+        contracts:"Contracts",
+        address:"Addresses",
+        committee:"Comité"
+    },
+    homePage:{
+        totalBLocks:"Blocs Totals",
+        totalTxs:"Txs Totals",
+        totalTokens:"Jetons Totals",
+        totalCntrts: "Cntrts Totals",
+        totalAddrs:"Accts Totals",
+        totalCndidtes:"Cndidtes Totals",
+        recentBlocks:"Derniers Blocs",
+        recentTxs:"Derniers Transactions",
+        bcTable:{
+            hash:"Bloc Hash",
+            height:"Indice",
+            txs:"Txns",
+            size:"Taille",
+            time:"Temps",
+        },
+        txTable:{
+            txID:"Transaction ID",
+            size:"Taille",
+            time:"Temps",
+            gas:"Gas Utilisé"
+        }
+
+
+    },
+    transactionList:{
+        title: "Tableau Transaction",
+        transactionId:"Transaction ID ",
+        blockHeight:"Indice Bloc",
+        size:"Taille",
+        time:"Temps",
+        gasConsumed:"GAS Utilisé",
+        page:"Page"
+
+    },
+    transactionInfo:{
+        txId:"Tx ID",
+        time:"Temps",
+        blockHeight:"Index de Bloc",
+        size:"Taille",
+        version:"Version",
+        blockHash:"Bloc Hash",
+        sender:"Expéditeur",
+        netFee:"Frais de réseau",
+        sysFee:"Frais de système",
+        signers:"Signataires",
+        account:"Compte",
+        scopes:"Portées",
+        witness:"Témoin",
+        invocation:"Aufrufskript",
+        verification:"Script d'appel",
+        script:"Script",
+    },
+    transferList:{
+        title:"Nep17 Transferts",
+        contract:"Contract",
+        token:"Jeton",
+        type:"Genre",
+        from:"Envoyé de",
+        fromBalance:" Jetons d'Envoyeur",
+        to:"Envoyé à",
+        toBalance:" Jetons de Récepteur",
+        Amount:"Somme",
+    },
+    tokensTable: {
+        title: "Tableau Jetons",
+        hash: "Hash",
+        name: "Nom",
+        symbol: "Symbole",
+        standard: "Standard",
+        holders: "Porteurs Totals",
+        prompt: "Rechercher par nom de jeton",
+    },
+    tokenInfo: {
+        symbol: " Symbole Jeton",
+        decimal: "Décimal",
+        standard: "Standard Support",
+        transferred: "Premier Transfert",
+        supply: "Production Totale",
+        holders: "Porteurs Totals",
+        recentTransfers: "Derniers Transfers",
+        topHolders: "Top Porteurs",
+        contractInfo: "Contract Info",
+        extra: "Extras",
+        events: "Événements",
+        methods: "Methodes",
+        description: "Déscription",
+        email: "E-mail",
+        author: "Auteur"
+    },
+    tokenTx: {
+        txid: "txid",
+        type: "genre",
+        from: "envoyé de",
+        to: "envoyé à",
+        amount: "somme",
+        time: "temps",
+        tokenID: "jeton id",
+    },
+    tokenHolder: {
+        ranking: "Ranking",
+        address: "Addresse",
+        balance: "Somme de jeton",
+        percentage: "pourcentage",
+    },
+
+
+}
+export default fr
