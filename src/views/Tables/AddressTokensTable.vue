@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -59,7 +59,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -191,7 +191,7 @@ export default {
         for (let k = 0; k < temp.length; k++) {
           address_list.push(temp[k]["asset"]);
         }
-        console.log("address_list", address_list)
+        // console.log("address_list", address_list)
         this.tokenList = temp;
         this.getTokenInfo(address_list);
       });
