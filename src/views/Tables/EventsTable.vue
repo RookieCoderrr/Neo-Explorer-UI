@@ -23,11 +23,11 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>Txid</th>
-          <th>Event Name</th>
-          <th>VM State</th>
-          <th>Index</th>
-          <th>Fired</th>
+          <th>{{$t('contract.event.txID')}}</th>
+          <th>{{$t('contract.event.eventName')}}</th>
+          <th>{{$t('contract.event.vmState')}}</th>
+          <th>{{$t('contract.event.index')}}</th>
+          <th>{{$t('contract.event.time')}}</th>
         </template>
 
         <template v-slot:default="row">

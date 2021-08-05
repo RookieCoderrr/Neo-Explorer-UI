@@ -11,7 +11,7 @@
           </h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm" @click="toTransactionsTable()">See all</base-button>
+          <base-button type="primary" size="sm" @click="toTransactionsTable()">{{$t('homePage.seeAll')}}</base-button>
         </div>
       </div>
     </div>

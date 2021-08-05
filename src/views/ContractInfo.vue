@@ -26,9 +26,9 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Creator</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.creator')}}</div>
                         <div class="panel-body">
-                          <span  v-if="this.contract_info['sender'] === null">Not Available</span>
+                          <span  v-if="this.contract_info['sender'] === null">{{$t('contract.available')}}</span>
                           <a  v-else-if="this.state" style="cursor: pointer" @click="getSender(contract_info['sender'])">{{this.contract_info["sender"]}}</a>
                           <a  v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
                         </div>
@@ -38,7 +38,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Created</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.creatTime')}}</div>
                         <div class="panel-body">
                           {{convertTime(this.contract_info["createtime"])}}
                         </div>
@@ -48,7 +48,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Updates</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.update')}}</div>
                         <div class="panel-body">
                           {{this.contract_info["updatecounter"]}}
                         </div>
@@ -61,7 +61,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">ID</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.index')}}</div>
                         <div class="panel-body">
                           {{this.contract_info["id"]}}
                         </div>
@@ -71,7 +71,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Compiler</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.compiler')}}</div>
                         <div class="panel-body">
                           {{this.nef["compiler"]}}
                         </div>
@@ -81,7 +81,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">Transactions</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.txns')}}</div>
                         <div class="panel-body">
                           {{this.contract_info["totalsccall"]}}
                         </div>
@@ -92,15 +92,15 @@
                 <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-folder-17" title="Recent ScCalls">
+                <tab-pane icon="ni ni-folder-17" :title="$t('contract.scCall')">
                   <div v-if="!this.isLoading">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-active-40" title="Recent Events">
+                <tab-pane icon="ni ni-active-40" :title="$t('contract.event.title')">
                   <events-table :contractHash="contract_id"></events-table>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="Contract Info">
+                <tab-pane icon="ni ni-collection" :title="$t('contract.conInfo')">
                   <card shadow type="secondary">
                     <div class="extra" v-if="this.manifest.extra">
                       <h3 class="mt-2">Extras</h3>

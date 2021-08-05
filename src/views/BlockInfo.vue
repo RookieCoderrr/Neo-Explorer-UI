@@ -19,7 +19,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">Time</div>
+                        <div class="h2 font-weight-bold mb-0">{{$t('blockinfo.time')}}</div>
                         <div class="panel-body">
                           {{ convertTime(this.block_info.timestamp) }}
                         </div>
@@ -29,9 +29,9 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">BlockSize</div>
+                        <div class="h2 font-weight-bold mb-0">{{$t('blockinfo.size')}}</div>
                         <div class="panel-body">
-                          {{this.block_info.size}} Bytes
+                          {{this.block_info.size}} {{$t('blockinfo.bytes')}}
                         </div>
                       </div>
                     </card>
@@ -39,7 +39,7 @@
                   <div class="col-3">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">Block Height</div>
+                        <div class="h2 font-weight-bold mb-0">{{$t('blockinfo.height')}}</div>
                         <div class="panel-body">
                           {{this.block_info.index }}
                         </div>
@@ -51,7 +51,7 @@
 
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">Version Number</div>
+                        <div class="h2 font-weight-bold mb-0">{{$t('blockinfo.version')}}</div>
                         <div class="panel-body">
                           {{this.block_info.version}}
                         </div>
@@ -65,7 +65,7 @@
                 <card shadow>
                   <div class="row">
                     <div class="col-2 font-weight-bold mb-0">
-                      <div >BlockHash</div>
+                      <div >{{$t('blockinfo.hash')}}</div>
                     </div>
                     <div class="col-10 name mb-0 text-sm">{{ this.block_info.hash }}
                     </div>
@@ -76,7 +76,7 @@
                   <div class="row">
                     <div class="col-2 font-weight-bold mb-0">
 
-                      <div  >PreHash</div>
+                      <div  >{{$t('blockinfo.preHash')}}</div>
                     </div>
                     <div class="col-10"  @click="preBlock(this.block_info.prevhash)">
                       <a class="name mb-0 text-sm" style="cursor: pointer; " >{{this.block_info.prevhash}}</a>
@@ -90,12 +90,12 @@
                   <div class="row">
 
                     <div class="col-2">
-                      <div class=" font-weight-bold mb-0">Tx Count</div>
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.txns')}}</div>
                     </div>
                     <div class="col-4">{{ this.block_info.transactioncount }}
                     </div>
                     <div class="col-2">
-                      <div class=" font-weight-bold mb-0">Transfers</div>
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
                     </div>
                     <div class="col-4">{{ this.transfercount }}
                     </div>
@@ -106,12 +106,12 @@
                 <card shadow>
                   <div class="row">
                     <div class="col-2">
-                      <div class=" font-weight-bold mb-0">Total SystemFee</div>
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.totalSysFee')}}</div>
                     </div>
                     <div class="col-4">{{  this.block_info.systemFee}}
                     </div>
                     <div class="col-2">
-                      <div class=" font-weight-bold mb-0">Total NetworkFee</div>
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.totalNetFee')}}</div>
                     </div>
                     <div class="col-4">{{this.block_info.networkFee}}
                     </div>
@@ -136,7 +136,7 @@
 <!--                </div>-->
                 <div class="row mt-3">    </div>
 
-                <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
+                <block-transaction :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
               </div>
 
 
