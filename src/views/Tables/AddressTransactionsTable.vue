@@ -1,6 +1,11 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
+      <loading
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -71,6 +76,8 @@
 // by zilie cdde2b58d09e04290f9eabd8a6ebdbb3078d8cf4
 import axios from "axios";
 import { format } from "timeago.js";
+import Loading from"vue-loading-overlay";
+
 export default {
   name: "transactions-table",
   props: {
@@ -79,6 +86,9 @@ export default {
     },
     account_address: String,
   },
+  components: {
+    Loading,
+  },
   data() {
     return {
       tableData: [],
@@ -86,6 +96,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       countPage:0,
+      isLoading: true,
     };
   },
 
@@ -127,6 +138,7 @@ export default {
     },
     // TODO 替换这个gettransactionslist的bug
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactions(skip);
@@ -171,6 +183,7 @@ export default {
         },
       })
         .then((res) => {
+          this.isLoading = false;
           this.tableData = res["data"]["result"]["result"];
           this.totalCount = res["data"]["result"]["totalCount"];
           this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
