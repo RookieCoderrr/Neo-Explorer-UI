@@ -1,6 +1,11 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
+      <loading
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
+      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -107,6 +112,8 @@
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
 import {format} from "timeago.js";
+import Loading from "vue-loading-overlay";
+
 export default {
   name: "address17-ts-table",
   props: {
@@ -115,6 +122,9 @@ export default {
     },
     title: String,
     account_address: String,
+  },
+  components: {
+    Loading,
   },
   data() {
     return {
@@ -127,7 +137,8 @@ export default {
       toState: true,
       toButton: "Hash",
       txId:"",
-      timeStamp:0
+      timeStamp:0,
+      isLoading: true,
     };
   },
   created() {
@@ -147,6 +158,7 @@ export default {
   },
   methods: {
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.GetNep17TransferByAddress(skip);
@@ -231,6 +243,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.txId = res["data"]["result"]["result"]["txid"];
