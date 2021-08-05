@@ -65,7 +65,7 @@
         <div v-if="totalCount > 10 "
                 class="card-footer d-flex justify-content-end"
                 :class="type === 'dark' ? 'bg-transparent' : ''"
-                v-if="totalCount>10"
+
         >
             <div style="margin-right: 10px; width: 250px" class="row" >
                 <div class="text">Page &nbsp;</div>
