@@ -120,6 +120,18 @@ const en = {
         balance: "balance",
         percentage: "percentage",
     },
+    addressPage: {
+        number: "No.",
+        address: "address",
+        neoBalance: "Neo Balance",
+        gasBalance: "Gas Balance",
+        createdTime: "Created Time",
+        hash: "Hash",
+        addressProfile: {
+            title: "Account: ",
+            type: "Type",
+        }
+    }
 
 
 }

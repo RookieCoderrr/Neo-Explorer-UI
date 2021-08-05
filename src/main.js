@@ -34,6 +34,6 @@ import il8n from './lang/il8n.js';
 // });
 const appInstance = createApp(App);
 appInstance.use(router);
- appInstance.use(il8n);
+appInstance.use(il8n);
 appInstance.use(ArgonDashboard);
 appInstance.mount("#app");
