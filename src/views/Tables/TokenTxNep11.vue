@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -85,7 +85,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="this.totalCount >10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -108,6 +108,7 @@
       ></base-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center ">This Asset has no transactions.</card>
 </template>
 <script>
 import axios from "axios";

@@ -76,7 +76,7 @@
 
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
-                  <div class="row">
+                  <div   class="row" >
                     <div class="col">
                       <address-tokens-table
                         :account_address="accountAddress"
@@ -85,16 +85,21 @@
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
-                  <div class="row">
+                  <div v-if="this.numOfTxns != 0" class="row">
                     <div class="col">
                       <address-transactions-table
                         :account_address="accountAddress"
                       ></address-transactions-table>
                     </div>
                   </div>
+                  <div v-else class="row">
+                    <div class="col">
+                      <card shadow class="text-center ">This account has no transactions.</card>
+                    </div>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
-                  <div class="row">
+                  <div v-if="this.numOfnep17Transfers != 0" class="row">
                     <div class="col">
                       <address17-ts-table
                         :account_address="accountAddress"
@@ -102,12 +107,22 @@
                       </address17-ts-table>
                     </div>
                   </div>
+                  <div v-else class="row">
+                    <div class="col">
+                      <card shadow class="text-center">This account has no NEP17 transfers.</card>
+                    </div>
+                  </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="NEP11 Transfers">
-                  <div class="row">
+                  <div v-if="this.numOfnep11Transfers != 0" class="row">
                     <div class="col">
                       <address11-ts-table :account_address="accountAddress">
                         </address11-ts-table>
+                    </div>
+                  </div>
+                  <div v-else class="row">
+                    <div class="col">
+                      <card shadow class="text-center ">This account has no NEP11 transfers.</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -308,7 +323,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res["data"]["result"],"?????????")
           this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {
