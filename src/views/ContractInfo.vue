@@ -93,12 +93,16 @@
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Recent ScCalls">
-                  <div v-if="!this.isLoading">
+                  <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
+                  <card shadow v-else class="text-center ">This Contract has no System Calls.</card>
                 </tab-pane>
                 <tab-pane icon="ni ni-active-40" title="Recent Events">
-                  <events-table :contractHash="contract_id"></events-table>
+                  <div v-if="this.totalsccall != 0">
+                    <events-table :contractHash="contract_id"></events-table>
+                  </div>
+                  <card shadow v-else class="text-center ">This Contract has no events.</card>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contract Info">
                   <card shadow type="secondary">
@@ -224,7 +228,8 @@ export default {
       nef: "",
       manifest: "",
       state: true,
-      buttonName:"Hash"
+      buttonName:"Hash",
+      totalsccall:0
     };
   },
   created() {
@@ -270,6 +275,7 @@ export default {
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
+        this.totalsccall=this.contract_info["totalsccall"]
         this.isLoading = false;
       });
     },

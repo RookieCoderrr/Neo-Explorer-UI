@@ -134,9 +134,10 @@
 <!--                  </div>-->
 
 <!--                </div>-->
-                <div class="row mt-3">    </div>
+                <div class="row mt-3" >    </div>
 
-                <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
+                <block-transaction v-if="this.block_info.transactioncount != 0" title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
+                <card shadow v-else class="text-center ">This block has no transactions.</card>
               </div>
 
 

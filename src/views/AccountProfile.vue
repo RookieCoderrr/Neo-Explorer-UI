@@ -94,7 +94,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center text-warning">This account has no transactions.</card>
+                      <card shadow class="text-center ">This account has no transactions.</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -109,7 +109,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center text-warning">This account has no NEP17 transfers.</card>
+                      <card shadow class="text-center">This account has no NEP17 transfers.</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -122,7 +122,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center text-warning">This account has no NEP11 transfers.</card>
+                      <card shadow class="text-center ">This account has no NEP11 transfers.</card>
                     </div>
                   </div>
                 </tab-pane>
