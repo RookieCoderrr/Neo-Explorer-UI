@@ -17,6 +17,7 @@ import Blocks from "../views/Blocks.vue";
 import Test from "../views/test.vue";
 import Search from "../views/Search";
 import HomePage from "../views/HomePage";
+import PageNotFound from "../views/PageNotFound";
 
 import TransactionInfo from "../views/TransactionInfo.vue";
 
@@ -29,6 +30,11 @@ const routes = [
     redirect: "homepage",
     component: AuthLayout,
     children: [
+      {
+        path: "/:pathMatch(.*)*",
+        name: "404",
+        components: { default: PageNotFound },
+      },
       {
         path: "/tokens",
         name: "tokens",
