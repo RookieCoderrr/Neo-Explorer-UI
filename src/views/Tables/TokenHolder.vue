@@ -14,6 +14,7 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
+          <th> Ranking</th>
           <th>Address <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>Balance</th>
 <!--          <th>Last Transferred</th>-->
@@ -24,11 +25,17 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <a v-if="this.state" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ scriptHashToAddress(row.item.address) }}</a>
-                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{row.item.address}}</a>
+                <div v-if="row.index + (pagination - 1) * 10 === 0">{{ row.index + (pagination - 1) * 10 + 1 }} &#129351;</div>
+                <div v-else-if="row.index + (pagination - 1) * 10 === 1">{{ row.index + (pagination - 1) * 10 + 1 }} &#129352;</div>
+                <div v-else-if="row.index + (pagination - 1) * 10 === 2">{{ row.index + (pagination - 1) * 10 + 1 }} &#129353;</div>
+                <div v-else>{{ row.index + (pagination - 1) * 10 + 1 }}</div>
               </div>
             </div>
           </th>
+          <td class="Address">
+            <a v-if="this.state" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ scriptHashToAddress(row.item.address) }}</a>
+            <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{row.item.address}} </a>
+          </td>
           <td class="balance">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
