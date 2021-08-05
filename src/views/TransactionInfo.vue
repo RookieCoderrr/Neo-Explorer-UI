@@ -10,7 +10,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <div class="h2 font-weight-bold mb-0">Tx ID</div>
+              <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.txId') }}</div>
               <div class="text-muted">{{ this.tabledata["hash"] }}</div>
             </div>
             <div class="card-body">
@@ -18,7 +18,7 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">Time</div>
+                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.time') }}</div>
                       <div class="panel-body">
                         {{ convertTime(this.blocktime) }}
                       </div>
@@ -29,7 +29,7 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">Block Height</div>
+                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHeight') }}</div>
                       <div class="panel-body">
                         {{ this.tabledata["blockIndex"] }}
                       </div>
@@ -40,7 +40,7 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">Size</div>
+                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.size') }}</div>
                       <div class="panel-body">
                         {{ this.tabledata["size"] }}
                       </div>
@@ -51,7 +51,7 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">Version</div>
+                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.version') }}</div>
                       <div class="panel-body">
                         {{ this.tabledata["version"] }}
                       </div>
@@ -62,7 +62,7 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Block Hash</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHash') }}</div>
                   <div class="col-10">
                     <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToBlockInfo(this.blockhash)">
                     {{ this.blockhash }}
@@ -74,7 +74,7 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Sender</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
                     <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
@@ -89,11 +89,11 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Network Fee</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.netFee') }}</div>
                   <div class="col-4">
                     {{ convertGas(this.tabledata["netfee"]) }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">System Fee</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sysFee') }}</div>
                   <div class="col-4">
                     {{ convertGas(this.tabledata["sysfee"]) }}
                   </div>
@@ -118,30 +118,31 @@
                   class="col-2 font-weight-bold mb-0"
                   style="font-size: 20px"
                 >
-                  Signers
+                  {{ $t('transactionInfo.signers') }}
                 </div>
                 <hr />
                 <div v-if="this.tabledata.signers">
                 <div class="row" v-if="this.tabledata.signers[0]">
-                  <div class="col-2 font-weight-bold mb-0">Account</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.account') }}</div>
                   <div class="col-4">
                     {{ this.tabledata["signers"][0]["account"] }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Scopes</div>
+                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.scopes') }}</div>
                   <div class="col-4">
                     {{ this.tabledata["signers"][0]["scopes"] }}
                   </div>
                 </div>
                 <div class="row mt-3"></div>
                 <div class="row" v-if="this.tabledata.signers[1]">
-                  <div class="col-2 font-weight-bold mb-0">Account</div>
+                  <div class="col-2 font-weight-bold mb-0"></div>
                   <div class="col-4">
                     {{ this.tabledata["signers"][1]["account"] }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Scopes</div>
+                  <div class="col-2 font-weight-bold mb-0">/div>
                   <div class="col-4">
                     {{ this.tabledata["signers"][1]["scopes"] }}
                   </div>
+                </div>
                 </div>
                 </div>
               </card>
@@ -153,20 +154,16 @@
                   class="col-2 font-weight-bold mb-0"
                   style="font-size: 20px"
                 >
-                  Witnesses
+                  {{ $t('transactionInfo.witness') }}
                 </div>
                 <hr />
                 <div v-if="tabledata.witnesses">
                   <div class="row" v-if="tabledata.witnesses[0]">
-                    <div class="col-2">
-                      <div class="text-muted"><h3>Invocation</h3></div>
-                    </div>
+                    <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.invocation') }}</div>
                     <div class="col-4">
                       {{ this.tabledata["witnesses"][0]["invocation"] }}
                     </div>
-                    <div class="col-2">
-                      <div class="text-muted"><h3>Verification</h3></div>
-                    </div>
+                    <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.verification') }}</div>
                     <div class="col-4">
                       {{ this.tabledata["witnesses"][0]["verification"] }}
                     </div>
@@ -174,13 +171,13 @@
                   <div class="row mt-3"></div>
                   <div class="row" v-if="tabledata.witnesses[1]">
                     <div class="col-2">
-                      <div class="text-muted"><h3>Invocation</h3></div>
+                      <div class="text-muted"><h3></h3></div>
                     </div>
                     <div class="col-4">
                       {{ this.tabledata["witnesses"][1]["invocation"] }}
                     </div>
                     <div class="col-2">
-                      <div class="text-muted"><h3>Verification</h3></div>
+                      <div class="text-muted"><h3></h3></div>
                     </div>
                     <div class="col-4">
                       {{ this.tabledata["witnesses"][1]["verification"] }}
@@ -195,7 +192,7 @@
               <card shadow>
                 <div class="row">
                   <div class="col-2">
-                    <div class="text-muted"><h3>Script</h3></div>
+                    <div class="text-muted"><h3>{{ $t('transactionInfo.script') }}</h3></div>
                   </div>
                   <div class="col-10">{{ this.tabledata["script"] }}</div>
                 </div>

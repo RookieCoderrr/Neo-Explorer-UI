@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
+            {{ $t('transactionList.title') }}
           </h3>
         </div>
       </div>
@@ -27,11 +27,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Transaction ID</th>
-          <th>Block Height</th>
-          <th>Size</th>
-          <th>Time</th>
-          <th>GAS Consumed</th>
+          <th>{{ $t('transactionList.transactionId') }}</th>
+          <th>{{ $t('transactionList.blockHeight') }}</th>
+          <th>{{ $t('transactionList.size') }}</th>
+          <th>{{ $t('transactionList.time') }}</th>
+          <th>{{ $t('transactionList.gasConsumed') }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -65,7 +65,7 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
+        <div class="text">{{ $t('transactionList.page') }} &nbsp;</div>
         <base-input
           type="number"
           :style="text(pagination)"

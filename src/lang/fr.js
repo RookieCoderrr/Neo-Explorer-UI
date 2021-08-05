@@ -1,9 +1,9 @@
-const en = {
+const fr = {
     authLayout:{
-        home:"Home",
-        blocks:"Blocks",
+        home:"Accueil",
+        blocks:"Blocs",
         txs:"Transactions",
-        tokens:"Tokens",
+        tokens:"Jetons",
         contracts:"Contracts",
         address:"Addresses",
         committee:"Committee"
@@ -75,4 +75,4 @@ const en = {
 
 
 }
-export default en
+export default fr
