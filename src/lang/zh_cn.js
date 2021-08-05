@@ -1,4 +1,13 @@
 module.exports = {
+    na: "不适用",
+    blockReward: "区块奖励",
+    transferReward: "转账奖励",
+    mint: "铸币交易",
+    burn: "销币交易",
+    transfer: "转账",
+    nullAddress: "空地址",
+    hash: "哈希",
+    wif: "地址",
     authLayout:{
         home:"主页",
         blocks:"区块",
@@ -66,9 +75,62 @@ module.exports = {
             vmState:"虚拟机状态",
             index:"序号",
             time:"创建时间"
-
         },
         conInfo:"合约信息"
+    },
+    tokensTable: {
+        title: "通证列表",
+        hash: "哈希",
+        name: "名称",
+        symbol: "符号",
+        standard: "合约标准",
+        holders: "持有人总数",
+        prompt: "以通证名称搜索",
+    },
+    tokenInfo: {
+        symbol: "通证符号",
+        decimal: "小数位数",
+        standard: "合约标准",
+        transferred: "首次交易时间",
+        supply: "总供给",
+        holders: "持有人总数",
+        recentTransfers: "近期转账",
+        topHolders: "持有人地址",
+        contractInfo: "合约信息",
+        extra: "额外信息",
+        events: "近期事件",
+        methods: "合约方法",
+        description: "描述信息",
+        email: "邮箱",
+        author: "合约作者"
+    },
+    tokenTx: {
+        txid: "交易哈希",
+        type: "交易类型",
+        from: "转出账户",
+        to: "转入账户",
+        amount: "转账数额",
+        time: "时间",
+        tokenID: "通证ID",
+    },
+    tokenHolder: {
+        ranking: "资产排名",
+        address: "地址",
+        balance: "余额",
+        percentage: "资产占比",
+    },
+    addressPage: {
+        number: "序号",
+        address: "地址",
+        neoBalance: "Neo余额",
+        gasBalance: "Gas余额",
+        createdTime: "创建时间",
+        hash: "哈希形式",
+        addressProfile: {
+            title: "账户：",
+            type: "类型",
+        }
     }
+
 
 }

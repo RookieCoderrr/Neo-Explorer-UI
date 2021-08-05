@@ -3,7 +3,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <tokens-table title="Tokens List"></tokens-table>
+          <tokens-table :title="$t('tokensTable.title')"></tokens-table>
         </div>
       </div>
     </div>

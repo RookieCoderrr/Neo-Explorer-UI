@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -14,20 +14,20 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th>Txid</th>
-          <th>Type</th>
-          <th>From <button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
+          <th>{{$t('tokenTx.txid')}}</th>
+          <th>{{$t('tokenTx.type')}}</th>
+          <th>{{$t('tokenTx.from')}}<button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
           <th></th>
-          <th>To <button class="btn btn-sm btn-primary"  @click="changeToFormat()">{{this.toButton}}</button></th>
-          <th>Amount</th>
-          <th>Time</th>
+          <th>{{$t('tokenTx.to')}} <button class="btn btn-sm btn-primary"  @click="changeToFormat()">{{this.toButton}}</button></th>
+          <th>{{$t('tokenTx.amount')}}</th>
+          <th>{{$t('tokenTx.time')}}</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body ">
-                <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Not Available</div>
+                <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
                 <div class="txid" v-else>
                   <a class="name mb-0 text-sm"  style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
                 </div>
@@ -36,16 +36,16 @@
           </th>
           <td class="Type">
             <div >
-              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">Block Reward</span>
-              <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> Transfer Reward </span>
-              <span class="text-success" v-else-if="row.item.from === null" type="primary">Mint</span>
-              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-              <span class="text-info" v-else> Transfer</span>
+              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">{{$t('blockReward')}}</span>
+              <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> {{$t('transferReward')}} </span>
+              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+              <span class="text-info" v-else> {{$t('transfer')}}</span>
             </div>
           </td>
           <td class="From">
             <div>
-              <div class="text-muted" v-if="row.item.from === null"> Null Account </div>
+              <div class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}} </div>
               <div v-else-if="fromState" class="addr">
                 <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ scriptHashToAddress(row.item.from) }}</a>
               </div>
@@ -59,7 +59,7 @@
           </td>
           <td class="To">
             <div>
-              <div class="text-muted" v-if="row.item.to === null"> Null Account </div>
+              <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
               <div v-else-if="toState" class="addr">
                 <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
               </div>
@@ -78,7 +78,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -101,6 +101,7 @@
       ></base-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center ">This Asset has no transactions.</card>
 </template>
 <script>
 import axios from "axios";
@@ -131,8 +132,8 @@ export default {
       countPage: 1,
       fromState: true,
       toState: true,
-      fromButton: "Hash",
-      toButton: "Hash",
+      fromButton: this.$t('hash'),
+      toButton: this.$t('hash'),
     };
   },
   created() {
@@ -155,7 +156,7 @@ export default {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
         this.pagination = this.countPage;
-        const skip = (this.countPage - 1 ) * this.resultsPerPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getTokenList(skip);
       } else if(pageNumber <= 0){
         this.isLoading = true;
@@ -186,19 +187,19 @@ export default {
     changeFromFormat() {
       if (this.fromState === true) {
         this.fromState = false;
-        this.fromButton = "WIF";
+        this.fromButton = this.$t('wif');
       } else {
         this.fromState = true;
-        this.fromButton = "Hash";
+        this.fromButton = this.$t('hash');
       }
     },
     changeToFormat() {
       if (this.toState === true) {
         this.toState = false;
-        this.toButton = "WIF";
+        this.toButton = this.$t('wif');
       } else {
         this.toState = true;
-        this.toButton = "Hash";
+        this.toButton = this.$t('hash');
       }
     },
     getTokenList(skip) {

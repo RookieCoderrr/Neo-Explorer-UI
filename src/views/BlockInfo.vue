@@ -136,7 +136,8 @@
 <!--                </div>-->
                 <div class="row mt-3">    </div>
 
-                <block-transaction :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
+                <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
+                <card shadow v-else class="text-center ">This block has no transactions.</card>
               </div>
 
 

@@ -15,7 +15,7 @@
             <input
               type="text"
               class="over-ellipsis"
-              :placeholder="'Search by Token Name'"
+              :placeholder="$t('tokensTable.prompt')"
               v-model="searchVal"
               autocomplete="off"
               @keyup.enter="search()"
@@ -40,11 +40,11 @@
         :data="tokenList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
-          <th>Name</th>
-          <th>Symbol</th>
-          <th>Standard</th>
-          <th>Total Holders</th>
+          <th>{{$t('tokensTable.hash')}}</th>
+          <th>{{$t('tokensTable.name')}}</th>
+          <th>{{$t('tokensTable.symbol')}}</th>
+          <th>{{$t('tokensTable.standard')}}</th>
+          <th>{{$t('tokensTable.holders')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -77,7 +77,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="this.totalCount> 10 "
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
