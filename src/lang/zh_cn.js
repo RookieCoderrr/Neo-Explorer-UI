@@ -81,5 +81,17 @@ module.exports = {
         balance: "余额",
         percentage: "资产占比",
     },
+    addressPage: {
+        number: "序号",
+        address: "地址",
+        neoBalance: "Neo余额",
+        gasBalance: "Gas余额",
+        createdTime: "创建时间",
+        hash: "哈希形式",
+        addressProfile: {
+            title: "账户：",
+            type: "类型",
+        }
+    }
 
 }
