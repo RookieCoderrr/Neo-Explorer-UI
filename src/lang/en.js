@@ -91,6 +91,13 @@ const en = {
         addressProfile: {
             title: "Account: ",
             type: "Type",
+            txNums: "Transactions",
+            nep17Transfers: "NEP17 Transfers",
+            nep11Transfers: "NEP11 Transfers",
+            tokenBalance: "Token Balance",
+            tx: "Transactions",
+            nep17title: "NEP17 Transfers",
+            nep11title: "NEp11 Transfers",
         }
     }
 

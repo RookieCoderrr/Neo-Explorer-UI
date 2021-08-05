@@ -17,19 +17,11 @@
             <div class="card-body">
               <card shadow>
                 <div class="row">
-<<<<<<< HEAD
-                  <div class="col-2 font-weight-bold mb-0">Created Time</div>
-                  <div class="col-4">
-                    {{ convertTime(this.createdTime) }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">Type</div>
-=======
                   <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.createdTime')}}</div>
                   <div class="col-4">
                     {{ convertTime(this.createdTime) }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.addressProfile.type')}}</div>
->>>>>>> main
                   <div class="col-4">
                     {{ this.type }}
                   </div>
@@ -38,19 +30,11 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-<<<<<<< HEAD
-                  <div class="col-2 font-weight-bold mb-0">Neo balance</div>
-                  <div class="col-4">
-                    {{ this.neoBalance }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">Gas balance</div>
-=======
                   <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.neoBalance')}}</div>
                   <div class="col-4">
                     {{ this.neoBalance }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.gasBalance')}}</div>
->>>>>>> main
                   <div class="col-4">
                     {{ this.gasBalance  }}
                   </div>
@@ -61,7 +45,7 @@
                 <div class="col-4">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class=" font-weight-bold mb-0">Transactions</div>
+                      <div class=" font-weight-bold mb-0">{{$t('addressPage.addressProfile.txNums')}}</div>
                       <div class="panel-body">
                         {{  this.numOfTxns }}
                       </div>
@@ -71,7 +55,7 @@
                 <div class="col-4">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class=" font-weight-bold mb-0">NEP17 Transfers</div>
+                      <div class=" font-weight-bold mb-0">{{$t('addressPage.addressProfile.nep17Transfers')}}</div>
                       <div class="panel-body">
                         {{  this.numOfnep17Transfers  }}
                       </div>
@@ -81,7 +65,7 @@
                 <div class="col-4">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class=" font-weight-bold mb-0">NEP11 Transfers</div>
+                      <div class=" font-weight-bold mb-0">{{$t('addressPage.addressProfile.nep11Transfers')}}</div>
                       <div class="panel-body">
                         {{  this.numOlnep11Transfers}}
                       </div>
@@ -89,9 +73,9 @@
                   </card>
                 </div>
               </div>
-
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-money-coins" title="Token Balance">
+                <tab-pane icon="ni ni-money-coins" :title="$t('addressPage.addressProfile.tokenBalance')">
+
                   <div   class="row" >
                     <div class="col">
                       <address-tokens-table
@@ -100,7 +84,7 @@
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-single-02 mr-2" title="Transactions">
+                <tab-pane icon="ni ni-single-02 mr-2" :title="$t('addressPage.addressProfile.tx')">
                   <div v-if="this.numOfTxns != 0" class="row">
                     <div class="col">
                       <address-transactions-table
@@ -114,7 +98,7 @@
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="NEP17 Transfers">
+                <tab-pane icon="ni ni-collection" :title="$t('addressPage.addressProfile.nep17title')">
                   <div v-if="this.numOfnep17Transfers != 0" class="row">
                     <div class="col">
                       <address17-ts-table
@@ -129,7 +113,7 @@
                     </div>
                   </div>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" title="NEP11 Transfers">
+                <tab-pane icon="ni ni-collection" :title="$t('addressPage.addressProfile.nep11title')">
                   <div v-if="this.numOfnep11Transfers != 0" class="row">
                     <div class="col">
                       <address11-ts-table :account_address="accountAddress">
