@@ -1,4 +1,13 @@
 const en = {
+    na: "Not Available",
+    blockReward: "Block Reward",
+    transferReward: "Transfer Reward",
+    mint: "Mint",
+    burn: "Burn",
+    transfer: "transfer",
+    nullAddress: "Null Address",
+    hash: "Hash",
+    wif: "WIF",
     authLayout:{
         home:"Home",
         blocks:"Blocks",
@@ -30,8 +39,6 @@ const en = {
             time:"Time",
             gas:"Gas"
         }
-
-
     },
     transactionList:{
         title: "Transaction List",
@@ -71,7 +78,48 @@ const en = {
         to:"To",
         toBalance:"To Balance",
         Amount:"Amount",
-    }
+    },
+    tokensTable: {
+        title: "Tokens List",
+        hash: "Hash",
+        name: "Name",
+        symbol: "Symbol",
+        standard: "Standard",
+        holders: "Total Holders",
+        prompt: "Search by Token Name",
+    },
+    tokenInfo: {
+        symbol: "Token Symbol",
+        decimal: "Decimal",
+        standard: "Supported Standard",
+        transferred: "First Transferred",
+        supply: "Total Supply",
+        holders: "Total Holders",
+        recentTransfers: "Recent Transfers",
+        topHolders: "Top Holders",
+        contractInfo: "Contract Info",
+        extra: "Extras",
+        events: "Events",
+        methods: "Methods",
+        description: "Description",
+        email: "Email",
+        author: "Author"
+    },
+    tokenTx: {
+        txid: "txid",
+        type: "type",
+        from: "from",
+        to: "to",
+        amount: "amount",
+        time: "time",
+        tokenID: "tokenid",
+    },
+    tokenHolder: {
+        ranking: "Ranking",
+        address: "Address",
+        balance: "balance",
+        percentage: "percentage",
+    },
 
 
 }

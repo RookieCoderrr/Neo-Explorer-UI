@@ -323,7 +323,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res["data"]["result"],"?????????")
           this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {

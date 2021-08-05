@@ -218,7 +218,7 @@ export default {
         }).then((res) => {
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
-          this.tokenList[k]["standard"] = res["data"]["result"]["standard"];
+          this.tokenList[k]["standard"] = res["data"]["result"]["type"];
           this.tokenList[k]["decimals"] =res["data"]["result"]["decimals"];
         });
       }
