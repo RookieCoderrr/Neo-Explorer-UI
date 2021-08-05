@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-2">
           <stats-card
-            title="Total Blocks"
+            :title="$t('homePage.totalBLocks')"
             type="gradient-red"
             :sub-title="blockCount.toLocaleString()"
             icon="ni ni-ungroup"
@@ -13,9 +13,10 @@
           </stats-card>
         </div>
 
+
         <div class="col-2">
           <stats-card
-            title="Total Txns"
+            :title="$t('homePage.totalTxs')"
             type="gradient-orange"
             :sub-title="txCount.toLocaleString()"
             icon="ni ni-cart"
@@ -25,7 +26,7 @@
         </div>
         <div class="col-2">
           <stats-card
-                  title="Total Tokens"
+                  :title="$t('homePage.totalTokens')"
                   type="gradient-purple"
                   :sub-title="assetCount.toLocaleString()"
                   icon="ni ni-money-coins"
@@ -35,7 +36,7 @@
         </div>
         <div class="col-2">
           <stats-card
-                  title="Total Cntrts"
+                  :title="$t('homePage.totalCntrts')"
                   type="gradient-red"
                   :sub-title="contractCount.toLocaleString()"
                   icon="ni ni-collection"
@@ -45,7 +46,7 @@
         </div>
         <div class="col-2">
           <stats-card
-            title="Total Accts"
+            :title="$t('homePage.totalAddrs')"
             type="gradient-green"
             :sub-title="accountCount.toLocaleString()"
             icon="ni ni-single-02"
@@ -56,7 +57,7 @@
 
         <div class="col-2">
           <stats-card
-            title="Total Cndidtes"
+            :title="$t('homePage.totalCndidtes')"
             type="gradient-blue"
             :sub-title="candidateCount.toLocaleString()"
             icon="ni ni-badge"
@@ -68,10 +69,10 @@
       </div>
       <div class="row mt-4">
         <div class="col-6">
-          <blocks-table-homepage title="Recent Blocks"></blocks-table-homepage>
+          <blocks-table-homepage :title="$t('homePage.recentBlocks')"></blocks-table-homepage>
         </div>
         <div class="col-6">
-          <transaction-table-homepage title="Recent Transactions"></transaction-table-homepage>
+          <transaction-table-homepage :title="$t('homePage.recentTxs')"></transaction-table-homepage>
         </div>
       </div>
     </div>
@@ -84,6 +85,7 @@ import BlocksTableHomepage from '../views/Tables/BlocksTableHomepage'
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
 import axios from "axios";
 import StatsCard from "../components/StatsCard";
+//import {getCurrentInstance} from 'vue'
 
 export default {
   name: "Home",
@@ -100,6 +102,7 @@ export default {
       assetCount: 0,
       contractCount: 0,
       candidateCount: 0,
+      // test:this.$t('language.name'),
     };
   },
   created() {
@@ -160,6 +163,7 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
+        console.log(res)
         this.accountCount = res["data"]["result"]["total counts"];
       });
     },

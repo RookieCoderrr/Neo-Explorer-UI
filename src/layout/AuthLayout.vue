@@ -34,46 +34,55 @@
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/homepage">
               <i class="ni ni-collection"></i>
-              <span class="nav-link-inner--text">Home</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.home')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/blocks">
               <i class="ni ni-ungroup"></i>
-              <span class="nav-link-inner--text">Blocks</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.blocks')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/transactions">
               <i class="ni ni-cart"></i>
-              <span class="nav-link-inner--text">Transactions</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.txs')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/tokens">
               <i class="ni ni-money-coins"></i>
-              <span class="nav-link-inner--text">Tokens</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.tokens')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/contracts">
               <i class="ni ni-collection"></i>
-              <span class="nav-link-inner--text">Contracts</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.contracts')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/account">
               <i class="ni ni-single-02"></i>
-              <span class="nav-link-inner--text">Accounts</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.address')}}</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/candidates">
               <i class="ni ni-badge"></i>
-              <span class="nav-link-inner--text">Committee</span>
+              <span class="nav-link-inner--text">{{$t('authLayout.committee')}}</span>
             </router-link>
           </li>
         </ul>
+        <li class="nav-item" style="margin-right: 0px" >
+         <div @click="switch_the_language('en')" style="cursor: pointer">
+           English
+         </div>
+        <div  style="cursor: pointer" @click="switch_the_language('cn')">
+          中文
+        </div>
+        </li>
+
       </template>
     </base-nav>
     <!-- Header -->
@@ -134,6 +143,10 @@ export default {
     };
   },
   methods: {
+    switch_the_language(language) {
+      console.log(this.$i18n.locale)
+      this.$i18n.locale = language
+    },
     search() {
       this.isLoading = true;
       let value = this.searchVal;

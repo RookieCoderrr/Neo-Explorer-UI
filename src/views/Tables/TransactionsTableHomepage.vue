@@ -30,10 +30,10 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Transaction ID</th>
-          <th>Size</th>
-          <th>Time</th>
-          <th>Gas</th>
+          <th>{{$t('homePage.txTable.txID')}}</th>
+          <th>{{$t('homePage.txTable.size')}}</th>
+          <th>{{$t('homePage.txTable.time')}}</th>
+          <th>{{$t('homePage.txTable.gas')}}</th>
         </template>
 
         <template v-slot:default="row">

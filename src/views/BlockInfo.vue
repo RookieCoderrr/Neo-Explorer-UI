@@ -97,7 +97,7 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">Transfers</div>
                     </div>
-                    <div class="col-4">{{ this.block_info.transfercount }}
+                    <div class="col-4">{{ this.transfercount }}
                     </div>
 
                   </div>
@@ -134,9 +134,10 @@
 <!--                  </div>-->
 
 <!--                </div>-->
-                <div class="row mt-3">    </div>
+                <div class="row mt-3" >    </div>
 
-                <block-transaction title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
+                <block-transaction v-if="this.block_info.transactioncount != 0" title="Transaction List" :blockHash="this.BlockHash"></block-transaction>
+                <card shadow v-else class="text-center ">This block has no transactions.</card>
               </div>
 
 
@@ -167,6 +168,7 @@ export default {
       standard: 0,
       manifest: "",
       TxList:[],
+      transfercount:"",
     };
   },
   created() {
@@ -214,7 +216,28 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res)
         this.block_info = res["data"]["result"];
+        this.isLoading = false;
+      });
+
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { BlockHash: hash,Limit:10,Skip:0},
+          method: "GetTransferByBlockHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        console.log(res)
+        this.transfercount = res["data"]["result"]["totalCount"];
         this.isLoading = false;
       });
     },

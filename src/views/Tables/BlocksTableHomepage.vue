@@ -31,11 +31,11 @@
 
             >
                 <template v-slot:columns>
-                    <th>Hash</th>
-                    <th>index</th>
-                    <th>TimeStamp</th>
-                    <th>Txs</th>
-                    <th>Size</th>
+                    <th>{{$t('homePage.bcTable.hash')}}</th>
+                    <th>{{$t('homePage.bcTable.height')}}</th>
+                    <th>{{$t('homePage.bcTable.txs')}}</th>
+                    <th>{{$t('homePage.bcTable.size')}}</th>
+                    <th>{{$t('homePage.bcTable.time')}}</th>
                 </template>
 
                 <template v-slot:default="row" style="text-align: center;">
