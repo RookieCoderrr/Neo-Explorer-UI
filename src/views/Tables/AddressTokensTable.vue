@@ -53,7 +53,7 @@
             </badge>
           </td>
           <td class="balance">
-            {{ row.item.balance }}
+            {{ convertToken(row.item.balance,row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -66,10 +66,10 @@
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{ countPage }}
@@ -126,8 +126,13 @@ export default {
     },
   },
   methods: {
-    convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
+    convertToken(token, decimal) {
+      if(decimal===0) {
+        return token
+      }else {
+        return (token * Math.pow(0.1, decimal)).toFixed(8);
+      }
+
     },
     pageChange(pageNumber) {
         this.isLoading = true;
@@ -170,7 +175,7 @@ export default {
             Skip: skip,
           },
           // TODO: 上线后改成GetAssetsHeldByAddress
-          method: "GetAssetsBalanceByAddress",
+          method: "GetAssetsHeldByAddress",
         },
         headers: {
           "Content-Type": "application/json",
@@ -214,6 +219,7 @@ export default {
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
           this.tokenList[k]["standard"] = res["data"]["result"]["standard"];
+          this.tokenList[k]["decimals"] =res["data"]["result"]["decimals"];
         });
       }
     },

@@ -11,69 +11,69 @@
             ></loading>
             <div class="card-header bg-transparent">
               <h1 class="mb-0">Account:</h1>
-              <h4 class="text-muted">{{ this.accountAddress }}</h4>
+              <h4 class="text-muted">{{ this.scriptHashToAddress(this.accountAddress) }}</h4>
             </div>
 
             <div class="card-body">
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Neo balance:</div>
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">Created Time</div>
+                  <div class="col-4">
+                    {{ convertTime(this.createdTime) }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Type</div>
+                  <div class="col-4">
+                    {{ this.type }}
+                  </div>
                 </div>
-                <div class="col-3">
-                  <h3>{{ this.neoBalance }}</h3>
+              </card>
+              <div class="row mt-3"></div>
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">Neo balance</div>
+                  <div class="col-4">
+                    {{ this.neoBalance }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Gas balance</div>
+                  <div class="col-4">
+                    {{ this.gasBalance  }}
+                  </div>
                 </div>
-                <div class="col-2">
-                  <div class="text-muted">Transactions:</div>
+              </card>
+              <div class="row mt-3"></div>
+              <div class ="row">
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">Transactions</div>
+                      <div class="panel-body">
+                        {{  this.numOfTxns }}
+                      </div>
+                    </div>
+                  </card>
                 </div>
-                <div class="col-3">
-                  <h3>{{ this.numOfTxns }}</h3>
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">NEP17 Transfers</div>
+                      <div class="panel-body">
+                        {{  this.numOfnep17Transfers  }}
+                      </div>
+                    </div>
+                  </card>
+                </div>
+                <div class="col-4">
+                  <card shadow>
+                    <div class="panel panel-primary">
+                      <div class=" font-weight-bold mb-0">NEP11 Transfers</div>
+                      <div class="panel-body">
+                        {{  this.numOlnep11Transfers}}
+                      </div>
+                    </div>
+                  </card>
                 </div>
               </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Gas balance:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.gasBalance }}</h3>
-                </div>
-                <div class="col-2">
-                  <div class="text-muted">NEP17 Transfers:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.numOfnep17Transfers }}</h3>
-                </div>
-              </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Type:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.type }}</h3>
-                </div>
-                <div class="col-2">
-                  <div class="text-muted">NEP11 Transfers:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.numOlnep11Transfers }}</h3>
-                </div>
-              </div>
-              <div class="row mt-5"></div>
-              <div class="row">
-                <div class="col-2">
-                  <div class="text-muted">Created Time:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{ this.createdTime }}</h3>
-                </div>
-                <!--div class="col-2">
-                  <div class="text-muted">Contract deployment:</div>
-                </div>
-                <div class="col-3">
-                  <h3>{{}}</h3>
-                </div-->
-              </div>
+
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-money-coins" title="Token Balance">
                   <div class="row">
@@ -124,11 +124,12 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "account-profile",
@@ -186,7 +187,22 @@ export default {
       }
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
-    getNeoBalance() {
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+      getNeoBalance() {
       axios({
         method: "post",
         url: "/api",
@@ -279,7 +295,7 @@ export default {
         url: "/api",
         data: {
           jsonrpc: "2.0",
-          method: "GetAccountInfoByAddress",
+          method: "GetAddressByAddress",
           params: {
             address: this.accountAddress,
           },
@@ -292,7 +308,8 @@ export default {
         },
       })
         .then((res) => {
-          this.createdTime = format(res["data"]["result"]["firstusetime"]);
+          console.log(res["data"]["result"],"?????????")
+          this.createdTime = res["data"]["result"]["firstusetime"];
         })
         .catch((err) => {
           console.log("Get created time failed, Error", err);

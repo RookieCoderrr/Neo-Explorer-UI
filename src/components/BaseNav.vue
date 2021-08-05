@@ -9,12 +9,14 @@
   >
     <div :class="containerClasses">
       <slot name="brand">
-        <router-link
-          :to="$route.path"
-          class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >
+<!--        <router-link-->
+<!--          :to="$route.path"-->
+<!--          class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"-->
+<!--        >-->
+        <div class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" >
           {{ $route.name }}
-        </router-link>
+        </div>
+<!--        </router-link>-->
       </slot>
       <navbar-toggle-button
         v-if="showToggleButton"

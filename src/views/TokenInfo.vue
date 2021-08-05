@@ -11,7 +11,8 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 class="mb-0">{{ this.token_info["tokenname"] }}</h1>
+                <h1 v-if="this.token_info.ispopular" class="mb-0">{{ this.token_info["tokenname"] }} &#x1F525;</h1>
+                <h1 v-else class="mb-0"> {{this.token_info["tokenname"]}}</h1>
                 <a
                   class="mb-0"
                   style="cursor: pointer"
@@ -21,47 +22,74 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Token Symbol</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Token Symbol</div>
+                        <div class="panel-body">
+                          {{this.token_info["symbol"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["symbol"] }}</h3>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class=" font-weight-bold mb-0">Decimal</div>
+                        <div class="panel-body">
+                          {{this.token_info["decimals"]}}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-2">
-                    <div class="text-muted">Supported Standard</div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">Supported Standard</div>
+                        <div class="panel-body">
+                          {{this.token_info["type"] }}
+                        </div>
+                      </div>
+                    </card>
                   </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["standard"] }}</h3>
                   </div>
+                <div class="row mt-3"></div>
+                  <div class="row">
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">First Transferred</div>
+                          <div class="panel-body">
+                            <div v-if="this.token_info.firsttransfertime" >
+                              {{ this.convertTime(this.token_info["firsttransfertime"]) }}
+                            </div>
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">Total Supply</div>
+                          <div class="panel-body">
+                            {{ convertToken(this.token_info["totalsupply"], this.decimal) }}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                    <div class="col-4">
+                      <card shadow>
+                        <div class="panel panel-primary">
+                          <div class=" font-weight-bold mb-0">Total Holders</div>
+                          <div class="panel-body">
+                            {{ this.token_info["holders"] }}
+                          </div>
+                        </div>
+                      </card>
+                    </div>
                 </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Decimal</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["decimals"] }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">Total Supply</div>
-                  </div>
-                  <div class="col-3"><h3>{{ convertToken(this.token_info["totalsupply"], this.decimal) }}</h3></div>
-                </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted">Total Holders</div>
-                  </div>
-                  <div class="col-3">
-                    <h3>{{ this.token_info["total_holders"] }}</h3>
-                  </div>
-                  <div class="col-2">
-                    <div class="text-muted">First Transferred</div>
-                  </div>
-                  <div class="col-3" v-if="this.token_info.firsttransfertime" >
-                    <h3>{{ this.token_info["firsttransfertime"] }}</h3>
-                  </div>
-                </div>
+
+                <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-diamond" title="Recent Transfers">
@@ -69,8 +97,7 @@
                   <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal"></tokens-tx-nep11>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" title="Top Holders">
-                  <token-holder v-if="standard===1" :contract-hash="token_id" :decimal="decimal"></token-holder>
-                  <token-holder11 v-else-if="standard===2" :contract-hash="token_id" :decimal="decimal"></token-holder11>
+                  <token-holder  :contract-hash="token_id" :decimal="decimal"></token-holder>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" title="Contract Info">
                   <card shadow type="secondary">
@@ -177,18 +204,15 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
 import TokensTxNep17 from "./Tables/TokenTxNep17";
 import TokensTxNep11 from "./Tables/TokenTxNep11";
 import TokenHolder from "./Tables/TokenHolder";
-import TokenHolder11 from "./Tables/TokenHolder11";
 
 export default {
   components: {
     TokensTxNep17,
     TokensTxNep11,
     TokenHolder,
-    TokenHolder11,
     Loading,
   },
   data() {
@@ -222,6 +246,16 @@ export default {
     convertToken(val, decimal) {
       return val * Math.pow(10, -decimal);
     },
+    convertTime(time) {
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+    },
     getToken(token_id){
       axios({
         method: "post",
@@ -238,9 +272,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-         let raw = res["data"]["result"];
-       raw["firsttransfertime"] = format(raw["firsttransfertime"]);
-        this.standard = raw["standard"] === "NEP17" ? 1 : 2;
+        let raw = res["data"]["result"];
+        this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;
         this.isLoading = false;
@@ -253,8 +286,8 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Hash: token_id },
-          method: "GetContractInfoByContractHash",
+          params: { ContractHash: token_id },
+          method: "GetContractByContractHash",
         },
         headers: {
           "Content-Type": "application/json",

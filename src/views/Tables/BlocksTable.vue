@@ -31,7 +31,7 @@
           <th>index</th>
           <th>Hash</th>
           <th>TimeStamp</th>
-          <th>TxNumber</th>
+          <th>Total Txs</th>
           <th>Size</th>
           <th></th>
         </template>
@@ -54,10 +54,10 @@
             {{ this.convertTime(row.item.timestamp) }}
           </td>
           <td class="txnumber">
-            {{ row.item.transactionNumber }}
+            {{ row.item.transactioncount }}
           </td>
           <td>
-            {{ row.item.size }}
+            {{ row.item.size }} Bytes
           </td>
         </template>
       </base-table>

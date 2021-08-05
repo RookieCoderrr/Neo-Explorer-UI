@@ -166,7 +166,7 @@ export default {
         url: "/api",
         data: {
           jsonrpc: "2.0",
-          method: "GetAccountsList",
+          method: "GetAddressList",
           params: { Limit: this.resultsPerPage, Skip: skip },
           id: 1,
         },
