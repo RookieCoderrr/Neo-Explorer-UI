@@ -1,5 +1,10 @@
 <template>
   <div class="table-responsive">
+    <loading
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
+    ></loading>
     <base-table
       class="table align-items-center table-flush"
       :class="type === 'dark' ? 'table-dark' : ''"
@@ -8,24 +13,23 @@
       :data="tableData"
     >
       <template v-slot:columns>
-        <th>Contract</th>
+        <th>Tx id</th>
         <th>Token</th>
+        <th>Type</th>
         <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-        <th>From Balance</th>
+        <th></th>
         <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-        <th>To Balance</th>
         <th>Amount</th>
+        <th>Time</th>
       </template>
 
       <template v-slot:default="row">
         <td class="budget">
-          <div class="contract" @mouseover="mouseHover(row.item.contract)">
-            <a
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              @click="getContract(row.item.contract)"
-              >{{ row.item.contract }}</a
-            >
+          <div>
+            <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Not Available</div>
+            <div class="txid" v-else>
+              <a class="name mb-0 text-sm"  style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+            </div>
           </div>
         </td>
         <td class="budget">
@@ -34,31 +38,41 @@
           </div>
         </td>
         <td class="budget">
-          <div class="from">
-            <div class="addr">
-              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="mb-0 text-sm" v-else-if="this.fromState" style="cursor: pointer" @click="getAddress(row.item.from)"> {{scriptHashToAddress(row.item.from)}} </a>
-              <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.from)"> {{row.item.from}} </a>
-            </div>
+          <div >
+            <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">Block Reward</span>
+            <span class="text-success" v-else-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> Transfer Reward </span>
+            <span class="text-success" v-else-if="row.item.from === null" type="primary">Mint</span>
+            <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
+            <span class="text-info" v-else> Transfer</span>
           </div>
         </td>
         <td class="budget">
-          {{ row.item.frombalance }}
-        </td>
-        <td class="budget">
-          <div class="addr">
-            <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-            <a class="mb-0 text-sm" v-else-if="this.toState" style="cursor: pointer" @click="getAddress(row.item.to)"> {{scriptHashToAddress(row.item.to)}} </a>
-            <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.to)"> {{row.item.to}} </a>
+          <div class="text-muted" v-if="row.item.from === null"> Null Account </div>
+          <div v-else-if="this.account_address === row.item.from">
+            <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)"><h3>&#128100;</h3> </a>
+          </div>
+          <div class="addr" v-else>
+            <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)"> {{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}  </a>
           </div>
         </td>
-
+        <td>
+          <h1 style="color: #42b983;">&#8594;</h1>
+        </td>
         <td class="budget">
-          {{ row.item.tobalance }}
+          <div class="text-muted" v-if="row.item.to === null"> Null Account </div>
+          <div v-else-if="this.account_address === row.item.to">
+            <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)"><h3>&#128100;</h3> </a>
+          </div>
+          <div class="addr" v-else>
+            <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)"> {{this.toState? scriptHashToAddress(row.item.to):row.item.to}}  </a>
+          </div>
         </td>
 
         <td class="budget">
           {{ row.item.value }}
+        </td>
+        <td class="budget">
+          {{convertTime(row.item.timestamp) }}
         </td>
       </template>
     </base-table>
@@ -70,10 +84,10 @@
     <div style="margin-right: 10px; width: 250px" class="row">
       <div class="text">Page &nbsp;</div>
       <base-input
-              type="number"
-              :style="text(pagination)"
-              :placeholder="pagination"
-              v-on:changeinput="pageChangeByInput($event)"
+        type="number"
+        :style="text(pagination)"
+        :placeholder="pagination"
+        v-on:changeinput="pageChangeByInput($event)"
       ></base-input>
       <div class="text">
         &nbsp; of &nbsp;{{ countPage }}
@@ -89,6 +103,9 @@
 <script>
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
+import {format} from "timeago.js";
+import Loading from "vue-loading-overlay";
+
 export default {
   name: "address11-ts-table",
   props: {
@@ -96,6 +113,9 @@ export default {
       type: String,
     },
     account_address: String,
+  },
+  components: {
+    Loading,
   },
   data() {
     return {
@@ -107,6 +127,7 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
+      isLoading: true,
     };
   },
   created() {
@@ -145,12 +166,21 @@ export default {
       }
     },
     pageChange(pageNumber) {
+      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.GetNep11TransferByAddress(skip);
     },
     convertToken(token, decimal) {
       return (token * Math.pow(0.1, decimal)).toFixed(6);
+    },
+    getTransaction(txhash){
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
+    },
+    convertTime(time) {
+      return format(time);
     },
 
     mouseHover(contract) {
@@ -195,7 +225,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        //console.log("transfer", res["data"]["result"]["result"]);
+        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
@@ -262,13 +292,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.from {
-  width: 150px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.to {
+.addr {
   width: 150px !important;
   white-space: nowrap;
   overflow: hidden;

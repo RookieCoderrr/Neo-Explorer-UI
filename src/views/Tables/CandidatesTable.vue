@@ -29,7 +29,6 @@
       >
         <template v-slot:columns>
           <th>Account</th>
-
           <th>Ranking</th>
           <th>Votes</th>
           <th>Percentage</th>
@@ -130,13 +129,21 @@ export default {
 
   created() {
     this.getCandidateList(0);
-    // this.getTotalVotes();
+    this.getTotalVotes();
   },
 
   methods: {
 
     getVotePercentage(votes){
-        return votes/this.votesCount
+      var per = votes/this.votesCount
+      console.log(per)
+      if (per == 0) {
+        return 0;
+      }
+      var str=Number(per *100).toFixed(2);
+      str+="%";
+      return str;
+
     },
     getAddress(accountAddress) {
       this.$router.push({
@@ -212,7 +219,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-          this.votesCount = res["data"]["result"]["total votes"]
+          this.votesCount = res["data"]["result"]["totalVotes"]
+          console.log(this.votesCount)
       });
     }
   },
