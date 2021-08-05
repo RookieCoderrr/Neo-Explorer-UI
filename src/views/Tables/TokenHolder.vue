@@ -14,11 +14,11 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th> Ranking</th>
-          <th>Address <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>Balance</th>
+          <th> {{$t('tokenHolder.ranking')}}</th>
+          <th>{{$t('tokenHolder.address')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
+          <th>{{$t('tokenHolder.balance')}}</th>
 <!--          <th>Last Transferred</th>-->
-          <th>Percentage</th>
+          <th>{{$t('tokenHolder.percentage')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -101,7 +101,7 @@ export default {
       isLoading: true,
       countPage:0,
       state: true,
-      buttonName: "Hash",
+      buttonName: this.$t('hash'),
     };
   },
   created() {
@@ -169,10 +169,10 @@ export default {
     changeFormat() {
       if (this.state === true) {
         this.state = false;
-        this.buttonName = "WIF";
+        this.buttonName = this.$t('wif');
       } else {
         this.state = true;
-        this.buttonName = "Hash";
+        this.buttonName = this.$t('hash');
       }
     },
     getTokenList(skip) {
