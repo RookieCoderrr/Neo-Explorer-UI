@@ -10,18 +10,18 @@
               :active="isLoading"
             ></loading>
             <div class="card-header bg-transparent">
-              <h1 class="mb-0">Account:</h1>
+              <h1 class="mb-0">{{$t('addressPage.addressProfile.title')}}</h1>
               <h4 class="text-muted">{{ this.scriptHashToAddress(this.accountAddress) }}</h4>
             </div>
 
             <div class="card-body">
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Created Time</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.createdTime')}}</div>
                   <div class="col-4">
                     {{ convertTime(this.createdTime) }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Type</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.addressProfile.type')}}</div>
                   <div class="col-4">
                     {{ this.type }}
                   </div>
@@ -30,11 +30,11 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Neo balance</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.neoBalance')}}</div>
                   <div class="col-4">
                     {{ this.neoBalance }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Gas balance</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.gasBalance')}}</div>
                   <div class="col-4">
                     {{ this.gasBalance  }}
                   </div>

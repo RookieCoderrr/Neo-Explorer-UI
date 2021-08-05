@@ -27,11 +27,14 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>No.</th>
-          <th>Address <button class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>Neo Balance</th>
-          <th>Gas Balance</th>
-          <th>Created Time</th>
+          <th>{{$t('addressPage.number')}}</th>
+          <th>{{$t('addressPage.address')}}
+            <button v-if="this.buttonName==='Hash'" class="btn btn-sm btn-primary" @click="changeFormat()">{{$t('addressPage.hash')}}</button>
+            <button v-else class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+          </th>
+          <th>{{$t('addressPage.neoBalance')}}</th>
+          <th>{{$t('addressPage.gasBalance')}}</th>
+          <th>{{$t('addressPage.createdTime')}}</th>
         </template>
         <template v-slot:default="row">
           <td>
