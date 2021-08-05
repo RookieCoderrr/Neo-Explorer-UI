@@ -1,20 +1,27 @@
 <template>
   <section class="page-content">
     <div class="search-content">
-      <div class="h2 font-weight-bold mb-0">
-        Sorry, your entry did not match any results in our database.
-      </div>
-      <div class="row mt-3"></div>
-      <div class="h2 font-weight-bold mb-0">
-        Data formats we currently support:
-      </div>
-      <p class="text-muted font-weight-bold  mb-0">Block Hash (UInt256), Block Height (Int)</p>
-      <p class="text-muted font-weight-bold  mb-0">Transaction ID (UInt256)</p>
-      <p class="text-muted font-weight-bold  mb-0">Account Script Hash (UInt160), Account Address (WIF)</p>
-      <p class="text-muted font-weight-bold  mb-0">Token / Contract Script Hash (UInt160)</p>
-      <div class="row mt-3"></div>
-      <div>
-        <base-button type="primary"  @click="toHomePage()">Back to Home Page</base-button>
+      <div class="row">
+        <div class="col-4">
+          <span style="font-size: 200px">&#128575;</span>
+        </div>
+        <div class="col-8">
+          <div class="h2 font-weight-bold mb-0">
+            Sorry! Your entry did not match any results in our database.
+          </div>
+          <div class="row mt-3"></div>
+          <div class="h2 font-weight-bold mb-0">
+            Data formats we currently support:
+          </div>
+          <p class="text-muted font-weight-bold  mb-0">Block Hash (UInt256), Block Height (Int)</p>
+          <p class="text-muted font-weight-bold  mb-0">Transaction ID (UInt256)</p>
+          <p class="text-muted font-weight-bold  mb-0">Account Script Hash (UInt160), Account Address (WIF)</p>
+          <p class="text-muted font-weight-bold  mb-0">Token / Contract Script Hash (UInt160)</p>
+          <div class="row mt-3"></div>
+          <div>
+            <base-button type="primary"  @click="toHomePage()">Back to Home Page</base-button>
+          </div>
+        </div>
       </div>
     </div>
   </section>

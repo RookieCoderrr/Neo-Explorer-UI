@@ -54,7 +54,7 @@
             {{ this.convertTime(row.item.timestamp) }}
           </td>
           <td class="txnumber">
-            {{ row.item.transactionNumber }}
+            {{ row.item.transactioncount }}
           </td>
           <td>
             {{ row.item.size }} Bytes
