@@ -30,9 +30,9 @@
             <th>Contract</th>
             <th>Token</th>
             <th>Type</th>
-            <th>From</th>
+            <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
             <th>From Balance</th>
-            <th>To</th>
+            <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
             <th>To Balance</th>
             <th>Amount</th>
           </template>
@@ -63,7 +63,7 @@
             <td class="budget">
               <div class="from">
                 <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ row.item.from }}
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}
                 </a>
 
               </div>
@@ -78,7 +78,7 @@
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
                   @click="getAccount(row.item.to)"
-                  >{{ row.item.to }}</a
+                  >{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a
                 >
               </div>
             </td>
@@ -104,6 +104,7 @@
 </template>
 <script>
 import axios from "axios";
+import Neon from "@cityofzion/neon-js";
 export default {
   name: "transfers-list",
   props: {
@@ -117,6 +118,10 @@ export default {
     return {
       tableData: [],
       length,
+      fromState: true,
+      fromButton: "Hash",
+      toState: true,
+      toButton: "Hash",
     };
   },
   created() {
@@ -147,6 +152,33 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accHash}`,
       });
+    },
+    scriptHashToAddress(hash) {
+      hash = hash.substring(2);
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    addressToScriptHash(addr) {
+      const acc = Neon.create.account(addr);
+      return "0x" + acc.scriptHash;
+    },
+    changeFrom() {
+      if (this.fromState === true) {
+        this.fromState = false;
+        this.fromButton = "WIF";
+      } else {
+        this.fromState = true;
+        this.fromButton = "Hash";
+      }
+    },
+    changeTo() {
+      if (this.toState === true) {
+        this.toState = false;
+        this.toButton = "WIF";
+      } else {
+        this.toState = true;
+        this.toButton = "Hash";
+      }
     },
     getNep17TransferByTransactionHash(txhash) {
       axios({
