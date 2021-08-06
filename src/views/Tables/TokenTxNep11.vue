@@ -108,7 +108,7 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center ">This Asset has no transactions.</card>
+  <card shadow v-else class="text-center ">{{$t('tokenTx.nullPrompt')}}</card>
 </template>
 <script>
 import axios from "axios";
@@ -213,7 +213,13 @@ export default {
       }
     },
     convertTime(ts) {
-      return format(ts);
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     convertToken(val, decimal) {
       return val * Math.pow(10, -decimal);

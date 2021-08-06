@@ -8,6 +8,7 @@ const en = {
     nullAddress: "Null Address",
     hash: "Hash",
     wif: "WIF",
+    bytes: "Bytes",
     authLayout:{
         home:"Home",
         blocks:"Blocks",
@@ -48,6 +49,7 @@ const en = {
         totalSysFee:"Total SystemFee",
         totalNetFee:"Total NetworkFee",
         txnsList:"Transaction List",
+        nullPrompt: "This block has no transactions.",
         txTable:{
             txID:"Transaction ID",
             height:"Block Height",
@@ -157,12 +159,14 @@ const en = {
         amount: "amount",
         time: "time",
         tokenID: "tokenid",
+        nullPrompt: "This token has no transactions."
     },
     tokenHolder: {
         ranking: "Ranking",
         address: "Address",
         balance: "balance",
         percentage: "percentage",
+        nullPrompt: "This token has no holders."
     },
     addressPage: {
         number: "No.",
@@ -174,6 +178,13 @@ const en = {
         addressProfile: {
             title: "Account: ",
             type: "Type",
+            txNums: "Transactions",
+            nep17Transfers: "NEP17 Transfers",
+            nep11Transfers: "NEP11 Transfers",
+            tokenBalance: "Token Balance",
+            tx: "Transactions",
+            nep17title: "NEP17 Transfers",
+            nep11title: "NEp11 Transfers",
         }
     },
     NftTable: {
