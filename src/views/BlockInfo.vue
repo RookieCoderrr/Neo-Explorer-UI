@@ -135,9 +135,17 @@
 
 <!--                </div>-->
                 <div class="row mt-3">    </div>
-
+                <tabs fill class="flex-column flex-md-row">
+                  <tab-pane icon="ni ni-diamond" :title="$t('tokenInfo.recentTransfers')">
+                    <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep17>
+                    <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep11>
+                  </tab-pane>
+                  <tab-pane icon="ni ni-single-02 mr-2" :title="$t('tokenInfo.topHolders')">
+                    <token-holder  :contract-hash="token_id" :decimal="decimal=='' ?  0:decimal"></token-holder>
+                  </tab-pane>
                 <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
                 <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
+                </tabs>
               </div>
 
 
