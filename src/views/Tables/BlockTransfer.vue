@@ -234,7 +234,7 @@
                 });
             },
             convertToken(val, decimal) {
-                return val * Math.pow(10, -decimal);
+                return parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
             },
         },
     };
