@@ -36,7 +36,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+            <div class="id" @οnmοuseοver="mouseHover(row.item.hash)">
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -46,7 +46,13 @@
             </div>
           </td>
           <td class="budget">
-            {{ row.item.blockIndex }}
+            <div class="id" >
+              <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getBlock(row.item.blockhash)"
+              >{{row.item.blockIndex  }}</a>
+            </div>
           </td>
           <td class="budget">{{ row.item.size }} {{$t('bytes')}}</td>
           <td class="budget">
@@ -153,6 +159,11 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
+    getBlock(blochash){
+      this.$router.push({
+        path: `/blockinfo/${blochash}`,
+      });
+    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;
@@ -203,7 +214,7 @@ export default {
 };
 </script>
 <style>
-.txid {
+.id {
   width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
