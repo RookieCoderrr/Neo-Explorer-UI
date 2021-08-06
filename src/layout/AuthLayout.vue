@@ -74,28 +74,31 @@
             </router-link>
           </li>
         </ul>
-        <base-dropdown>
-          <template v-slot:title>
-            <base-button type="default" class="dropdown-toggle">
-              {{this.lang}}
-            </base-button>
-          </template>
-          <li>
-            <a class="dropdown-item" @click="switch_the_language('en')">
-              <span>English 🇬🇧</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_language('cn')">
-              <span>中文 🇨🇳</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item"  @click="switch_the_language('fr')">
-              <span>Français 🇫🇷</span>
-            </a>
-          </li>
-        </base-dropdown>
+        <div>
+          <base-dropdown>
+            <template v-slot:title>
+              <base-button type="default" class="btn btn-sm">
+                {{this.lang}}
+              </base-button>
+            </template>
+            <li>
+              <a class="dropdown-item" @click="switch_the_language('en')">
+                <span>English 🇬🇧</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_language('cn')">
+                <span>中文 🇨🇳</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"  @click="switch_the_language('fr')">
+                <span>Français 🇫🇷</span>
+              </a>
+            </li>
+          </base-dropdown>
+        </div>
+
 
       </template>
     </base-nav>
