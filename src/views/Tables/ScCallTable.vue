@@ -14,11 +14,11 @@
         :data="ScCallList"
       >
         <template v-slot:columns>
-          <th>Txid</th>
-          <th>Sender <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>Method</th>
-          <th>Call Flags</th>
-          <th>Time</th>
+          <th>{{$t('contract.txID')}}</th>
+          <th>{{$t('contract.sender')}} <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
+          <th>{{$t('contract.method')}}</th>
+          <th>{{$t('contract.callFlags')}}</th>
+          <th>{{$t('contract.time')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -148,7 +148,13 @@ export default {
       this.getScCallList(skip);
     },
     convertTime(ts) {
-      return format(ts);
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);

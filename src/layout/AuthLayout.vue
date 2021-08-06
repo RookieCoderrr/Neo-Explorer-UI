@@ -74,17 +74,30 @@
             </router-link>
           </li>
         </ul>
-        <li class="nav-item" style="margin-right: 0px" >
-         <div @click="switch_the_language('en')" style="cursor: pointer">
-           English
-         </div>
-        <div  style="cursor: pointer" @click="switch_the_language('cn')">
-          中文
+        <div>
+          <base-dropdown>
+            <template v-slot:title>
+              <base-button type="default" class="btn btn-sm">
+                {{this.lang}}
+              </base-button>
+            </template>
+            <li>
+              <a class="dropdown-item" @click="switch_the_language('en')">
+                <span>English 🇬🇧</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_language('cn')">
+                <span>中文 🇨🇳</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"  @click="switch_the_language('fr')">
+                <span>Français 🇫🇷</span>
+              </a>
+            </li>
+          </base-dropdown>
         </div>
-          <div  style="cursor: pointer" @click="switch_the_language('fr')">
-            Français
-          </div>
-        </li>
 
       </template>
     </base-nav>
@@ -143,12 +156,21 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
+      lang:"Language"
     };
   },
   methods: {
     switch_the_language(language) {
       console.log(this.$i18n.locale)
       this.$i18n.locale = language
+      if(language==="cn"){
+        this.lang = "中文 "+"🇨🇳"
+      }else if(language === "en") {
+        this.lang = "English "+"🇬🇧"
+      }else if (language === "fr") {
+        this.lang = "Français "+"🇫🇷"
+      }
+
     },
     search() {
       this.isLoading = true;

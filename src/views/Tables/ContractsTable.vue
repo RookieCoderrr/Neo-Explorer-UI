@@ -45,7 +45,7 @@
           <th>{{$t('contract.name')}}</th>
           <th>{{$t('contract.creator')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
           <th>{{$t('contract.index')}}</th>
-          <th>{{$t('contract.creatTime')}}</th>
+          <th>{{$t('contract.time')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -169,7 +169,13 @@ export default {
       }
     },
     convertTime(ts) {
-      return format(ts);
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     pageChange(pageNumber) {
       this.isLoading = true;

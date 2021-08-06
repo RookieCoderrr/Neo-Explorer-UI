@@ -38,7 +38,7 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.creatTime')}}</div>
+                        <div class="font-weight-bold mb-0">{{$t('contract.time')}}</div>
                         <div class="panel-body">
                           {{convertTime(this.contract_info["createtime"])}}
                         </div>
@@ -92,32 +92,32 @@
                 <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-folder-17" :title="$t('contract.scCall')">
+                <tab-pane icon="ni ni-folder-17" :title="$t('contract.scCallTitle')">
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
-                  <card shadow v-else class="text-center ">This Contract has no System Calls.</card>
+                  <card shadow v-else class="text-center ">{{$t('contract.noScCall')}}</card>
                 </tab-pane>
-                <tab-pane icon="ni ni-active-40"  :title="$t('contract.event.title')">
+                <tab-pane icon="ni ni-active-40"  :title="$t('contract.eventTitle')">
                   <div v-if="this.totalsccall != 0">
                     <events-table :contractHash="contract_id"></events-table>
                   </div>
-                  <card shadow v-else class="text-center ">This Contract has no events.</card>
+                  <card shadow v-else class="text-center ">{{$t('contract.noEvent')}}</card>
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" :title="$t('contract.conInfo')">
                   <card shadow type="secondary">
                     <div class="extra" v-if="this.manifest.extra">
-                      <h3 class="mt-2">Extras</h3>
+                      <h3 class="mt-2"> {{$t('tokenInfo.extra')}}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
-                            Email : {{ this.manifest.extra["Email"] }}
+                            {{$t('tokenInfo.email')}}: {{ this.manifest.extra["Email"] }}
                           </div>
                           <div class="col-auto">
-                            Author : {{ this.manifest.extra["Author"] }}
+                            {{$t('tokenInfo.author')}} : {{ this.manifest.extra["Author"] }}
                           </div>
                           <div class="col-auto">
-                            Description :
+                            {{$t('tokenInfo.description')}} :
                             {{ this.manifest.extra["Description"] }}
                           </div>
                         </div>
@@ -128,7 +128,7 @@
                         class="events"
                         v-if="this.manifest.abi.events.length !== 0"
                       >
-                        <h3 class="mt-2">Events</h3>
+                        <h3 class="mt-2">{{$t('tokenInfo.events')}}</h3>
                         <card
                           shadow
                           v-for="(item, index) in this.manifest['abi'][
@@ -155,7 +155,7 @@
                           </div>
                         </card>
                       </div>
-                      <h3 class="mt-2">Methods</h3>
+                      <h3 class="mt-2">{{$t('tokenInfo.methods')}}</h3>
                       <card
                         shadow
                         v-for="(item, index) in this.manifest['abi']['methods']"

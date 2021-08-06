@@ -23,11 +23,11 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>{{$t('contract.event.txID')}}</th>
-          <th>{{$t('contract.event.eventName')}}</th>
-          <th>{{$t('contract.event.vmState')}}</th>
-          <th>{{$t('contract.event.index')}}</th>
-          <th>{{$t('contract.event.time')}}</th>
+          <th>{{$t('contract.txID')}}</th>
+          <th>{{$t('contract.eventName')}}</th>
+          <th>{{$t('contract.vmState')}}</th>
+          <th>{{$t('contract.index')}}</th>
+          <th>{{$t('contract.time')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -36,12 +36,9 @@
               <div class="media-body">
                 <span
                   class="text-muted"
-                  v-if="
-                    row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000'
-                  "
-                  >Null Transaction</span
-                >
+                  v-if=" row.item.txid ==='0x0000000000000000000000000000000000000000000000000000000000000000'"
+                  >{{$t('na')}}
+                </span>
                 <a
                   class="name mb-0 text-sm"
                   v-else
@@ -155,7 +152,13 @@ export default {
       }
     },
     convertTime(ts) {
-      return format(ts);
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     pageChange(pageNumber) {
       this.isLoading = true;
