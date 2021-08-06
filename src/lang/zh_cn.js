@@ -52,6 +52,8 @@ module.exports = {
         totalNetFee: "网络燃料费",
         txnsList: "交易列表",
         nullPrompt: "该区块未包含交易。",
+        speaker: "议长节点",
+        blockReward: "出块奖励",
         txTable: {
             txID: "交易哈希",
             height: "区块高度",

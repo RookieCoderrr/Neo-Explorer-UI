@@ -52,6 +52,8 @@ const en = {
         totalNetFee:"Total NetworkFee",
         txnsList:"Transaction List",
         nullPrompt: "This block has no transactions.",
+        speaker: "Speaker",
+        blockReward: "Block Reward",
         txTable:{
             txID:"Transaction ID",
             height:"Block Height",

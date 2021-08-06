@@ -64,11 +64,15 @@
                 <div class="row mt-3"></div>
                 <card shadow>
                   <div class="row">
-                    <div class="col-2 font-weight-bold mb-0">
-                      <div >{{$t('blockinfo.hash')}}</div>
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.speaker')}}</div>
                     </div>
-                    <div class="col-10 name mb-0 text-sm">{{ this.block_info.hash }}
+                    <div class="col-4">{{  this.block_info.systemFee}}
                     </div>
+                    <div class="col-2">
+                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.blockReward')}} </div>
+                    </div>
+                    <div class="col-4">{{this.block_info.networkFee}} GAS</div>
                   </div>
                 </card>
                 <div class="row mt-3">    </div>
@@ -227,8 +231,8 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { BlockHash: hash,Limit:10,Skip:0},
-          method: "GetTransferByBlockHash",
+          params: { BlockHash: hash },
+          method: "GetBlockRewardByBlockHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -236,11 +240,11 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
-        this.transfercount = res["data"]["result"]["totalCount"];
+        console.log(res);
         this.isLoading = false;
       });
     },
+
 
   },
 };
