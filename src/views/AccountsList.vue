@@ -2,7 +2,7 @@
   <div class="container-fluid mt--7">
     <div class="row">
       <div class="col">
-        <accounts-table title="Address"></accounts-table>
+        <accounts-table :title="$t('addressPage.accountsTable')"></accounts-table>
       </div>
     </div>
   </div>

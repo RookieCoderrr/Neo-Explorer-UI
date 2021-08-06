@@ -8,6 +8,7 @@ module.exports = {
     nullAddress: "空地址",
     hash: "哈希",
     wif: "地址",
+    page: "页",
     authLayout:{
         home:"主页",
         blocks:"区块",
@@ -88,6 +89,7 @@ module.exports = {
         gasBalance: "Gas余额",
         createdTime: "创建时间",
         hash: "哈希形式",
+        accountsTable: "地址",
         addressProfile: {
             title: "账户：",
             type: "类型",

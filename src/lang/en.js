@@ -8,6 +8,7 @@ const en = {
     nullAddress: "Null Address",
     hash: "Hash",
     wif: "WIF",
+    page: "Page",
     authLayout:{
         home:"Home",
         blocks:"Blocks",
@@ -88,6 +89,7 @@ const en = {
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
         hash: "Hash",
+        accountsTable: "Address",
         addressProfile: {
             title: "Account: ",
             type: "Type",

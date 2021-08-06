@@ -14,7 +14,7 @@
         :data="tokenList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
+          <th>{{$t('hash')}}1</th>
           <th>Name</th>
           <th>Symbol</th>
           <th>Standard</th>
