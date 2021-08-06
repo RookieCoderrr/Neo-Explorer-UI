@@ -7,19 +7,19 @@
         </div>
         <div class="col-8">
           <div class="h2 font-weight-bold mb-0">
-            Sorry! Your entry did not match any results in our database.
+            {{$t('search.information') }}
           </div>
           <div class="row mt-3"></div>
           <div class="h2 font-weight-bold mb-0">
-            Data formats we currently support:
+            {{$t('search.dataSupport') }}
           </div>
-          <p class="text-muted font-weight-bold  mb-0">Block Hash (UInt256), Block Height (Int)</p>
-          <p class="text-muted font-weight-bold  mb-0">Transaction ID (UInt256)</p>
-          <p class="text-muted font-weight-bold  mb-0">Account Script Hash (UInt160), Account Address (WIF)</p>
-          <p class="text-muted font-weight-bold  mb-0">Token / Contract Script Hash (UInt160)</p>
+          <p class="text-muted font-weight-bold  mb-0">{{$t('search.block') }}</p>
+          <p class="text-muted font-weight-bold  mb-0">{{$t('search.transaction') }}</p>
+          <p class="text-muted font-weight-bold  mb-0">{{$t('search.account') }}</p>
+          <p class="text-muted font-weight-bold  mb-0">{{$t('search.token') }}</p>
           <div class="row mt-3"></div>
           <div>
-            <base-button type="primary"  @click="toHomePage()">Back to Home Page</base-button>
+            <base-button type="primary"  @click="toHomePage()">{{$t('search.button') }}</base-button>
           </div>
         </div>
       </div>

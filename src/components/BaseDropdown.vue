@@ -79,6 +79,7 @@ export default {
       isOpen: false,
     };
   },
+  emits:["change"],
   methods: {
     toggleDropDown() {
       this.isOpen = !this.isOpen;

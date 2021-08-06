@@ -107,7 +107,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search for Blocks, Transactions, Accounts, Tokens or Contracts'"
+          :placeholder="$t('search.placeholder')"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
@@ -156,7 +156,7 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-      lang:"Language"
+      lang:"English 🇬🇧"
     };
   },
   methods: {

@@ -35,18 +35,22 @@
         </template>
 
         <template v-slot:default="row">
-          <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+          <td class="id">
+
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 @click="getTransaction(row.item.hash)"
                 >{{ row.item.hash }}</a
               >
-            </div>
           </td>
-          <td class="budget">
-            {{ row.item.blockIndex }}
+          <td class="id">
+
+              <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getBlock(row.item.blockhash)"
+              >{{row.item.blockIndex  }}</a>
           </td>
           <td class="budget">{{ row.item.size }} {{$t('bytes')}}</td>
           <td class="budget">
@@ -153,6 +157,11 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
+    getBlock(blochash){
+      this.$router.push({
+        path: `/blockinfo/${blochash}`,
+      });
+    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;
@@ -193,7 +202,6 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
-        console.log(res)
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
@@ -203,7 +211,7 @@ export default {
 };
 </script>
 <style>
-.txid {
+.id {
   width: 200px !important;
   white-space: nowrap;
   overflow: hidden;

@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col-2">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
+            {{$t('contract.title') }}
           </h3>
         </div>
         <div class="col-6"></div>
@@ -207,7 +207,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
