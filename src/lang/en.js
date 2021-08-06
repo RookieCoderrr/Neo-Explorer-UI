@@ -115,7 +115,12 @@ const en = {
         fromBalance:"From Balance",
         to:"To",
         toBalance:"To Balance",
-        Amount:"Amount",
+        amount:"Amount",
+        reward:"Reward",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Null Account",
+        nullBalance:"Null Balance"
     },
 
     tokensTable: {
@@ -170,7 +175,30 @@ const en = {
             title: "Account: ",
             type: "Type",
         }
-    }
+    },
+    NftTable: {
+        title: "NEP11 Transfers",
+        contract:"Contract",
+        token:"Token",
+        tokenId:"Token ID",
+        type:"Type",
+        from:"From",
+        fromBalance:"From Balance",
+        to:"To",
+        toBalance:"To Balance",
+        amount:"Amount",
+        mint:"Mint",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Null Account",
+    },
+    CandidatesTable: {
+        title:"Candidates",
+        account:"Account",
+        ranking: "Ranking",
+        votes:"Votes",
+        percentage:"Percentage",
+    },
 
 }
 export default en

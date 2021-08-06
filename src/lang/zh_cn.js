@@ -106,6 +106,22 @@ module.exports = {
         verification:"验证脚本",
         script:"运行脚本",
     },
+    transferList:{
+        title:"Nep17 交易",
+        contract:"合约",
+        token:"通证",
+        type:"交易类型",
+        from:"转出账户",
+        fromBalance:"转出账户通证数量",
+        to:"转入账户",
+        toBalance:"转入账户通证数量",
+        amount:"转账数额",
+        reward:"转账奖励",
+        burn:"销币交易",
+        transfer:"转账",
+        nullAccount:"不适用",
+        nullBalance:"不适用"
+    },
     tokensTable: {
         title: "通证列表",
         hash: "哈希",
@@ -158,7 +174,30 @@ module.exports = {
             title: "账户：",
             type: "类型",
         }
-    }
+    },
+    NftTable: {
+        title: "NEP11 交易",
+        contract:"合约",
+        token:"通证",
+        tokenId:"通证ID",
+        type:"交易类型",
+        from:"转出账户",
+        fromBalance:"转出账户通证数量",
+        to:"转入账户",
+        toBalance:"转入账户通证数量",
+        amount:"转账数额",
+        mint:"铸币交易",
+        burn:"销币交易",
+        transfer:"转账",
+        nullAccount:"不适用",
+    },
+    CandidatesTable: {
+        title:"候选人",
+        account:"账户",
+        ranking: "票数排名",
+        votes:"获得票数",
+        percentage:"获得票数占比",
+    },
 
 
 }
