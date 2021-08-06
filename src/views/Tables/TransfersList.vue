@@ -32,6 +32,7 @@
             <th>{{ $t('transactionTransfer.type')}}</th>
             <th>{{ $t('transactionTransfer.from')}}<button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
             <th>{{ $t('transactionTransfer.fromBalance')}}</th>
+            <th></th>
             <th>{{ $t('transactionTransfer.to')}}<button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
             <th>{{ $t('transactionTransfer.toBalance')}}</th>
             <th>{{ $t('transactionTransfer.amount')}}</th>
@@ -70,6 +71,9 @@
             <td class="budget">
               <span class="text-muted" v-if="row.item.from === null">{{$t('nullBalance')}}</span>
               <span  v-else >{{ convertToken(row.item.frombalance, row.item.decimals) }}</span>
+            </td>
+            <td>
+              <h1 style="color: #42b983;">&#8594;</h1>
             </td>
             <td class="budget">
               <div class="to">
@@ -123,7 +127,13 @@ export default {
     this.getNep17TransferByTransactionHash(this.txhash);
     // this.hasContent(this.length)
   },
+  watch:{
+    txhash:'watchtxhash'
+  },
   methods: {
+    watchtxhash() {//如果路由有变化，执行的对应的动作
+      this.getNep17TransferByTransactionHash(this.txhash);
+    },
     convertToken(token, decimal) {
       var temp = token * Math.pow(0.1, decimal);
       if (temp % 1 === 0) {

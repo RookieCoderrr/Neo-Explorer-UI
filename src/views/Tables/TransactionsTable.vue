@@ -35,24 +35,22 @@
         </template>
 
         <template v-slot:default="row">
-          <td>
-            <div class="id" @οnmοuseοver="mouseHover(row.item.hash)">
+          <td class="id">
+
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 @click="getTransaction(row.item.hash)"
                 >{{ row.item.hash }}</a
               >
-            </div>
           </td>
-          <td class="budget">
-            <div class="id" >
+          <td class="id">
+
               <a
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
                   @click="getBlock(row.item.blockhash)"
               >{{row.item.blockIndex  }}</a>
-            </div>
           </td>
           <td class="budget">{{ row.item.size }} {{$t('bytes')}}</td>
           <td class="budget">

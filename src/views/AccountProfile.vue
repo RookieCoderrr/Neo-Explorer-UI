@@ -93,21 +93,17 @@
                   </div>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" :title="$t('addressPage.addressProfile.tx')">
-                  <div v-if="this.numOfTxns != 0" class="row">
+                  <div  class="row">
                     <div class="col">
                       <address-transactions-table
                         :account_address="accountAddress"
                       ></address-transactions-table>
                     </div>
                   </div>
-                  <div v-else class="row">
-                    <div class="col">
-                      <card shadow class="text-center ">{{$t('addressPage.txnullPrompt')}}</card>
-                    </div>
-                  </div>
+
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" :title="$t('addressPage.addressProfile.nep17title')">
-                  <div v-if="this.numOfnep17Transfers != 0" class="row">
+                  <div  class="row">
                     <div class="col">
                       <address17-ts-table
                         :account_address="accountAddress"
@@ -115,24 +111,16 @@
                       </address17-ts-table>
                     </div>
                   </div>
-                  <div v-else class="row">
-                    <div class="col">
-                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}</card>
-                    </div>
-                  </div>
+
                 </tab-pane>
                 <tab-pane icon="ni ni-collection" :title="$t('addressPage.addressProfile.nep11title')">
-                  <div v-if="this.numOfnep11Transfers != 0" class="row">
+                  <div class="row">
                     <div class="col">
                       <address11-ts-table :account_address="accountAddress">
                         </address11-ts-table>
                     </div>
                   </div>
-                  <div v-else class="row">
-                    <div class="col">
-                      <card shadow class="text-center ">{{$t('addressPage.nep11nullPrompt')}}</card>
-                    </div>
-                  </div>
+
                 </tab-pane>
                 <!--tab-pane icon="ni ni-collection" title="Contracts"> </tab-pane-->
               </tabs>

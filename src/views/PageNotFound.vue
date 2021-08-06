@@ -7,12 +7,12 @@
         </div>
         <div class="col-8">
           <div class="h1 font-weight-bold mb-3">
-            Sorry!
+            {{$t('pageNotFound.information_s')}}
           </div>
           <div class="h2 font-weight-bold mb-0">
-            The Page You Visited Is Not Available.
+            {{$t('pageNotFound.information_t')}}
           </div>
-          <div class="text"> Try visiting in a few minutes and check your path input. </div>
+          <div class="text">  {{$t('pageNotFound.information_v')}} </div>
         </div>
       </div>
       <div>

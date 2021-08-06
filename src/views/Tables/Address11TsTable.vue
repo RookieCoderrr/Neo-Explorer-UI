@@ -1,5 +1,5 @@
 <template>
-  <div class="table-responsive">
+  <div v-if="this.totalCount != 0" class="table-responsive">
     <loading
         :is-full-page="false"
         :opacity="0.9"
@@ -32,7 +32,7 @@
       <template v-slot:default="row">
         <td class="budget">
           <div>
-            <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Not Available</div>
+            <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
             <div class="txid" v-else>
               <a class="name mb-0 text-sm"  style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
             </div>
@@ -45,15 +45,13 @@
         </td>
         <td class="budget">
           <div >
-            <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">Block Reward</span>
-            <span class="text-success" v-else-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> Transfer Reward </span>
-            <span class="text-success" v-else-if="row.item.from === null" type="primary">Mint</span>
-            <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-            <span class="text-info" v-else> Transfer</span>
+            <span class="text-success" v-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
+            <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}} </span>
+            <span class="text-info" v-else> {{$t('transfer')}}</span>
           </div>
         </td>
         <td class="budget">
-          <div class="text-muted" v-if="row.item.from === null"> Null Account </div>
+          <div class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}} </div>
           <div v-else-if="this.account_address === row.item.from">
             <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)"><h3>&#128100;</h3> </a>
           </div>
@@ -65,7 +63,7 @@
           <h1 style="color: #42b983;">&#8594;</h1>
         </td>
         <td class="budget">
-          <div class="text-muted" v-if="row.item.to === null"> Null Account </div>
+          <div class="text-muted" v-if="row.item.to === null">{{$t('nullAddress')}} </div>
           <div v-else-if="this.account_address === row.item.to">
             <a class="mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)"><h3>&#128100;</h3> </a>
           </div>
@@ -82,6 +80,11 @@
         </td>
       </template>
     </base-table>
+  </div>
+  <div v-else class="row">
+    <div class="col">
+      <card shadow class="text-center">{{$t('addressPage.nep11nullPrompt')}}</card>
+    </div>
   </div>
   <div v-if="this.totalCount > 10 "
     class="card-footer d-flex justify-content-end"
@@ -105,6 +108,7 @@
       v-on:input="pageChange($event)"
     ></base-pagination>
   </div>
+
 </template>
 <script>
 import axios from "axios";
@@ -151,7 +155,13 @@ export default {
       };
     },
   },
+  watch:{
+    account_address:'watchcontract'
+  },
   methods: {
+    watchcontract() {//如果路由有变化，执行的对应的动作
+      this.GetNep11TransferByAddress(0);
+    },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;

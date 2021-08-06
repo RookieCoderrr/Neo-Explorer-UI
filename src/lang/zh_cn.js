@@ -1,6 +1,8 @@
 module.exports = {
     na: "不适用",
     blockReward: "区块奖励",
+    networkFeeReward: "网络费奖励",
+    feeBurn: "手续费燃烧",
     transferReward: "转账奖励",
     mint: "铸币交易",
     burn: "销币交易",
@@ -51,7 +53,10 @@ module.exports = {
         totalSysFee: "系统燃料费",
         totalNetFee: "网络燃料费",
         txnsList: "交易列表",
+        trfsList:"转账列表",
         nullPrompt: "该区块未包含交易。",
+        speaker: "议长节点",
+        blockReward: "出块奖励",
         txTable: {
             txID: "交易哈希",
             height: "区块高度",
@@ -61,6 +66,8 @@ module.exports = {
         }
     },
     contract:{
+
+        title:"合约列表",
         search:"通过合约名称搜索",
         hash:"合约哈希",
         name:"合约名",
@@ -237,13 +244,22 @@ module.exports = {
         nullAccount:"不适用",
         nullBalance:"不适用"
     },
-    CandidatesTable: {
-        title:"候选人",
-        account:"账户",
-        ranking: "票数排名",
-        votes:"获得票数",
-        percentage:"获得票数占比",
+    search: {
+        placeholder:"搜索区块，交易，账户，通证或者合约",
+        information:"抱歉，您要查询的数据不在区块链上，请您核对查询信息.",
+        dataSupport:"我们支持的数据格式如下:",
+        block:"区块哈希 (UInt256), 区块高度 (Int)",
+        transaction:"交易ID (UInt256)",
+        account:"账户脚本哈希 (UInt160), 账户地址 (WIF)",
+        token:"通证/合约脚本哈希 (UInt160)",
+        button:"返回首页"
     },
+    pageNotFound:{
+        information_s:"抱歉!",
+        information_t:"您访问的界面不存在",
+        information_v:"请过几分钟后再试，或者检查输入路径"
+    },
+
 
 
 

@@ -1,10 +1,12 @@
 const en = {
     na: "Not Available",
     blockReward: "Block Reward",
+    networkFeeReward: "Network Fee Reward",
+    feeBurn: "Transaction Fee Burn",
     transferReward: "Transfer Reward",
     mint: "Mint",
     burn: "Burn",
-    transfer: "transfer",
+    transfer: "Transfer",
     nullAddress: "Null Address",
     nullBalance: "Null Balance",
     hash: "Hash",
@@ -51,7 +53,10 @@ const en = {
         totalSysFee:"Total SystemFee",
         totalNetFee:"Total NetworkFee",
         txnsList:"Transaction List",
+        trfsList:"Transfer List",
         nullPrompt: "This block has no transactions.",
+        speaker: "Speaker",
+        blockReward: "Block Reward",
         txTable:{
             txID:"Transaction ID",
             height:"Block Height",
@@ -61,6 +66,7 @@ const en = {
         }
     },
     contract:{
+        title:"Contract List",
         search:"Search by Contract Name",
         hash:"Hash",
         name:"Name",
@@ -187,7 +193,7 @@ const en = {
     },
     addressPage: {
         number: "No.",
-        address: "address",
+        address: "Address",
         neoBalance: "Neo Balance",
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
@@ -237,12 +243,24 @@ const en = {
         nullAccount:"Not Available",
         nullBalance:"Not Available"
     },
-    CandidatesTable: {
-        title:"Candidates",
-        account:"Account",
-        ranking: "Ranking",
-        votes:"Votes",
-        percentage:"Percentage",
+    search: {
+        placeholder:"Search for Blocks, Transactions, Accounts, Tokens or Contracts",
+        information:"Sorry! Your entry did not match any results in our database. Please check your entry",
+        dataSupport:" Data formats we currently support:",
+        block:"Block Hash (UInt256), Block Height (Int)",
+        transaction:"Transaction ID (UInt256)",
+        account:"Account Script Hash (UInt160), Account Address (WIF)",
+        token:"Token / Contract Script Hash (UInt160)",
+        button:"Back to Home Page"
     },
+    pageNotFound:{
+        information_s:"Sorry!",
+        information_t:"The Page You Visited Is Not Available.",
+        information_v:"Try visiting in a few minutes and check your path input."
+    },
+
+
+
+
 }
 export default en

@@ -1,6 +1,6 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div class="table-responsive">
+  <div  class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+    <div v-if="this.totalCount != 0" class="table-responsive">
       <loading
           :is-full-page="false"
           :opacity="0.9"
@@ -33,7 +33,7 @@
 
           <td class="budget">
             <div>
-              <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Not Available</div>
+              <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
               <div class="txid" v-else>
                 <a class="name mb-0 text-sm " style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
               </div>
@@ -46,11 +46,13 @@
           </td>
           <td class="Type">
             <div >
-              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">Block Reward</span>
-              <span class="text-success" v-else-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> Transfer Reward </span>
-              <span class="text-success" v-else-if="row.item.from === null" type="primary">Mint</span>
-              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-              <span class="text-info" v-else> Transfer</span>
+              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null && row.item.value === '50000000'" type="primary">{{$t('blockReward')}}</span>
+              <span class="text-warning" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null" type="primary">{{$t('networkFeeReward')}}</span>
+              <span class="text-danger" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.to === null" type="primary">{{$t('feeBurn')}}</span>
+              <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> {{$t('transferReward')}} </span>
+              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
+              <span class="text-info" v-else> {{$t('transfer')}}</span>
             </div>
           </td>
           <td class="from">
@@ -88,6 +90,11 @@
         </template>
       </base-table>
     </div>
+    <div v-else class="row">
+      <div class="col">
+        <card shadow class="text-center ">{{$t('addressPage.nep17nullPrompt')}}</card>
+      </div>
+    </div>
     <div v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
@@ -111,6 +118,7 @@
       ></base-pagination>
     </div>
   </div>
+
 </template>
 <script>
 import axios from "axios";
@@ -160,7 +168,13 @@ export default {
       };
     },
   },
+  watch:{
+    account_address:'watchcontract'
+  },
   methods: {
+    watchcontract() {//如果路由有变化，执行的对应的动作
+      this.GetNep17TransferByAddress(0);
+    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;
