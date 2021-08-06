@@ -74,7 +74,7 @@
             </router-link>
           </li>
         </ul>
-        <li class="nav-item" style="margin-right: 0px" >
+        <div class="nav-item" style="margin-right: 0px" >
          <div @click="switch_the_language('en')" style="cursor: pointer">
            English
          </div>
@@ -84,7 +84,7 @@
           <div  style="cursor: pointer" @click="switch_the_language('fr')">
             Français
           </div>
-        </li>
+        </div>
 
       </template>
     </base-nav>

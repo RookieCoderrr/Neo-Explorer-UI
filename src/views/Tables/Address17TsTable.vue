@@ -219,10 +219,15 @@ export default {
     getToAccount() {
       return;
     },
-    convertTime(time) {
-      return format(time);
+    convertTime(ts) {
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
-
     GetNep17TransferByAddress(skip) {
       axios({
         method: "post",

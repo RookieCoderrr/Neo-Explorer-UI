@@ -8,7 +8,7 @@ const en = {
     nullAddress: "Null Address",
     hash: "Hash",
     wif: "WIF",
-    page: "Page",
+    bytes: "Bytes",
     authLayout:{
         home:"Home",
         blocks:"Blocks",
@@ -49,6 +49,7 @@ const en = {
         totalSysFee:"Total SystemFee",
         totalNetFee:"Total NetworkFee",
         txnsList:"Transaction List",
+        nullPrompt: "This block has no transactions.",
         txTable:{
             txID:"Transaction ID",
             height:"Block Height",
@@ -116,8 +117,14 @@ const en = {
         fromBalance:"From Balance",
         to:"To",
         toBalance:"To Balance",
-        Amount:"Amount",
+        amount:"Amount",
+        reward:"Reward",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Null Account",
+        nullBalance:"Null Balance"
     },
+
     tokensTable: {
         title: "Tokens List",
         hash: "Hash",
@@ -152,12 +159,14 @@ const en = {
         amount: "amount",
         time: "time",
         tokenID: "tokenid",
+        nullPrompt: "This token has no transactions."
     },
     tokenHolder: {
         ranking: "Ranking",
         address: "Address",
-        balance: "Balance",
+        balance: "balance",
         percentage: "percentage",
+        nullPrompt: "This token has no holders."
     },
     addressPage: {
         number: "No.",
@@ -166,7 +175,6 @@ const en = {
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
         hash: "Hash",
-        accountsTable: "Address",
         addressProfile: {
             title: "Account: ",
             type: "Type",
@@ -178,7 +186,30 @@ const en = {
             nep17title: "NEP17 Transfers",
             nep11title: "NEp11 Transfers",
         }
-    }
+    },
+    NftTable: {
+        title: "NEP11 Transfers",
+        contract:"Contract",
+        token:"Token",
+        tokenId:"Token ID",
+        type:"Type",
+        from:"From",
+        fromBalance:"From Balance",
+        to:"To",
+        toBalance:"To Balance",
+        amount:"Amount",
+        mint:"Mint",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Null Account",
+    },
+    CandidatesTable: {
+        title:"Candidates",
+        account:"Account",
+        ranking: "Ranking",
+        votes:"Votes",
+        percentage:"Percentage",
+    },
 
 }
 export default en
