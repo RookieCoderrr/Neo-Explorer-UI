@@ -26,13 +26,7 @@ const fr = {
         totalCndidtes:"Cndidtes Totals",
         recentBlocks:"Derniers Blocs",
         recentTxs:"Derniers Transactions",
-        bcTable:{
-            hash:"Bloc Hash",
-            height:"Indice",
-            txs:"Txns",
-            size:"Taille",
-            time:"Temps",
-        },
+        seeAll:"Voir tout",
         txTable:{
             txID:"Transaction ID",
             size:"Taille",
@@ -41,6 +35,50 @@ const fr = {
         }
 
 
+    },
+    blockinfo:{
+        title:"Tableau Bloc",
+        time:"Temps",
+        bytes:"Octets",
+        size:"Taille de Bloc",
+        height:"Indice de Bloc",
+        version:"Version",
+        hash:"Bloc Hash",
+        preHash:"Hash Précédent",
+        txns:"Tx Somme",
+        transfers:"Transferts",
+        totalSysFee:"Frais de système totals",
+        totalNetFee:"Frais de réseau totals",
+        txnsList:"Tableau de Transaction",
+        txTable:{
+            txID:"Transaction ID",
+            height:"Index de Bloc",
+            size:"Taille",
+            time:"Temps",
+            gas:"Gas Utilisé "
+        }
+    },
+    contract:{
+        search:"Rechercher par nom de contract",
+        hash:"Hash",
+        name:"Nom",
+        creator:"Créateur",
+        index:"Indice",
+        creatTime:"Temps créé",
+        available:"Non disponible",
+        update:"Mise à jour le competeur",
+        compiler:"Compilateur",
+        txns:"Nombre de transaction",
+        scCall:"derniers ScCalls",
+        event:{
+            title:"derniers Événement",
+            txID:"Transaction ID",
+            eventName:"Nom d'événement",
+            vmState:"VM Statut",
+            index:"Index",
+            time:"Temps"
+        },
+        conInfo:"Contract Info",
     },
     transactionList:{
         title: "Tableau Transaction",
@@ -122,6 +160,18 @@ const fr = {
         balance: "Somme de jeton",
         percentage: "pourcentage",
     },
+    addressPage: {
+        number: "No.",
+        address: "addresse",
+        neoBalance: "Nombre de NEO",
+        gasBalance: "Nombre de GAS",
+        createdTime: "Temps créé",
+        hash: "Hash",
+        addressProfile: {
+            title: "Compte: ",
+            type: "Genre",
+        }
+    }
 
 
 }

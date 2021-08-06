@@ -161,6 +161,13 @@ module.exports = {
         addressProfile: {
             title: "账户：",
             type: "类型",
+            txNums: "交易数",
+            nep17Transfers: "NEP17转账数",
+            nep11Transfers: "NEP11转账数",
+            tokenBalance: "通证余额",
+            tx: "交易记录",
+            nep17title: "NEP17转账记录",
+            nep11title: "NEP11转账记录",
         }
     }
 
