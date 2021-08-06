@@ -3,7 +3,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <candidates-table title="Candidate List"></candidates-table>
+          <candidates-table :title="$t('candidate.title')"></candidates-table>
         </div>
       </div>
     </div>

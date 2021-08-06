@@ -27,14 +27,14 @@
           :data="tableData"
         >
           <template v-slot:columns>
-            <th>{{$t('transferList.contract')}}</th>
-            <th>{{$t('transferList.token')}}</th>
-            <th>{{$t('transferList.type')}}</th>
-            <th>{{$t('transferList.from')}} <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-            <th>{{$t('transferList.fromBalance')}}</th>
-            <th>{{$t('transferList.to')}} <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-            <th>{{$t('transferList.toBalance')}}</th>
-            <th>{{$t('transferList.amount')}}</th>
+            <th>{{ $t('transactionTransfer.contract')}}</th>
+            <th>{{ $t('transactionTransfer.token')}}</th>
+            <th>{{ $t('transactionTransfer.type')}}</th>
+            <th>{{ $t('transactionTransfer.from')}}<button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
+            <th>{{ $t('transactionTransfer.fromBalance')}}</th>
+            <th>{{ $t('transactionTransfer.to')}}<button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
+            <th>{{ $t('transactionTransfer.toBalance')}}</th>
+            <th>{{ $t('transactionTransfer.amount')}}</th>
           </template>
 
           <template v-slot:default="row">
@@ -55,36 +55,31 @@
             </td>
             <td class="budget">
               <div >
-                <span class="text-success" v-if="row.item.from === null" type="primary"> {{$t('transferList.reward')}} </span>
-                <span class="text-danger" v-else-if="row.item.to === null" > {{$t('transferList.burn')}}</span>
-                <span class="text-info" v-else> {{$t('transferList.transfer')}}</span>
+                <span class="text-success" v-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> {{$t('transferReward')}} </span>
+                <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
+                <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+                <span class="text-info" v-else> {{$t('transfer')}}</span>
               </div>
             </td>
             <td class="budget">
               <div class="from">
-                <span class="text-muted" v-if="row.item.from === null"> {{$t('transferList.nullAccount')}}</span>
-                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}
-                </a>
-
+                <span class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}}</span>
+                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}</a>
               </div>
             </td>
             <td class="budget">
-              <span class="text-muted" v-if="row.item.from === null"> {{$t('transferList.nullBalance')}} </span>
+              <span class="text-muted" v-if="row.item.from === null">{{$t('nullBalance')}}</span>
               <span  v-else >{{ convertToken(row.item.frombalance, row.item.decimals) }}</span>
             </td>
             <td class="budget">
               <div class="to">
-                <a
-                  class="name mb-0 text-sm"
-                  style="cursor: pointer"
-                  @click="getAccount(row.item.to)"
-                  >{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a
-                >
+                <span class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}}</span>
+                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a>
               </div>
             </td>
 
             <td class="budget">
-              <span class="text-muted" v-if="row.item.to === null"> {{$t('transferList.nullBalance')}}</span>
+              <span class="text-muted" v-if="row.item.to === null"> {{$t('nullBalance')}} </span>
               <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
             </td>
 
