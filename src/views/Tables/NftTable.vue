@@ -76,7 +76,7 @@
           <td class="budget">
             <div class="to">
               <span class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}}</span>
-              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAccount(row.item.to)">{{ this.toState ? scriptHashToAddress(row.item.to):row.item.to }}</a>
             </div>
           </td>
 
@@ -195,10 +195,10 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData[0] = res["data"]["result"];
-        if (this.tableData[0] == null) {
+        this.tableData = res["data"]["result"];
+        if (this.tableData == null) {
           this.length = 0;
-          this.tableData[0] = [];
+          this.tableData = [];
         } else {
           this.length = 1;
         }

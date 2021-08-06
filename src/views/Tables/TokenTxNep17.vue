@@ -38,8 +38,8 @@
             <div >
               <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">{{$t('blockReward')}}</span>
               <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> {{$t('transferReward')}} </span>
-              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
-              <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
               <span class="text-info" v-else> {{$t('transfer')}}</span>
             </div>
           </td>
