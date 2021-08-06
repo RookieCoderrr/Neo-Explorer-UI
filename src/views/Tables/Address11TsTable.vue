@@ -1,5 +1,5 @@
 <template>
-  <div class="table-responsive">
+  <div v-if="this.totalCount != 0" class="table-responsive">
     <loading
         :is-full-page="false"
         :opacity="0.9"
@@ -83,6 +83,11 @@
       </template>
     </base-table>
   </div>
+  <div v-else class="row">
+    <div class="col">
+      <card shadow class="text-center">{{$t('addressPage.nep11nullPrompt')}}</card>
+    </div>
+  </div>
   <div v-if="this.totalCount > 10 "
     class="card-footer d-flex justify-content-end"
     :class="type === 'dark' ? 'bg-transparent' : ''"
@@ -105,6 +110,7 @@
       v-on:input="pageChange($event)"
     ></base-pagination>
   </div>
+
 </template>
 <script>
 import axios from "axios";

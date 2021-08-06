@@ -1,6 +1,6 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div class="table-responsive">
+    <div v-if="this.totalCount != 0" class="table-responsive">
       <loading
           :is-full-page="false"
           :opacity="0.9"
@@ -46,6 +46,11 @@
           </td>
         </template>
       </base-table>
+    </div>
+    <div v-else class="row">
+      <div class="col">
+        <card shadow class="text-center ">{{$t('addressPage.txnullPrompt')}}</card>
+      </div>
     </div>
 
     <div v-if="this.totalCount > 10"
