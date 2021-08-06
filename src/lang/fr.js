@@ -192,6 +192,7 @@ const fr = {
         burn: "Brûler",
         transfer:"Transférer",
         nullAccount:"Non Disponible",
+        nullBalance:"Non Disponible"
     },
     CandidatesTable: {
         title:"Candidats",

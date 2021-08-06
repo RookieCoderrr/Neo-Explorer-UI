@@ -70,7 +70,8 @@
             </div>
           </td>
           <td class="budget">
-            {{ row.item.frombalance }}
+            <span class="text-muted" v-if="row.item.from === null"> {{$t('NftTable.nullBalance')}} </span>
+            <span v-else>{{ row.item.frombalance }}</span>
           </td>
           <td class="budget">
             <div class="to">
@@ -81,7 +82,8 @@
           </td>
 
           <td class="budget">
-            {{ row.item.tobalance }}
+            <span class="text-muted" v-if="row.item.to === null"> {{$t('NftTable.nullBalance')}}</span>
+            <span v-else>{{ row.item.tobalance }}</span>
           </td>
 
           <td class="budget">
