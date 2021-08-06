@@ -209,6 +209,7 @@ module.exports = {
         burn:"销币交易",
         transfer:"转账",
         nullAccount:"不适用",
+        nullBalance:"不适用"
     },
     CandidatesTable: {
         title:"候选人",

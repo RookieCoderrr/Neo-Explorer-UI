@@ -39,8 +39,8 @@ const en = {
         title:"Block List",
         time:"Time",
         bytes:"Bytes",
-        size:"BlockSize",
-        height:"Block Height",
+        size:"Size",
+        height:" Height",
         version:"Version Number",
         hash:"BlockHash",
         preHash:"PreHash",
@@ -209,7 +209,8 @@ const en = {
         mint:"Mint",
         burn:"Burn",
         transfer:"Transfer",
-        nullAccount:"Null Account",
+        nullAccount:"Not Available",
+        nullBalance:"Not Available"
     },
     CandidatesTable: {
         title:"Candidates",
