@@ -75,7 +75,7 @@
                     <div class="panel panel-primary">
                       <div class=" font-weight-bold mb-0">{{$t('addressPage.addressProfile.nep11Transfers')}}</div>
                       <div class="panel-body">
-                        {{  this.numOlnep11Transfers}}
+                        {{  this.numOfnep11Transfers}}
                       </div>
                     </div>
                   </card>
@@ -376,6 +376,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log("Transfer11", res["data"]["result"]["totalCount"])
         this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
       }).catch((err) => {
         console.log("Get nep 11 transfers error: ", err)
