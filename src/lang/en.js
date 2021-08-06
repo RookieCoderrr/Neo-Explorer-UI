@@ -175,6 +175,14 @@ const en = {
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
         hash: "Hash",
+        txnullPrompt: "This account has no transactions.",
+        nep17nullPrompt: "This account has no NEP17 transfers.",
+        nep11nullPrompt: "This account has no NEP11 transfers.",
+        typeEnum: {
+            normal: "Normal",
+            committee: "Committee",
+            candidate: "Candidate",
+        },
         addressProfile: {
             title: "Account: ",
             type: "Type",
@@ -185,7 +193,7 @@ const en = {
             tx: "Transactions",
             nep17title: "NEP17 Transfers",
             nep11title: "NEp11 Transfers",
-        }
+        },
     },
     NftTable: {
         title: "NEP11 Transfers",

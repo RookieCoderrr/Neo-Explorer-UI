@@ -13,14 +13,20 @@
       :data="tableData"
     >
       <template v-slot:columns>
-        <th>Tx id</th>
-        <th>Token</th>
-        <th>Type</th>
-        <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
+        <th>{{$t('tokenTx.txid')}}</th>
+        <th>{{$t('transferList.token')}}</th>
+        <th>{{$t('transferList.type')}}</th>
+        <th>{{$t('transferList.from')}}
+          <button v-if="this.fromButton==='Hash'" class="btn btn-sm btn-primary" @click="changeFrom()">{{$t('addressPage.hash')}}</button>
+          <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button>
+        </th>
         <th></th>
-        <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-        <th>Amount</th>
-        <th>Time</th>
+        <th>{{$t('transferList.to')}}
+          <button v-if="this.toButton==='Hash'" class="btn btn-sm btn-primary" @click="changeTo()">{{$t('addressPage.hash')}}</button>
+          <button v-else class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button>
+        </th>
+        <th>{{$t('transferList.amount')}}</th>
+        <th>{{$t('tokenTx.time')}}</th>
       </template>
 
       <template v-slot:default="row">
