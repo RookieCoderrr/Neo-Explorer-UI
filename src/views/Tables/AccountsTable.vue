@@ -28,10 +28,7 @@
       >
         <template v-slot:columns>
           <th>{{$t('addressPage.number')}}</th>
-          <th>{{$t('addressPage.address')}}
-            <button v-if="this.buttonName==='Hash'" class="btn btn-sm btn-primary" @click="changeFormat()">{{$t('addressPage.hash')}}</button>
-            <button v-else class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
-          </th>
+          <th>{{$t('addressPage.address')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
           <th>{{$t('addressPage.neoBalance')}}</th>
           <th>{{$t('addressPage.gasBalance')}}</th>
           <th>{{$t('addressPage.createdTime')}}</th>

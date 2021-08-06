@@ -132,8 +132,8 @@ export default {
       countPage: 1,
       fromState: true,
       toState: true,
-      fromButton: this.$t('hash'),
-      toButton: this.$t('hash'),
+      fromButton: "Hash",
+      toButton: "Hash",
     };
   },
   created() {
@@ -193,19 +193,19 @@ export default {
     changeFromFormat() {
       if (this.fromState === true) {
         this.fromState = false;
-        this.fromButton = this.$t('wif');
+        this.fromButton = "WIF";
       } else {
         this.fromState = true;
-        this.fromButton = this.$t('hash');
+        this.fromButton = "Hash";
       }
     },
     changeToFormat() {
       if (this.toState === true) {
         this.toState = false;
-        this.toButton = this.$t('wif');
+        this.toButton = "WIF";
       } else {
         this.toState = true;
-        this.toButton = this.$t('hash');
+        this.toButton = "Hash";
       }
     },
     getTokenList(skip) {
