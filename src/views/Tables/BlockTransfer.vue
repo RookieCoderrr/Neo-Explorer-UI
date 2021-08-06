@@ -14,7 +14,6 @@
                     :data="NEP17TxList"
             >
                 <template v-slot:columns>
-                    <th>{{$t('tokenTx.txid')}}</th>
                     <th>{{$t('tokenTx.type')}}</th>
                     <th>{{$t('tokenTx.from')}}<button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
                     <th></th>
@@ -24,16 +23,6 @@
                 </template>
 
                 <template v-slot:default="row">
-                    <th scope="row">
-                        <div class="media align-items-center">
-                            <div class="media-body ">
-                                <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
-                                <div class="txid" v-else>
-                                    <a class="name mb-0 text-sm"  style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </th>
                     <td class="Type">
                         <div >
                             <span class="text-primary" v-if="row.item.from === null && row.item.value === '50000000'" type="primary">{{$t('blockReward')}}</span>
