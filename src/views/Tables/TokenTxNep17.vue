@@ -36,7 +36,9 @@
           </th>
           <td class="Type">
             <div >
-              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'" type="primary">{{$t('blockReward')}}</span>
+              <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null && row.item.value === '50000000'" type="primary">{{$t('blockReward')}}</span>
+              <span class="text-warning" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null" type="primary">{{$t('networkFeeReward')}}</span>
+              <span class="text-danger" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.to === null" type="primary">{{$t('feeBurn')}}</span>
               <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> {{$t('transferReward')}} </span>
               <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
               <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>

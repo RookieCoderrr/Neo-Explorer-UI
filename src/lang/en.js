@@ -1,10 +1,12 @@
 const en = {
     na: "Not Available",
     blockReward: "Block Reward",
+    networkFeeReward: "Network Fee Reward",
+    feeBurn: "Transaction Fee Burn",
     transferReward: "Transfer Reward",
     mint: "Mint",
     burn: "Burn",
-    transfer: "transfer",
+    transfer: "Transfer",
     nullAddress: "Null Address",
     nullBalance: "Null Balance",
     hash: "Hash",
