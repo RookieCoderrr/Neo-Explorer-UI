@@ -127,7 +127,13 @@ export default {
     this.getNep17TransferByTransactionHash(this.txhash);
     // this.hasContent(this.length)
   },
+  watch:{
+    txhash:'watchtxhash'
+  },
   methods: {
+    watchtxhash() {//如果路由有变化，执行的对应的动作
+      this.getNep17TransferByTransactionHash(this.txhash);
+    },
     convertToken(token, decimal) {
       var temp = token * Math.pow(0.1, decimal);
       if (temp % 1 === 0) {

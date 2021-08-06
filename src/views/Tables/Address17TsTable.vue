@@ -160,7 +160,13 @@ export default {
       };
     },
   },
+  watch:{
+    account_address:'watchcontract'
+  },
   methods: {
+    watchcontract() {//如果路由有变化，执行的对应的动作
+      this.GetNep17TransferByAddress(0);
+    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;

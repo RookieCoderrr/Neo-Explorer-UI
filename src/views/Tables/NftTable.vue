@@ -127,7 +127,13 @@ export default {
   created() {
     this.getNep11TransferByTransactionHash(this.txhash);
   },
+  watch:{
+    txHash:'watchhash'
+  },
   methods: {
+    watchhash() {//如果路由有变化，执行的对应的动作
+      this.getNep11TransferByTransactionHash(this.txhash);
+    },
     mouseHover(contract) {
       var a = document.getElementById("contract");
       a.addEventListener("mouseover", function (event) {
