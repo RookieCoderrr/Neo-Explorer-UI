@@ -128,8 +128,14 @@ export default {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
 
-    convertTime(time) {
-      return format(time);
+    convertTime(ts) {
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     getTransaction(txhash) {
       this.$router.push({

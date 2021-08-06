@@ -111,9 +111,15 @@
             },
         },
         methods: {
-            convertTime(time) {
-              return format(time);
-            },
+          convertTime(ts) {
+            const lang = this.$i18n.locale;
+            switch (lang) {
+              case "cn":
+                return format(ts, "zh_CN");
+              default:
+                return format(ts);
+            }
+          },
             toBlocksTable(){
                 this.$router.push({
                     path: `/blocks`,

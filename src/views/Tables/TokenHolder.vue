@@ -72,7 +72,7 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center ">This Asset has no holders.</card>
+  <card shadow v-else class="text-center ">{{$t('tokenHolder.nullPrompt')}}</card>
 </template>
 <script>
 import axios from "axios";
@@ -151,8 +151,14 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTokenList(skip);
     },
-    convertTime(ts){
-      return format(ts);
+    convertTime(ts) {
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     convertToken(val, decimal) {
       return val * Math.pow(10, -decimal);

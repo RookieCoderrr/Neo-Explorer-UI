@@ -11,7 +11,7 @@
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
+            {{$t('NftTable.title')}}
           </h3>
         </div>
       </div>
@@ -26,15 +26,15 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Contract</th>
-          <th>Token</th>
-          <th>Token ID</th>
-          <th>Type</th>
-          <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-          <th>From Balance</th>
-          <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-          <th>To Balance</th>
-          <th>Amount</th>
+          <th>{{$t('NftTable.contract')}}</th>
+          <th>{{$t('NftTable.token')}}</th>
+          <th>{{$t('NftTable.tokenId')}}</th>
+          <th>{{$t('NftTable.type')}}</th>
+          <th>{{$t('NftTable.from')}} <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
+          <th>{{$t('NftTable.fromBalance')}}</th>
+          <th>{{$t('NftTable.to')}} <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
+          <th>{{$t('NftTable.toBalance')}}</th>
+          <th>{{$t('NftTable.amount')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -57,14 +57,14 @@
           </td>
           <td class="budget">
             <div >
-              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
-              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-              <span class="text-info" v-else> Transfer</span>
+              <span class="text-success" v-if="row.item.from === null" type="primary"> {{$t('NftTable.mint')}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t('NftTable.burn')}}</span>
+              <span class="text-info" v-else> {{$t('NftTable.transfer')}}</span>
             </div>
           </td>
           <td class="budget">
             <div class="from">
-              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
+              <span class="text-muted" v-if="row.item.from === null"> {{$t('NftTable.nullAccount')}} </span>
               <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ this.fromState? scriptHashToAddress(row.item.from):row.item.from}}
               </a>
             </div>
@@ -74,7 +74,7 @@
           </td>
           <td class="budget">
             <div class="to">
-              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
+              <span class="text-muted" v-if="row.item.to === null"> {{$t('NftTable.nullAccount')}} </span>
               <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}
               </a>
             </div>

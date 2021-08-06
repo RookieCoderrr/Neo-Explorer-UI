@@ -152,7 +152,13 @@ export default {
       }
     },
     convertTime(ts) {
-      return format(ts);
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
     pageChange(pageNumber) {
       this.isLoading = true;
