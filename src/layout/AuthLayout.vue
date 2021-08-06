@@ -156,7 +156,7 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-      lang:"Language"
+      lang:"English 🇬🇧"
     };
   },
   methods: {

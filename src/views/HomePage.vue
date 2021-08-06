@@ -163,7 +163,6 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        console.log(res)
         this.accountCount = res["data"]["result"]["total counts"];
       });
     },
