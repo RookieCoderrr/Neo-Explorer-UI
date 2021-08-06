@@ -26,15 +26,15 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Contract</th>
-          <th>Token</th>
-          <th>Token ID</th>
-          <th>Type</th>
-          <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-          <th>From Balance</th>
-          <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-          <th>To Balance</th>
-          <th>Amount</th>
+          <th>{{ $t('transactionTransfer.contract')}}</th>
+          <th>{{ $t('transactionTransfer.token')}}</th>
+          <th>{{ $t('transactionTransfer.tokenID')}}</th>
+          <th>{{ $t('transactionTransfer.type')}}</th>
+          <th>{{ $t('transactionTransfer.from')}}<button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
+          <th>{{ $t('transactionTransfer.fromBalance')}}</th>
+          <th>{{ $t('transactionTransfer.to')}}<button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
+          <th>{{ $t('transactionTransfer.toBalance')}}</th>
+          <th>{{ $t('transactionTransfer.amount')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -57,35 +57,36 @@
           </td>
           <td class="budget">
             <div >
-              <span class="text-success" v-if="row.item.from === null" type="primary"> Mint </span>
-              <span class="text-danger" v-else-if="row.item.to === null" > Burn </span>
-              <span class="text-info" v-else> Transfer</span>
+              <span class="text-success" v-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> {{$t('transferReward')}} </span>
+              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+              <span class="text-info" v-else> {{$t('transfer')}}</span>
             </div>
           </td>
           <td class="budget">
             <div class="from">
-              <span class="text-muted" v-if="row.item.from === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{ this.fromState? scriptHashToAddress(row.item.from):row.item.from}}
-              </a>
+              <span class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}}</span>
+              <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}</a>
             </div>
           </td>
           <td class="budget">
-            {{ row.item.frombalance }}
+            <span class="text-muted" v-if="row.item.from === null">{{$t('nullBalance')}}</span>
+            <span  v-else >{{ convertToken(row.item.frombalance, row.item.decimals) }}</span>
           </td>
           <td class="budget">
             <div class="to">
-              <span class="text-muted" v-if="row.item.to === null"> Null Account </span>
-              <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}
-              </a>
+              <span class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}}</span>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a>
             </div>
           </td>
 
           <td class="budget">
-            {{ row.item.tobalance }}
+            <span class="text-muted" v-if="row.item.to === null"> {{$t('nullBalance')}} </span>
+            <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
           </td>
 
           <td class="budget">
-            {{ row.item.value }}
+            {{ convertToken(row.item.value, row.item.decimals) }}
           </td>
         </template>
       </base-table>
@@ -139,7 +140,14 @@ export default {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
     },
-
+    convertToken(token, decimal) {
+      var temp = token * Math.pow(0.1, decimal);
+      if (temp % 1 === 0) {
+        return temp;
+      } else {
+        return (token * Math.pow(0.1, decimal)).toFixed(6);
+      }
+    },
     getContract(ctrHash) {
       this.$router.push({
         path: `/contractinfo/${ctrHash}`,
