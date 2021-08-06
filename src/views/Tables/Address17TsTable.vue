@@ -1,6 +1,6 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div class="table-responsive">
+  <div  class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+    <div v-if="this.totalCount != 0" class="table-responsive">
       <loading
           :is-full-page="false"
           :opacity="0.9"
@@ -90,6 +90,11 @@
         </template>
       </base-table>
     </div>
+    <div v-else class="row">
+      <div class="col">
+        <card shadow class="text-center ">{{$t('addressPage.nep17nullPrompt')}}</card>
+      </div>
+    </div>
     <div v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
@@ -113,6 +118,7 @@
       ></base-pagination>
     </div>
   </div>
+
 </template>
 <script>
 import axios from "axios";
@@ -162,7 +168,13 @@ export default {
       };
     },
   },
+  watch:{
+    account_address:'watchcontract'
+  },
   methods: {
+    watchcontract() {//如果路由有变化，执行的对应的动作
+      this.GetNep17TransferByAddress(0);
+    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;

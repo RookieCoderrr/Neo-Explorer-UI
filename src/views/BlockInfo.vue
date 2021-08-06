@@ -72,7 +72,7 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">{{$t('blockinfo.blockReward')}} </div>
                     </div>
-                    <div class="col-4">{{this.block_info.networkFee}} GAS</div>
+                    <div class="col-4">0.5 GAS</div>
                   </div>
                 </card>
                 <div class="row mt-3">    </div>
@@ -101,7 +101,7 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
                     </div>
-                    <div class="col-4">{{ this.transfercount }}
+                    <div class="col-4">{{ parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) }}
                     </div>
 
                   </div>
@@ -138,13 +138,21 @@
 <!--                  </div>-->
 
 <!--                </div>-->
-                <div class="row mt-3">    </div>
+                <div class="row mt-3">   </div>
 
-                <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
-                <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
               </div>
-
-
+              <div>
+              <tabs fill class="flex-column flex-md-row">
+                <tab-pane icon="ni ni-diamond" :title="$t('blockinfo.txnsList')">
+                  <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
+                  <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
+                </tab-pane>
+                <tab-pane icon="ni ni-single-02 mr-2" :title="$t('blockinfo.trfsList')">
+                  <block-transfer v-if=" parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transfer>
+                  <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
+                </tab-pane>
+                </tabs>
+              </div>
             </div>
           </div>
         </div>
@@ -157,11 +165,13 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-// import { format } from "timeago.js";
 import BlockTransaction from "./Tables/BlockTransaction";
+import BlockTransfer from "./Tables/BlockTransfer";
+
 export default {
   components: {
     BlockTransaction,
+    BlockTransfer,
     Loading,
   },
   data() {
@@ -221,25 +231,6 @@ export default {
         },
       }).then((res) => {
         this.block_info = res["data"]["result"];
-        this.isLoading = false;
-      });
-
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { BlockHash: hash },
-          method: "GetBlockRewardByBlockHash",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        console.log(res);
         this.isLoading = false;
       });
     },

@@ -53,6 +53,7 @@ const en = {
         totalSysFee:"Total SystemFee",
         totalNetFee:"Total NetworkFee",
         txnsList:"Transaction List",
+        trfsList:"Transfer List",
         nullPrompt: "This block has no transactions.",
         speaker: "Speaker",
         blockReward: "Block Reward",

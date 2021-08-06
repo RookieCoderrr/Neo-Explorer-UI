@@ -53,6 +53,7 @@ module.exports = {
         totalSysFee: "系统燃料费",
         totalNetFee: "网络燃料费",
         txnsList: "交易列表",
+        trfsList:"转账列表",
         nullPrompt: "该区块未包含交易。",
         speaker: "议长节点",
         blockReward: "出块奖励",
