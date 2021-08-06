@@ -107,7 +107,7 @@
         <input
           type="text"
           class="over-ellipsis"
-          :placeholder="'Search for Blocks, Transactions, Accounts, Tokens or Contracts'"
+          :placeholder="$t('search.placeholder')"
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"

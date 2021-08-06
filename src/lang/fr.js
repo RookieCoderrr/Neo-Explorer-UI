@@ -62,6 +62,7 @@ const fr = {
         }
     },
     contract:{
+        title:"Tableau Contract",
         search:"Rechercher par nom de contract",
         hash:"Hash",
         name:"Nom",
@@ -187,7 +188,7 @@ const fr = {
     },
     addressPage: {
         number: "No.",
-        address: "addresse",
+        address: "Addresse",
         neoBalance: "Nombre de NEO",
         gasBalance: "Nombre de GAS",
         createdTime: "Temps créé",
@@ -228,7 +229,21 @@ const fr = {
         nullAccount:"Non Disponible",
         nullBalance:"Non Disponible"
     },
-
+    search: {
+        placeholder:"Rechercher les Blocs, Transactions, Comptes, Jetons ou Contracts",
+        information:"Pardon! Votre entrée ne correspond à aucun résultat dans le base de données.Vérifiez votre entrée, s'il vous plaît !",
+        dataSupport:"Format de données qu'on supporte maintenant:",
+        block:"Bloc Hash (UInt256), Bloc Index (Int)",
+        transaction:"Transaction ID (UInt256)",
+        account:"Compte Script Hash (UInt160), Compte Addresse (WIF)",
+        token:"Jeton / Contract Script Hash (UInt160)",
+        button:"Retourner à la page d'accueil"
+    },
+    pageNotFound:{
+        information_s:"Désolé!",
+        information_t:"La page que vous recherchez n'exsite pas !",
+        information_v:"Essayez de visiter dans quelque minutes ou vérifiez votre entrée."
+    },
 
 
 }

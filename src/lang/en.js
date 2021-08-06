@@ -61,6 +61,7 @@ const en = {
         }
     },
     contract:{
+        title:"Contract List",
         search:"Search by Contract Name",
         hash:"Hash",
         name:"Name",
@@ -187,7 +188,7 @@ const en = {
     },
     addressPage: {
         number: "No.",
-        address: "address",
+        address: "Address",
         neoBalance: "Neo Balance",
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
@@ -229,12 +230,24 @@ const en = {
         nullAccount:"Not Available",
         nullBalance:"Not Available"
     },
-    CandidatesTable: {
-        title:"Candidates",
-        account:"Account",
-        ranking: "Ranking",
-        votes:"Votes",
-        percentage:"Percentage",
+    search: {
+        placeholder:"Search for Blocks, Transactions, Accounts, Tokens or Contracts",
+        information:"Sorry! Your entry did not match any results in our database. Please check your entry",
+        dataSupport:" Data formats we currently support:",
+        block:"Block Hash (UInt256), Block Height (Int)",
+        transaction:"Transaction ID (UInt256)",
+        account:"Account Script Hash (UInt160), Account Address (WIF)",
+        token:"Token / Contract Script Hash (UInt160)",
+        button:"Back to Home Page"
     },
+    pageNotFound:{
+        information_s:"Sorry!",
+        information_t:"The Page You Visited Is Not Available.",
+        information_v:"Try visiting in a few minutes and check your path input."
+    },
+
+
+
+
 }
 export default en
