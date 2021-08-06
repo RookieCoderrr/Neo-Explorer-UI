@@ -9,6 +9,7 @@ const en = {
     nullBalance: "Null Balance",
     hash: "Hash",
     wif: "WIF",
+    page: "Page",
     bytes: "Bytes",
     authLayout:{
         home:"Home",
@@ -65,6 +66,7 @@ const en = {
         name:"Name",
         creator:"Creator",
         index:"Index",
+        creatTime:"Create Time",
         time:"Create Time",
         available:"Not Available",
         update:"Updates",
@@ -109,6 +111,7 @@ const en = {
         invocation:"Invocation",
         verification:"Verification",
         script:"Script",
+
         nep11: "Nep11 Transfers",
         nep17: "Nep17 Transfers",
     },
@@ -139,7 +142,6 @@ const en = {
         nullAccount:"Null Account",
         nullBalance:"Null Balance"
     },
-
     tokensTable: {
         title: "Tokens List",
         hash: "Hash",
@@ -179,7 +181,7 @@ const en = {
     tokenHolder: {
         ranking: "Ranking",
         address: "Address",
-        balance: "balance",
+        balance: "Balance",
         percentage: "percentage",
         nullPrompt: "This token has no holders."
     },
@@ -190,6 +192,7 @@ const en = {
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
         hash: "Hash",
+        accountsTable: "Address",
         addressProfile: {
             title: "Account: ",
             type: "Type",
@@ -233,6 +236,5 @@ const en = {
         votes:"Votes",
         percentage:"Percentage",
     },
-
 }
 export default en

@@ -63,7 +63,7 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
+        <div class="text">{{$t('page')}} &nbsp;</div>
         <base-input
           type="number"
           :style="text(pagination)"
