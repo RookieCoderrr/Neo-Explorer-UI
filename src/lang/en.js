@@ -118,7 +118,6 @@ const en = {
         toBalance:"To Balance",
         Amount:"Amount",
     },
-
     tokensTable: {
         title: "Tokens List",
         hash: "Hash",
@@ -157,7 +156,7 @@ const en = {
     tokenHolder: {
         ranking: "Ranking",
         address: "Address",
-        balance: "balance",
+        balance: "Balance",
         percentage: "percentage",
     },
     addressPage: {

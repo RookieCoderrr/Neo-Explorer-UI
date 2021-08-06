@@ -14,14 +14,14 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Tx ID</th>
-          <th>Token</th>
-          <th>Type</th>
-          <th>From <button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
+          <th>{{$t('tokenTx.txid')}}</th>
+          <th>{{$t('transferList.token')}}</th>
+          <th>{{$t('transferList.type')}}</th>
+          <th>{{$t('transferList.from')}}<button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
           <th></th>
-          <th>To <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-          <th>Amount</th>
-          <th>Time</th>
+          <th>{{$t('transferList.to')}} <button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
+          <th>{{$t('transferList.Amount')}}</th>
+          <th>{{$t('tokenTx.type')}}</th>
         </template>
         <template v-slot:default="row">
 

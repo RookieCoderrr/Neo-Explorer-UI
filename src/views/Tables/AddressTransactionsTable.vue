@@ -14,11 +14,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Transaction ID</th>
-          <th>Block Height</th>
-          <th>Size</th>
-          <th>Time</th>
-          <th>GAS Consumed</th>
+          <th>{{$t('transactionList.transactionId')}}</th>
+          <th>{{$t('transactionList.blockHeight')}}</th>
+          <th>{{$t('transactionList.size')}}</th>
+          <th>{{$t('transactionList.time')}}</th>
+          <th>{{$t('transactionList.gasConsumed')}}</th>
 
         </template>
 
