@@ -117,7 +117,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}This account has no NEP17 transfers.</card>
+                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}</card>
                     </div>
                   </div>
                 </tab-pane>

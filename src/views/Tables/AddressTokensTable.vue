@@ -216,7 +216,6 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          console.log(res)
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
           this.tokenList[k]["standard"] = res["data"]["result"]["type"];
