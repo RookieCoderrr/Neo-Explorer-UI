@@ -261,18 +261,15 @@ export default {
       var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
       return m+'-'+d+'-'+y+' '+h+':'+mi+':'+s +' +' + "UTC";
       // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
-      // console.log(res)
       // return res
     },
     changeFormat(){
       if(this.state === true) {
         this.state = false
         this.buttonName = "WIF"
-        console.log(this.state)
         return
       } else {
         this.state = true
-        console.log(this.state)
         this.buttonName = "Hash"
         return
       }

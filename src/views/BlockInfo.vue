@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7" >
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -216,7 +216,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res)
         this.block_info = res["data"]["result"];
         this.isLoading = false;
       });
