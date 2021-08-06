@@ -22,8 +22,14 @@
                     {{ convertTime(this.createdTime) }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">{{$t('addressPage.addressProfile.type')}}</div>
-                  <div class="col-4">
-                    {{ this.type }}
+                  <div v-if="this.type==='normal'" class="col-4">
+                    {{$t('addressPage.typeEnum.normal')}}
+                  </div>
+                  <div v-else-if="this.type==='candidate'" class="col-4">
+                    {{$t('addressPage.typeEnum.candidate')}}
+                  </div>
+                  <div v-else-if="this.type==='committee'" class="col-4">
+                    {{$t('addressPage.typeEnum.committee')}}
                   </div>
                 </div>
               </card>
@@ -94,7 +100,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center ">This account has no transactions.</card>
+                      <card shadow class="text-center ">{{$t('addressPage.txnullPrompt')}}</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -109,7 +115,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center">This account has no NEP17 transfers.</card>
+                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}This account has no NEP17 transfers.</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -122,7 +128,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center ">This account has no NEP11 transfers.</card>
+                      <card shadow class="text-center ">{{$t('addressPage.nep11nullPrompt')}}</card>
                     </div>
                   </div>
                 </tab-pane>
@@ -396,10 +402,10 @@ export default {
           this.type = "normal"
         }
         else if(res["data"]["result"]["isCommittee"] == true) {
-          this.type = "Committee"
+          this.type = "committee"
         }
         else {
-          this.type = "Candidate"
+          this.type = "candidate"
         }
       }).catch((err) => {
         console.log("Get nep 11 transfers error: ", err)

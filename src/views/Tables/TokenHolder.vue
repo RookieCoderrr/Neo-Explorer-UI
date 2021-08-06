@@ -102,7 +102,7 @@ export default {
       isLoading: true,
       countPage:0,
       state: true,
-      buttonName: this.$t('hash'),
+      buttonName: "Hash",
     };
   },
   created() {
@@ -176,10 +176,10 @@ export default {
     changeFormat() {
       if (this.state === true) {
         this.state = false;
-        this.buttonName = this.$t('wif');
+        this.buttonName = "WIF";
       } else {
         this.state = true;
-        this.buttonName = this.$t('hash');
+        this.buttonName = "Hash";
       }
     },
     getTokenList(skip) {

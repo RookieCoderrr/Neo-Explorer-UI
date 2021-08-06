@@ -56,8 +56,8 @@
             <td class="budget">
               <div >
                 <span class="text-success" v-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> {{$t('transferReward')}} </span>
-                <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
-                <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+                <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
+                <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
                 <span class="text-info" v-else> {{$t('transfer')}}</span>
               </div>
             </td>

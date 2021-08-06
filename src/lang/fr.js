@@ -5,9 +5,11 @@ const fr = {
     mint: "Mouler",
     burn: "Brûler",
     transfer: "transférer",
-    nullAddress: "Addresse vide",
+    nullAddress: "Non disponible",
+    nullBalance: "Non disponible",
     hash: "Hash",
     wif: "WIF",
+    bytes: "Octets",
     authLayout:{
         home:"Accueil",
         blocks:"Blocs",
@@ -50,6 +52,7 @@ const fr = {
         totalSysFee:"Frais de système totals",
         totalNetFee:"Frais de réseau totals",
         txnsList:"Tableau de Transaction",
+        nullPrompt: "Il n'y a pas de transaction dans ce bloc",
         txTable:{
             txID:"Transaction ID",
             height:"Index de Bloc",
@@ -64,21 +67,22 @@ const fr = {
         name:"Nom",
         creator:"Créateur",
         index:"Indice",
-        creatTime:"Temps créé",
+        time:"Temps créé",
         available:"Non disponible",
         update:"Mise à jour le competeur",
         compiler:"Compilateur",
         txns:"Nombre de transaction",
-        scCall:"derniers ScCalls",
-        event:{
-            title:"derniers Événement",
-            txID:"Transaction ID",
-            eventName:"Nom d'événement",
-            vmState:"VM Statut",
-            index:"Index",
-            time:"Temps"
-        },
+        scCallTitle:"Derniers appels systèmes",
+        txID:"Transaction ID",
+        sender:"Envoyeur",
+        method:"Méthode",
+        callFlags:"callFlags",
+        eventTitle:"Derniers événement",
+        eventName:"Nom d'événement",
+        vmState:"Statut de VM",
         conInfo:"Contract Info",
+        noScCall:"Ce contract n'a pas d'appels systèmes ",
+        noEvent:"Ce contract n'a pas d'événement "
     },
     transactionList:{
         title: "Tableau Transaction",
@@ -90,6 +94,7 @@ const fr = {
         page:"Page"
 
     },
+
     transactionInfo:{
         txId:"Tx ID",
         time:"Temps",
@@ -107,6 +112,19 @@ const fr = {
         invocation:"Aufrufskript",
         verification:"Script d'appel",
         script:"Script",
+        nep11: "Nep11 Transferts",
+        nep17: "Nep17 Transferts",
+    },
+    transactionTransfer:{
+        contract: "contract",
+        token: "jeton",
+        type: "genre",
+        from: "envoyé de ",
+        fromBalance: "jetons d'envoyeur",
+        to: "envoyé à",
+        toBalance: "jetons de récepteur",
+        amount: "somme",
+        tokenID: "ID Jeton",
     },
     transferList:{
         title:"Nep17 Transferts",
@@ -158,12 +176,14 @@ const fr = {
         amount: "somme",
         time: "temps",
         tokenID: "jeton id",
+        nullPrompt: "Ce jeton n'a pas de transaction"
     },
     tokenHolder: {
         ranking: "Classement",
         address: "Addresse",
         balance: "Somme de jeton",
         percentage: "Pourcentage",
+        nullPrompt: "Ce jeton n'a pas de porteur"
     },
     addressPage: {
         number: "No.",
@@ -173,9 +193,23 @@ const fr = {
         createdTime: "Temps créé",
         hash: "Hash",
         addressProfile: {
-            title: "Compte: ",
+            title: "Compte ",
             type: "Genre",
+            txNums: "Transactions",
+            nep17Transfers: "NEP17 Transferts",
+            nep11Transfers: "NEP11 Transferts",
+            tokenBalance: "Nombre de jeton",
+            tx: "Transactions",
+            nep17title: "NEP17 Transferts",
+            nep11title: "NEp11 Transferts",
         }
+    },
+    candidate:{
+        title:"Candidats",
+        address:"Addresse",
+        rank:"Classement",
+        votes:"Suffrage",
+        percentage:"Pourcentage"
     },
     NftTable: {
         title: "NEP11 Transferts",
@@ -194,15 +228,9 @@ const fr = {
         nullAccount:"Non Disponible",
         nullBalance:"Non Disponible"
     },
-    CandidatesTable: {
-        title:"Candidats",
-        account:"Compte",
-        ranking: "Classement",
-        votes:"Suffrage",
-        percentage:"Pourcentage",
-    },
 
 
 
 }
 export default fr
+

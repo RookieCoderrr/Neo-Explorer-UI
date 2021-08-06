@@ -57,9 +57,8 @@
           </td>
           <td class="budget">
             <div >
-              <span class="text-success" v-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> {{$t('transferReward')}} </span>
-              <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t(mint)}}</span>
-              <span class="text-danger" v-else-if="row.item.to === null" > {{$t(burn)}}</span>
+              <span class="text-success" v-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
+              <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
               <span class="text-info" v-else> {{$t('transfer')}}</span>
             </div>
           </td>
@@ -140,13 +139,8 @@ export default {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
     },
-    convertToken(token, decimal) {
-      var temp = token * Math.pow(0.1, decimal);
-      if (temp % 1 === 0) {
-        return temp;
-      } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(6);
-      }
+    convertToken(val, decimal) {
+      return val * Math.pow(10, -decimal);
     },
     getContract(ctrHash) {
       this.$router.push({
