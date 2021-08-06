@@ -27,13 +27,7 @@ const en = {
         totalCndidtes:"Total Cndidtes",
         recentBlocks:"Recent Blocks",
         recentTxs:"Recent Transactions",
-        bcTable:{
-            hash:"BlockHash",
-            height:"Height",
-            txs:"Txns",
-            size:"size",
-            time:"Time",
-        },
+        seeAll:"See All",
         txTable:{
             txID:"Transaction ID",
             size:"Size",
@@ -41,6 +35,90 @@ const en = {
             gas:"Gas"
         }
     },
+    blockinfo:{
+        title:"Block List",
+        time:"Time",
+        bytes:"Bytes",
+        size:"BlockSize",
+        height:"Block Height",
+        version:"Version Number",
+        hash:"BlockHash",
+        preHash:"PreHash",
+        txns:"Tx Count",
+        transfers:"Transfers",
+        totalSysFee:"Total SystemFee",
+        totalNetFee:"Total NetworkFee",
+        txnsList:"Transaction List",
+        txTable:{
+            txID:"Transaction ID",
+            height:"Block Height",
+            size:"Size",
+            time:"Time",
+            gas:"Gas"
+        }
+    },
+    contract:{
+        search:"Search by Contract Name",
+        hash:"Hash",
+        name:"Name",
+        creator:"Creator",
+        index:"Index",
+        creatTime:"Create Time",
+        available:"Not Available",
+        update:"Updates",
+        compiler:"Compiler",
+        txns:"Tx Count",
+        scCall:"Recent ScCalls",
+        event:{
+            title:"Recent Events",
+            txID:"Transaction ID",
+            eventName:"Event Name",
+            vmState:"VM State",
+            index:"Index",
+            time:"Time"
+        },
+        conInfo:"Contract Info",
+    },
+    transactionList:{
+        title: "Transaction List",
+        transactionId:"Transaction ID",
+        blockHeight:"Block Height",
+        size:"Size",
+        time:"Time",
+        gasConsumed:"GAS Consumed",
+        page:"Page"
+
+    },
+    transactionInfo:{
+        txId:"Tx ID",
+        time:"Time",
+        blockHeight:"Block Height",
+        size:"Size",
+        version:"Version",
+        blockHash:"Block Hash",
+        sender:"Sender",
+        netFee:"Network Fee",
+        sysFee:"System Fee",
+        signers:"Signers",
+        account:"Account",
+        scopes:"Scopes",
+        witness:"Witnesses",
+        invocation:"Invocation",
+        verification:"Verification",
+        script:"Script",
+    },
+    transferList:{
+        title:"Nep17 Transfers",
+        contract:"Contract",
+        token:"Token",
+        type:"Type",
+        from:"From",
+        fromBalance:"From Balance",
+        to:"To",
+        toBalance:"To Balance",
+        Amount:"Amount",
+    },
+
     tokensTable: {
         title: "Tokens List",
         hash: "Hash",
@@ -102,7 +180,6 @@ const en = {
             nep11title: "NEp11 Transfers",
         }
     }
-
 
 }
 export default en

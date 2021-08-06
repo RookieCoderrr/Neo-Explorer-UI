@@ -3,7 +3,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <blocks-table title="Block List"></blocks-table>
+          <blocks-table :title="$t('blockinfo.title')"></blocks-table>
         </div>
       </div>
     </div>

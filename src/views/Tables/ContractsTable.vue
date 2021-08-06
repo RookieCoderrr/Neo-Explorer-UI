@@ -16,7 +16,7 @@
             <input
               type="text"
               class="over-ellipsis"
-              :placeholder="'Search by Contract Name'"
+              :placeholder="$t('contract.search')"
               v-model="searchVal"
               autocomplete="off"
               @keyup.enter="search()"
@@ -41,11 +41,11 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>Hash</th>
-          <th>Name</th>
-          <th>Creator <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
-          <th>Index</th>
-          <th>Create Time</th>
+          <th>{{$t('contract.hash')}}</th>
+          <th>{{$t('contract.name')}}</th>
+          <th>{{$t('contract.creator')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
+          <th>{{$t('contract.index')}}</th>
+          <th>{{$t('contract.creatTime')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -60,7 +60,7 @@
             {{ row.item.name }}
           </td>
           <td class="Creator">
-            <span class="text-muted" v-if="row.item.Transaction.length === 0">Not Available</span>
+            <span class="text-muted" v-if="row.item.Transaction.length === 0">{{$t('contract.available')}}</span>
             <a class="mb-0 text-sm" v-else-if="this.state" style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{row.item.Transaction[0]["sender"]}} </a>
             <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{addressToScriptHash(row.item.Transaction[0]["sender"])}} </a>
           </td>

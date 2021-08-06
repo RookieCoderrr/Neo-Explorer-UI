@@ -28,11 +28,11 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th>index</th>
-          <th>Hash</th>
-          <th>TimeStamp</th>
-          <th>Total Txs</th>
-          <th>Size</th>
+          <th>{{$t('blockinfo.height')}}</th>
+          <th>{{$t('blockinfo.hash')}}</th>
+          <th>{{$t('blockinfo.time')}}</th>
+          <th>{{$t('blockinfo.txns')}}</th>
+          <th>{{$t('blockinfo.size')}}</th>
           <th></th>
         </template>
 

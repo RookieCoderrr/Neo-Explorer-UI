@@ -11,7 +11,7 @@
                     </h3>
                 </div>
                 <div class="col text-right">
-                    <base-button type="primary" size="sm" @click="toBlocksTable()">See all</base-button>
+                    <base-button type="primary" size="sm" @click="toBlocksTable()">{{$t('homePage.seeAll')}}</base-button>
                 </div>
             </div>
         </div>
@@ -31,11 +31,11 @@
 
             >
                 <template v-slot:columns>
-                    <th>{{$t('homePage.bcTable.hash')}}</th>
-                    <th>{{$t('homePage.bcTable.height')}}</th>
-                    <th>{{$t('homePage.bcTable.txs')}}</th>
-                    <th>{{$t('homePage.bcTable.size')}}</th>
-                    <th>{{$t('homePage.bcTable.time')}}</th>
+                    <th>{{$t('blockinfo.hash')}}</th>
+                    <th>{{$t('blockinfo.height')}}</th>
+                    <th>{{$t('blockinfo.time')}}</th>
+                    <th>{{$t('blockinfo.txns')}}</th>
+                    <th>{{$t('blockinfo.size')}}</th>
                 </template>
 
                 <template v-slot:default="row" style="text-align: center;">

@@ -27,19 +27,85 @@ module.exports = {
         totalCndidtes:"候选人",
         recentBlocks:"区块",
         recentTxs:"交易",
-        bcTable:{
-            hash:"区块哈希",
-            height:"区块高度",
-            txs:"交易数",
-            size:"大小",
-            time:"时间",
-        },
+        seeAll:"更多",
         txTable:{
             txID:"交易哈希",
             size:"大小",
             time:"时间",
             gas:"Gas"
         },
+    },
+    blockinfo: {
+        title:"区块列表",
+        time: "创建时间",
+        bytes:"字节",
+        size: "区块大小",
+        height: "区块高度",
+        version: "版本号",
+        hash: "区块哈希",
+        preHash: "父区块哈希",
+        txns: "交易数",
+        transfers: "转账数",
+        totalSysFee: "系统燃料费",
+        totalNetFee: "网络燃料费",
+        txnsList: "交易列表",
+        txTable: {
+            txID: "交易哈希",
+            height: "区块高度",
+            size: "区块大小",
+            time: "出块时间",
+            gas: "Gas"
+        }
+    },
+    contract:{
+        search:"通过合约名称搜索",
+        hash:"合约哈希",
+        name:"合约名",
+        creator:"合约创建者",
+        index:"合约序号",
+        creatTime:"创建时间",
+        available:"不适用",
+        update:"更新次数",
+        compiler:"编译器",
+        txns:"交易数",
+        scCall:"近期调用",
+        event:{
+            title:"近期事件",
+            txID:"合约哈希",
+            eventName:"事件名称",
+            vmState:"虚拟机状态",
+            index:"序号",
+            time:"创建时间"
+        },
+        conInfo:"合约信息"
+    },
+    transactionList:{
+        title: "交易列表",
+        transactionId:"交易哈希",
+        blockHeight:"区块高度",
+        size:"大小",
+        time:"时间",
+        gasConsumed:"Gas",
+        page:"页数"
+
+    },
+    transactionInfo:{
+        txId:"交易哈希",
+        time:"时间",
+        blockHeight:"区块高度",
+        size:"大小",
+        version:"版本",
+        blockHash:"区块哈希",
+        sender:"发件人",
+        netFee:"网络费",
+        sysFee:"系统费",
+        signers:"签名人",
+        account:"账户",
+        scopes:"范围",
+        witness:"证人",
+        invocation:"调用脚本",
+        verification:"验证脚本",
+        script:"运行脚本",
     },
     tokensTable: {
         title: "通证列表",
@@ -102,5 +168,6 @@ module.exports = {
             nep11title: "NEP11转账记录",
         }
     }
+
 
 }

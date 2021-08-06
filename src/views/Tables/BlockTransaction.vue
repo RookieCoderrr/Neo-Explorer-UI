@@ -27,11 +27,11 @@
                     :data="tableData"
             >
                 <template v-slot:columns>
-                    <th>Transaction ID</th>
-                    <th>Block Height</th>
-                    <th>Size</th>
-                    <th>Time</th>
-                    <th>GAS Consumed</th>
+                    <th>{{$t('blockinfo.txTable.txID')}}</th>
+                    <th>{{$t('blockinfo.txTable.height')}}</th>
+                    <th>{{$t('blockinfo.txTable.size')}}</th>
+                    <th>{{$t('blockinfo.txTable.time')}}</th>
+                    <th>{{$t('blockinfo.txTable.gas')}}</th>
                 </template>
 
                 <template v-slot:default="row">
@@ -65,8 +65,9 @@
         <div v-if="totalCount > 10 "
                 class="card-footer d-flex justify-content-end"
                 :class="type === 'dark' ? 'bg-transparent' : ''"
+
         >
-            <div style="margin-right: 10px; width: 250px" class="row">
+            <div style="margin-right: 10px; width: 250px" class="row" >
                 <div class="text">Page &nbsp;</div>
                 <base-input
                         type="number"
@@ -192,6 +193,7 @@ export default {
                     crossDomain: "true",
                 },
             }).then((res) => {
+                console.log(res)
                 this.tableData = res["data"]["result"]["result"];
                 this.totalCount = res["data"]["result"]["totalCount"];
                 this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
