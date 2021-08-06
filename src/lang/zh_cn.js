@@ -193,6 +193,14 @@ module.exports = {
         createdTime: "创建时间",
         hash: "哈希形式",
         accountsTable: "地址",
+        txnullPrompt: "该账户不包含交易。",
+        nep17nullPrompt: "该账户不包含NEP17转账。",
+        nep11nullPrompt: "该账户不包含NEP11转账。",
+        typeEnum: {
+            normal: "普通账户",
+            committee: "委员会",
+            candidate: "候选人",
+        },
         addressProfile: {
             title: "账户：",
             type: "类型",
