@@ -1,0 +1,35 @@
+module.exports = {
+    authLayout:{
+        home:"主页",
+        blocks:"区块",
+        txs:"交易",
+        tokens:"通证",
+        contracts:"合约",
+        address:"帐户",
+        committee:"候选"
+    },
+    homePage:{
+        totalBLocks:"区块总数",
+        totalTxs:"交易总数",
+        totalTokens:"通证总数",
+        totalCntrts:"合约总数",
+        totalAddrs:"帐户总数",
+        totalCndidtes:"候选人",
+        recentBlocks:"区块",
+        recentTxs:"交易",
+        bcTable:{
+            hash:"区块哈希",
+            height:"区块高度",
+            txs:"交易数",
+            size:"大小",
+            time:"时间",
+        },
+        txTable:{
+            txID:"交易哈希",
+            size:"大小",
+            time:"时间",
+            gas:"Gas"
+        },
+
+    },
+}

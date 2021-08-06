@@ -9,6 +9,7 @@ module.exports = {
     nullBalance: "空地址余额",
     hash: "哈希",
     wif: "地址",
+    page: "页",
     bytes: "字节",
     authLayout:{
         home:"主页",
@@ -65,6 +66,7 @@ module.exports = {
         name:"合约名",
         creator:"合约创建者",
         index:"合约序号",
+        creatTime:"创建时间",
         time:"创建时间",
         available:"不适用",
         update:"更新次数",
@@ -109,6 +111,7 @@ module.exports = {
         invocation:"调用脚本",
         verification:"验证脚本",
         script:"运行脚本",
+
         nep11: "Nep11转账",
         nep17: "Nep17转账",
     },
@@ -189,6 +192,7 @@ module.exports = {
         gasBalance: "Gas余额",
         createdTime: "创建时间",
         hash: "哈希形式",
+        accountsTable: "地址",
         addressProfile: {
             title: "账户：",
             type: "类型",
@@ -232,6 +236,7 @@ module.exports = {
         votes:"获得票数",
         percentage:"获得票数占比",
     },
+
 
 
 }

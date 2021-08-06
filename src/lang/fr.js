@@ -202,7 +202,5 @@ const fr = {
         percentage:"Pourcentage",
     },
 
-
-
 }
 export default fr
