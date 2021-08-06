@@ -40,8 +40,8 @@ const en = {
         title:"Block List",
         time:"Time",
         bytes:"Bytes",
-        size:"BlockSize",
-        height:"Block Height",
+        size:"Size",
+        height:" Height",
         version:"Version Number",
         hash:"BlockHash",
         preHash:"PreHash",
@@ -65,21 +65,22 @@ const en = {
         name:"Name",
         creator:"Creator",
         index:"Index",
-        creatTime:"Create Time",
+        time:"Create Time",
         available:"Not Available",
         update:"Updates",
         compiler:"Compiler",
         txns:"Tx Count",
-        scCall:"Recent ScCalls",
-        event:{
-            title:"Recent Events",
-            txID:"Transaction ID",
-            eventName:"Event Name",
-            vmState:"VM State",
-            index:"Index",
-            time:"Time"
-        },
+        scCallTitle:"Recent ScCalls",
+        txID:"transaction ID",
+        sender:"Sender",
+        method:"Method",
+        callFlags:"callFlags",
+        eventTitle:"Recent Events",
+        eventName:"Event Name",
+        vmState:"VM State",
         conInfo:"Contract Info",
+        noScCall:"This Contract has no System Contract Calls.",
+        noEvent:"This Contract has no events."
     },
     transactionList:{
         title: "Transaction List",
@@ -131,7 +132,12 @@ const en = {
         fromBalance:"From Balance",
         to:"To",
         toBalance:"To Balance",
-        Amount:"Amount",
+        amount:"Amount",
+        reward:"Reward",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Null Account",
+        nullBalance:"Null Balance"
     },
 
     tokensTable: {
@@ -195,7 +201,38 @@ const en = {
             nep17title: "NEP17 Transfers",
             nep11title: "NEp11 Transfers",
         }
-    }
+    },
+    candidate:{
+        title:"Candidate List",
+        address:"Address",
+        rank:"Ranking",
+        votes:"Votes",
+        percentage:"Percentage"
+    },
+    NftTable: {
+        title: "NEP11 Transfers",
+        contract:"Contract",
+        token:"Token",
+        tokenId:"Token ID",
+        type:"Type",
+        from:"From",
+        fromBalance:"From Balance",
+        to:"To",
+        toBalance:"To Balance",
+        amount:"Amount",
+        mint:"Mint",
+        burn:"Burn",
+        transfer:"Transfer",
+        nullAccount:"Not Available",
+        nullBalance:"Not Available"
+    },
+    CandidatesTable: {
+        title:"Candidates",
+        account:"Account",
+        ranking: "Ranking",
+        votes:"Votes",
+        percentage:"Percentage",
+    },
 
 }
 export default en

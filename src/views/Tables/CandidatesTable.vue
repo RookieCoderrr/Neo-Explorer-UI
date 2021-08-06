@@ -28,10 +28,10 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>Account</th>
-          <th>Ranking</th>
-          <th>Votes</th>
-          <th>Percentage</th>
+          <th>{{$t('candidate.address')}}</th>
+          <th>{{$t('candidate.rank')}}</th>
+          <th>{{$t('candidate.votes')}}</th>
+          <th>{{$t('candidate.percentage')}}</th>
         </template>
 
         <template v-slot:default="row">
@@ -68,7 +68,7 @@
                 type="number"
                 :style="text(pagination)"
                 :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+                @changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">
           &nbsp; of &nbsp;{{ countPage }}
@@ -95,6 +95,7 @@ export default {
     },
     title: String,
   },
+
   components: {
     Loading,
   },
@@ -219,7 +220,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-          this.votesCount = res["data"]["result"]["totalVotes"]
+          this.votesCount = res["data"]["result"]["totalvotes"]
           console.log(this.votesCount)
       });
     }

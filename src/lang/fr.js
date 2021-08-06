@@ -26,7 +26,7 @@ const fr = {
         totalCndidtes:"Cndidtes Totals",
         recentBlocks:"Derniers Blocs",
         recentTxs:"Derniers Transactions",
-        seeAll:"Voir tout",
+        seeAll:"Voir Tout",
         txTable:{
             txID:"Transaction ID",
             size:"Taille",
@@ -40,8 +40,8 @@ const fr = {
         title:"Tableau Bloc",
         time:"Temps",
         bytes:"Octets",
-        size:"Taille de Bloc",
-        height:"Indice de Bloc",
+        size:"Taille ",
+        height:"Index",
         version:"Version",
         hash:"Bloc Hash",
         preHash:"Hash Précédent",
@@ -117,7 +117,12 @@ const fr = {
         fromBalance:" Jetons d'Envoyeur",
         to:"Envoyé à",
         toBalance:" Jetons de Récepteur",
-        Amount:"Somme",
+        amount:"Somme",
+        reward:"Récompense",
+        burn:"Brûler",
+        transfer:"Transférer",
+        nullAccount:"Non Disponible",
+        nullBalance:"Non Disponible"
     },
     tokensTable: {
         title: "Tableau Jetons",
@@ -155,10 +160,10 @@ const fr = {
         tokenID: "jeton id",
     },
     tokenHolder: {
-        ranking: "Ranking",
+        ranking: "Classement",
         address: "Addresse",
         balance: "Somme de jeton",
-        percentage: "pourcentage",
+        percentage: "Pourcentage",
     },
     addressPage: {
         number: "No.",
@@ -171,7 +176,32 @@ const fr = {
             title: "Compte: ",
             type: "Genre",
         }
-    }
+    },
+    NftTable: {
+        title: "NEP11 Transferts",
+        contract:"Contract",
+        token:"Jeton",
+        tokenId:"Jeton ID",
+        type:"Genre",
+        from:"Envoyé de",
+        fromBalance:"Jetons d'Envoyeur",
+        to:"Envoyé à",
+        toBalance:"Jetons de Récepteur",
+        amount:"Somme",
+        mint: "Mouler",
+        burn: "Brûler",
+        transfer:"Transférer",
+        nullAccount:"Non Disponible",
+        nullBalance:"Non Disponible"
+    },
+    CandidatesTable: {
+        title:"Candidats",
+        account:"Compte",
+        ranking: "Classement",
+        votes:"Suffrage",
+        percentage:"Pourcentage",
+    },
+
 
 
 }
