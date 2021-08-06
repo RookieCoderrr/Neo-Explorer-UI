@@ -1,6 +1,8 @@
 module.exports = {
     na: "不适用",
     blockReward: "区块奖励",
+    networkFeeReward: "网络费奖励",
+    feeBurn: "手续费燃烧",
     transferReward: "转账奖励",
     mint: "铸币交易",
     burn: "销币交易",
