@@ -8,6 +8,7 @@ module.exports = {
     nullAddress: "空地址",
     hash: "哈希",
     wif: "地址",
+    bytes: "字节",
     authLayout:{
         home:"主页",
         blocks:"区块",
@@ -48,6 +49,7 @@ module.exports = {
         totalSysFee: "系统燃料费",
         totalNetFee: "网络燃料费",
         txnsList: "交易列表",
+        nullPrompt: "该区块未包含交易。",
         txTable: {
             txID: "交易哈希",
             height: "区块高度",
@@ -140,12 +142,14 @@ module.exports = {
         amount: "转账数额",
         time: "时间",
         tokenID: "通证ID",
+        nullPrompt: "该通证暂无交易记录。"
     },
     tokenHolder: {
         ranking: "资产排名",
         address: "地址",
         balance: "余额",
         percentage: "资产占比",
+        nullPrompt: "该通证暂无持有人。"
     },
     addressPage: {
         number: "序号",

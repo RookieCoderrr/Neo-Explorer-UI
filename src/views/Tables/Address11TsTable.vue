@@ -179,10 +179,15 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
-    convertTime(time) {
-      return format(time);
+    convertTime(ts) {
+      const lang = this.$i18n.locale;
+      switch (lang) {
+        case "cn":
+          return format(ts, "zh_CN");
+        default:
+          return format(ts);
+      }
     },
-
     mouseHover(contract) {
       var a = document.getElementById("contract");
       a.addEventListener("mouseover", function (event) {
