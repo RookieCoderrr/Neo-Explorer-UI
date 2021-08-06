@@ -211,7 +211,7 @@ const en = {
             tx: "Transactions",
             nep17title: "NEP17 Transfers",
             nep11title: "NEp11 Transfers",
-        }
+        },
     },
     candidate:{
         title:"Candidate List",
