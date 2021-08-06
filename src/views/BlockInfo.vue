@@ -101,7 +101,7 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
                     </div>
-                    <div class="col-4">{{ this.transfercount }}
+                    <div class="col-4">{{ parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) }}
                     </div>
 
                   </div>
@@ -138,21 +138,19 @@
 <!--                  </div>-->
 
 <!--                </div>-->
-                <div class="row mt-3">    </div>
-                <tabs fill class="flex-column flex-md-row">
-                  <tab-pane icon="ni ni-diamond" :title="$t('tokenInfo.recentTransfers')">
-                    <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep17>
-                    <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep11>
-                  </tab-pane>
-                  <tab-pane icon="ni ni-single-02 mr-2" :title="$t('tokenInfo.topHolders')">
-                    <token-holder  :contract-hash="token_id" :decimal="decimal=='' ?  0:decimal"></token-holder>
-                  </tab-pane>
-                <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
-                <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
+                <div class="row mt-3">   </div>
+
+              </div>
+              <div>
+              <tabs fill class="flex-column flex-md-row">
+                <tab-pane icon="ni ni-diamond" :title="$t('blockinfo.txnsList')">
+                  <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
+                  <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
+                </tab-pane>
+                <tab-pane icon="ni ni-single-02 mr-2" :title="$t('blockinfo.trfsList')">
+                </tab-pane>
                 </tabs>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -228,6 +226,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res)
         this.block_info = res["data"]["result"];
         this.isLoading = false;
       });
