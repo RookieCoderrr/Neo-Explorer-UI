@@ -103,12 +103,12 @@
               <div class="row mt-3"></div>
 
               <transfers-list
-                  title="Nep17Transfer"
+                  :title="$t('transactionInfo.nep17')"
                   :txhash="this.txhash"
               ></transfers-list>
 
               <nft-table
-                  title="Nep11Transfer"
+                  :title="$t('transactionInfo.nep11')"
                   :txhash="this.txhash"
               ></nft-table>
 

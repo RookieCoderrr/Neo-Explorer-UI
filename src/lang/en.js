@@ -6,8 +6,10 @@ const en = {
     burn: "Burn",
     transfer: "transfer",
     nullAddress: "Null Address",
+    nullBalance: "Null Balance",
     hash: "Hash",
     wif: "WIF",
+    page: "Page",
     bytes: "Bytes",
     authLayout:{
         home:"Home",
@@ -39,8 +41,8 @@ const en = {
         title:"Block List",
         time:"Time",
         bytes:"Bytes",
-        size:"BlockSize",
-        height:"Block Height",
+        size:"Size",
+        height:" Height",
         version:"Version Number",
         hash:"BlockHash",
         preHash:"PreHash",
@@ -65,20 +67,22 @@ const en = {
         creator:"Creator",
         index:"Index",
         creatTime:"Create Time",
+        time:"Create Time",
         available:"Not Available",
         update:"Updates",
         compiler:"Compiler",
         txns:"Tx Count",
-        scCall:"Recent ScCalls",
-        event:{
-            title:"Recent Events",
-            txID:"Transaction ID",
-            eventName:"Event Name",
-            vmState:"VM State",
-            index:"Index",
-            time:"Time"
-        },
+        scCallTitle:"Recent ScCalls",
+        txID:"transaction ID",
+        sender:"Sender",
+        method:"Method",
+        callFlags:"callFlags",
+        eventTitle:"Recent Events",
+        eventName:"Event Name",
+        vmState:"VM State",
         conInfo:"Contract Info",
+        noScCall:"This Contract has no System Contract Calls.",
+        noEvent:"This Contract has no events."
     },
     transactionList:{
         title: "Transaction List",
@@ -107,6 +111,20 @@ const en = {
         invocation:"Invocation",
         verification:"Verification",
         script:"Script",
+
+        nep11: "Nep11 Transfers",
+        nep17: "Nep17 Transfers",
+    },
+    transactionTransfer:{
+        contract: "contract",
+        token: "token",
+        type: "type",
+        from: "from",
+        fromBalance: "from balance",
+        to: "to",
+        toBalance: "to balance",
+        amount: "amount",
+        tokenID: "tokenID",
     },
     transferList:{
         title:"Nep17 Transfers",
@@ -124,7 +142,6 @@ const en = {
         nullAccount:"Null Account",
         nullBalance:"Null Balance"
     },
-
     tokensTable: {
         title: "Tokens List",
         hash: "Hash",
@@ -164,7 +181,7 @@ const en = {
     tokenHolder: {
         ranking: "Ranking",
         address: "Address",
-        balance: "balance",
+        balance: "Balance",
         percentage: "percentage",
         nullPrompt: "This token has no holders."
     },
@@ -175,14 +192,7 @@ const en = {
         gasBalance: "Gas Balance",
         createdTime: "Created Time",
         hash: "Hash",
-        txnullPrompt: "This account has no transactions.",
-        nep17nullPrompt: "This account has no NEP17 transfers.",
-        nep11nullPrompt: "This account has no NEP11 transfers.",
-        typeEnum: {
-            normal: "Normal",
-            committee: "Committee",
-            candidate: "Candidate",
-        },
+        accountsTable: "Address",
         addressProfile: {
             title: "Account: ",
             type: "Type",
@@ -193,7 +203,14 @@ const en = {
             tx: "Transactions",
             nep17title: "NEP17 Transfers",
             nep11title: "NEp11 Transfers",
-        },
+        }
+    },
+    candidate:{
+        title:"Candidate List",
+        address:"Address",
+        rank:"Ranking",
+        votes:"Votes",
+        percentage:"Percentage"
     },
     NftTable: {
         title: "NEP11 Transfers",
@@ -209,7 +226,8 @@ const en = {
         mint:"Mint",
         burn:"Burn",
         transfer:"Transfer",
-        nullAccount:"Null Account",
+        nullAccount:"Not Available",
+        nullBalance:"Not Available"
     },
     CandidatesTable: {
         title:"Candidates",
@@ -218,6 +236,5 @@ const en = {
         votes:"Votes",
         percentage:"Percentage",
     },
-
 }
 export default en
