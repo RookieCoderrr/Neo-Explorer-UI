@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
+            {{ $t('addressPage.address')}}
           </h3>
         </div>
       </div>
