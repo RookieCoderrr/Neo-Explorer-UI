@@ -45,7 +45,7 @@
           <th>{{$t('contract.name')}}</th>
           <th>{{$t('contract.creator')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
           <th>{{$t('contract.index')}}</th>
-          <th>{{$t('contract.creatTime')}}</th>
+          <th>{{$t('contract.time')}}</th>
         </template>
 
         <template v-slot:default="row">

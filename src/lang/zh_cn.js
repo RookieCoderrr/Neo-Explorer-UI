@@ -14,7 +14,7 @@ module.exports = {
         txs:"交易",
         tokens:"通证",
         contracts:"合约",
-        address:"帐户",
+        address:"地址",
         committee:"候选"
     },
     homePage:{
@@ -22,7 +22,7 @@ module.exports = {
         totalTxs:"交易总数",
         totalTokens:"通证总数",
         totalCntrts:"合约总数",
-        totalAddrs:"帐户总数",
+        totalAddrs:"地址总数",
         totalCndidtes:"候选人",
         recentBlocks:"区块",
         recentTxs:"交易",
@@ -62,21 +62,22 @@ module.exports = {
         name:"合约名",
         creator:"合约创建者",
         index:"合约序号",
-        creatTime:"创建时间",
+        time:"创建时间",
         available:"不适用",
         update:"更新次数",
         compiler:"编译器",
         txns:"交易数",
-        scCall:"近期调用",
-        event:{
-            title:"近期事件",
-            txID:"合约哈希",
-            eventName:"事件名称",
-            vmState:"虚拟机状态",
-            index:"序号",
-            time:"创建时间"
-        },
-        conInfo:"合约信息"
+        scCallTitle:"近期调用",
+        txID:"交易哈希",
+        sender:"创建地址",
+        method:"方法",
+        callFlags:"调用标志",
+        eventTitle:"近期事件",
+        eventName:"事件名称",
+        vmState:"虚拟机状态",
+        conInfo:"合约信息",
+        noScCall:"该合约暂无调用",
+        noEvent:"该合约暂无事件"
     },
     transactionList:{
         title: "交易列表",
@@ -126,7 +127,7 @@ module.exports = {
         topHolders: "持有人地址",
         contractInfo: "合约信息",
         extra: "额外信息",
-        events: "近期事件",
+        events: "定义事件",
         methods: "合约方法",
         description: "描述信息",
         email: "邮箱",
@@ -135,8 +136,8 @@ module.exports = {
     tokenTx: {
         txid: "交易哈希",
         type: "交易类型",
-        from: "转出账户",
-        to: "转入账户",
+        from: "转出地址",
+        to: "转入地址",
         amount: "转账数额",
         time: "时间",
         tokenID: "通证ID",
@@ -158,6 +159,13 @@ module.exports = {
             title: "账户：",
             type: "类型",
         }
+    },
+    candidate:{
+        title:"候选人列表",
+        address:"地址",
+        rank:"排名    ",
+        votes:"投票",
+        percentage:"占比"
     }
 
 

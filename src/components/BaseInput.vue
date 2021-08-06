@@ -107,6 +107,7 @@ export default {
       description: "Addont left icon",
     },
   },
+  emits: ["changeinput"],
   data() {
     return {
       focused: false,
@@ -119,6 +120,7 @@ export default {
         input: this.updateValue,
         focus: this.onFocus,
         blur: this.onBlur,
+        changeinput: this.updateValue,
       };
     },
     hasIcon() {
@@ -133,8 +135,8 @@ export default {
   },
   methods: {
     updateValue(evt) {
-      let value = evt.target.value;
-      this.$emit("changeinput", parseInt(value));
+      let value = parseInt(evt.target.value);
+      this.$emit("changeinput", value);
       evt.target.value = "";
     },
     onFocus(value) {

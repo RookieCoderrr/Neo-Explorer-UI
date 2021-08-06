@@ -62,21 +62,22 @@ const en = {
         name:"Name",
         creator:"Creator",
         index:"Index",
-        creatTime:"Create Time",
+        time:"Create Time",
         available:"Not Available",
         update:"Updates",
         compiler:"Compiler",
         txns:"Tx Count",
-        scCall:"Recent ScCalls",
-        event:{
-            title:"Recent Events",
-            txID:"Transaction ID",
-            eventName:"Event Name",
-            vmState:"VM State",
-            index:"Index",
-            time:"Time"
-        },
+        scCallTitle:"Recent ScCalls",
+        txID:"transaction ID",
+        sender:"Sender",
+        method:"Method",
+        callFlags:"callFlags",
+        eventTitle:"Recent Events",
+        eventName:"Event Name",
+        vmState:"VM State",
         conInfo:"Contract Info",
+        noScCall:"This Contract has no System Contract Calls.",
+        noEvent:"This Contract has no events."
     },
     transactionList:{
         title: "Transaction List",
@@ -170,6 +171,13 @@ const en = {
             title: "Account: ",
             type: "Type",
         }
+    },
+    candidate:{
+        title:"Candidate List",
+        address:"Address",
+        rank:"Ranking",
+        votes:"Votes",
+        percentage:"Percentage"
     }
 
 }
