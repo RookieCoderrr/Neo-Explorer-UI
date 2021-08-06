@@ -10,7 +10,9 @@
               :active="isLoading"
             ></loading>
             <div class="card-header bg-transparent">
-              <h1 class="mb-0">{{$t('addressPage.addressProfile.title')}}</h1>
+              <h1 v-if="this.type==='normal'" class="mb-0">{{$t('addressPage.addressProfile.title')}} </h1>
+              <h1 v-else-if="this.type==='candidate'" class="mb-0">{{$t('addressPage.addressProfile.title')}} &#x1F46E;</h1>
+              <h1 v-else-if="this.type==='committee'" class="mb-0">{{$t('addressPage.addressProfile.title')}} &#x1F46E;</h1>
               <h4 class="text-muted">{{ this.scriptHashToAddress(this.accountAddress) }}</h4>
             </div>
 
@@ -115,7 +117,7 @@
                   </div>
                   <div v-else class="row">
                     <div class="col">
-                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}This account has no NEP17 transfers.</card>
+                      <card shadow class="text-center">{{$t('addressPage.nep17nullPrompt')}}</card>
                     </div>
                   </div>
                 </tab-pane>
