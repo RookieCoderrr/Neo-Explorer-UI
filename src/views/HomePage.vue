@@ -21,7 +21,7 @@
     <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toBlock()"
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
             :sub-title="blockCount.toLocaleString()"
@@ -31,7 +31,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toTransaction()"
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
             :sub-title="txCount.toLocaleString()"
@@ -41,7 +41,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toAsset()"
                   :title="$t('homePage.totalTokens')"
                   type="gradient-red"
                   :sub-title="assetCount.toLocaleString()"
@@ -54,7 +54,7 @@
       </div>
       <div class="row mt-4">
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toContract()"
               :title="$t('homePage.totalCntrts')"
               type="gradient-purple"
               :sub-title="contractCount.toLocaleString()"
@@ -64,7 +64,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toAddress()"
               :title="$t('homePage.totalAddrs')"
               type="gradient-green"
               :sub-title="accountCount.toLocaleString()"
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col">
-          <stats-card shadow
+          <stats-card shadow style="cursor: pointer" @click="toCandidate()"
               :title="$t('homePage.totalCndidtes')"
               type="gradient-blue"
               :sub-title="candidateCount.toLocaleString()"
@@ -465,6 +465,36 @@ export default {
         } else {
           this.getBlockByBlockHash(value);
         }
+      });
+    },
+    toBlock(){
+      this.$router.push({
+        path: `/blocks`,
+      });
+    },
+    toCandidate(){
+      this.$router.push({
+        path: `/candidates`,
+      });
+    },
+    toTransaction(){
+      this.$router.push({
+        path: `/Transactions`,
+      });
+    },
+    toAsset(){
+      this.$router.push({
+        path: `/tokens`,
+      });
+    },
+    toAddress(){
+      this.$router.push({
+        path: `/account`,
+      });
+    },
+    toContract(){
+      this.$router.push({
+        path: `/contracts`,
       });
     },
 
