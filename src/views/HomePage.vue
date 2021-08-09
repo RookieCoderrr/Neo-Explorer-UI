@@ -1,6 +1,6 @@
 <template>
   <section class="Intro bg-gradient-success" >
-    <h2 class="Intro-h display-2">{{ $t('home') }}</h2>
+    <h2 class="Intro-h display-2 text-white">{{ $t('home') }}</h2>
     <div class="search mt--5 ml-5">
       <input
           type="text"
