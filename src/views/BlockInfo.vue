@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" >
+    <div class="container-fluid mt--7" style="padding-bottom:80px" >
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -99,8 +99,8 @@
                     <div class="col-4">{{ this.block_info.transactioncount }}
                     </div>
                     <div class="col-2">
-                      <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
-                    </div>
+                    <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
+                  </div>
                     <div class="col-4">{{ parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) }}
                     </div>
 
@@ -112,12 +112,12 @@
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">{{$t('blockinfo.totalSysFee')}}</div>
                     </div>
-                    <div class="col-4">{{  this.block_info.systemFee}}
+                    <div class="col-4">{{  this.block_info.systemFee/100000000}}
                     </div>
                     <div class="col-2">
                       <div class=" font-weight-bold mb-0">{{$t('blockinfo.totalNetFee')}}</div>
                     </div>
-                    <div class="col-4">{{this.block_info.networkFee}}
+                    <div class="col-4">{{this.block_info.networkFee / 100000000}}
                     </div>
                   </div>
                 </card>
