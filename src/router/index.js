@@ -34,6 +34,9 @@ const routes = [
         path: "/:pathMatch(.*)*",
         name: "404",
         components: { default: PageNotFound },
+        meta:{
+          showSearch:false,
+        }
       },
       {
         path: "/tokens",
