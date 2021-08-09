@@ -1,4 +1,19 @@
 <template>
+  <section class="Intro bg-gradient-success" >
+    <h2 class="Intro-h">{{ 'Welcome to NeoExplorer' }}</h2>
+    <p class="Intro-p">{{ 'Fast, correct handy Neo blockchain information platform' }}</p>
+    <div class="search mt--5 ml-5">
+      <input
+          type="text"
+          class="over-ellipsis"
+          :placeholder="$t('search.placeholder')"
+          v-model ="searchVal"
+          autocomplete="off"
+          @keyup.enter="search()"
+      /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
+    </div>
+  </section>
+  <div class="row mt-5"></div>
   <div>
     <div class="container-fluid mt--7" style="padding-bottom: 50px">
       <div class="row">
@@ -102,6 +117,7 @@ export default {
       assetCount: 0,
       contractCount: 0,
       candidateCount: 0,
+      searchVal: "",
       // test:this.$t('language.name'),
     };
   },
@@ -217,8 +233,107 @@ export default {
         this.candidateCount = res["data"]["result"]["total counts"];
       });
     },
+    search() {
+      this.isLoading = true;
+      let value = this.searchVal;
+      value = value.trim();
+      this.searchVal = "";
+      if (value === "") {
+        this.$router.push({
+          path: `/homepage`,
+        });
+        this.isLoading = false;
+      } else if (this.isHashPattern.test(value)) {
+        if (value.length === 64) {
+          value = "0x" + value;
+        }
+        this.getTransactionByTransactionHash(value);
+      } else if (this.isAssetPattern.test(value)) {
+        if (value.length === 40) {
+          value = "0x" + value;
+        }
+        this.getToken(value);
+      } else if (Number(value[0]) >= 0) {
+        value = value.replace(/[,，]/g, "");
+        if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
+          if (Number.isInteger(Number(value))) {
+            this.getBlockByBlockHeight(value);
+          }
+        }
+        else {
+          this.isLoading = false;
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      } else if (this.isAddressPattern.test(value)){
+        this.getAddressByAddress(this.addressToScriptHash(value))
+      }
+      else {
+        this.isLoading = false;
+        this.$router.push({
+          path: `/search`,
+        });
+      }
+    },
   },
 
 };
 </script>
-<style></style>
+<style>
+.Intro {
+  background: #e2e2e2;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.Intro-h{
+  font-size: 38px;
+  font-weight: 500;
+  color: rgba(33, 37, 41, 1);
+  margin-bottom: 19px;
+}
+.Intro-p{
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(33, 37, 41, 1);
+  margin-bottom: 60px;
+}
+.search {
+  width: 100%;
+  max-width: 800px;
+  height: 60px;
+  position: relative;
+}
+.button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  top: 1px;
+  background: #00af92;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  width: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.img {
+  width: 26px;
+}
+.over-ellipsis {
+  width: 100%;
+  height: 100%;
+  padding-right: 71px;
+  padding-left: 11px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(191, 191, 191, 1);
+  border-radius: 4px;
+  color: #282828;
+}
+
+</style>

@@ -42,7 +42,7 @@
                 style="cursor: pointer"
                 @click="getAddress(row.item.candidate)"
                 >{{ row.item.candidate }}
-                {{ row.item.isCommittee ? "✅" : "" }}</a
+                {{ row.item.isCommittee ? "&#x1F46E;" : "" }}</a
               >
             </div>
           </td>
