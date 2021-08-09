@@ -1,6 +1,6 @@
 <template>
   <section class="Intro bg-gradient-success" >
-    <h2 class="Intro-h display-2">{{ 'Welcome to NeoExplorer' }}</h2>
+    <h2 class="Intro-h display-2 text-white">{{ 'Welcome to NeoExplorer' }}</h2>
     <div class="search mt--5 ml-5">
       <input
           type="text"
