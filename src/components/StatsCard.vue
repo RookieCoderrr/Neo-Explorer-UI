@@ -6,7 +6,7 @@
           <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">
             {{ title }}
           </h5>
-          <span class="h2 font-weight-bold mb-0" v-if="subTitle">{{
+          <span class="display-3 font-weight-bold mb-0" style="color: #060d30" v-if="subTitle">{{
             subTitle
           }}</span>
         </slot>

@@ -1,4 +1,5 @@
 const en = {
+    home: "Welcome To NeoExplorer",
     na: "Not Available",
     blockReward: "Block Reward",
     networkFeeReward: "Network Fee Reward",
@@ -24,11 +25,11 @@ const en = {
     },
     homePage:{
         totalBLocks:"Total Blocks",
-        totalTxs:"Total Txs",
+        totalTxs:"Total Transactions",
         totalTokens:"Total Tokens",
-        totalCntrts:"Total Cntrts",
-        totalAddrs:"Total Accts",
-        totalCndidtes:"Total Cndidtes",
+        totalCntrts:"Total Contracts",
+        totalAddrs:"Total Addresses",
+        totalCndidtes:"Total Candidates",
         recentBlocks:"Recent Blocks",
         recentTxs:"Recent Transactions",
         seeAll:"See All",

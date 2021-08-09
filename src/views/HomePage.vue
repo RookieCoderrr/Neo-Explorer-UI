@@ -1,6 +1,7 @@
 <template>
   <section class="Intro bg-gradient-success" >
-    <h2 class="Intro-h display-2 text-white">{{ 'Welcome to NeoExplorer' }}</h2>
+
+    <h2 class="Intro-h display-2">{{ $t('home') }}</h2>
     <div class="search mt--5 ml-5">
       <input
           type="text"
@@ -16,7 +17,7 @@
   <div>
     <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
-        <div class="col-2">
+        <div class="col">
           <stats-card
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
@@ -26,9 +27,7 @@
           >
           </stats-card>
         </div>
-
-
-        <div class="col-2">
+        <div class="col">
           <stats-card
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
@@ -38,7 +37,7 @@
           >
           </stats-card>
         </div>
-        <div class="col-2">
+        <div class="col">
           <stats-card
                   :title="$t('homePage.totalTokens')"
                   type="gradient-purple"
@@ -48,38 +47,40 @@
           >
           </stats-card>
         </div>
-        <div class="col-2">
+
+      </div>
+      <div class="row mt-4">
+        <div class="col">
           <stats-card
-                  :title="$t('homePage.totalCntrts')"
-                  type="gradient-red"
-                  :sub-title="contractCount.toLocaleString()"
-                  icon="ni ni-collection"
-                  class="mb-4 mb-xl-0"
+              :title="$t('homePage.totalCntrts')"
+              type="gradient-red"
+              :sub-title="contractCount.toLocaleString()"
+              icon="ni ni-collection"
+              class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
-        <div class="col-2">
+        <div class="col">
           <stats-card
-            :title="$t('homePage.totalAddrs')"
-            type="gradient-green"
-            :sub-title="accountCount.toLocaleString()"
-            icon="ni ni-single-02"
-            class="mb-4 mb-xl-0"
+              :title="$t('homePage.totalAddrs')"
+              type="gradient-green"
+              :sub-title="accountCount.toLocaleString()"
+              icon="ni ni-single-02"
+              class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
 
-        <div class="col-2">
+        <div class="col">
           <stats-card
-            :title="$t('homePage.totalCndidtes')"
-            type="gradient-blue"
-            :sub-title="candidateCount.toLocaleString()"
-            icon="ni ni-badge"
-            class="mb-4 mb-xl-0"
+              :title="$t('homePage.totalCndidtes')"
+              type="gradient-blue"
+              :sub-title="candidateCount.toLocaleString()"
+              icon="ni ni-badge"
+              class="mb-4 mb-xl-0"
           >
-         </stats-card>
+          </stats-card>
         </div>
-
       </div>
       <div class="row mt-4">
         <div class="col-6">
@@ -478,7 +479,7 @@ export default {
   flex-direction: column;
 }
 .Intro-h{
-  font-family: Inter;
+  font-family: "Gill Sans";
   font-style: normal;
   font-weight: 800;
   font-size: 48px;
@@ -487,17 +488,13 @@ export default {
   color: #282B34;
   margin-bottom: 80px;
 }
-.Intro-p{
-  font-size: 24px;
-  font-weight: 400;
-  color: rgba(33, 37, 41, 1);
-  margin-bottom: 60px;
-}
+
 .search {
   width: 100%;
   max-width: 800px;
   height: 60px;
   position: relative;
+  filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.12));
 }
 .button {
   cursor: pointer;
