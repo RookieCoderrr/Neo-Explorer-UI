@@ -136,7 +136,7 @@ const routes = [
         name: "search",
         components: { default: Search },
         meta:{
-          showSearch:true,
+          showSearch:false,
         }
       },
     ],

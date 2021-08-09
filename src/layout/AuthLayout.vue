@@ -103,7 +103,6 @@
       </div>
     </div>
     <div v-else class="header bg-gradient-success py-7 py-lg-2">
-
     </div>
     <!-- Page content -->
     <loading
