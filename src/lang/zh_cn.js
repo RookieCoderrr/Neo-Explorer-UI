@@ -1,4 +1,5 @@
 module.exports = {
+    home: "欢迎使用NeoExplorer",
     na: "不适用",
     blockReward: "区块奖励",
     networkFeeReward: "网络费奖励",
