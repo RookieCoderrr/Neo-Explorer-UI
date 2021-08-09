@@ -1,4 +1,6 @@
 <template>
+  <div class="header bg-gradient-success py-7 py-lg-5"></div>
+
   <section class="page-content">
     <div class="row mt-6"></div>
     <div class="search-content">
