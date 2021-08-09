@@ -17,7 +17,7 @@
     <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
         <div class="col">
-          <stats-card
+          <stats-card shadow
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
             :sub-title="blockCount.toLocaleString()"
@@ -27,7 +27,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
             :sub-title="txCount.toLocaleString()"
@@ -37,9 +37,9 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow
                   :title="$t('homePage.totalTokens')"
-                  type="gradient-purple"
+                  type="gradient-red"
                   :sub-title="assetCount.toLocaleString()"
                   icon="ni ni-money-coins"
                   class="mb-4 mb-xl-0"
@@ -50,9 +50,9 @@
       </div>
       <div class="row mt-4">
         <div class="col">
-          <stats-card
+          <stats-card shadow
               :title="$t('homePage.totalCntrts')"
-              type="gradient-red"
+              type="gradient-purple"
               :sub-title="contractCount.toLocaleString()"
               icon="ni ni-collection"
               class="mb-4 mb-xl-0"
@@ -60,7 +60,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow
               :title="$t('homePage.totalAddrs')"
               type="gradient-green"
               :sub-title="accountCount.toLocaleString()"
@@ -71,7 +71,7 @@
         </div>
 
         <div class="col">
-          <stats-card
+          <stats-card shadow
               :title="$t('homePage.totalCndidtes')"
               type="gradient-blue"
               :sub-title="candidateCount.toLocaleString()"
