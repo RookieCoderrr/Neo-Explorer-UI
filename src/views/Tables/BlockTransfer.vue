@@ -208,7 +208,7 @@
                     data: {
                         jsonrpc: "2.0",
                         id: 1,
-                        params: {"BlockHash": this.blockHash, Limit: this.resultsPerPage, Skip: skip },
+                        params: {"BlockHash": this.blockHash, Limit: this.resultsPerPage, Skip: skip, },
                         method: "GetTransferByBlockHash",
                     },
                     headers: {
