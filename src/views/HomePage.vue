@@ -1,7 +1,6 @@
 <template>
   <section class="Intro bg-gradient-success" >
-    <h2 class="Intro-h">{{ 'Welcome to NeoExplorer' }}</h2>
-    <p class="Intro-p">{{ 'Fast, correct handy Neo blockchain information platform' }}</p>
+    <h2 class="Intro-h display-2">{{ 'Welcome to NeoExplorer' }}</h2>
     <div class="search mt--5 ml-5">
       <input
           type="text"
@@ -15,7 +14,7 @@
   </section>
   <div class="row mt-5"></div>
   <div>
-    <div class="container-fluid mt--7" style="padding-bottom: 50px">
+    <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
         <div class="col-2">
           <stats-card
@@ -290,10 +289,14 @@ export default {
   flex-direction: column;
 }
 .Intro-h{
-  font-size: 38px;
-  font-weight: 500;
-  color: rgba(33, 37, 41, 1);
-  margin-bottom: 19px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 58px;
+  /* identical to box height */
+  color: #282B34;
+  margin-bottom: 80px;
 }
 .Intro-p{
   font-size: 24px;
