@@ -8,21 +8,17 @@ import ContractInfo from "../views/ContractInfo";
 import TokenInfo from "../views/TokenInfo.vue";
 import BlockInfo from "../views/BlockInfo.vue";
 import CandiateList from "../views/CandiateList.vue";
-import Profile from "../views/UserProfile.vue";
 import Account from "../views/AccountsList";
 import TransactionList from "../views/TransactionList.vue";
 import AccountProfile from "../views/AccountProfile";
 import Tokens from "../views/Tokens.vue";
 import Blocks from "../views/Blocks.vue";
-import Test from "../views/test.vue";
-import Search from "../views/Search";
+import Search from "../views/SearchNotFound";
 import HomePage from "../views/HomePage";
 import PageNotFound from "../views/PageNotFound";
 
 import TransactionInfo from "../views/TransactionInfo.vue";
 
-//import Login from "../views/Login.vue";
-//import Register from "../views/Register.vue";
 
 const routes = [
   {
@@ -51,14 +47,6 @@ const routes = [
         path: "/blocks",
         name: "blocks",
         components: { default: Blocks },
-        meta:{
-          showSearch:true,
-        }
-      },
-      {
-        path: "/test",
-        name: "test",
-        components: { default: Test },
         meta:{
           showSearch:true,
         }
@@ -99,14 +87,6 @@ const routes = [
         path: "/candidates",
         name: "Candidates",
         components: { default: CandiateList },
-        meta:{
-          showSearch:true,
-        }
-      },
-      {
-        path: "/profile",
-        name: "profile",
-        components: { default: Profile },
         meta:{
           showSearch:true,
         }
@@ -156,7 +136,7 @@ const routes = [
         name: "search",
         components: { default: Search },
         meta:{
-          showSearch:true,
+          showSearch:false,
         }
       },
     ],

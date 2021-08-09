@@ -9,7 +9,7 @@ module.exports = {
     burn: "销币交易",
     transfer: "转账",
     nullAddress: "空地址",
-    nullBalance: "空地址余额",
+    nullBalance: "不适用",
     hash: "哈希",
     wif: "地址",
     page: "页",
@@ -21,7 +21,7 @@ module.exports = {
         tokens:"通证",
         contracts:"合约",
         address:"地址",
-        committee:"候选"
+        committee:"候选人"
     },
     homePage:{
         totalBLocks:"区块总数",
@@ -242,8 +242,8 @@ module.exports = {
         mint:"铸币交易",
         burn:"销币交易",
         transfer:"转账",
-        nullAccount:"不适用",
-        nullBalance:"不适用"
+        nullAccount:"空地址",
+        nullBalance:"不适用",
     },
     search: {
         placeholder:"搜索区块，交易，账户，通证或者合约",

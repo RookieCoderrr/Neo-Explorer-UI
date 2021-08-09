@@ -21,7 +21,7 @@
     <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toBlock()"
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
             :sub-title="blockCount.toLocaleString()"
@@ -31,7 +31,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toTransaction()"
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
             :sub-title="txCount.toLocaleString()"
@@ -41,9 +41,9 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toAsset()"
                   :title="$t('homePage.totalTokens')"
-                  type="gradient-purple"
+                  type="gradient-red"
                   :sub-title="assetCount.toLocaleString()"
                   icon="ni ni-money-coins"
                   class="mb-4 mb-xl-0"
@@ -54,9 +54,9 @@
       </div>
       <div class="row mt-4">
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toContract()"
               :title="$t('homePage.totalCntrts')"
-              type="gradient-red"
+              type="gradient-purple"
               :sub-title="contractCount.toLocaleString()"
               icon="ni ni-collection"
               class="mb-4 mb-xl-0"
@@ -64,7 +64,7 @@
           </stats-card>
         </div>
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toAddress()"
               :title="$t('homePage.totalAddrs')"
               type="gradient-green"
               :sub-title="accountCount.toLocaleString()"
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col">
-          <stats-card
+          <stats-card shadow style="cursor: pointer" @click="toCandidate()"
               :title="$t('homePage.totalCndidtes')"
               type="gradient-blue"
               :sub-title="candidateCount.toLocaleString()"
@@ -467,6 +467,36 @@ export default {
         }
       });
     },
+    toBlock(){
+      this.$router.push({
+        path: `/blocks`,
+      });
+    },
+    toCandidate(){
+      this.$router.push({
+        path: `/candidates`,
+      });
+    },
+    toTransaction(){
+      this.$router.push({
+        path: `/Transactions`,
+      });
+    },
+    toAsset(){
+      this.$router.push({
+        path: `/tokens`,
+      });
+    },
+    toAddress(){
+      this.$router.push({
+        path: `/account`,
+      });
+    },
+    toContract(){
+      this.$router.push({
+        path: `/contracts`,
+      });
+    },
 
   },
 
@@ -497,7 +527,7 @@ export default {
   max-width: 800px;
   height: 60px;
   position: relative;
-  filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.04));
 }
 .img {
   width: 26px;

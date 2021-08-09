@@ -11,7 +11,7 @@
           </h3>
         </div>
         <div class="col-4">
-          <div class="search">
+          <div class="search" style="height: 45px">
             <input
               type="text"
               class="over-ellipsis"

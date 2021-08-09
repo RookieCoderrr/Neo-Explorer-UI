@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col">
         <slot>
-          <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">
+          <h5 class="card-title text-uppercase text-muted mb-0" style="color: #676c6c" v-if="title">
             {{ title }}
           </h5>
-          <span class="display-3 font-weight-bold mb-0" style="color: #060d30" v-if="subTitle">{{
+          <span class="display-4 font-weight-bold mb-0" style="color: #343939" v-if="subTitle">{{
             subTitle
           }}</span>
         </slot>
