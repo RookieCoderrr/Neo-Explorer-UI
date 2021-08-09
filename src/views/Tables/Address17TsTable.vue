@@ -30,7 +30,6 @@
           <th>{{$t('tokenTx.time')}}</th>
         </template>
         <template v-slot:default="row">
-
           <td class="budget">
             <div>
               <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
@@ -59,10 +58,12 @@
             <div>
               <div class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}} </div>
               <div v-else-if="fromState" class="addr">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ scriptHashToAddress(row.item.from) }}</a>
+                <a v-if="row.item.from === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">&#128100;{{  scriptHashToAddress(row.item.from) }}  </a>
+                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{  scriptHashToAddress(row.item.from) }}  </a>
               </div>
               <div v-else class="addr">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
+                <a v-if="row.item.from === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">&#128100;{{  row.item.from }}  </a>
+                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{  row.item.from }}  </a>
               </div>
             </div>
           </td>
@@ -72,10 +73,12 @@
           <td class="to">
             <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
             <div v-else-if="toState" class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
+              <a v-if="row.item.to === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">&#128100;{{  scriptHashToAddress(row.item.to) }}  </a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{  scriptHashToAddress(row.item.to) }}  </a>
             </div>
             <div v-else class="addr">
-              <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+              <a v-if="row.item.to === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">&#128100;{{  row.item.to }}  </a>
+              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{  row.item.to }}  </a>
             </div>
           </td>
 

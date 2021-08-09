@@ -343,7 +343,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("Transfers17", res["data"]["result"]["totalCount"])
+        //console.log("Transfers17", res["data"]["result"]["totalCount"])
         this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
       }).catch((err) => {
         console.log("Get nep 17 transfers error: ", err)
@@ -365,7 +365,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("Transfer11", res["data"]["result"]["totalCount"])
+        //console.log("Transfer11", res["data"]["result"]["totalCount"])
         this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
       }).catch((err) => {
         console.log("Get nep 11 transfers error: ", err)
