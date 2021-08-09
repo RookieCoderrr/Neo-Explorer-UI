@@ -76,8 +76,8 @@
       </div>
     </base-nav>
     <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-8">
-      <div class="search mt--5 ml-5">
+    <div v-if="$route.meta.showSearch" class="header bg-gradient-success py-7 py-lg-8">
+      <div  class="search mt--5 ml-5">
         <input
           type="text"
           class="over-ellipsis"
@@ -87,21 +87,9 @@
           @keyup.enter="search()"
         /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
       </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg
-          x="0"
-          y="0"
-          viewBox="0 0 2560 100"
-          preserveAspectRatio="none"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <polygon
-            class="fill-default"
-            points="2560 0 2560 100 0 100"
-          ></polygon>
-        </svg>
-      </div>
+    </div>
+    <div v-else class="header bg-gradient-success py-7 py-lg-2">
+
     </div>
     <!-- Page content -->
     <loading

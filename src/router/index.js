@@ -39,76 +39,122 @@ const routes = [
         path: "/tokens",
         name: "tokens",
         components: { default: Tokens },
+        meta:{
+          showSearch:true,
+        }
+
       },
       {
         path: "/blocks",
         name: "blocks",
         components: { default: Blocks },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/test",
         name: "test",
         components: { default: Test },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/tokeninfo/:hash",
         name: "tokeninfo",
         components: { default: TokenInfo },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/blockinfo/:hash",
         name: "blockinfo",
         components: { default: BlockInfo },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/contracts",
         name: "contracts",
         components: { default: Contracts },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/contractinfo/:hash",
         name: "contractinfo",
         components: { default: ContractInfo },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/candidates",
         name: "Candidates",
         components: { default: CandiateList },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/profile",
         name: "profile",
         components: { default: Profile },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/account",
         name: "Accounts",
         components: { default: Account },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/accountprofile/:accountAddress",
         name: "AccountProfile",
         components: { default: AccountProfile },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/Transactions",
         name: "transactions",
         components: { default: TransactionList },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "/homepage",
         name: "homepage",
         components: { default: HomePage },
+        meta:{
+          showSearch:false,
+        }
       },
       {
         path: "/transactionInfo/:txhash",
         name: "transactionInfo",
         components: { default: TransactionInfo },
+        meta:{
+          showSearch:true,
+        }
       },
       {
         path: "search",
         name: "search",
         components: { default: Search },
+        meta:{
+          showSearch:true,
+        }
       },
     ],
   },
