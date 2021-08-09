@@ -13,9 +13,9 @@
 <!--          :to="$route.path"-->
 <!--          class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"-->
 <!--        >-->
-        <div class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" >
-          {{ $route.name }}
-        </div>
+<!--        <div class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" >-->
+<!--          {{ $route.name }}-->
+<!--        </div>-->
 <!--        </router-link>-->
       </slot>
       <navbar-toggle-button
