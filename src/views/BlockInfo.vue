@@ -101,7 +101,7 @@
                     <div class="col-2">
                     <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
                   </div>
-                    <div class="col-4">{{ parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) }}
+                    <div class="col-4">{{ parseInt(block_info.nep11count) + parseInt(block_info.nep17count) }}
                     </div>
 
                   </div>
