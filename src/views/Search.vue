@@ -1,5 +1,6 @@
 <template>
   <section class="page-content">
+    <div class="row mt-6"></div>
     <div class="search-content">
       <div class="row">
         <div class="col-4">

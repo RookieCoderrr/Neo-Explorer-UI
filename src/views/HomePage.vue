@@ -99,6 +99,7 @@ import BlocksTableHomepage from '../views/Tables/BlocksTableHomepage'
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
 import axios from "axios";
 import StatsCard from "../components/StatsCard";
+import Neon from "@cityofzion/neon-js";
 //import {getCurrentInstance} from 'vue'
 
 export default {
@@ -117,6 +118,11 @@ export default {
       contractCount: 0,
       candidateCount: 0,
       searchVal: "",
+      isLoading: false,
+      isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
+      isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
+      isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
+      isNumberPattern: /^\d+$/,
       // test:this.$t('language.name'),
     };
   },
@@ -275,6 +281,189 @@ export default {
         });
       }
     },
+    addressToScriptHash(addr) {
+      try {
+        const acc = Neon.create.account(addr);
+        return "0x" + acc.scriptHash;
+      }catch (err){
+        this.$router.push({
+          path: `/search`,
+        });
+      }
+
+
+    },
+    getBlockByBlockHash(block_hash) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHash":block_hash},
+          "method": "GetBlockByBlockHash"
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+            this.isLoading = false;
+            if (res["data"]["error"] == null) {
+              this.$router.push({
+                path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+              });
+
+            } else {
+              this.$router.push({
+                path: `/search`,
+              });
+            }
+          },
+      )
+    },
+    getBlockByBlockHeight(blockheight){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"BlockHeight":parseInt(blockheight)},
+          "method": "GetBlockByBlockHeight"
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+            this.isLoading = false;
+            if (res["data"]["error"] == null) {
+              this.$router.push({
+                path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+              });
+
+            } else {
+              this.$router.push({
+                path: `/search`,
+              });
+            }
+          },
+      )},
+    getAddressByAddress(addr) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAddressByAddress",
+          params: {"Address": addr},
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/accountprofile/${addr}`,
+          });
+        } else {
+          this.isLoading = false;
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      })
+    },
+
+    getToken(value) {
+      return new Promise(() => {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {"ContractHash": value},
+            method: "GetAssetInfoByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          this.isLoading = false;
+          if (res["data"]["error"] == null) {
+            this.$router.push({
+              path: `/tokeninfo/${value}`,
+            });
+          } else {
+            this.getContractInfoByContractHash(value);
+          }
+        });
+      });
+    },
+    getContractInfoByContractHash(value) {
+      return new Promise(() => {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {"Hash": value},
+            method: "GetContractInfoByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          this.isLoading = false;
+          if (res["data"]["error"] == null) {
+            this.$router.push({
+              path: `/contractinfo/${value}`,
+            });
+          } else {
+            this.getAddressByAddress(value);
+          }
+        });
+      });
+    },
+
+    getTransactionByTransactionHash(value) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "params": {"TransactionHash":value},
+          "method": "GetRawTransactionByTransactionHash"
+        },
+        headers:{'Content-Type': 'application/json','withCredentials':' true',
+          'crossDomain':'true',},
+      }).then((res) => {
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/transactionInfo/${value}`,
+          });
+
+        } else {
+          this.getBlockByBlockHash(value);
+        }
+      });
+    },
+
   },
 
 };
