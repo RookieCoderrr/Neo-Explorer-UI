@@ -46,13 +46,13 @@
                     </td>
                     <td class="To">
                         <div>
-                            <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
-                            <div v-else-if="toState" class="addr">
-                                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
-                            </div>
-                            <div v-else class="addr">
-                                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
-                            </div>
+                                <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
+                                <div v-else-if="toState" class="addr">
+                                    <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
+                                </div>
+                                <div v-else class="addr">
+                                    <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+                                </div>
                         </div>
                     </td>
                     <td class="Value">

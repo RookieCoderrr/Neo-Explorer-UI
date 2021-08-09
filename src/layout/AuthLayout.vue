@@ -103,7 +103,7 @@
     </base-nav>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8">
-      <div class="search mt--5 ml-5">
+      <div class="search mt--5 ml-5" style="display:inline-block; ">
         <input
           type="text"
           class="over-ellipsis"
@@ -111,7 +111,8 @@
           v-model ="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
-        /><button  class="button" @click="search()"><img class="img" src="../assets/search.png" alt="search" /></button>
+        />
+        <base-button   @click="search()"><img class="img" src="../assets/search.png" alt="search" /></base-button>
       </div>
       <div class="separator separator-bottom separator-skew zindex-100">
         <svg
