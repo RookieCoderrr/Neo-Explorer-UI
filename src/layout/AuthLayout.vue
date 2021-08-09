@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     switch_the_language(language) {
-      console.log(this.$i18n.locale)
+      //console.log(this.$i18n.locale)
       this.$i18n.locale = language
       if(language==="cn"){
         this.lang = "中文 "+"🇨🇳"
