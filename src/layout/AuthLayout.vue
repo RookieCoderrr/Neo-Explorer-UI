@@ -154,10 +154,8 @@ export default {
       value = value.trim();
       this.searchVal = "";
       if (value === "") {
-        this.$router.push({
-          path: `/homepage`,
-        });
         this.isLoading = false;
+        return;
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
           value = "0x" + value;
@@ -422,28 +420,9 @@ export default {
   padding-left: 11px;
   font-size: 16px;
   background: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(191, 191, 191, 1);
+  border: 0 !important;
   border-radius: 4px;
-  color: #282828;
+  color: #FFFFFF;
 }
 
-  .search-button{
-    /* Search */
-
-    position: absolute;
-    height: 22px;
-    left: 31.25%;
-    right: 29.69%;
-    top: calc(50% - 22px/2);
-
-    font-family: Avenir;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 16px;
-    line-height: 22px;
-    /* identical to box height */
-    text-align: right;
-
-    color: #FFFFFF;
-  }
 </style>
