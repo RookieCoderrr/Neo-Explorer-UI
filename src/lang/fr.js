@@ -1,6 +1,9 @@
 const fr = {
+    home: "Bienvenue sur NeoExplorer",
     na: "non disponible",
     blockReward: " Bloc Récompense",
+    networkFeeReward: "Récompense de frais de système",
+    feeBurn: " Brûler la frais de transaction ",
     transferReward: "Récompense Transfert",
     mint: "Mouler",
     burn: "Brûler",
@@ -9,6 +12,7 @@ const fr = {
     nullBalance: "Non disponible",
     hash: "Hash",
     wif: "WIF",
+    page: "Page",
     bytes: "Octets",
     authLayout:{
         home:"Accueil",
@@ -52,7 +56,10 @@ const fr = {
         totalSysFee:"Frais de système totals",
         totalNetFee:"Frais de réseau totals",
         txnsList:"Tableau de Transaction",
+        trfsList:"Tableau de transferts du bloc",
         nullPrompt: "Il n'y a pas de transaction dans ce bloc",
+        speaker: "Speaker",
+        blockReward: "Récompense de bloc",
         txTable:{
             txID:"Transaction ID",
             height:"Index de Bloc",
@@ -68,6 +75,7 @@ const fr = {
         name:"Nom",
         creator:"Créateur",
         index:"Indice",
+        creatTime:"Temps créé",
         time:"Temps créé",
         available:"Non disponible",
         update:"Mise à jour le competeur",
@@ -193,6 +201,15 @@ const fr = {
         gasBalance: "Nombre de GAS",
         createdTime: "Temps créé",
         hash: "Hash",
+        accountsTable: "Addresse",
+        txnullPrompt: "Ce compte n'a pas de transaction",
+        nep17nullPrompt: "Ce compte n'a pas de transerts NEP17",
+        nep11nullPrompt: "Ce compte n'a pas de transerts NEP11.",
+        typeEnum: {
+            normal: "Normal",
+            committee: "Comité",
+            candidate: "Candidature",
+        },
         addressProfile: {
             title: "Compte ",
             type: "Genre",
