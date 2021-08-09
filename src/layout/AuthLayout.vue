@@ -6,100 +6,74 @@
       containerClasses="px-4 container"
       expand
     >
-      <template v-slot="{ closeMenu }">
-        <!-- Collapse header -->
-        <div class="navbar-collapse-header d-md-none">
-          <div class="row">
-            <div class="col-6 collapse-brand">
-              <router-link to="/">
-                <img src="src/assets/search.png" />
-              </router-link>
-            </div>
-            <div class="col-6 collapse-close">
-
-              <button
-                type="button"
-                @click="closeMenu"
-                class="navbar-toggler"
-                aria-label="Toggle sidenav"
-              >
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- Navbar items -->
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/homepage">
-              <i class="ni ni-collection"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.home')}}</span>
-            </router-link>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/homepage">
+            <i class="ni ni-collection"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.home')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/blocks">
+            <i class="ni ni-ungroup"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.blocks')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/transactions">
+            <i class="ni ni-cart"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.txs')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/tokens">
+            <i class="ni ni-money-coins"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.tokens')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/contracts">
+            <i class="ni ni-collection"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.contracts')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/account">
+            <i class="ni ni-single-02"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.address')}}</span>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link nav-link-icon" to="/candidates">
+            <i class="ni ni-badge"></i>
+            <span class="nav-link-inner--text">{{$t('authLayout.committee')}}</span>
+          </router-link>
+        </li>
+      </ul>
+      <div>
+        <base-dropdown>
+          <template v-slot:title>
+            <base-button type="default" class="btn btn-sm">
+              {{this.lang}}
+            </base-button>
+          </template>
+          <li>
+            <a class="dropdown-item" @click="switch_the_language('en')">
+              <span>English 🇬🇧</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/blocks">
-              <i class="ni ni-ungroup"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.blocks')}}</span>
-            </router-link>
+          <li>
+            <a class="dropdown-item" @click="switch_the_language('cn')">
+              <span>中文 🇨🇳</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/transactions">
-              <i class="ni ni-cart"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.txs')}}</span>
-            </router-link>
+          <li>
+            <a class="dropdown-item"  @click="switch_the_language('fr')">
+              <span>Français 🇫🇷</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/tokens">
-              <i class="ni ni-money-coins"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.tokens')}}</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/contracts">
-              <i class="ni ni-collection"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.contracts')}}</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/account">
-              <i class="ni ni-single-02"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.address')}}</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/candidates">
-              <i class="ni ni-badge"></i>
-              <span class="nav-link-inner--text">{{$t('authLayout.committee')}}</span>
-            </router-link>
-          </li>
-        </ul>
-        <div>
-          <base-dropdown>
-            <template v-slot:title>
-              <base-button type="default" class="btn btn-sm">
-                {{this.lang}}
-              </base-button>
-            </template>
-            <li>
-              <a class="dropdown-item" @click="switch_the_language('en')">
-                <span>English 🇬🇧</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" @click="switch_the_language('cn')">
-                <span>中文 🇨🇳</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item"  @click="switch_the_language('fr')">
-                <span>Français 🇫🇷</span>
-              </a>
-            </li>
-          </base-dropdown>
-        </div>
-
-      </template>
+        </base-dropdown>
+      </div>
     </base-nav>
     <!-- Header -->
     <div class="header bg-gradient-success py-7 py-lg-8">
