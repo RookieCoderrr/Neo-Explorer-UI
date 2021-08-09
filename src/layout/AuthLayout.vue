@@ -87,7 +87,7 @@
     </base-nav>
     <!-- Header -->
     <div v-if="$route.meta.showSearch" class="header bg-gradient-success py-7 py-lg-8" >
-      <div  class="search mt--5 ml-5" >
+      <div  class="search mt--5 ml-5" style="width: 600px " >
         <input
           type="text"
           class="over-ellipsis"
