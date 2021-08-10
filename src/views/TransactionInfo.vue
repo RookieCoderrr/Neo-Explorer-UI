@@ -240,7 +240,9 @@
                         </div>
                         <div class="col-4">
                           <div class="text-muted">Contract:</div>
+                          <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
                           {{ item["contract"] }}
+                          </a>
                         </div>
                         <div class="col-5">
                           <div class="params">
@@ -274,11 +276,15 @@
                       </div>
                       <div class="col-4">
                         <div class="text-muted">OriginSender:</div>
+                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.originSender))">
                         {{ this.originSender}}
+                        </a>
                       </div>
                       <div class="col-4">
                         <div class="text-muted">Contract:</div>
+                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(this.contractHash )">
                         {{ this.contractHash }}
+                        </a>
                       </div>
                       <div class="col-2">
                         <div class="text-muted">CallFlags:</div>
@@ -397,6 +403,11 @@ export default {
     goToBlockInfo(hash){
       this.$router.push({
         path: `/blockinfo/${hash}`,
+      });
+    },
+    goToContractInfo(ctr_hash){
+      this.$router.push({
+        path: `/contractinfo/${ctr_hash}`,
       });
     },
     goToAddressInfo(addr){
