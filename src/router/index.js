@@ -16,6 +16,8 @@ import Blocks from "../views/Blocks.vue";
 import Search from "../views/SearchNotFound";
 import HomePage from "../views/HomePage";
 import PageNotFound from "../views/PageNotFound";
+import BurnFee from "../views/BurnFee";
+import importEcharts from "../views/importEcharts";
 
 import TransactionInfo from "../views/TransactionInfo.vue";
 
@@ -37,6 +39,22 @@ const routes = [
         path: "/tokens",
         name: "tokens",
         components: { default: Tokens },
+        meta: {
+          showSearch: true,
+        },
+      },
+      {
+        path: "/burn",
+        name: "burn",
+        components: { default: BurnFee },
+        meta: {
+          showSearch: true,
+        },
+      },
+      {
+        path: "/echarts",
+        name: "echarts",
+        components: { default: importEcharts },
         meta: {
           showSearch: true,
         },
