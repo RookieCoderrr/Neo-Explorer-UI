@@ -223,6 +223,7 @@
 
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
+                  <div v-if="this.tabledataApp['notifications']['length'] != 0">
                     <card
                         shadow
                         v-for="(item, index) in this.tabledataApp['notifications']"
@@ -257,41 +258,44 @@
                         </div>
                       </div>
                     </card>
+                  </div>
+                  <card shadow v-else class="text-center ">
+                    This transaction has no events.
+                  </card>
                 </tab-pane>
                 <tab-pane icon="ni ni-active-40" title="System Call">
                   <card
                       shadow
                   >
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-2">
                         <div class="text-muted">Method:</div>
                         {{ this.method }}
                       </div>
-                      <div class="col-3">
+                      <div class="col-4">
                         <div class="text-muted">OriginSender:</div>
                         {{ this.originSender}}
                       </div>
-                      <div class="col-3">
+                      <div class="col-4">
                         <div class="text-muted">Contract:</div>
                         {{ this.contractHash }}
                       </div>
-                      <div class="col-">
+                      <div class="col-2">
                         <div class="text-muted">CallFlags:</div>
                         {{ this.callFlags }}
                       </div>
-                      <div class="col-4">
-                        <div class="params">
-                          <div class="text-muted">Params:</div>
+                    </div>
+                    <div class="row mt-3"></div>
+                    <div class="row">
+                      <div class="params col">
+                        <div class="text-muted">Params:</div>
 
-                            <li
-                                v-for="(param, ind) in tabledataCall['hexStringParams']"
-                                :key="ind"
-                            >
-                               {{ param }}
-                            </li>
-
-                        </div>
-                      </div>
+                        <li class="col-12"
+                            v-for="(param, ind) in tabledataCall['hexStringParams']"
+                            :key="ind"
+                        >
+                         {{this.tmp[ind]['name']}}: {{ param==="" ? "null":param }}
+                        </li></div>
                     </div>
                   </card>
 
@@ -328,6 +332,7 @@ export default {
       tabledata: [],
       tabledataApp:[],
       tabledataCall:[],
+      tabledataContract:[],
       txhash: "",
       isLoading: true,
       blockhash:"",
@@ -341,7 +346,10 @@ export default {
       method:"",
       originSender:"",
       callFlags:"",
-      contractHash:""
+      contractHash:"",
+      manifest:"",
+      params:"",
+      tmp:""
     };
   },
   created() {
@@ -422,6 +430,7 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
+        console.log(this.tabledataApp)
       });
     },
     getTransactionByTransactionHash(tx_id) {
@@ -469,10 +478,40 @@ export default {
         this.originSender = this.tabledataCall["originSender"];
         this.callFlags = this.tabledataCall["callFlags"];
         this.contractHash = this.tabledataCall["contractHash"]
-        console.log(this.tabledataCall)
-        console.log(this.tabledataCall["method"])
+        this.getContractByContractHash(this.contractHash)
       });
-    }
+    },
+      getContractByContractHash(ctr_hash){
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: { ContractHash:  ctr_hash },
+            method: "GetContractByContractHash",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        }).then((res) => {
+          this.isLoading = false;
+          const raw = res["data"]["result"];
+          this.manifest = JSON.parse(raw["manifest"]);
+          this.tabledataContract = raw;
+          this.params = this.manifest["abi"]["methods"]
+          for (var i = 0; i < this.params["length"];i++){
+            if (this.params[i]["name"]===this.method){
+              this.tmp = this.params[i]["parameters"]
+              return
+            }
+          }
+          console.log(this.manifest)
+
+        });
+      }
   },
 };
 </script>
