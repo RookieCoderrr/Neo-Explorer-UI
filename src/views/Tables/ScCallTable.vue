@@ -14,29 +14,60 @@
         :data="ScCallList"
       >
         <template v-slot:columns>
-          <th>{{$t('contract.txID')}}</th>
-          <th>{{$t('contract.sender')}} <button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>{{$t('contract.method')}}</th>
-          <th>{{$t('contract.callFlags')}}</th>
-          <th>{{$t('contract.time')}}</th>
+          <th>{{ $t("contract.txID") }}</th>
+          <th>
+            {{ $t("contract.sender") }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat()">
+              {{ this.buttonName }}
+            </button>
+          </th>
+          <th>{{ $t("contract.method") }}</th>
+          <th>{{ $t("contract.callFlags") }}</th>
+          <th>{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body txid">
-                <span class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">Null Transaction</span>
-                <a class="name mb-0 text-sm" v-else style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+                <span
+                  class="text-muted"
+                  v-if="
+                    row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000'
+                  "
+                  >Null Transaction</span
+                >
+                <a
+                  class="name mb-0 text-sm"
+                  v-else
+                  style="cursor: pointer"
+                  @click="getTransaction(row.item.txid)"
+                  >{{ row.item.txid }}</a
+                >
               </div>
             </div>
           </th>
           <td class="Sender">
             <div class="addr">
-              <span class="text-muted" v-if="row.item.originSender === null"> Null Account </span>
-              <a v-else-if="state===true" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ scriptHashToAddress(row.item.originSender) }}</a>
-              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.originSender)">{{ row.item.originSender }}</a>
+              <span class="text-muted" v-if="row.item.originSender === null">
+                Null Account
+              </span>
+              <a
+                v-else-if="state === true"
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.originSender)"
+                >{{ scriptHashToAddress(row.item.originSender) }}</a
+              >
+              <a
+                v-else
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.originSender)"
+                >{{ row.item.originSender }}</a
+              >
             </div>
-
           </td>
           <td class="Method">
             {{ row.item.method }}
@@ -46,15 +77,16 @@
           </td>
           <td class="time">
             Currently Unavailable
-<!--            //{{ convertTime(row.item.time) }}-->
+            <!--            //{{ convertTime(row.item.time) }}-->
           </td>
         </template>
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10"
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
+    <div
+      v-if="this.totalCount > 10"
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
@@ -64,9 +96,7 @@
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{ countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -101,7 +131,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
       state: true,
       buttonName: "Hash",
     };
@@ -121,24 +151,24 @@ export default {
       };
     },
   },
-  watch:{
-    contractHash:'watchcontract'
+  watch: {
+    contractHash: "watchcontract",
   },
   methods: {
-    watchcontract() {//如果路由有变化，执行的对应的动作
+    watchcontract() {
+      //如果路由有变化，执行的对应的动作
       this.getScCallList(0);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
         this.pagination = this.countPage;
-        const skip = (this.countPage -1 ) * this.resultsPerPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getScCallList(skip);
-      } else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-            this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getScCallList(skip);
       } else {
         this.isLoading = true;
@@ -174,7 +204,11 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { ContractHash: this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          params: {
+            ContractHash: this.contractHash,
+            Limit: this.resultsPerPage,
+            Skip: skip,
+          },
           method: "GetScCallByContractHash",
         },
         headers: {
@@ -185,7 +219,10 @@ export default {
       }).then((res) => {
         this.ScCallList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },

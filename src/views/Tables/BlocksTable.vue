@@ -28,11 +28,11 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th>{{$t('blockinfo.height')}}</th>
-          <th>{{$t('blockinfo.hash')}}</th>
-          <th>{{$t('blockinfo.time')}}</th>
-          <th>{{$t('blockinfo.txns')}}</th>
-          <th>{{$t('blockinfo.size')}}</th>
+          <th>{{ $t("blockinfo.height") }}</th>
+          <th>{{ $t("blockinfo.hash") }}</th>
+          <th>{{ $t("blockinfo.time") }}</th>
+          <th>{{ $t("blockinfo.txns") }}</th>
+          <th>{{ $t("blockinfo.size") }}</th>
           <th></th>
         </template>
 
@@ -41,12 +41,12 @@
             {{ row.item.index }}
           </th>
           <td style="padding-left: 100px">
-            <div >
+            <div>
               <a
-                      class="name mb-0 text-sm"
-                      style="cursor: pointer"
-                      @click="getBlock(row.item.hash)"
-              >{{ row.item.hash }}</a
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getBlock(row.item.hash)"
+                >{{ row.item.hash }}</a
               >
             </div>
           </td>
@@ -56,14 +56,13 @@
           <td class="txnumber">
             {{ row.item.transactioncount }}
           </td>
-          <td>
-            {{ row.item.size }} {{$t('bytes')}}
-          </td>
+          <td>{{ row.item.size }} {{ $t("bytes") }}</td>
         </template>
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -75,9 +74,7 @@
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{countPage}}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
 
       <base-pagination
@@ -92,7 +89,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {format} from "timeago.js";
+import { format } from "timeago.js";
 
 export default {
   name: "blocks-table",
@@ -113,7 +110,7 @@ export default {
       pagination: 1,
       isLoading: true,
       placeHolder: 0,
-      countPage:0,
+      countPage: 0,
     };
   },
   created() {
@@ -138,9 +135,8 @@ export default {
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination =this.countPage;
-        const skip =
-                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getBlockList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -185,7 +181,10 @@ export default {
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },

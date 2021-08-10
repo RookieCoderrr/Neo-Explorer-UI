@@ -86,7 +86,7 @@ export default {
       description: "Whether button is of block type",
     },
   },
-  emits:["click"],
+  emits: ["click"],
   computed: {
     classes() {
       let btnClasses = [

@@ -10,42 +10,50 @@
         </div>
         <div class="col-8">
           <div class="h2 font-weight-bold mb-0">
-            {{$t('search.information') }}
+            {{ $t("search.information") }}
           </div>
           <div class="row mt-3"></div>
           <div class="h2 font-weight-bold mb-0">
-            {{$t('search.dataSupport') }}
+            {{ $t("search.dataSupport") }}
           </div>
-          <p class="text-muted font-weight-bold  mb-0">{{$t('search.block') }}</p>
-          <p class="text-muted font-weight-bold  mb-0">{{$t('search.transaction') }}</p>
-          <p class="text-muted font-weight-bold  mb-0">{{$t('search.account') }}</p>
-          <p class="text-muted font-weight-bold  mb-0">{{$t('search.token') }}</p>
+          <p class="text-muted font-weight-bold mb-0">
+            {{ $t("search.block") }}
+          </p>
+          <p class="text-muted font-weight-bold mb-0">
+            {{ $t("search.transaction") }}
+          </p>
+          <p class="text-muted font-weight-bold mb-0">
+            {{ $t("search.account") }}
+          </p>
+          <p class="text-muted font-weight-bold mb-0">
+            {{ $t("search.token") }}
+          </p>
           <div class="row mt-3"></div>
           <div>
-            <base-button type="primary"  @click="toHomePage()">{{$t('search.button') }}</base-button>
+            <base-button type="primary" @click="toHomePage()">{{
+              $t("search.button")
+            }}</base-button>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 </template>
 
 <script>
 import BaseButton from "../components/BaseButton";
 export default {
   name: "Home",
-  components: {BaseButton},
-  data() {
-  },
+  components: { BaseButton },
+  data() {},
   methods: {
-    toHomePage(){
+    toHomePage() {
       this.$router.push({
         path: `/homepage`,
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style>
 .search-content {
@@ -61,5 +69,4 @@ export default {
   margin-top: 36px;
   width: 100%;
 }
-
 </style>

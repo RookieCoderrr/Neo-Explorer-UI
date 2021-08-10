@@ -1,19 +1,30 @@
 <template>
-  <section class="Intro bg-gradient-success" >
-    <h2 class="Intro-h display-2 text-white">{{ $t('home') }}</h2>
+  <section class="Intro bg-gradient-success">
+    <h2 class="Intro-h display-2 text-white">{{ $t("home") }}</h2>
     <div class="search mt--5 ml-5">
       <input
-          type="text"
-          class="over-ellipsis"
-          :placeholder="$t('search.placeholder')"
-          v-model ="searchVal"
-          autocomplete="off"
-          @keyup.enter="search()"
-      /><button  class="button" @click="search()" >
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z" fill="black"/>
-      </svg>
-    </button>
+        type="text"
+        class="over-ellipsis"
+        :placeholder="$t('search.placeholder')"
+        v-model="searchVal"
+        autocomplete="off"
+        @keyup.enter="search()"
+      /><button class="button" @click="search()">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+            fill="black"
+          />
+        </svg>
+      </button>
     </div>
   </section>
   <div class="row mt-5"></div>
@@ -21,76 +32,98 @@
     <div class="container-fluid mt--8" style="padding-bottom: 50px">
       <div class="row">
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toBlock()"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toBlock()"
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
-            :sub-title="blockCount.toLocaleString()"
+            :sub-title="blockCount.toString()"
             icon="ni ni-ungroup"
             class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toTransaction()"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toTransaction()"
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
-            :sub-title="txCount.toLocaleString()"
+            :sub-title="txCount.toString()"
             icon="ni ni-cart"
             class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toAsset()"
-                  :title="$t('homePage.totalTokens')"
-                  type="gradient-red"
-                  :sub-title="assetCount.toLocaleString()"
-                  icon="ni ni-money-coins"
-                  class="mb-4 mb-xl-0"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toAsset()"
+            :title="$t('homePage.totalTokens')"
+            type="gradient-red"
+            :sub-title="assetCount.toString()"
+            icon="ni ni-money-coins"
+            class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
-
       </div>
       <div class="row mt-4">
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toContract()"
-              :title="$t('homePage.totalCntrts')"
-              type="gradient-purple"
-              :sub-title="contractCount.toLocaleString()"
-              icon="ni ni-collection"
-              class="mb-4 mb-xl-0"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toContract()"
+            :title="$t('homePage.totalCntrts')"
+            type="gradient-purple"
+            :sub-title="contractCount.toString()"
+            icon="ni ni-collection"
+            class="mb-4 mb-xl-0"
           >
           </stats-card>
+
         </div>
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toAddress()"
-              :title="$t('homePage.totalAddrs')"
-              type="gradient-green"
-              :sub-title="accountCount.toLocaleString()"
-              icon="ni ni-single-02"
-              class="mb-4 mb-xl-0"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toAddress()"
+            :title="$t('homePage.totalAddrs')"
+            type="gradient-green"
+            :sub-title="accountCount.toString()"
+            icon="ni ni-single-02"
+            class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
 
         <div class="col">
-          <stats-card shadow style="cursor: pointer" @click="toCandidate()"
-              :title="$t('homePage.totalCndidtes')"
-              type="gradient-blue"
-              :sub-title="candidateCount.toLocaleString()"
-              icon="ni ni-badge"
-              class="mb-4 mb-xl-0"
+          <stats-card
+            shadow
+            style="cursor: pointer"
+            @click="toCandidate()"
+            :title="$t('homePage.totalCndidtes')"
+            type="gradient-blue"
+            :sub-title="candidateCount.toString()"
+            icon="ni ni-badge"
+            class="mb-4 mb-xl-0"
           >
           </stats-card>
         </div>
       </div>
       <div class="row mt-4">
         <div class="col-6">
-          <blocks-table-homepage :title="$t('homePage.recentBlocks')"></blocks-table-homepage>
+          <blocks-table-homepage
+            :title="$t('homePage.recentBlocks')"
+          ></blocks-table-homepage>
         </div>
         <div class="col-6">
-          <transaction-table-homepage :title="$t('homePage.recentTxs')"></transaction-table-homepage>
+          <transaction-table-homepage
+            :title="$t('homePage.recentTxs')"
+          ></transaction-table-homepage>
         </div>
       </div>
     </div>
@@ -98,13 +131,11 @@
 </template>
 
 <script>
-
-import BlocksTableHomepage from '../views/Tables/BlocksTableHomepage'
+import BlocksTableHomepage from "../views/Tables/BlocksTableHomepage";
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
 import axios from "axios";
 import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
-//import {getCurrentInstance} from 'vue'
 
 export default {
   name: "Home",
@@ -112,6 +143,7 @@ export default {
     BlocksTableHomepage,
     StatsCard,
     TransactionTableHomepage,
+
   },
   data() {
     return {
@@ -125,9 +157,13 @@ export default {
       isLoading: false,
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
-      isAddressPattern : /^N([0-9a-zA-Z]{33})$/,
+      isAddressPattern: /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-      // test:this.$t('language.name'),
+
+      //数字开始
+      startVal: 0,
+      //数字结束
+      endVal: 3000
     };
   },
   created() {
@@ -170,7 +206,6 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-
         this.txCount = res["data"]["result"]["total counts"];
       });
     },
@@ -199,7 +234,7 @@ export default {
           params: {},
           jsonrpc: "2.0",
           id: 1,
-            method: "GetAssetCount",
+          method: "GetAssetCount",
         },
         headers: {
           "Content-Type": "application/json",
@@ -268,17 +303,15 @@ export default {
           if (Number.isInteger(Number(value))) {
             this.getBlockByBlockHeight(value);
           }
-        }
-        else {
+        } else {
           this.isLoading = false;
           this.$router.push({
             path: `/search`,
           });
         }
-      } else if (this.isAddressPattern.test(value)){
-        this.getAddressByAddress(this.addressToScriptHash(value))
-      }
-      else {
+      } else if (this.isAddressPattern.test(value)) {
+        this.getAddressByAddress(this.addressToScriptHash(value));
+      } else {
         this.isLoading = false;
         this.$router.push({
           path: `/search`,
@@ -289,23 +322,21 @@ export default {
       try {
         const acc = Neon.create.account(addr);
         return "0x" + acc.scriptHash;
-      }catch (err){
+      } catch (err) {
         this.$router.push({
           path: `/search`,
         });
       }
-
-
     },
     getBlockByBlockHash(block_hash) {
       axios({
         method: "post",
         url: "/api",
         data: {
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"BlockHash":block_hash},
-          "method": "GetBlockByBlockHash"
+          jsonrpc: "2.0",
+          id: 1,
+          params: { BlockHash: block_hash },
+          method: "GetBlockByBlockHash",
         },
         headers: {
           "Content-Type": "application/json",
@@ -313,29 +344,27 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-            this.isLoading = false;
-            if (res["data"]["error"] == null) {
-              this.$router.push({
-                path: `/blockinfo/${res["data"]["result"]["hash"]}`,
-              });
-
-            } else {
-              this.$router.push({
-                path: `/search`,
-              });
-            }
-          },
-      )
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
+        } else {
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      });
     },
-    getBlockByBlockHeight(blockheight){
+    getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
         url: "/api",
         data: {
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"BlockHeight":parseInt(blockheight)},
-          "method": "GetBlockByBlockHeight"
+          jsonrpc: "2.0",
+          id: 1,
+          params: { BlockHeight: parseInt(blockheight) },
+          method: "GetBlockByBlockHeight",
         },
         headers: {
           "Content-Type": "application/json",
@@ -343,19 +372,18 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-            this.isLoading = false;
-            if (res["data"]["error"] == null) {
-              this.$router.push({
-                path: `/blockinfo/${res["data"]["result"]["hash"]}`,
-              });
-
-            } else {
-              this.$router.push({
-                path: `/search`,
-              });
-            }
-          },
-      )},
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
+        } else {
+          this.$router.push({
+            path: `/search`,
+          });
+        }
+      });
+    },
     getAddressByAddress(addr) {
       axios({
         method: "post",
@@ -363,7 +391,7 @@ export default {
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
-          params: {"Address": addr},
+          params: { Address: addr },
           id: 1,
         },
         headers: {
@@ -383,7 +411,7 @@ export default {
             path: `/search`,
           });
         }
-      })
+      });
     },
 
     getToken(value) {
@@ -394,7 +422,7 @@ export default {
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: {"ContractHash": value},
+            params: { ContractHash: value },
             method: "GetAssetInfoByContractHash",
           },
           headers: {
@@ -422,7 +450,7 @@ export default {
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: {"Hash": value},
+            params: { Hash: value },
             method: "GetContractInfoByContractHash",
           },
           headers: {
@@ -448,58 +476,58 @@ export default {
         method: "post",
         url: "/api",
         data: {
-          "jsonrpc": "2.0",
-          "id": 1,
-          "params": {"TransactionHash":value},
-          "method": "GetRawTransactionByTransactionHash"
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: value },
+          method: "GetRawTransactionByTransactionHash",
         },
-        headers:{'Content-Type': 'application/json','withCredentials':' true',
-          'crossDomain':'true',},
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
       }).then((res) => {
         this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/transactionInfo/${value}`,
           });
-
         } else {
           this.getBlockByBlockHash(value);
         }
       });
     },
-    toBlock(){
+    toBlock() {
       this.$router.push({
         path: `/blocks`,
       });
     },
-    toCandidate(){
+    toCandidate() {
       this.$router.push({
         path: `/candidates`,
       });
     },
-    toTransaction(){
+    toTransaction() {
       this.$router.push({
         path: `/Transactions`,
       });
     },
-    toAsset(){
+    toAsset() {
       this.$router.push({
         path: `/tokens`,
       });
     },
-    toAddress(){
+    toAddress() {
       this.$router.push({
         path: `/account`,
       });
     },
-    toContract(){
+    toContract() {
       this.$router.push({
         path: `/contracts`,
       });
     },
-
   },
-
 };
 </script>
 <style>
@@ -511,14 +539,14 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.Intro-h{
+.Intro-h {
   font-family: "Gill Sans";
   font-style: normal;
   font-weight: 800;
   font-size: 48px;
   line-height: 58px;
   /* identical to box height */
-  color: #282B34;
+  color: #282b34;
   margin-bottom: 80px;
 }
 
@@ -549,13 +577,12 @@ export default {
   right: 1px;
   bottom: 1px;
   top: 1px;
-  width: 50px ;
+  width: 50px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF !important;
+  background: #ffffff !important;
   border-radius: 4px;
   border: white;
 }
-
 </style>
