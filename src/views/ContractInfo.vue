@@ -225,14 +225,13 @@
                                     <col-2
                                     >{{ param["name"] }}:
                                       {{ param["type"] }}</col-2
-                                    >
-                                    <col-2>
-                                      <input
+                                    ><input
                                           type="text"
                                           class="over-ellipsis"
-                                          :v-model="contractMethod[item['name']][param['name']]['value']"
+                                          v-model="manifest['abi']['methods'][index]['parameters'][ind].value"
                                       />
-                                    </col-2>
+                                      <div >{{manifest['abi']['methods'][index]['parameters'][ind].value}}"dadasd"</div>
+
                                   </div>
                                 </div>
                                 <div v-else>
@@ -342,6 +341,7 @@ export default {
     },
     contractMethodInitialize() {
       const methods = this.manifest.abi.methods;
+      console.log(methods)
       for (const method of methods) {
         if(method['safe']){
           this.contractMethod[method["name"]] = {};
@@ -399,6 +399,7 @@ export default {
     },
     onQuery(methodName) {
       const params = this.contractMethod[methodName];
+      console.log(this.manifest['abi']['methods'])
       const contractParams = [];
       for (const item in params) {
         let temp = Neon.create.contractParam(

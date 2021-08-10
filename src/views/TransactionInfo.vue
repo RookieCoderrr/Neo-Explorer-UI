@@ -294,7 +294,7 @@
                       </div>
                     </div>
                     <div class="row mt-3"></div>
-                    <div class="row" v-if="tabledataCall['hexStringParams']">
+                    <div class="row">
                       <div class="params col">
                         <div class="text-muted">Params:</div>
 
@@ -302,8 +302,10 @@
 
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
-                        >{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
 
+                        >
+                          <div  v-if="params[k] && params[k].parameters  ">{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          </div>
                         </li></div>
                     </div>
                   </card>
