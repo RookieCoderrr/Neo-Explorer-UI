@@ -294,7 +294,7 @@
                       </div>
                     </div>
                     <div class="row mt-3"></div>
-                    <div class="row">
+                    <div class="row" v-if="tabledataCall['hexStringParams']">
                       <div class="params col">
                         <div class="text-muted">Params:</div>
 
