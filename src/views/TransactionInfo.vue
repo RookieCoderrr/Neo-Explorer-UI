@@ -222,44 +222,47 @@
 
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
-                  <div v-if="this.tabledataApp['notifications']['length'] != 0">
-                    <card
-                        shadow
-                        v-for="(item, index) in this.tabledataApp['notifications']"
-                        :key="index"
-                    >
-                      <div class="row">
-                        <div class="col-2">
-                          <div class="text-muted">Eventname:</div>
-                          {{ item["eventname"] }}
-                        </div>
-                        <div class="col-1">
-                          <div class="text-muted">Vmstate:</div>
-                          {{ item["Vmstate"] }}
-                        </div>
-                        <div class="col-4">
-                          <div class="text-muted">Contract:</div>
-                          <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
-                          {{ item["contract"] }}
-                          </a>
-                        </div>
-                        <div class="col-5">
-                          <div class="params">
-                            <div class="text-muted">State:</div>
-                            <div v-if="item['state'].length !== 0">
-                              <li
-                                  v-for="(param, ind) in item['state']['value']"
-                                  :key="ind"
-                              >
-                                {{ param["type"] }}: {{ param["value"]===null?"null":param["value"]}}
-                              </li>
+                  <div v-if="tabledataApp['notifications']">
+                    <div v-if="tabledataApp['notifications']['length'] != 0">
+                      <card
+                          shadow
+                          v-for="(item, index) in this.tabledataApp['notifications']"
+                          :key="index"
+                      >
+                        <div class="row">
+                          <div class="col-2">
+                            <div class="text-muted">Eventname:</div>
+                            {{ item["eventname"] }}
+                          </div>
+                          <div class="col-1">
+                            <div class="text-muted">Vmstate:</div>
+                            {{ item["Vmstate"] }}
+                          </div>
+                          <div class="col-4">
+                            <div class="text-muted">Contract:</div>
+                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
+                              {{ item["contract"] }}
+                            </a>
+                          </div>
+                          <div class="col-5">
+                            <div class="params">
+                              <div class="text-muted">State:</div>
+                              <div v-if="item['state'].length !== 0">
+                                <li
+                                    v-for="(param, ind) in item['state']['value']"
+                                    :key="ind"
+                                >
+                                  {{ param["type"] }}: {{ param["value"]===null?"null":param["value"]}}
+                                </li>
+                              </div>
+                              <div v-else>null</div>
                             </div>
-                            <div v-else>null</div>
                           </div>
                         </div>
-                      </div>
-                    </card>
+                      </card>
+                    </div>
                   </div>
+
                   <card shadow v-else class="text-center ">
                     This transaction has no events.
                   </card>
@@ -275,7 +278,7 @@
                       </div>
                       <div class="col-4">
                         <div class="text-muted">OriginSender:</div>
-                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.originSender))">
+                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(this.originSender)">
                         {{ this.originSender}}
                         </a>
                       </div>
@@ -296,10 +299,11 @@
                         <div class="text-muted">Params:</div>
 
                         <li class="col-12"
+
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
-                        >
-                         {{this.tmp[ind]['name']}}: {{ param==="" ? "null":param }}
+                        >{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+
                         </li></div>
                     </div>
                   </card>
@@ -354,7 +358,8 @@ export default {
       contractHash:"",
       manifest:"",
       params:"",
-      tmp:""
+      k:0
+
     };
   },
   created() {
@@ -399,6 +404,10 @@ export default {
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
+    baseToHash(base){
+     return Neon.u.base642utf8(base)
+    },
+
     goToBlockInfo(hash){
       this.$router.push({
         path: `/blockinfo/${hash}`,
@@ -488,6 +497,7 @@ export default {
         this.originSender = this.tabledataCall["originSender"];
         this.callFlags = this.tabledataCall["callFlags"];
         this.contractHash = this.tabledataCall["contractHash"]
+        console.log(this.tabledataCall)
         this.getContractByContractHash(this.contractHash)
       });
     },
@@ -512,13 +522,13 @@ export default {
           this.manifest = JSON.parse(raw["manifest"]);
           this.tabledataContract = raw;
           this.params = this.manifest["abi"]["methods"]
+          console.log(this.params)
           for (var i = 0; i < this.params["length"];i++){
             if (this.params[i]["name"]===this.method){
-              this.tmp = this.params[i]["parameters"]
-              return
+              this.k = i
             }
           }
-          console.log(this.manifest)
+          console.log(this.params)
 
         });
       }
