@@ -304,7 +304,7 @@
                             :key="ind"
 
                         >
-                          <div  v-if="params[k] && params[k].parameters  ">{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          <div  v-if="params[k] && params[k].parameters">{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
                           </div>
                         </li></div>
                     </div>
