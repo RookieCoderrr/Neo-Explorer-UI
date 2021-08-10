@@ -29,7 +29,7 @@ module.exports = {
         totalTokens:"通证总数",
         totalCntrts:"合约总数",
         totalAddrs:"地址总数",
-        totalCndidtes:"候选人",
+        totalCndidtes:"候选人总数",
         recentBlocks:"区块",
         recentTxs:"交易",
         seeAll:"更多",
