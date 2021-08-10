@@ -10,7 +10,9 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.txId') }}</div>
+              <div class="h2 font-weight-bold mb-0">
+                {{ $t('transactionInfo.txId') }}
+              </div>
               <div class="text-muted">{{ this.tabledata["hash"] }}</div>
             </div>
             <div class="card-body">
@@ -18,7 +20,9 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.time') }}</div>
+                      <div class="h2 font-weight-bold mb-0">
+                        {{ $t('transactionInfo.time') }}
+                      </div>
                       <div class="panel-body">
                         {{ convertTime(this.blocktime) }}
                       </div>
@@ -29,7 +33,9 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHeight') }}</div>
+                      <div class="h2 font-weight-bold mb-0">
+                        {{ $t('transactionInfo.blockHeight') }}
+                      </div>
                       <div class="panel-body">
                         {{ this.tabledata["blockIndex"] }}
                       </div>
@@ -40,7 +46,9 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.size') }}</div>
+                      <div class="h2 font-weight-bold mb-0">
+                        {{ $t('transactionInfo.size') }}
+                      </div>
                       <div class="panel-body">
                         {{ this.tabledata["size"] }}
                       </div>
@@ -51,7 +59,9 @@
                 <div class="col-3">
                   <card shadow>
                     <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">{{ $t('transactionInfo.version') }}</div>
+                      <div class="h2 font-weight-bold mb-0">
+                        {{ $t('transactionInfo.version') }}
+                      </div>
                       <div class="panel-body">
                         {{ this.tabledata["version"] }}
                       </div>
@@ -252,7 +262,22 @@
                                     v-for="(param, ind) in item['state']['value']"
                                     :key="ind"
                                 >
-                                  {{ param["type"] }}: {{ param["value"]===null?"null":param["value"]}}
+                                  <div v-if="manifest['abi'] && manifest['abi']['events']"> </div>
+                                  <div v-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Hash160'">
+                                    {{ param["type"] }}: {{ base64ToHash(param["value"])}}
+                                  </div>
+                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='String'">
+                                    {{ param["type"] }}: {{ base64ToString(param["value"])}}
+                                  </div>
+                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Array'">
+                                    {{ param["type"] }}:
+                                  </div>
+                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='ByteArray'">
+                                    {{ param["type"] }}:
+                                  </div>
+                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Integer'">
+                                    {{ param["type"] }}: {{param["value"]}}
+                                  </div>
                                 </li>
                               </div>
                               <div v-else>null</div>
@@ -358,15 +383,19 @@ export default {
       contractHash:"",
       manifest:"",
       params:"",
-      k:0
+      k:0,
+      array:[]
+
 
     };
   },
   created() {
     this.txhash = this.$route.params.txhash;
     this.getTransactionByTransactionHash(this.$route.params.txhash);
-    this.getApplicationLogByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash)
+    this.getApplicationLogByTransactionHash(this.$route.params.txhash);
+
+
   },
   watch:{
     $route:'watchrouter'
@@ -401,11 +430,33 @@ export default {
         return
       }
     },
+    checkEvent(name){
+      for (var i = 0; i < this.array.length;i++){
+        if (name === this.array[i]){
+          console.log(i)
+          return i
+        }
+      }
+    },
+
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
-    baseToHash(base){
-     return Neon.u.base642utf8(base)
+    base64ToHash(base){
+        var res = Neon.u.base642hex(base)
+        return "0x"+res
+    },
+    base64ToString(base) {
+        var tmp =Neon.u.base642hex(base)
+        var res = Neon.u.hexstring2str(tmp)
+        console.log(res)
+        return res
+    },
+    base64ToByteArray(base){
+      var tmp =Neon.u.base642hex(base)
+      var res = Neon.u.hexstring2ab(tmp)
+      console.log(res)
+      return res
     },
 
     goToBlockInfo(hash){
@@ -528,7 +579,11 @@ export default {
               this.k = i
             }
           }
-          console.log(this.params)
+
+          for (var j = 0; j <this.manifest["abi"]["events"]["length"];j ++){
+            this.array[j] = this.manifest["abi"]["events"][j]["name"]
+          }
+          console.log(this.manifest['abi']['events'][0]['parameters'][0]['type'])
 
         });
       }
