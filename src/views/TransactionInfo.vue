@@ -101,7 +101,28 @@
               </card>
 
               <div class="row mt-3"></div>
-
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">VM State</div>
+                  <div class="col-4">
+                    {{ this.vmstate }}
+                  </div>
+                  <div class="col-2 font-weight-bold mb-0">Exception</div>
+                  <div class="col-4">
+                    {{ this.exception === null? "Null":this.exception}}
+                  </div>
+                </div>
+              </card>
+              <div class="row mt-3"></div>
+              <card shadow>
+                <div class="row">
+                  <div class="col-2 font-weight-bold mb-0">Trigger</div>
+                  <div class="col-10">
+                    {{this.trigger}}
+                  </div>
+                </div>
+              </card>
+              <div class="row mt-3"></div>
               <transfers-list
                   :title="$t('transactionInfo.nep17')"
                   :txhash="this.txhash"
@@ -200,6 +221,83 @@
 
               <div class="row mt-3"></div>
 
+              <tabs fill class="flex-column flex-md-row">
+                <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
+                    <card
+                        shadow
+                        v-for="(item, index) in this.tabledataApp['notifications']"
+                        :key="index"
+                    >
+                      <div class="row">
+                        <div class="col-2">
+                          <div class="text-muted">Eventname:</div>
+                          {{ item["eventname"] }}
+                        </div>
+                        <div class="col-1">
+                          <div class="text-muted">Vmstate:</div>
+                          {{ item["Vmstate"] }}
+                        </div>
+                        <div class="col-4">
+                          <div class="text-muted">Contract:</div>
+                          {{ item["contract"] }}
+                        </div>
+                        <div class="col-5">
+                          <div class="params">
+                            <div class="text-muted">State:</div>
+                            <div v-if="item['state'].length !== 0">
+                              <li
+                                  v-for="(param, ind) in item['state']['value']"
+                                  :key="ind"
+                              >
+                                {{ param["type"] }}: {{ param["value"]===null?"null":param["value"]}}
+                              </li>
+                            </div>
+                            <div v-else>null</div>
+                          </div>
+                        </div>
+                      </div>
+                    </card>
+                </tab-pane>
+                <tab-pane icon="ni ni-active-40" title="System Call">
+                  <card
+                      shadow
+                  >
+                    <div class="row">
+                      <div class="col-1">
+                        <div class="text-muted">Method:</div>
+                        {{ this.method }}
+                      </div>
+                      <div class="col-3">
+                        <div class="text-muted">OriginSender:</div>
+                        {{ this.originSender}}
+                      </div>
+                      <div class="col-3">
+                        <div class="text-muted">Contract:</div>
+                        {{ this.contractHash }}
+                      </div>
+                      <div class="col-">
+                        <div class="text-muted">CallFlags:</div>
+                        {{ this.callFlags }}
+                      </div>
+                      <div class="col-4">
+                        <div class="params">
+                          <div class="text-muted">Params:</div>
+
+                            <li
+                                v-for="(param, ind) in tabledataCall['hexStringParams']"
+                                :key="ind"
+                            >
+                               {{ param }}
+                            </li>
+
+                        </div>
+                      </div>
+                    </div>
+                  </card>
+
+                </tab-pane>
+              </tabs>
+
 
             </div>
           </div>
@@ -228,18 +326,29 @@ export default {
   data() {
     return {
       tabledata: [],
+      tabledataApp:[],
+      tabledataCall:[],
       txhash: "",
       isLoading: true,
       blockhash:"",
       address:"",
       state: true,
       buttonName:"Hash",
-      blocktime:0
+      blocktime:0,
+      vmstate:"",
+      trigger:"",
+      exception:"",
+      method:"",
+      originSender:"",
+      callFlags:"",
+      contractHash:""
     };
   },
   created() {
     this.txhash = this.$route.params.txhash;
     this.getTransactionByTransactionHash(this.$route.params.txhash);
+    this.getApplicationLogByTransactionHash(this.$route.params.txhash);
+    this.getScCallByTransactionHash(this.$route.params.txhash)
   },
   watch:{
     $route:'watchrouter'
@@ -292,6 +401,29 @@ export default {
       return "0x" + acc.scriptHash;
 
     },
+    getApplicationLogByTransactionHash(tx_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: tx_id },
+          method: "GetApplicationLogByTransactionHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        this.tabledataApp = res["data"]["result"];
+        this.exception = this.tabledataApp["exception"];
+        this.trigger = this.tabledataApp["trigger"];
+        this.vmstate = this.tabledataApp["vmstate"];
+      });
+    },
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
@@ -315,6 +447,32 @@ export default {
         this.blocktime = this.tabledata["blocktime"]
       });
     },
+    getScCallByTransactionHash(tx_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: tx_id },
+          method: "GetScCallByTransactionHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        this.tabledataCall = res["data"]["result"];
+        this.method = this.tabledataCall["method"];
+        this.originSender = this.tabledataCall["originSender"];
+        this.callFlags = this.tabledataCall["callFlags"];
+        this.contractHash = this.tabledataCall["contractHash"]
+        console.log(this.tabledataCall)
+        console.log(this.tabledataCall["method"])
+      });
+    }
   },
 };
 </script>
