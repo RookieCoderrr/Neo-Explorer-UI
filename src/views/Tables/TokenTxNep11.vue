@@ -1,5 +1,9 @@
 <template>
-  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div
+    v-if="this.totalCount != 0"
+    class="card shadow"
+    :class="type === 'dark' ? 'bg-default' : ''"
+  >
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -15,56 +19,110 @@
         :data="NEP11TxList"
       >
         <template v-slot:columns>
-          <th>{{$t('tokenTx.txid')}}</th>
-          <th>{{$t('tokenTx.type')}}</th>
-          <th>{{$t('tokenTx.from')}} <button class="btn btn-sm btn-primary"  @click="changeFromFormat()">{{this.fromButton}}</button></th>
+          <th>{{ $t("tokenTx.txid") }}</th>
+          <th>{{ $t("tokenTx.type") }}</th>
+          <th>
+            {{ $t("tokenTx.from") }}
+            <button class="btn btn-sm btn-primary" @click="changeFromFormat()">
+              {{ this.fromButton }}
+            </button>
+          </th>
           <th></th>
-          <th>{{$t('tokenTx.to')}} <button class="btn btn-sm btn-primary"  @click="changeToFormat()">{{this.toButton}}</button></th>
-          <th>{{$t('tokenTx.amount')}}</th>
-          <th>{{$t('tokenTx.time')}}</th>
-          <th>{{$t('tokenTx.tokenID')}}</th>
+          <th>
+            {{ $t("tokenTx.to") }}
+            <button class="btn btn-sm btn-primary" @click="changeToFormat()">
+              {{ this.toButton }}
+            </button>
+          </th>
+          <th>{{ $t("tokenTx.amount") }}</th>
+          <th>{{ $t("tokenTx.time") }}</th>
+          <th>{{ $t("tokenTx.tokenID") }}</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
+                <div
+                  class="text-muted"
+                  v-if="
+                    row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000'
+                  "
+                >
+                  {{ $t("na") }}
+                </div>
                 <div class="txid" v-else>
-                  <a class="name mb-0 text-sm " style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+                  <a
+                    class="name mb-0 text-sm"
+                    style="cursor: pointer"
+                    @click="getTransaction(row.item.txid)"
+                    >{{ row.item.txid }}</a
+                  >
                 </div>
               </div>
             </div>
           </th>
           <td class="Type">
-            <div >
-              <span class="text-success" v-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
-              <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}} </span>
-              <span class="text-info" v-else> {{$t('transfer')}}</span>
+            <div>
+              <span
+                class="text-success"
+                v-if="row.item.from === null"
+                type="primary"
+                >{{ $t("mint") }}</span
+              >
+              <span class="text-danger" v-else-if="row.item.to === null">
+                {{ $t("burn") }}
+              </span>
+              <span class="text-info" v-else> {{ $t("transfer") }}</span>
             </div>
           </td>
           <td class="From">
             <div>
-              <div class="text-muted" v-if="row.item.from === null">{{$t('nullAddress')}}</div>
+              <div class="text-muted" v-if="row.item.from === null">
+                {{ $t("nullAddress") }}
+              </div>
               <div v-else-if="fromState" class="addr">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ scriptHashToAddress(row.item.from) }}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAddress(row.item.from)"
+                  >{{ scriptHashToAddress(row.item.from) }}</a
+                >
               </div>
               <div v-else class="addr">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{ row.item.from }}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAddress(row.item.from)"
+                  >{{ row.item.from }}</a
+                >
               </div>
             </div>
           </td>
           <td>
-            <h1 style="color: #42b983;">&#8594;</h1>
+            <h1 style="color: #42b983">&#8594;</h1>
           </td>
           <td class="To">
             <div>
-              <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
+              <div class="text-muted" v-if="row.item.to === null">
+                {{ $t("nullAddress") }}
+              </div>
               <div class="addr" v-else-if="toState">
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ scriptHashToAddress(row.item.to) }}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAddress(row.item.to)"
+                  >{{ scriptHashToAddress(row.item.to) }}</a
+                >
               </div>
               <div class="addr" v-else>
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{ row.item.to }}</a>
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAddress(row.item.to)"
+                  >{{ row.item.to }}</a
+                >
               </div>
             </div>
           </td>
@@ -83,22 +141,21 @@
       </base-table>
     </div>
 
-    <div v-if="this.totalCount >10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-      <div class="text">Page &nbsp;</div>
-      <base-input
-        type="number"
-        :style="text(pagination)"
-        :placeholder="pagination"
-        v-on:changeinput="pageChangeByInput($event)"
-      ></base-input>
-      <div class="text">
-        &nbsp; of &nbsp;{{countPage}}
+        <div class="text">Page &nbsp;</div>
+        <base-input
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
-    </div>
       <base-pagination
         :total="this.totalCount"
         :value="pagination"
@@ -106,7 +163,7 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center ">{{$t('tokenTx.nullPrompt')}}</card>
+  <card shadow v-else class="text-center">{{ $t("tokenTx.nullPrompt") }}</card>
 </template>
 <script>
 import axios from "axios";
@@ -114,7 +171,6 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import Neon from "@cityofzion/neon-js";
-
 
 export default {
   name: "tokens-tx-nep11",
@@ -126,7 +182,7 @@ export default {
     decimal: Number,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -158,11 +214,12 @@ export default {
       };
     },
   },
-  watch:{
-    contractHash:'watchcontract'
+  watch: {
+    contractHash: "watchcontract",
   },
   methods: {
-    watchcontract() {//如果路由有变化，执行的对应的动作
+    watchcontract() {
+      //如果路由有变化，执行的对应的动作
       this.getTokenList(0);
     },
     pageChangeByInput(pageNumber) {
@@ -171,7 +228,7 @@ export default {
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getBlockList(skip);
-      } else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
@@ -235,7 +292,11 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          params: {
+            ContractHash: this.contractHash,
+            Limit: this.resultsPerPage,
+            Skip: skip,
+          },
           method: "GetNep11TransferByContractHash",
         },
         headers: {
@@ -246,7 +307,10 @@ export default {
       }).then((res) => {
         this.NEP11TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount === 0 ) ?   1 : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },

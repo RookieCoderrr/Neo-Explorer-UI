@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" >
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <candidates-table :title="$t('candidate.title')"></candidates-table>

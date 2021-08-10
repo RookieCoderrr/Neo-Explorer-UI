@@ -12,7 +12,7 @@
         <div class="row align-items-center">
           <div class="col">
             <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-              {{$t('transferList.title')}}
+              {{ $t("transferList.title") }}
             </h3>
           </div>
         </div>
@@ -27,15 +27,25 @@
           :data="tableData"
         >
           <template v-slot:columns>
-            <th>{{ $t('transactionTransfer.contract')}}</th>
-            <th>{{ $t('transactionTransfer.token')}}</th>
-            <th>{{ $t('transactionTransfer.type')}}</th>
-            <th>{{ $t('transactionTransfer.from')}}<button class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button></th>
-            <th>{{ $t('transactionTransfer.fromBalance')}}</th>
+            <th>{{ $t("transactionTransfer.contract") }}</th>
+            <th>{{ $t("transactionTransfer.token") }}</th>
+            <th>{{ $t("transactionTransfer.type") }}</th>
+            <th>
+              {{ $t("transactionTransfer.from")
+              }}<button class="btn btn-sm btn-primary" @click="changeFrom()">
+                {{ this.fromButton }}
+              </button>
+            </th>
+            <th>{{ $t("transactionTransfer.fromBalance") }}</th>
             <th></th>
-            <th>{{ $t('transactionTransfer.to')}}<button class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button></th>
-            <th>{{ $t('transactionTransfer.toBalance')}}</th>
-            <th>{{ $t('transactionTransfer.amount')}}</th>
+            <th>
+              {{ $t("transactionTransfer.to")
+              }}<button class="btn btn-sm btn-primary" @click="changeTo()">
+                {{ this.toButton }}
+              </button>
+            </th>
+            <th>{{ $t("transactionTransfer.toBalance") }}</th>
+            <th>{{ $t("transactionTransfer.amount") }}</th>
           </template>
 
           <template v-slot:default="row">
@@ -55,36 +65,83 @@
               </div>
             </td>
             <td class="budget">
-              <div >
-                <span class="text-success" v-if="row.item.from === null && row.item.tokenname === 'GasToken'" type="primary"> {{$t('transferReward')}} </span>
-                <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
-                <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
-                <span class="text-info" v-else> {{$t('transfer')}}</span>
+              <div>
+                <span
+                  class="text-success"
+                  v-if="
+                    row.item.from === null && row.item.tokenname === 'GasToken'
+                  "
+                  type="primary"
+                >
+                  {{ $t("transferReward") }}
+                </span>
+                <span
+                  class="text-success"
+                  v-else-if="row.item.from === null"
+                  type="primary"
+                  >{{ $t("mint") }}</span
+                >
+                <span class="text-danger" v-else-if="row.item.to === null">
+                  {{ $t("burn") }}</span
+                >
+                <span class="text-info" v-else> {{ $t("transfer") }}</span>
               </div>
             </td>
             <td class="budget">
               <div class="from">
-                <span class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}}</span>
-                <a class="name mb-0 text-sm" v-else style="cursor: pointer"  @click="getAccount(row.item.from)">{{this.fromState? scriptHashToAddress(row.item.from):row.item.from}}</a>
+                <span class="text-muted" v-if="row.item.from === null">
+                  {{ $t("nullAddress") }}</span
+                >
+                <a
+                  class="name mb-0 text-sm"
+                  v-else
+                  style="cursor: pointer"
+                  @click="getAccount(row.item.from)"
+                  >{{
+                    this.fromState
+                      ? scriptHashToAddress(row.item.from)
+                      : row.item.from
+                  }}</a
+                >
               </div>
             </td>
             <td class="budget">
-              <span class="text-muted" v-if="row.item.from === null">{{$t('nullBalance')}}</span>
-              <span  v-else >{{ convertToken(row.item.frombalance, row.item.decimals) }}</span>
+              <span class="text-muted" v-if="row.item.from === null">{{
+                $t("nullBalance")
+              }}</span>
+              <span v-else>{{
+                convertToken(row.item.frombalance, row.item.decimals)
+              }}</span>
             </td>
             <td>
-              <h1 style="color: #42b983;">&#8594;</h1>
+              <h1 style="color: #42b983">&#8594;</h1>
             </td>
             <td class="budget">
               <div class="to">
-                <span class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}}</span>
-                <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAccount(row.item.to)">{{ this.toState? scriptHashToAddress(row.item.to):row.item.to }}</a>
+                <span class="text-muted" v-if="row.item.to === null">
+                  {{ $t("nullAddress") }}</span
+                >
+                <a
+                  v-else
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getAccount(row.item.to)"
+                  >{{
+                    this.toState
+                      ? scriptHashToAddress(row.item.to)
+                      : row.item.to
+                  }}</a
+                >
               </div>
             </td>
 
             <td class="budget">
-              <span class="text-muted" v-if="row.item.to === null"> {{$t('nullBalance')}} </span>
-              <span  v-else > {{ convertToken(row.item.tobalance ,row.item.decimals)}}</span>
+              <span class="text-muted" v-if="row.item.to === null">
+                {{ $t("nullBalance") }}
+              </span>
+              <span v-else>
+                {{ convertToken(row.item.tobalance, row.item.decimals) }}</span
+              >
             </td>
 
             <td class="budget">
@@ -127,11 +184,12 @@ export default {
     this.getNep17TransferByTransactionHash(this.txhash);
     // this.hasContent(this.length)
   },
-  watch:{
-    txhash:'watchtxhash'
+  watch: {
+    txhash: "watchtxhash",
   },
   methods: {
-    watchtxhash() {//如果路由有变化，执行的对应的动作
+    watchtxhash() {
+      //如果路由有变化，执行的对应的动作
       this.getNep17TransferByTransactionHash(this.txhash);
     },
     convertToken(token, decimal) {

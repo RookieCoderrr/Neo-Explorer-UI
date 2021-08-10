@@ -1,5 +1,9 @@
 <template>
-  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div
+    v-if="this.totalCount != 0"
+    class="card shadow"
+    :class="type === 'dark' ? 'bg-default' : ''"
+  >
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -14,11 +18,11 @@
         :data="tokenList"
       >
         <template v-slot:columns>
-          <th>{{$t('hash')}}</th>
-          <th>{{$t('tokensTable.name')}}</th>
-          <th>{{$t('tokensTable.symbol')}}</th>
-          <th>{{$t('tokensTable.symbol')}}</th>
-          <th>{{$t('tokenHolder.balance')}}</th>
+          <th>{{ $t("hash") }}</th>
+          <th>{{ $t("tokensTable.name") }}</th>
+          <th>{{ $t("tokensTable.symbol") }}</th>
+          <th>{{ $t("tokensTable.symbol") }}</th>
+          <th>{{ $t("tokenHolder.balance") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -53,13 +57,14 @@
             </badge>
           </td>
           <td class="balance">
-            {{ convertToken(row.item.balance,row.item.decimals) }}
+            {{ convertToken(row.item.balance, row.item.decimals) }}
           </td>
         </template>
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -71,9 +76,7 @@
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{ countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -118,27 +121,26 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
   },
   methods: {
     convertToken(token, decimal) {
-      if(decimal===0) {
-        return token
-      }else {
+      if (decimal === 0) {
+        return token;
+      } else {
         return (token * Math.pow(0.1, decimal)).toFixed(8);
       }
-
     },
     pageChange(pageNumber) {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenListWithBalance(skip);
+      this.isLoading = true;
+      this.pagination = pageNumber;
+      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.getTokenListWithBalance(skip);
     },
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);
@@ -146,9 +148,8 @@ export default {
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination =this.countPage;
-        const skip =
-                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getTokenListWithBalance(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -186,7 +187,10 @@ export default {
         this.isLoading = false;
         let temp = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         let address_list = [];
         for (let k = 0; k < temp.length; k++) {
           address_list.push(temp[k]["asset"]);
@@ -219,7 +223,7 @@ export default {
           this.tokenList[k]["tokenname"] = res["data"]["result"]["tokenname"];
           this.tokenList[k]["symbol"] = res["data"]["result"]["symbol"];
           this.tokenList[k]["standard"] = res["data"]["result"]["type"];
-          this.tokenList[k]["decimals"] =res["data"]["result"]["decimals"];
+          this.tokenList[k]["decimals"] = res["data"]["result"]["decimals"];
         });
       }
     },

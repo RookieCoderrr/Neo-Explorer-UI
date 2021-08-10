@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" >
+    <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
           <div class="card shadow">
@@ -15,8 +15,16 @@
                   <div class="col-11">
                     <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
                   </div>
-                  <div v-if="this.contract_info['sender'] !== null" class="col-1">
-                    <button  class="btn btn-primary btn-xs" @click="changeFormat()">{{this.buttonName}}</button>
+                  <div
+                    v-if="this.contract_info['sender'] !== null"
+                    class="col-1"
+                  >
+                    <button
+                      class="btn btn-primary btn-xs"
+                      @click="changeFormat()"
+                    >
+                      {{ this.buttonName }}
+                    </button>
                   </div>
                 </div>
                 <h4 class="text-muted">{{ this.contract_info["hash"] }}</h4>
@@ -26,11 +34,27 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.creator')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.creator") }}
+                        </div>
                         <div class="panel-body">
-                          <span  v-if="this.contract_info['sender'] === null">{{$t('contract.available')}}</span>
-                          <a  v-else-if="this.state" style="cursor: pointer" @click="getSender(contract_info['sender'])">{{this.contract_info["sender"]}}</a>
-                          <a  v-else style="cursor: pointer" @click="getSender(contract_info['sender'])">{{addressToScriptHash(this.contract_info["sender"])}}</a>
+                          <span v-if="this.contract_info['sender'] === null">{{
+                            $t("contract.available")
+                          }}</span>
+                          <a
+                            v-else-if="this.state"
+                            style="cursor: pointer"
+                            @click="getSender(contract_info['sender'])"
+                            >{{ this.contract_info["sender"] }}</a
+                          >
+                          <a
+                            v-else
+                            style="cursor: pointer"
+                            @click="getSender(contract_info['sender'])"
+                            >{{
+                              addressToScriptHash(this.contract_info["sender"])
+                            }}</a
+                          >
                         </div>
                       </div>
                     </card>
@@ -38,9 +62,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.time')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.time") }}
+                        </div>
                         <div class="panel-body">
-                          {{convertTime(this.contract_info["createtime"])}}
+                          {{ convertTime(this.contract_info["createtime"]) }}
                         </div>
                       </div>
                     </card>
@@ -48,9 +74,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.update')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.update") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.contract_info["updatecounter"]}}
+                          {{ this.contract_info["updatecounter"] }}
                         </div>
                       </div>
                     </card>
@@ -61,9 +89,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.index')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.index") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.contract_info["id"]}}
+                          {{ this.contract_info["id"] }}
                         </div>
                       </div>
                     </card>
@@ -71,9 +101,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.compiler')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.compiler") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.nef["compiler"]}}
+                          {{ this.nef["compiler"] }}
                         </div>
                       </div>
                     </card>
@@ -81,9 +113,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('contract.txns')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("contract.txns") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.contract_info["totalsccall"]}}
+                          {{ this.contract_info["totalsccall"] }}
                         </div>
                       </div>
                     </card>
@@ -92,32 +126,47 @@
                 <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-folder-17" :title="$t('contract.scCallTitle')">
+                <tab-pane
+                  icon="ni ni-folder-17"
+                  :title="$t('contract.scCallTitle')"
+                >
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
-                  <card shadow v-else class="text-center ">{{$t('contract.noScCall')}}</card>
+                  <card shadow v-else class="text-center">{{
+                    $t("contract.noScCall")
+                  }}</card>
                 </tab-pane>
-                <tab-pane icon="ni ni-active-40"  :title="$t('contract.eventTitle')">
+                <tab-pane
+                  icon="ni ni-active-40"
+                  :title="$t('contract.eventTitle')"
+                >
                   <div v-if="this.totalsccall != 0">
                     <events-table :contractHash="contract_id"></events-table>
                   </div>
-                  <card shadow v-else class="text-center ">{{$t('contract.noEvent')}}</card>
+                  <card shadow v-else class="text-center">{{
+                    $t("contract.noEvent")
+                  }}</card>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" :title="$t('contract.conInfo')">
+                <tab-pane
+                  icon="ni ni-collection"
+                  :title="$t('contract.conInfo')"
+                >
                   <card shadow type="secondary">
                     <div class="extra" v-if="this.manifest.extra">
-                      <h3 class="mt-2"> {{$t('tokenInfo.extra')}}</h3>
+                      <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
-                            {{$t('tokenInfo.email')}}: {{ this.manifest.extra["Email"] }}
+                            {{ $t("tokenInfo.email") }}:
+                            {{ this.manifest.extra["Email"] }}
                           </div>
                           <div class="col-auto">
-                            {{$t('tokenInfo.author')}} : {{ this.manifest.extra["Author"] }}
+                            {{ $t("tokenInfo.author") }} :
+                            {{ this.manifest.extra["Author"] }}
                           </div>
                           <div class="col-auto">
-                            {{$t('tokenInfo.description')}} :
+                            {{ $t("tokenInfo.description") }} :
                             {{ this.manifest.extra["Description"] }}
                           </div>
                         </div>
@@ -128,7 +177,7 @@
                         class="events"
                         v-if="this.manifest.abi.events.length !== 0"
                       >
-                        <h3 class="mt-2">{{$t('tokenInfo.events')}}</h3>
+                        <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
                         <card
                           shadow
                           v-for="(item, index) in this.manifest['abi'][
@@ -155,7 +204,7 @@
                           </div>
                         </card>
                       </div>
-                      <h3 class="mt-2">{{$t('tokenInfo.methods')}}</h3>
+                      <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
                       <card
                         shadow
                         v-for="(item, index) in this.manifest['abi']['methods']"
@@ -228,32 +277,40 @@ export default {
       nef: "",
       manifest: "",
       state: true,
-      buttonName:"Hash",
-      totalsccall:0
+      buttonName: "Hash",
+      totalsccall: 0,
     };
   },
   created() {
     this.getContract(this.contract_id);
   },
-  watch:{
-    $route:'watchrouter'
+  watch: {
+    $route: "watchrouter",
   },
   methods: {
-    watchrouter() {//如果路由有变化，执行的对应的动
-      if( this.$route.name === 'contractinfo'){
-      this.contract_id = this.$route.params.hash
-      this.getContract(this.contract_id);
+    watchrouter() {
+      //如果路由有变化，执行的对应的动
+      if (this.$route.name === "contractinfo") {
+        this.contract_id = this.$route.params.hash;
+        this.getContract(this.contract_id);
       }
     },
     convertTime(time) {
       var date = new Date(time);
-      var y = date.getFullYear()
-      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
-      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
-      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
-      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
-      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
-      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+      var y = date.getFullYear();
+      var m =
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
+      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+      var mi =
+        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+      var s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return (
+        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
+      );
     },
     getContract(contract_id) {
       axios({
@@ -275,7 +332,7 @@ export default {
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
-        this.totalsccall=this.contract_info["totalsccall"]
+        this.totalsccall = this.contract_info["totalsccall"];
         this.isLoading = false;
       });
     },
@@ -294,7 +351,7 @@ export default {
     },
     getSender(addr) {
       this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`
+        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
   },
