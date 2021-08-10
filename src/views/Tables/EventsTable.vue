@@ -23,11 +23,11 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>{{$t('contract.txID')}}</th>
-          <th>{{$t('contract.eventName')}}</th>
-          <th>{{$t('contract.vmState')}}</th>
-          <th>{{$t('contract.index')}}</th>
-          <th>{{$t('contract.time')}}</th>
+          <th>{{ $t("contract.txID") }}</th>
+          <th>{{ $t("contract.eventName") }}</th>
+          <th>{{ $t("contract.vmState") }}</th>
+          <th>{{ $t("contract.index") }}</th>
+          <th>{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -36,8 +36,11 @@
               <div class="media-body">
                 <span
                   class="text-muted"
-                  v-if=" row.item.txid ==='0x0000000000000000000000000000000000000000000000000000000000000000'"
-                  >{{$t('na')}}
+                  v-if="
+                    row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000'
+                  "
+                  >{{ $t("na") }}
                 </span>
                 <a
                   class="name mb-0 text-sm"
@@ -65,7 +68,8 @@
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -77,9 +81,7 @@
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{ countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -113,7 +115,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
     };
   },
   created() {
@@ -136,8 +138,7 @@ export default {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
         this.pagination = this.countPage;
-        const skip =
-          (this.countPage - 1 ) * this.resultsPerPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getContractList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -196,7 +197,7 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage  = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },

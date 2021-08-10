@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col-2">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{$t('contract.title') }}
+            {{ $t("contract.title") }}
           </h3>
         </div>
         <div class="col-6"></div>
@@ -21,10 +21,21 @@
               autocomplete="off"
               @keyup.enter="search()"
             /><button class="button" @click="search()">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z" fill="black"/>
-            </svg>
-          </button>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -44,18 +55,28 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>{{$t('contract.hash')}}</th>
-          <th>{{$t('contract.name')}}</th>
-          <th>{{$t('contract.creator')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button> </th>
-          <th>{{$t('contract.index')}}</th>
-          <th>{{$t('contract.time')}}</th>
+          <th>{{ $t("contract.hash") }}</th>
+          <th>{{ $t("contract.name") }}</th>
+          <th>
+            {{ $t("contract.creator")
+            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
+              {{ this.buttonName }}
+            </button>
+          </th>
+          <th>{{ $t("contract.index") }}</th>
+          <th>{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row" v-if="row.item">
             <div class="media align-items-center">
-              <div class="media-body" >
-                <a class="name mb-0 text-sm" style="cursor: pointer" @click="getContract(row.item.hash)">{{ row.item.hash }}</a>
+              <div class="media-body">
+                <a
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  @click="getContract(row.item.hash)"
+                  >{{ row.item.hash }}</a
+                >
               </div>
             </div>
           </th>
@@ -63,12 +84,28 @@
             {{ row.item.name }}
           </td>
           <td class="Creator">
-            <span class="text-muted" v-if="row.item.Transaction.length === 0">{{$t('contract.available')}}</span>
-            <a class="mb-0 text-sm" v-else-if="this.state" style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{row.item.Transaction[0]["sender"]}} </a>
-            <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getSender(row.item.Transaction[0]['sender'])"> {{addressToScriptHash(row.item.Transaction[0]["sender"])}} </a>
+            <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
+              $t("contract.available")
+            }}</span>
+            <a
+              class="mb-0 text-sm"
+              v-else-if="this.state"
+              style="cursor: pointer"
+              @click="getSender(row.item.Transaction[0]['sender'])"
+            >
+              {{ row.item.Transaction[0]["sender"] }}
+            </a>
+            <a
+              class="mb-0 text-sm"
+              v-else
+              style="cursor: pointer"
+              @click="getSender(row.item.Transaction[0]['sender'])"
+            >
+              {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
+            </a>
           </td>
           <td class="index">
-            {{row.item.id}}
+            {{ row.item.id }}
           </td>
           <td class="time">
             {{ convertTime(row.item.createtime) }}
@@ -77,7 +114,8 @@
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10 "
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -89,9 +127,7 @@
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{this.countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ this.countPage }}</div>
       </div>
       <base-pagination
         :total="totalCount"
@@ -103,8 +139,8 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import { format } from "timeago.js";
 import Neon from "@cityofzion/neon-js";
 
@@ -117,7 +153,7 @@ export default {
     title: String,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -150,21 +186,17 @@ export default {
   },
   methods: {
     pageChangeByInput(pageNumber) {
-
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination =this.countPage ;
-        const skip =
-                (this.countPage -1) * this.resultsPerPage;
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getContractList(skip);
-      }else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getContractList(skip);
-      }
-      else {
+      } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
@@ -191,7 +223,7 @@ export default {
     },
     getContract(hash) {
       this.$router.push({
-        path: `/contractinfo/${hash}`
+        path: `/contractinfo/${hash}`,
       });
     },
     getContractList(skip) {
@@ -212,7 +244,10 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },
@@ -234,7 +269,10 @@ export default {
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },
@@ -244,7 +282,7 @@ export default {
     },
     getSender(addr) {
       this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`
+        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
     changeFormat() {

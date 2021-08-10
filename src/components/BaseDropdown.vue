@@ -79,7 +79,7 @@ export default {
       isOpen: false,
     };
   },
-  emits:["change"],
+  emits: ["change"],
 
   // mounted(){
   //   var that = this
@@ -99,7 +99,7 @@ export default {
       if (this.$el.contains(e.target)) {
         return;
       }
-      this.open = false
+      this.open = false;
       this.$emit("change", this.isOpen);
     };
     document.body.addEventListener("click", this._close);

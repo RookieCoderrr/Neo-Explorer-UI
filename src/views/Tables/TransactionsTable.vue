@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ $t('transactionList.title') }}
+            {{ $t("transactionList.title") }}
           </h3>
         </div>
       </div>
@@ -27,32 +27,31 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{ $t('transactionList.transactionId') }}</th>
-          <th>{{ $t('transactionList.blockHeight') }}</th>
-          <th>{{ $t('transactionList.size') }}</th>
-          <th>{{ $t('transactionList.time') }}</th>
-          <th>{{ $t('transactionList.gasConsumed') }}</th>
+          <th>{{ $t("transactionList.transactionId") }}</th>
+          <th>{{ $t("transactionList.blockHeight") }}</th>
+          <th>{{ $t("transactionList.size") }}</th>
+          <th>{{ $t("transactionList.time") }}</th>
+          <th>{{ $t("transactionList.gasConsumed") }}</th>
         </template>
 
         <template v-slot:default="row">
           <td class="id">
-
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getTransaction(row.item.hash)"
-                >{{ row.item.hash }}</a
-              >
+            <a
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getTransaction(row.item.hash)"
+              >{{ row.item.hash }}</a
+            >
           </td>
           <td class="id">
-
-              <a
-                  class="name mb-0 text-sm"
-                  style="cursor: pointer"
-                  @click="getBlock(row.item.blockhash)"
-              >{{row.item.blockIndex  }}</a>
+            <a
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getBlock(row.item.blockhash)"
+              >{{ row.item.blockIndex }}</a
+            >
           </td>
-          <td class="budget">{{ row.item.size }} {{$t('bytes')}}</td>
+          <td class="budget">{{ row.item.size }} {{ $t("bytes") }}</td>
           <td class="budget">
             {{ this.convertTime(row.item.blocktime) }}
           </td>
@@ -64,21 +63,20 @@
       </base-table>
     </div>
 
-    <div v-if="this.totalCount > 10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">{{ $t('transactionList.page') }} &nbsp;</div>
+        <div class="text">{{ $t("transactionList.page") }} &nbsp;</div>
         <base-input
           type="number"
           :style="text(pagination)"
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -112,7 +110,7 @@ export default {
       pagination: 1,
       placeHolder: 0,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
     };
   },
 
@@ -157,7 +155,7 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
-    getBlock(blochash){
+    getBlock(blochash) {
       this.$router.push({
         path: `/blockinfo/${blochash}`,
       });
@@ -171,8 +169,7 @@ export default {
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.pagination = this.countPage;
-        const skip =
-          (this.countPage - 1 ) * this.resultsPerPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getTransactionList(skip);
       } else if (pageNumber <= 0) {
         this.pagination = 1;
@@ -204,7 +201,10 @@ export default {
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
       });
     },
   },

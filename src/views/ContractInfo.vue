@@ -212,37 +212,16 @@
                       >
                         <h3 class="method-name">{{ item["name"] }}</h3>
                         <div class="row">
-                          <div class="col-4">
+                          <div class="col">
                             <div class="params">
                               <div class="text-muted">parameters:</div>
                               <div v-if="item['parameters'].length !== 0">
-                                <div v-if="item['safe']">
-                                  <div
-                                    class="row"
-                                    v-for="(param, ind) in item['parameters']"
-                                    :key="ind"
-                                  >
-                                    <col-2
-                                      >{{ param["name"] }}:
-                                      {{ param["type"] }}</col-2
-                                    >
-                                    <col-2>
-                                      <input
-                                        type="text"
-                                        class="over-ellipsis"
-                                        :v-model="contractMethod[item['name']][param['name']]['value']"
-                                      />
-                                    </col-2>
-                                  </div>
-                                </div>
-                                <div v-else>
-                                  <li
-                                    v-for="(param, ind) in item['parameters']"
-                                    :key="ind"
-                                  >
-                                    {{ param["name"] }}: {{ param["type"] }}
-                                  </li>
-                                </div>
+                                <li
+                                  v-for="(param, ind) in item['parameters']"
+                                  :key="ind"
+                                >
+                                  {{ param["name"] }}: {{ param["type"] }}
+                                </li>
                               </div>
                               <div v-else>null</div>
                             </div>
@@ -260,11 +239,6 @@
                           <div class="col">
                             <div class="text-muted">safe:</div>
                             {{ item["safe"] }}
-                            <div v-if="item['safe']">
-                              <base-button @click="onQuery(item['name'])"
-                                >Query</base-button
-                              >
-                            </div>
                           </div>
                         </div>
                       </card>
@@ -284,14 +258,13 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+// import { format } from "timeago.js";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import BaseButton from "../components/BaseButton";
 
 export default {
   components: {
-    BaseButton,
     Loading,
     EventsTable,
     ScCallTable,
@@ -306,7 +279,6 @@ export default {
       state: true,
       buttonName: "Hash",
       totalsccall: 0,
-      contractMethod: {},
     };
   },
   created() {
@@ -340,19 +312,6 @@ export default {
         m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
       );
     },
-    contractMethodInitialize() {
-      const methods = this.manifest.abi.methods;
-      for (const method of methods) {
-        if(method['safe']){
-          this.contractMethod[method["name"]] = {};
-          for (const param of method["parameters"]) {
-            this.contractMethod[method["name"]][param["name"]] = {};
-            this.contractMethod[method["name"]][param["name"]]["type"] = param["type"];
-            this.contractMethod[method["name"]][param["name"]]["value"] = "";
-          }
-        }
-      }
-    },
     getContract(contract_id) {
       axios({
         method: "post",
@@ -374,8 +333,6 @@ export default {
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
-        this.contractMethodInitialize();
-        console.log(this.contractMethod.balanceOf);
         this.isLoading = false;
       });
     },
@@ -396,26 +353,6 @@ export default {
       this.$router.push({
         path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
-    },
-    onQuery(methodName) {
-      const params = this.contractMethod[methodName];
-      const contractParams = [];
-      for (const item in params) {
-        let temp = Neon.create.contractParam(
-          item["type"],
-          item["value"]
-        );
-        contractParams.push(temp);
-      }
-      const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
-      client
-        .invokeFunction(this.contract_id, methodName, contractParams)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
   },
 };

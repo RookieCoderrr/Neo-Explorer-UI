@@ -28,10 +28,10 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{$t('candidate.address')}}</th>
-          <th>{{$t('candidate.rank')}}</th>
-          <th>{{$t('candidate.votes')}}</th>
-          <th>{{$t('candidate.percentage')}}</th>
+          <th>{{ $t("candidate.address") }}</th>
+          <th>{{ $t("candidate.rank") }}</th>
+          <th>{{ $t("candidate.votes") }}</th>
+          <th>{{ $t("candidate.percentage") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -53,26 +53,27 @@
           <td class="budget">
             {{ row.item.votesOfCandidate }}
           </td>
-          <td class="budget">{{getVotePercentage(row.item.votesOfCandidate) }}</td>
+          <td class="budget">
+            {{ getVotePercentage(row.item.votesOfCandidate) }}
+          </td>
         </template>
       </base-table>
     </div>
 
-    <div v-if=" this.totalCount > 10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                @changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          @changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{ countPage }}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -103,29 +104,29 @@ export default {
     return {
       tableData: [],
       totalCount: 0,
-      votesCount:0,
+      votesCount: 0,
       resultsPerPage: 10,
       pagination: 1,
       skip: 0,
       count: 0,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
     };
   },
-  computed:{
+  computed: {
     text() {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
-    multiple(){
-      return  this.resultsPerPage*(this.pagination-1) ;
-    }
+    multiple() {
+      return this.resultsPerPage * (this.pagination - 1);
+    },
   },
 
   created() {
@@ -134,17 +135,15 @@ export default {
   },
 
   methods: {
-
-    getVotePercentage(votes){
-      var per = votes/this.votesCount
-      console.log(per)
+    getVotePercentage(votes) {
+      var per = votes / this.votesCount;
+      console.log(per);
       if (per == 0) {
         return 0;
       }
-      var str=Number(per *100).toFixed(2);
-      str+="%";
+      var str = Number(per * 100).toFixed(2);
+      str += "%";
       return str;
-
     },
     getAddress(accountAddress) {
       this.$router.push({
@@ -154,9 +153,8 @@ export default {
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination =this.countPage;
-        const skip =
-                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getCandidateList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -200,11 +198,14 @@ export default {
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         this.count = this.skip;
       });
     },
-    getTotalVotes(){
+    getTotalVotes() {
       axios({
         method: "post",
         url: "/api",
@@ -220,10 +221,10 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-          this.votesCount = res["data"]["result"]["totalvotes"]
-          console.log(this.votesCount)
+        this.votesCount = res["data"]["result"]["totalvotes"];
+        console.log(this.votesCount);
       });
-    }
+    },
   },
 };
 </script>

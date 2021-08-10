@@ -1,10 +1,6 @@
 <template>
   <div v-if="this.totalCount != 0" class="table-responsive">
-    <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-    ></loading>
+    <loading :is-full-page="false" :opacity="0.9" :active="isLoading"></loading>
     <base-table
       class="table align-items-center table-flush"
       :class="type === 'dark' ? 'table-dark' : ''"
@@ -13,28 +9,59 @@
       :data="tableData"
     >
       <template v-slot:columns>
-        <th>{{$t('tokenTx.txid')}}</th>
-        <th>{{$t('transferList.token')}}</th>
-        <th>{{$t('transferList.type')}}</th>
-        <th>{{$t('transferList.from')}}
-          <button v-if="this.fromButton==='Hash'" class="btn btn-sm btn-primary" @click="changeFrom()">{{$t('addressPage.hash')}}</button>
-          <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">{{this.fromButton}}</button>
+        <th>{{ $t("tokenTx.txid") }}</th>
+        <th>{{ $t("transferList.token") }}</th>
+        <th>{{ $t("transferList.type") }}</th>
+        <th>
+          {{ $t("transferList.from") }}
+          <button
+            v-if="this.fromButton === 'Hash'"
+            class="btn btn-sm btn-primary"
+            @click="changeFrom()"
+          >
+            {{ $t("addressPage.hash") }}
+          </button>
+          <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">
+            {{ this.fromButton }}
+          </button>
         </th>
         <th></th>
-        <th>{{$t('transferList.to')}}
-          <button v-if="this.toButton==='Hash'" class="btn btn-sm btn-primary" @click="changeTo()">{{$t('addressPage.hash')}}</button>
-          <button v-else class="btn btn-sm btn-primary" @click="changeTo()">{{this.toButton}}</button>
+        <th>
+          {{ $t("transferList.to") }}
+          <button
+            v-if="this.toButton === 'Hash'"
+            class="btn btn-sm btn-primary"
+            @click="changeTo()"
+          >
+            {{ $t("addressPage.hash") }}
+          </button>
+          <button v-else class="btn btn-sm btn-primary" @click="changeTo()">
+            {{ this.toButton }}
+          </button>
         </th>
-        <th>{{$t('transferList.amount')}}</th>
-        <th>{{$t('tokenTx.time')}}</th>
+        <th>{{ $t("transferList.amount") }}</th>
+        <th>{{ $t("tokenTx.time") }}</th>
       </template>
 
       <template v-slot:default="row">
         <td class="budget">
           <div>
-            <div class="text-muted" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000'">{{$t('na')}}</div>
+            <div
+              class="text-muted"
+              v-if="
+                row.item.txid ===
+                '0x0000000000000000000000000000000000000000000000000000000000000000'
+              "
+            >
+              {{ $t("na") }}
+            </div>
             <div class="txid" v-else>
-              <a class="name mb-0 text-sm"  style="cursor: pointer" @click="getTransaction(row.item.txid)">{{row.item.txid}}</a>
+              <a
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getTransaction(row.item.txid)"
+                >{{ row.item.txid }}</a
+              >
             </div>
           </div>
         </td>
@@ -44,41 +71,138 @@
           </div>
         </td>
         <td class="Type">
-          <div >
-            <span class="text-primary" v-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null && row.item.value === '50000000'" type="primary">{{$t('blockReward')}}</span>
-            <span class="text-warning" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.from === null" type="primary">{{$t('networkFeeReward')}}</span>
-            <span class="text-danger" v-else-if="row.item.txid === '0x0000000000000000000000000000000000000000000000000000000000000000' && row.item.to === null" type="primary">{{$t('feeBurn')}}</span>
-            <span class="text-success" v-else-if="row.item.from === null && this.contractHash === '0xd2a4cff31913016155e38e474a2c06d08be276cf'" type="primary"> {{$t('transferReward')}} </span>
-            <span class="text-success" v-else-if="row.item.from === null" type="primary">{{$t('mint')}}</span>
-            <span class="text-danger" v-else-if="row.item.to === null" > {{$t('burn')}}</span>
-            <span class="text-info" v-else> {{$t('transfer')}}</span>
+          <div>
+            <span
+              class="text-primary"
+              v-if="
+                row.item.txid ===
+                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                row.item.from === null &&
+                row.item.value === '50000000'
+              "
+              type="primary"
+              >{{ $t("blockReward") }}</span
+            >
+            <span
+              class="text-warning"
+              v-else-if="
+                row.item.txid ===
+                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                row.item.from === null
+              "
+              type="primary"
+              >{{ $t("networkFeeReward") }}</span
+            >
+            <span
+              class="text-danger"
+              v-else-if="
+                row.item.txid ===
+                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                row.item.to === null
+              "
+              type="primary"
+              >{{ $t("feeBurn") }}</span
+            >
+            <span
+              class="text-success"
+              v-else-if="
+                row.item.from === null &&
+                this.contractHash ===
+                  '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+              "
+              type="primary"
+            >
+              {{ $t("transferReward") }}
+            </span>
+            <span
+              class="text-success"
+              v-else-if="row.item.from === null"
+              type="primary"
+              >{{ $t("mint") }}</span
+            >
+            <span class="text-danger" v-else-if="row.item.to === null">
+              {{ $t("burn") }}</span
+            >
+            <span class="text-info" v-else> {{ $t("transfer") }}</span>
           </div>
         </td>
         <td class="from">
           <div>
-            <div class="text-muted" v-if="row.item.from === null"> {{$t('nullAddress')}} </div>
+            <div class="text-muted" v-if="row.item.from === null">
+              {{ $t("nullAddress") }}
+            </div>
             <div v-else-if="fromState" class="addr">
-              <a v-if="row.item.from === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">&#128100;{{  scriptHashToAddress(row.item.from) }}  </a>
-              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{  scriptHashToAddress(row.item.from) }}  </a>
+              <a
+                v-if="row.item.from === this.account_address"
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.from)"
+                >&#128100;{{ scriptHashToAddress(row.item.from) }}
+              </a>
+              <a
+                v-else
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.from)"
+                >{{ scriptHashToAddress(row.item.from) }}
+              </a>
             </div>
             <div v-else class="addr">
-              <a v-if="row.item.from === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">&#128100;{{  row.item.from }}  </a>
-              <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.from)">{{  row.item.from }}  </a>
+              <a
+                v-if="row.item.from === this.account_address"
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.from)"
+                >&#128100;{{ row.item.from }}
+              </a>
+              <a
+                v-else
+                class="name mb-0 text-sm"
+                style="cursor: pointer"
+                @click="getAddress(row.item.from)"
+                >{{ row.item.from }}
+              </a>
             </div>
           </div>
         </td>
         <td>
-          <h1 style="color: #42b983;">&#8594;</h1>
+          <h1 style="color: #42b983">&#8594;</h1>
         </td>
         <td class="to">
-          <div class="text-muted" v-if="row.item.to === null"> {{$t('nullAddress')}} </div>
+          <div class="text-muted" v-if="row.item.to === null">
+            {{ $t("nullAddress") }}
+          </div>
           <div v-else-if="toState" class="addr">
-            <a v-if="row.item.to === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">&#128100;{{  scriptHashToAddress(row.item.to) }}  </a>
-            <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{  scriptHashToAddress(row.item.to) }}  </a>
+            <a
+              v-if="row.item.to === this.account_address"
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.to)"
+              >&#128100;{{ scriptHashToAddress(row.item.to) }}
+            </a>
+            <a
+              v-else
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.to)"
+              >{{ scriptHashToAddress(row.item.to) }}
+            </a>
           </div>
           <div v-else class="addr">
-            <a v-if="row.item.to === this.account_address" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">&#128100;{{  row.item.to }}  </a>
-            <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.to)">{{  row.item.to }}  </a>
+            <a
+              v-if="row.item.to === this.account_address"
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.to)"
+              >&#128100;{{ row.item.to }}
+            </a>
+            <a
+              v-else
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.to)"
+              >{{ row.item.to }}
+            </a>
           </div>
         </td>
 
@@ -86,17 +210,20 @@
           {{ row.item.value }}
         </td>
         <td class="budget">
-          {{convertTime(row.item.timestamp) }}
+          {{ convertTime(row.item.timestamp) }}
         </td>
       </template>
     </base-table>
   </div>
   <div v-else class="row">
     <div class="col">
-      <card shadow class="text-center">{{$t('addressPage.nep11nullPrompt')}}</card>
+      <card shadow class="text-center">{{
+        $t("addressPage.nep11nullPrompt")
+      }}</card>
     </div>
   </div>
-  <div v-if="this.totalCount > 10 "
+  <div
+    v-if="this.totalCount > 10"
     class="card-footer d-flex justify-content-end"
     :class="type === 'dark' ? 'bg-transparent' : ''"
   >
@@ -108,9 +235,7 @@
         :placeholder="pagination"
         v-on:changeinput="pageChangeByInput($event)"
       ></base-input>
-      <div class="text">
-        &nbsp; of &nbsp;{{ countPage }}
-      </div>
+      <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
     </div>
     <base-pagination
       :total="this.totalCount"
@@ -118,12 +243,11 @@
       v-on:input="pageChange($event)"
     ></base-pagination>
   </div>
-
 </template>
 <script>
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
-import {format} from "timeago.js";
+import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 
 export default {
@@ -142,7 +266,7 @@ export default {
       tableData: [],
       resultsPerPage: 10,
       pagination: 1,
-      countPage:0,
+      countPage: 0,
       fromState: true,
       fromButton: "Hash",
       toState: true,
@@ -158,26 +282,26 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-                "width: " +
-                inputLength +
-                "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
   },
-  watch:{
-    account_address:'watchcontract'
+  watch: {
+    account_address: "watchcontract",
   },
   methods: {
-    watchcontract() {//如果路由有变化，执行的对应的动作
+    watchcontract() {
+      //如果路由有变化，执行的对应的动作
       this.GetNep11TransferByAddress(0);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
-        this.pagination =this.countPage;
-        const skip =
-                ( this.countPage - 1 ) * this.resultsPerPage;
+        this.pagination = this.countPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.GetNep11TransferByAddress(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -200,7 +324,7 @@ export default {
     convertToken(token, decimal) {
       return (token * Math.pow(0.1, decimal)).toFixed(6);
     },
-    getTransaction(txhash){
+    getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,
       });
@@ -259,7 +383,10 @@ export default {
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = (this.totalCount ===0) ?  1  : (Math.ceil(this.totalCount / this.resultsPerPage))
+        this.countPage =
+          this.totalCount === 0
+            ? 1
+            : Math.ceil(this.totalCount / this.resultsPerPage);
         for (let k = 0; this.tableData.length; k++) {
           axios({
             method: "post",
@@ -281,7 +408,6 @@ export default {
             },
           }).then((res) => {
             this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
-
           });
         }
       });

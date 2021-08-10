@@ -1,9 +1,9 @@
-import en from './en.js'
-import cn from './zh_cn.js'
-import fr from './fr.js'
+import en from "./en.js";
+import cn from "./zh_cn.js";
+import fr from "./fr.js";
 
 export default {
-    en,
-    cn,
-    fr
-}
+  en,
+  cn,
+  fr,
+};

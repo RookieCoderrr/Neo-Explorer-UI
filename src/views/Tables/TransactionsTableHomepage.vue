@@ -11,7 +11,12 @@
           </h3>
         </div>
         <div class="col text-right">
-          <base-button type="primary" size="sm" @click="toTransactionsTable()">{{$t('homePage.seeAll')}}</base-button>
+          <base-button
+            type="primary"
+            size="sm"
+            @click="toTransactionsTable()"
+            >{{ $t("homePage.seeAll") }}</base-button
+          >
         </div>
       </div>
     </div>
@@ -30,10 +35,10 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{$t('homePage.txTable.txID')}}</th>
-          <th>{{$t('homePage.txTable.size')}}</th>
-          <th>{{$t('homePage.txTable.time')}}</th>
-          <th>{{$t('homePage.txTable.gas')}}</th>
+          <th>{{ $t("homePage.txTable.txID") }}</th>
+          <th>{{ $t("homePage.txTable.size") }}</th>
+          <th>{{ $t("homePage.txTable.time") }}</th>
+          <th>{{ $t("homePage.txTable.gas") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -47,18 +52,17 @@
               >
             </div>
           </td>
-          <td >{{ row.item.size }} {{$t('bytes')}}</td>
-          <td >
+          <td>{{ row.item.size }} {{ $t("bytes") }}</td>
+          <td>
             {{ this.convertTime(row.item.blocktime) }}
           </td>
 
-          <td >
+          <td>
             {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
           </td>
         </template>
       </base-table>
     </div>
-
   </div>
 </template>
 <script>
@@ -91,7 +95,7 @@ export default {
     this.getTransactionList(0);
   },
   methods: {
-    toTransactionsTable(){
+    toTransactionsTable() {
       this.$router.push({
         path: `/Transactions`,
       });
