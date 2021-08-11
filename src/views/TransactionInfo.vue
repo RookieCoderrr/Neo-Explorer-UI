@@ -262,23 +262,21 @@
                                     v-for="(param, ind) in item['state']['value']"
                                     :key="ind"
                                 >
-                                  <div v-if="cEvent!=[] && cEvent[0] && cEvent[0]['parameters']">
-                                  <div v-if="this.cEvent[0]['parameters'][0]['type']==='Hash160'">
-                                    {{ param["type"] }}: {{ base64ToHash(param["value"])}}
-                                  </div>
-                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='String'">
+                                  <span v-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='Hash160'">
+                                    {{ param["type"] }}: {{ param["value"] ===null ? "Null":base64ToHash(param["value"])}}
+                                  </span>
+                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='String'">
                                     {{ param["type"] }}: {{ base64ToString(param["value"])}}
-                                  </div>
-                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='Array'">
+                                  </span>
+                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='Array'">
                                     {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
-                                  </div>
-                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='ByteArray'">
+                                  </span>
+                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='ByteArray'">
                                     {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
-                                  </div>
-                                  <div v-else >
-                                    {{ param["type"] }}: {{ param["value"]}}
-                                  </div>
-                                  </div>
+                                  </span>
+                                  <span v-else>
+                                    {{ param["type"] }}: {{param["value"]}}
+                                  </span>
                                 </li>
                               </div>
                               <div v-else>null</div>
@@ -330,8 +328,8 @@
                             :key="ind"
 
                         >
-                          <div  v-if="params[k] && params[k].parameters">{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
-                          </div>
+                          <span  v-if="params[this.index] && params[this.index].parameters">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          </span>
                         </li></div>
                     </div>
                   </card>
@@ -370,6 +368,7 @@ export default {
       tabledataApp:[],
       tabledataCall:[],
       tabledataContract:[],
+      tableEvent:[],
       txhash: "",
       isLoading: true,
       blockhash:"",
@@ -386,9 +385,12 @@ export default {
       contractHash:"",
       manifest:"",
       params:"",
-      k:0,
+      index:0,
       array:[],
-      cEvent:[],
+      mapTotal: new Map(),
+
+
+
     };
   },
   created() {
@@ -396,6 +398,7 @@ export default {
     this.getTransactionByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash)
     this.getApplicationLogByTransactionHash(this.$route.params.txhash);
+
 
 
   },
@@ -407,6 +410,7 @@ export default {
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
+
       }
     },
     convertTime(time){
@@ -432,32 +436,26 @@ export default {
         return
       }
     },
-    checkEvent(name){
-      for (var i = 0; i < this.array.length;i++){
-        if (name === this.array[i]){
-          console.log(i)
-          return
-        }
-      }
-    },
+
 
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
         var res = Neon.u.base642hex(base)
+      // console.log(res)
         return "0x"+res
     },
     base64ToString(base) {
         var tmp =Neon.u.base642hex(base)
         var res = Neon.u.hexstring2str(tmp)
-        console.log(res)
+        // console.log(res)
         return res
     },
     base64ToByteArray(base){
       var tmp =Neon.u.base642hex(base)
-      var res = Neon.u.hexstring2ab(tmp)
-      console.log(res)
+      var res = Neon.u.hexstring2str(tmp)
+      // console.log(res)
       return res
     },
 
@@ -503,8 +501,50 @@ export default {
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
         console.log(this.tabledataApp)
+        console.log(this.tabledataApp["notifications"].length)
+        for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
+         this.getContracts(this.tabledataApp["notifications"][i]["contract"])
+        }
+        console.log(this.mapTotal)
       });
     },
+    getContracts(ctr_hash){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash:  ctr_hash },
+          method: "GetContractByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+
+        this.isLoading = false;
+        const raw = res["data"]["result"];
+        // console.log(raw)
+        var temp = JSON.parse(raw["manifest"]);
+        // console.log(temp)
+        var map =new Map()
+        for (var i =0; i <temp["abi"]["events"].length;i ++){
+          var table =[]
+          // console.log(temp["abi"]["events"].length)
+          for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length;j ++){
+            table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
+          }
+          map.set(temp["abi"]["events"][i]["name"],table)
+        }
+        this.mapTotal.set(raw["hash"],map)
+
+
+      });
+    },
+
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
@@ -571,23 +611,21 @@ export default {
           },
         }).then((res) => {
           this.isLoading = false;
-          const raw = res["data"]["result"]['manifest'];
-          this.manifest = JSON.parse(raw);
-          console.log(this.manifest)
+          const raw = res["data"]["result"];
+          // console.log(raw)
+          this.manifest = JSON.parse(raw["manifest"]);
           this.tabledataContract = raw;
           this.params = this.manifest["abi"]["methods"]
-          this.cEvent = this.manifest["abi"]["events"]
-          console.log(this.params)
-          for (var i = 0; i < this.params["length"];i++){
-            if (this.params[i]["name"]===this.method){
-              this.k = i
+          console.log(this.manifest['abi']['methods'])
+          for (var i = 0; i < this.params.length;i++){
+            console.log(this.params.length)
+            console.log(this.method)
+            if (this.method === this.params[i]["name"]){
+              this.index = i
+              console.log(this.index)
             }
           }
 
-          for (var j = 0; j <this.manifest["abi"]["events"]["length"];j ++){
-            this.array[j] = this.manifest["abi"]["events"][j]["name"]
-          }
-          console.log(this.manifest['abi']['events'][0]['parameters'][0]['type'])
 
         });
       }
