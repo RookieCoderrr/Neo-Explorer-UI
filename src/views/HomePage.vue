@@ -136,7 +136,6 @@ import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage"
 import axios from "axios";
 import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
-
 export default {
   name: "Home",
   components: {
@@ -159,7 +158,6 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern: /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-
       //数字开始
       startVal: 0,
       //数字结束
