@@ -189,7 +189,7 @@
                           <div class="row">
                             <div class="col">
                               <div class="params">
-                                <div class="text-muted">parameters:</div>
+                                <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                                 <div v-if="item['parameters'].length !== 0">
                                   <li
                                     v-for="(param, ind) in item['parameters']"
@@ -217,14 +217,14 @@
                               class="btn btn-sm btn-primary"
                               @click="onQuery(index)"
                             >
-                              Query
+                              {{$t('tokenInfo.query')}}
                             </button>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-4">
                             <div class="params">
-                              <div class="text-muted">parameters:</div>
+                              <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-if="item['safe']">
                                   <div
@@ -237,7 +237,7 @@
                                       <div>
                                         <input
                                           type="text"
-                                          class="over-ellipsis input-param"
+                                          style="border: 2px solid #676c6c; border-radius: 4px;"
                                           v-model="
                                             manifest['abi']['methods'][index][
                                               'parameters'
@@ -257,21 +257,21 @@
                                   </li>
                                 </div>
                               </div>
-                              <div v-else>null</div>
+                              <div v-else>{{$t('tokenInfo.noParam')}}</div>
                             </div>
                           </div>
                           <div class="col">
                             <div class="return">
-                              <div class="text-muted">return type:</div>
+                              <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
                               {{ item["returntype"] }}
                             </div>
                           </div>
                           <div class="col">
-                            <div class="text-muted">offset:</div>
+                            <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
                             {{ item["offset"] }}
                           </div>
                           <div class="col">
-                            <div class="text-muted">safe:</div>
+                            <div class="text-muted">{{$t('tokenInfo.safe')}}</div>
                             {{ item["safe"] }}
                           </div>
                         </div>
@@ -279,11 +279,11 @@
                           class="mt-3"
                         >
                           <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
-                            <h3>Error</h3>
+                            <h3>{{$t('tokenInfo.error')}}</h3>
                             <div>{{manifest['abi']['methods'][index]['error']}}</div>
                           </div>
                           <div v-else-if="manifest['abi']['methods'][index]['result'] && manifest['abi']['methods'][index]['result'] !== ''">
-                            <h3>Response</h3>
+                            <h3>{{$t('tokenInfo.response')}}</h3>
                             <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
                           </div>
                         </div>
@@ -392,8 +392,10 @@ export default {
           const hex = buffer.toString("hex");
           if ( Neon.is.publicKey(hex)) {
             const acc = Neon.create.account(hex);
+            val["type"] = "ScriptHash";
             val["value"] = "0x" + acc.scriptHash;
           } else {
+            val["type"] = "String";
             val["value"] = buffer.toString("utf-8");
           }
         }
@@ -453,8 +455,4 @@ export default {
 </script>
 
 <style>
-.input-param{
-  border: 2px solid #676c6c !important;
-  border-radius: 4px !important;
-}
 </style>
