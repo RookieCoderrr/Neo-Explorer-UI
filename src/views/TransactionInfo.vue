@@ -228,8 +228,8 @@
 
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
-                  <div v-if="tabledataApp['notifications']">
-                    <div v-if="tabledataApp['notifications']['length'] != 0">
+                  <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
+                    <div v-if="this.count ===0">
                       <card
                           shadow
                           v-for="(item, index) in this.tabledataApp['notifications']"
@@ -252,6 +252,7 @@
                           </div>
                           <div class="col-5">
                             <div class="params">
+
                               <div class="text-muted">State:</div>
                               <div v-if="item['state'].length !== 0">
                                 <li
@@ -275,17 +276,20 @@
                                   </span>
                                 </li>
                               </div>
-                              <div v-else>null</div>
+
                             </div>
                           </div>
                         </div>
                       </card>
                     </div>
+                    <div v-else>
+                      <span>Some contract does not exist in the database(To do)</span>
+                    </div>
+                  </div>
+                  <div v-else>
+                    This transaction has no event.
                   </div>
 
-                  <card shadow v-else class="text-center ">
-                    This transaction has no events.
-                  </card>
                 </tab-pane>
                 <tab-pane icon="ni ni-active-40" title="System Call">
                   <card
@@ -315,16 +319,19 @@
                     </div>
                     <div class="row mt-3"></div>
                     <div class="row">
-                      <div class="params col">
+                      <div class="params col" v-if="this.manifest != null ">
                         <div class="text-muted">Params:</div>
-
                         <li class="col-12"
-
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
 
                         >
-                          <span  v-if="params[this.index] && params[this.index].parameters">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.baseToHash(param) }}
+                          </span>
+                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.baseToString(param) }}
+                          </span>
+                          <span v-else>
+                            {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
                           </span>
                         </li></div>
                     </div>
@@ -385,6 +392,7 @@ export default {
       index:0,
       array:[],
       mapTotal: new Map(),
+      count:0
 
 
 
@@ -395,7 +403,6 @@ export default {
     this.getTransactionByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash)
     this.getApplicationLogByTransactionHash(this.$route.params.txhash);
-
 
 
   },
@@ -439,7 +446,8 @@ export default {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
-        var res = Neon.u.base642hex(base)
+        var tmp = Neon.u.base642hex(base)
+        var res = Neon.u.reverseHex(tmp)
       // console.log(res)
         return "0x"+res
     },
@@ -451,10 +459,32 @@ export default {
     },
     base64ToByteArray(base){
       var tmp =Neon.u.base642hex(base)
-      var res = Neon.u.hexstring2str(tmp)
+      // var res = Neon.u.hexstring2ab(tmp)
       // console.log(res)
+      return tmp
+    },
+    baseToByteArray(base){
+      var tmp =Neon.u.hexstring2ab(base)
+      console.log(tmp)
+      return tmp
+    },
+    baseToString(base){
+      var tmp =Neon.u.hexstring2str(base)
+      console.log(tmp)
+      return tmp
+    },
+    baseToHash(base){
+      var tmp =Neon.u.reverseHex(base)
+      console.log("0x"+tmp)
+      return "0x"+tmp
+
+    },
+    baseToInteger(base){
+      var tmp =Neon.u.hex2base64(base)
+      var res =Neon.u.base642utf8(tmp)
       return res
     },
+
 
     goToBlockInfo(hash){
       this.$router.push({
@@ -497,12 +527,13 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        // console.log(this.tabledataApp)
+        console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
          this.getContracts(this.tabledataApp["notifications"][i]["contract"])
         }
         console.log(this.mapTotal)
+        console.log(this.count)
       });
     },
     getContracts(ctr_hash){
@@ -524,21 +555,24 @@ export default {
 
         this.isLoading = false;
         const raw = res["data"]["result"];
-        // console.log(raw)
-        var temp = JSON.parse(raw["manifest"]);
-        // console.log(temp)
-        var map =new Map()
-        for (var i =0; i <temp["abi"]["events"].length;i ++){
-          var table =[]
-          // console.log(temp["abi"]["events"].length)
-          for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length;j ++){
-            table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
-          }
-          map.set(temp["abi"]["events"][i]["name"],table)
+        if (raw ==null) {
+          this.count ++
+
         }
-        this.mapTotal.set(raw["hash"],map)
-
-
+        else {
+          var temp = JSON.parse(raw["manifest"]);
+          // console.log(temp)
+          var map = new Map()
+          for (var i = 0; i < temp["abi"]["events"].length; i++) {
+            var table = []
+            // console.log(temp["abi"]["events"].length)
+            for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length; j++) {
+              table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
+            }
+            map.set(temp["abi"]["events"][i]["name"], table)
+          }
+          this.mapTotal.set(raw["hash"], map)
+        }
       });
     },
 
@@ -807,21 +841,25 @@ export default {
         }).then((res) => {
           this.isLoading = false;
           const raw = res["data"]["result"];
-          // console.log(raw)
-          this.manifest = JSON.parse(raw["manifest"]);
-          this.tabledataContract = raw;
-          this.params = this.manifest["abi"]["methods"]
-          // console.log(this.manifest['abi']['methods'])
-          for (var i = 0; i < this.params.length;i++){
-            // console.log(this.params.length)
-            // console.log(this.method)
-            if (this.method === this.params[i]["name"]){
-              this.index = i
-              // console.log(this.index)
+          console.log(raw)
+          if(raw === null ){
+            this.manifest = null;
+          }
+          else {
+            this.manifest = JSON.parse(raw["manifest"]);
+            console.log(this.manifest)
+            this.tabledataContract = raw;
+            this.params = this.manifest["abi"]["methods"]
+            // console.log(raw)
+            for (var i = 0; i < this.params.length;i++){
+              // console.log(this.params.length)
+              // console.log(this.method)
+              if (this.method === this.params[i]["name"]){
+                this.index = i
+                console.log(this.index)
+              }
             }
           }
-
-
         });
       }
   },

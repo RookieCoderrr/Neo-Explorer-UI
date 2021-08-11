@@ -1,7 +1,7 @@
 <template>
-  <div v-show="this.length != 0">
+  <div v-if="this.length != 0">
   <div
-    v-show="this.length != 0"
+    v-if="this.length != 0"
     class="card shadow"
     :class="type === 'dark' ? 'bg-default' : ''"
   >
@@ -95,7 +95,9 @@
                 style="cursor: pointer"
                 @click="getAccount(row.item.from)"
                 >{{
-                  row.item.from
+                  this.fromState
+                      ? scriptHashToAddress(row.item.from)
+                      : row.item.from
                 }}</a>
               </span>
             </div>
@@ -122,7 +124,9 @@
                 style="cursor: pointer"
                 @click="getAccount(row.item.to)"
                 >{{
-                  row.item.to
+                  this.toState
+                      ? scriptHashToAddress(row.item.to)
+                      : row.item.to
                 }}</a
               >
             </div>
@@ -250,9 +254,9 @@ export default {
         },
       }).then((res) => {
         this.tableData[0] = res["data"]["result"];
-        if (this.tableData == null) {
+        if (this.tableData[0] == null) {
           this.length = 0;
-          this.tableData = [];
+          this.tableData[0] = [];
         } else {
           this.length = 1;
         }
