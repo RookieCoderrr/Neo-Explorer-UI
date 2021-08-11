@@ -500,8 +500,8 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        console.log(this.tabledataApp)
-        console.log(this.tabledataApp["notifications"].length)
+        // console.log(this.tabledataApp)
+        // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
          this.getContracts(this.tabledataApp["notifications"][i]["contract"])
         }
@@ -616,13 +616,13 @@ export default {
           this.manifest = JSON.parse(raw["manifest"]);
           this.tabledataContract = raw;
           this.params = this.manifest["abi"]["methods"]
-          console.log(this.manifest['abi']['methods'])
+          // console.log(this.manifest['abi']['methods'])
           for (var i = 0; i < this.params.length;i++){
-            console.log(this.params.length)
-            console.log(this.method)
+            // console.log(this.params.length)
+            // console.log(this.method)
             if (this.method === this.params[i]["name"]){
               this.index = i
-              console.log(this.index)
+              // console.log(this.index)
             }
           }
 
