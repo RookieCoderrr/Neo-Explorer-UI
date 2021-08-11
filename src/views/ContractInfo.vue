@@ -237,8 +237,7 @@
                                       <div>
                                         <input
                                           type="text"
-                                          style="background: #dbe7e7"
-                                          class="over-ellipsis"
+                                          class="over-ellipsis input-param"
                                           v-model="
                                             manifest['abi']['methods'][index][
                                               'parameters'
@@ -278,10 +277,15 @@
                         </div>
                         <div
                           class="mt-3"
-                          v-if="manifest['abi']['methods'][index]['result']"
                         >
-                          <h3>Response</h3>
-                          <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
+                          <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
+                            <h3>Error</h3>
+                            <div>{{manifest['abi']['methods'][index]['error']}}</div>
+                          </div>
+                          <div v-else-if="manifest['abi']['methods'][index]['result'] && manifest['abi']['methods'][index]['result'] !== ''">
+                            <h3>Response</h3>
+                            <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
+                          </div>
                         </div>
                       </card>
                     </div>
@@ -303,7 +307,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import JsonView from './Tables/JsonView'
+import JsonView from "./Tables/JsonView";
 export default {
   components: {
     Loading,
@@ -386,8 +390,12 @@ export default {
         if (val["type"] === "ByteString" && typeof val["value"] === "string") {
           const buffer = Buffer.from(val["value"], "base64");
           const hex = buffer.toString("hex");
-          const acc = Neon.create.account(hex);
-          val["value"] = acc.address;
+          if ( Neon.is.publicKey(hex)) {
+            const acc = Neon.create.account(hex);
+            val["value"] = "0x" + acc.scriptHash;
+          } else {
+            val["value"] = buffer.toString("utf-8");
+          }
         }
       }
       return val;
@@ -407,6 +415,8 @@ export default {
       });
     },
     onQuery(index) {
+      this.manifest["abi"]["methods"][index]["result"] = "";
+      this.manifest["abi"]["methods"][index]["error"] = "";
       const name = this.manifest["abi"]["methods"][index]["name"];
       const params = this.manifest["abi"]["methods"][index]["parameters"];
       const contractParams = [];
@@ -415,26 +425,36 @@ export default {
           let temp = Neon.create.contractParam(item["type"], item["value"]);
           contractParams.push(temp);
         } catch (err) {
-          this.manifest["abi"]["methods"][index]["result"] = err;
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
           return;
         }
       }
       const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
+      console.log(contractParams);
       client
         .invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
-          // const raw = JSON.stringify(
-          //   res["stack"],
-          //   this.responseConverter
-          // );
-           this.manifest["abi"]["methods"][index]["result"] =  res["stack"];
+          console.log(res);
+          if(res["exception"] != null) {
+            this.manifest["abi"]["methods"][index]["error"] = res["exception"];
+          } else {
+            this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
+              JSON.stringify(res["stack"], this.responseConverter)
+            );
+          }
         })
         .catch((err) => {
-          this.manifest["abi"]["methods"][index]["result"] = err;
+          console.log(err);
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.input-param{
+  border: 2px solid #676c6c !important;
+  border-radius: 4px !important;
+}
+</style>

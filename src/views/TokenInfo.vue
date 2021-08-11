@@ -197,22 +197,56 @@
                       </div>
                       <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
                       <card
-                        shadow
-                        v-for="(item, index) in this.manifest['abi']['methods']"
-                        :key="index"
+                          shadow
+                          v-for="(item, index) in this.manifest['abi']['methods']"
+                          :key="index"
                       >
-                        <h3 class="method-name">{{ item["name"] }}</h3>
                         <div class="row">
-                          <div class="col">
+                          <h3 class="col-auto">{{ item["name"] }}</h3>
+                          <div style="padding-left: 5px" v-if="item['safe']">
+                            <button
+                                class="btn btn-sm btn-primary"
+                                @click="onQuery(index)"
+                            >
+                              Query
+                            </button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-4">
                             <div class="params">
                               <div class="text-muted">parameters:</div>
                               <div v-if="item['parameters'].length !== 0">
-                                <li
-                                  v-for="(param, ind) in item['parameters']"
-                                  :key="ind"
-                                >
-                                  {{ param["name"] }}: {{ param["type"] }}
-                                </li>
+                                <div v-if="item['safe']">
+                                  <div
+                                      v-for="(param, ind) in item['parameters']"
+                                      :key="ind"
+                                  >
+
+                                    <li>
+                                      {{ param["name"] }}: {{ param["type"] }}
+                                      <div>
+                                        <input
+                                            type="text"
+                                            class="over-ellipsis input-param"
+                                            v-model="
+                                            manifest['abi']['methods'][index][
+                                              'parameters'
+                                            ][ind].value
+                                          "
+                                        />
+                                      </div>
+                                    </li>
+                                  </div>
+                                </div>
+                                <div v-else>
+                                  <li
+                                      v-for="(param, ind) in item['parameters']"
+                                      :key="ind"
+                                  >
+                                    {{ param["name"] }}: {{ param["type"] }}
+                                  </li>
+                                </div>
                               </div>
                               <div v-else>null</div>
                             </div>
@@ -230,6 +264,18 @@
                           <div class="col">
                             <div class="text-muted">safe:</div>
                             {{ item["safe"] }}
+                          </div>
+                        </div>
+                        <div
+                            class="mt-3"
+                        >
+                          <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
+                            <h3>Error</h3>
+                            <div>{{manifest['abi']['methods'][index]['error']}}</div>
+                          </div>
+                          <div v-else-if="manifest['abi']['methods'][index]['result'] && manifest['abi']['methods'][index]['result'] !== ''">
+                            <h3>Response</h3>
+                            <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
                           </div>
                         </div>
                       </card>
@@ -252,6 +298,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import TokensTxNep17 from "./Tables/TokenTxNep17";
 import TokensTxNep11 from "./Tables/TokenTxNep11";
 import TokenHolder from "./Tables/TokenHolder";
+import JsonView from "./Tables/JsonView";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   components: {
@@ -259,6 +307,7 @@ export default {
     TokensTxNep11,
     TokenHolder,
     Loading,
+    JsonView,
   },
   data() {
     return {
@@ -331,6 +380,55 @@ export default {
         this.token_info = raw;
         this.isLoading = false;
       });
+    },
+    responseConverter(key, val) {
+      if (typeof val === "object") {
+        if (val["type"] === "ByteString" && typeof val["value"] === "string") {
+          const buffer = Buffer.from(val["value"], "base64");
+          const hex = buffer.toString("hex");
+          if ( Neon.is.publicKey(hex)) {
+            const acc = Neon.create.account(hex);
+            val["value"] = "0x" + acc.scriptHash;
+          } else {
+            val["value"] = buffer.toString("utf-8");
+          }
+        }
+      }
+      return val;
+    },
+    onQuery(index) {
+      this.manifest["abi"]["methods"][index]["result"] = "";
+      this.manifest["abi"]["methods"][index]["error"] = "";
+      const name = this.manifest["abi"]["methods"][index]["name"];
+      const params = this.manifest["abi"]["methods"][index]["parameters"];
+      const contractParams = [];
+      for (const item of params) {
+        try {
+          let temp = Neon.create.contractParam(item["type"], item["value"]);
+          contractParams.push(temp);
+        } catch (err) {
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
+          return;
+        }
+      }
+      const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
+      console.log(contractParams);
+      client
+          .invokeFunction(this.contract_id, name, contractParams)
+          .then((res) => {
+            console.log(res);
+            if(res["exception"] != null) {
+              this.manifest["abi"]["methods"][index]["error"] = res["exception"];
+            } else {
+              this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
+                  JSON.stringify(res["stack"], this.responseConverter)
+              );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            this.manifest["abi"]["methods"][index]["error"] = err.toString();
+          });
     },
     getContractManifest(token_id) {
       axios({
