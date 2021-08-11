@@ -1,4 +1,5 @@
 <template>
+  <div v-show="this.length != 0">
   <div
     v-show="this.length != 0"
     class="card shadow"
@@ -88,17 +89,15 @@
               <span class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}</span
               >
+              <span v-else>
               <a
                 class="name mb-0 text-sm"
-                v-else
                 style="cursor: pointer"
                 @click="getAccount(row.item.from)"
                 >{{
-                  this.fromState
-                    ? scriptHashToAddress(row.item.from)
-                    : row.item.from
-                }}</a
-              >
+                  row.item.from
+                }}</a>
+              </span>
             </div>
           </td>
           <td class="budget">
@@ -123,7 +122,7 @@
                 style="cursor: pointer"
                 @click="getAccount(row.item.to)"
                 >{{
-                  this.toState ? scriptHashToAddress(row.item.to) : row.item.to
+                  row.item.to
                 }}</a
               >
             </div>
@@ -149,6 +148,7 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     ></div>
+  </div>
   </div>
 </template>
 <script>
@@ -192,9 +192,6 @@ export default {
       });
     },
     scriptHashToAddress(hash) {
-      if(hash ===null) {
-        return "Null"
-      }
       hash = hash.substring(2);
       const acc = Neon.create.account(hash);
       return acc.address;
@@ -252,7 +249,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData = res["data"]["result"];
+        this.tableData[0] = res["data"]["result"];
         if (this.tableData == null) {
           this.length = 0;
           this.tableData = [];
