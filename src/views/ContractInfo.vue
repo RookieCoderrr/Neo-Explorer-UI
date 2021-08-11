@@ -6,9 +6,9 @@
           <div class="card shadow">
             <div class="top">
               <loading
-                  :is-full-page="false"
-                  :opacity="0.9"
-                  :active="isLoading"
+                :is-full-page="false"
+                :opacity="0.9"
+                :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
                 <div class="row">
@@ -16,12 +16,12 @@
                     <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
                   </div>
                   <div
-                      v-if="this.contract_info['sender'] !== null"
-                      class="col-1"
+                    v-if="this.contract_info['sender'] !== null"
+                    class="col-1"
                   >
                     <button
-                        class="btn btn-primary btn-xs"
-                        @click="changeFormat()"
+                      class="btn btn-primary btn-xs"
+                      @click="changeFormat()"
                     >
                       {{ this.buttonName }}
                     </button>
@@ -42,17 +42,17 @@
                             $t("contract.available")
                           }}</span>
                           <a
-                              v-else-if="this.state"
-                              style="cursor: pointer"
-                              @click="getSender(contract_info['sender'])"
-                          >{{ this.contract_info["sender"] }}</a
+                            v-else-if="this.state"
+                            style="cursor: pointer"
+                            @click="getSender(contract_info['sender'])"
+                            >{{ this.contract_info["sender"] }}</a
                           >
                           <a
-                              v-else
-                              style="cursor: pointer"
-                              @click="getSender(contract_info['sender'])"
-                          >{{
-                            addressToScriptHash(this.contract_info["sender"])
+                            v-else
+                            style="cursor: pointer"
+                            @click="getSender(contract_info['sender'])"
+                            >{{
+                              addressToScriptHash(this.contract_info["sender"])
                             }}</a
                           >
                         </div>
@@ -127,30 +127,30 @@
               </div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane
-                    icon="ni ni-folder-17"
-                    :title="$t('contract.scCallTitle')"
+                  icon="ni ni-folder-17"
+                  :title="$t('contract.scCallTitle')"
                 >
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
                   </div>
                   <card shadow v-else class="text-center">{{
                     $t("contract.noScCall")
-                    }}</card>
+                  }}</card>
                 </tab-pane>
                 <tab-pane
-                    icon="ni ni-active-40"
-                    :title="$t('contract.eventTitle')"
+                  icon="ni ni-active-40"
+                  :title="$t('contract.eventTitle')"
                 >
                   <div v-if="this.totalsccall != 0">
                     <events-table :contractHash="contract_id"></events-table>
                   </div>
                   <card shadow v-else class="text-center">{{
                     $t("contract.noEvent")
-                    }}</card>
+                  }}</card>
                 </tab-pane>
                 <tab-pane
-                    icon="ni ni-collection"
-                    :title="$t('contract.conInfo')"
+                  icon="ni ni-collection"
+                  :title="$t('contract.conInfo')"
                 >
                   <card shadow type="secondary">
                     <div class="extra" v-if="this.manifest.extra">
@@ -174,16 +174,16 @@
                     </div>
                     <div class="abi" v-if="this.manifest.abi">
                       <div
-                          class="events"
-                          v-if="this.manifest.abi.events.length !== 0"
+                        class="events"
+                        v-if="this.manifest.abi.events.length !== 0"
                       >
                         <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
                         <card
-                            shadow
-                            v-for="(item, index) in this.manifest['abi'][
+                          shadow
+                          v-for="(item, index) in this.manifest['abi'][
                             'events'
                           ]"
-                            :key="index"
+                          :key="index"
                         >
                           <h3 class="method-name">{{ item["name"] }}</h3>
                           <div class="row">
@@ -192,8 +192,8 @@
                                 <div class="text-muted">parameters:</div>
                                 <div v-if="item['parameters'].length !== 0">
                                   <li
-                                      v-for="(param, ind) in item['parameters']"
-                                      :key="ind"
+                                    v-for="(param, ind) in item['parameters']"
+                                    :key="ind"
                                   >
                                     {{ param["name"] }}: {{ param["type"] }}
                                   </li>
@@ -206,11 +206,21 @@
                       </div>
                       <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
                       <card
-                          shadow
-                          v-for="(item, index) in this.manifest['abi']['methods']"
-                          :key="index"
+                        shadow
+                        v-for="(item, index) in this.manifest['abi']['methods']"
+                        :key="index"
                       >
-                        <h3 class="method-name">{{ item["name"] }}</h3>
+                        <div class="row">
+                          <h3 class="col-auto">{{ item["name"] }}</h3>
+                          <div style="padding-left: 5px" v-if="item['safe']">
+                            <button
+                              class="btn btn-sm btn-primary"
+                              @click="onQuery(index)"
+                            >
+                              Query
+                            </button>
+                          </div>
+                        </div>
                         <div class="row">
                           <div class="col-4">
                             <div class="params">
@@ -218,26 +228,31 @@
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-if="item['safe']">
                                   <div
-                                      class="row"
-                                      v-for="(param, ind) in item['parameters']"
-                                      :key="ind"
+                                    v-for="(param, ind) in item['parameters']"
+                                    :key="ind"
                                   >
-                                    <col-2
-                                    >{{ param["name"] }}:
-                                      {{ param["type"] }}</col-2
-                                    ><input
-                                          type="text"
-                                          class="over-ellipsis"
-                                          v-model="manifest['abi']['methods'][index]['parameters'][ind].value"
-                                      />
-                                      <div >{{manifest['abi']['methods'][index]['parameters'][ind].value}}"dadasd"</div>
 
+                                    <li>
+                                      {{ param["name"] }}: {{ param["type"] }}
+                                      <div>
+                                        <input
+                                          type="text"
+                                          style="background: #dbe7e7"
+                                          class="over-ellipsis"
+                                          v-model="
+                                            manifest['abi']['methods'][index][
+                                              'parameters'
+                                            ][ind].value
+                                          "
+                                        />
+                                      </div>
+                                    </li>
                                   </div>
                                 </div>
                                 <div v-else>
                                   <li
-                                      v-for="(param, ind) in item['parameters']"
-                                      :key="ind"
+                                    v-for="(param, ind) in item['parameters']"
+                                    :key="ind"
                                   >
                                     {{ param["name"] }}: {{ param["type"] }}
                                   </li>
@@ -259,12 +274,14 @@
                           <div class="col">
                             <div class="text-muted">safe:</div>
                             {{ item["safe"] }}
-                            <div v-if="item['safe']">
-                              <base-button @click="onQuery(item['name'])"
-                              >Query</base-button
-                              >
-                            </div>
                           </div>
+                        </div>
+                        <div
+                          class="mt-3"
+                          v-if="manifest['abi']['methods'][index]['result']"
+                        >
+                          <h3>Response</h3>
+                          <div>{{manifest['abi']['methods'][index]['result']}}</div>
                         </div>
                       </card>
                     </div>
@@ -286,11 +303,9 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import BaseButton from "../components/BaseButton";
 
 export default {
   components: {
-    BaseButton,
     Loading,
     EventsTable,
     ScCallTable,
@@ -305,7 +320,6 @@ export default {
       state: true,
       buttonName: "Hash",
       totalsccall: 0,
-      contractMethod: {},
     };
   },
   created() {
@@ -316,7 +330,6 @@ export default {
   },
   methods: {
     watchrouter() {
-      //如果路由有变化，执行的对应的动
       if (this.$route.name === "contractinfo") {
         this.contract_id = this.$route.params.hash;
         this.getContract(this.contract_id);
@@ -326,32 +339,18 @@ export default {
       var date = new Date(time);
       var y = date.getFullYear();
       var m =
-          date.getMonth() + 1 < 10
-              ? "0" + (date.getMonth() + 1)
-              : date.getMonth() + 1;
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
       var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
       var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
       var mi =
-          date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
       var s =
-          date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
       return (
-          m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
+        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
       );
-    },
-    contractMethodInitialize() {
-      const methods = this.manifest.abi.methods;
-      console.log(methods)
-      for (const method of methods) {
-        if(method['safe']){
-          this.contractMethod[method["name"]] = {};
-          for (const param of method["parameters"]) {
-            this.contractMethod[method["name"]][param["name"]] = {};
-            this.contractMethod[method["name"]][param["name"]]["type"] = param["type"];
-            this.contractMethod[method["name"]][param["name"]]["value"] = "";
-          }
-        }
-      }
     },
     getContract(contract_id) {
       axios({
@@ -374,14 +373,23 @@ export default {
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
-        this.contractMethodInitialize();
-        console.log(this.contractMethod.balanceOf);
         this.isLoading = false;
       });
     },
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
+    },
+    responseConverter(key, val) {
+      if (typeof val === "object") {
+        if (val["type"] === "ByteString" && typeof val["value"] === "string") {
+          const buffer = Buffer.from(val["value"], "base64");
+          const hex = buffer.toString("hex");
+          const acc = Neon.create.account(hex);
+          val["value"] = acc.address;
+        }
+      }
+      return val;
     },
     changeFormat() {
       if (this.state === true) {
@@ -397,26 +405,31 @@ export default {
         path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
-    onQuery(methodName) {
-      const params = this.contractMethod[methodName];
-      console.log(this.manifest['abi']['methods'])
+    onQuery(index) {
+      const name = this.manifest["abi"]["methods"][index]["name"];
+      const params = this.manifest["abi"]["methods"][index]["parameters"];
       const contractParams = [];
-      for (const item in params) {
-        let temp = Neon.create.contractParam(
-            item["type"],
-            item["value"]
-        );
-        contractParams.push(temp);
+      for (const item of params) {
+        try {
+          let temp = Neon.create.contractParam(item["type"], item["value"]);
+          contractParams.push(temp);
+        } catch (err) {
+          this.manifest["abi"]["methods"][index]["result"] = err;
+          return;
+        }
       }
       const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
       client
-          .invokeFunction(this.contract_id, methodName, contractParams)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .invokeFunction(this.contract_id, name, contractParams)
+        .then((res) => {
+          this.manifest["abi"]["methods"][index]["result"] = JSON.stringify(
+            res["stack"],
+            this.responseConverter
+          );
+        })
+        .catch((err) => {
+          this.manifest["abi"]["methods"][index]["result"] = err;
+        });
     },
   },
 };
