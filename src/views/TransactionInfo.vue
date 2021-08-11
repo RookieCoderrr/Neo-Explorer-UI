@@ -789,6 +789,33 @@ export default {
         this.getContractByContractHash(this.contractHash)
       });
     },
+
+    getScCallByTransactionHash(tx_id){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { TransactionHash: tx_id },
+          method: "GetScCallByTransactionHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        this.tabledataCall = res["data"]["result"];
+        this.method = this.tabledataCall["method"];
+        this.originSender = this.tabledataCall["originSender"];
+        this.callFlags = this.tabledataCall["callFlags"];
+        this.contractHash = this.tabledataCall["contractHash"]
+        console.log(this.tabledataCall)
+        this.getContractByContractHash(this.contractHash)
+      });
+    },
       getContractByContractHash(ctr_hash){
         axios({
           method: "post",
