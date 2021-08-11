@@ -328,7 +328,7 @@
                             :key="ind"
 
                         >
-                          <span  v-if="params[k] && params[k].parameters">{{params[k]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          <span  v-if="params[this.index] && params[this.index].parameters">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
                           </span>
                         </li></div>
                     </div>
@@ -385,10 +385,9 @@ export default {
       contractHash:"",
       manifest:"",
       params:"",
-      k:0,
+      index:0,
       array:[],
       mapTotal: new Map(),
-      count:0
 
 
 
@@ -401,6 +400,7 @@ export default {
     this.getApplicationLogByTransactionHash(this.$route.params.txhash);
 
 
+
   },
   watch:{
     $route:'watchrouter'
@@ -410,6 +410,7 @@ export default {
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
+
       }
     },
     convertTime(time){
@@ -435,14 +436,7 @@ export default {
         return
       }
     },
-    checkEvent(name){
-      for (var i = 0; i < this.array.length;i++){
-        if (name === this.array[i]){
-          console.log(i)
-          return i
-        }
-      }
-    },
+
 
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
@@ -596,7 +590,7 @@ export default {
         this.originSender = this.tabledataCall["originSender"];
         this.callFlags = this.tabledataCall["callFlags"];
         this.contractHash = this.tabledataCall["contractHash"]
-        // console.log(this.tabledataCall)
+        console.log(this.tabledataCall)
         this.getContractByContractHash(this.contractHash)
       });
     },
@@ -622,7 +616,15 @@ export default {
           this.manifest = JSON.parse(raw["manifest"]);
           this.tabledataContract = raw;
           this.params = this.manifest["abi"]["methods"]
-          // console.log(this.manifest['abi']['events'])
+          console.log(this.manifest['abi']['methods'])
+          for (var i = 0; i < this.params.length;i++){
+            console.log(this.params.length)
+            console.log(this.method)
+            if (this.method === this.params[i]["name"]){
+              this.index = i
+              console.log(this.index)
+            }
+          }
 
 
         });
