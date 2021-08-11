@@ -262,21 +262,22 @@
                                     v-for="(param, ind) in item['state']['value']"
                                     :key="ind"
                                 >
-                                  <div v-if="manifest['abi'] && manifest['abi']['events']"> </div>
-                                  <div v-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Hash160'">
+                                  <div v-if="cEvent!=[] && cEvent[0] && cEvent[0]['parameters']">
+                                  <div v-if="this.cEvent[0]['parameters'][0]['type']==='Hash160'">
                                     {{ param["type"] }}: {{ base64ToHash(param["value"])}}
                                   </div>
-                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='String'">
+                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='String'">
                                     {{ param["type"] }}: {{ base64ToString(param["value"])}}
                                   </div>
-                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Array'">
-                                    {{ param["type"] }}:
+                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='Array'">
+                                    {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
                                   </div>
-                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='ByteArray'">
-                                    {{ param["type"] }}:
+                                  <div v-else-if="this.cEvent[0]['parameters'][0]['type']==='ByteArray'">
+                                    {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
                                   </div>
-                                  <div v-else-if="this.manifest['abi']['events'][0]['parameters'][0]['type']==='Integer'">
-                                    {{ param["type"] }}: {{param["value"]}}
+                                  <div v-else >
+                                    {{ param["type"] }}: {{ param["value"]}}
+                                  </div>
                                   </div>
                                 </li>
                               </div>
@@ -386,9 +387,8 @@ export default {
       manifest:"",
       params:"",
       k:0,
-      array:[]
-
-
+      array:[],
+      cEvent:[],
     };
   },
   created() {
@@ -436,7 +436,7 @@ export default {
       for (var i = 0; i < this.array.length;i++){
         if (name === this.array[i]){
           console.log(i)
-          return i
+          return
         }
       }
     },
@@ -571,10 +571,12 @@ export default {
           },
         }).then((res) => {
           this.isLoading = false;
-          const raw = res["data"]["result"];
-          this.manifest = JSON.parse(raw["manifest"]);
+          const raw = res["data"]["result"]['manifest'];
+          this.manifest = JSON.parse(raw);
+          console.log(this.manifest)
           this.tabledataContract = raw;
           this.params = this.manifest["abi"]["methods"]
+          this.cEvent = this.manifest["abi"]["events"]
           console.log(this.params)
           for (var i = 0; i < this.params["length"];i++){
             if (this.params[i]["name"]===this.method){
