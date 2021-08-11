@@ -43,7 +43,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @mouseover="mouseHover(row.item.hash)">
+            <div class="txid">
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -100,11 +100,7 @@ export default {
         path: `/Transactions`,
       });
     },
-    mouseHover(txid) {
-      var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {};
-      a.style.display = txid;
-    },
+
     convertGas(gas) {
       if (gas === 0) {
         return 0;

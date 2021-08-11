@@ -42,7 +42,7 @@
                     <canvas :height="350" :id="salesChartID"></canvas>
                 </div>
             </card>
-            <el-button>niubi</el-button>
+<!--            <el-button>niubi</el-button>-->
         </div>
 
         <div class="col-xl-4">

@@ -49,9 +49,9 @@
           <th>{{ $t("transactionTransfer.amount") }}</th>
         </template>
 
-        <template v-slot:default="row">
-          <td class="budget">
-            <div class="contract">
+        <template v-slot:default="row"  >
+          <td class="budget" >
+            <div class="contract" v-if="row.item">
               <a
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -250,6 +250,7 @@ export default {
         },
       }).then((res) => {
         this.tableData[0] = res["data"]["result"];
+        console.log(res)
         if (this.tableData == null) {
           this.length = 0;
           this.tableData = [];

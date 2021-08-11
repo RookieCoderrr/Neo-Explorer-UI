@@ -11,7 +11,21 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 class="mb-0">{{ this.block_info.index }}</h1>
+                <div class="row">
+                 <h1 class="mb-0" style="margin-right: 10px;margin-left: 10px">
+                {{ this.block_info.index }}
+               </h1>
+                  <base-button
+                          type="primary"
+                          size="sm"
+                          @click="getBlockByBlockHeight(this.block_info.index - 1)"
+                  >&lt;</base-button>
+                   <base-button
+                           type="primary"
+                           size="sm"
+                           @click="getBlockByBlockHeight(this.block_info.index + 1)"
+                   >&gt;</base-button>
+               </div>
                 <h4 class="text-muted">{{ this.block_info.hash }}</h4>
               </div>
               <div class="card-body">
@@ -244,6 +258,7 @@ export default {
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {
+        this.isLoading = true
         this.BlockHash = this.$route.params.hash;
         this.getBlock(this.BlockHash);
       }
@@ -288,6 +303,33 @@ export default {
       }).then((res) => {
         this.block_info = res["data"]["result"];
         this.isLoading = false;
+      });
+    },
+    getBlockByBlockHeight(blockheight) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { BlockHeight: parseInt(blockheight) },
+          method: "GetBlockByBlockHeight",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.isLoading = false;
+        if (res["data"]["error"] == null) {
+          this.$router.push({
+            path: `/blockinfo/${res["data"]["result"]["hash"]}`,
+          });
+        } else {
+          return
+
+        }
       });
     },
   },
