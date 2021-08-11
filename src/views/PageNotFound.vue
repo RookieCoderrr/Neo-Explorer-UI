@@ -7,37 +7,35 @@
         </div>
         <div class="col-8">
           <div class="h1 font-weight-bold mb-3">
-            {{$t('pageNotFound.information_s')}}
+            {{ $t("pageNotFound.information_s") }}
           </div>
           <div class="h2 font-weight-bold mb-0">
-            {{$t('pageNotFound.information_t')}}
+            {{ $t("pageNotFound.information_t") }}
           </div>
-          <div class="text">  {{$t('pageNotFound.information_v')}} </div>
+          <div class="text">{{ $t("pageNotFound.information_v") }}</div>
         </div>
       </div>
       <div>
-        <base-button type="primary"  @click="toHomePage()">Home</base-button>
+        <base-button type="primary" @click="toHomePage()">Home</base-button>
       </div>
     </div>
   </section>
-
 </template>
 
 <script>
 import BaseButton from "../components/BaseButton";
 export default {
   name: "Home",
-  components: {BaseButton},
-  data() {
-  },
+  components: { BaseButton },
+  data() {},
   methods: {
-    toHomePage(){
+    toHomePage() {
       this.$router.push({
         path: `/homepage`,
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style>
 .search-content {
@@ -53,5 +51,4 @@ export default {
   margin-top: 36px;
   width: 100%;
 }
-
 </style>

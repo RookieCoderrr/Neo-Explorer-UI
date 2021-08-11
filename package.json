@@ -1,6 +1,6 @@
 {
-  "name": "vue-argon-dashboard",
-  "version": "2.0.0",
+  "name": "neo-explorer",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,7 +15,8 @@
     "bootstrap-vue": "2.15.0",
     "chart.js": "2.9.4",
     "core-js": "3.6.5",
-    "element-plus": "1.0.1-beta.24",
+    "echarts": "^5.1.2",
+    "element-plus": "^v1.0.1-beta.24",
     "element-ui": "^2.15.3",
     "google-maps": "4.3.3",
     "javascript-time-ago": "^2.3.8",
@@ -23,10 +24,13 @@
     "less-loader": "^10.0.1",
     "neon-js": "^1.1.2",
     "nouislider": "14.6.0",
+    "pretty-print-json": "^1.0.3",
     "timeago.js": "^4.0.2",
     "vue": "3.0.5",
+    "vue-count-to": "^1.0.13",
     "vue-i18n": "^9.1.7",
     "vue-loading-overlay": "^4.0.3",
+    "vue-number-scroll": "^2.0.1",
     "vue-router": "4.0.1",
     "vue-toastification": "1.7.11",
     "vux": "^2.10.1"
@@ -46,6 +50,7 @@
     "eslint-plugin-vue": "7.4.1",
     "node-sass": "5.0.0",
     "prettier": "2.2.1",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^10.1.1",
+    "element-plus": "^1.0.1-alpha.19"
   }
 }

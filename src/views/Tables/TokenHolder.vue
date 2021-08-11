@@ -1,5 +1,9 @@
 <template>
-  <div v-if="this.totalCount != 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div
+    v-if="this.totalCount != 0"
+    class="card shadow"
+    :class="type === 'dark' ? 'bg-default' : ''"
+  >
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -14,34 +18,57 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th> {{$t('tokenHolder.ranking')}}</th>
-          <th>{{$t('tokenHolder.address')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>{{$t('tokenHolder.balance')}}</th>
-<!--          <th>Last Transferred</th>-->
-          <th>{{$t('tokenHolder.percentage')}}</th>
+          <th>{{ $t("tokenHolder.ranking") }}</th>
+          <th>
+            {{ $t("tokenHolder.address")
+            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
+              {{ this.buttonName }}
+            </button>
+          </th>
+          <th>{{ $t("tokenHolder.balance") }}</th>
+          <!--          <th>Last Transferred</th>-->
+          <th>{{ $t("tokenHolder.percentage") }}</th>
         </template>
 
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <div v-if="row.index + (pagination - 1) * 10 === 0">{{ row.index + (pagination - 1) * 10 + 1 }} &#129351;</div>
-                <div v-else-if="row.index + (pagination - 1) * 10 === 1">{{ row.index + (pagination - 1) * 10 + 1 }} &#129352;</div>
-                <div v-else-if="row.index + (pagination - 1) * 10 === 2">{{ row.index + (pagination - 1) * 10 + 1 }} &#129353;</div>
+                <div v-if="row.index + (pagination - 1) * 10 === 0">
+                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129351;
+                </div>
+                <div v-else-if="row.index + (pagination - 1) * 10 === 1">
+                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129352;
+                </div>
+                <div v-else-if="row.index + (pagination - 1) * 10 === 2">
+                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129353;
+                </div>
                 <div v-else>{{ row.index + (pagination - 1) * 10 + 1 }}</div>
               </div>
             </div>
           </th>
           <td class="Address">
-            <a v-if="this.state" class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ scriptHashToAddress(row.item.address) }}</a>
-            <a v-else class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{row.item.address}} </a>
+            <a
+              v-if="this.state"
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.address)"
+              >{{ scriptHashToAddress(row.item.address) }}</a
+            >
+            <a
+              v-else
+              class="name mb-0 text-sm"
+              style="cursor: pointer"
+              @click="getAddress(row.item.address)"
+              >{{ row.item.address }}
+            </a>
           </td>
           <td class="balance">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
-<!--          <td class="firstused">-->
-<!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
-<!--          </td>-->
+          <!--          <td class="firstused">-->
+          <!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
+          <!--          </td>-->
           <td class="percentage">
             {{ toPercentage(row.item.percentage) }}
           </td>
@@ -49,21 +76,20 @@
       </base-table>
     </div>
 
-    <div v-if="this.totalCount>10"
+    <div
+      v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>
         <base-input
-                type="number"
-                :style="text(pagination)"
-                :placeholder="pagination"
-                v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{countPage}}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalCount"
@@ -72,7 +98,9 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center ">{{$t('tokenHolder.nullPrompt')}}</card>
+  <card shadow v-else class="text-center">{{
+    $t("tokenHolder.nullPrompt")
+  }}</card>
 </template>
 <script>
 import axios from "axios";
@@ -91,7 +119,7 @@ export default {
     decimal: Number,
   },
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -100,7 +128,7 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
       state: true,
       buttonName: "Hash",
     };
@@ -120,11 +148,12 @@ export default {
       };
     },
   },
-  watch:{
-    contractHash:'watchcontract'
+  watch: {
+    contractHash: "watchcontract",
   },
   methods: {
-    watchcontract() {//如果路由有变化，执行的对应的动作
+    watchcontract() {
+      //如果路由有变化，执行的对应的动作
       this.getTokenList(0);
     },
     pageChangeByInput(pageNumber) {
@@ -133,11 +162,10 @@ export default {
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getBlockList(skip);
-      } else if(pageNumber <= 0){
+      } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
-        const skip =
-                this.resultsPerPage;
+        const skip = this.resultsPerPage;
         this.getTokenList(skip);
       } else {
         this.isLoading = true;
@@ -195,7 +223,11 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: {"ContractHash": this.contractHash, Limit: this.resultsPerPage, Skip: skip },
+          params: {
+            ContractHash: this.contractHash,
+            Limit: this.resultsPerPage,
+            Skip: skip,
+          },
           method: "GetAssetHoldersByContractHash",
         },
         headers: {
@@ -204,10 +236,9 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         this.NEP17TxList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage)
+        this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },

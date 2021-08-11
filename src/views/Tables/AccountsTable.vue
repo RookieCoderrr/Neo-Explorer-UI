@@ -7,7 +7,7 @@
       <div class="row align-items-center">
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ $t('addressPage.address')}}
+            {{ $t("addressPage.address") }}
           </h3>
         </div>
       </div>
@@ -27,19 +27,38 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{$t('addressPage.number')}}</th>
-          <th>{{$t('addressPage.address')}}<button class="btn btn-sm btn-primary"  @click="changeFormat()">{{this.buttonName}}</button></th>
-          <th>{{$t('addressPage.neoBalance')}}</th>
-          <th>{{$t('addressPage.gasBalance')}}</th>
-          <th>{{$t('addressPage.createdTime')}}</th>
+          <th>{{ $t("addressPage.number") }}</th>
+          <th>
+            {{ $t("addressPage.address")
+            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
+              {{ this.buttonName }}
+            </button>
+          </th>
+          <th>{{ $t("addressPage.neoBalance") }}</th>
+          <th>{{ $t("addressPage.gasBalance") }}</th>
+          <th>{{ $t("addressPage.createdTime") }}</th>
         </template>
         <template v-slot:default="row">
           <td>
             {{ row.item.number }}
           </td>
           <td class="address">
-            <a class="mb-0 text-sm" v-if="this.state" style="cursor: pointer" @click="getAddress(row.item.address)"> {{scriptHashToAddress(row.item.address)}} </a>
-            <a class="mb-0 text-sm" v-else style="cursor: pointer" @click="getAddress(row.item.address)"> {{row.item.address}} </a>
+            <a
+              class="mb-0 text-sm"
+              v-if="this.state"
+              style="cursor: pointer"
+              @click="getAddress(row.item.address)"
+            >
+              {{ scriptHashToAddress(row.item.address) }}
+            </a>
+            <a
+              class="mb-0 text-sm"
+              v-else
+              style="cursor: pointer"
+              @click="getAddress(row.item.address)"
+            >
+              {{ row.item.address }}
+            </a>
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
           <td class="neoBalance">
@@ -60,16 +79,14 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">{{$t('page')}} &nbsp;</div>
+        <div class="text">{{ $t("page") }} &nbsp;</div>
         <base-input
           type="number"
           :style="text(pagination)"
           :placeholder="pagination"
           v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
-        <div class="text">
-          &nbsp; of &nbsp;{{countPage}}
-        </div>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
         :total="this.totalAccount"
@@ -105,7 +122,7 @@ export default {
       resultsPerPage: 10,
       neoBalance: 0,
       isLoading: true,
-      countPage:0,
+      countPage: 0,
       buttonName: "Hash",
       state: true,
     };
@@ -133,8 +150,7 @@ export default {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
         this.pagination = this.countPage;
-        const skip =
-                ( this.countPage - 1 ) * this.resultsPerPage;
+        const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getAccoutsList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
@@ -182,11 +198,12 @@ export default {
             temp[k]["firstusetime"] = format(temp[k]["firstusetime"]);
             temp[k]["neoBalance"] = "";
             temp[k]["gasBalance"] = "";
-            temp[k]["number"] = (k+1)+this.resultsPerPage*(this.pagination-1)
+            temp[k]["number"] =
+              k + 1 + this.resultsPerPage * (this.pagination - 1);
           }
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
-          this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage)
+          this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
           this.getBalance();
           this.isLoading = false;
         })
@@ -222,16 +239,16 @@ export default {
           },
         })
           .then((res) => {
-            this.tableData[k]["gasBalance"] = this.convertGas(res["data"]["result"]["balance"]);
+            this.tableData[k]["gasBalance"] = this.convertGas(
+              res["data"]["result"]["balance"]
+            );
           })
           .catch((err) => {
             if (Object.getPrototypeOf(TypeError) === Error) {
               this.tableData[k]["gasBalance"] = "0";
-            }
-            else {
+            } else {
               console.log("Error", err);
             }
-
           });
 
         axios({
@@ -258,8 +275,7 @@ export default {
           .catch((err) => {
             if (Object.getPrototypeOf(TypeError) === Error) {
               this.tableData[k]["neoBalance"] = "0";
-            }
-            else {
+            } else {
               console.log("Error", err);
             }
           });

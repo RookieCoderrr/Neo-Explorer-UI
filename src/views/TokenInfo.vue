@@ -11,8 +11,10 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 v-if="this.token_info.ispopular" class="mb-0">{{ this.token_info["tokenname"] }} &#x1F525;</h1>
-                <h1 v-else class="mb-0"> {{this.token_info["tokenname"]}}</h1>
+                <h1 v-if="this.token_info.ispopular" class="mb-0">
+                  {{ this.token_info["tokenname"] }} &#x1F525;
+                </h1>
+                <h1 v-else class="mb-0">{{ this.token_info["tokenname"] }}</h1>
                 <a
                   class="mb-0"
                   style="cursor: pointer"
@@ -25,9 +27,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('tokenInfo.symbol')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.symbol") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.token_info["symbol"]}}
+                          {{ this.token_info["symbol"] }}
                         </div>
                       </div>
                     </card>
@@ -35,9 +39,11 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class=" font-weight-bold mb-0">{{$t('tokenInfo.decimal')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.decimal") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.token_info["decimals"]}}
+                          {{ this.token_info["decimals"] }}
                         </div>
                       </div>
                     </card>
@@ -45,74 +51,114 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">{{$t('tokenInfo.standard')}}</div>
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.standard") }}
+                        </div>
                         <div class="panel-body">
-                          {{this.token_info["type"] }}
+                          {{ this.token_info["type"] }}
                         </div>
                       </div>
                     </card>
                   </div>
-                  </div>
+                </div>
                 <div class="row mt-3"></div>
-                  <div class="row">
-                    <div class="col-4">
-                      <card shadow>
-                        <div class="panel panel-primary">
-                          <div class=" font-weight-bold mb-0">{{$t('tokenInfo.transferred')}}</div>
-                          <div class="panel-body">
-                            <div v-if="this.token_info.firsttransfertime" >
-                              {{ this.convertTime(this.token_info["firsttransfertime"]) }}
-                            </div>
+                <div class="row">
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.transferred") }}
+                        </div>
+                        <div class="panel-body">
+                          <div v-if="this.token_info.firsttransfertime">
+                            {{
+                              this.convertTime(
+                                this.token_info["firsttransfertime"]
+                              )
+                            }}
                           </div>
                         </div>
-                      </card>
-                    </div>
-                    <div class="col-4">
-                      <card shadow>
-                        <div class="panel panel-primary">
-                          <div class=" font-weight-bold mb-0">{{$t('tokenInfo.supply')}}</div>
-                          <div class="panel-body">
-                            {{ convertToken(this.token_info["totalsupply"], this.decimal) }}
-                          </div>
+                      </div>
+                    </card>
+                  </div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.supply") }}
                         </div>
-                      </card>
-                    </div>
-                    <div class="col-4">
-                      <card shadow>
-                        <div class="panel panel-primary">
-                          <div class=" font-weight-bold mb-0">{{$t('tokenInfo.holders')}}</div>
-                          <div class="panel-body">
-                            {{ this.token_info["holders"] }}
-                          </div>
+                        <div class="panel-body">
+                          {{
+                            convertToken(
+                              this.token_info["totalsupply"],
+                              this.decimal
+                            )
+                          }}
                         </div>
-                      </card>
-                    </div>
+                      </div>
+                    </card>
+                  </div>
+                  <div class="col-4">
+                    <card shadow>
+                      <div class="panel panel-primary">
+                        <div class="font-weight-bold mb-0">
+                          {{ $t("tokenInfo.holders") }}
+                        </div>
+                        <div class="panel-body">
+                          {{ this.token_info["holders"] }}
+                        </div>
+                      </div>
+                    </card>
+                  </div>
                 </div>
 
                 <div class="row mt-3"></div>
               </div>
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-diamond" :title="$t('tokenInfo.recentTransfers')">
-                  <tokens-tx-nep17 v-if="standard===1" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep17>
-                  <tokens-tx-nep11 v-else-if="standard===2" :contractHash="token_id" :decimal="decimal=='' ?  0:decimal"></tokens-tx-nep11>
+                <tab-pane
+                  icon="ni ni-diamond"
+                  :title="$t('tokenInfo.recentTransfers')"
+                >
+                  <tokens-tx-nep17
+                    v-if="standard === 1"
+                    :contractHash="token_id"
+                    :decimal="decimal == '' ? 0 : decimal"
+                  ></tokens-tx-nep17>
+                  <tokens-tx-nep11
+                    v-else-if="standard === 2"
+                    :contractHash="token_id"
+                    :decimal="decimal == '' ? 0 : decimal"
+                  ></tokens-tx-nep11>
                 </tab-pane>
-                <tab-pane icon="ni ni-single-02 mr-2" :title="$t('tokenInfo.topHolders')">
-                  <token-holder  :contract-hash="token_id" :decimal="decimal=='' ?  0:decimal"></token-holder>
+                <tab-pane
+                  icon="ni ni-single-02 mr-2"
+                  :title="$t('tokenInfo.topHolders')"
+                >
+                  <token-holder
+                    :contract-hash="token_id"
+                    :decimal="decimal == '' ? 0 : decimal"
+                  ></token-holder>
                 </tab-pane>
-                <tab-pane icon="ni ni-collection" :title="$t('tokenInfo.contractInfo')">
+                <tab-pane
+                  icon="ni ni-collection"
+                  :title="$t('tokenInfo.contractInfo')"
+                >
                   <card shadow type="secondary">
                     <div class="extra" v-if="this.manifest.extra">
-                      <h3 class="mt-2">{{$t('tokenInfo.extra')}}</h3>
+                      <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
-                            {{$t('tokenInfo.email')}} : {{ this.manifest.extra["Email"] }}
+                            {{ $t("tokenInfo.email") }} :
+                            {{ this.manifest.extra["Email"] }}
                           </div>
                           <div class="col-auto">
-                            {{$t('tokenInfo.author')}}: {{ this.manifest.extra["Author"] }}
+                            {{ $t("tokenInfo.author") }}:
+                            {{ this.manifest.extra["Author"] }}
                           </div>
                           <div class="col-auto">
-                            {{$t('tokenInfo.description')}} : {{ this.manifest.extra["Description"] }}
+                            {{ $t("tokenInfo.description") }} :
+                            {{ this.manifest.extra["Description"] }}
                           </div>
                         </div>
                       </card>
@@ -122,7 +168,7 @@
                         class="events"
                         v-if="this.manifest.abi.events.length !== 0"
                       >
-                        <h3 class="mt-2">{{$t('tokenInfo.events')}}</h3>
+                        <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
                         <card
                           shadow
                           v-for="(item, index) in this.manifest['abi'][
@@ -149,7 +195,7 @@
                           </div>
                         </card>
                       </div>
-                      <h3 class="mt-2">{{$t('tokenInfo.methods')}}</h3>
+                      <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
                       <card
                         shadow
                         v-for="(item, index) in this.manifest['abi']['methods']"
@@ -228,15 +274,16 @@ export default {
     this.getToken(this.token_id);
     this.getContractManifest(this.token_id);
   },
-  watch:{
-    $route:'watchrouter'
+  watch: {
+    $route: "watchrouter",
   },
   methods: {
-    watchrouter() {//如果路由有变化，执行的对应的动作
-      if(this.$route.name === 'tokeninfo'){
-      this.token_id = this.$route.params.hash
-      this.getToken(this.$route.params.hash);
-      this.getContractManifest(this.$route.params.hash);
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      if (this.$route.name === "tokeninfo") {
+        this.token_id = this.$route.params.hash;
+        this.getToken(this.$route.params.hash);
+        this.getContractManifest(this.$route.params.hash);
       }
     },
     getContract(hash) {
@@ -247,15 +294,22 @@ export default {
     },
     convertTime(time) {
       var date = new Date(time);
-      var y = date.getFullYear()
-      var m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
-      var d = (date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate())
-      var h = date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours()
-      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
-      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
-      return m + '-' + d + '-' + y + ' ' + h + ':' + mi + ':' + s + ' +' + "UTC";
+      var y = date.getFullYear();
+      var m =
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
+      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+      var mi =
+        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+      var s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return (
+        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
+      );
     },
-    getToken(token_id){
+    getToken(token_id) {
       axios({
         method: "post",
         url: "/api",
