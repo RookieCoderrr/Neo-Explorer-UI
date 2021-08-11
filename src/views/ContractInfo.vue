@@ -281,9 +281,7 @@
                           v-if="manifest['abi']['methods'][index]['result']"
                         >
                           <h3>Response</h3>
-                          <div>
-                            <vue-json-pretty :path="'res'" :data="{ key: 'value' }"> </vue-json-pretty>
-                          </div>
+                          <div>{{manifest['abi']['methods'][index]['result']}}</div>
                         </div>
                       </card>
                     </div>
@@ -305,15 +303,12 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import VueJsonPretty from "vue-json-pretty";
-import "vue-json-pretty/lib/styles.css";
 
 export default {
   components: {
     Loading,
     EventsTable,
     ScCallTable,
-    VueJsonPretty,
   },
   data() {
     return {
