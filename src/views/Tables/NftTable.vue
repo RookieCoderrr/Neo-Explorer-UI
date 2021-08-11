@@ -192,6 +192,9 @@ export default {
       });
     },
     scriptHashToAddress(hash) {
+      if(hash ===null) {
+        return "Null"
+      }
       hash = hash.substring(2);
       const acc = Neon.create.account(hash);
       return acc.address;
