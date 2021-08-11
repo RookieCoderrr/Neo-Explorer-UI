@@ -101,7 +101,7 @@
                     <div class="col-2">
                     <div class=" font-weight-bold mb-0">{{$t('blockinfo.transfers')}}</div>
                   </div>
-                    <div class="col-4">{{ parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) }}
+                    <div class="col-4">{{ parseInt(block_info.nep11count) + parseInt(block_info.nep17count) }}
                     </div>
 
                   </div>
@@ -144,11 +144,11 @@
               <div>
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-diamond" :title="$t('blockinfo.txnsList')">
-                  <block-transaction v-if="this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
+                  <block-transaction v-if="this.block_info != '' && this.block_info.transactioncount != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transaction>
                   <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
                 </tab-pane>
                 <tab-pane icon="ni ni-single-02 mr-2" :title="$t('blockinfo.trfsList')">
-                  <block-transfer v-if=" parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) != 0"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transfer>
+                  <block-transfer v-if=" this.block_info != '' && (parseInt(block_info.transfer11count) + parseInt(block_info.transfer17count) != 0)"  :title="$t('blockinfo.txnsList')" :blockHash="this.BlockHash"></block-transfer>
                   <card shadow v-else class="text-center ">{{$t('blockinfo.nullPrompt')}}</card>
                 </tab-pane>
                 </tabs>

@@ -10,6 +10,7 @@
   "dependencies": {
     "@cityofzion/neon-js": "^5.0.0-next.13",
     "axios": "^0.21.1",
+    "bignumber": "^1.1.0",
     "bootstrap": "4.6.0",
     "bootstrap-vue": "2.15.0",
     "chart.js": "2.9.4",

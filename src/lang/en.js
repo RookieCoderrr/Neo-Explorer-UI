@@ -1,4 +1,5 @@
 const en = {
+    home: "Welcome To NeoExplorer",
     na: "Not Available",
     blockReward: "Block Reward",
     networkFeeReward: "Network Fee Reward",
@@ -24,11 +25,11 @@ const en = {
     },
     homePage:{
         totalBLocks:"Total Blocks",
-        totalTxs:"Total Txs",
+        totalTxs:"Total Transactions",
         totalTokens:"Total Tokens",
-        totalCntrts:"Total Cntrts",
-        totalAddrs:"Total Accts",
-        totalCndidtes:"Total Cndidtes",
+        totalCntrts:"Total Contracts",
+        totalAddrs:"Total Addresses",
+        totalCndidtes:"Total Candidates",
         recentBlocks:"Recent Blocks",
         recentTxs:"Recent Transactions",
         seeAll:"See All",
@@ -111,7 +112,7 @@ const en = {
         netFee:"Network Fee",
         sysFee:"System Fee",
         signers:"Signers",
-        account:"Account",
+        account:"Address",
         scopes:"Scopes",
         witness:"Witnesses",
         invocation:"Invocation",
@@ -145,8 +146,8 @@ const en = {
         reward:"Reward",
         burn:"Burn",
         transfer:"Transfer",
-        nullAccount:"Null Account",
-        nullBalance:"Null Balance"
+        nullAccount:"Null Address",
+        nullBalance:"Not Available"
     },
     tokensTable: {
         title: "Tokens List",
@@ -199,16 +200,16 @@ const en = {
         createdTime: "Created Time",
         hash: "Hash",
         accountsTable: "Address",
-        txnullPrompt: "This account has no transactions.",
-        nep17nullPrompt: "This account has no NEP17 transfers.",
-        nep11nullPrompt: "This account has no NEP11 transfers.",
+        txnullPrompt: "This address has no transactions.",
+        nep17nullPrompt: "This address has no NEP17 transfers.",
+        nep11nullPrompt: "This address has no NEP11 transfers.",
         typeEnum: {
             normal: "Normal",
             committee: "Committee",
             candidate: "Candidate",
         },
         addressProfile: {
-            title: "Account: ",
+            title: "Address",
             type: "Type",
             txNums: "Transactions",
             nep17Transfers: "NEP17 Transfers",
@@ -240,16 +241,16 @@ const en = {
         mint:"Mint",
         burn:"Burn",
         transfer:"Transfer",
-        nullAccount:"Not Available",
+        nullAccount:"Null Address",
         nullBalance:"Not Available"
     },
     search: {
-        placeholder:"Search for Blocks, Transactions, Accounts, Tokens or Contracts",
+        placeholder:"Search for Blocks, Transactions, Addresses, Tokens or Contracts",
         information:"Sorry! Your entry did not match any results in our database. Please check your entry",
         dataSupport:" Data formats we currently support:",
         block:"Block Hash (UInt256), Block Height (Int)",
         transaction:"Transaction ID (UInt256)",
-        account:"Account Script Hash (UInt160), Account Address (WIF)",
+        account:"Address Script Hash (UInt160), Address (WIF)",
         token:"Token / Contract Script Hash (UInt160)",
         button:"Back to Home Page"
     },

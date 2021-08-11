@@ -80,6 +80,30 @@ export default {
     };
   },
   emits:["change"],
+
+  // mounted(){
+  //   var that = this
+  //   document.addEventListener('click',function(e){
+  //     console.log(that.$refs)
+  //     console.log(e.target)
+  //     if(!that.$refs.contains(e.target)){
+  //       that.open = false
+  //       that.$emit("change", this.isOpen);
+  //     }
+  //
+  //   })
+  // },
+  beforeMount() {
+    this._close = (e) => {
+      // 如果点击发生在当前组件内部，则不处理
+      if (this.$el.contains(e.target)) {
+        return;
+      }
+      this.open = false
+      this.$emit("change", this.isOpen);
+    };
+    document.body.addEventListener("click", this._close);
+  },
   methods: {
     toggleDropDown() {
       this.isOpen = !this.isOpen;
