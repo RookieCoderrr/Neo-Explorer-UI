@@ -191,7 +191,6 @@
                     <div class="text-muted"><h3>{{ $t('transactionInfo.script') }}</h3></div>
                   </div>
                   <div class="col-10" v-html="this.tabledata['script']"></div>
-                  <!--div class="col-10">{{ this.tabledata["script"] }}</div-->
                 </div>
               </card>
 
