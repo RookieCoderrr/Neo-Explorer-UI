@@ -113,11 +113,11 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">VM State</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.vmState') }}</div>
                   <div class="col-4">
                     {{ this.vmstate }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Exception</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.exception') }}</div>
                   <div class="col-4">
                     {{ this.exception === null? "Null":this.exception}}
                   </div>
@@ -126,7 +126,7 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Trigger</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.trigger') }}</div>
                   <div class="col-10">
                     {{this.trigger}}
                   </div>
@@ -237,15 +237,15 @@
                       >
                         <div class="row">
                           <div class="col-2">
-                            <div class="text-muted">Eventname:</div>
+                            <div class="text-muted">{{$t('transactionInfo.eventName') }}:</div>
                             {{ item["eventname"] }}
                           </div>
                           <div class="col-1">
-                            <div class="text-muted">Vmstate:</div>
+                            <div class="text-muted">{{$t('transactionInfo.vmState') }}:</div>
                             {{ item["Vmstate"] }}
                           </div>
                           <div class="col-4">
-                            <div class="text-muted">Contract:</div>
+                            <div class="text-muted">{{$t('transactionInfo.contract') }}:</div>
                             <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
                               {{ item["contract"] }}
                             </a>
@@ -253,7 +253,7 @@
                           <div class="col-5">
                             <div class="params">
 
-                              <div class="text-muted">State:</div>
+                              <div class="text-muted">{{$t('transactionInfo.State') }}:</div>
                               <div v-if="item['state'].length !== 0">
                                 <li
                                     v-for="(param, ind) in item['state']['value']"
@@ -287,7 +287,9 @@
                     </div>
                   </div>
                   <div v-else>
-                    This transaction has no event.
+                    <card shadow class="text-center">
+                    {{$t('transactionInfo.remind') }}
+                    </card>
                   </div>
 
                 </tab-pane>
@@ -797,33 +799,6 @@ export default {
 
 
     },
-    getScCallByTransactionHash(tx_id){
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { TransactionHash: tx_id },
-          method: "GetScCallByTransactionHash",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        this.isLoading = false;
-        this.tabledataCall = res["data"]["result"];
-        this.method = this.tabledataCall["method"];
-        this.originSender = this.tabledataCall["originSender"];
-        this.callFlags = this.tabledataCall["callFlags"];
-        this.contractHash = this.tabledataCall["contractHash"]
-        console.log(this.tabledataCall)
-        this.getContractByContractHash(this.contractHash)
-      });
-    },
-
     getScCallByTransactionHash(tx_id){
       axios({
         method: "post",
