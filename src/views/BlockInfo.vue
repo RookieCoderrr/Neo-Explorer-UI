@@ -88,7 +88,14 @@
                         {{ $t("blockinfo.speaker") }}
                       </div>
                     </div>
-                    <div class="col-4">{{ this.block_info.systemFee }}</div>
+                    <div class="col-4">
+                      <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
+                        {{ this.state ===true ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
+                      </a>
+                    </div>
+                    <div class="col-1">
+                      <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+                    </div>
                     <div class="col-2">
                       <div class="font-weight-bold mb-0">
                         {{ $t("blockinfo.blockReward") }}
@@ -160,23 +167,27 @@
                   </div>
                 </card>
 
-                <!--                <div class="row mt-5">    </div>-->
-                <!--                <div class="row">-->
-                <!--                  <div class="col-2">-->
-                <!--                    <div class="text-muted">Speaker</div>-->
-                <!--                  </div>-->
-                <!--                  <div class="col-5">-->
-                <!--                   TBC-->
-                <!--                  </div>-->
-                <!--                  <div class="col-2">-->
-                <!--                    <div class="text-muted">Miner Order</div>-->
-                <!--                  </div>-->
-                <!--                  <div class="col-3">-->
-                <!--                   {{this.block_info.primary}}-->
-                <!--                  </div>-->
-
-                <!--                </div>-->
                 <div class="row mt-3"></div>
+
+                <card shadow>
+                  <div
+                          class="col-2 font-weight-bold mb-0"
+                          style="font-size: 20px"
+                  >
+                    {{ $t('transactionInfo.witness') }}
+                  </div>
+                  <hr />
+                    <div class="row" v-if="block_info.witnesses">
+                      <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.invocation') }}</div>
+                      <div class="col-4" v-html=" block_info['witnesses'][0]['invocation']">
+                      </div>
+                      <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.verification') }}</div>
+                      <div class="col-4" v-html=" block_info['witnesses'][0]['verification']">
+                      </div>
+                    </div>
+                </card>
+                <div class="row mt-3"></div>
+
               </div>
               <div>
                 <tabs fill class="flex-column flex-md-row">
@@ -230,7 +241,8 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import BlockTransaction from "./Tables/BlockTransaction";
 import BlockTransfer from "./Tables/BlockTransfer";
-
+import toOpcode from "../directives/typeConvertion";
+import Neon from "@cityofzion/neon-js";
 export default {
   components: {
     BlockTransaction,
@@ -246,6 +258,7 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
+      buttonName:"Hash",
     };
   },
   created() {
@@ -261,6 +274,29 @@ export default {
         this.isLoading = true
         this.BlockHash = this.$route.params.hash;
         this.getBlock(this.BlockHash);
+      }
+    },
+    goToAddressInfo(addr){
+      this.$router.push({
+        path: `/accountprofile/${addr}`,
+      });
+    },
+    scriptHashToAddress(hash) {
+      // console.log(Neon.is.publicKey(hash));
+      // console.log(Neon.is.wif(hash));
+      // console.log(Neon.is.encryptedKey(hash));
+      const acc = Neon.create.account(hash);
+      return acc.address;
+    },
+    changeFormat(){
+      if(this.state === true) {
+        this.state = false
+        this.buttonName = "WIF"
+        return
+      } else {
+        this.state = true
+        this.buttonName = "Hash"
+        return
       }
     },
     convertTime(time) {
@@ -302,6 +338,14 @@ export default {
         },
       }).then((res) => {
         this.block_info = res["data"]["result"];
+        this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
+        console.log(this.block_info["witnesses"][0]["verification"] )
+        this.block_info["witnesses"][0]["verification"] = toOpcode( this.block_info["witnesses"][0]["verification"])
+        console.log(this.block_info["witnesses"][0]["verification"] )
+        let words = this.block_info["witnesses"][0]["verification"].split("<br>")
+
+        this.block_info["speaker"]=words[this.block_info["primary"]+1].substring(10)
+        console.log(this.block_info["speaker"])
         this.isLoading = false;
       });
     },
