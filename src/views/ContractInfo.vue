@@ -281,7 +281,7 @@
                           v-if="manifest['abi']['methods'][index]['result']"
                         >
                           <h3>Response</h3>
-                          <div>{{manifest['abi']['methods'][index]['result']}}</div>
+                          <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
                         </div>
                       </card>
                     </div>
@@ -303,12 +303,13 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-
+import JsonView from './Tables/JsonView'
 export default {
   components: {
     Loading,
     EventsTable,
     ScCallTable,
+    JsonView,
   },
   data() {
     return {
@@ -422,10 +423,11 @@ export default {
       client
         .invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
-          this.manifest["abi"]["methods"][index]["result"] = JSON.stringify(
-            res["stack"],
-            this.responseConverter
-          );
+          // const raw = JSON.stringify(
+          //   res["stack"],
+          //   this.responseConverter
+          // );
+           this.manifest["abi"]["methods"][index]["result"] =  res["stack"];
         })
         .catch((err) => {
           this.manifest["abi"]["methods"][index]["result"] = err;

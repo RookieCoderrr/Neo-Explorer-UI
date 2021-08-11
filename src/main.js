@@ -22,17 +22,7 @@ import ArgonDashboard from "./plugins/argon-dashboard";
 import il8n from "./lang/il8n.js";
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
-// import "element-plus/lib/theme-chalk/index.css";
-// import 'element-ui/lib/theme-chalk/index.css';
 
-// 多语言切换
-// const i18n = new VueI18n({
-//     locale: 'zh', //设置默认语言
-//     messages:{
-//         'zh': require('@/assets/lang/zh_cn'),
-//         'en': require('@/assets/lang/en')
-//     }
-// });
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(il8n);
