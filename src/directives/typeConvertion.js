@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import Neon from "@cityofzion/neon-js";
 
 
 function _base64ToArrayBuffer(base64) {
@@ -10,14 +11,14 @@ function _base64ToArrayBuffer(base64) {
     }
     return bytes;
 }
-function b64ToHex(bin){
-    var hex = [];
-    for(let k=0; k<bin.length; k++) {
-        hex.push(bin[k].toString(16));
+function b64ToHex(bin) {
+    const buffer = Buffer.from(bin, "base64");
+    const hex = buffer.toString("hex");
+    if(Neon.is.publicKey(hex)) {
+        const acc = Neon.create.account(hex);
+        return "0x" + acc.scriptHash;
     }
-    hex.reverse()
-
-    return '0x' + hex.join('');
+    return "0x" + hex;
 }
 function bin2String(array) {
     //console.log(array)
