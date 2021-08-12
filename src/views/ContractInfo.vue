@@ -189,7 +189,7 @@
                           <div class="row">
                             <div class="col">
                               <div class="params">
-                                <div class="text-muted">parameters:</div>
+                                <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                                 <div v-if="item['parameters'].length !== 0">
                                   <li
                                     v-for="(param, ind) in item['parameters']"
@@ -217,14 +217,14 @@
                               class="btn btn-sm btn-primary"
                               @click="onQuery(index)"
                             >
-                              Query
+                              {{$t('tokenInfo.query')}}
                             </button>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-4">
                             <div class="params">
-                              <div class="text-muted">parameters:</div>
+                              <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-if="item['safe']">
                                   <div
@@ -237,8 +237,7 @@
                                       <div>
                                         <input
                                           type="text"
-                                          style="background: #dbe7e7"
-                                          class="over-ellipsis"
+                                          style="border: 2px solid #676c6c; border-radius: 4px;"
                                           v-model="
                                             manifest['abi']['methods'][index][
                                               'parameters'
@@ -258,30 +257,35 @@
                                   </li>
                                 </div>
                               </div>
-                              <div v-else>null</div>
+                              <div v-else>{{$t('tokenInfo.noParam')}}</div>
                             </div>
                           </div>
                           <div class="col">
                             <div class="return">
-                              <div class="text-muted">return type:</div>
+                              <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
                               {{ item["returntype"] }}
                             </div>
                           </div>
                           <div class="col">
-                            <div class="text-muted">offset:</div>
+                            <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
                             {{ item["offset"] }}
                           </div>
                           <div class="col">
-                            <div class="text-muted">safe:</div>
+                            <div class="text-muted">{{$t('tokenInfo.safe')}}</div>
                             {{ item["safe"] }}
                           </div>
                         </div>
                         <div
                           class="mt-3"
-                          v-if="manifest['abi']['methods'][index]['result']"
                         >
-                          <h3>Response</h3>
-                          <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
+                          <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
+                            <h3>{{$t('tokenInfo.error')}}</h3>
+                            <div>{{manifest['abi']['methods'][index]['error']}}</div>
+                          </div>
+                          <div v-else-if="manifest['abi']['methods'][index]['result'] && manifest['abi']['methods'][index]['result'] !== ''">
+                            <h3>{{$t('tokenInfo.response')}}</h3>
+                            <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
+                          </div>
                         </div>
                       </card>
                     </div>
@@ -303,7 +307,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import JsonView from './Tables/JsonView'
+import JsonView from "./Tables/JsonView";
 export default {
   components: {
     Loading,
@@ -386,8 +390,14 @@ export default {
         if (val["type"] === "ByteString" && typeof val["value"] === "string") {
           const buffer = Buffer.from(val["value"], "base64");
           const hex = buffer.toString("hex");
-          const acc = Neon.create.account(hex);
-          val["value"] = acc.address;
+          if ( Neon.is.publicKey(hex)) {
+            const acc = Neon.create.account(hex);
+            val["type"] = "ScriptHash";
+            val["value"] = "0x" + acc.scriptHash;
+          } else {
+            val["type"] = "String";
+            val["value"] = buffer.toString("utf-8");
+          }
         }
       }
       return val;
@@ -407,6 +417,8 @@ export default {
       });
     },
     onQuery(index) {
+      this.manifest["abi"]["methods"][index]["result"] = "";
+      this.manifest["abi"]["methods"][index]["error"] = "";
       const name = this.manifest["abi"]["methods"][index]["name"];
       const params = this.manifest["abi"]["methods"][index]["parameters"];
       const contractParams = [];
@@ -415,26 +427,32 @@ export default {
           let temp = Neon.create.contractParam(item["type"], item["value"]);
           contractParams.push(temp);
         } catch (err) {
-          this.manifest["abi"]["methods"][index]["result"] = err;
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
           return;
         }
       }
       const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
+      console.log(contractParams);
       client
         .invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
-          // const raw = JSON.stringify(
-          //   res["stack"],
-          //   this.responseConverter
-          // );
-           this.manifest["abi"]["methods"][index]["result"] =  res["stack"];
+          console.log(res);
+          if(res["exception"] != null) {
+            this.manifest["abi"]["methods"][index]["error"] = res["exception"];
+          } else {
+            this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
+              JSON.stringify(res["stack"], this.responseConverter)
+            );
+          }
         })
         .catch((err) => {
-          this.manifest["abi"]["methods"][index]["result"] = err;
+          console.log(err);
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+</style>

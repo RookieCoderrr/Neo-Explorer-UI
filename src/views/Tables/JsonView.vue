@@ -128,7 +128,7 @@
 
 <style>
     .bgView {
-        background-color: #fafafa;
+        background-color: #ffffff;
     }
 
     .json-view {
@@ -142,15 +142,15 @@
     }
 
     .json-note {
-        color: #909399;
+        color: #6a7469;
     }
 
     .json-key {
-        color: rgb(147, 98, 15);
+        color: rgb(94,114,228);
     }
 
     .json-value {
-        color: rgb(24, 186, 24);
+        color: rgb(81, 88, 81);
     }
 
     .json-item {
@@ -205,8 +205,8 @@
     }
 
     .angle.closed::after {
-        border-left: solid 4px #333;
-        border-top: solid 6px transparent;
-        border-bottom: solid 6px transparent;
+      border-left: solid 4px #333;
+      border-top: solid 6px transparent;
+      border-bottom: solid 6px transparent;
     }
 </style>

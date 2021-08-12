@@ -113,11 +113,11 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">VM State</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.vmState') }}</div>
                   <div class="col-4">
                     {{ this.vmstate }}
                   </div>
-                  <div class="col-2 font-weight-bold mb-0">Exception</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.exception') }}</div>
                   <div class="col-4">
                     {{ this.exception === null? "Null":this.exception}}
                   </div>
@@ -126,7 +126,7 @@
               <div class="row mt-3"></div>
               <card shadow>
                 <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">Trigger</div>
+                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.trigger') }}</div>
                   <div class="col-10">
                     {{this.trigger}}
                   </div>
@@ -228,8 +228,8 @@
 
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
-                  <div v-if="tabledataApp['notifications']">
-                    <div v-if="tabledataApp['notifications']['length'] != 0">
+                  <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
+                    <div v-if="this.count ===0">
                       <card
                           shadow
                           v-for="(item, index) in this.tabledataApp['notifications']"
@@ -237,22 +237,23 @@
                       >
                         <div class="row">
                           <div class="col-2">
-                            <div class="text-muted">Eventname:</div>
+                            <div class="text-muted">{{$t('transactionInfo.eventName') }}:</div>
                             {{ item["eventname"] }}
                           </div>
                           <div class="col-1">
-                            <div class="text-muted">Vmstate:</div>
+                            <div class="text-muted">{{$t('transactionInfo.vmState') }}:</div>
                             {{ item["Vmstate"] }}
                           </div>
                           <div class="col-4">
-                            <div class="text-muted">Contract:</div>
+                            <div class="text-muted">{{$t('transactionInfo.contract') }}:</div>
                             <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
                               {{ item["contract"] }}
                             </a>
                           </div>
                           <div class="col-5">
                             <div class="params">
-                              <div class="text-muted">State:</div>
+
+                              <div class="text-muted">{{$t('transactionInfo.State') }}:</div>
                               <div v-if="item['state'].length !== 0">
                                 <li
                                     v-for="(param, ind) in item['state']['value']"
@@ -275,11 +276,14 @@
                                   </span>
                                 </li>
                               </div>
-                              <div v-else>null</div>
+
                             </div>
                           </div>
                         </div>
                       </card>
+                    </div>
+                    <div v-else>
+                      <span>Some contract does not exist in the database(To do)</span>
                     </div>
                   </div>
 
@@ -315,16 +319,19 @@
                     </div>
                     <div class="row mt-3"></div>
                     <div class="row">
-                      <div class="params col">
+                      <div class="params col" v-if="this.manifest != null ">
                         <div class="text-muted">Params:</div>
-
                         <li class="col-12"
-
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
 
                         >
-                          <span  v-if="params[this.index] && params[this.index].parameters">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":param }}
+                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.baseToHash(param) }}
+                          </span>
+                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.baseToString(param) }}
+                          </span>
+                          <span v-else>
+                            {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
                           </span>
                         </li></div>
                     </div>
@@ -385,6 +392,7 @@ export default {
       index:0,
       array:[],
       mapTotal: new Map(),
+      count:0
 
 
 
@@ -395,7 +403,6 @@ export default {
     this.getTransactionByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash)
     this.getApplicationLogByTransactionHash(this.$route.params.txhash);
-
 
 
   },
@@ -439,7 +446,8 @@ export default {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
-        var res = Neon.u.base642hex(base)
+        var tmp = Neon.u.base642hex(base)
+        var res = Neon.u.reverseHex(tmp)
       // console.log(res)
         return "0x"+res
     },
@@ -451,9 +459,9 @@ export default {
     },
     base64ToByteArray(base){
       var tmp =Neon.u.base642hex(base)
-      var res = Neon.u.hexstring2str(tmp)
+      // var res = Neon.u.hexstring2ab(tmp)
       // console.log(res)
-      return res
+      return tmp
     },
 
     goToBlockInfo(hash){
@@ -524,21 +532,24 @@ export default {
 
         this.isLoading = false;
         const raw = res["data"]["result"];
-        // console.log(raw)
-        var temp = JSON.parse(raw["manifest"]);
-        // console.log(temp)
-        var map =new Map()
-        for (var i =0; i <temp["abi"]["events"].length;i ++){
-          var table =[]
-          // console.log(temp["abi"]["events"].length)
-          for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length;j ++){
-            table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
-          }
-          map.set(temp["abi"]["events"][i]["name"],table)
+        if (raw ==null) {
+          this.count ++
+
         }
-        this.mapTotal.set(raw["hash"],map)
-
-
+        else {
+          var temp = JSON.parse(raw["manifest"]);
+          // console.log(temp)
+          var map = new Map()
+          for (var i = 0; i < temp["abi"]["events"].length; i++) {
+            var table = []
+            // console.log(temp["abi"]["events"].length)
+            for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length; j++) {
+              table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
+            }
+            map.set(temp["abi"]["events"][i]["name"], table)
+          }
+          this.mapTotal.set(raw["hash"], map)
+        }
       });
     },
 
@@ -594,33 +605,6 @@ export default {
 
 
     },
-    // getScCallByTransactionHash(tx_id){
-    //   axios({
-    //     method: "post",
-    //     url: "/api",
-    //     data: {
-    //       jsonrpc: "2.0",
-    //       id: 1,
-    //       params: { TransactionHash: tx_id },
-    //       method: "GetScCallByTransactionHash",
-    //     },
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       withCredentials: " true",
-    //       crossDomain: "true",
-    //     },
-    //   }).then((res) => {
-    //     this.isLoading = false;
-    //     this.tabledataCall = res["data"]["result"];
-    //     this.method = this.tabledataCall["method"];
-    //     this.originSender = this.tabledataCall["originSender"];
-    //     this.callFlags = this.tabledataCall["callFlags"];
-    //     this.contractHash = this.tabledataCall["contractHash"]
-    //     console.log(this.tabledataCall)
-    //     this.getContractByContractHash(this.contractHash)
-    //   });
-    // },
-
     getScCallByTransactionHash(tx_id){
       axios({
         method: "post",
@@ -665,21 +649,25 @@ export default {
         }).then((res) => {
           this.isLoading = false;
           const raw = res["data"]["result"];
-          // console.log(raw)
-          this.manifest = JSON.parse(raw["manifest"]);
-          this.tabledataContract = raw;
-          this.params = this.manifest["abi"]["methods"]
-          // console.log(this.manifest['abi']['methods'])
-          for (var i = 0; i < this.params.length;i++){
-            // console.log(this.params.length)
-            // console.log(this.method)
-            if (this.method === this.params[i]["name"]){
-              this.index = i
-              // console.log(this.index)
+          console.log(raw)
+          if(raw === null ){
+            this.manifest = null;
+          }
+          else {
+            this.manifest = JSON.parse(raw["manifest"]);
+            console.log(this.manifest)
+            this.tabledataContract = raw;
+            this.params = this.manifest["abi"]["methods"]
+            // console.log(raw)
+            for (var i = 0; i < this.params.length;i++){
+              // console.log(this.params.length)
+              // console.log(this.method)
+              if (this.method === this.params[i]["name"]){
+                this.index = i
+                console.log(this.index)
+              }
             }
           }
-
-
         });
       }
   },
