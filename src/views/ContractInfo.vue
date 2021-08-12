@@ -12,18 +12,18 @@
               ></loading>
               <div class="card-header bg-transparent">
                 <div class="row">
-                  <div class="col-11">
+                  <div class="col-10">
                     <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
                   </div>
                   <div
-                    v-if="this.contract_info['sender'] !== null"
-                    class="col-1"
+                      v-if="this.isAddress"
+                      class="col-2"
                   >
                     <button
-                      class="btn btn-primary btn-xs"
-                      @click="changeFormat()"
+                        class="btn btn-primary btn-xs"
+                        @click="getAddress(this.contract_id)"
                     >
-                      {{ this.buttonName }}
+                      View as Address
                     </button>
                   </div>
                 </div>
@@ -34,20 +34,35 @@
                   <div class="col-4">
                     <card shadow>
                       <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("contract.creator") }}
+                        <div class="row">
+                          <div class="font-weight-bold mb-0 ml-3">
+                            {{ $t("contract.creator") }}
+                          </div>
+                          <div
+                              v-if="this.contract_info['sender'] !== null"
+                              class="col-1 text-right"
+                          >
+                            <button
+                                class="btn btn-sm btn-primary"
+                                @click="changeFormat()"
+                            >
+                              {{ this.buttonName }}
+                            </button>
+                          </div>
                         </div>
                         <div class="panel-body">
-                          <span v-if="this.contract_info['sender'] === null">{{
-                            $t("contract.available")
-                          }}</span>
+                          <span v-if="this.contract_info['sender'] === null">
+                            {{$t("contract.available") }}
+                          </span>
                           <a
+                            class="text"
                             v-else-if="this.state"
                             style="cursor: pointer"
                             @click="getSender(contract_info['sender'])"
                             >{{ this.contract_info["sender"] }}</a
                           >
                           <a
+                            class="text"
                             v-else
                             style="cursor: pointer"
                             @click="getSender(contract_info['sender'])"
@@ -325,6 +340,7 @@ export default {
       state: true,
       buttonName: "Hash",
       totalsccall: 0,
+      isAddress: false,
     };
   },
   created() {
@@ -378,7 +394,29 @@ export default {
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
+        this.testAddress(contract_id);
         this.isLoading = false;
+      });
+    },
+    testAddress(addr) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAddressByAddress",
+          params: { Address: addr },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res["data"]["error"] == null)
+          this.isAddress = true;
       });
     },
     addressToScriptHash(addr) {
@@ -410,6 +448,11 @@ export default {
         this.state = true;
         this.buttonName = "Hash";
       }
+    },
+    getAddress(addr) {
+      this.$router.push({
+        path: `/accountprofile/${addr}`,
+      })
     },
     getSender(addr) {
       this.$router.push({
