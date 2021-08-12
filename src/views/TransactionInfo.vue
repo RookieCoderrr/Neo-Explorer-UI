@@ -415,6 +415,8 @@ export default {
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
+        this.getScCallByTransactionHash(this.$route.params.txhash)
+        this.getApplicationLogByTransactionHash(this.$route.params.txhash);
       this.getTransactionByTransactionHash(this.$route.params.txhash)
 
       }
