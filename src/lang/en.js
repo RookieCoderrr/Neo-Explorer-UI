@@ -126,6 +126,12 @@ const en = {
     remind:" This transaction has no event.",
     nep11: "Nep11 Transfers",
     nep17: "Nep17 Transfers",
+    notification:"Notification",
+    systemCall:"System Call",
+    method:"Method",
+    originSender:"OriginSender",
+    callFlags:"CallFlags",
+    params:"Params"
   },
   transactionTransfer: {
     contract: "contract",

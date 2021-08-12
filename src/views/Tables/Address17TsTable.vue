@@ -408,7 +408,6 @@ export default {
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
         for (let k = 0; k < this.tableData.length; k++) {
-          console.log(this.tableData)
           axios({
             method: "post",
             url: "/api",
@@ -416,7 +415,7 @@ export default {
               jsonrpc: "2.0",
               id: 1,
               params: {
-                ContractHash: res["data"]["result"]["result"][k]["contract"],
+                ContractHash: this.tableData[k]["contract"],
                 Limit: this.resultsPerPage,
                 Skip: skip,
               },

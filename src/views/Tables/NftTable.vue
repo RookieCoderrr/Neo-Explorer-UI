@@ -32,16 +32,18 @@
           <th>{{ $t("transactionTransfer.tokenID") }}</th>
           <th>{{ $t("transactionTransfer.type") }}</th>
           <th>
-            {{ $t("transactionTransfer.from")
-            }}<button class="btn btn-sm btn-primary" @click="changeFrom()">
+            {{ $t("transactionTransfer.from") }}
+            <span>       </span>
+            <button class="btn btn-sm btn-primary" @click="changeFrom()">
               {{ this.fromButton }}
             </button>
           </th>
           <th>{{ $t("transactionTransfer.fromBalance") }}</th>
           <th></th>
           <th>
-            {{ $t("transactionTransfer.to")
-            }}<button class="btn btn-sm btn-primary" @click="changeTo()">
+            {{ $t("transactionTransfer.to") }}
+            <span>       </span>
+            <button class="btn btn-sm btn-primary" @click="changeTo()">
               {{ this.toButton }}
             </button>
           </th>

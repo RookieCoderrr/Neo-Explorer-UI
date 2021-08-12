@@ -388,7 +388,7 @@ export default {
           this.totalCount === 0
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
-        for (let k = 0; this.tableData.length; k++) {
+        for (let k = 0; k < this.tableData.length; k++) {
           axios({
             method: "post",
             url: "/api",
