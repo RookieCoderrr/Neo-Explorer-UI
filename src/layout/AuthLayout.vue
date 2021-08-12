@@ -162,23 +162,19 @@
     </div>
     <div v-else class="header bg-gradient-success py-7 py-lg-2"></div>
     <!-- Page content -->
-    <loading :is-full-page="false" :opacity="0.9" :active="isLoading"></loading>
     <router-view></router-view>
   </div>
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
 import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "auth-layout",
-  components: {
-    Loading,
-  },
+
   data() {
     return {
-      isLoading: false,
+
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
@@ -205,12 +201,11 @@ export default {
       });
     },
     search() {
-      this.isLoading = true;
+
       let value = this.searchVal;
       value = value.trim();
       this.searchVal = "";
       if (value === "") {
-        this.isLoading = false;
         return;
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
@@ -229,7 +224,6 @@ export default {
             this.getBlockByBlockHeight(value);
           }
         } else {
-          this.isLoading = false;
           this.$router.push({
             path: `/search`,
           });
@@ -237,7 +231,6 @@ export default {
       } else if (this.isAddressPattern.test(value)) {
         this.getAddressByAddress(this.addressToScriptHash(value));
       } else {
-        this.isLoading = false;
         this.$router.push({
           path: `/search`,
         });
@@ -269,7 +262,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -297,7 +289,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -325,13 +316,11 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/accountprofile/${addr}`,
           });
         } else {
-          this.isLoading = false;
           this.$router.push({
             path: `/search`,
           });
@@ -356,7 +345,6 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          this.isLoading = false;
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/tokeninfo/${value}`,
@@ -384,7 +372,6 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          this.isLoading = false;
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/contractinfo/${value}`,
@@ -412,7 +399,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/transactionInfo/${value}`,
