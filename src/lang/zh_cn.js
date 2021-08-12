@@ -207,7 +207,7 @@ module.exports = {
   },
   addressPage: {
     number: "序号",
-    address: "地址",
+    address: "地址列表",
     neoBalance: "Neo余额",
     gasBalance: "Gas余额",
     createdTime: "创建时间",
@@ -222,7 +222,7 @@ module.exports = {
       candidate: "候选人",
     },
     addressProfile: {
-      title: "账户：",
+      title: "地址",
       type: "类型",
       txNums: "交易数",
       nep17Transfers: "NEP17转账数",

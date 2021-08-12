@@ -258,7 +258,7 @@ export default {
     changeFromFormat() {
       if (this.fromState === true) {
         this.fromState = false;
-        this.fromButton = "WIF";
+        this.fromButton = "Addr";
       } else {
         this.fromState = true;
         this.fromButton = "Hash";
@@ -267,7 +267,7 @@ export default {
     changeToFormat() {
       if (this.toState === true) {
         this.toState = false;
-        this.toButton = "WIF";
+        this.toButton = "Addr";
       } else {
         this.toState = true;
         this.toButton = "Hash";

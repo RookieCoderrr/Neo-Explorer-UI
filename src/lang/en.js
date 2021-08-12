@@ -207,7 +207,7 @@ const en = {
   },
   addressPage: {
     number: "No.",
-    address: "Address",
+    address: "Address List",
     neoBalance: "Neo Balance",
     gasBalance: "Gas Balance",
     createdTime: "Created Time",
