@@ -88,7 +88,7 @@
                         {{ $t("blockinfo.speaker") }}
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" v-if="block_info['speaker']">
                       <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
                         {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
                       </a>
@@ -336,6 +336,7 @@ export default {
       }).then((res) => {
         this.block_info = res["data"]["result"];
         this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
+
         this.block_info["witnesses"][0]["verification"] = toOpcode( this.block_info["witnesses"][0]["verification"])
         let words = this.block_info["witnesses"][0]["verification"].split("<br>")
 
