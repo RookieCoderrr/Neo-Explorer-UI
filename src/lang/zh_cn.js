@@ -90,6 +90,7 @@ module.exports = {
     conInfo: "合约信息",
     noScCall: "该合约暂无调用",
     noEvent: "该合约暂无事件",
+    viewAsAddr: "以地址检索",
   },
   transactionList: {
     title: "交易列表",
@@ -213,7 +214,7 @@ module.exports = {
   },
   addressPage: {
     number: "序号",
-    address: "地址",
+    address: "地址列表",
     neoBalance: "Neo余额",
     gasBalance: "Gas余额",
     createdTime: "创建时间",
@@ -228,7 +229,7 @@ module.exports = {
       candidate: "候选人",
     },
     addressProfile: {
-      title: "账户：",
+      title: "地址",
       type: "类型",
       txNums: "交易数",
       nep17Transfers: "NEP17转账数",

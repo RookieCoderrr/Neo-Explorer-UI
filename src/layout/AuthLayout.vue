@@ -105,7 +105,7 @@
         </li>
       </ul>
       <div>
-        <base-dropdown>
+        <base-dropdown >
           <template v-slot:title>
             <base-button type="default" class="btn btn-sm">
               {{ this.lang }}
@@ -182,6 +182,7 @@ export default {
       lang: "English 🇬🇧",
     };
   },
+
   methods: {
     switch_the_language(language) {
       this.$i18n.locale = language;

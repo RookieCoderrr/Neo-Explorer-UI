@@ -452,7 +452,7 @@ export default {
     changeFormat(){
       if(this.state === true) {
         this.state = false
-        this.buttonName = "WIF"
+        this.buttonName = "Addr"
         return
       } else {
         this.state = true

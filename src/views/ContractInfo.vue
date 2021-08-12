@@ -23,7 +23,7 @@
                         class="btn btn-primary btn-xs"
                         @click="getAddress(this.contract_id)"
                     >
-                      View as Address
+                      {{$t('contract.viewAsAddr')}}
                     </button>
                   </div>
                 </div>
@@ -444,7 +444,7 @@ export default {
     changeFormat() {
       if (this.state === true) {
         this.state = false;
-        this.buttonName = "WIF";
+        this.buttonName = "Addr";
       } else {
         this.state = true;
         this.buttonName = "Hash";

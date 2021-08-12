@@ -185,6 +185,7 @@ export default {
       numOfnep17Transfers: 0,
       numOfnep11Transfers: 0,
       type: "normal",
+
     };
   },
   components: {
@@ -214,7 +215,7 @@ export default {
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
         this.getNeoBalance();
-        this.isLoading = false;
+
         this.getGasBalance();
         this.getTransactions();
         this.getCreatedTime();
@@ -430,6 +431,7 @@ export default {
       })
         .then((res) => {
           //console.log(res)
+          this.isLoading = false;
           if (res["data"]["result"] == null) {
             this.type = "normal";
           } else if (res["data"]["result"]["isCommittee"] == true) {

@@ -20,7 +20,7 @@
             class="btn btn-sm btn-primary"
             @click="changeFrom()"
           >
-            {{ $t("addressPage.hash") }}
+            {{ this.fromButton }}
           </button>
           <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">
             {{ this.fromButton }}
@@ -35,7 +35,7 @@
             class="btn btn-sm btn-primary"
             @click="changeTo()"
           >
-            {{ $t("addressPage.hash") }}
+            {{ this.toButton }}
           </button>
           <button v-else class="btn btn-sm btn-primary" @click="changeTo()">
             {{ this.toButton }}
@@ -427,7 +427,7 @@ export default {
     changeFrom() {
       if (this.fromState === true) {
         this.fromState = false;
-        this.fromButton = "WIF";
+        this.fromButton = "Addr";
       } else {
         this.fromState = true;
         this.fromButton = "Hash";
@@ -436,7 +436,7 @@ export default {
     changeTo() {
       if (this.toState === true) {
         this.toState = false;
-        this.toButton = "WIF";
+        this.toButton = "Addr";
       } else {
         this.toState = true;
         this.toButton = "Hash";

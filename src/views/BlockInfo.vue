@@ -256,7 +256,7 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      buttonName:"WIF",
+      buttonName:"Addr",
       state: true
     };
   },
@@ -292,7 +292,7 @@ export default {
         return
       } else {
         this.state = true
-        this.buttonName = "WIF"
+        this.buttonName = "Addr"
         return
       }
     },
