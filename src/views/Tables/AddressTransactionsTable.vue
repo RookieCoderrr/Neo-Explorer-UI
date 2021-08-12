@@ -120,7 +120,14 @@ export default {
       };
     },
   },
+  watch: {
+    account_address: "watchaddress",
+  },
   methods: {
+    watchaddress() {
+      //如果路由有变化，执行的对应的动作
+      this.getTransactions(0);
+    },
     mouseHover(txid) {
       var a = document.getElementsByClassName("txid");
       a.onmouseover = function () {};

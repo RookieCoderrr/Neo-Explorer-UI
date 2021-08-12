@@ -19,6 +19,7 @@
           <th>{{ $t("transferList.type") }}</th>
           <th>
             {{ $t("transferList.from") }}
+            <span>       </span>
             <button
               v-if="this.fromButton === 'Hash'"
               class="btn btn-sm btn-primary"
@@ -33,6 +34,7 @@
           <th></th>
           <th>
             {{ $t("transferList.to") }}
+            <span>       </span>
             <button
               v-if="this.toButton === 'Hash'"
               class="btn btn-sm btn-primary"
@@ -281,6 +283,7 @@ export default {
       txId: "",
       timeStamp: 0,
       isLoading: true,
+      totalCount:0 ,
     };
   },
   created() {
@@ -299,10 +302,10 @@ export default {
     },
   },
   watch: {
-    account_address: "watchcontract",
+    account_address: "watchaddress",
   },
   methods: {
-    watchcontract() {
+    watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.GetNep17TransferByAddress(0);
     },

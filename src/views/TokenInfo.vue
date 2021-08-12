@@ -208,7 +208,7 @@
                                 class="btn btn-sm btn-primary"
                                 @click="onQuery(index)"
                             >
-                              Query
+                              {{ $t("tokenInfo.query") }}
                             </button>
                           </div>
                         </div>

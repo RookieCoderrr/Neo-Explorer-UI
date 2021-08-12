@@ -59,7 +59,8 @@
           <th>{{ $t("contract.name") }}</th>
           <th>
             {{ $t("contract.creator")
-            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
+            }}
+            <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat()">
               {{ this.buttonName }}
             </button>
           </th>

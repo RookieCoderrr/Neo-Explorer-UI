@@ -210,6 +210,7 @@ export default {
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
+      this.isLoading = true
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
         this.getNeoBalance();

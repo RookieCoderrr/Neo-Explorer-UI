@@ -127,6 +127,12 @@ const fr = {
     remind:" Ce transaction n'a pas de événement",
     nep11: "Nep11 Transferts",
     nep17: "Nep17 Transferts",
+    notification:"Notification",
+    systemCall:"Appel de Système",
+    method:"Méthode",
+    originSender:"Envoyeur original",
+    callFlags:"Drapeau d'appel",
+    params:"Paramètre"
   },
   transactionTransfer: {
     contract: "contract",
@@ -180,6 +186,14 @@ const fr = {
     description: "Déscription",
     email: "E-mail",
     author: "Auteur",
+    query: "Vérifier",
+    params: "paramètres",
+    returnType: "Type de résultat",
+    offset: "décalage",
+    safe: "sûreté",
+    response: "Réponse",
+    error: "Erreur",
+    noParam: "Pas de Paramètre",
   },
   tokenTx: {
     txid: "txid",

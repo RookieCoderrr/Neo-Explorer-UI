@@ -17,6 +17,7 @@
           <th>{{ $t("contract.txID") }}</th>
           <th>
             {{ $t("contract.sender") }}
+            <span>       </span>
             <button class="btn btn-sm btn-primary" @click="changeFormat()">
               {{ this.buttonName }}
             </button>
