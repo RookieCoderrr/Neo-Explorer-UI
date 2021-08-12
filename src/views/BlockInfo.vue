@@ -336,6 +336,7 @@ export default {
       }).then((res) => {
         this.block_info = res["data"]["result"];
         this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
+
         this.block_info["witnesses"][0]["verification"] = toOpcode( this.block_info["witnesses"][0]["verification"])
         let words = this.block_info["witnesses"][0]["verification"].split("<br>")
 
