@@ -322,12 +322,13 @@
                     <div class="row">
                       <div class="params col" v-if="this.manifest != null ">
                         <div class="text-muted">{{$t('transactionInfo.params')}}:</div>
+                        <div v-if="params[index] && params[this.index]['parameters']">
                         <li class="col-12"
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
 
                         >
-                          <div v-if="params[index] && params[this.index]['parameters']">
+
                           <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
                           </span>
                           <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
@@ -335,8 +336,10 @@
                           <span v-else>
                             {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
                           </span>
-                          </div>
-                        </li></div>
+
+                        </li>
+                        </div>
+                        </div>
                     </div>
                   </card>
 

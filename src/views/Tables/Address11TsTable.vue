@@ -14,6 +14,7 @@
         <th>{{ $t("transferList.type") }}</th>
         <th>
           {{ $t("transferList.from") }}
+          <span>       </span>
           <button
             v-if="this.fromButton === 'Hash'"
             class="btn btn-sm btn-primary"
@@ -28,6 +29,7 @@
         <th></th>
         <th>
           {{ $t("transferList.to") }}
+          <span>       </span>
           <button
             v-if="this.toButton === 'Hash'"
             class="btn btn-sm btn-primary"
