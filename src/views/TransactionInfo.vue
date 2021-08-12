@@ -619,9 +619,6 @@ export default {
       var script = toOpcode(this.tabledata["script"])
       //this.tabledata["script"] = this.toOpcode(script)
       this.tabledata["script"] = script
-
-      //console.log(this.tabledata["witnesses"][0]["verification"])
-
       var verification
       var invocation
       if (this.tabledata["witnesses"][0]) {
@@ -696,6 +693,7 @@ export default {
                 json["key"] = temp["abi"]["methods"][i]["parameters"]
               }
             }
+            console.log("sadasdsadasdsa")
             this.List.push(json)
 
           }
