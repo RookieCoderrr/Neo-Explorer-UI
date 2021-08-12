@@ -282,6 +282,7 @@ export default {
       txId: "",
       timeStamp: 0,
       isLoading: true,
+      totalCount:0 ,
     };
   },
   created() {
@@ -300,10 +301,10 @@ export default {
     },
   },
   watch: {
-    account_address: "watchcontract",
+    account_address: "watchaddress",
   },
   methods: {
-    watchcontract() {
+    watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.GetNep17TransferByAddress(0);
     },
@@ -406,7 +407,8 @@ export default {
           this.totalCount === 0
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
-        for (let k = 0; this.tableData.length; k++) {
+        for (let k = 0; k < this.tableData.length; k++) {
+          console.log(this.tableData)
           axios({
             method: "post",
             url: "/api",
@@ -414,7 +416,7 @@ export default {
               jsonrpc: "2.0",
               id: 1,
               params: {
-                ContractHash: this.tableData[k]["contract"],
+                ContractHash: res["data"]["result"]["result"][k]["contract"],
                 Limit: this.resultsPerPage,
                 Skip: skip,
               },
