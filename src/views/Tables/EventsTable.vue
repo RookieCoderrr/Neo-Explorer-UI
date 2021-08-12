@@ -1,14 +1,5 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col"></div>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <loading
         :is-full-page="false"
