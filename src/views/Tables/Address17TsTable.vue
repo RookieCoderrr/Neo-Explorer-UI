@@ -113,8 +113,7 @@
                 class="text-success"
                 v-else-if="
                   row.item.from === null &&
-                  this.contractHash ===
-                    '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+                  row.item.tokenname === 'GasToken'
                 "
                 type="primary"
               >
