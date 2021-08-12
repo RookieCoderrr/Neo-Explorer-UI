@@ -413,7 +413,6 @@ export default {
     },
 
     getToken(value) {
-      return new Promise(() => {
         axios({
           method: "post",
           url: "/api",
@@ -438,18 +437,16 @@ export default {
             this.getContractInfoByContractHash(value);
           }
         });
-      });
     },
     getContractInfoByContractHash(value) {
-      return new Promise(() => {
         axios({
           method: "post",
           url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: { Hash: value },
-            method: "GetContractInfoByContractHash",
+            params: { ContractHash: value },
+            method: "GetContractByContractHash",
           },
           headers: {
             "Content-Type": "application/json",
@@ -466,7 +463,6 @@ export default {
             this.getAddressByAddress(value);
           }
         });
-      });
     },
 
     getTransactionByTransactionHash(value) {
