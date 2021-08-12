@@ -346,7 +346,7 @@ export default {
     changeFormat() {
       if (this.state === true) {
         this.state = false;
-        this.buttonName = "WIF";
+        this.buttonName = "Addr";
       } else {
         this.state = true;
         this.buttonName = "Hash";

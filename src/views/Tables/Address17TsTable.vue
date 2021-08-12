@@ -19,12 +19,13 @@
           <th>{{ $t("transferList.type") }}</th>
           <th>
             {{ $t("transferList.from") }}
+            <span>       </span>
             <button
               v-if="this.fromButton === 'Hash'"
               class="btn btn-sm btn-primary"
               @click="changeFrom()"
             >
-              {{ $t("addressPage.hash") }}
+              {{ this.fromButton }}
             </button>
             <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">
               {{ this.fromButton }}
@@ -33,12 +34,13 @@
           <th></th>
           <th>
             {{ $t("transferList.to") }}
+            <span>       </span>
             <button
               v-if="this.toButton === 'Hash'"
               class="btn btn-sm btn-primary"
               @click="changeTo()"
             >
-              {{ $t("addressPage.hash") }}
+              {{ this.toButton }}
             </button>
             <button v-else class="btn btn-sm btn-primary" @click="changeTo()">
               {{ this.toButton }}
@@ -111,8 +113,7 @@
                 class="text-success"
                 v-else-if="
                   row.item.from === null &&
-                  this.contractHash ===
-                    '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+                  row.item.tokenname === 'GasToken'
                 "
                 type="primary"
               >
@@ -445,7 +446,7 @@ export default {
     changeFrom() {
       if (this.fromState === true) {
         this.fromState = false;
-        this.fromButton = "WIF";
+        this.fromButton = "Addr";
       } else {
         this.fromState = true;
         this.fromButton = "Hash";
@@ -454,7 +455,7 @@ export default {
     changeTo() {
       if (this.toState === true) {
         this.toState = false;
-        this.toButton = "WIF";
+        this.toButton = "Addr";
       } else {
         this.toState = true;
         this.toButton = "Hash";

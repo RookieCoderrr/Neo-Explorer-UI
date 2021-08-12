@@ -21,7 +21,8 @@
           <th>{{ $t("tokenHolder.ranking") }}</th>
           <th>
             {{ $t("tokenHolder.address")
-            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
+            }}
+            <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat()">
               {{ this.buttonName }}
             </button>
           </th>
@@ -210,7 +211,7 @@ export default {
     changeFormat() {
       if (this.state === true) {
         this.state = false;
-        this.buttonName = "WIF";
+        this.buttonName = "Addr";
       } else {
         this.state = true;
         this.buttonName = "Hash";
