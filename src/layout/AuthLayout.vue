@@ -162,23 +162,18 @@
     </div>
     <div v-else class="header bg-gradient-success py-7 py-lg-2"></div>
     <!-- Page content -->
-    <loading :is-full-page="false" :opacity="0.9" :active="isLoading"></loading>
     <router-view></router-view>
   </div>
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
 import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "auth-layout",
-  components: {
-    Loading,
-  },
+
   data() {
     return {
-      isLoading: false,
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
@@ -189,7 +184,6 @@ export default {
   },
   methods: {
     switch_the_language(language) {
-      console.log(this.$i18n.locale);
       this.$i18n.locale = language;
       if (language === "cn") {
         this.lang = "中文 " + "🇨🇳";
@@ -205,12 +199,10 @@ export default {
       });
     },
     search() {
-      this.isLoading = true;
       let value = this.searchVal;
       value = value.trim();
       this.searchVal = "";
       if (value === "") {
-        this.isLoading = false;
         return;
       } else if (this.isHashPattern.test(value)) {
         if (value.length === 64) {
@@ -221,15 +213,16 @@ export default {
         if (value.length === 40) {
           value = "0x" + value;
         }
+
         this.getToken(value);
-      } else if (Number(value[0]) >= 0) {
+      }
+      else if (Number(value[0]) >= 0) {
         value = value.replace(/[,，]/g, "");
         if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
           if (Number.isInteger(Number(value))) {
             this.getBlockByBlockHeight(value);
           }
         } else {
-          this.isLoading = false;
           this.$router.push({
             path: `/search`,
           });
@@ -237,7 +230,6 @@ export default {
       } else if (this.isAddressPattern.test(value)) {
         this.getAddressByAddress(this.addressToScriptHash(value));
       } else {
-        this.isLoading = false;
         this.$router.push({
           path: `/search`,
         });
@@ -269,7 +261,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -297,7 +288,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -325,13 +315,11 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/accountprofile/${addr}`,
           });
         } else {
-          this.isLoading = false;
           this.$router.push({
             path: `/search`,
           });
@@ -340,7 +328,6 @@ export default {
     },
 
     getToken(value) {
-      return new Promise(() => {
         axios({
           method: "post",
           url: "/api",
@@ -356,7 +343,7 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          this.isLoading = false;
+
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/tokeninfo/${value}`,
@@ -365,7 +352,7 @@ export default {
             this.getContractInfoByContractHash(value);
           }
         });
-      });
+
     },
     getContractInfoByContractHash(value) {
       return new Promise(() => {
@@ -375,8 +362,8 @@ export default {
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: { Hash: value },
-            method: "GetContractInfoByContractHash",
+            params: { ContractHash: value },
+            method: "GetContractByContractHash",
           },
           headers: {
             "Content-Type": "application/json",
@@ -384,12 +371,12 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
-          this.isLoading = false;
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/contractinfo/${value}`,
             });
           } else {
+
             this.getAddressByAddress(value);
           }
         });
@@ -412,7 +399,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/transactionInfo/${value}`,

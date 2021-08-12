@@ -88,9 +88,9 @@
                         {{ $t("blockinfo.speaker") }}
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" v-if="block_info['speaker']">
                       <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
-                        {{ this.state ===true ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
+                        {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
                       </a>
                     </div>
                     <div class="col-1">
@@ -101,7 +101,7 @@
                         {{ $t("blockinfo.blockReward") }}
                       </div>
                     </div>
-                    <div class="col-4">0.5 GAS</div>
+                    <div class="col-2">0.5 GAS</div>
                   </div>
                 </card>
                 <div class="row mt-3"></div>
@@ -177,13 +177,13 @@
                     {{ $t('transactionInfo.witness') }}
                   </div>
                   <hr />
-                    <div class="row" v-if="block_info.witnesses">
-                      <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.invocation') }}</div>
-                      <div class="col-4" v-html=" block_info['witnesses'][0]['invocation']">
+                    <div class="row" v-if="block_info.witnesses" style="margin-bottom: 15px">
+                      <div class="col-6 font-weight-bold mb-0 ">{{ $t('transactionInfo.invocation') }}</div>
+                      <div class="col-6 font-weight-bold mb-0 " style="padding-left: 80px" >{{ $t('transactionInfo.verification') }}</div>
                       </div>
-                      <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.verification') }}</div>
-                      <div class="col-4" v-html=" block_info['witnesses'][0]['verification']">
-                      </div>
+                  <div class="row" v-if="block_info.witnesses">
+                    <div class="col-6" v-html=" block_info['witnesses'][0]['invocation']"></div>
+                    <div class="col-6 " style="padding-left: 80px"  v-html=" block_info['witnesses'][0]['verification']"></div>
                     </div>
                 </card>
                 <div class="row mt-3"></div>
@@ -211,16 +211,14 @@
                     icon="ni ni-single-02 mr-2"
                     :title="$t('blockinfo.trfsList')"
                   >
-                    <block-transfer
-                      v-if="
-                        this.block_info != '' &&
-                        parseInt(block_info.transfer11count) +
-                          parseInt(block_info.transfer17count) !=
-                          0
-                      "
-                      :title="$t('blockinfo.txnsList')"
-                      :blockHash="this.BlockHash"
-                    ></block-transfer>
+                  <block-transfer
+                    v-if="
+                      this.block_info != '' &&
+                      parseInt(block_info.transfer11count) +
+                        parseInt(block_info.transfer17count) !=0 "
+                    :title="$t('blockinfo.txnsList')"
+                    :blockHash="this.BlockHash"
+                  ></block-transfer>
                     <card shadow v-else class="text-center">{{
                       $t("blockinfo.nullPrompt")
                     }}</card>
@@ -258,7 +256,8 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      buttonName:"Hash",
+      buttonName:"WIF",
+      state: true
     };
   },
   created() {
@@ -282,20 +281,18 @@ export default {
       });
     },
     scriptHashToAddress(hash) {
-      // console.log(Neon.is.publicKey(hash));
-      // console.log(Neon.is.wif(hash));
-      // console.log(Neon.is.encryptedKey(hash));
+      hash = hash.substring(2);
       const acc = Neon.create.account(hash);
       return acc.address;
     },
     changeFormat(){
       if(this.state === true) {
         this.state = false
-        this.buttonName = "WIF"
+        this.buttonName = "Hash"
         return
       } else {
         this.state = true
-        this.buttonName = "Hash"
+        this.buttonName = "WIF"
         return
       }
     },
@@ -339,13 +336,11 @@ export default {
       }).then((res) => {
         this.block_info = res["data"]["result"];
         this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
-        console.log(this.block_info["witnesses"][0]["verification"] )
+
         this.block_info["witnesses"][0]["verification"] = toOpcode( this.block_info["witnesses"][0]["verification"])
-        console.log(this.block_info["witnesses"][0]["verification"] )
         let words = this.block_info["witnesses"][0]["verification"].split("<br>")
 
         this.block_info["speaker"]=words[this.block_info["primary"]+1].substring(10)
-        console.log(this.block_info["speaker"])
         this.isLoading = false;
       });
     },

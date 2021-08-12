@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="container-fluid mt--7">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
+
       <div class="row">
         <div class="col">
           <div class="card shadow">
+            <loading
+                    :is-full-page="false"
+                    :opacity="0.9"
+                    :active="isLoading"
+            ></loading>
             <div class="card-header bg-transparent">
               <div class="h2 font-weight-bold mb-0">
                 {{ $t('transactionInfo.txId') }}
@@ -326,9 +327,9 @@
                             :key="ind"
 
                         >
-                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.baseToHash(param) }}
+                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
                           </span>
-                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.baseToString(param) }}
+                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
                           </span>
                           <span v-else>
                             {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
@@ -411,8 +412,11 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
+      this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
+        this.getScCallByTransactionHash(this.$route.params.txhash)
+        this.getApplicationLogByTransactionHash(this.$route.params.txhash);
       this.getTransactionByTransactionHash(this.$route.params.txhash)
 
       }
@@ -462,6 +466,26 @@ export default {
       // var res = Neon.u.hexstring2ab(tmp)
       // console.log(res)
       return tmp
+    },
+    hexToByteArray(base){
+      var tmp =Neon.u.hexstring2ab(base)
+      console.log(tmp)
+      return tmp
+    },
+    hexToString(base){
+      var tmp =Neon.u.hexstring2str(base)
+      console.log(tmp)
+      return tmp
+    },
+    hexToHash(base){
+      var tmp =Neon.u.reverseHex(base)
+      console.log("0x"+tmp)
+      return "0x"+tmp
+    },
+    hexToInteger(base){
+      var tmp =Neon.u.hex2base64(base)
+      var res =Neon.u.base642utf8(tmp)
+      return res
     },
 
     goToBlockInfo(hash){
