@@ -23,7 +23,7 @@
                         class="btn btn-primary btn-xs"
                         @click="getAddress(this.contract_id)"
                     >
-                      View as Address
+                      {{$t('contract.viewAsAddr')}}
                     </button>
                   </div>
                 </div>

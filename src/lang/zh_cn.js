@@ -90,6 +90,7 @@ module.exports = {
     conInfo: "合约信息",
     noScCall: "该合约暂无调用",
     noEvent: "该合约暂无事件",
+    viewAsAddr: "以地址检索",
   },
   transactionList: {
     title: "交易列表",

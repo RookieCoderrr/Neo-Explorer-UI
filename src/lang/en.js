@@ -90,6 +90,7 @@ const en = {
     conInfo: "Contract Info",
     noScCall: "This Contract has no System Contract Calls.",
     noEvent: "This Contract has no events.",
+    viewAsAddr: "View as Address",
   },
   transactionList: {
     title: "Transaction List",
