@@ -11,6 +11,7 @@
     :aria-expanded="isOpen"
     @click="toggleDropDown"
     v-click-outside="closeDropDown"
+    @click.stop
   >
     <slot name="title">
       <a
@@ -93,18 +94,13 @@ export default {
   //
   //   })
   // },
-  beforeMount() {
-    this._close = (e) => {
-      // 如果点击发生在当前组件内部，则不处理
-      if (this.$el.contains(e.target)) {
-        return;
-      }
-      this.open = false;
-      this.$emit("change", this.isOpen);
-    };
-    document.body.addEventListener("click", this._close);
+  mounted() {
+    document.body.addEventListener('click', () => {
+      this.isOpen = false
+    }, );
   },
   methods: {
+
     toggleDropDown() {
       this.isOpen = !this.isOpen;
       this.$emit("change", this.isOpen);

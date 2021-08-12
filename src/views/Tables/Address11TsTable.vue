@@ -325,7 +325,7 @@ export default {
       this.GetNep11TransferByAddress(skip);
     },
     convertToken(token, decimal) {
-      return (token * Math.pow(0.1, decimal)).toFixed(6);
+      return (token * Math.pow(0.1, decimal)).toFixed(8);
     },
     getTransaction(txhash) {
       this.$router.push({
