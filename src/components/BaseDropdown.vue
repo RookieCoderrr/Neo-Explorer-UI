@@ -97,7 +97,7 @@ export default {
   mounted() {
     document.body.addEventListener('click', () => {
       this.isOpen = false
-    }, false);
+    }, );
   },
   methods: {
 

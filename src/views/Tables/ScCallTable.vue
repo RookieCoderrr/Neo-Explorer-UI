@@ -246,9 +246,6 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
-    convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
-    },
   },
 };
 </script>

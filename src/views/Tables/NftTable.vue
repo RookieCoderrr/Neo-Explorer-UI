@@ -208,7 +208,7 @@ export default {
       return "0x" + acc.scriptHash;
     },
     convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
+      return  parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
     },
     getContract(ctrHash) {
       this.$router.push({
