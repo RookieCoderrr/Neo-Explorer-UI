@@ -80,7 +80,6 @@ function toOpcode(b64) {
     dic.set("2595762399", "System.Storage.Find");
     dic.set("2216181734", "System.Storage.Put");
     dic.set("3989133359", "System.Storage.Delete");
-    var debug = 0;
 
     let res = _base64ToArrayBuffer(b64)
     //res = res.Uint8Array
@@ -105,16 +104,12 @@ function toOpcode(b64) {
 
         if (operandSize > 0) {
             let operand = scripts.slice(0, operandSize);
-            if (debug == 1)
-                // console.log("Here", op, operand, operandSize);
             if (op.startsWith("PUSHINT")) {
                 //console.log("true")
                 temp_result += op + ' ' + convertDecimal(operand)
                 result.push(temp_result)
             } else if (op == 'SYSCALL') {
                 temp_result += op + ' ' + dic.get(convertDecimal(operand));
-                if (debug == 1)
-                    // console.log("SYSCALL: ", dic.get(convertDecimal(operand)), convertDecimal(operand))
                 result.push(temp_result)
             } else {
                 temp_result += op + ' ' + operand.toString()
@@ -132,42 +127,26 @@ function toOpcode(b64) {
             }
             scripts = scripts.slice(operandSizePrefix)
 
-            if(debug == 1)
-                console.log("Byte: ", op, bytes, scripts);
             let operand = scripts.slice(0, number)
-            if(debug == 1)
-                console.log("operand: ", op, operand, scripts);
             let flag = false
             for(let k=0; k<operand.length; k++) {
-                //console.log("operand[k] ", operand[k], typeof(operand[k]), operand[k]>122)
                 if (operand[k] > 122 || operand[k] < 48 ) {
                     flag = true
                     break
                 }
             }
-
             if(flag) {
                 temp_result += op + ' ' + b64ToHex(operand);
             } else {
                 temp_result += op + ' ' + bin2String(operand);
             }
-
             result.push(temp_result)
-
-            if(debug == 1)
-                console.log(op, operand, number, bytes)
-
             scripts = scripts.slice(number)
         }
         if (operandSizePrefix == 0)
             result.push(op)
-
-        //console.log("Every line", op, operandSize, operandSizePrefix, temp_result);
     }
-    //console.log(result)
-    //res = result.join('\n')
     res = result.join('<br>')
-    // console.log(res)
     return res
 }
 
