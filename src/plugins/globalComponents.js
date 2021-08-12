@@ -17,7 +17,7 @@ import StatsCard from "../components/StatsCard";
 import TabPane from "../components/Tabs/TabPane";
 import Tabs from "../components/Tabs/Tabs";
 
-import { ElTooltip, ElPopover } from "element-plus";
+// import { ElTooltip, ElPopover } from "element-plus";
 
 const GlobalComponents = {
   install(app) {
@@ -39,8 +39,8 @@ const GlobalComponents = {
     app.component("stats-card", StatsCard);
     app.component("tab-pane", TabPane);
     app.component("tabs", Tabs);
-    app.use(ElTooltip);
-    app.use(ElPopover);
+    // app.use(ElTooltip);
+    // app.use(ElPopover);
   },
 };
 
