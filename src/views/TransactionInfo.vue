@@ -228,7 +228,7 @@
               <div class="row mt-3"></div>
 
               <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-folder-17" title="Transaction Notification">
+                <tab-pane icon="ni ni-folder-17" :title="$t('transactionInfo.notification')">
                   <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
                     <div v-if="this.count ===0">
                       <card
@@ -292,41 +292,43 @@
                     This transaction has no events.
                   </card>
                 </tab-pane>
-                <tab-pane icon="ni ni-active-40" title="System Call">
+                <tab-pane icon="ni ni-active-40" :title= "$t('transactionInfo.systemCall')">
                   <card
                       shadow
                   >
                     <div class="row">
                       <div class="col-2">
-                        <div class="text-muted">Method:</div>
+                        <div class="text-muted">{{$t('transactionInfo.method')}}:</div>
                         {{ this.method }}
                       </div>
                       <div class="col-4">
-                        <div class="text-muted">OriginSender:</div>
+                        <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
                         <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(this.originSender)">
                         {{ this.originSender}}
                         </a>
                       </div>
                       <div class="col-4">
-                        <div class="text-muted">Contract:</div>
+                        <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
                         <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(this.contractHash )">
                         {{ this.contractHash }}
                         </a>
                       </div>
                       <div class="col-2">
-                        <div class="text-muted">CallFlags:</div>
+                        <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>
                         {{ this.callFlags }}
                       </div>
                     </div>
                     <div class="row mt-3"></div>
                     <div class="row">
                       <div class="params col" v-if="this.manifest != null ">
-                        <div class="text-muted">Params:</div>
+                        <div class="text-muted">{{$t('transactionInfo.params')}}:</div>
+                        <div v-if="params[index] && params[this.index]['parameters']">
                         <li class="col-12"
                             v-for="(param, ind) in tabledataCall['hexStringParams']"
                             :key="ind"
 
                         >
+
                           <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
                           </span>
                           <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
@@ -334,7 +336,10 @@
                           <span v-else>
                             {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
                           </span>
-                        </li></div>
+
+                        </li>
+                        </div>
+                        </div>
                     </div>
                   </card>
 
@@ -358,8 +363,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
-// import { u } from "@cityofzion/neon-core";
-// import moment from 'moment';
+
 
 export default {
   components: {

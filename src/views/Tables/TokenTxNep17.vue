@@ -22,7 +22,8 @@
           <th>{{ $t("tokenTx.type") }}</th>
           <th>
             {{ $t("tokenTx.from")
-            }}<button
+            }}
+            <span>       </span><button
               class="btn btn-sm btn-primary"
               @click="changeFromFormat()"
             >
@@ -32,6 +33,7 @@
           <th></th>
           <th>
             {{ $t("tokenTx.to") }}
+            <span>       </span>
             <button class="btn btn-sm btn-primary" @click="changeToFormat()">
               {{ this.toButton }}
             </button>

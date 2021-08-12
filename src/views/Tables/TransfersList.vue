@@ -32,7 +32,9 @@
             <th>{{ $t("transactionTransfer.type") }}</th>
             <th>
               {{ $t("transactionTransfer.from")
-              }}<button class="btn btn-sm btn-primary" @click="changeFrom()">
+              }}
+              <span>       </span>
+              <button class="btn btn-sm btn-primary" @click="changeFrom()">
                 {{ this.fromButton }}
               </button>
             </th>
@@ -40,7 +42,8 @@
             <th></th>
             <th>
               {{ $t("transactionTransfer.to")
-              }}<button class="btn btn-sm btn-primary" @click="changeTo()">
+              }}
+              <span>       </span><button class="btn btn-sm btn-primary" @click="changeTo()">
                 {{ this.toButton }}
               </button>
             </th>

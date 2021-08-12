@@ -126,6 +126,12 @@ module.exports = {
     remind:" 这个交易中不包含事件",
     nep11: "Nep11转账",
     nep17: "Nep17转账",
+    notification:"执行事件",
+    systemCall:"合约调用",
+    method:"调用方法",
+    originSender:"初始调用者",
+    callFlags:"调用标志",
+    params:"传入参数"
   },
   transactionTransfer: {
     contract: "合约",
