@@ -329,6 +329,7 @@ export default {
     },
 
     getToken(value) {
+
         axios({
           method: "post",
           url: "/api",
