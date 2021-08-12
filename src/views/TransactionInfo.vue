@@ -308,13 +308,13 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(this.originSender)">
+                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(item['originSender'])">
                               {{ item["originSender"]}}
                             </a>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(this.contractHash )">
+                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contractHash'] )">
                               {{ item["contractHash"]}}
                             </a>
                           </div>
