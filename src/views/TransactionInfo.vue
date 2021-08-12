@@ -230,7 +230,7 @@
               <tabs fill class="flex-column flex-md-row">
                 <tab-pane icon="ni ni-folder-17" :title="$t('transactionInfo.notification')">
                   <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
-                    <div v-if="this.count ===0">
+                    <div v-if="this.countApp ===0">
                       <card
                           shadow
                           v-for="(item, index) in this.tabledataApp['notifications']"
@@ -260,16 +260,16 @@
                                     v-for="(param, ind) in item['state']['value']"
                                     :key="ind"
                                 >
-                                  <span v-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='Hash160'">
+                                  <span v-if="this.mapTotalApp.get(item['contract'])&&this.mapTotalApp.get(item['contract']).get(item['eventname'])[ind]==='Hash160'">
                                     {{ param["type"] }}: {{ param["value"] ===null ? "Null":base64ToHash(param["value"])}}
                                   </span>
-                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='String'">
+                                  <span v-else-if="this.mapTotalApp.get(item['contract'])&&this.mapTotalApp.get(item['contract']).get(item['eventname'])[ind]==='String'">
                                     {{ param["type"] }}: {{ base64ToString(param["value"])}}
                                   </span>
-                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='Array'">
+                                  <span v-else-if="this.mapTotalApp.get(item['contract'])&&this.mapTotalApp.get(item['contract']).get(item['eventname'])[ind]==='Array'">
                                     {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
                                   </span>
-                                  <span v-else-if="this.mapTotal.get(item['contract'])&&this.mapTotal.get(item['contract']).get(item['eventname'])[ind]==='ByteArray'">
+                                  <span v-else-if="this.mapTotalApp.get(item['contract'])&&this.mapTotalApp.get(item['contract']).get(item['eventname'])[ind]==='ByteArray'">
                                     {{ param["type"] }}:{{ base64ToByteArray(param["value"])}}
                                   </span>
                                   <span v-else>
@@ -292,57 +292,67 @@
                     This transaction has no events.
                   </card>
                 </tab-pane>
+
                 <tab-pane icon="ni ni-active-40" :title= "$t('transactionInfo.systemCall')">
-                  <card
-                      shadow
-                  >
-                    <div class="row">
-                      <div class="col-2">
-                        <div class="text-muted">{{$t('transactionInfo.method')}}:</div>
-                        {{ this.method }}
-                      </div>
-                      <div class="col-4">
-                        <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(this.originSender)">
-                        {{ this.originSender}}
-                        </a>
-                      </div>
-                      <div class="col-4">
-                        <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                        <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(this.contractHash )">
-                        {{ this.contractHash }}
-                        </a>
-                      </div>
-                      <div class="col-2">
-                        <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>
-                        {{ this.callFlags }}
-                      </div>
-                    </div>
-                    <div class="row mt-3"></div>
-                    <div class="row">
-                      <div class="params col" v-if="this.manifest != null ">
-                        <div class="text-muted">{{$t('transactionInfo.params')}}:</div>
-                        <div v-if="params[index] && params[this.index]['parameters']">
-                        <li class="col-12"
-                            v-for="(param, ind) in tabledataCall['hexStringParams']"
-                            :key="ind"
-
-                        >
-
-                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
-                          </span>
-                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
-                          </span>
-                          <span v-else>
-                            {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
-                          </span>
-
-                        </li>
+                  <div v-if="this.tabledataCall&&this.tabledataCall['length'] != 0">
+                    <div v-if="this.countSys === 0">
+                      <card
+                          shadow
+                          v-for="(item, index) in this.tabledataCall['result']"
+                          :key="index"
+                      >
+                        <div class="row">
+                          <div class="col-2">
+                            <div class="text-muted">{{$t('transactionInfo.method')}}:</div>
+                            {{ item["method"]}}
+                          </div>
+                          <div class="col-4">
+                            <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
+                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(this.originSender)">
+                              {{ item["originSender"]}}
+                            </a>
+                          </div>
+                          <div class="col-4">
+                            <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
+                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(this.contractHash )">
+                              {{ item["contractHash"]}}
+                            </a>
+                          </div>
+                          <div class="col-2">
+                            <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>
+                            {{ item["callFlags"] }}
+                          </div>
                         </div>
-                        </div>
-                    </div>
-                  </card>
+                        <div class="row mt-3"></div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="text-muted">{{$t('transactionInfo.params')}}:</div>
+                            <div v-if="this.mapTotalSys.size != 0">
+                              <li class="col-12"
+                                  v-for="(param, ind) in item['hexStringParams']"
+                                  :key="ind"
 
+                              >
+                                <span  v-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='Hash160'">
+                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{param==="" ? "null":this.hexToHash(param) }}
+                                </span>
+                                <span  v-else-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='String'">
+                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{ param==="" ? "null":this.hexToString(param) }}
+                                </span>
+                                <span  v-else-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='Integer'">
+                                  {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{ param==="" ? "null":this.hexToInteger(param) }}
+                                </span>
+                                <span v-else>
+                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{param==="" ? "null":param }}
+                              </span>
+
+                              </li>
+                            </div>
+                          </div>
+                        </div>
+                      </card>
+                    </div>
+                  </div>
                 </tab-pane>
               </tabs>
 
@@ -363,6 +373,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
+// import convertDecimal from "../directives/typeConvertion"
 
 
 export default {
@@ -376,7 +387,6 @@ export default {
       tabledata: [],
       tabledataApp:[],
       tabledataCall:[],
-      tabledataContract:[],
       tableEvent:[],
       txhash: "",
       isLoading: true,
@@ -396,8 +406,10 @@ export default {
       params:"",
       index:0,
       array:[],
-      mapTotal: new Map(),
-      count:0
+      mapTotalApp: new Map(),
+      mapTotalSys: new Map(),
+      countApp:0,
+      countSys:0
 
 
 
@@ -476,6 +488,7 @@ export default {
       console.log(tmp)
       return tmp
     },
+
     hexToString(base){
       var tmp =Neon.u.hexstring2str(base)
       console.log(tmp)
@@ -487,8 +500,8 @@ export default {
       return "0x"+tmp
     },
     hexToInteger(base){
-      var tmp =Neon.u.hex2base64(base)
-      var res =Neon.u.base642utf8(tmp)
+      var temp = Neon.u.reverseHex(base)
+      var res = parseInt('0x'+temp, 16)
       return res
     },
 
@@ -536,12 +549,12 @@ export default {
         // console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
-         this.getContracts(this.tabledataApp["notifications"][i]["contract"])
+         this.getContractsApp(this.tabledataApp["notifications"][i]["contract"])
         }
-        console.log(this.mapTotal)
+        console.log(this.mapTotalApp)
       });
     },
-    getContracts(ctr_hash){
+    getContractsApp(ctr_hash){
       axios({
         method: "post",
         url: "/api",
@@ -561,7 +574,7 @@ export default {
         this.isLoading = false;
         const raw = res["data"]["result"];
         if (raw ==null) {
-          this.count ++
+          this.countApp ++
 
         }
         else {
@@ -576,7 +589,7 @@ export default {
             }
             map.set(temp["abi"]["events"][i]["name"], table)
           }
-          this.mapTotal.set(raw["hash"], map)
+          this.mapTotalApp.set(raw["hash"], map)
         }
       });
     },
@@ -651,15 +664,15 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         this.tabledataCall = res["data"]["result"];
-        this.method = this.tabledataCall["method"];
-        this.originSender = this.tabledataCall["originSender"];
-        this.callFlags = this.tabledataCall["callFlags"];
-        this.contractHash = this.tabledataCall["contractHash"]
         console.log(this.tabledataCall)
-        this.getContractByContractHash(this.contractHash)
+        for (var i = 0; i <this.tabledataCall["totalCount"];i ++){
+          console.log("hello")
+          this.getContractsSys(this.tabledataCall["result"][i]["contractHash"])
+        }
+        console.log(this.mapTotalSys)
       });
     },
-      getContractByContractHash(ctr_hash){
+      getContractsSys(ctr_hash){
         axios({
           method: "post",
           url: "/api",
@@ -679,22 +692,30 @@ export default {
           const raw = res["data"]["result"];
           console.log(raw)
           if(raw === null ){
-            this.manifest = null;
+            this.countSys ++
           }
           else {
-            this.manifest = JSON.parse(raw["manifest"]);
-            console.log(this.manifest)
-            this.tabledataContract = raw;
-            this.params = this.manifest["abi"]["methods"]
-            // console.log(raw)
-            for (var i = 0; i < this.params.length;i++){
-              // console.log(this.params.length)
-              // console.log(this.method)
-              if (this.method === this.params[i]["name"]){
-                this.index = i
-                console.log(this.index)
+            var temp = JSON.parse(raw["manifest"]);
+            console.log(temp)
+            var map = new Map()
+            for (var i = 0; i < temp["abi"]["methods"].length; i++) {
+              var table = []
+              for (var j = 0; j < temp["abi"]["methods"][i]["parameters"].length; j++) {
+                table[j] = new Array(temp["abi"]["methods"][i]["parameters"][j]["name"],temp["abi"]["methods"][i]["parameters"][j]["type"])
               }
+              map.set(temp["abi"]["methods"][i]["name"], table)
             }
+            this.mapTotalSys.set(raw["hash"], map)
+            // this.params = this.manifest["abi"]["methods"]
+            // // console.log(raw)
+            // for (var i = 0; i < this.params.length;i++){
+            //   // console.log(this.params.length)
+            //   // console.log(this.method)
+            //   if (this.method === this.params[i]["name"]){
+            //     this.index = i
+            //     console.log(this.index)
+            //   }
+            // }
           }
         });
       }
