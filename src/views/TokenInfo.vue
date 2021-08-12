@@ -386,13 +386,33 @@ export default {
         if (val["type"] === "ByteString" && typeof val["value"] === "string") {
           const buffer = Buffer.from(val["value"], "base64");
           const hex = buffer.toString("hex");
-          if ( Neon.is.publicKey(hex)) {
+          if (Neon.is.publicKey(hex)) {
             const acc = Neon.create.account(hex);
             val["type"] = "ScriptHash";
             val["value"] = "0x" + acc.scriptHash;
+          } else if (Neon.is.scriptHash(hex)) {
+            val["type"] = "ScriptHash";
+            val["value"] = "0x" + hex;
+          } else if ((/^((0x)?)([0-9a-f]{64})$/).test(hex)){
+            val["type"] = "Hash";
+            val["value"] = "0x" + hex;
           } else {
+            if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
+              val["type"] = "String";
+              val["value"] = buffer.toString();
+            } else {
+              val["type"] = "HexString";
+              val["value"] = buffer.toString("hex");
+            }
+          }
+        } else if ( val["type"] === "Buffer" && typeof val["value"] === "string"){
+          const buffer = Buffer.from(val["value"], "base64");
+          if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
             val["type"] = "String";
-            val["value"] = buffer.toString("utf-8");
+            val["value"] = buffer.toString();
+          } else {
+            val["type"] = "BigInteger";
+            val["value"] = parseInt(buffer.toString("hex"), 16);
           }
         }
       }
@@ -413,7 +433,7 @@ export default {
           return;
         }
       }
-      const client = Neon.create.rpcClient("http://seed2t.neo.org:20332");
+      const client = Neon.create.rpcClient("http://seed2t4.neo.org:20332");
       console.log(contractParams);
       client
           .invokeFunction(this.token_id, name, contractParams)
