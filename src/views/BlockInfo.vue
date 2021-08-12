@@ -88,7 +88,7 @@
                         {{ $t("blockinfo.speaker") }}
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4" v-if="block_info['speaker']">
                       <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
                         {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
                       </a>

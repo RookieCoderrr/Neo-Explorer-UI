@@ -174,7 +174,6 @@ export default {
 
   data() {
     return {
-
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
@@ -185,7 +184,6 @@ export default {
   },
   methods: {
     switch_the_language(language) {
-      console.log(this.$i18n.locale);
       this.$i18n.locale = language;
       if (language === "cn") {
         this.lang = "中文 " + "🇨🇳";
@@ -201,7 +199,6 @@ export default {
       });
     },
     search() {
-
       let value = this.searchVal;
       value = value.trim();
       this.searchVal = "";
@@ -216,8 +213,10 @@ export default {
         if (value.length === 40) {
           value = "0x" + value;
         }
+
         this.getToken(value);
-      } else if (Number(value[0]) >= 0) {
+      }
+      else if (Number(value[0]) >= 0) {
         value = value.replace(/[,，]/g, "");
         if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
           if (Number.isInteger(Number(value))) {
@@ -329,7 +328,6 @@ export default {
     },
 
     getToken(value) {
-      return new Promise(() => {
         axios({
           method: "post",
           url: "/api",
@@ -345,6 +343,7 @@ export default {
             crossDomain: "true",
           },
         }).then((res) => {
+
           if (res["data"]["error"] == null) {
             this.$router.push({
               path: `/tokeninfo/${value}`,
@@ -353,7 +352,7 @@ export default {
             this.getContractInfoByContractHash(value);
           }
         });
-      });
+
     },
     getContractInfoByContractHash(value) {
       return new Promise(() => {
@@ -363,7 +362,7 @@ export default {
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: { Hash: value },
+            params: { ContractHash: value },
             method: "GetContractByContractHash",
           },
           headers: {
@@ -377,6 +376,7 @@ export default {
               path: `/contractinfo/${value}`,
             });
           } else {
+
             this.getAddressByAddress(value);
           }
         });
