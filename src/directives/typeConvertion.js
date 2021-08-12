@@ -18,7 +18,7 @@ function b64ToHex(bin) {
         const acc = Neon.create.account(hex);
         return "0x" + acc.scriptHash;
     }
-    return "0x" + hex;
+    return  hex;
 }
 function bin2String(array) {
     //console.log(array)

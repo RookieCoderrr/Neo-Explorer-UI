@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="container-fluid mt--7">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
+
       <div class="row">
         <div class="col">
           <div class="card shadow">
+            <loading
+                    :is-full-page="false"
+                    :opacity="0.9"
+                    :active="isLoading"
+            ></loading>
             <div class="card-header bg-transparent">
               <div class="h2 font-weight-bold mb-0">
                 {{ $t('transactionInfo.txId') }}
@@ -411,6 +412,7 @@ export default {
   },
   methods: {
     watchrouter() {//如果路由有变化，执行的对应的动作
+      this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
       this.getTransactionByTransactionHash(this.$route.params.txhash)
