@@ -327,9 +327,9 @@
                             :key="ind"
 
                         >
-                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.baseToHash(param) }}
+                          <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
                           </span>
-                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.baseToString(param) }}
+                          <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
                           </span>
                           <span v-else>
                             {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
@@ -466,6 +466,26 @@ export default {
       // var res = Neon.u.hexstring2ab(tmp)
       // console.log(res)
       return tmp
+    },
+    hexToByteArray(base){
+      var tmp =Neon.u.hexstring2ab(base)
+      console.log(tmp)
+      return tmp
+    },
+    hexToString(base){
+      var tmp =Neon.u.hexstring2str(base)
+      console.log(tmp)
+      return tmp
+    },
+    hexToHash(base){
+      var tmp =Neon.u.reverseHex(base)
+      console.log("0x"+tmp)
+      return "0x"+tmp
+    },
+    hexToInteger(base){
+      var tmp =Neon.u.hex2base64(base)
+      var res =Neon.u.base642utf8(tmp)
+      return res
     },
 
     goToBlockInfo(hash){
