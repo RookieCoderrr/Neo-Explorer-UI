@@ -65,6 +65,7 @@ export default {
       description: "Pagination alignment (e.g center|start|end)",
     },
   },
+  emits:["input"],
   computed: {
     totalPages() {
       if (this.pageCount > 0) return this.pageCount;
