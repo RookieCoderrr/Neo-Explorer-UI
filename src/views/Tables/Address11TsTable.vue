@@ -272,6 +272,7 @@ export default {
       toState: true,
       toButton: "Hash",
       isLoading: true,
+      totalCount:0,
     };
   },
   created() {

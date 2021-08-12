@@ -327,6 +327,7 @@
                             :key="ind"
 
                         >
+                          <div v-if="params[index] && params[this.index]['parameters']">
                           <span  v-if="params[this.index]['parameters'][ind]['type']==='Hash160'">{{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":this.hexToHash(param) }}
                           </span>
                           <span  v-else-if="params[this.index]['parameters'][ind]['type']==='String'">{{params[this.index]['parameters'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
@@ -334,6 +335,7 @@
                           <span v-else>
                             {{params[this.index]['parameters'][ind]['name']}}: {{param==="" ? "null":param }}
                           </span>
+                          </div>
                         </li></div>
                     </div>
                   </card>

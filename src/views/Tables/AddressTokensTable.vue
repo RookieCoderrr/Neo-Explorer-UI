@@ -128,7 +128,14 @@ export default {
       };
     },
   },
+  watch: {
+    account_address: "watchaddress",
+  },
   methods: {
+    watchaddress() {
+      //如果路由有变化，执行的对应的动作
+      this.getTokenListWithBalance(0);
+    },
     convertToken(token, decimal) {
       if (decimal === 0) {
         return token;
