@@ -448,8 +448,8 @@ export default {
           data: {
             jsonrpc: "2.0",
             id: 1,
-            params: { Hash: value },
-            method: "GetContractInfoByContractHash",
+            params: { ContractHash: value },
+            method: "GetContractByContractHash",
           },
           headers: {
             "Content-Type": "application/json",

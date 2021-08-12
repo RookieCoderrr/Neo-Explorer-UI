@@ -364,7 +364,7 @@ export default {
             jsonrpc: "2.0",
             id: 1,
             params: { Hash: value },
-            method: "GetContractInfoByContractHash",
+            method: "GetContractByContractHash",
           },
           headers: {
             "Content-Type": "application/json",
