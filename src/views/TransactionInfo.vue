@@ -358,8 +358,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
-// import { u } from "@cityofzion/neon-core";
-// import moment from 'moment';
+
 
 export default {
   components: {
