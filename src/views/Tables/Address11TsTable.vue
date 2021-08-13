@@ -232,8 +232,6 @@
 </template>
 <script>
 import axios from "axios";
-import Neon from "@cityofzion/neon-js";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import { changeFormat, convertToken, convertTime, addressToScriptHash, scriptHashToAddress} from "../../store/util";
 

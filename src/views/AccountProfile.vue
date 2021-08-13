@@ -160,12 +160,10 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
-import Neon from "@cityofzion/neon-js";
 import {scriptHashToAddress, convertPreciseTime, convertGas} from "../store/util";
 
 export default {
