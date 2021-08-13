@@ -139,7 +139,7 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.from"
-                >&#128100;{{ scriptHashToAddress(row.item.from) }}
+                ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.from) }}
               </router-link>
               <router-link
                 v-else
@@ -155,7 +155,7 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.from"
-                >&#128100;{{ row.item.from }}
+                ><i class="ni ni-tag"></i>{{ row.item.from }}
               </router-link>
               <router-link
                 v-else
@@ -180,7 +180,7 @@
               class="name mb-0 text-sm"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.to"
-              >&#128100;{{ scriptHashToAddress(row.item.to) }}
+              ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
             </router-link>
             <router-link
               v-else
@@ -196,7 +196,7 @@
               class="name mb-0 text-sm"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.to"
-              >&#128100;{{ row.item.to }}
+              ><i class="ni ni-tag"></i>{{ row.item.to }}
             </router-link>
             <router-link
               v-else
@@ -336,12 +336,6 @@ export default {
         default:
           return format(ts);
       }
-    },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
     },
 
     getContract(ctrHash) {

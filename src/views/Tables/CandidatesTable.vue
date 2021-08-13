@@ -42,7 +42,7 @@
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.candidate"
                 >{{ row.item.candidate }}
-                {{ row.item.isCommittee ? "&#x1F46E;" : "" }}</router-link
+                <i v-if="row.item.isCommittee" class="ni ni-badge"></i></router-link
               >
             </div>
           </td>

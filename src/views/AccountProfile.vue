@@ -10,14 +10,11 @@
               :active="isLoading"
             ></loading>
             <div class="card-header bg-transparent">
-              <h1 v-if="this.type === 'normal'" class="mb-0">
-                {{ $t("addressPage.addressProfile.title") }}
-              </h1>
-              <h1 v-else-if="this.type === 'candidate'" class="mb-0">
+              <h1 v-if="this.type === 'normal' || this.type === 'candidate'" class="mb-0">
                 {{ $t("addressPage.addressProfile.title") }}
               </h1>
               <h1 v-else-if="this.type === 'committee'" class="mb-0">
-                {{ $t("addressPage.addressProfile.title") }} &#x1F46E;
+                {{ $t("addressPage.addressProfile.title") }} <i class="ni ni-badge"></i>
               </h1>
               <h4 class="text-muted">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
@@ -380,7 +377,7 @@ export default {
         },
       })
         .then((res) => {
-          //console.log("Transfers17", res["data"]["result"]["totalCount"])
+          console.log("Transfers17", res["data"]["result"]["totalCount"])
           this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
         })
         .catch((err) => {
@@ -404,7 +401,7 @@ export default {
         },
       })
         .then((res) => {
-          //console.log("Transfer11", res["data"]["result"]["totalCount"])
+          console.log("Transfer11", res["data"]["result"]["totalCount"])
           this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
         })
         .catch((err) => {

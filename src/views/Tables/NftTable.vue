@@ -1,7 +1,7 @@
 <template>
-  <div v-if="this.length != 0">
+  <div v-if="this.totalCount != 0">
   <div
-    v-if="this.length != 0"
+    v-if="this.totalCount != 0"
     class="card shadow"
     :class="type === 'dark' ? 'bg-default' : ''"
   >
@@ -177,6 +177,7 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
+      totalCount:0
     };
   },
 
@@ -191,12 +192,6 @@ export default {
       //如果路由有变化，执行的对应的动作
           this.getNep11TransferByTransactionHash(this.txhash);
 
-    },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
     },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);
@@ -252,13 +247,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData[0] = res["data"]["result"];
-        if (this.tableData[0] == null) {
-          this.length = 0;
-          this.tableData[0] = [];
-        } else {
-          this.length = 1;
-        }
+        this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"]
       });
     },
   },
