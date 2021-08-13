@@ -54,21 +54,21 @@
                           <span v-if="this.contract_info['sender'] === null">
                             {{$t("contract.available") }}
                           </span>
-                          <a
+                          <router-link
                             class="text"
                             v-else-if="this.state"
                             style="cursor: pointer"
-                            @click="getSender(contract_info['sender'])"
-                            >{{ this.contract_info["sender"] }}</a
+                            :to="'/accountprofile/'+contract_info['sender']"
+                            >{{ this.contract_info["sender"] }}</router-link
                           >
-                          <a
+                          <router-link
                             class="text"
                             v-else
                             style="cursor: pointer"
-                            @click="getSender(contract_info['sender'])"
+                            :to="'/accountprofile/'+contract_info['sender']"
                             >{{
                               addressToScriptHash(this.contract_info["sender"])
-                            }}</a
+                            }}</router-link
                           >
                         </div>
                       </div>

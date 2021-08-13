@@ -75,9 +75,9 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHash') }}</div>
                   <div class="col-10">
-                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToBlockInfo(this.blockhash)">
+                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                     {{ this.blockhash }}
-                    </a>
+                    </router-link>
                   </div>
                 </div>
               </card>
@@ -87,9 +87,9 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
+                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+addressToScriptHash(this.address)" >
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
-                    </a>
+                    </router-link>
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
@@ -247,9 +247,9 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract') }}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contract']" >
                               {{ item["contract"] }}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-5">
                             <div class="params">
@@ -308,13 +308,13 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(item['originSender'])">
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
                               {{ item["originSender"]}}
                             </a>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contractHash'] )">
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
                               {{ item["contractHash"]}}
                             </a>
                           </div>
@@ -693,7 +693,6 @@ export default {
                 json["key"] = temp["abi"]["methods"][i]["parameters"]
               }
             }
-            console.log("sadasdsadasdsa")
             this.List.push(json)
 
           }

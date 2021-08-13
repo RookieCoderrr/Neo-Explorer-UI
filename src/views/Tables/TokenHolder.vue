@@ -49,20 +49,19 @@
             </div>
           </th>
           <td class="Address">
-            <a
+            <router-link
               v-if="this.state"
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
-              >{{ scriptHashToAddress(row.item.address) }}</a
-            >
-            <a
+              :to="'/accountprofile/'+row.item.address"
+              >{{ scriptHashToAddress(row.item.address) }}</router-link>
+            <router-link
               v-else
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
+              :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
-            </a>
+            </router-link>
           </td>
           <td class="balance">
             {{ convertToken(row.item.balance, this.decimal) }}
@@ -197,11 +196,6 @@ export default {
     },
     convertToken(val, decimal) {
       return  parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
-    },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
-      });
     },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);

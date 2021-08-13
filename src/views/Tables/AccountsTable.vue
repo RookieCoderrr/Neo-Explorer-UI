@@ -43,22 +43,22 @@
             {{ row.item.number }}
           </td>
           <td class="address">
-            <a
+            <router-link
               class="mb-0 text-sm"
               v-if="this.state"
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
+              :to="'/accountprofile/'+row.item.address"
             >
               {{ scriptHashToAddress(row.item.address) }}
-            </a>
-            <a
+            </router-link>
+            <router-link
               class="mb-0 text-sm"
               v-else
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
+              :to="'/accountprofile/'+row.item.address"
             >
               {{ row.item.address }}
-            </a>
+            </router-link>
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
           <td class="neoBalance">

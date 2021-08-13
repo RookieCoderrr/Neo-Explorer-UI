@@ -58,11 +58,11 @@
               {{ $t("na") }}
             </div>
             <div class="txid" v-else>
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getTransaction(row.item.txid)"
-                >{{ row.item.txid }}</a
+                :to="'/transactionInfo/'+row.item.address"
+                >{{ row.item.txid }}</router-link
               >
             </div>
           </div>
@@ -134,36 +134,36 @@
               {{ $t("nullAddress") }}
             </div>
             <div v-else-if="fromState" class="addr">
-              <a
+              <router-link
                 v-if="row.item.from === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >&#128100;{{ scriptHashToAddress(row.item.from) }}
-              </a>
-              <a
+              </router-link>
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >{{ scriptHashToAddress(row.item.from) }}
-              </a>
+              </router-link>
             </div>
             <div v-else class="addr">
-              <a
+              <router-link
                 v-if="row.item.from === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >&#128100;{{ row.item.from }}
-              </a>
-              <a
+              </router-link>
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >{{ row.item.from }}
-              </a>
+              </router-link>
             </div>
           </div>
         </td>
@@ -175,36 +175,36 @@
             {{ $t("nullAddress") }}
           </div>
           <div v-else-if="toState" class="addr">
-            <a
+            <router-link
               v-if="row.item.to === this.account_address"
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.to)"
+              :to="'/accountprofile/'+row.item.to"
               >&#128100;{{ scriptHashToAddress(row.item.to) }}
-            </a>
-            <a
+            </router-link>
+            <router-link
               v-else
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.to)"
+              :to="'/accountprofile/'+row.item.to"
               >{{ scriptHashToAddress(row.item.to) }}
-            </a>
+            </router-link>
           </div>
           <div v-else class="addr">
-            <a
+            <router-link
               v-if="row.item.to === this.account_address"
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.to)"
+              :to="'/accountprofile/'+row.item.to"
               >&#128100;{{ row.item.to }}
-            </a>
-            <a
+            </router-link>
+            <router-link
               v-else
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.to)"
+              :to="'/accountprofile/'+row.item.to"
               >{{ row.item.to }}
-            </a>
+            </router-link>
           </div>
         </td>
 
@@ -327,11 +327,7 @@ export default {
     convertToken(token, decimal) {
       return (token * Math.pow(0.1, decimal)).toFixed(8);
     },
-    getTransaction(txhash) {
-      this.$router.push({
-        path: `/transactionInfo/${txhash}`,
-      });
-    },
+
     convertTime(ts) {
       const lang = this.$i18n.locale;
       switch (lang) {
@@ -354,11 +350,7 @@ export default {
       });
     },
 
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
-      });
-    },
+
 
     getToAccount() {
       return;

@@ -72,11 +72,11 @@
           <th scope="row" v-if="row.item">
             <div class="media align-items-center">
               <div class="media-body">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getContract(row.item.hash)"
-                  >{{ row.item.hash }}</a
+                  :to="'/contractinfo/'+row.item.hash"
+                  >{{ row.item.hash }}</router-link
                 >
               </div>
             </div>
@@ -88,22 +88,22 @@
             <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
               $t("contract.available")
             }}</span>
-            <a
+            <router-link
               class="mb-0 text-sm"
               v-else-if="this.state"
               style="cursor: pointer"
-              @click="getSender(row.item.Transaction[0]['sender'])"
+              :to="'/accountprofile/'+row.item.Transaction[0]['sender']"
             >
               {{ row.item.Transaction[0]["sender"] }}
-            </a>
-            <a
+            </router-link>
+            <router-link
               class="mb-0 text-sm"
               v-else
               style="cursor: pointer"
-              @click="getSender(row.item.Transaction[0]['sender'])"
+              :to="'/accountprofile/'+row.item.Transaction[0]['sender']"
             >
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
-            </a>
+            </router-link>
           </td>
           <td class="index">
             {{ row.item.id }}
@@ -280,11 +280,6 @@ export default {
     addressToScriptHash(addr) {
       const acc = Neon.create.account(addr);
       return "0x" + acc.scriptHash;
-    },
-    getSender(addr) {
-      this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
-      });
     },
     changeFormat() {
       if (this.state === true) {

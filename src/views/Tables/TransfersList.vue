@@ -54,11 +54,11 @@
           <template v-slot:default="row">
             <td class="budget">
               <div class="contract" @mouseover="mouseHover(row.item.contract)">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getContract(row.item.contract)"
-                  >{{ row.item.contract }}</a
+                  :to="'/contractinfo/'+row.item.contract"
+                  >{{ row.item.contract }}</router-link
                 >
               </div>
             </td>
@@ -95,16 +95,16 @@
                 <span class="text-muted" v-if="row.item.from === null">
                   {{ $t("nullAddress") }}</span
                 >
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  @click="getAccount(row.item.from)"
+                  :to="'/accountprofile/'+row.item.from"
                   >{{
                     this.fromState
                       ? scriptHashToAddress(row.item.from)
                       : row.item.from
-                  }}</a
+                  }}</router-link
                 >
               </div>
             </td>
@@ -124,16 +124,16 @@
                 <span class="text-muted" v-if="row.item.to === null">
                   {{ $t("nullAddress") }}</span
                 >
-                <a
+                <router-link
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAccount(row.item.to)"
+                  :to="'/accountprofile/'+row.item.to"
                   >{{
                     this.toState
                       ? scriptHashToAddress(row.item.to)
                       : row.item.to
-                  }}</a
+                  }}</router-link
                 >
               </div>
             </td>

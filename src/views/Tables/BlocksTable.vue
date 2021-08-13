@@ -42,12 +42,11 @@
           </th>
           <td style="padding-left: 100px">
             <div>
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getBlock(row.item.hash)"
-                >{{ row.item.hash }}</a
-              >
+                :to="'/blockinfo/'+row.item.hash"
+                >{{ row.item.hash }}</router-link>
             </div>
           </td>
           <td>
@@ -129,9 +128,6 @@ export default {
     },
   },
   methods: {
-    getBlock(hash) {
-      this.$router.push(`/blockinfo/${hash}`);
-    },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;

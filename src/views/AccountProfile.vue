@@ -196,8 +196,8 @@ export default {
     Address11TsTable,
   },
   created() {
+    this.isLoading =true
     this.getNeoBalance();
-    this.isLoading = false;
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();

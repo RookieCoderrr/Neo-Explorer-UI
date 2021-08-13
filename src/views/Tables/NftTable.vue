@@ -54,11 +54,11 @@
         <template v-slot:default="row">
           <td class="budget">
             <div class="contract">
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getContract(row.item.contract)"
-                >{{ row.item.contract }}</a
+                :to="'/contractinfo/'+row.item.contract"
+                >{{ row.item.contract }}</router-link
               >
             </div>
           </td>
@@ -92,15 +92,15 @@
                 {{ $t("nullAddress") }}</span
               >
               <span v-else>
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAccount(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >{{
                   this.fromState
                       ? scriptHashToAddress(row.item.from)
                       : row.item.from
-                }}</a>
+                }}</router-link>
               </span>
             </div>
           </td>
@@ -124,7 +124,7 @@
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAccount(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 >{{
                   this.toState
                       ? scriptHashToAddress(row.item.to)
@@ -210,11 +210,7 @@ export default {
     convertToken(val, decimal) {
       return  parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
     },
-    getContract(ctrHash) {
-      this.$router.push({
-        path: `/contractinfo/${ctrHash}`,
-      });
-    },
+
 
     getAccount(accHash) {
       this.$router.push({
