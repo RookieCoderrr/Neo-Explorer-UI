@@ -14,7 +14,9 @@
               <div class="h2 font-weight-bold mb-0">
                 {{ $t('transactionInfo.txId') }}
               </div>
-              <div class="text-muted">{{ this.tabledata["hash"] }}</div>
+              <span id ="tx">{{ this.tabledata["hash"] }}</span>
+              <span> </span>
+              <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx')">
             </div>
             <div class="card-body">
               <div class="row">
@@ -76,8 +78,9 @@
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHash') }}</div>
                   <div class="col-10">
                     <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToBlockInfo(this.blockhash)">
-                    {{ this.blockhash }}
+                      <span id="block">{{ this.blockhash }}</span>
                     </a>
+                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
                   </div>
                 </div>
               </card>
@@ -87,9 +90,10 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
+                    <a class="name mb-0 text-sm" id = "sender" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </a>
+                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender')">
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
@@ -462,6 +466,18 @@ export default {
       }
     },
 
+    copyItem(ele){
+      console.log("hello")
+      var item = document.getElementById(ele).innerText;
+      console.log(item)
+      var oInput = document.createElement('input');
+      oInput.value = item;
+      document.body.appendChild(oInput);
+      oInput.select();
+      document.execCommand("Copy");
+      oInput.className = 'oInput';
+      oInput.style.display = 'none';
+    },
 
     convertGas(gas) {
       return (gas * Math.pow(0.1, 8)).toFixed(6);
