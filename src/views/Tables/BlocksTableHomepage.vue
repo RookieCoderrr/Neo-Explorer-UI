@@ -55,7 +55,7 @@
           </th>
 
           <td>
-            {{ convertTime(row.item.timestamp) }}
+            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
           <td>
             {{ row.item.transactioncount }}
@@ -72,7 +72,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+import {convertTime} from "../../store/util";
 
 export default {
   name: "blocks-table-homepage",
@@ -111,15 +111,7 @@ export default {
     },
   },
   methods: {
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
-    },
+    convertTime,
     toBlocksTable() {
       this.$router.push({
         path: `/blocks`,
@@ -157,24 +149,4 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/*.class123 /deep/ .a input::-webkit-outer-spin-button,*/
-/*.class123 /deep/ .a input::-webkit-inner-spin-button {*/
-/*    -webkit-appearance: none;*/
-/*}*/
-/*.class123 /deep/ .a input[type="number"] {*/
-/*    -moz-appearance: textfield;*/
-/*}*/
-/*input::-webkit-inner-spin-button {*/
-/*    -webkit-appearance: none !important;*/
-/*    margin: 0;*/
-/*    -moz-appearance: textfield;*/
-/*}*/
-
-/*.text {*/
-/*    display: inline-block;*/
-/*    height: 100%;*/
-/*    line-height: 2.5;*/
-/*    vertical-align: middle;*/
-/*    font-size: 5;*/
-/*}*/
 </style>

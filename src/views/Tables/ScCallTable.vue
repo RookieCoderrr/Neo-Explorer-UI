@@ -17,9 +17,8 @@
           <th>{{ $t("contract.txID") }}</th>
           <th>
             {{ $t("contract.sender") }}
-            <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFormat()">
-              {{ this.buttonName }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
+              {{ button.buttonName }}
             </button>
           </th>
           <th>{{ $t("contract.method") }}</th>
@@ -55,7 +54,7 @@
                 Null Account
               </span>
               <a
-                v-else-if="state === true"
+                v-else-if="button.state"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 @click="getAddress(row.item.originSender)"
@@ -111,8 +110,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
-import Neon from "@cityofzion/neon-js";
+import {scriptHashToAddress, convertTime, changeFormat} from "../../store/util";
 
 export default {
   name: "sc-call-table",
@@ -133,8 +131,7 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage: 0,
-      state: true,
-      buttonName: "Hash",
+      button: { state: true, buttonName: "Hash" },
     };
   },
   created() {
@@ -156,6 +153,9 @@ export default {
     contractHash: "watchcontract",
   },
   methods: {
+    convertTime,
+    scriptHashToAddress,
+    changeFormat,
     watchcontract() {
       //如果路由有变化，执行的对应的动作
       this.getScCallList(0);
@@ -183,20 +183,6 @@ export default {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getScCallList(skip);
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
     },
     getScCallList(skip) {
       axios({
@@ -226,15 +212,6 @@ export default {
             : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
-    },
-    changeFormat() {
-      if (this.state === true) {
-        this.state = false;
-        this.buttonName = "Addr";
-      } else {
-        this.state = true;
-        this.buttonName = "Hash";
-      }
     },
     getAddress(accountAddress) {
       this.$router.push({

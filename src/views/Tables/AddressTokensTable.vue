@@ -90,7 +90,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-
+import {convertToken} from "../../store/util";
 export default {
   name: "address-tokens-table",
   props: {
@@ -113,7 +113,6 @@ export default {
     };
   },
   created() {
-    //this.getTokenList(0);
     this.getTokenListWithBalance(0);
   },
   computed: {
@@ -132,16 +131,9 @@ export default {
     account_address: "watchaddress",
   },
   methods: {
+    convertToken,
     watchaddress() {
-      //如果路由有变化，执行的对应的动作
       this.getTokenListWithBalance(0);
-    },
-    convertToken(token, decimal) {
-      if (decimal === 0) {
-        return token;
-      } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(8);
-      }
     },
     pageChange(pageNumber) {
       this.isLoading = true;

@@ -25,7 +25,7 @@
                         {{ $t('transactionInfo.time') }}
                       </div>
                       <div class="panel-body">
-                        {{ convertTime(this.blocktime) }}
+                        {{ convertPreciseTime(this.blocktime) }}
                       </div>
                     </div>
                   </card>
@@ -88,11 +88,11 @@
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
                     <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
-                      {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
+                      {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </a>
                   </div>
                   <div class="col-1">
-                    <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+                    <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
                   </div>
                 </div>
               </card>
@@ -373,8 +373,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
-// import convertDecimal from "../directives/typeConvertion"
-
+import {convertPreciseTime, changeFormat, convertGas, addressToScriptHash} from "../store/util";
 
 export default {
   components: {
@@ -392,8 +391,7 @@ export default {
       isLoading: true,
       blockhash:"",
       address:"",
-      state: true,
-      buttonName:"Hash",
+      button: {state: true, buttonName: "Hash"},
       blocktime:0,
       vmstate:"",
       trigger:"",
@@ -428,6 +426,10 @@ export default {
     $route:'watchrouter'
   },
   methods: {
+    addressToScriptHash,
+    convertGas,
+    convertPreciseTime,
+    changeFormat,
     watchrouter() {//如果路由有变化，执行的对应的动作
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
@@ -437,34 +439,6 @@ export default {
       this.getTransactionByTransactionHash(this.$route.params.txhash)
         this.getScCallByTransactionHash(this.$route.params.txhash)
       }
-    },
-    convertTime(time){
-      var date = new Date(time);
-      var y = date.getFullYear()
-      var m = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)
-      var d = (date.getDate() <10 ? ('0' +date.getDate()): date.getDate())
-      var h = date.getHours() < 10 ? ('0' + date.getHours()): date.getHours()
-      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()): date.getMinutes()
-      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
-      return m+'-'+d+'-'+y+' '+h+':'+mi+':'+s +' +' + "UTC";
-      // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
-      // return res
-    },
-    changeFormat(){
-      if(this.state === true) {
-        this.state = false
-        this.buttonName = "Addr"
-        return
-      } else {
-        this.state = true
-        this.buttonName = "Hash"
-        return
-      }
-    },
-
-
-    convertGas(gas) {
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)
@@ -515,11 +489,6 @@ export default {
       this.$router.push({
         path: `/accountprofile/${addr}`,
       });
-    },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-
     },
     getApplicationLogByTransactionHash(tx_id){
       axios({

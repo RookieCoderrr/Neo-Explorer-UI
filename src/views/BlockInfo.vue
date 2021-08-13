@@ -37,7 +37,7 @@
                           {{ $t("blockinfo.time") }}
                         </div>
                         <div class="panel-body">
-                          {{ convertTime(this.block_info.timestamp) }}
+                          {{ convertPreciseTime(this.block_info.timestamp) }}
                         </div>
                       </div>
                     </card>
@@ -90,11 +90,11 @@
                     </div>
                     <div class="col-4" v-if="block_info['speaker']">
                       <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
-                        {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
+                        {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
                       </a>
                     </div>
                     <div class="col-1">
-                      <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+                      <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
                     </div>
                     <div class="col-2">
                       <div class="font-weight-bold mb-0">
@@ -240,7 +240,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import BlockTransaction from "./Tables/BlockTransaction";
 import BlockTransfer from "./Tables/BlockTransfer";
 import toOpcode from "../directives/typeConvertion";
-import Neon from "@cityofzion/neon-js";
+import {convertPreciseTime, scriptHashToAddress, changeFormat} from "../store/util";
+
 export default {
   components: {
     BlockTransaction,
@@ -256,8 +257,7 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      buttonName:"Addr",
-      state: true
+      button: { state: true, buttonName: ""}
     };
   },
   created() {
@@ -267,6 +267,9 @@ export default {
     $route: "watchrouter",
   },
   methods: {
+    scriptHashToAddress,
+    changeFormat,
+    convertPreciseTime,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {
@@ -280,40 +283,6 @@ export default {
         path: `/accountprofile/${addr}`,
       });
     },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    changeFormat(){
-      if(this.state === true) {
-        this.state = false
-        this.buttonName = "Hash"
-        return
-      } else {
-        this.state = true
-        this.buttonName = "Addr"
-        return
-      }
-    },
-    convertTime(time) {
-      var date = new Date(time);
-      var y = date.getFullYear();
-      var m =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var mi =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      return (
-        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
-      );
-    },
-
     preBlock(hash) {
       this.isLoading = true;
       this.getBlock(hash);
@@ -366,8 +335,7 @@ export default {
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
           });
         } else {
-          return
-
+          return;
         }
       });
     },

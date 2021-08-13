@@ -60,8 +60,8 @@
           <th>
             {{ $t("contract.creator")
             }}
-            <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat()">
-              {{ this.buttonName }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
+              {{ this.button.buttonName }}
             </button>
           </th>
           <th>{{ $t("contract.index") }}</th>
@@ -90,7 +90,7 @@
             }}</span>
             <a
               class="mb-0 text-sm"
-              v-else-if="this.state"
+              v-else-if="button.state"
               style="cursor: pointer"
               @click="getSender(row.item.Transaction[0]['sender'])"
             >
@@ -109,7 +109,7 @@
             {{ row.item.id }}
           </td>
           <td class="time">
-            {{ convertTime(row.item.createtime) }}
+            {{ convertTime(row.item.createtime, this.$i18n.locale) }}
           </td>
         </template>
       </base-table>
@@ -142,8 +142,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
-import Neon from "@cityofzion/neon-js";
+import {convertTime, addressToScriptHash, changeFormat} from "../../store/util";
 
 export default {
   name: "contracts-table",
@@ -166,8 +165,7 @@ export default {
       searchVal: "",
       name: "",
       countPage: 0,
-      state: true,
-      buttonName: "Hash",
+      button: {state: true, buttonName: "Hash"},
     };
   },
   created() {
@@ -186,6 +184,9 @@ export default {
     },
   },
   methods: {
+    convertTime,
+    addressToScriptHash,
+    changeFormat,
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
@@ -202,15 +203,6 @@ export default {
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getContractList(skip);
-      }
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
       }
     },
     pageChange(pageNumber) {
@@ -277,23 +269,10 @@ export default {
         this.isLoading = false;
       });
     },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
     getSender(addr) {
       this.$router.push({
         path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
-    },
-    changeFormat() {
-      if (this.state === true) {
-        this.state = false;
-        this.buttonName = "WIF";
-      } else {
-        this.state = true;
-        this.buttonName = "Hash";
-      }
     },
     search() {
       this.isLoading = true;

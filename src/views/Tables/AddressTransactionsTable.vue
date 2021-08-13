@@ -37,7 +37,7 @@
           </td>
           <td class="budget">{{ row.item.size }} bytes</td>
           <td class="budget">
-            {{ this.convertTime(row.item.blocktime) }}
+            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
           </td>
 
           <td class="budget">
@@ -78,10 +78,9 @@
   </div>
 </template>
 <script>
-// by zilie cdde2b58d09e04290f9eabd8a6ebdbb3078d8cf4
 import axios from "axios";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
+import {convertTime, convertGas} from "../../store/util";
 
 export default {
   name: "transactions-table",
@@ -124,6 +123,8 @@ export default {
     account_address: "watchaddress",
   },
   methods: {
+    convertTime,
+    convertGas,
     watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.getTransactions(0);
@@ -132,22 +133,6 @@ export default {
       var a = document.getElementsByClassName("txid");
       a.onmouseover = function () {};
       a.style.display = txid;
-    },
-    convertGas(gas) {
-      if (gas == 0) {
-        return 0;
-      }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
-
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
     },
     getTransaction(txhash) {
       this.$router.push({
