@@ -37,13 +37,13 @@
         <template v-slot:default="row">
           <td class="budget">
             <div class="address">
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.candidate)"
+                :to="'/accountprofile/'+row.item.candidate"
                 >{{ row.item.candidate }}
-                <i v-if="row.item.isCommittee" class="ni ni-badge"></i>
-              </a>
+                <i v-if="row.item.isCommittee" class="ni ni-badge"></i></router-link
+              >
             </div>
           </td>
 

@@ -67,20 +67,18 @@
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="fromState" class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
-                  >{{ scriptHashToAddress(row.item.from) }}</a
-                >
+                  :to="'/accountprofile/'+row.item.from"
+                  >{{ scriptHashToAddress(row.item.from) }}</router-link>
               </div>
               <div v-else class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
-                  >{{ row.item.from }}</a
-                >
+                  :to="'/accountprofile/'+row.item.from"
+                  >{{ row.item.from }}</router-link>
               </div>
             </div>
           </td>
@@ -93,20 +91,19 @@
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="toState" class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.to)"
-                  >{{ scriptHashToAddress(row.item.to) }}</a
+                  :to="'/accountprofile/'+row.item.to"
+                  >{{ scriptHashToAddress(row.item.to) }}</router-link
                 >
               </div>
               <div v-else class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.to)"
-                  >{{ row.item.to }}</a
-                >
+                  :to="'/accountprofile/'+row.item.to"
+                  >{{ row.item.to }}</router-link>
               </div>
             </div>
           </td>
@@ -283,11 +280,6 @@ export default {
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
-      });
-    },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
       });
     },
     getTransaction(txhash) {

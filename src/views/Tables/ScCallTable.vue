@@ -39,12 +39,12 @@
                   "
                   >Null Transaction</span
                 >
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  @click="getTransaction(row.item.txid)"
-                  >{{ row.item.txid }}</a
+                  :to="'/transactionInfo/'+row.item.originSender"
+                  >{{ row.item.txid }}</router-link
                 >
               </div>
             </div>
@@ -54,19 +54,19 @@
               <span class="text-muted" v-if="row.item.originSender === null">
                 Null Account
               </span>
-              <a
+              <router-link
                 v-else-if="state === true"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.originSender)"
-                >{{ scriptHashToAddress(row.item.originSender) }}</a
+                :to="'/accountprofile/'+row.item.originSender"
+                >{{ scriptHashToAddress(row.item.originSender) }}</router-link
               >
-              <a
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.originSender)"
-                >{{ row.item.originSender }}</a
+                :to="'/accountprofile/'+row.item.originSender"
+                >{{ row.item.originSender }}</router-link
               >
             </div>
           </td>
@@ -236,16 +236,7 @@ export default {
         this.buttonName = "Hash";
       }
     },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
-      });
-    },
-    getTransaction(txhash) {
-      this.$router.push({
-        path: `/transactionInfo/${txhash}`,
-      });
-    },
+
   },
 };
 </script>

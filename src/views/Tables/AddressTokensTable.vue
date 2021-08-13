@@ -29,11 +29,11 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getToken(row.item.asset)"
-                  >{{ row.item.asset }}</a
+                  :to="'/tokeninfo/'+row.item.asset"
+                  >{{ row.item.asset }}</router-link
                 >
               </div>
             </div>

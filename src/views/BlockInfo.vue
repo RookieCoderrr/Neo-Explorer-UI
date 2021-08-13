@@ -90,10 +90,11 @@
                       </div>
                     </div>
                     <div class="col-4" v-if="block_info['speaker']">
-                      <a class="name mb-0 text-sm" id="speaker" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
+                      <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+block_info['speaker']">
                         {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
-                      </a>
+                      </router-link>
                       <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('speaker')">
+
                     </div>
                     <div class="col-1">
                       <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
@@ -112,14 +113,18 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
+                    <router-link  :to="'/blockinfo/'+this.block_info.prevhash"   >
                     <div
-                      class="col-10"
-                    >
-                      <a class="name mb-0 text-sm" id="preHash" title="Copy to clipboard" style="cursor: pointer" @click="preBlock(this.block_info.prevhash)">{{
+
+                      class="col-10">
+<!--                      @click="preBlock(this.block_info.prevhash)"-->
+
+                      <a class="name mb-0 text-sm" id="preHash"style="cursor: pointer">{{
                         this.block_info.prevhash
                       }}</a>
                       <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('preHash')">
                     </div>
+                    </router-link>
 
                   </div>
                 </card>
@@ -329,10 +334,10 @@ export default {
       );
     },
 
-    preBlock(hash) {
-      this.isLoading = true;
-      this.getBlock(hash);
-    },
+    // preBlock(hash) {
+    //   this.isLoading = true;
+    //   this.getBlock(hash);
+    // },
     getBlock(hash) {
       axios({
         method: "post",

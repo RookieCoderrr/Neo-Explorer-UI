@@ -65,12 +65,11 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getToken(row.item.hash)"
-                  >{{ row.item.hash }}</a
-                >
+                  :to="'/tokeninfo/'+row.item.address"
+                  >{{ row.item.hash }}</router-link>
               </div>
             </div>
           </th>
@@ -194,9 +193,6 @@ export default {
         this.getTokenListByName(name, skip);
       }
       this.getTokenList(skip);
-    },
-    getToken(hash) {
-      this.$router.push(`/tokeninfo/${hash}`);
     },
     getTokenList(skip) {
       axios({

@@ -77,9 +77,9 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHash') }}</div>
                   <div class="col-10">
-                    <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToBlockInfo(this.blockhash)">
+                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                       <span id="block">{{ this.blockhash }}</span>
-                    </a>
+                    </router-link>
                     <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
                   </div>
                 </div>
@@ -90,9 +90,9 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <a class="name mb-0 text-sm" id = "sender" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
+                    <router-link class="name mb-0 text-sm" id = "sender" style="cursor: pointer" :to="'/accountprofile/'+addressToScriptHash(this.address)" >
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
-                    </a>
+                    </router-link>
                     <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender')">
                   </div>
                   <div class="col-1">
@@ -251,9 +251,9 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract') }}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contract'])">
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contract']" >
                               {{ item["contract"] }}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-5">
                             <div class="params">
@@ -312,13 +312,13 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(item['originSender'])">
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
                               {{ item["originSender"]}}
                             </a>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToContractInfo(item['contractHash'] )">
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
                               {{ item["contractHash"]}}
                             </a>
                           </div>
@@ -635,9 +635,6 @@ export default {
       var script = toOpcode(this.tabledata["script"])
       //this.tabledata["script"] = this.toOpcode(script)
       this.tabledata["script"] = script
-
-      //console.log(this.tabledata["witnesses"][0]["verification"])
-
       var verification
       var invocation
       if (this.tabledata["witnesses"][0]) {
