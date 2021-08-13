@@ -27,7 +27,8 @@
                     </button>
                   </div>
                 </div>
-                <h4 class="text-muted">{{ this.contract_info["hash"] }}</h4>
+                <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
+                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('contract')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -374,6 +375,18 @@ export default {
       return (
         m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
       );
+    },
+    copyItem(ele){
+      console.log("hello")
+      var item = document.getElementById(ele).innerText;
+      console.log(item)
+      var oInput = document.createElement('input');
+      oInput.value = item;
+      document.body.appendChild(oInput);
+      oInput.select();
+      document.execCommand("Copy");
+      oInput.className = 'oInput';
+      oInput.style.display = 'none';
     },
     getContract(contract_id) {
       axios({
