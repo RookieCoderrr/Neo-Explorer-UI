@@ -327,23 +327,23 @@
                         <div class="row">
                           <div class="col">
                             <div class="text-muted">{{$t('transactionInfo.params')}}:</div>
-                            <div v-if="this.mapTotalSys.size != 0">
+                            <div v-if="List[index]&&List[index]['key']" >
                               <li class="col-12"
                                   v-for="(param, ind) in item['hexStringParams']"
                                   :key="ind"
 
                               >
-                                <span  v-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='Hash160'">
-                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{param==="" ? "null":this.hexToHash(param) }}
+                                <span   v-if="List[index]['key'][ind]['type'] ==='Hash160'">
+                                {{List[index]['key'][ind]['name'] }}: {{param==="" ? "null":this.hexToHash(param) }}
                                 </span>
-                                <span  v-else-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='String'">
-                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{ param==="" ? "null":this.hexToString(param) }}
+                                <span  v-else-if="List[index]&&List[index]['key'] &&List[index]['key'][ind]['type'] ==='String'">
+                                {{List[index]['key'][ind]['name']}}: {{ param==="" ? "null":this.hexToString(param) }}
                                 </span>
-                                <span  v-else-if="this.mapTotalSys&&this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][1]==='Integer'">
-                                  {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{ param==="" ? "null":this.hexToInteger(param) }}
+                                <span  v-else-if="List[index]&&List[index]['key'] &&List[index]['key'][ind]['type'] ==='Integer'">
+                                  {{List[index]['key'][ind]['name']}}: {{ param==="" ? "null":this.hexToInteger(param) }}
                                 </span>
                                 <span v-else>
-                                {{this.mapTotalSys.get(item['contractHash']).get(item['method'])[ind][0]}}: {{param==="" ? "null":param }}
+                                {{List[index]['key'][ind]['name']}}: {{param==="" ? "null":param }}
                               </span>
 
                               </li>
@@ -409,7 +409,8 @@ export default {
       mapTotalApp: new Map(),
       mapTotalSys: new Map(),
       countApp:0,
-      countSys:0
+      countSys:0,
+      List:[],
 
 
 
@@ -431,10 +432,10 @@ export default {
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
       this.txhash = this.$route.params.txhash
-        this.getScCallByTransactionHash(this.$route.params.txhash)
+
         this.getApplicationLogByTransactionHash(this.$route.params.txhash);
       this.getTransactionByTransactionHash(this.$route.params.txhash)
-
+        this.getScCallByTransactionHash(this.$route.params.txhash)
       }
     },
     convertTime(time){
@@ -468,35 +469,30 @@ export default {
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)
         var res = Neon.u.reverseHex(tmp)
-      // console.log(res)
+
         return "0x"+res
     },
     base64ToString(base) {
         var tmp =Neon.u.base642hex(base)
         var res = Neon.u.hexstring2str(tmp)
-        // console.log(res)
+
         return res
     },
     base64ToByteArray(base){
       var tmp =Neon.u.base642hex(base)
-      // var res = Neon.u.hexstring2ab(tmp)
-      // console.log(res)
       return tmp
     },
     hexToByteArray(base){
       var tmp =Neon.u.hexstring2ab(base)
-      console.log(tmp)
       return tmp
     },
 
     hexToString(base){
       var tmp =Neon.u.hexstring2str(base)
-      console.log(tmp)
       return tmp
     },
     hexToHash(base){
       var tmp =Neon.u.reverseHex(base)
-      console.log("0x"+tmp)
       return "0x"+tmp
     },
     hexToInteger(base){
@@ -551,7 +547,6 @@ export default {
         for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
          this.getContractsApp(this.tabledataApp["notifications"][i]["contract"])
         }
-        console.log(this.mapTotalApp)
       });
     },
     getContractsApp(ctr_hash){
@@ -623,7 +618,6 @@ export default {
     convertScriptToOpcode() {
       var script = toOpcode(this.tabledata["script"])
       //this.tabledata["script"] = this.toOpcode(script)
-      console.log(script)
       this.tabledata["script"] = script
 
       //console.log(this.tabledata["witnesses"][0]["verification"])
@@ -664,15 +658,13 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         this.tabledataCall = res["data"]["result"];
-        console.log(this.tabledataCall)
         for (var i = 0; i <this.tabledataCall["totalCount"];i ++){
-          console.log("hello")
-          this.getContractsSys(this.tabledataCall["result"][i]["contractHash"])
+          this.getContractsSys(this.tabledataCall["result"][i]["contractHash"],this.tabledataCall["result"][i]["method"])
         }
-        console.log(this.mapTotalSys)
       });
+
     },
-      getContractsSys(ctr_hash){
+      getContractsSys(ctr_hash,method){
         axios({
           method: "post",
           url: "/api",
@@ -690,32 +682,22 @@ export default {
         }).then((res) => {
           this.isLoading = false;
           const raw = res["data"]["result"];
-          console.log(raw)
+
           if(raw === null ){
             this.countSys ++
           }
           else {
             var temp = JSON.parse(raw["manifest"]);
-            console.log(temp)
-            var map = new Map()
+            let json={}
             for (var i = 0; i < temp["abi"]["methods"].length; i++) {
-              var table = []
-              for (var j = 0; j < temp["abi"]["methods"][i]["parameters"].length; j++) {
-                table[j] = new Array(temp["abi"]["methods"][i]["parameters"][j]["name"],temp["abi"]["methods"][i]["parameters"][j]["type"])
+              if (temp["abi"]["methods"][i]["name"] === method){
+               json["contractHash"] = ctr_hash
+                json["method"] = method
+                json["key"] = temp["abi"]["methods"][i]["parameters"]
               }
-              map.set(temp["abi"]["methods"][i]["name"], table)
             }
-            this.mapTotalSys.set(raw["hash"], map)
-            // this.params = this.manifest["abi"]["methods"]
-            // // console.log(raw)
-            // for (var i = 0; i < this.params.length;i++){
-            //   // console.log(this.params.length)
-            //   // console.log(this.method)
-            //   if (this.method === this.params[i]["name"]){
-            //     this.index = i
-            //     console.log(this.index)
-            //   }
-            // }
+            this.List.push(json)
+
           }
         });
       }
