@@ -113,19 +113,10 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <router-link  :to="'/blockinfo/'+this.block_info.prevhash"   >
-                    <div
-
-                      class="col-10">
-<!--                      @click="preBlock(this.block_info.prevhash)"-->
-
-                      <a class="name mb-0 text-sm" id="preHash"style="cursor: pointer">{{
-                        this.block_info.prevhash
-                      }}</a>
-                      <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('preHash')">
-                    </div>
+                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
+                        {{this.block_info.prevhash }}
                     </router-link>
-
+                    <i class="ni ni-single-copy-04"  style="color:black; cursor: pointer;" @click="copyItem(this.block_info.prevhash)"></i>
                   </div>
                 </card>
 
@@ -395,4 +386,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>
