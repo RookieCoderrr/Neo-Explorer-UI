@@ -193,12 +193,6 @@ export default {
           this.getNep11TransferByTransactionHash(this.txhash);
 
     },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
-    },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);
       const acc = Neon.create.account(hash);

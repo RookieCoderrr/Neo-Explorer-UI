@@ -203,12 +203,6 @@ export default {
         return (token * Math.pow(0.1, decimal)).toFixed(6);
       }
     },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
-    },
     getContract(ctrHash) {
       this.$router.push({
         path: `/contractinfo/${ctrHash}`,

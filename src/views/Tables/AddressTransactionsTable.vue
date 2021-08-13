@@ -128,11 +128,6 @@ export default {
       //如果路由有变化，执行的对应的动作
       this.getTransactions(0);
     },
-    mouseHover(txid) {
-      var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {};
-      a.style.display = txid;
-    },
     convertGas(gas) {
       if (gas == 0) {
         return 0;
