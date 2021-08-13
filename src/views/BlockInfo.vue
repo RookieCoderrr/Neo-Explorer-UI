@@ -26,7 +26,8 @@
                            @click="getBlockByBlockHeight(this.block_info.index + 1)"
                    >&gt;</base-button>
                </div>
-                <h4 class="text-muted">{{ this.block_info.hash }}</h4>
+                <span class="text-muted" id="block">{{ this.block_info.hash }}</span>
+                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -89,9 +90,9 @@
                       </div>
                     </div>
                     <div class="col-4" v-if="block_info['speaker']">
-                      <a class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
+                      <router-link class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
                         {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
-                      </a>
+                      </router-link>
                     </div>
                     <div class="col-1">
                       <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
@@ -110,14 +111,10 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <div
-                      class="col-10"
-                      @click="preBlock(this.block_info.prevhash)"
-                    >
-                      <a class="name mb-0 text-sm" style="cursor: pointer">{{
-                        this.block_info.prevhash
-                      }}</a>
-                    </div>
+                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
+                        {{this.block_info.prevhash }}
+                    </router-link>
+                    <i class="ni ni-single-copy-04"  style="color:black; cursor: pointer;" @click="copyItem(this.block_info.prevhash)"></i>
                   </div>
                 </card>
 

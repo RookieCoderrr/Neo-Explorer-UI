@@ -1,7 +1,7 @@
 <template>
-  <div v-if="this.length != 0">
+  <div v-if="this.totalCount != 0">
   <div
-    v-if="this.length != 0"
+    v-if="this.totalCount != 0"
     class="card shadow"
     :class="type === 'dark' ? 'bg-default' : ''"
   >
@@ -54,11 +54,11 @@
         <template v-slot:default="row">
           <td class="budget">
             <div class="contract">
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getContract(row.item.contract)"
-                >{{ row.item.contract }}</a
+                :to="'/contractinfo/'+row.item.contract"
+                >{{ row.item.contract }}</router-link
               >
             </div>
           </td>
@@ -92,15 +92,15 @@
                 {{ $t("nullAddress") }}</span
               >
               <span v-else>
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAccount(row.item.from)"
+                :to="'/accountprofile/'+row.item.from"
                 >{{
                   this.fromButton.state
                       ? scriptHashToAddress(row.item.from)
                       : row.item.from
-                }}</a>
+                }}</router-link>
               </span>
             </div>
           </td>
@@ -124,7 +124,7 @@
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAccount(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 >{{
                   this.toButton.state
                       ? scriptHashToAddress(row.item.to)
@@ -174,8 +174,10 @@ export default {
     return {
       tableData: [],
       length,
-      fromButton: { state: true, buttonName: "Hash" },
-      toButton: { state: true, buttonName: "Hash" },
+      fromState: true,
+      fromButton: "Hash",
+      toState: true,
+      toButton: "Hash",
     };
   },
 
@@ -194,12 +196,6 @@ export default {
       //如果路由有变化，执行的对应的动作
           this.getNep11TransferByTransactionHash(this.txhash);
 
-    },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
     },
     getContract(ctrHash) {
       this.$router.push({
@@ -228,13 +224,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData[0] = res["data"]["result"];
-        if (this.tableData[0] == null) {
-          this.length = 0;
-          this.tableData[0] = [];
-        } else {
-          this.length = 1;
-        }
+        this.tableData = res["data"]["result"]["result"];
+        this.totalCount = res["data"]["result"]["totalCount"]
       });
     },
   },

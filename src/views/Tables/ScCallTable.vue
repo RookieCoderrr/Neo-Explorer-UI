@@ -38,12 +38,12 @@
                   "
                   >Null Transaction</span
                 >
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  @click="getTransaction(row.item.txid)"
-                  >{{ row.item.txid }}</a
+                  :to="'/transactionInfo/'+row.item.txid "
+                  >{{ row.item.txid }}</router-link
                 >
               </div>
             </div>
@@ -53,19 +53,19 @@
               <span class="text-muted" v-if="row.item.originSender === null">
                 Null Account
               </span>
-              <a
+              <router-link
                 v-else-if="button.state"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.originSender)"
-                >{{ scriptHashToAddress(row.item.originSender) }}</a
+                :to="'/accountprofile/'+row.item.originSender"
+                >{{ scriptHashToAddress(row.item.originSender) }}</router-link
               >
-              <a
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.originSender)"
-                >{{ row.item.originSender }}</a
+                :to="'/accountprofile/'+row.item.originSender"
+                >{{ row.item.originSender }}</router-link
               >
             </div>
           </td>
@@ -153,9 +153,6 @@ export default {
     contractHash: "watchcontract",
   },
   methods: {
-    convertTime,
-    scriptHashToAddress,
-    changeFormat,
     watchcontract() {
       //如果路由有变化，执行的对应的动作
       this.getScCallList(0);

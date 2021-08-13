@@ -17,10 +17,12 @@
                 <h1 v-else class="mb-0">{{ this.token_info["tokenname"] }}</h1>
                 <a
                   class="mb-0"
+                  id="token"
                   style="cursor: pointer"
                   @click="getContract(this.token_info['hash'])"
                   >{{ this.token_info["hash"] }}</a
                 >
+                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('token')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -337,6 +339,18 @@ export default {
         this.getToken(this.$route.params.hash);
         this.getContractManifest(this.$route.params.hash);
       }
+    },
+    copyItem(ele){
+      console.log("hello")
+      var item = document.getElementById(ele).innerText;
+      console.log(item)
+      var oInput = document.createElement('input');
+      oInput.value = item;
+      document.body.appendChild(oInput);
+      oInput.select();
+      document.execCommand("Copy");
+      oInput.className = 'oInput';
+      oInput.style.display = 'none';
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);

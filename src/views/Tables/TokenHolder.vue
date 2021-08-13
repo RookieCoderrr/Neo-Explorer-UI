@@ -48,24 +48,26 @@
             </div>
           </th>
           <td class="Address">
-            <a
+            <router-link
               v-if="button.state"
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
-              >{{ scriptHashToAddress(row.item.address) }}</a
-            >
-            <a
+              :to="'/accountprofile/'+row.item.address"
+              >{{ scriptHashToAddress(row.item.address) }}</router-link>
+            <router-link
               v-else
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getAddress(row.item.address)"
+              :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
-            </a>
+            </router-link>
           </td>
           <td class="balance">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
+          <!--          <td class="firstused">-->
+          <!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
+          <!--          </td>-->
           <td class="percentage">
             {{ toPercentage(row.item.percentage) }}
           </td>

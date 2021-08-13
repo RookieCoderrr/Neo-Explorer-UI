@@ -33,12 +33,12 @@
                   "
                   >{{ $t("na") }}
                 </span>
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  @click="getTransaction(row.item.txid)"
-                  >{{ row.item.txid }}</a
+                  :to="'/transactionInfo/'+row.item.txid"
+                  >{{ row.item.txid }}</router-link
                 >
               </div>
             </div>

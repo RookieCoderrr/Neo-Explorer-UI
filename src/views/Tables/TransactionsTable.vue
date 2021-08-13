@@ -36,19 +36,19 @@
 
         <template v-slot:default="row">
           <td class="id">
-            <a
+            <router-link
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getTransaction(row.item.hash)"
-              >{{ row.item.hash }}</a
+              :to="'/transactionInfo/'+row.item.hash"
+              >{{ row.item.hash }}</router-link
             >
           </td>
           <td class="id">
-            <a
+            <router-link
               class="name mb-0 text-sm"
               style="cursor: pointer"
-              @click="getBlock(row.item.blockhash)"
-              >{{ row.item.blockIndex }}</a
+              :to="'/blockinfo/'+row.item.blockhash"
+              >{{ row.item.blockIndex }}</router-link
             >
           </td>
           <td class="budget">{{ row.item.size }} {{ $t("bytes") }}</td>

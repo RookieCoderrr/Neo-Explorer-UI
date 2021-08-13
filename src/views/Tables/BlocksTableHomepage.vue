@@ -42,12 +42,11 @@
         <template v-slot:default="row" style="text-align: center">
           <td>
             <div class="blockid">
-              <a
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                @click="getBlock(row.item.hash)"
-                >{{ row.item.hash }}</a
-              >
+              <router-link
+                      class="name mb-0 text-sm"
+                      style="cursor: pointer"
+                      :to="'/blockinfo/'+row.item.hash"
+              >{{ row.item.hash }}</router-link>
             </div>
           </td>
           <th scope="row">
@@ -116,9 +115,6 @@ export default {
       this.$router.push({
         path: `/blocks`,
       });
-    },
-    getBlock(hash) {
-      this.$router.push(`/blockinfo/${hash}`);
     },
     getBlockList(skip) {
       axios({

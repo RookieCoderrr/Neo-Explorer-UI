@@ -67,20 +67,18 @@
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="fromButton.state" class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
-                  >{{ scriptHashToAddress(row.item.from) }}</a
-                >
+                  :to="'/accountprofile/'+row.item.from"
+                  >{{ scriptHashToAddress(row.item.from) }}</router-link>
               </div>
               <div v-else class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
-                  >{{ row.item.from }}</a
-                >
+                  :to="'/accountprofile/'+row.item.from"
+                  >{{ row.item.from }}</router-link>
               </div>
             </div>
           </td>
@@ -93,20 +91,19 @@
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="toButton.state" class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.to)"
-                  >{{ scriptHashToAddress(row.item.to) }}</a
+                  :to="'/accountprofile/'+row.item.to"
+                  >{{ scriptHashToAddress(row.item.to) }}</router-link
                 >
               </div>
               <div v-else class="addr">
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.to)"
-                  >{{ row.item.to }}</a
-                >
+                  :to="'/accountprofile/'+row.item.to"
+                  >{{ row.item.to }}</router-link>
               </div>
             </div>
           </td>
@@ -170,8 +167,10 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage: 1,
-      fromButton: { state: true, buttonName: "Hash" },
-      toButton: { state: true, buttonName: "Hash" },
+      fromState: true,
+      toState: true,
+      fromButton: "Hash",
+      toButton: "Hash",
     };
   },
   created() {
@@ -193,10 +192,6 @@ export default {
     blockHash: "watchblock",
   },
   methods: {
-    convertTime,
-    convertToken,
-    scriptHashToAddress,
-    changeFormat,
     watchblock() {
       //如果路由有变化，执行的对应的动作
       this.getTransferList(0);

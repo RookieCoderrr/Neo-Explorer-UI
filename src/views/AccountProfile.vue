@@ -16,9 +16,10 @@
               <h1 v-else-if="this.type === 'committee'" class="mb-0">
                 {{ $t("addressPage.addressProfile.title") }} <i class="ni ni-badge"></i>
               </h1>
-              <h4 class="text-muted">
+              <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
-              </h4>
+              </span>
+              <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address')">
             </div>
 
             <div class="card-body">
@@ -81,7 +82,12 @@
                       <div class="font-weight-bold mb-0">
                         {{ $t("addressPage.addressProfile.nep17Transfers") }}
                       </div>
-                      <div class="panel-body">
+                      <loading v-if="this.numOfnep17Transfers === -1"
+                          :is-full-page="false"
+                          :opacity="0.9"
+                          :active="isLoading"
+                      ></loading>
+                      <div v-else class="panel-body">
                         {{ this.numOfnep17Transfers }}
                       </div>
                     </div>
@@ -160,6 +166,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
@@ -178,7 +185,7 @@ export default {
       isLoading: true,
       createdTime: "",
       numOfTxns: 0,
-      numOfnep17Transfers: 0,
+      numOfnep17Transfers: -1,
       numOfnep11Transfers: 0,
       type: "normal",
 
@@ -192,12 +199,12 @@ export default {
     Address11TsTable,
   },
   created() {
+    this.getNep17Transfers();
+    this.getNep11Transfers();
     this.getNeoBalance();
-    this.isLoading = false;
     this.getGasBalance();
     this.getTransactions();
     this.getCreatedTime();
-    this.getTransfers();
     this.getCandidateByAddress();
   },
   watch: {
@@ -211,14 +218,17 @@ export default {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
       this.isLoading = true
+      this.isLoadingNep17 = true
+      this.isLoadingNep11 = true
+      this.isLoadingTransaction = true
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
+        this.getNep17Transfers();
+        this.getNep11Transfers();
         this.getNeoBalance();
-
         this.getGasBalance();
         this.getTransactions();
         this.getCreatedTime();
-        this.getTransfers();
         this.getCandidateByAddress();
       }
     },
@@ -301,7 +311,9 @@ export default {
         },
       })
         .then((res) => {
+          this.isLoadingTransaction = true;
           this.numOfTxns = res["data"]["result"]["totalCount"];
+          this.isLoadingTransaction = false;
         })
         .catch((err) => {
           console.log("Error", err);
@@ -332,7 +344,8 @@ export default {
           console.log("Get created time failed, Error", err);
         });
     },
-    getTransfers() {
+
+    getNep17Transfers() {
       axios({
         method: "post",
         url: "/api",
@@ -351,37 +364,43 @@ export default {
         },
       })
         .then((res) => {
-          //console.log("Transfers17", res["data"]["result"]["totalCount"])
+          this.isLoadingNep17 = true;
+          console.log("Transfers17", res["data"]["result"]["totalCount"])
           this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
+          this.isLoadingNep17 = false;
         })
         .catch((err) => {
           console.log("Get nep 17 transfers error: ", err);
         });
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: {
-            Address: this.accountAddress,
-          },
-          method: "GetNep11TransferByAddress",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      })
-        .then((res) => {
-          //console.log("Transfer11", res["data"]["result"]["totalCount"])
-          this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
-        })
-        .catch((err) => {
-          console.log("Get nep 11 transfers error: ", err);
-        });
     },
+      getNep11Transfers() {
+        axios({
+          method: "post",
+          url: "/api",
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {
+              Address: this.accountAddress,
+            },
+            method: "GetNep11TransferByAddress",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        })
+            .then((res) => {
+              this.isLoadingNep11 = true;
+              console.log("Transfer11", res["data"]["result"]["totalCount"])
+              this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
+              this.isLoadingNep11 = false;
+            })
+            .catch((err) => {
+              console.log("Get nep 11 transfers error: ", err);
+            });
+      },
     getCandidateByAddress() {
       axios({
         method: "post",

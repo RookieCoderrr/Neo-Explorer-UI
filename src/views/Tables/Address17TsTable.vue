@@ -46,11 +46,11 @@
                 {{ $t("na") }}
               </div>
               <div class="txid" v-else>
-                <a
+                <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getTransaction(row.item.txid)"
-                  >{{ row.item.txid }}</a
+                  :to="'/transactionInfo/'+row.item.txid"
+                  >{{ row.item.txid }}</router-link
                 >
               </div>
             </div>
@@ -121,36 +121,36 @@
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="fromButton.state" class="addr">
-                <a
+                <router-link
                   v-if="row.item.from === this.account_address"
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
+                  :to="'/accountprofile/'+row.item.from"
                   ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.from) }}
-                </a>
-                <a
+                </router-link>
+                <router-link
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
+                  :to="'/accountprofile/'+row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}
-                </a>
+                </router-link>
               </div>
               <div v-else class="addr">
-                <a
+                <router-link
                   v-if="row.item.from === this.account_address"
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
+                  :to="'/accountprofile/'+row.item.from"
                   ><i class="ni ni-tag"></i>{{ row.item.from }}
-                </a>
-                <a
+                </router-link>
+                <router-link
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  @click="getAddress(row.item.from)"
+                  :to="'/accountprofile/'+row.item.from"
                   >{{ row.item.from }}
-                </a>
+                </router-link>
               </div>
             </div>
           </td>
@@ -162,36 +162,36 @@
               {{ $t("nullAddress") }}
             </div>
             <div v-else-if="toButton.state" class="addr">
-              <a
+              <router-link
                 v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
-              </a>
-              <a
+              </router-link>
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 >{{ scriptHashToAddress(row.item.to) }}
-              </a>
+              </router-link>
             </div>
             <div v-else class="addr">
-              <a
+              <router-link
                 v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 ><i class="ni ni-tag"></i>{{ row.item.to }}
-              </a>
-              <a
+              </router-link>
+              <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getAddress(row.item.to)"
+                :to="'/accountprofile/'+row.item.to"
                 >{{ row.item.to }}
-              </a>
+              </router-link>
             </div>
           </td>
 

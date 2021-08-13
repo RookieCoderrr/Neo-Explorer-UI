@@ -24,11 +24,11 @@
         <template v-slot:default="row">
           <td>
             <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
-              <a
+              <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                @click="getTransaction(row.item.hash)"
-                >{{ row.item.hash }}</a
+                :to="'/transactionInfo/'+ row.item.hash"
+                >{{ row.item.hash }}</router-link
               >
             </div>
           </td>

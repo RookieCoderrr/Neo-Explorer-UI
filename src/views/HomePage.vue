@@ -158,10 +158,13 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern: /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
+      webSock: null,
       //数字开始
       startVal: 0,
       //数字结束
-      endVal: 3000
+      endVal: 3000,
+      websock: null,
+      path:"ws://192.168.1.89:2026/home"
     };
   },
   created() {
@@ -171,8 +174,54 @@ export default {
     this.getAssetCount();
     this.getContractCount();
     this.getCandidateCount();
+    this.initWebSocket()
   },
   methods: {
+    initWebSocket(){ //初始化weosocket
+      const wsuri = "ws://192.168.1.89:2026/home";
+      this.websock = new WebSocket(wsuri);
+      this.websock.onmessage = this.websocketonmessage;
+      this.websock.onopen = this.websocketonopen;
+      this.websock.onerror = this.websocketonerror;
+      this.websock.onclose = this.websocketclose;
+    },
+    websocketonopen(){ //连接建立之后执行send方法发送数据
+      // let actions = {"test":"12345"};
+      // this.websocketsend(JSON.stringify(actions));
+      console.log(1)
+    },
+    websocketonerror(){//连接建立失败重连
+      this.initWebSocket();
+    },
+    websocketonmessage(e){ //数据接收
+      try{
+        console.log(e.data)
+      const redata = JSON.parse(e.data);
+      if(Object.keys(redata)[0] ==="TransactionCount"){
+          this.txCount = redata["TransactionCount"]
+      }else if (Object.keys(redata)[0] ==="AddressCount"){
+          this.accountCount = redata["AddressCount"]
+      }else if (Object.keys(redata)[0] ==="CandidateCount"){
+          this.candidateCount = redata["CandidateCount"]
+      }else if (Object.keys(redata)[0] ==="ContractCount"){
+        this.contractCount = redata["ContractCount"]
+      }else if (Object.keys(redata)[0] ==="BlockCount"){
+        this.blockCount = redata['BlockCount']
+      }else if (Object.keys(redata)[0] ==="AssetCount"){
+        this.assetCount = redata["AssetCount"]
+      }else if (Object.keys(redata)[0] ==="BlockInfoList"){
+          console.log("111")
+      }
+      }catch (e) {
+        console.log(e)
+      }
+    },
+    websocketsend(Data){//数据发送
+      this.websock.send(Data);
+    },
+    websocketclose(e){  //关闭
+      console.log('断开连接',e);
+    },
     getBlockCount() {
       axios({
         method: "post",

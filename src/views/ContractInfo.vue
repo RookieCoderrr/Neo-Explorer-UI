@@ -27,7 +27,8 @@
                     </button>
                   </div>
                 </div>
-                <h4 class="text-muted">{{ this.contract_info["hash"] }}</h4>
+                <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
+                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('contract')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -54,21 +55,21 @@
                           <span v-if="this.contract_info['sender'] === null">
                             {{$t("contract.available") }}
                           </span>
-                          <a
+                          <router-link
                             class="text"
                             v-else-if="button.state"
                             style="cursor: pointer"
-                            @click="getSender(contract_info['sender'])"
-                            >{{ this.contract_info["sender"] }}</a
+                            :to="'/accountprofile/'+contract_info['sender']"
+                            >{{ this.contract_info["sender"] }}</router-link
                           >
-                          <a
+                          <router-link
                             class="text"
                             v-else
                             style="cursor: pointer"
-                            @click="getSender(contract_info['sender'])"
+                            :to="'/accountprofile/'+contract_info['sender']"
                             >{{
                               addressToScriptHash(this.contract_info["sender"])
-                            }}</a
+                            }}</router-link
                           >
                         </div>
                       </div>
@@ -323,7 +324,6 @@ import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import JsonView from "./Tables/JsonView";
-import {convertPreciseTime, responseConverter, addressToScriptHash, changeFormat, RPC_NODE} from "../store/util";
 
 export default {
   components: {
