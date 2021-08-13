@@ -388,31 +388,25 @@ export default {
           const hex = buffer.toString("hex");
           if (Neon.is.publicKey(hex)) {
             const acc = Neon.create.account(hex);
-            val["type"] = "ScriptHash";
-            val["value"] = "0x" + acc.scriptHash;
+            val["decoded"] = "0x" + acc.scriptHash;
           } else if (Neon.is.scriptHash(hex)) {
-            val["type"] = "ScriptHash";
-            val["value"] = "0x" + hex;
+            const reversed = Neon.u.reverseHex(hex)
+            val["decoded"] = "0x" + reversed;
           } else if ((/^((0x)?)([0-9a-f]{64})$/).test(hex)){
-            val["type"] = "Hash";
-            val["value"] = "0x" + hex;
+            val["decoded"] = "0x" + hex;
           } else {
-            if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
-              val["type"] = "String";
-              val["value"] = buffer.toString();
+            if (/^[\x20-\x7F]*$/.test(buffer.toString())) {
+              val["decoded"] = buffer.toString();
             } else {
-              val["type"] = "HexString";
-              val["value"] = buffer.toString("hex");
+              val["decoded"] = buffer.toString("hex");
             }
           }
         } else if ( val["type"] === "Buffer" && typeof val["value"] === "string"){
           const buffer = Buffer.from(val["value"], "base64");
           if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
-            val["type"] = "String";
-            val["value"] = buffer.toString();
+            val["decoded"] = buffer.toString();
           } else {
-            val["type"] = "BigInteger";
-            val["value"] = parseInt(buffer.toString("hex"), 16);
+            val["decoded"] = parseInt(buffer.toString("hex"), 16);
           }
         }
       }

@@ -42,8 +42,8 @@
                 style="cursor: pointer"
                 @click="getAddress(row.item.candidate)"
                 >{{ row.item.candidate }}
-                {{ row.item.isCommittee ? "&#x1F46E;" : "" }}</a
-              >
+                <i v-if="row.item.isCommittee" class="ni ni-badge"></i>
+              </a>
             </div>
           </td>
 

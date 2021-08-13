@@ -142,7 +142,7 @@
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
                   @click="getAddress(row.item.from)"
-                  >&#128100;{{ scriptHashToAddress(row.item.from) }}
+                  ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.from) }}
                 </a>
                 <a
                   v-else
@@ -158,7 +158,7 @@
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
                   @click="getAddress(row.item.from)"
-                  >&#128100;{{ row.item.from }}
+                  ><i class="ni ni-tag"></i>{{ row.item.from }}
                 </a>
                 <a
                   v-else
@@ -183,7 +183,7 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 @click="getAddress(row.item.to)"
-                >&#128100;{{ scriptHashToAddress(row.item.to) }}
+                ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
               </a>
               <a
                 v-else
@@ -199,7 +199,7 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 @click="getAddress(row.item.to)"
-                >&#128100;{{ row.item.to }}
+                ><i class="ni ni-tag"></i>{{ row.item.to }}
               </a>
               <a
                 v-else
