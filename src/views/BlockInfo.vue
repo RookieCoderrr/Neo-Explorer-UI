@@ -110,19 +110,19 @@
                     <div class="col-2">0.5 GAS</div>
                   </div>
                 </card>
-                <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2 font-weight-bold mb-0">
-                      <div>{{ $t("blockinfo.preHash") }}</div>
-                    </div>
-                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
-                        {{this.block_info.prevhash }}
-                    </router-link>
-                    <i class="ni ni-single-copy-04" id="preHashButton"  style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('preHash','preHashButton','preHashSpan')"></i>
-                    <span style="color: #42b983" id="preHashSpan" ></span>
-                  </div>
-                </card>
+<!--                <div class="row mt-3"></div>-->
+<!--                <card shadow>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-2 font-weight-bold mb-0">-->
+<!--                      <div>{{ $t("blockinfo.preHash") }}</div>-->
+<!--                    </div>-->
+<!--                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >-->
+<!--                        {{this.block_info.prevhash }}-->
+<!--                    </router-link>-->
+<!--                    <i class="ni ni-single-copy-04" id="preHashButton" title style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('preHash','preHashButton','preHashSpan')"></i>-->
+<!--                    <span style="color: #42b983" id="preHashSpan" ></span>-->
+<!--                  </div>-->
+<!--                </card>-->
 
                 <div class="row mt-3"></div>
                 <card shadow>
