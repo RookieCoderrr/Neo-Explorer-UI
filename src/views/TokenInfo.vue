@@ -147,13 +147,15 @@
                   :title="$t('tokenInfo.contractInfo')"
                 >
                   <card shadow type="secondary">
-                    <div class="extra" v-if="this.manifest.extra">
+                    <div class="extra" v-if="this.manifest.extra && JSON.stringify(this.manifest.extra) !== '{}'">
                       <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
                             {{ $t("tokenInfo.email") }} :
-                            {{ this.manifest.extra["Email"] }}
+                            <a :href="'mailto:' + manifest.extra['Email']">
+                              {{ this.manifest.extra["Email"] }}
+                            </a>
                           </div>
                           <div class="col-auto">
                             {{ $t("tokenInfo.author") }}:
