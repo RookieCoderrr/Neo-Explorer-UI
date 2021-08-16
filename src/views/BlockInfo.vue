@@ -116,7 +116,7 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <div class="col-6" v-if="block_info['prevhash']">
+                    <div class="col-10" v-if="block_info['prevhash']">
                     <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>

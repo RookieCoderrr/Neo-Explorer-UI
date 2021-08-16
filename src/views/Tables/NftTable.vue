@@ -178,6 +178,7 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
+      totalCount:0,
     };
   },
 
