@@ -385,7 +385,6 @@ export default {
         const raw = res["data"]["result"];
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
-        console.log(this.manifest);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
