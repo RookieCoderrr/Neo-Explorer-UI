@@ -170,13 +170,15 @@
                   :title="$t('contract.conInfo')"
                 >
                   <card shadow type="secondary">
-                    <div class="extra" v-if="this.manifest.extra">
+                    <div class="extra" v-if="this.manifest.extra && JSON.stringify(this.manifest.extra) !== '{}'">
                       <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
                             {{ $t("tokenInfo.email") }}:
-                            {{ this.manifest.extra["Email"] }}
+                            <a :href="'mailto:' + manifest.extra['Email']">
+                              {{ this.manifest.extra["Email"] }}
+                            </a>
                           </div>
                           <div class="col-auto">
                             {{ $t("tokenInfo.author") }} :
@@ -383,6 +385,7 @@ export default {
         const raw = res["data"]["result"];
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
+        console.log(this.manifest);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
