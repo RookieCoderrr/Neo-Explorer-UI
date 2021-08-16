@@ -19,7 +19,8 @@
               <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
               </span>
-              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address','addressButton')">
+              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('address','addressButton','addressSpan')">
+              <span  class="text-muted"  id="addressSpan" ></span>
             </div>
 
             <div class="card-body">
@@ -170,7 +171,7 @@ import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
-import {scriptHashToAddress, convertPreciseTime, convertGas} from "../store/util";
+import {scriptHashToAddress, convertPreciseTime, convertGas,copyItem} from "../store/util";
 
 export default {
   name: "account-profile",
@@ -213,6 +214,7 @@ export default {
     scriptHashToAddress,
     convertGas,
     convertPreciseTime,
+    copyItem,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
