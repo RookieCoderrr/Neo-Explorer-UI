@@ -22,8 +22,8 @@
                   @click="getContract(this.token_info['hash'])"
                   >{{ this.token_info["hash"] }}</a
                 >
-                <img class="copy" id="hashButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')">
-                <span  class="text-muted"  id="hashSpan" ></span>
+                <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>
+                <span  style="color: #42b983"  id="hashSpan" ></span>
               </div>
               <div class="card-body">
                 <div class="row">

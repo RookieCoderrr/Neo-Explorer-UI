@@ -16,8 +16,8 @@
               </div>
               <span id ="tx">{{ this.tabledata["hash"] }}</span>
               <span> </span>
-              <img class="copy" id="txButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;" @click="copyItem('tx','txButton','txSpan')">
-              <span  class="text-muted"  id="txSpan" ></span>
+              <i class="ni ni-single-copy-04" id="txButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('tx','txButton','txSpan')"></i>
+              <span  style="color: #42b983"  id="txSpan" ></span>
             </div>
             <div class="card-body">
               <div class="row">
@@ -81,8 +81,8 @@
                     <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                       <span id="block">{{ this.blockhash }}</span>
                     </router-link>
-                    <img class="copy" id="blockButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')">
-                    <span  class="text-muted"  id="blockSpan" ></span>
+                    <i class="ni ni-single-copy-04" id="blockButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
+                    <span  style="color: #42b983"  id="blockSpan" ></span>
                   </div>
                 </div>
               </card>
@@ -95,8 +95,8 @@
                     <router-link class="name mb-0 text-sm" id="sender" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
                       {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
-                    <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')">
-                    <span  class="text-muted"  id="senderSpan" ></span>
+                    <i class="ni ni-single-copy-04" id="senderButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')"></i>
+                    <span style="color: #42b983"  id="senderSpan" ></span>
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
