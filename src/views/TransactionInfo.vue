@@ -456,18 +456,6 @@ export default {
       // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
       // return res
     },
-    changeFormat(){
-      if(this.state === true) {
-        this.state = false
-        this.buttonName = "Addr"
-        return
-      } else {
-        this.state = true
-        this.buttonName = "Hash"
-        return
-      }
-    },
-
     copyItem(ele){
       console.log("hello")
       var item = document.getElementById(ele).innerText;
@@ -479,10 +467,6 @@ export default {
       document.execCommand("Copy");
       oInput.className = 'oInput';
       oInput.style.display = 'none';
-    },
-
-    convertGas(gas) {
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)
