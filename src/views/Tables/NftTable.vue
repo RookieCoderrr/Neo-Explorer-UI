@@ -34,8 +34,8 @@
           <th>
             {{ $t("transactionTransfer.from") }}
             <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFrom()">
-              {{ this.fromButton }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(fromButton)">
+              {{ fromButton.buttonName }}
             </button>
           </th>
           <th>{{ $t("transactionTransfer.fromBalance") }}</th>
@@ -43,8 +43,8 @@
           <th>
             {{ $t("transactionTransfer.to") }}
             <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeTo()">
-              {{ this.toButton }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
+              {{ toButton.buttonName }}
             </button>
           </th>
           <th>{{ $t("transactionTransfer.toBalance") }}</th>
@@ -97,7 +97,7 @@
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.from"
                 >{{
-                  this.fromState
+                  this.fromButton.state
                       ? scriptHashToAddress(row.item.from)
                       : row.item.from
                 }}</router-link>
@@ -126,7 +126,7 @@
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.to"
                 >{{
-                  this.toState
+                  this.toButton.state
                       ? scriptHashToAddress(row.item.to)
                       : row.item.to
                 }}</a
@@ -159,7 +159,8 @@
 </template>
 <script>
 import axios from "axios";
-import Neon from "@cityofzion/neon-js";
+import { convertToken, scriptHashToAddress, addressToScriptHash, changeFormat} from "../../store/util";
+
 export default {
   name: "transfers-table",
   props: {
@@ -177,7 +178,6 @@ export default {
       fromButton: "Hash",
       toState: true,
       toButton: "Hash",
-      totalCount:0
     };
   },
 
@@ -188,49 +188,26 @@ export default {
     txhash: "watchhash",
   },
   methods: {
+    scriptHashToAddress,
+    addressToScriptHash,
+    convertToken,
+    changeFormat,
     watchhash() {
       //如果路由有变化，执行的对应的动作
           this.getNep11TransferByTransactionHash(this.txhash);
 
     },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
+    getContract(ctrHash) {
+      this.$router.push({
+        path: `/contractinfo/${ctrHash}`,
+      });
     },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
-    convertToken(val, decimal) {
-      return  parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
-    },
-
 
     getAccount(accHash) {
       this.$router.push({
         path: `/accountprofile/${accHash}`,
       });
     },
-    changeFrom() {
-      if (this.fromState === true) {
-        this.fromState = false;
-        this.fromButton = "Addr";
-      } else {
-        this.fromState = true;
-        this.fromButton = "Hash";
-      }
-    },
-    changeTo() {
-      if (this.toState === true) {
-        this.toState = false;
-        this.toButton = "Addr";
-      } else {
-        this.toState = true;
-        this.toButton = "Hash";
-      }
-    },
-
     getNep11TransferByTransactionHash(txhash) {
       axios({
         method: "post",

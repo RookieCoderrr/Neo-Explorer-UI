@@ -53,7 +53,7 @@
             {{ row.item.index }}
           </td>
           <td class="event">
-            {{ convertTime(row.item.timestamp) }}
+            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
         </template>
       </base-table>
@@ -86,7 +86,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+import {convertTime} from "../../store/util";
 
 export default {
   name: "events-table",
@@ -125,6 +125,7 @@ export default {
     },
   },
   methods: {
+    convertTime,
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
@@ -141,15 +142,6 @@ export default {
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getContractList(skip);
-      }
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
       }
     },
     pageChange(pageNumber) {

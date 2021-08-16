@@ -68,7 +68,7 @@
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/tokeninfo/'+row.item.address"
+                  :to="'/tokeninfo/'+row.item.hash"
                   >{{ row.item.hash }}</router-link>
               </div>
             </div>

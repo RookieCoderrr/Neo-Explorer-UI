@@ -74,7 +74,7 @@
                         <div class="panel-body">
                           <div v-if="this.token_info.firsttransfertime">
                             {{
-                              this.convertTime(
+                              this.convertPreciseTime(
                                 this.token_info["firsttransfertime"]
                               )
                             }}
@@ -302,6 +302,7 @@ import TokensTxNep11 from "./Tables/TokenTxNep11";
 import TokenHolder from "./Tables/TokenHolder";
 import JsonView from "./Tables/JsonView";
 import Neon from "@cityofzion/neon-js";
+import {convertPreciseTime, convertToken, responseConverter, RPC_NODE} from "../store/util";
 
 export default {
   components: {
@@ -329,6 +330,8 @@ export default {
     $route: "watchrouter",
   },
   methods: {
+    convertPreciseTime,
+    convertToken,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "tokeninfo") {
@@ -365,26 +368,6 @@ export default {
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
     },
-    convertToken(val, decimal) {
-      return val * Math.pow(10, -decimal);
-    },
-    convertTime(time) {
-      var date = new Date(time);
-      var y = date.getFullYear();
-      var m =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var mi =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      return (
-        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
-      );
-    },
     getToken(token_id) {
       axios({
         method: "post",
@@ -408,37 +391,6 @@ export default {
         this.isLoading = false;
       });
     },
-    responseConverter(key, val) {
-      if (typeof val === "object") {
-        if (val["type"] === "ByteString" && typeof val["value"] === "string") {
-          const buffer = Buffer.from(val["value"], "base64");
-          const hex = buffer.toString("hex");
-          if (Neon.is.publicKey(hex)) {
-            const acc = Neon.create.account(hex);
-            val["decoded"] = "0x" + acc.scriptHash;
-          } else if (Neon.is.scriptHash(hex)) {
-            const reversed = Neon.u.reverseHex(hex)
-            val["decoded"] = "0x" + reversed;
-          } else if ((/^((0x)?)([0-9a-f]{64})$/).test(hex)){
-            val["decoded"] = "0x" + hex;
-          } else {
-            if (/^[\x20-\x7F]*$/.test(buffer.toString())) {
-              val["decoded"] = buffer.toString();
-            } else {
-              val["decoded"] = buffer.toString("hex");
-            }
-          }
-        } else if ( val["type"] === "Buffer" && typeof val["value"] === "string"){
-          const buffer = Buffer.from(val["value"], "base64");
-          if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
-            val["decoded"] = buffer.toString();
-          } else {
-            val["decoded"] = parseInt(buffer.toString("hex"), 16);
-          }
-        }
-      }
-      return val;
-    },
     onQuery(index) {
       this.manifest["abi"]["methods"][index]["result"] = "";
       this.manifest["abi"]["methods"][index]["error"] = "";
@@ -454,7 +406,7 @@ export default {
           return;
         }
       }
-      const client = Neon.create.rpcClient("http://seed2t4.neo.org:20332");
+      const client = Neon.create.rpcClient(RPC_NODE);
       console.log(contractParams);
       client
           .invokeFunction(this.token_id, name, contractParams)
@@ -464,7 +416,7 @@ export default {
               this.manifest["abi"]["methods"][index]["error"] = res["exception"];
             } else {
               this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
-                  JSON.stringify(res["stack"], this.responseConverter)
+                  JSON.stringify(res["stack"], responseConverter)
               );
             }
           })

@@ -20,10 +20,9 @@
         <template v-slot:columns>
           <th>{{ $t("tokenHolder.ranking") }}</th>
           <th>
-            {{ $t("tokenHolder.address")
-            }}
-            <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat()">
-              {{ this.buttonName }}
+            {{ $t("tokenHolder.address") }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
+              {{ button.buttonName }}
             </button>
           </th>
           <th>{{ $t("tokenHolder.balance") }}</th>
@@ -50,7 +49,7 @@
           </th>
           <td class="Address">
             <router-link
-              v-if="this.state"
+              v-if="button.state"
               class="name mb-0 text-sm"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
@@ -106,8 +105,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
-import Neon from "@cityofzion/neon-js";
+import { convertToken, scriptHashToAddress, changeFormat} from "../../store/util";
 
 export default {
   name: "token-holder",
@@ -129,8 +127,7 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage: 0,
-      state: true,
-      buttonName: "Hash",
+      button: { state: true, buttonName: "Hash" },
     };
   },
   created() {
@@ -152,8 +149,10 @@ export default {
     contractHash: "watchcontract",
   },
   methods: {
+    changeFormat,
+    convertToken,
+    scriptHashToAddress,
     watchcontract() {
-      //如果路由有变化，执行的对应的动作
       this.getTokenList(0);
     },
     pageChangeByInput(pageNumber) {
@@ -185,31 +184,10 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTokenList(skip);
     },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
-    },
-    convertToken(val, decimal) {
-      return  parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    changeFormat() {
-      if (this.state === true) {
-        this.state = false;
-        this.buttonName = "Addr";
-      } else {
-        this.state = true;
-        this.buttonName = "Hash";
-      }
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
     },
     getTokenList(skip) {
       axios({

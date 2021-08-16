@@ -23,7 +23,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+            <div class="txid">
               <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -37,7 +37,7 @@
           </td>
           <td>{{ row.item.size }} bytes</td>
           <td>
-            {{ convertTime(row.item.blocktime) }}
+            {{ convertTime(row.item.blocktime, this.$i18n.locale) }}
           </td>
 
           <td>
@@ -72,10 +72,11 @@
 </template>
 
 <script>
-import { format } from "timeago.js";
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import {convertTime, convertGas} from "../../store/util";
+
 export default {
   name: "block-transaction",
   props: {
@@ -118,24 +119,15 @@ export default {
     blockHash: "watchBlockHash",
   },
   methods: {
+    convertGas,
+    convertTime,
     watchBlockHash() {
       this.getTransactionList(0);
     },
-
-    convertGas(gas) {
-      if (gas === 0) {
-        return 0;
-      }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
     },
     pageChange(pageNumber) {
       this.isLoading = true;

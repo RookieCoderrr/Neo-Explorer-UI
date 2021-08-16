@@ -50,7 +50,7 @@
             </div>
           </td>
           <td>
-            {{ this.convertTime(row.item.timestamp) }}
+            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
           <td class="txnumber">
             {{ row.item.transactioncount }}
@@ -88,7 +88,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
+import {convertTime} from "../../store/util";
 
 export default {
   name: "blocks-table",
@@ -128,6 +128,10 @@ export default {
     },
   },
   methods: {
+    convertTime,
+    getBlock(hash) {
+      this.$router.push(`/blockinfo/${hash}`);
+    },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
@@ -144,15 +148,6 @@ export default {
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getBlockList(skip);
-      }
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
       }
     },
     pageChange(pageNumber) {

@@ -34,8 +34,8 @@
               {{ $t("transactionTransfer.from")
               }}
               <span>       </span>
-              <button class="btn btn-sm btn-primary" @click="changeFrom()">
-                {{ this.fromButton }}
+              <button class="btn btn-sm btn-primary" @click="changeFormat(fromButton)">
+                {{ fromButton.buttonName }}
               </button>
             </th>
             <th>{{ $t("transactionTransfer.fromBalance") }}</th>
@@ -43,8 +43,8 @@
             <th>
               {{ $t("transactionTransfer.to")
               }}
-              <span>       </span><button class="btn btn-sm btn-primary" @click="changeTo()">
-                {{ this.toButton }}
+              <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
+                {{ toButton.buttonName }}
               </button>
             </th>
             <th>{{ $t("transactionTransfer.toBalance") }}</th>
@@ -53,7 +53,7 @@
 
           <template v-slot:default="row">
             <td class="budget">
-              <div class="contract" @mouseover="mouseHover(row.item.contract)">
+              <div class="contract">
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
@@ -101,7 +101,7 @@
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.from"
                   >{{
-                    this.fromState
+                    this.fromButton.state
                       ? scriptHashToAddress(row.item.from)
                       : row.item.from
                   }}</router-link
@@ -130,7 +130,7 @@
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.to"
                   >{{
-                    this.toState
+                    this.toButton.state
                       ? scriptHashToAddress(row.item.to)
                       : row.item.to
                   }}</router-link
@@ -163,7 +163,8 @@
 </template>
 <script>
 import axios from "axios";
-import Neon from "@cityofzion/neon-js";
+import {changeFormat, convertToken, addressToScriptHash, scriptHashToAddress} from "../../store/util";
+
 export default {
   name: "transfers-list",
   props: {
@@ -177,10 +178,8 @@ export default {
     return {
       tableData: [],
       length,
-      fromState: true,
-      fromButton: "Hash",
-      toState: true,
-      toButton: "Hash",
+      fromButton: { state: true, buttonName: "Hash"},
+      toButton: { state: true, buttonName: "Hash"},
     };
   },
   created() {
@@ -191,17 +190,13 @@ export default {
     txhash: "watchtxhash",
   },
   methods: {
+    changeFormat,
+    convertToken,
+    addressToScriptHash,
+    scriptHashToAddress,
     watchtxhash() {
       //如果路由有变化，执行的对应的动作
       this.getNep17TransferByTransactionHash(this.txhash);
-    },
-    convertToken(token, decimal) {
-      var temp = token * Math.pow(0.1, decimal);
-      if (temp % 1 === 0) {
-        return temp;
-      } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(6);
-      }
     },
     getContract(ctrHash) {
       this.$router.push({
@@ -212,33 +207,6 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accHash}`,
       });
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
-    changeFrom() {
-      if (this.fromState === true) {
-        this.fromState = false;
-        this.fromButton = "Addr";
-      } else {
-        this.fromState = true;
-        this.fromButton = "Hash";
-      }
-    },
-    changeTo() {
-      if (this.toState === true) {
-        this.toState = false;
-        this.toButton = "Addr";
-      } else {
-        this.toState = true;
-        this.toButton = "Hash";
-      }
     },
     getNep17TransferByTransactionHash(txhash) {
       axios({
