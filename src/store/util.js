@@ -34,7 +34,7 @@ async function copyItem(ele, button,span) {
     oInput.className = 'oInput';
     oInput.style.display = 'none';
     document.getElementById(button).style.color = "#42b983";
-    document.getElementById(span).innerText = " Copied"
+    document.getElementById(span).innerText ="\tCopied"
     await sleep(1000);
     document.getElementById(button).style.color = "grey";
     document.getElementById(span).innerText = "";
