@@ -19,7 +19,7 @@
               <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
               </span>
-              <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address')">
+              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address','addressButton')">
             </div>
 
             <div class="card-body">
@@ -254,9 +254,16 @@ export default {
         m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
       );
     },
-    copyItem(ele){
+    sleep(ms) {
+      return new Promise(resolve =>
+          setTimeout(resolve, ms)
+      )
+    },
+
+    async copyItem(ele,button){
       console.log("hello")
       var item = document.getElementById(ele).innerText;
+
       console.log(item)
       var oInput = document.createElement('input');
       oInput.value = item;
@@ -265,6 +272,12 @@ export default {
       document.execCommand("Copy");
       oInput.className = 'oInput';
       oInput.style.display = 'none';
+      var urlpre = require('../assets/copied.png')
+      document.getElementById(button).src= urlpre
+      await this.sleep(1000);
+      var url = require('../assets/copy.png')
+      document.getElementById(button).src= url
+
     },
     scriptHashToAddress(hash) {
       hash = hash.substring(2);
