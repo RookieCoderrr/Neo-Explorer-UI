@@ -43,7 +43,7 @@
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  :to="'/transactionInfo/'+row.item.originSender"
+                  :to="'/transactionInfo/'+row.item.txid "
                   >{{ row.item.txid }}</router-link
                 >
               </div>

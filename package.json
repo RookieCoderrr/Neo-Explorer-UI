@@ -33,7 +33,8 @@
     "vue-number-scroll": "^2.0.1",
     "vue-router": "4.0.1",
     "vue-toastification": "1.7.11",
-    "vux": "^2.10.1"
+    "vux": "^2.10.1",
+    "websocket": "^1.0.34"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.10",
