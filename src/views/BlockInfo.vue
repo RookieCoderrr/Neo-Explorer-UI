@@ -29,8 +29,8 @@
                 <span class="text-muted" id="block">{{ this.block_info.hash }}</span>
 
 
-                <img class="copy" id="blockButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')">
-                <span  class="text-muted"  id="blockSpan" ></span>
+                <i class="ni ni-single-copy-04" id="blockButton"  title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
+                <span style="color: #42b983"  id="blockSpan" ></span>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -96,8 +96,8 @@
                       <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
                       </router-link>
-                      <img class="copy" id="speakerButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')">
-                      <span  class="text-muted"  id="speakerSpan" ></span>
+                      <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
+                      <span style="color: #42b983" id="speakerSpan" ></span>
                     </div>
                     <div class="col-1">
                       <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
@@ -119,8 +119,8 @@
                     <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
-                    <img class="copy" id="preHashButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;" @click="copyItem('preHash','preHashButton','preHashSpan')">
-                    <span  class="text-muted"  id="preHashSpan" ></span>
+                    <i class="ni ni-single-copy-04" id="preHashButton"  style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('preHash','preHashButton','preHashSpan')"></i>
+                    <span style="color: #42b983" id="preHashSpan" ></span>
                   </div>
                 </card>
 

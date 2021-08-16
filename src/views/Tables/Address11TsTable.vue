@@ -252,8 +252,8 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       countPage: 0,
-      fromButton: {state: true, buttonName: "hash"},
-      toButton: {state: true, buttonName: "hash"},
+      fromButton: {state: true, buttonName: "Hash"},
+      toButton: {state: true, buttonName: "Hash"},
       isLoading: true,
       totalCount:0,
     };

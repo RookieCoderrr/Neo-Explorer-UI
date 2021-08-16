@@ -19,8 +19,8 @@
               <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
               </span>
-              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('address','addressButton','addressSpan')">
-              <span  class="text-muted"  id="addressSpan" ></span>
+              <i class="ni ni-single-copy-04" id="addressButton" style="padding-left: 5px; color: grey; cursor: pointer;" title="Copy to Clipboard"  @click="copyItem('address','addressButton','addressSpan')"></i>
+              <span style="color: #42b983" id="addressSpan" ></span>
             </div>
 
             <div class="card-body">

@@ -25,23 +25,19 @@ function sleep(ms) {
     )
 }
 async function copyItem(ele, button,span) {
-    console.log("hello")
-    var item = document.getElementById(ele).innerText;
-    console.log(item)
-    var oInput = document.createElement('input');
+    const item = document.getElementById(ele).innerText;
+    const oInput = document.createElement('input');
     oInput.value = item;
     document.body.appendChild(oInput);
     oInput.select();
     document.execCommand("Copy");
     oInput.className = 'oInput';
     oInput.style.display = 'none';
-    var urlpre = require('../assets/copied.png')
-    document.getElementById(button).src = urlpre
+    document.getElementById(button).style.color = "#42b983";
     document.getElementById(span).innerText = " Copied"
     await sleep(1000);
-    var url = require('../assets/copy.png')
-    document.getElementById(button).src = url
-    document.getElementById(span).innerText = ""
+    document.getElementById(button).style.color = "grey";
+    document.getElementById(span).innerText = "";
 }
 
 function convertToken(token, decimal) {

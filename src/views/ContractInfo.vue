@@ -28,8 +28,8 @@
                   </div>
                 </div>
                 <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
-                <img class="copy" id="contractButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')">
-                <span  class="text-muted"  id="contractSpan" ></span>
+                <i class="ni ni-single-copy-04" id="contractButton" title="Copy to Clipboard" style="padding-left: 5px; color: black; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')"></i>
+                <span  style="color: #42b983"  id="contractSpan" ></span>
               </div>
               <div class="card-body">
                 <div class="row">
