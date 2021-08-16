@@ -24,17 +24,17 @@
             }}
             <span>       </span><button
               class="btn btn-sm btn-primary"
-              @click="changeFromFormat()"
+              @click="changeFormat(fromButton)"
             >
-              {{ this.fromButton }}
+              {{ this.fromButton.buttonName }}
             </button>
           </th>
           <th></th>
           <th>
             {{ $t("tokenTx.to") }}
             <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeToFormat()">
-              {{ this.toButton }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
+              {{ this.toButton.buttonName }}
             </button>
           </th>
           <th>{{ $t("tokenTx.amount") }}</th>
@@ -66,7 +66,7 @@
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromState" class="addr">
+              <div v-else-if="fromButton.state" class="addr">
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
@@ -90,7 +90,7 @@
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="toState" class="addr">
+              <div v-else-if="toButton.state" class="addr">
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
@@ -111,7 +111,7 @@
             {{ convertToken(row.item.value, 8) }}
           </td>
           <td class="time">
-            {{ convertTime(row.item.timestamp) }}
+            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
         </template>
       </base-table>
@@ -145,8 +145,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { format } from "timeago.js";
-import Neon from "@cityofzion/neon-js";
+import {changeFormat, convertTime, convertToken, scriptHashToAddress} from "../../store/util";
 
 export default {
   name: "block-transfer",
@@ -168,10 +167,8 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage: 1,
-      fromState: true,
-      toState: true,
-      fromButton: "Hash",
-      toButton: "Hash",
+      fromButton: {state: true, buttonName: "Hash"},
+      toButton: {state: true, buttonName: "Hash"},
     };
   },
   created() {
@@ -193,6 +190,10 @@ export default {
     blockHash: "watchblock",
   },
   methods: {
+    changeFormat,
+    convertTime,
+    convertToken,
+    scriptHashToAddress,
     watchblock() {
       //如果路由有变化，执行的对应的动作
       this.getTransferList(0);
@@ -220,38 +221,6 @@ export default {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransferList(skip);
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    changeFromFormat() {
-      if (this.fromState === true) {
-        this.fromState = false;
-        this.fromButton = "WIF";
-      } else {
-        this.fromState = true;
-        this.fromButton = "Hash";
-      }
-    },
-    changeToFormat() {
-      if (this.toState === true) {
-        this.toState = false;
-        this.toButton = "WIF";
-      } else {
-        this.toState = true;
-        this.toButton = "Hash";
-      }
     },
     getTransferList(skip) {
       axios({
@@ -282,13 +251,15 @@ export default {
         this.isLoading = false;
       });
     },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
     getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,
       });
-    },
-    convertToken(val, decimal) {
-      return parseFloat((val * Math.pow(10, -decimal)).toFixed(8));
     },
   },
 };

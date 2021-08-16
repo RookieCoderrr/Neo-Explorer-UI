@@ -19,31 +19,15 @@
           <th>{{ $t("transferList.type") }}</th>
           <th>
             {{ $t("transferList.from") }}
-            <span>       </span>
-            <button
-              v-if="this.fromButton === 'Hash'"
-              class="btn btn-sm btn-primary"
-              @click="changeFrom()"
-            >
-              {{ this.fromButton }}
-            </button>
-            <button v-else class="btn btn-sm btn-primary" @click="changeFrom()">
-              {{ this.fromButton }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(this.fromButton)">
+              {{ this.fromButton.buttonName }}
             </button>
           </th>
           <th></th>
           <th>
             {{ $t("transferList.to") }}
-            <span>       </span>
-            <button
-              v-if="this.toButton === 'Hash'"
-              class="btn btn-sm btn-primary"
-              @click="changeTo()"
-            >
-              {{ this.toButton }}
-            </button>
-            <button v-else class="btn btn-sm btn-primary" @click="changeTo()">
-              {{ this.toButton }}
+            <button class="btn btn-sm btn-primary" @click="changeFormat(this.toButton)">
+              {{ this.toButton.buttonName }}
             </button>
           </th>
           <th>{{ $t("transferList.amount") }}</th>
@@ -136,7 +120,7 @@
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromState" class="addr">
+              <div v-else-if="fromButton.state" class="addr">
                 <router-link
                   v-if="row.item.from === this.account_address"
                   class="name mb-0 text-sm"
@@ -177,7 +161,7 @@
             <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>
-            <div v-else-if="toState" class="addr">
+            <div v-else-if="toButton.state" class="addr">
               <router-link
                 v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
@@ -216,7 +200,7 @@
           </td>
           <td class="budget">
             <div>
-              {{ convertTime(row.item.timestamp) }}
+              {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
             </div>
           </td>
         </template>
@@ -254,9 +238,8 @@
 </template>
 <script>
 import axios from "axios";
-import Neon from "@cityofzion/neon-js";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
+import { changeFormat, convertToken, convertTime, addressToScriptHash, scriptHashToAddress} from "../../store/util";
 
 export default {
   name: "address17-ts-table",
@@ -276,14 +259,12 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       countPage: 0,
-      fromState: true,
-      fromButton: "Hash",
-      toState: true,
-      toButton: "Hash",
+      fromButton: { state: true, buttonName: "Hash" },
+      toButton: { state: true, buttonName: "Hash" },
       txId: "",
       timeStamp: 0,
       isLoading: true,
-      totalCount:0 ,
+      totalCount: 0 ,
     };
   },
   created() {
@@ -305,24 +286,26 @@ export default {
     account_address: "watchaddress",
   },
   methods: {
+    changeFormat,
+    convertToken,
+    convertTime,
+    addressToScriptHash,
+    scriptHashToAddress,
     watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.GetNep17TransferByAddress(0);
+    },
+    getTransaction(txhash) {
+      this.$router.push({
+        path: `/transactionInfo/${txhash}`,
+      });
     },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.GetNep17TransferByAddress(skip);
+      this.getTransactionList(skip);
     },
-    convertToken(token, decimal) {
-      if (decimal === 0) {
-        return token;
-      } else {
-        return (token * Math.pow(0.1, decimal)).toFixed(8);
-      }
-    },
-
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
@@ -351,22 +334,6 @@ export default {
       this.$router.push({
         path: `/accountprofile/${accountAddress}`,
       });
-    },
-    getFromAccount() {
-      return;
-    },
-
-    getToAccount() {
-      return;
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
     },
     GetNep17TransferByAddress(skip) {
       axios({
@@ -423,33 +390,6 @@ export default {
           });
         }
       });
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
-    changeFrom() {
-      if (this.fromState === true) {
-        this.fromState = false;
-        this.fromButton = "Addr";
-      } else {
-        this.fromState = true;
-        this.fromButton = "Hash";
-      }
-    },
-    changeTo() {
-      if (this.toState === true) {
-        this.toState = false;
-        this.toButton = "Addr";
-      } else {
-        this.toState = true;
-        this.toButton = "Hash";
-      }
     },
   },
 };

@@ -29,7 +29,7 @@
                     {{ $t("addressPage.createdTime") }}
                   </div>
                   <div class="col-4">
-                    {{ convertTime(this.createdTime) }}
+                    {{ convertPreciseTime(this.createdTime) }}
                   </div>
                   <div class="col-2 font-weight-bold mb-0">
                     {{ $t("addressPage.addressProfile.type") }}
@@ -170,7 +170,7 @@ import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
-import Neon from "@cityofzion/neon-js";
+import {scriptHashToAddress, convertPreciseTime, convertGas} from "../store/util";
 
 export default {
   name: "account-profile",
@@ -182,9 +182,6 @@ export default {
       txns: [],
       txnsTotalNumbers: 0,
       isLoading: true,
-      isLoadingNep17: true,
-      isLoadingNep11: true,
-      isLoadingTransaction: true,
       createdTime: "",
       numOfTxns: 0,
       numOfnep17Transfers: -1,
@@ -213,13 +210,14 @@ export default {
     $route: "watchrouter",
   },
   methods: {
+    scriptHashToAddress,
+    convertGas,
+    convertPreciseTime,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
       this.isLoading = true
-      this.isLoadingNep17 = true
-      this.isLoadingNep11 = true
-      this.isLoadingTransaction = true
+
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
         this.getNep17Transfers();
@@ -230,59 +228,6 @@ export default {
         this.getCreatedTime();
         this.getCandidateByAddress();
       }
-    },
-    convertGas(gas) {
-      if (gas === 0) {
-        return 0;
-      }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
-    convertTime(time) {
-      var date = new Date(time);
-      var y = date.getFullYear();
-      var m =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var mi =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      return (
-        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
-      );
-    },
-    sleep(ms) {
-      return new Promise(resolve =>
-          setTimeout(resolve, ms)
-      )
-    },
-
-    async copyItem(ele,button){
-      console.log("hello")
-      var item = document.getElementById(ele).innerText;
-
-      console.log(item)
-      var oInput = document.createElement('input');
-      oInput.value = item;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand("Copy");
-      oInput.className = 'oInput';
-      oInput.style.display = 'none';
-      var urlpre = require('../assets/copied.png')
-      document.getElementById(button).src= urlpre
-      await this.sleep(1000);
-      var url = require('../assets/copy.png')
-      document.getElementById(button).src= url
-
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
     },
     getNeoBalance() {
       axios({
@@ -363,9 +308,10 @@ export default {
         },
       })
         .then((res) => {
-          this.isLoadingTransaction = true;
+          console.log("hello")
           this.numOfTxns = res["data"]["result"]["totalCount"];
-          this.isLoadingTransaction = false;
+          console.log(this.numOfTxns)
+
         })
         .catch((err) => {
           console.log("Error", err);
@@ -407,7 +353,7 @@ export default {
           params: {
             Address: this.accountAddress,
           },
-          method: "GetNep17TransferByAddress",
+          method: "GetNep17TransferCountByAddress",
         },
         headers: {
           "Content-Type": "application/json",
@@ -416,10 +362,10 @@ export default {
         },
       })
         .then((res) => {
-          this.isLoadingNep17 = true;
-          console.log("Transfers17", res["data"]["result"]["totalCount"])
-          this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
-          this.isLoadingNep17 = false;
+
+          console.log("Transfers17", res["data"]["result"]["total counts"])
+          this.numOfnep17Transfers = res["data"]["result"]["total counts"];
+
         })
         .catch((err) => {
           console.log("Get nep 17 transfers error: ", err);
@@ -444,10 +390,10 @@ export default {
           },
         })
             .then((res) => {
-              this.isLoadingNep11 = true;
+
               console.log("Transfer11", res["data"]["result"]["totalCount"])
               this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
-              this.isLoadingNep11 = false;
+
             })
             .catch((err) => {
               console.log("Get nep 11 transfers error: ", err);

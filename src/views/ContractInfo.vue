@@ -45,9 +45,9 @@
                           >
                             <button
                                 class="btn btn-sm btn-primary"
-                                @click="changeFormat()"
+                                @click="changeFormat(button)"
                             >
-                              {{ this.buttonName }}
+                              {{ this.button.buttonName }}
                             </button>
                           </div>
                         </div>
@@ -57,16 +57,16 @@
                           </span>
                           <router-link
                             class="text"
-                            v-else-if="this.state"
+                            v-else-if="button.state"
                             style="cursor: pointer"
-                            :to="'/accountprofile/'+contract_info['sender']"
+                            :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                             >{{ this.contract_info["sender"] }}</router-link
                           >
                           <router-link
                             class="text"
                             v-else
                             style="cursor: pointer"
-                            :to="'/accountprofile/'+contract_info['sender']"
+                            :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                             >{{
                               addressToScriptHash(this.contract_info["sender"])
                             }}</router-link
@@ -82,7 +82,7 @@
                           {{ $t("contract.time") }}
                         </div>
                         <div class="panel-body">
-                          {{ convertTime(this.contract_info["createtime"]) }}
+                          {{ convertPreciseTime(this.contract_info["createtime"]) }}
                         </div>
                       </div>
                     </card>
@@ -324,6 +324,7 @@ import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import JsonView from "./Tables/JsonView";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE} from "../store/util";
 
 export default {
   components: {
@@ -339,8 +340,7 @@ export default {
       contract_info: [],
       nef: "",
       manifest: "",
-      state: true,
-      buttonName: "Hash",
+      button: {state: true, buttonName: "Hash"},
       totalsccall: 0,
       isAddress: false,
     };
@@ -352,54 +352,15 @@ export default {
     $route: "watchrouter",
   },
   methods: {
+    addressToScriptHash,
+    convertPreciseTime,
+    changeFormat,
     watchrouter() {
       this.isLoading = true
       if (this.$route.name === "contractinfo") {
         this.contract_id = this.$route.params.hash;
         this.getContract(this.contract_id);
       }
-    },
-    convertTime(time) {
-      var date = new Date(time);
-      var y = date.getFullYear();
-      var m =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var mi =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      return (
-        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
-      );
-    },
-    sleep(ms) {
-      return new Promise(resolve =>
-          setTimeout(resolve, ms)
-      )
-    },
-
-    async copyItem(ele,button){
-      console.log("hello")
-      var item = document.getElementById(ele).innerText;
-
-      console.log(item)
-      var oInput = document.createElement('input');
-      oInput.value = item;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand("Copy");
-      oInput.className = 'oInput';
-      oInput.style.display = 'none';
-      var urlpre = require('../assets/copied.png')
-      document.getElementById(button).src= urlpre
-      await this.sleep(1000);
-      var url = require('../assets/copy.png')
-      document.getElementById(button).src= url
-
     },
     getContract(contract_id) {
       axios({
@@ -447,41 +408,6 @@ export default {
           this.isAddress = true;
       });
     },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
-    responseConverter(key, val) {
-      if (typeof val === "object") {
-        if (val["type"] === "ByteString" && typeof val["value"] === "string") {
-          const buffer = Buffer.from(val["value"], "base64");
-          const hex = buffer.toString("hex");
-          if (Neon.is.publicKey(hex)) {
-            const acc = Neon.create.account(hex);
-            val["decoded"] = "0x" + acc.scriptHash;
-          } else if (Neon.is.scriptHash(hex)) {
-            const reversed = Neon.u.reverseHex(hex)
-            val["decoded"] = "0x" + reversed;
-          } else if ((/^((0x)?)([0-9a-f]{64})$/).test(hex)){
-            val["decoded"] = "0x" + hex;
-          } else {
-            if (/^[\x20-\x7F]*$/.test(buffer.toString())) {
-              val["decoded"] = buffer.toString();
-            } else {
-              val["decoded"] = buffer.toString("hex");
-            }
-          }
-        } else if ( val["type"] === "Buffer" && typeof val["value"] === "string"){
-          const buffer = Buffer.from(val["value"], "base64");
-          if ( /^[\x20-\x7F]*$/.test(buffer.toString())) {
-            val["decoded"] = buffer.toString();
-          } else {
-            val["decoded"] = parseInt(buffer.toString("hex"), 16);
-          }
-        }
-      }
-      return val;
-    },
     getAddress(addr) {
       this.$router.push({
         path: `/accountprofile/${addr}`,
@@ -507,7 +433,7 @@ export default {
           return;
         }
       }
-      const client = Neon.create.rpcClient("http://seed2t4.neo.org:20332");
+      const client = Neon.create.rpcClient(RPC_NODE);
       console.log(contractParams);
       client
         .invokeFunction(this.contract_id, name, contractParams)
@@ -517,7 +443,7 @@ export default {
             this.manifest["abi"]["methods"][index]["error"] = res["exception"];
           } else {
             this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
-              JSON.stringify(res["stack"], this.responseConverter)
+              JSON.stringify(res["stack"], responseConverter)
             );
           }
         })

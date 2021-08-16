@@ -27,7 +27,7 @@
                         {{ $t('transactionInfo.time') }}
                       </div>
                       <div class="panel-body">
-                        {{ convertTime(this.blocktime) }}
+                        {{ convertPreciseTime(this.blocktime) }}
                       </div>
                     </div>
                   </card>
@@ -90,13 +90,13 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <router-link class="name mb-0 text-sm" id = "sender" style="cursor: pointer" :to="'/accountprofile/'+addressToScriptHash(this.address)" >
-                      {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
+                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
+                      {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
                     <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender','senderButton')">
                   </div>
                   <div class="col-1">
-                    <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+                    <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
                   </div>
                 </div>
               </card>
@@ -377,8 +377,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
-// import convertDecimal from "../directives/typeConvertion"
-
+import {convertPreciseTime, changeFormat, convertGas, addressToScriptHash} from "../store/util";
 
 export default {
   components: {
@@ -396,8 +395,7 @@ export default {
       isLoading: true,
       blockhash:"",
       address:"",
-      state: true,
-      buttonName:"Hash",
+      button: {state: true, buttonName: "Hash"},
       blocktime:0,
       vmstate:"",
       trigger:"",
@@ -432,6 +430,10 @@ export default {
     $route:'watchrouter'
   },
   methods: {
+    addressToScriptHash,
+    convertGas,
+    convertPreciseTime,
+    changeFormat,
     watchrouter() {//如果路由有变化，执行的对应的动作
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
@@ -454,27 +456,9 @@ export default {
       // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
       // return res
     },
-    changeFormat(){
-      if(this.state === true) {
-        this.state = false
-        this.buttonName = "Addr"
-        return
-      } else {
-        this.state = true
-        this.buttonName = "Hash"
-        return
-      }
-    },
-    sleep(ms) {
-      return new Promise(resolve =>
-      setTimeout(resolve, ms)
-      )
-    },
-
-    async copyItem(ele,button){
+    copyItem(ele){
       console.log("hello")
       var item = document.getElementById(ele).innerText;
-
       console.log(item)
       var oInput = document.createElement('input');
       oInput.value = item;
@@ -483,16 +467,6 @@ export default {
       document.execCommand("Copy");
       oInput.className = 'oInput';
       oInput.style.display = 'none';
-      var urlpre = require('../assets/copied.png')
-      document.getElementById(button).src= urlpre
-      await this.sleep(1000);
-      var url = require('../assets/copy.png')
-      document.getElementById(button).src= url
-
-    },
-
-    convertGas(gas) {
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)
@@ -543,11 +517,6 @@ export default {
       this.$router.push({
         path: `/accountprofile/${addr}`,
       });
-    },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-
     },
     getApplicationLogByTransactionHash(tx_id){
       axios({

@@ -67,9 +67,10 @@
 </template>
 <script>
 import axios from "axios";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import { convertGas, convertTime } from "../../store/util";
+
 export default {
   name: "transactions-table-homepage",
   props: {
@@ -95,26 +96,12 @@ export default {
     this.getTransactionList(0);
   },
   methods: {
+    convertGas,
+    convertTime,
     toTransactionsTable() {
       this.$router.push({
         path: `/Transactions`,
       });
-    },
-
-    convertGas(gas) {
-      if (gas === 0) {
-        return 0;
-      }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
-    convertTime(ts) {
-      const lang = this.$i18n.locale;
-      switch (lang) {
-        case "cn":
-          return format(ts, "zh_CN");
-        default:
-          return format(ts);
-      }
     },
     getTransaction(txhash) {
       this.$router.push({
