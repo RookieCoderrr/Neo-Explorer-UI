@@ -16,7 +16,7 @@
               </div>
               <span id ="tx">{{ this.tabledata["hash"] }}</span>
               <span> </span>
-              <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx')">
+              <img class="copy" id="txButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx','txButton')">
             </div>
             <div class="card-body">
               <div class="row">
@@ -80,7 +80,7 @@
                     <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                       <span id="block">{{ this.blockhash }}</span>
                     </router-link>
-                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
+                    <img class="copy" id="blockButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block','blockButton')">
                   </div>
                 </div>
               </card>
@@ -93,7 +93,7 @@
                     <router-link class="name mb-0 text-sm" id = "sender" style="cursor: pointer" :to="'/accountprofile/'+addressToScriptHash(this.address)" >
                       {{ this.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
-                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender')">
+                    <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender','senderButton')">
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
@@ -465,10 +465,16 @@ export default {
         return
       }
     },
+    sleep(ms) {
+      return new Promise(resolve =>
+      setTimeout(resolve, ms)
+      )
+    },
 
-    copyItem(ele){
+    async copyItem(ele,button){
       console.log("hello")
       var item = document.getElementById(ele).innerText;
+
       console.log(item)
       var oInput = document.createElement('input');
       oInput.value = item;
@@ -477,6 +483,12 @@ export default {
       document.execCommand("Copy");
       oInput.className = 'oInput';
       oInput.style.display = 'none';
+      var urlpre = require('../assets/copied.png')
+      document.getElementById(button).src= urlpre
+      await this.sleep(1000);
+      var url = require('../assets/copy.png')
+      document.getElementById(button).src= url
+
     },
 
     convertGas(gas) {
