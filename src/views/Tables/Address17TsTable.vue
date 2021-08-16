@@ -304,7 +304,7 @@ export default {
       this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
+      this.GetNep17TransferByAddress(skip);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
