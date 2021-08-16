@@ -532,8 +532,6 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        // console.log(this.tabledataApp)
-        // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i <this.tabledataApp["notifications"].length;i ++){
          this.getContractsApp(this.tabledataApp["notifications"][i]["contract"])
         }
@@ -564,11 +562,9 @@ export default {
         }
         else {
           var temp = JSON.parse(raw["manifest"]);
-          // console.log(temp)
           var map = new Map()
           for (var i = 0; i < temp["abi"]["events"].length; i++) {
             var table = []
-            // console.log(temp["abi"]["events"].length)
             for (var j = 0; j < temp["abi"]["events"][i]["parameters"].length; j++) {
               table[j] = temp["abi"]["events"][i]["parameters"][j]["type"]
             }
@@ -612,13 +608,11 @@ export default {
       var verification
       var invocation
       if (this.tabledata["witnesses"][0]) {
-        //console.log(" ========== 0 ===========")
         verification = toOpcode(this.tabledata["witnesses"][0]["verification"])
         this.tabledata["witnesses"][0]["verification"] = verification
         invocation = toOpcode(this.tabledata["witnesses"][0]["invocation"])
         this.tabledata["witnesses"][0]["invocation"] = invocation
       } else {
-        //console.log(" ========== 1 ===========")
         verification = toOpcode(this.tabledata["witnesses"][1]["verification"])
         this.tabledata["witnesses"][1]["verification"] = verification
         invocation = toOpcode(this.tabledata["witnesses"][1]["invocation"])

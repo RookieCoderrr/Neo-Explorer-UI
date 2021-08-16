@@ -384,11 +384,9 @@ export default {
         }
       }
       const client = Neon.create.rpcClient(RPC_NODE);
-      console.log(contractParams);
       client
           .invokeFunction(this.token_id, name, contractParams)
           .then((res) => {
-            console.log(res);
             if(res["exception"] != null) {
               this.manifest["abi"]["methods"][index]["error"] = res["exception"];
             } else {

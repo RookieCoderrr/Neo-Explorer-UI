@@ -405,19 +405,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         if (res["data"]["error"] == null)
           this.isAddress = true;
-      });
-    },
-    getAddress(addr) {
-      this.$router.push({
-        path: `/accountprofile/${addr}`,
-      })
-    },
-    getSender(addr) {
-      this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
     onQuery(index) {
@@ -436,11 +425,9 @@ export default {
         }
       }
       const client = Neon.create.rpcClient(RPC_NODE);
-      console.log(contractParams);
       client
         .invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
-          console.log(res);
           if(res["exception"] != null) {
             this.manifest["abi"]["methods"][index]["error"] = res["exception"];
           } else {
@@ -450,7 +437,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
