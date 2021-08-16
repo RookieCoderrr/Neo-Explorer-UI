@@ -297,7 +297,7 @@ export default {
         url: "/api",
         data: {
           jsonrpc: "2.0",
-          method: "GetRawTransactionByAddress",
+          method: "GetTransactionCountByAddress",
           params: {
             Address: this.accountAddress,
           },
@@ -311,7 +311,7 @@ export default {
       })
         .then((res) => {
           console.log("hello")
-          this.numOfTxns = res["data"]["result"]["totalCount"];
+          this.numOfTxns = res["data"]["result"]["total counts"];
           console.log(this.numOfTxns)
 
         })
@@ -383,7 +383,7 @@ export default {
             params: {
               Address: this.accountAddress,
             },
-            method: "GetNep11TransferByAddress",
+            method: "GetNep11TransferCountByAddress",
           },
           headers: {
             "Content-Type": "application/json",
@@ -393,8 +393,8 @@ export default {
         })
             .then((res) => {
 
-              console.log("Transfer11", res["data"]["result"]["totalCount"])
-              this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
+              console.log("Transfer11", res["data"]["result"]["total counts"])
+              this.numOfnep11Transfers = res["data"]["result"]["total counts"];
 
             })
             .catch((err) => {
