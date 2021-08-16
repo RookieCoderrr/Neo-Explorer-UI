@@ -14,7 +14,7 @@
             class="display-4 font-weight-bold mb-0"
             style="color: #343939"
             v-if="subTitle">
-            <count-to :startVal='startVal' :endVal='parseInt(subTitle)' :duration='5000'></count-to>
+            <count-to :startVal='startVal' :endVal='parseInt(subTitle)' :duration='2000'></count-to>
           </span>
         </slot>
       </div>
