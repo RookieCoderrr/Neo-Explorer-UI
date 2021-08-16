@@ -137,7 +137,6 @@ export default {
   methods: {
     getVotePercentage(votes) {
       var per = votes / this.votesCount;
-      console.log(per);
       if (per == 0) {
         return 0;
       }
@@ -222,7 +221,7 @@ export default {
         },
       }).then((res) => {
         this.votesCount = res["data"]["result"]["totalvotes"];
-        console.log(this.votesCount);
+
       });
     },
   },
