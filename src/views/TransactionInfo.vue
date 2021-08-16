@@ -296,7 +296,7 @@
                   </div>
 
                   <card shadow v-else class="text-center ">
-                    This transaction has no events.
+                    {{$t('transactionInfo.remind')}}
                   </card>
                 </tab-pane>
 
