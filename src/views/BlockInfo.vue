@@ -90,7 +90,7 @@
                       </div>
                     </div>
                     <div class="col-4" v-if="block_info['speaker']">
-                      <router-link class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(block_info['speaker'])">
+                      <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
                       </router-link>
                     </div>
@@ -254,7 +254,7 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      button: { state: true, buttonName: ""}
+      button: { state: true, buttonName: "Hash" }
     };
   },
   created() {

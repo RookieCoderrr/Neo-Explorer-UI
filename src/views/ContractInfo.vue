@@ -59,14 +59,14 @@
                             class="text"
                             v-else-if="button.state"
                             style="cursor: pointer"
-                            :to="'/accountprofile/'+contract_info['sender']"
+                            :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                             >{{ this.contract_info["sender"] }}</router-link
                           >
                           <router-link
                             class="text"
                             v-else
                             style="cursor: pointer"
-                            :to="'/accountprofile/'+contract_info['sender']"
+                            :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                             >{{
                               addressToScriptHash(this.contract_info["sender"])
                             }}</router-link
@@ -324,6 +324,7 @@ import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import JsonView from "./Tables/JsonView";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE} from "../store/util";
 
 export default {
   components: {

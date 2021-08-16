@@ -23,7 +23,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+            <div class="txid">
               <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
@@ -128,11 +128,6 @@ export default {
     watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.getTransactions(0);
-    },
-    mouseHover(txid) {
-      var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {};
-      a.style.display = txid;
     },
     getTransaction(txhash) {
       this.$router.push({

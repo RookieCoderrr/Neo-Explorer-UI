@@ -132,11 +132,6 @@ export default {
   methods: {
     convertGas,
     convertTime,
-    mouseHover(txid) {
-      var a = document.getElementsByClassName("txid");
-      a.onmouseover = function () {};
-      a.style.display = txid;
-    },
     getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,

@@ -23,7 +23,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid" @οnmοuseοver="mouseHover(row.item.hash)">
+            <div class="txid">
               <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"

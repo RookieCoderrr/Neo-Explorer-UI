@@ -300,12 +300,6 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
-    },
     pageChange(pageNumber) {
       this.isLoading = true;
       this.pagination = pageNumber;

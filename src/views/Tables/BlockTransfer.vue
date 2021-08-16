@@ -167,10 +167,8 @@ export default {
       pagination: 1,
       isLoading: true,
       countPage: 1,
-      fromState: true,
-      toState: true,
-      fromButton: "Hash",
-      toButton: "Hash",
+      fromButton: {state: true, buttonName: "Hash"},
+      toButton: {state: true, buttonName: "Hash"},
     };
   },
   created() {
@@ -192,6 +190,10 @@ export default {
     blockHash: "watchblock",
   },
   methods: {
+    changeFormat,
+    convertTime,
+    convertToken,
+    scriptHashToAddress,
     watchblock() {
       //如果路由有变化，执行的对应的动作
       this.getTransferList(0);

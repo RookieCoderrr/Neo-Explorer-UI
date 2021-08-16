@@ -90,7 +90,7 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <router-link class="name mb-0 text-sm" style="cursor: pointer"  @click="goToAddressInfo(addressToScriptHash(this.address))">
+                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
                       {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
                     <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender')">
@@ -312,15 +312,15 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
                               {{ item["originSender"]}}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
                               {{ item["contractHash"]}}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-2">
                             <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>

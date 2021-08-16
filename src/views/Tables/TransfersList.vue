@@ -53,7 +53,7 @@
 
           <template v-slot:default="row">
             <td class="budget">
-              <div class="contract" @mouseover="mouseHover(row.item.contract)">
+              <div class="contract">
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
@@ -197,12 +197,6 @@ export default {
     watchtxhash() {
       //如果路由有变化，执行的对应的动作
       this.getNep17TransferByTransactionHash(this.txhash);
-    },
-    mouseHover(contract) {
-      var a = document.getElementById("contract");
-      a.addEventListener("mouseover", function (event) {
-        event.target.style.display = contract;
-      });
     },
     getContract(ctrHash) {
       this.$router.push({

@@ -153,6 +153,9 @@ export default {
     contractHash: "watchcontract",
   },
   methods: {
+    scriptHashToAddress,
+    convertTime,
+    changeFormat,
     watchcontract() {
       //如果路由有变化，执行的对应的动作
       this.getScCallList(0);
