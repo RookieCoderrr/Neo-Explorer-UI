@@ -28,7 +28,8 @@
                   </div>
                 </div>
                 <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
-                <img class="copy" id="contractButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('contract','contractButton')">
+                <img class="copy" id="contractButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')">
+                <span  class="text-muted"  id="contractSpan" ></span>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -324,7 +325,7 @@ import EventsTable from "./Tables/EventsTable";
 import ScCallTable from "./Tables/ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import JsonView from "./Tables/JsonView";
-import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE} from "../store/util";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../store/util";
 
 export default {
   components: {
@@ -355,6 +356,7 @@ export default {
     addressToScriptHash,
     convertPreciseTime,
     changeFormat,
+    copyItem,
     watchrouter() {
       this.isLoading = true
       if (this.$route.name === "contractinfo") {

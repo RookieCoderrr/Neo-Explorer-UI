@@ -22,7 +22,8 @@
                   @click="getContract(this.token_info['hash'])"
                   >{{ this.token_info["hash"] }}</a
                 >
-                <img class="copy" id="hashButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('token','hashButton')">
+                <img class="copy" id="hashButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')">
+                <span  class="text-muted"  id="hashSpan" ></span>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -302,7 +303,7 @@ import TokensTxNep11 from "./Tables/TokenTxNep11";
 import TokenHolder from "./Tables/TokenHolder";
 import JsonView from "./Tables/JsonView";
 import Neon from "@cityofzion/neon-js";
-import {convertPreciseTime, convertToken, responseConverter, RPC_NODE} from "../store/util";
+import {convertPreciseTime, convertToken, responseConverter, RPC_NODE, copyItem} from "../store/util";
 
 export default {
   components: {
@@ -332,6 +333,7 @@ export default {
   methods: {
     convertPreciseTime,
     convertToken,
+    copyItem,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "tokeninfo") {
@@ -339,31 +341,6 @@ export default {
         this.getToken(this.$route.params.hash);
         this.getContractManifest(this.$route.params.hash);
       }
-    },
-    sleep(ms) {
-      return new Promise(resolve =>
-          setTimeout(resolve, ms)
-      )
-    },
-
-    async copyItem(ele,button){
-      console.log("hello")
-      var item = document.getElementById(ele).innerText;
-
-      console.log(item)
-      var oInput = document.createElement('input');
-      oInput.value = item;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand("Copy");
-      oInput.className = 'oInput';
-      oInput.style.display = 'none';
-      var urlpre = require('../assets/copied.png')
-      document.getElementById(button).src= urlpre
-      await this.sleep(1000);
-      var url = require('../assets/copy.png')
-      document.getElementById(button).src= url
-
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);

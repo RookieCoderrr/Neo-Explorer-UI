@@ -19,7 +19,8 @@
               <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
               </span>
-              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address','addressButton')">
+              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('address','addressButton','addressSpan')">
+              <span  class="text-muted"  id="addressSpan" ></span>
             </div>
 
             <div class="card-body">
@@ -170,7 +171,7 @@ import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
-import {scriptHashToAddress, convertPreciseTime, convertGas} from "../store/util";
+import {scriptHashToAddress, convertPreciseTime, convertGas,copyItem} from "../store/util";
 
 export default {
   name: "account-profile",
@@ -213,13 +214,12 @@ export default {
     scriptHashToAddress,
     convertGas,
     convertPreciseTime,
+    copyItem,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
       this.isLoading = true
-      this.isLoadingNep17 = true
-      this.isLoadingNep11 = true
-      this.isLoadingTransaction = true
+
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
         this.getNep17Transfers();
@@ -310,9 +310,10 @@ export default {
         },
       })
         .then((res) => {
-          this.isLoadingTransaction = true;
+          console.log("hello")
           this.numOfTxns = res["data"]["result"]["totalCount"];
-          this.isLoadingTransaction = false;
+          console.log(this.numOfTxns)
+
         })
         .catch((err) => {
           console.log("Error", err);
@@ -354,7 +355,7 @@ export default {
           params: {
             Address: this.accountAddress,
           },
-          method: "GetNep17TransferByAddress",
+          method: "GetNep17TransferCountByAddress",
         },
         headers: {
           "Content-Type": "application/json",
@@ -363,10 +364,10 @@ export default {
         },
       })
         .then((res) => {
-          this.isLoadingNep17 = true;
-          console.log("Transfers17", res["data"]["result"]["totalCount"])
-          this.numOfnep17Transfers = res["data"]["result"]["totalCount"];
-          this.isLoadingNep17 = false;
+
+          console.log("Transfers17", res["data"]["result"]["total counts"])
+          this.numOfnep17Transfers = res["data"]["result"]["total counts"];
+
         })
         .catch((err) => {
           console.log("Get nep 17 transfers error: ", err);
@@ -391,10 +392,10 @@ export default {
           },
         })
             .then((res) => {
-              this.isLoadingNep11 = true;
+
               console.log("Transfer11", res["data"]["result"]["totalCount"])
               this.numOfnep11Transfers = res["data"]["result"]["totalCount"];
-              this.isLoadingNep11 = false;
+
             })
             .catch((err) => {
               console.log("Get nep 11 transfers error: ", err);

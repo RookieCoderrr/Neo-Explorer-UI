@@ -16,7 +16,8 @@
               </div>
               <span id ="tx">{{ this.tabledata["hash"] }}</span>
               <span> </span>
-              <img class="copy" id="txButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx','txButton')">
+              <img class="copy" id="txButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;" @click="copyItem('tx','txButton','txSpan')">
+              <span  class="text-muted"  id="txSpan" ></span>
             </div>
             <div class="card-body">
               <div class="row">
@@ -80,7 +81,8 @@
                     <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                       <span id="block">{{ this.blockhash }}</span>
                     </router-link>
-                    <img class="copy" id="blockButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block','blockButton')">
+                    <img class="copy" id="blockButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')">
+                    <span  class="text-muted"  id="blockSpan" ></span>
                   </div>
                 </div>
               </card>
@@ -90,10 +92,11 @@
                 <div class="row">
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
                   <div class="col-9">
-                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
+                    <router-link class="name mb-0 text-sm" id="sender" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
                       {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
-                    <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender','senderButton')">
+                    <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 17px ;width: 17px; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')">
+                    <span  class="text-muted"  id="senderSpan" ></span>
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
@@ -377,7 +380,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
 import toOpcode from "../directives/typeConvertion"
-import {convertPreciseTime, changeFormat, convertGas, addressToScriptHash} from "../store/util";
+import {convertPreciseTime, changeFormat, convertGas, addressToScriptHash,copyItem} from "../store/util";
 
 export default {
   components: {
@@ -434,6 +437,7 @@ export default {
     convertGas,
     convertPreciseTime,
     changeFormat,
+    copyItem,
     watchrouter() {//如果路由有变化，执行的对应的动作
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
@@ -456,18 +460,7 @@ export default {
       // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
       // return res
     },
-    copyItem(ele){
-      console.log("hello")
-      var item = document.getElementById(ele).innerText;
-      console.log(item)
-      var oInput = document.createElement('input');
-      oInput.value = item;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand("Copy");
-      oInput.className = 'oInput';
-      oInput.style.display = 'none';
-    },
+
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)
         var res = Neon.u.reverseHex(tmp)

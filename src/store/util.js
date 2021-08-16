@@ -19,6 +19,30 @@ function changeFormat(button) {
 *   buttonName: string
 * }
 * */
+function sleep(ms) {
+    return new Promise(resolve =>
+        setTimeout(resolve, ms)
+    )
+}
+async function copyItem(ele, button,span) {
+    console.log("hello")
+    var item = document.getElementById(ele).innerText;
+    console.log(item)
+    var oInput = document.createElement('input');
+    oInput.value = item;
+    document.body.appendChild(oInput);
+    oInput.select();
+    document.execCommand("Copy");
+    oInput.className = 'oInput';
+    oInput.style.display = 'none';
+    var urlpre = require('../assets/copied.png')
+    document.getElementById(button).src = urlpre
+    document.getElementById(span).innerText = " Copied"
+    await sleep(1000);
+    var url = require('../assets/copy.png')
+    document.getElementById(button).src = url
+    document.getElementById(span).innerText = ""
+}
 
 function convertToken(token, decimal) {
     return parseFloat((token * Math.pow(10, -decimal)).toFixed(8))
@@ -98,10 +122,11 @@ export {
   RPC_NODE,
   changeFormat,
   convertToken,
-  convertGas,
+    convertGas,
   convertTime,
   convertPreciseTime,
   addressToScriptHash,
   scriptHashToAddress,
   responseConverter,
+    copyItem
 };
