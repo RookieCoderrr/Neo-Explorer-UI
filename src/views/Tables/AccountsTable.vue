@@ -30,8 +30,8 @@
           <th>{{ $t("addressPage.number") }}</th>
           <th>
             {{ $t("addressPage.address")
-            }}<button class="btn btn-sm btn-primary" @click="changeFormat()">
-              {{ this.buttonName }}
+            }}<button class="btn btn-sm btn-primary" @click="changeFormat(button)">
+              {{ this.button.buttonName }}
             </button>
           </th>
           <th>{{ $t("addressPage.neoBalance") }}</th>
@@ -45,7 +45,7 @@
           <td class="address">
             <router-link
               class="mb-0 text-sm"
-              v-if="this.state"
+              v-if="this.button.state"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
             >
@@ -98,10 +98,9 @@
 </template>
 <script>
 import axios from "axios";
-import { format } from "timeago.js";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import Neon from "@cityofzion/neon-js";
+import {convertGas, convertTime, scriptHashToAddress,addressToScriptHash, changeFormat} from "../../store/util";
 
 export default {
   name: "accounts-table",
@@ -123,8 +122,7 @@ export default {
       neoBalance: 0,
       isLoading: true,
       countPage: 0,
-      buttonName: "Hash",
-      state: true,
+      button: { state: true, buttonName: "Hash"},
     };
   },
   created() {
@@ -146,6 +144,11 @@ export default {
     },
   },
   methods: {
+    convertGas,
+    convertTime,
+    addressToScriptHash,
+    scriptHashToAddress,
+    changeFormat,
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
@@ -170,12 +173,6 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getAccoutsList(skip);
     },
-    convertGas(gas) {
-      if (gas === 0) {
-        return 0;
-      }
-      return (gas * Math.pow(0.1, 8)).toFixed(6);
-    },
     getAccoutsList(skip) {
       axios({
         method: "post",
@@ -195,7 +192,7 @@ export default {
         .then((res) => {
           let temp = res["data"]["result"]["result"];
           for (let k = 0; k < temp.length; k++) {
-            temp[k]["firstusetime"] = format(temp[k]["firstusetime"]);
+            temp[k]["firstusetime"] = convertTime(temp[k]["firstusetime"], this.$i18n.locale);
             temp[k]["neoBalance"] = "";
             temp[k]["gasBalance"] = "";
             temp[k]["number"] =
@@ -333,24 +330,6 @@ export default {
         .catch((err) => {
           console.log("Error", err);
         });
-    },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
-    },
-    addressToScriptHash(addr) {
-      const acc = Neon.create.account(addr);
-      return "0x" + acc.scriptHash;
-    },
-    changeFormat() {
-      if (this.state === true) {
-        this.state = false;
-        this.buttonName = "Addr";
-      } else {
-        this.state = true;
-        this.buttonName = "Hash";
-      }
     },
   },
 };

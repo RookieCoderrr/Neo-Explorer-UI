@@ -38,7 +38,7 @@
                           {{ $t("blockinfo.time") }}
                         </div>
                         <div class="panel-body">
-                          {{ convertTime(this.block_info.timestamp) }}
+                          {{ convertPreciseTime(this.block_info.timestamp) }}
                         </div>
                       </div>
                     </card>
@@ -90,14 +90,12 @@
                       </div>
                     </div>
                     <div class="col-4" v-if="block_info['speaker']">
-                      <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+block_info['speaker']">
-                        {{ this.state ===false ? block_info["speaker"] :scriptHashToAddress( block_info["speaker"])}}
+                      <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
+                        {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
                       </router-link>
-                      <img class="copy" id="speakerButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('speaker','speakerButton')">
-
                     </div>
                     <div class="col-1">
-                      <button  class="btn btn-sm btn-primary" @click="changeFormat()">{{this.buttonName}}</button>
+                      <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
                     </div>
                     <div class="col-2">
                       <div class="font-weight-bold mb-0">
@@ -113,11 +111,8 @@
                     <div class="col-2 font-weight-bold mb-0">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <router-link  :to="'/blockinfo/'+this.block_info.prevhash"   >
-
-                      <a class="name mb-0 text-sm" id="preHash" style="cursor: pointer">{{
-                        this.block_info.prevhash
-                      }}</a>
+                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
+                        {{this.block_info.prevhash }}
                     </router-link>
                     <img class="copy" id="preHashButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('preHash','preHashButton')">
 
@@ -243,7 +238,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import BlockTransaction from "./Tables/BlockTransaction";
 import BlockTransfer from "./Tables/BlockTransfer";
 import toOpcode from "../directives/typeConvertion";
-import Neon from "@cityofzion/neon-js";
+import {convertPreciseTime, scriptHashToAddress, changeFormat} from "../store/util";
+
 export default {
   components: {
     BlockTransaction,
@@ -259,8 +255,7 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      buttonName:"Addr",
-      state: true
+      button: { state: true, buttonName: "Hash" }
     };
   },
   created() {
@@ -270,6 +265,9 @@ export default {
     $route: "watchrouter",
   },
   methods: {
+    scriptHashToAddress,
+    changeFormat,
+    convertPreciseTime,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {
@@ -283,68 +281,10 @@ export default {
         path: `/accountprofile/${addr}`,
       });
     },
-    scriptHashToAddress(hash) {
-      hash = hash.substring(2);
-      const acc = Neon.create.account(hash);
-      return acc.address;
+    preBlock(hash) {
+      this.isLoading = true;
+      this.getBlock(hash);
     },
-    changeFormat(){
-      if(this.state === true) {
-        this.state = false
-        this.buttonName = "Hash"
-        return
-      } else {
-        this.state = true
-        this.buttonName = "Addr"
-        return
-      }
-    },
-    sleep(ms) {
-      return new Promise(resolve =>
-          setTimeout(resolve, ms)
-      )
-    },
-    async copyItem(ele,button){
-      console.log("hello")
-      var item = document.getElementById(ele).innerText;
-
-      console.log(item)
-      var oInput = document.createElement('input');
-      oInput.value = item;
-      document.body.appendChild(oInput);
-      oInput.select();
-      document.execCommand("Copy");
-      oInput.className = 'oInput';
-      oInput.style.display = 'none';
-      var urlpre = require('../assets/copied.png')
-      document.getElementById(button).src= urlpre
-      await this.sleep(1000);
-      var url = require('../assets/copy.png')
-      document.getElementById(button).src= url
-
-    },
-    convertTime(time) {
-      var date = new Date(time);
-      var y = date.getFullYear();
-      var m =
-        date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1;
-      var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      var h = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      var mi =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      var s =
-        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      return (
-        m + "-" + d + "-" + y + " " + h + ":" + mi + ":" + s + " +" + "UTC"
-      );
-    },
-
-    // preBlock(hash) {
-    //   this.isLoading = true;
-    //   this.getBlock(hash);
-    // },
     getBlock(hash) {
       axios({
         method: "post",
@@ -393,8 +333,7 @@ export default {
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
           });
         } else {
-          return
-
+          return;
         }
       });
     },
