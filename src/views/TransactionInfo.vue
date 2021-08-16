@@ -16,7 +16,7 @@
               </div>
               <span id ="tx">{{ this.tabledata["hash"] }}</span>
               <span> </span>
-              <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx')">
+              <img class="copy" id="txButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('tx','txButton')">
             </div>
             <div class="card-body">
               <div class="row">
@@ -80,7 +80,7 @@
                     <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
                       <span id="block">{{ this.blockhash }}</span>
                     </router-link>
-                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
+                    <img class="copy" id="blockButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block','blockButton')">
                   </div>
                 </div>
               </card>
@@ -93,7 +93,7 @@
                     <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
                       {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                     </router-link>
-                    <img class="copy" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender')">
+                    <img class="senderButton" id="senderButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('sender','senderButton')">
                   </div>
                   <div class="col-1">
                     <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
@@ -312,15 +312,15 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
                               {{ item["originSender"]}}
-                            </router-link>
+                            </a>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
+                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
                               {{ item["contractHash"]}}
-                            </router-link>
+                            </a>
                           </div>
                           <div class="col-2">
                             <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>
@@ -443,6 +443,46 @@ export default {
       this.getTransactionByTransactionHash(this.$route.params.txhash)
         this.getScCallByTransactionHash(this.$route.params.txhash)
       }
+    },
+    convertTime(time){
+      var date = new Date(time);
+      var y = date.getFullYear()
+      var m = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)
+      var d = (date.getDate() <10 ? ('0' +date.getDate()): date.getDate())
+      var h = date.getHours() < 10 ? ('0' + date.getHours()): date.getHours()
+      var mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()): date.getMinutes()
+      var s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
+      return m+'-'+d+'-'+y+' '+h+':'+mi+':'+s +' +' + "UTC";
+      // var res = moment(parseInt(temp)).format('YYYY/MM/DD hh:mm:ss')
+      // return res
+    },
+    changeFormat(){
+      if(this.state === true) {
+        this.state = false
+        this.buttonName = "Addr"
+        return
+      } else {
+        this.state = true
+        this.buttonName = "Hash"
+        return
+      }
+    },
+
+    copyItem(ele){
+      console.log("hello")
+      var item = document.getElementById(ele).innerText;
+      console.log(item)
+      var oInput = document.createElement('input');
+      oInput.value = item;
+      document.body.appendChild(oInput);
+      oInput.select();
+      document.execCommand("Copy");
+      oInput.className = 'oInput';
+      oInput.style.display = 'none';
+    },
+
+    convertGas(gas) {
+      return (gas * Math.pow(0.1, 8)).toFixed(6);
     },
     base64ToHash(base){
         var tmp = Neon.u.base642hex(base)

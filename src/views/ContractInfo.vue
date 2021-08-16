@@ -28,7 +28,7 @@
                   </div>
                 </div>
                 <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
-                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('contract')">
+                <img class="copy" id="contractButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('contract','contractButton')">
               </div>
               <div class="card-body">
                 <div class="row">

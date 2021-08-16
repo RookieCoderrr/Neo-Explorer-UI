@@ -19,7 +19,7 @@
               <span class="text-muted" id="address">
                 {{ this.scriptHashToAddress(this.accountAddress) }}
               </span>
-              <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address')">
+              <img class="copy" id="addressButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('address','addressButton')">
             </div>
 
             <div class="card-body">
@@ -166,7 +166,6 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-// import { format } from "timeago.js";
 import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
@@ -420,6 +419,7 @@ export default {
         },
       })
         .then((res) => {
+          //console.log(res)
           this.isLoading = false;
           if (res["data"]["result"] == null) {
             this.type = "normal";

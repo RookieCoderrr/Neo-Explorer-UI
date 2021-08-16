@@ -27,7 +27,7 @@
                    >&gt;</base-button>
                </div>
                 <span class="text-muted" id="block">{{ this.block_info.hash }}</span>
-                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block')">
+                <img class="copy" id="blockButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('block','blockButton')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -114,7 +114,8 @@
                     <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
-                    <i class="ni ni-single-copy-04"  style="color:black; cursor: pointer;" @click="copyItem(this.block_info.prevhash)"></i>
+                    <img class="copy" id="preHashButton" src="../assets/copy.png" style="height: 18px ;width: 18px; cursor: pointer;" @click="copyItem('preHash','preHashButton')">
+
                   </div>
                 </card>
 

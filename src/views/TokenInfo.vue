@@ -22,7 +22,7 @@
                   @click="getContract(this.token_info['hash'])"
                   >{{ this.token_info["hash"] }}</a
                 >
-                <img class="copy" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('token')">
+                <img class="copy" id="hashButton" src="../assets/copy.png" title="Copy to clipboard" style="height: 18px ;width: 18px; cursor: pointer;"  @click="copyItem('token','hashButton')">
               </div>
               <div class="card-body">
                 <div class="row">
@@ -340,9 +340,16 @@ export default {
         this.getContractManifest(this.$route.params.hash);
       }
     },
-    copyItem(ele){
+    sleep(ms) {
+      return new Promise(resolve =>
+          setTimeout(resolve, ms)
+      )
+    },
+
+    async copyItem(ele,button){
       console.log("hello")
       var item = document.getElementById(ele).innerText;
+
       console.log(item)
       var oInput = document.createElement('input');
       oInput.value = item;
@@ -351,6 +358,12 @@ export default {
       document.execCommand("Copy");
       oInput.className = 'oInput';
       oInput.style.display = 'none';
+      var urlpre = require('../assets/copied.png')
+      document.getElementById(button).src= urlpre
+      await this.sleep(1000);
+      var url = require('../assets/copy.png')
+      document.getElementById(button).src= url
+
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
