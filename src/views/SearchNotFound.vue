@@ -6,7 +6,7 @@
     <div class="search-content">
       <div class="row">
         <div class="col-4">
-          <img src="../assets/page-not-found.svg" style="width: 90%">
+          <span style="font-size: 200px">&#128575;</span>
         </div>
         <div class="col-8">
           <div class="h2 font-weight-bold mb-0">
