@@ -85,13 +85,16 @@
           <td>
             <badge
               v-if="row.item.type === 'NEP17'"
-              class="badge-dot mr-4"
+
               type="primary"
             >
               <span class="">{{ row.item.type }}</span>
             </badge>
-            <badge v-else class="badge-dot mr-4" type="success">
+            <badge v-else-if="row.item.type === 'NEP11'"  type="success">
               <span class="">{{ row.item.type }}</span>
+            </badge>
+            <badge v-else type="danger">
+              <span class="">{{ row.item.type==="UNKNOW"? "Unknown":"Unknown" }}</span>
             </badge>
           </td>
           <td class="holders">
