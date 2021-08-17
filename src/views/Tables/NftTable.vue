@@ -175,10 +175,12 @@ export default {
       tableData: [],
       length,
       fromState: true,
-      fromButton: "Hash",
+      fromButton: { state: true, buttonName: "Hash"},
+      toButton: { state: true, buttonName: "Hash"},
       toState: true,
-      toButton: "Hash",
+
       totalCount:0,
+
     };
   },
 
