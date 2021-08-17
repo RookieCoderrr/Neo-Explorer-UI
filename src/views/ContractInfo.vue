@@ -406,7 +406,6 @@ export default {
         const raw = res["data"]["result"];
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
-        console.log(this.manifest);
         this.contract_info = raw;
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
@@ -429,19 +428,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         if (res["data"]["error"] == null)
           this.isAddress = true;
-      });
-    },
-    getAddress(addr) {
-      this.$router.push({
-        path: `/accountprofile/${addr}`,
-      })
-    },
-    getSender(addr) {
-      this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
     onQuery(index) {
@@ -474,7 +462,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },

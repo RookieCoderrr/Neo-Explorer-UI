@@ -82,18 +82,6 @@ export default {
   },
   emits: ["change"],
 
-  // mounted(){
-  //   var that = this
-  //   document.addEventListener('click',function(e){
-  //     console.log(that.$refs)
-  //     console.log(e.target)
-  //     if(!that.$refs.contains(e.target)){
-  //       that.open = false
-  //       that.$emit("change", this.isOpen);
-  //     }
-  //
-  //   })
-  // },
   mounted() {
     document.body.addEventListener('click', () => {
       this.isOpen = false

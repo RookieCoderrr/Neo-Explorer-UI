@@ -174,7 +174,7 @@ export default {
     this.getAssetCount();
     this.getContractCount();
     this.getCandidateCount();
-    this.initWebSocket()
+    // this.initWebSocket()
   },
   methods: {
     initWebSocket(){ //初始化weosocket

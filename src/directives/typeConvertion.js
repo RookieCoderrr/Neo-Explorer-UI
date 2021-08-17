@@ -21,20 +21,18 @@ function b64ToHex(bin) {
     return  hex;
 }
 function bin2String(array) {
-    //console.log(array)
+
     var result = "";
     for (var i = 0; i < array.length; i++) {
         //result += String.fromCharCode(parseInt(array[i], 16));
         result += String.fromCharCode(array[i]);
     }
-    //console.log("bin2string", result);
     return result;
 }
 function convertDecimal (barray) {
     let result = new BigNumber('0');
     var factor = 1;
     for (let i=0; i<barray.length; i++) {
-        //console.log("ConvertDecimal", result.toString(), ' ',  factor, barray[i])
         //result = BigNumber.sum(result, new BigNumber(barray[i]*factor))
         result = result.plus(barray[i]*factor)
         //result = result + barray[i]*factor;
@@ -84,28 +82,23 @@ function toOpcode(b64) {
     let res = _base64ToArrayBuffer(b64)
     //res = res.Uint8Array
     let scripts = new Uint8Array(res);
-    // console.log("toOpcode", b64, scripts)
+
     //for (let k=1; k<=a.length; k++) {
-    //    //console.log(a.substr(0, k))
     //  let temp = a[k]
-    //  console.log(temp)
     //}
 
     let result = new Array();
     while (scripts.length > 0) {
         let temp_result = "";
-        //console.log("scripts[]", scripts[0]);
         let op = opcodes[scripts[0]];
         let operandSizePrefix = OperandSizePrefixTable[scripts[0]];
         let operandSize = OperandSizeTable[scripts[0]];
-        //console.log(op)
         scripts = scripts.slice(1);
         //temp_result += op + '\n'
 
         if (operandSize > 0) {
             let operand = scripts.slice(0, operandSize);
             if (op.startsWith("PUSHINT")) {
-                //console.log("true")
                 temp_result += op + ' ' + convertDecimal(operand)
                 result.push(temp_result)
             } else if (op == 'SYSCALL') {

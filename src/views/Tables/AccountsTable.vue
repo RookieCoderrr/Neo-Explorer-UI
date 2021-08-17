@@ -126,9 +126,6 @@ export default {
     };
   },
   created() {
-    //console.log("accounts table")
-    //var c = Neon.create.account("0x0a9dccb4625e79a884409489cbc5cef8b981c492")
-    //console.log(c.address)
     this.getAccoutsList(0);
   },
   computed: {
@@ -215,7 +212,6 @@ export default {
     },
     getBalance() {
       for (let k = 0; k < this.tableData.length; k++) {
-        //console.log(k.toString());
         let addr = this.tableData[k].address;
         axios({
           method: "post",
@@ -298,7 +294,6 @@ export default {
         },
       })
         .then((res) => {
-          //console.log(res);
           return res["data"]["result"]["balance"];
         })
         .catch((err) => {
