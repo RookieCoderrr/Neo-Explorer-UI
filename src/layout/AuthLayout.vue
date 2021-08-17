@@ -51,7 +51,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link class="nav-link nav-link-icon" to="/homepage">
-            <i class="ni ni-collection"></i>
+            <i class="ni ni-world"></i>
             <span class="nav-link-inner--text">{{
               $t("authLayout.home")
             }}</span>

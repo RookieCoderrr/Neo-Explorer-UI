@@ -256,6 +256,7 @@ export default {
       toButton: {state: true, buttonName: "Hash"},
       isLoading: true,
       totalCount:0,
+      contractHash:"",
     };
   },
   created() {

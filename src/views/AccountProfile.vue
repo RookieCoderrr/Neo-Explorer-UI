@@ -310,10 +310,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log("hello")
           this.numOfTxns = res["data"]["result"]["total counts"];
-          console.log(this.numOfTxns)
-
         })
         .catch((err) => {
           console.log("Error", err);
@@ -364,8 +361,6 @@ export default {
         },
       })
         .then((res) => {
-
-          console.log("Transfers17", res["data"]["result"]["total counts"])
           this.numOfnep17Transfers = res["data"]["result"]["total counts"];
 
         })
@@ -392,8 +387,6 @@ export default {
           },
         })
             .then((res) => {
-
-              console.log("Transfer11", res["data"]["result"]["total counts"])
               this.numOfnep11Transfers = res["data"]["result"]["total counts"];
 
             })
@@ -420,7 +413,6 @@ export default {
         },
       })
         .then((res) => {
-          //console.log(res)
           this.isLoading = false;
           if (res["data"]["result"] == null) {
             this.type = "normal";

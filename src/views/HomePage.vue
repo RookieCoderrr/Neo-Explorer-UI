@@ -164,7 +164,7 @@ export default {
       //数字结束
       endVal: 3000,
       websock: null,
-      path:"ws://192.168.1.89:2026/home"
+      path:"ws://testneofura.ngd.network:2026/home"
     };
   },
   created() {
@@ -174,11 +174,11 @@ export default {
     this.getAssetCount();
     this.getContractCount();
     this.getCandidateCount();
-    this.initWebSocket()
+    // this.initWebSocket()
   },
   methods: {
     initWebSocket(){ //初始化weosocket
-      const wsuri = "ws://192.168.1.89:2026/home";
+      const wsuri = "ws://testneofura.ngd.network:2026/home";
       this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;

@@ -41,8 +41,9 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.candidate"
-                >{{ row.item.candidate }}
-                <i v-if="row.item.isCommittee" class="ni ni-badge"></i></router-link
+                ><i v-if="row.item.isCommittee" class="ni ni-badge"></i>
+                {{ row.item.candidate }}
+                </router-link
               >
             </div>
           </td>
@@ -137,7 +138,6 @@ export default {
   methods: {
     getVotePercentage(votes) {
       var per = votes / this.votesCount;
-      console.log(per);
       if (per == 0) {
         return 0;
       }
@@ -222,7 +222,7 @@ export default {
         },
       }).then((res) => {
         this.votesCount = res["data"]["result"]["totalvotes"];
-        console.log(this.votesCount);
+
       });
     },
   },

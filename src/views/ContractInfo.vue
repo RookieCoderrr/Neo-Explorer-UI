@@ -170,13 +170,15 @@
                   :title="$t('contract.conInfo')"
                 >
                   <card shadow type="secondary">
-                    <div class="extra" v-if="this.manifest.extra">
+                    <div class="extra" v-if="this.manifest.extra && JSON.stringify(this.manifest.extra) !== '{}'">
                       <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
                             {{ $t("tokenInfo.email") }}:
-                            {{ this.manifest.extra["Email"] }}
+                            <a :href="'mailto:' + manifest.extra['Email']">
+                              {{ this.manifest.extra["Email"] }}
+                            </a>
                           </div>
                           <div class="col-auto">
                             {{ $t("tokenInfo.author") }} :
@@ -405,19 +407,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log(res);
         if (res["data"]["error"] == null)
           this.isAddress = true;
-      });
-    },
-    getAddress(addr) {
-      this.$router.push({
-        path: `/accountprofile/${addr}`,
-      })
-    },
-    getSender(addr) {
-      this.$router.push({
-        path: `/accountprofile/${this.addressToScriptHash(addr)}`,
       });
     },
     onQuery(index) {
@@ -436,11 +427,9 @@ export default {
         }
       }
       const client = Neon.create.rpcClient(RPC_NODE);
-      console.log(contractParams);
       client
         .invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
-          console.log(res);
           if(res["exception"] != null) {
             this.manifest["abi"]["methods"][index]["error"] = res["exception"];
           } else {
@@ -450,7 +439,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
           this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
