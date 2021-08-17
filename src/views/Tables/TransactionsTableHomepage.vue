@@ -54,7 +54,7 @@
           </td>
           <td>{{ row.item.size }} {{ $t("bytes") }}</td>
           <td>
-            {{ this.convertTime(row.item.blocktime) }}
+            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
           </td>
 
           <td>

@@ -73,6 +73,7 @@ module.exports = {
     name: "合约名",
     creator: "合约创建者",
     index: "合约序号",
+    updates: "更新次数",
     creatTime: "创建时间",
     time: "创建时间",
     available: "不适用",

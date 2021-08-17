@@ -73,6 +73,7 @@ const en = {
     name: "Name",
     creator: "Creator",
     index: "Index",
+    updates: "No. of Updates",
     creatTime: "Create Time",
     time: "Create Time",
     available: "Not Available",
