@@ -123,13 +123,11 @@
                   :title="$t('tokenInfo.recentTransfers')"
                 >
                   <tokens-tx-nep17
-                    v-if="standard === 1"
                     :contractHash="token_id"
                     :decimal="decimal == '' ? 0 : decimal"
                   ></tokens-tx-nep17>
                   <tokens-tx-nep11
-                    v-else-if="standard === 2"
-                    :contractHash="token_id"
+                      :contractHash="token_id"
                     :decimal="decimal == '' ? 0 : decimal"
                   ></tokens-tx-nep11>
                 </tab-pane>

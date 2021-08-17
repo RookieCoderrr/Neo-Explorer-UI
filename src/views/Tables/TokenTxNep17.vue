@@ -203,7 +203,6 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center">{{ $t("tokenTx.nullPrompt") }}</card>
 </template>
 <script>
 import axios from "axios";
