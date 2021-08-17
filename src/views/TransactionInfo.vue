@@ -161,29 +161,24 @@
                 </div>
                 <hr />
                 <div v-if="this.tabledata.signers">
-                <div class="row" v-if="this.tabledata.signers[0]">
+                <div class="row" >
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.account') }}</div>
-                  <div class="col-4">
-                    {{ this.tabledata["signers"][0]["account"] }}
+                  <div class="col-4" >
+                    <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
+                      {{item['account']}}
+                    </div>
+
                   </div>
                   <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.scopes') }}</div>
-                  <div class="col-4">
-                    {{ this.tabledata["signers"][0]["scopes"] }}
-                  </div>
-                </div>
-                <div class="row mt-3"></div>
-                <div class="row" v-if="this.tabledata.signers[1]">
-                  <div class="col-2 font-weight-bold mb-0"></div>
-                  <div class="col-4">
-                    {{ this.tabledata["signers"][1]["account"] }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">/div>
-                  <div class="col-4">
-                    {{ this.tabledata["signers"][1]["scopes"] }}
+                  <div class="col-4" >
+                    <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
+                      {{item['scopes']}}
+                    </div>
+                    <div class="row mt-2"></div>
                   </div>
                 </div>
                 </div>
-                </div>
+
               </card>
 
               <div class="row mt-3"></div>
@@ -197,25 +192,21 @@
                 </div>
                 <hr />
                 <div v-if="tabledata.witnesses">
-                  <div class="row" v-if="tabledata.witnesses[0]">
+                  <div class="row" >
                     <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.invocation') }}</div>
-                    <div class="col-4" v-html="this.tabledata['witnesses'][0]['invocation']">
+                    <div class="col-4" >
+                      <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
+                       <span v-html="item['invocation']">
+                       </span>
+                      </div>
+
                     </div>
                     <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.verification') }}</div>
-                    <div class="col-4" v-html="this.tabledata['witnesses'][0]['verification']">
-                    </div>
-                  </div>
-                  <div class="row mt-3"></div>
-                  <div class="row" v-if="tabledata.witnesses[1]">
-                    <div class="col-2">
-                      <div class="text-muted"><h3></h3></div>
-                    </div>
-                    <div class="col-4" v-html="this.tabledata['witnesses'][1]['invocation']">
-                    </div>
-                    <div class="col-2">
-                      <div class="text-muted"><h3></h3></div>
-                    </div>
-                    <div class="col-4" v-html="this.tabledata['witnesses'][1]['verification']">
+                    <div class="col-4" >
+                      <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
+                        <span v-html="item['verification']"></span>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -611,21 +602,12 @@ export default {
       this.tabledata["script"] = script
       var verification
       var invocation
-      if (this.tabledata["witnesses"][0]) {
-        //console.log(" ========== 0 ===========")
-        verification = toOpcode(this.tabledata["witnesses"][0]["verification"])
-        this.tabledata["witnesses"][0]["verification"] = verification
-        invocation = toOpcode(this.tabledata["witnesses"][0]["invocation"])
-        this.tabledata["witnesses"][0]["invocation"] = invocation
-      } else {
-        //console.log(" ========== 1 ===========")
-        verification = toOpcode(this.tabledata["witnesses"][1]["verification"])
-        this.tabledata["witnesses"][1]["verification"] = verification
-        invocation = toOpcode(this.tabledata["witnesses"][1]["invocation"])
-        this.tabledata["witnesses"][1]["invocation"] = invocation
+      for (var i = 0; i < this.tabledata['witnesses'].length; i ++) {
+        verification = toOpcode(this.tabledata["witnesses"][i]["verification"])
+        this.tabledata["witnesses"][i]["verification"] = verification
+        invocation = toOpcode(this.tabledata["witnesses"][i]["invocation"])
+        this.tabledata["witnesses"][i]["invocation"] = invocation
       }
-
-
     },
     getScCallByTransactionHash(tx_id){
       axios({
