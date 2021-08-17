@@ -278,9 +278,20 @@
                             <h3>{{$t('tokenInfo.error')}}</h3>
                             <div>{{manifest['abi']['methods'][index]['error']}}</div>
                           </div>
-                          <div v-else-if="manifest['abi']['methods'][index]['result'] && manifest['abi']['methods'][index]['result'] !== ''">
-                            <h3>{{$t('tokenInfo.response')}}</h3>
-                            <json-view  :json="manifest['abi']['methods'][index]['result']"></json-view>
+                          <div v-else-if="manifest['abi']['methods'][index]['raw'] && manifest['abi']['methods'][index]['raw'] !== ''">
+                            <div class="row">
+                              <h3 class="col-auto">{{$t('tokenInfo.response')}}</h3>
+                              <div>
+                                <button
+                                    class="btn btn-sm btn-primary ml-2"
+                                    @click="decode(index)"
+                                >
+                                  {{ manifest['abi']['methods'][index]['button'] }}
+                                </button>
+                              </div>
+                            </div>
+                            <json-view v-if="manifest['abi']['methods'][index]['isRaw']" :json="manifest['abi']['methods'][index]['raw']"></json-view>
+                            <json-view v-else :json="manifest['abi']['methods'][index]['display']"></json-view>
                           </div>
                         </div>
                       </card>
@@ -323,6 +334,7 @@ export default {
       standard: 0,
       manifest: "",
       decimal: "",
+      decodeButton: {state: true, buttonName: "Decode"},
     };
   },
   created() {
@@ -336,6 +348,15 @@ export default {
     convertPreciseTime,
     convertToken,
     copyItem,
+    decode(index) {
+      if (this.manifest["abi"]["methods"][index]["isRaw"]) {
+        this.manifest["abi"]["methods"][index]["isRaw"] = false;
+        this.manifest["abi"]["methods"][index]["button"] = "Raw";
+      } else {
+        this.manifest["abi"]["methods"][index]["isRaw"] = true;
+        this.manifest["abi"]["methods"][index]["button"] = "Decode";
+      }
+    },
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "tokeninfo") {
@@ -388,21 +409,23 @@ export default {
       const client = Neon.create.rpcClient(RPC_NODE);
       console.log(contractParams);
       client
-          .invokeFunction(this.token_id, name, contractParams)
-          .then((res) => {
-            console.log(res);
-            if(res["exception"] != null) {
-              this.manifest["abi"]["methods"][index]["error"] = res["exception"];
-            } else {
-              this.manifest["abi"]["methods"][index]["result"] = JSON.parse(
-                  JSON.stringify(res["stack"], responseConverter)
-              );
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            this.manifest["abi"]["methods"][index]["error"] = err.toString();
-          });
+        .invokeFunction(this.token_id, name, contractParams)
+        .then((res) => {
+          console.log(res);
+          if (res["exception"] != null) {
+            this.manifest["abi"]["methods"][index]["error"] = res["exception"];
+          } else {
+            const temp = JSON.parse(JSON.stringify(res["stack"]));
+            this.manifest["abi"]["methods"][index]["isRaw"] = true;
+            this.manifest["abi"]["methods"][index]["button"] = "Decode";
+            this.manifest["abi"]["methods"][index]["raw"] = res["stack"];
+            this.manifest["abi"]["methods"][index]["display"] = JSON.parse( JSON.stringify(temp, responseConverter));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.manifest["abi"]["methods"][index]["error"] = err.toString();
+        });
     },
     getContractManifest(token_id) {
       axios({
