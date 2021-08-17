@@ -7,7 +7,7 @@
         </slot>
       </tr>
     </thead>
-    <tbody :class="tbodyClasses">
+    <tbody :class="tbodyClasses" >
       <tr v-for="(item, index) in data" :key="index">
         <slot :item="item" :index="index">
           <th v-for="column in columns" :key="column">

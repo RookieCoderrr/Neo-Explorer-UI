@@ -68,6 +68,16 @@ function convertPreciseTime(time) {
     return m+'-'+d+'-'+y+' '+h+':'+mi+':'+ s +' +' + "UTC";
 }
 
+function convertISOTime(time) {
+    const date = new Date(time);
+    const y = date.getFullYear()
+    const m = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)
+    const d = (date.getDate() <10 ? ('0' +date.getDate()): date.getDate())
+    const h = date.getHours() < 10 ? ('0' + date.getHours()): date.getHours()
+    const mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()): date.getMinutes()
+    const s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
+    return y+'-'+m+'-'+d+' '+h+':'+mi+':'+ s  ;
+}
 function addressToScriptHash(addr) {
     const acc = Neon.create.account(addr);
     return "0x" + acc.scriptHash;
@@ -124,5 +134,6 @@ export {
   addressToScriptHash,
   scriptHashToAddress,
   responseConverter,
-    copyItem
+    copyItem,
+    convertISOTime
 };

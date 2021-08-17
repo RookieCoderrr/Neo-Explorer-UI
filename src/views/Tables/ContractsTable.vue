@@ -92,7 +92,7 @@
               class="mb-0 text-sm"
               v-else-if="button.state"
               style="cursor: pointer"
-              :to="'/accountprofile/'+row.item.Transaction[0]['sender']"
+              :to="'/accountprofile/'+addressToScriptHash(row.item.Transaction[0]['sender'])"
             >
               {{ row.item.Transaction[0]["sender"] }}
             </router-link>
@@ -100,7 +100,7 @@
               class="mb-0 text-sm"
               v-else
               style="cursor: pointer"
-              :to="'/accountprofile/'+row.item.Transaction[0]['sender']"
+              :to="'/accountprofile/'+addressToScriptHash(row.item.Transaction[0]['sender'])"
             >
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>

@@ -1,6 +1,6 @@
-// var WebSocket = require('ws')
+ var WebSocket = require('ws')
 
-const ws = new WebSocket('ws://192.168.1.89:2026/home');
+const ws = new WebSocket('ws://192.168.1.46:2026/home');
 
 ws.on('open', function open() {
     ws.send('something');

@@ -19,17 +19,12 @@
     </div>
 
     <div class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="blockList"
+        :data="tableData"
       >
         <template v-slot:columns>
           <th>{{ $t("blockinfo.hash") }}</th>
@@ -52,9 +47,8 @@
           <th scope="row">
             {{ row.item.index }}
           </th>
-
           <td>
-            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+            <div  class="timeago"  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
           </td>
           <td>
             {{ row.item.transactioncount }}
@@ -68,10 +62,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime} from "../../store/util";
+import {convertTime,convertISOTime} from "../../store/util";
+
 
 export default {
   name: "blocks-table-homepage",
@@ -80,9 +72,7 @@ export default {
       type: String,
     },
     title: String,
-  },
-  components: {
-    Loading,
+    tableData:Object,
   },
   data() {
     return {
@@ -95,46 +85,24 @@ export default {
     };
   },
   created() {
-    this.getBlockList(0);
+
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
+
+  mounted() {
+
   },
+
   methods: {
+
     convertTime,
+    convertISOTime,
     toBlocksTable() {
       this.$router.push({
         path: `/blocks`,
       });
     },
-    getBlockList(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetBlockInfoList",
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
-        this.blockList = res["data"]["result"]["result"];
-        this.totalCount = res["data"]["result"]["totalCount"];
-        this.isLoading = false;
-      });
-    },
+
+
   },
 };
 </script>

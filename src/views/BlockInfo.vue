@@ -283,11 +283,6 @@ export default {
         this.getBlock(this.BlockHash);
       }
     },
-    goToAddressInfo(addr){
-      this.$router.push({
-        path: `/accountprofile/${addr}`,
-      });
-    },
     preBlock(hash) {
       this.isLoading = true;
       this.getBlock(hash);
@@ -309,6 +304,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log(res)
         this.block_info = res["data"]["result"];
         this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
 
