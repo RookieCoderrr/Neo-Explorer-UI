@@ -73,6 +73,7 @@ module.exports = {
     name: "合约名",
     creator: "合约创建者",
     index: "合约序号",
+    updates: "更新次数",
     creatTime: "创建时间",
     time: "创建时间",
     available: "不适用",
@@ -242,6 +243,7 @@ module.exports = {
   },
   candidate: {
     title: "候选人列表",
+    committee:"委员会",
     address: "地址",
     rank: "排名    ",
     votes: "投票",

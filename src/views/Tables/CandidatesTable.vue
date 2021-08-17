@@ -29,6 +29,7 @@
       >
         <template v-slot:columns>
           <th>{{ $t("candidate.address") }}</th>
+          <th>{{ $t("candidate.committee") }}</th>
           <th>{{ $t("candidate.rank") }}</th>
           <th>{{ $t("candidate.votes") }}</th>
           <th>{{ $t("candidate.percentage") }}</th>
@@ -41,13 +42,13 @@
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.candidate"
-                ><i v-if="row.item.isCommittee" class="ni ni-badge"></i>
+                >
                 {{ row.item.candidate }}
                 </router-link
               >
             </div>
           </td>
-
+          <td ><i v-if="row.item.isCommittee" class="ni ni-badge"></i></td>
           <td class="budget">
             {{ row.index + 1 + this.count }}
           </td>

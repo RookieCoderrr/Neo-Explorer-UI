@@ -175,10 +175,12 @@ export default {
       tableData: [],
       length,
       fromState: true,
-      fromButton: "Hash",
+      fromButton: { state: true, buttonName: "Hash"},
+      toButton: { state: true, buttonName: "Hash"},
       toState: true,
-      toButton: "Hash",
+
       totalCount:0,
+
     };
   },
 
@@ -226,6 +228,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
+        console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"]
       });
     },

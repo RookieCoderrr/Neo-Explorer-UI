@@ -58,13 +58,13 @@
           <th>{{ $t("contract.hash") }}</th>
           <th>{{ $t("contract.name") }}</th>
           <th>
-            {{ $t("contract.creator")
-            }}
+            {{ $t("contract.creator") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
               {{ this.button.buttonName }}
             </button>
           </th>
-          <th>{{ $t("contract.index") }}</th>
+          <th>{{$t('contract.index')}}</th>
+          <th>{{ $t("contract.updates") }}</th>
           <th>{{ $t("contract.time") }}</th>
         </template>
 
@@ -92,7 +92,7 @@
               class="mb-0 text-sm"
               v-else-if="button.state"
               style="cursor: pointer"
-              :to="'/accountprofile/'+addressToScriptHash(row.item.Transaction[0]['sender'])"
+              :to="'/accountprofile/'+ addressToScriptHash(row.item.Transaction[0]['sender'])"
             >
               {{ row.item.Transaction[0]["sender"] }}
             </router-link>
@@ -100,13 +100,16 @@
               class="mb-0 text-sm"
               v-else
               style="cursor: pointer"
-              :to="'/accountprofile/'+addressToScriptHash(row.item.Transaction[0]['sender'])"
+              :to="'/accountprofile/'+ addressToScriptHash(row.item.Transaction[0]['sender'])"
             >
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>
           </td>
-          <td class="index">
+          <td class="updates">
             {{ row.item.id }}
+          </td>
+          <td class="updates">
+            {{ row.item.updatecounter }}
           </td>
           <td class="time">
             {{ convertTime(row.item.createtime, this.$i18n.locale) }}
@@ -165,7 +168,7 @@ export default {
       searchVal: "",
       name: "",
       countPage: 0,
-      button: {state: true, buttonName: "Hash"},
+      button: { state: true, buttonName: "Hash"},
     };
   },
   created() {
