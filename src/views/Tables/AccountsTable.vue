@@ -1,8 +1,8 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
+        class="card-header border-0"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
         <div class="col">
@@ -15,24 +15,24 @@
 
     <div class="table-responsive">
       <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
       ></loading>
       <base-table
-        class="table align-items-center table-flush"
-        :class="type === 'dark' ? 'table-dark' : ''"
-        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-        tbody-classes="list"
-        :data="tableData"
+          class="table align-items-center table-flush"
+          :class="type === 'dark' ? 'table-dark' : ''"
+          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+          tbody-classes="list"
+          :data="tableData"
       >
         <template v-slot:columns>
           <th>{{ $t("addressPage.number") }}</th>
           <th>
             {{ $t("addressPage.address")
             }}<button class="btn btn-sm btn-primary" @click="changeFormat(button)">
-              {{ this.button.buttonName }}
-            </button>
+            {{ this.button.buttonName }}
+          </button>
           </th>
           <th>{{ $t("addressPage.neoBalance") }}</th>
           <th>{{ $t("addressPage.gasBalance") }}</th>
@@ -44,18 +44,18 @@
           </td>
           <td class="address">
             <router-link
-              class="mb-0 text-sm"
-              v-if="this.button.state"
-              style="cursor: pointer"
-              :to="'/accountprofile/'+row.item.address"
+                class="mb-0 text-sm"
+                v-if="this.button.state"
+                style="cursor: pointer"
+                :to="'/accountprofile/'+row.item.address"
             >
               {{ scriptHashToAddress(row.item.address) }}
             </router-link>
             <router-link
-              class="mb-0 text-sm"
-              v-else
-              style="cursor: pointer"
-              :to="'/accountprofile/'+row.item.address"
+                class="mb-0 text-sm"
+                v-else
+                style="cursor: pointer"
+                :to="'/accountprofile/'+row.item.address"
             >
               {{ row.item.address }}
             </router-link>
@@ -75,23 +75,23 @@
     </div>
 
     <div
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">{{ $t("page") }} &nbsp;</div>
         <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
-        :total="this.totalAccount"
-        :value="this.pagination"
-        v-on:input="pageChange($event)"
+          :total="this.totalAccount"
+          :value="this.pagination"
+          v-on:input="pageChange($event)"
       ></base-pagination>
     </div>
   </div>
@@ -145,9 +145,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
+            "width: " +
+            inputLength +
+            "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -198,24 +198,24 @@ export default {
           crossDomain: "true",
         },
       })
-        .then((res) => {
-          let temp = res["data"]["result"]["result"];
-          for (let k = 0; k < temp.length; k++) {
-            temp[k]["firstusetime"] = convertTime(temp[k]["firstusetime"], this.$i18n.locale);
-            temp[k]["neoBalance"] = "";
-            temp[k]["gasBalance"] = "";
-            temp[k]["number"] =
-              k + 1 + this.resultsPerPage * (this.pagination - 1);
-          }
-          this.tableData = temp;
-          this.totalAccount = res["data"]["result"]["totalCount"];
-          this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
-          this.getBalance();
-          this.isLoading = false;
-        })
-        .catch((err) => {
-          console.log("Error", err);
-        });
+          .then((res) => {
+            let temp = res["data"]["result"]["result"];
+            for (let k = 0; k < temp.length; k++) {
+              temp[k]["firstusetime"] = convertTime(temp[k]["firstusetime"], this.$i18n.locale);
+              temp[k]["neoBalance"] = "";
+              temp[k]["gasBalance"] = "";
+              temp[k]["number"] =
+                  k + 1 + this.resultsPerPage * (this.pagination - 1);
+            }
+            this.tableData = temp;
+            this.totalAccount = res["data"]["result"]["totalCount"];
+            this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
+            this.getBalance();
+            this.isLoading = false;
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
     },
     getAddress(accountAddress) {
       this.$router.push({
@@ -243,19 +243,18 @@ export default {
             crossDomain: "true",
           },
         })
-          .then((res) => {
-            this.tableData[k]["gasBalance"] = this.convertGas(
-              res["data"]["result"]["balance"]
-            );
-          })
-          .catch((err) => {
-            if (Object.getPrototypeOf(TypeError) === Error) {
-              this.tableData[k]["gasBalance"] = "0";
-            } else {
-              console.log("Error", err);
-            }
-          });
-
+            .then((res) => {
+              this.tableData[k]["gasBalance"] = this.convertGas(
+                  res["data"]["result"]["balance"]
+              );
+            })
+            .catch((err) => {
+              if (Object.getPrototypeOf(TypeError) === Error) {
+                this.tableData[k]["gasBalance"] = "0";
+              } else {
+                console.log("Error", err);
+              }
+            });
         axios({
           method: "post",
           url: "/api",
@@ -274,16 +273,16 @@ export default {
             crossDomain: "true",
           },
         })
-          .then((res) => {
-            this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
-          })
-          .catch((err) => {
-            if (Object.getPrototypeOf(TypeError) === Error) {
-              this.tableData[k]["neoBalance"] = "0";
-            } else {
-              console.log("Error", err);
-            }
-          });
+            .then((res) => {
+              this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
+            })
+            .catch((err) => {
+              if (Object.getPrototypeOf(TypeError) === Error) {
+                this.tableData[k]["neoBalance"] = "0";
+              } else {
+                console.log("Error", err);
+              }
+            });
       }
     },
     getNeoBalance(accountAddress) {
@@ -305,12 +304,12 @@ export default {
           crossDomain: "true",
         },
       })
-        .then((res) => {
-          return res["data"]["result"]["balance"];
-        })
-        .catch((err) => {
-          console.log("Error", err);
-        });
+          .then((res) => {
+            return res["data"]["result"]["balance"];
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
     },
     getGasBalance(accountAddress) {
       axios({
@@ -331,12 +330,12 @@ export default {
           crossDomain: "true",
         },
       })
-        .then((res) => {
-          return this.convertGas(res["data"]["result"]["balance"]);
-        })
-        .catch((err) => {
-          console.log("Error", err);
-        });
+          .then((res) => {
+            return this.convertGas(res["data"]["result"]["balance"]);
+          })
+          .catch((err) => {
+            console.log("Error", err);
+          });
     },
   },
 };
