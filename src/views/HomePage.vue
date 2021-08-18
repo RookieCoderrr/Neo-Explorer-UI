@@ -204,7 +204,7 @@ export default {
   },
   methods: {
     initWebSocket(){ //初始化weosocket
-      const wsuri = "ws://192.168.1.89:2026/home";
+      const wsuri = "ws://testneofura.ngd.network:2026/home";
       this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
@@ -256,6 +256,108 @@ export default {
     },
     websocketclose(e){  //关闭
       console.log('断开连接',e);
+    },
+    getBlockCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetBlockCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.blockCount = res["data"]["result"]["index"];
+      });
+    },
+    getTxCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetTransactionCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.txCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getAccountCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetAddressCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.accountCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getAssetCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetAssetCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.assetCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getContractCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetContractCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.contractCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getCandidateCount() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          params: {},
+          jsonrpc: "2.0",
+          id: 1,
+          method: "GetCandidateCount",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.candidateCount = res["data"]["result"]["total counts"];
+      });
     },
     getBlockList() {
       axios({

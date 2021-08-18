@@ -464,7 +464,13 @@ export default {
           this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
   },
+
 };
 </script>
 

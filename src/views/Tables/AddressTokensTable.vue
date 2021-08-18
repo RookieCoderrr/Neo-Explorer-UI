@@ -144,6 +144,7 @@ export default {
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);
     },
+
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
         this.isLoading = true;
