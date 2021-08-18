@@ -123,7 +123,11 @@ function toOpcode(b64) {
             let operand = scripts.slice(0, number)
             let flag = false
             for(let k=0; k<operand.length; k++) {
-                if (operand[k] > 122 || operand[k] < 48 ) {
+                if (operand[k]>=48 && operand[k] <= 57)
+                    continue
+                else if (operand[k]>=65 && operand[k] <=122)
+                    continue
+                else {
                     flag = true
                     break
                 }
