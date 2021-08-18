@@ -1,11 +1,6 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div v-if="this.totalCount != 0" class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -79,7 +74,6 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
 import {convertTime, convertGas} from "../../store/util";
 
 export default {
@@ -90,9 +84,7 @@ export default {
     },
     account_address: String,
   },
-  components: {
-    Loading,
-  },
+
   data() {
     return {
       tableData: [],
@@ -100,7 +92,6 @@ export default {
       resultsPerPage: 10,
       pagination: 1,
       countPage: 0,
-      isLoading: true,
     };
   },
 
@@ -136,24 +127,20 @@ export default {
     },
     // TODO 替换这个gettransactionslist的bug
     pageChange(pageNumber) {
-      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.getTransactions(skip);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
-        this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getTransactions(skip);
       } else if (pageNumber <= 0) {
-        this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
         this.getTransactions(skip);
       } else {
-        this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTransactions(skip);
@@ -180,7 +167,6 @@ export default {
         },
       })
         .then((res) => {
-          this.isLoading = false;
           this.tableData = res["data"]["result"]["result"];
           this.totalCount = res["data"]["result"]["totalCount"];
           this.countPage =

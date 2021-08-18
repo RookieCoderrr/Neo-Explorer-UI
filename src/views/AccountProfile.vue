@@ -83,12 +83,7 @@
                       <div class="font-weight-bold mb-0">
                         {{ $t("addressPage.addressProfile.nep17Transfers") }}
                       </div>
-                      <loading v-if="this.numOfnep17Transfers === -1"
-                          :is-full-page="false"
-                          :opacity="0.9"
-                          :active="isLoading"
-                      ></loading>
-                      <div v-else class="panel-body">
+                      <div  class="panel-body">
                         {{ this.numOfnep17Transfers }}
                       </div>
                     </div>

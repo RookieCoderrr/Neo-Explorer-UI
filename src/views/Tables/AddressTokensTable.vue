@@ -5,11 +5,6 @@
     :class="type === 'dark' ? 'bg-default' : ''"
   >
     <div class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -88,8 +83,6 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
 import {convertToken} from "../../store/util";
 export default {
   name: "address-tokens-table",
@@ -99,16 +92,12 @@ export default {
     },
     account_address: String,
   },
-  components: {
-    Loading,
-  },
   data() {
     return {
       tokenList: [],
       totalCount: 0,
       resultsPerPage: 10,
       pagination: 1,
-      isLoading: true,
       address_list: [],
     };
   },
@@ -147,17 +136,14 @@ export default {
 
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
-        this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.getTokenListWithBalance(skip);
       } else if (pageNumber <= 0) {
-        this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
         this.getTokenListWithBalance(skip);
       } else {
-        this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.getTokenListWithBalance(skip);
@@ -184,7 +170,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         let temp = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =

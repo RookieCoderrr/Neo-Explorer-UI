@@ -1,6 +1,5 @@
 <template>
   <div v-if="this.totalCount != 0" class="table-responsive">
-    <loading :is-full-page="false" :opacity="0.9" :active="isLoading"></loading>
     <base-table
       class="table align-items-center table-flush"
       :class="type === 'dark' ? 'table-dark' : ''"
@@ -232,7 +231,6 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
 import { changeFormat, convertToken, convertTime, addressToScriptHash, scriptHashToAddress} from "../../store/util";
 
 export default {
@@ -243,9 +241,6 @@ export default {
     },
     account_address: String,
   },
-  components: {
-    Loading,
-  },
   data() {
     return {
       tableData: [],
@@ -254,7 +249,7 @@ export default {
       countPage: 0,
       fromButton: {state: true, buttonName: "Hash"},
       toButton: {state: true, buttonName: "Hash"},
-      isLoading: true,
+
       totalCount:0,
       contractHash:"",
     };
@@ -289,24 +284,21 @@ export default {
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
-        this.isLoading = true;
+
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.GetNep11TransferByAddress(skip);
       } else if (pageNumber <= 0) {
-        this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
         this.GetNep11TransferByAddress(skip);
       } else {
-        this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.GetNep11TransferByAddress(skip);
       }
     },
     pageChange(pageNumber) {
-      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.GetNep11TransferByAddress(skip);
@@ -344,7 +336,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =

@@ -1,11 +1,6 @@
 <template>
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div v-if="this.totalCount != 0" class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -238,7 +233,6 @@
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
 import { changeFormat, convertToken, convertTime, addressToScriptHash, scriptHashToAddress} from "../../store/util";
 
 export default {
@@ -250,9 +244,7 @@ export default {
     title: String,
     account_address: String,
   },
-  components: {
-    Loading,
-  },
+
   data() {
     return {
       tableData: [],
@@ -263,7 +255,6 @@ export default {
       toButton: { state: true, buttonName: "Hash" },
       txId: "",
       timeStamp: 0,
-      isLoading: true,
       totalCount: 0 ,
     };
   },
@@ -301,24 +292,20 @@ export default {
       });
     },
     pageChange(pageNumber) {
-      this.isLoading = true;
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       this.GetNep17TransferByAddress(skip);
     },
     pageChangeByInput(pageNumber) {
       if (pageNumber >= this.countPage) {
-        this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         this.GetNep17TransferByAddress(skip);
       } else if (pageNumber <= 0) {
-        this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
         this.GetNep17TransferByAddress(skip);
       } else {
-        this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
         this.GetNep17TransferByAddress(skip);
@@ -356,7 +343,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
         this.txId = res["data"]["result"]["result"]["txid"];
