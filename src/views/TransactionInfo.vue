@@ -306,15 +306,15 @@
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.originSender')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/accountprofile/'+item['originSender']" >
                               {{ item["originSender"]}}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-4">
                             <div class="text-muted">{{$t('transactionInfo.contract')}}:</div>
-                            <a class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
+                            <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/contractinfo/'+item['contractHash']" >
                               {{ item["contractHash"]}}
-                            </a>
+                            </router-link>
                           </div>
                           <div class="col-2">
                             <div class="text-muted">{{$t('transactionInfo.callFlags')}}:</div>
@@ -407,9 +407,6 @@ export default {
       countApp:0,
       countSys:0,
       List:[],
-
-
-
     };
   },
   created() {

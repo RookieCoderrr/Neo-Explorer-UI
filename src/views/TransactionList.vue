@@ -16,6 +16,7 @@ export default {
   components: {
     TransactionsTable,
   },
+
 };
 </script>
 <style></style>

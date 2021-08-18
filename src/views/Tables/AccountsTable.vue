@@ -101,6 +101,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import {convertGas, convertTime, scriptHashToAddress,addressToScriptHash, changeFormat} from "../../store/util";
+import {render} from "timeago.js";
 
 export default {
   name: "accounts-table",
@@ -127,6 +128,17 @@ export default {
   },
   created() {
     this.getAccoutsList(0);
+  },
+  updated() {
+    const nodes = document.getElementsByClassName('timeago')
+    console.log(nodes)
+    if(nodes.length != 0){
+      if(this.$i18n.locale === 'cn'){
+        render(nodes, 'zh_CN');
+      }else{
+        render(nodes, this.$i18n.locale );
+      }
+    }
   },
   computed: {
     text() {

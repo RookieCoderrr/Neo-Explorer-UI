@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { format } from "timeago.js";
+import {format} from "timeago.js";
 import Neon from "@cityofzion/neon-js";
 
 const RPC_NODE = "http://seed2t4.neo.org:20332";
@@ -78,6 +78,9 @@ function convertISOTime(time) {
     const s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
     return y+'-'+m+'-'+d+' '+h+':'+mi+':'+ s  ;
 }
+
+
+
 function addressToScriptHash(addr) {
     const acc = Neon.create.account(addr);
     return "0x" + acc.scriptHash;
@@ -132,15 +135,15 @@ function responseConverter(key, val) {
 
 
 export {
-  RPC_NODE,
-  changeFormat,
-  convertToken,
+    RPC_NODE,
+    changeFormat,
+    convertToken,
     convertGas,
-  convertTime,
-  convertPreciseTime,
-  addressToScriptHash,
-  scriptHashToAddress,
-  responseConverter,
+    convertTime,
+    convertPreciseTime,
+    addressToScriptHash,
+    scriptHashToAddress,
+    responseConverter,
     copyItem,
-    convertISOTime
+    convertISOTime,
 };

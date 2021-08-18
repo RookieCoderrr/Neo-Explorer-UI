@@ -52,8 +52,9 @@
             >
           </td>
           <td class="budget">{{ row.item.size }} {{ $t("bytes") }}</td>
-          <td class="budget">
-            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
+          <td >
+<!--            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}-->
+            <div class="timeago" :datetime="(convertISOTime(row.item.blocktime))"> </div>
           </td>
 
           <td class="budget">
@@ -90,7 +91,8 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { convertGas, convertTime} from "../../store/util";
+import { convertGas, convertTime, convertISOTime } from "../../store/util";
+import {render} from "timeago.js";
 export default {
   name: "transactions-table",
   props: {
@@ -117,6 +119,16 @@ export default {
   created() {
     this.getTransactionList(0);
   },
+  updated() {
+    const nodes = document.getElementsByClassName('timeago')
+    if(nodes.length != 0){
+      if(this.$i18n.locale === 'cn'){
+        render(nodes, 'zh_CN');
+      }else{
+        render(nodes, this.$i18n.locale );
+      }
+    }
+  },
   computed: {
     text() {
       return function (value) {
@@ -132,6 +144,7 @@ export default {
   methods: {
     convertGas,
     convertTime,
+    convertISOTime,
     getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,

@@ -50,7 +50,8 @@
             </div>
           </td>
           <td>
-            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}
+<!--            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}-->
+            <div class="timeago" :datetime="(convertISOTime(row.item.timestamp))"> </div>
           </td>
           <td class="txnumber">
             {{ row.item.transactioncount }}
@@ -88,7 +89,8 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime} from "../../store/util";
+import {convertTime,convertISOTime} from "../../store/util";
+import {render} from "timeago.js";
 
 export default {
   name: "blocks-table",
@@ -115,6 +117,18 @@ export default {
   created() {
     this.getBlockList(0);
   },
+
+  updated() {
+    const nodes = document.getElementsByClassName('timeago')
+    if(nodes.length != 0){
+      if(this.$i18n.locale === 'cn'){
+        render(nodes, 'zh_CN');
+      }else{
+        render(nodes, this.$i18n.locale );
+      }
+    }
+  },
+
   computed: {
     text() {
       return function (value) {
@@ -129,6 +143,7 @@ export default {
   },
   methods: {
     convertTime,
+    convertISOTime,
     getBlock(hash) {
       this.$router.push(`/blockinfo/${hash}`);
     },
