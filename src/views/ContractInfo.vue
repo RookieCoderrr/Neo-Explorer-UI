@@ -13,19 +13,17 @@
               <div class="card-header bg-transparent">
                 <div class="row">
                   <div class="col-10">
-                    <h1 class="mb-0">{{ this.contract_info["name"] }}</h1>
+                    <h1 class="mb-0">{{ this.contract_info["name"] }}
+                      <button
+                          v-if="isToken"
+                          class="btn btn-primary btn-sm"
+                          @click="getToken(this.contract_id)"
+                      >
+                        Token
+                      </button>
+                    </h1>
                   </div>
-                  <div
-                      v-if="this.isAddress"
-                      class="col-2"
-                  >
-                    <button
-                        class="btn btn-primary btn-xs"
-                        @click="getAddress(this.contract_id)"
-                    >
-                      {{$t('contract.viewAsAddr')}}
-                    </button>
-                  </div>
+
                 </div>
                 <span class="text-muted" id="contract">{{ this.contract_info["hash"] }}</span>
                 <i class="ni ni-single-copy-04" id="contractButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')"></i>
@@ -358,10 +356,12 @@ export default {
       decodeButton: {state: true, buttonName: "Decode"},
       totalsccall: 0,
       isAddress: false,
+      isToken:false,
     };
   },
   created() {
     this.getContract(this.contract_id);
+    this.testToken(this.contract_id)
   },
   watch: {
     $route: "watchrouter",
@@ -412,6 +412,9 @@ export default {
         this.isLoading = false;
       });
     },
+    getToken(contract){
+      this.$router.push(`/tokeninfo/${contract}`);
+    },
     testAddress(addr) {
       axios({
         method: "post",
@@ -432,6 +435,33 @@ export default {
           this.isAddress = true;
       });
     },
+    testToken(contract){
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          method: "GetAssetInfoByContractHash",
+          params: { ContractHash: contract },
+          id: 1,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        if (res["data"]["error"] === null){
+          this.isToken = true;
+          console.log("yes")
+        } else {
+          this.isToken = false;
+          console.log("no")
+        }
+
+      });
+    },
+
     onQuery(index) {
       this.manifest["abi"]["methods"][index]["raw"] = "";
       this.manifest["abi"]["methods"][index]["error"] = "";

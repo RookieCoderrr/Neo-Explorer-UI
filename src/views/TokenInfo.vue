@@ -11,10 +11,28 @@
                 :active="isLoading"
               ></loading>
               <div class="card-header bg-transparent">
-                <h1 v-if="this.token_info.ispopular" class="mb-0">
-                  {{ this.token_info["tokenname"] }} &#x1F525;
-                </h1>
-                <h1 v-else class="mb-0">{{ this.token_info["tokenname"] }}</h1>
+                <div class="row">
+                  <div class="col-10">
+                    <h1 v-if="this.token_info.ispopular" class="mb-0">
+                      {{ this.token_info["tokenname"] }} &#x1F525;
+                      <button
+                          class="btn btn-primary btn-sm"
+                          @click="getContract(this.token_info['hash'])"
+                      >
+                        Contract
+                      </button>
+                    </h1>
+                    <h1 v-else class="mb-0">{{ this.token_info["tokenname"] }}
+                      <button
+                          class="btn btn-primary btn-sm"
+                          @click="getContract(this.token_info['hash'])"
+                      >
+                        Contract
+                      </button>
+                    </h1>
+                  </div>
+
+                </div>
                 <a
                   class="mb-0"
                   id="token"
@@ -25,6 +43,7 @@
                 <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>
                 <span  style="color: #42b983"  id="hashSpan" ></span>
               </div>
+
               <div class="card-body">
                 <div class="row">
                   <div class="col-4">
