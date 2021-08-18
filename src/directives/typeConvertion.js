@@ -136,7 +136,7 @@ function toOpcode(b64) {
             result.push(temp_result)
             scripts = scripts.slice(number)
         }
-        if (operandSizePrefix == 0)
+        if (operandSizePrefix == 0 && operandSize ==0)
             result.push(op)
     }
     res = result.join('<br>')
