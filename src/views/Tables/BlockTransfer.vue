@@ -251,16 +251,6 @@ export default {
         this.isLoading = false;
       });
     },
-    getAddress(accountAddress) {
-      this.$router.push({
-        path: `/accountprofile/${accountAddress}`,
-      });
-    },
-    getTransaction(txhash) {
-      this.$router.push({
-        path: `/transactionInfo/${txhash}`,
-      });
-    },
   },
 };
 </script>

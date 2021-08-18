@@ -22,11 +22,6 @@
     </div>
 
     <div class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -54,7 +49,7 @@
           </td>
           <td>{{ row.item.size }} {{ $t("bytes") }}</td>
           <td>
-            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
+            <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
 
           <td>
@@ -66,10 +61,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import { convertGas, convertTime } from "../../store/util";
+import { convertGas, convertTime,convertISOTime } from "../../store/util";
+
 
 export default {
   name: "transactions-table-homepage",
@@ -78,13 +71,11 @@ export default {
       type: String,
     },
     title: String,
-  },
-  components: {
-    Loading,
+    tableData: Object,
   },
   data() {
     return {
-      tableData: [],
+
       totalCount: 0,
       resultsPerPage: 10,
       placeHolder: 0,
@@ -92,41 +83,14 @@ export default {
     };
   },
 
-  created() {
-    this.getTransactionList(0);
-  },
+
   methods: {
     convertGas,
     convertTime,
+    convertISOTime,
     toTransactionsTable() {
       this.$router.push({
         path: `/Transactions`,
-      });
-    },
-    getTransaction(txhash) {
-      this.$router.push({
-        path: `/transactionInfo/${txhash}`,
-      });
-    },
-    getTransactionList(skip) {
-      axios({
-        method: "post",
-        url: "/api",
-        data: {
-          jsonrpc: "2.0",
-          id: 1,
-          params: { Limit: this.resultsPerPage, Skip: skip },
-          method: "GetTransactionList",
-        },
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: " true",
-          crossDomain: "true",
-        },
-      }).then((res) => {
-        this.isLoading = false;
-        this.tableData = res["data"]["result"]["result"];
-        this.totalCount = res["data"]["result"]["totalCount"];
       });
     },
   },

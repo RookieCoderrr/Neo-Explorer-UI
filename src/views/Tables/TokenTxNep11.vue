@@ -235,7 +235,7 @@ export default {
         this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getBlockList(skip);
+        this.getTokenList(skip);
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;

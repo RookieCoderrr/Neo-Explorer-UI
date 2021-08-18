@@ -478,8 +478,7 @@ export default {
         }
       }
       const client = Neon.create.rpcClient(RPC_NODE);
-      client
-        .invokeFunction(this.contract_id, name, contractParams)
+      client.invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
           if (res["exception"] != null) {
             this.manifest["abi"]["methods"][index]["error"] = res["exception"];
@@ -495,7 +494,13 @@ export default {
           this.manifest["abi"]["methods"][index]["error"] = err.toString();
         });
     },
+    getAddress(accountAddress) {
+      this.$router.push({
+        path: `/accountprofile/${accountAddress}`,
+      });
+    },
   },
+
 };
 </script>
 

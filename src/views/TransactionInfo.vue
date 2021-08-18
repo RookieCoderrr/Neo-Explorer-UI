@@ -627,6 +627,7 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         this.tabledataCall = res["data"]["result"];
+        console.log(this.tabledataCall["totalCount"],"?????")
         for (var i = 0; i <this.tabledataCall["totalCount"];i ++){
           this.getContractsSys(this.tabledataCall["result"][i]["contractHash"],this.tabledataCall["result"][i]["method"])
         }
@@ -668,6 +669,7 @@ export default {
             this.List.push(json)
 
           }
+          console.log(this.List)
         });
       }
   },

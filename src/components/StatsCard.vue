@@ -13,8 +13,8 @@
           <span
             class="display-4 font-weight-bold mb-0"
             style="color: #343939"
-            v-if="subTitle">
-            <count-to :startVal='startVal' :endVal='parseInt(subTitle)' :duration='2000'></count-to>
+            v-if="endVal!=0">
+            <count-to :startVal='startVal' :endVal='endVal' :duration='2000'></count-to>
           </span>
         </slot>
       </div>
@@ -51,17 +51,21 @@ export default {
       type: String,
       default: "primary",
     },
+    startVal: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    endVal: {
+      type: Number,
+      required: false,
+      default: 2017
+    },
     icon: String,
     title: String,
     subTitle: String,
     iconClasses: [String, Array],
   },
-  data(){
-    return {
-      startVal:0,
-    }
-
-  }
 
 };
 </script>

@@ -38,7 +38,8 @@
             @click="toBlock()"
             :title="$t('homePage.totalBLocks')"
             type="gradient-red"
-            :sub-title="blockCount.toString()"
+            :startVal="startBlockVal"
+            :endVal="blockCount"
             icon="ni ni-ungroup"
             class="mb-4 mb-xl-0"
           >
@@ -51,7 +52,8 @@
             @click="toTransaction()"
             :title="$t('homePage.totalTxs')"
             type="gradient-orange"
-            :sub-title="txCount.toString()"
+            :startVal="startTxVal"
+            :endVal="txCount"
             icon="ni ni-cart"
             class="mb-4 mb-xl-0"
           >
@@ -64,7 +66,8 @@
             @click="toAsset()"
             :title="$t('homePage.totalTokens')"
             type="gradient-red"
-            :sub-title="assetCount.toString()"
+            :startVal="startAssetVal"
+            :endVal="assetCount"
             icon="ni ni-money-coins"
             class="mb-4 mb-xl-0"
           >
@@ -79,7 +82,8 @@
             @click="toContract()"
             :title="$t('homePage.totalCntrts')"
             type="gradient-purple"
-            :sub-title="contractCount.toString()"
+            :startVal="startContractVal"
+            :endVal="contractCount"
             icon="ni ni-collection"
             class="mb-4 mb-xl-0"
           >
@@ -93,7 +97,8 @@
             @click="toAddress()"
             :title="$t('homePage.totalAddrs')"
             type="gradient-green"
-            :sub-title="accountCount.toString()"
+            :startVal="startAccountVal"
+            :endVal="accountCount"
             icon="ni ni-single-02"
             class="mb-4 mb-xl-0"
           >
@@ -107,7 +112,8 @@
             @click="toCandidate()"
             :title="$t('homePage.totalCndidtes')"
             type="gradient-blue"
-            :sub-title="candidateCount.toString()"
+            :startVal="startCandidateVal"
+            :endVal="candidateCount"
             icon="ni ni-badge"
             class="mb-4 mb-xl-0"
           >
@@ -118,11 +124,13 @@
         <div class="col-6">
           <blocks-table-homepage
             :title="$t('homePage.recentBlocks')"
+            :table-data="blockList"
           ></blocks-table-homepage>
         </div>
         <div class="col-6">
           <transaction-table-homepage
             :title="$t('homePage.recentTxs')"
+            :table-data="transactionList"
           ></transaction-table-homepage>
         </div>
       </div>
@@ -136,6 +144,8 @@ import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage"
 import axios from "axios";
 import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
+import {render} from "timeago.js";
+
 export default {
   name: "Home",
   components: {
@@ -160,21 +170,37 @@ export default {
       isNumberPattern: /^\d+$/,
       webSock: null,
       //数字开始
-      startVal: 0,
-      //数字结束
-      endVal: 3000,
+      startBlockVal: 0,
+      startTxVal: 0,
+      startAccountVal: 0,
+      startAssetVal: 0,
+      startContractVal: 0,
+      startCandidateVal: 0,
+
       websock: null,
-      path:"ws://testneofura.ngd.network:2026/home"
+      blockList:[],
+      transactionList:[],
     };
   },
+
   created() {
-    this.getBlockCount();
-    this.getTxCount();
-    this.getAccountCount();
-    this.getAssetCount();
-    this.getContractCount();
-    this.getCandidateCount();
-    // this.initWebSocket()
+    this.getBlockList();
+    this.getTransactionList();
+      this.initWebSocket()
+  },
+  updated() {
+    const nodes = document.getElementsByClassName('timeago')
+    if(nodes.length != 0){
+    if(this.$i18n.locale === 'cn'){
+      render(nodes, 'zh_CN');
+    }else{
+      render(nodes, this.$i18n.locale );
+    }
+    }
+  },
+  unmounted() {
+    //页面销毁时关闭长连接
+     this.websocketclose();
   },
   methods: {
     initWebSocket(){ //初始化weosocket
@@ -186,34 +212,43 @@ export default {
       this.websock.onclose = this.websocketclose;
     },
     websocketonopen(){ //连接建立之后执行send方法发送数据
-      // let actions = {"test":"12345"};
-      // this.websocketsend(JSON.stringify(actions));
-      console.log(1)
+      let actions = {"test":"12345"};
+      this.websocketsend(JSON.stringify(actions));
     },
     websocketonerror(){//连接建立失败重连
       this.initWebSocket();
     },
     websocketonmessage(e){ //数据接收
+
+      if( e.data != 'hello neo3fura'){
       try{
-        console.log(e.data)
       const redata = JSON.parse(e.data);
-      if(Object.keys(redata)[0] ==="TransactionCount"){
-          this.txCount = redata["TransactionCount"]
+      if (Object.keys(redata)[0] ==="BlockCount"){
+          this.startBlockVal = this.blockCount
+          this.blockCount = redata['BlockCount']["index"]
+        }else if(Object.keys(redata)[0] ==="TransactionCount"){
+          this.startTxVal = this.txCount
+          this.txCount = redata["TransactionCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="AddressCount"){
-          this.accountCount = redata["AddressCount"]
-      }else if (Object.keys(redata)[0] ==="CandidateCount"){
-          this.candidateCount = redata["CandidateCount"]
-      }else if (Object.keys(redata)[0] ==="ContractCount"){
-        this.contractCount = redata["ContractCount"]
-      }else if (Object.keys(redata)[0] ==="BlockCount"){
-        this.blockCount = redata['BlockCount']
+        this.startAccountVal = this.accountCount
+          this.accountCount = redata["AddressCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="AssetCount"){
-        this.assetCount = redata["AssetCount"]
+        this.startAssetVal = this.assetCount
+        this.assetCount = redata["AssetCount"]["total counts"]
+      }else if (Object.keys(redata)[0] ==="ContractCount"){
+        this.startContractVal =this.contractCount
+        this.contractCount = redata["ContractCount"]["total counts"]
+      }else if (Object.keys(redata)[0] ==="CandidateCount"){
+        this.startCandidateVal = this.candidateCount
+          this.candidateCount = redata["CandidateCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="BlockInfoList"){
-          console.log("111")
+          this.blockList = redata["BlockInfoList"]
+      }else if (Object.keys(redata)[0] ==="TransactionList"){
+        this.transactionList = redata["TransactionList"]
       }
       }catch (e) {
         console.log(e)
+      }
       }
     },
     websocketsend(Data){//数据发送
@@ -322,6 +357,42 @@ export default {
         },
       }).then((res) => {
         this.candidateCount = res["data"]["result"]["total counts"];
+      });
+    },
+    getBlockList() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Limit: 10, Skip: 0 },
+          method: "GetBlockInfoList",
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        this.blockList = res["data"]["result"]["result"];
+      });
+    },
+    getTransactionList() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { Limit: 10, Skip: 0 },
+          method: "GetTransactionList",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.transactionList = res["data"]["result"]["result"];
       });
     },
     search() {
@@ -570,6 +641,7 @@ export default {
         path: `/contracts`,
       });
     },
+
   },
 };
 </script>
