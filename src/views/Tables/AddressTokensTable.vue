@@ -13,11 +13,11 @@
         :data="tokenList"
       >
         <template v-slot:columns>
-          <th>{{ $t("hash") }}</th>
-          <th>{{ $t("tokensTable.name") }}</th>
-          <th>{{ $t("tokensTable.symbol") }}</th>
-          <th>{{ $t("tokensTable.symbol") }}</th>
-          <th>{{ $t("tokenHolder.balance") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("hash") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokensTable.name") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokensTable.symbol") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokensTable.symbol") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenHolder.balance") }}</th>
         </template>
 
         <template v-slot:default="row">

@@ -1,25 +1,25 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
+  <div
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ title }}
-          </h3>
-        </div>
-        <div class="col text-right">
-          <base-button
+  >
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+          {{ title }}
+        </h3>
+      </div>
+      <div class="col text-right">
+        <base-button
             type="primary"
             size="sm"
             @click="toTransactionsTable()"
-            >{{ $t("homePage.seeAll") }}</base-button
-          >
-        </div>
+        >{{ $t("homePage.seeAll") }}</base-button
+        >
       </div>
     </div>
+  </div>
+  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
 
     <div class="table-responsive">
       <base-table
@@ -29,14 +29,18 @@
         tbody-classes="list"
         :data="tableData"
       >
-        <template v-slot:columns>
+        <!--template v-slot:columns>
           <th>{{ $t("homePage.txTable.txID") }}</th>
           <th>{{ $t("homePage.txTable.size") }}</th>
           <th>{{ $t("homePage.txTable.time") }}</th>
           <th>{{ $t("homePage.txTable.gas") }}</th>
-        </template>
+        </template-->
 
         <template v-slot:default="row">
+          <td style="text-align: right">
+            <div class="item-name">TRANSCATION ID: </div>
+            <div class="item-name">GAS: </div>
+          </td>
           <td>
             <div class="txid">
               <router-link
@@ -46,15 +50,15 @@
                 >{{ row.item.hash }}</router-link
               >
             </div>
+            <div>
+              {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
+            </div>
           </td>
-          <td>{{ row.item.size }} {{ $t("bytes") }}</td>
           <td>
+            <div>Size: {{ row.item.size }} {{ $t("bytes") }}</div>
             <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
 
-          <td>
-            {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
-          </td>
         </template>
       </base-table>
     </div>
@@ -102,5 +106,9 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.item-name {
+  width: 20px;
+  text-align: right;
 }
 </style>
