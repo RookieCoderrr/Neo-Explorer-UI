@@ -131,17 +131,18 @@
     <!-- Header -->
     <div
       v-if="$route.meta.showSearch"
-      class="header bg-gradient-success py-7 py-lg-8"
+      class="header  py-7 py-lg-7"
+      style="background: #F2F2F2"
     >
-      <div class="search mt--5 ml-5" style="width: 600px; height: 45px">
+      <div class="searchAuth mt--6 ml-5" style="width: 600px; height: 45px">
         <input
           type="text"
-          class="over-ellipsis"
+          class="over-ellipsis-Auth"
           :placeholder="$t('search.placeholder')"
           v-model="searchVal"
           autocomplete="off"
           @keyup.enter="search()"
-        /><button class="button" @click="search()" style="border: white">
+        /><button class="buttonAuth" @click="search()" style="border: white">
           <svg
             width="18"
             height="18"
@@ -159,8 +160,16 @@
         </button>
       </div>
     </div>
-    <div v-else class="header bg-gradient-success py-7 py-lg-2"></div>
-    <!-- Page content -->
+    <div
+        v-else-if="$route.meta.HomePage"
+        style="background: #F2F2F2">
+
+    ></div>
+    <div v-else class="header  py-7 py-lg-6"
+         style="background: #F2F2F2">
+
+    </div>
+
     <router-view></router-view>
   </div>
 </template>
@@ -425,13 +434,13 @@ export default {
   margin-top: 36px;
   width: 100%;
 }
-.search {
+.searchAuth {
   width: 100%;
   max-width: 565px;
   height: 50px;
   position: relative;
 }
-.button {
+.buttonAuth {
   cursor: pointer;
   position: absolute;
   right: 1px;
@@ -450,7 +459,7 @@ export default {
   width: 26px;
 }
 
-.over-ellipsis {
+.over-ellipsis-Auth {
   width: 100%;
   height: 100%;
   padding-right: 61px;

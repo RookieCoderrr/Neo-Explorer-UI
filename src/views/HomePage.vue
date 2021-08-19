@@ -1,13 +1,12 @@
 <template>
-  <section class="Intro bg-gradient-success">
-    <h2 class="Intro-h display-2 text-white">{{ $t("home") }}</h2>
+  <section class="Intro">
+    <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
     <div class="search mt--5 ml-5">
       <input
         type="text"
         class="over-ellipsis"
         :placeholder="$t('search.placeholder')"
         v-model="searchVal"
-        autocomplete="off"
         @keyup.enter="search()"
       /><button class="button" @click="search()">
         <svg
@@ -28,97 +27,176 @@
     </div>
   </section>
   <div class="row mt-5"></div>
+
+
+
+
   <div>
-    <div class="container-fluid mt--8" style="padding-bottom: 50px">
-      <div class="row">
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toBlock()"
-            :title="$t('homePage.totalBLocks')"
-            type="gradient-red"
-            :startVal="startBlockVal"
-            :endVal="blockCount"
-            icon="ni ni-ungroup"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toTransaction()"
-            :title="$t('homePage.totalTxs')"
-            type="gradient-orange"
-            :startVal="startTxVal"
-            :endVal="txCount"
-            icon="ni ni-cart"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toAsset()"
-            :title="$t('homePage.totalTokens')"
-            type="gradient-red"
-            :startVal="startAssetVal"
-            :endVal="assetCount"
-            icon="ni ni-money-coins"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
+    <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
+
+<!--      <div class="row">-->
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toBlock()"-->
+<!--            :title="$t('homePage.totalBLocks')"-->
+<!--            type="gradient-red"-->
+<!--            :startVal="startBlockVal"-->
+<!--            :endVal="blockCount"-->
+<!--            icon="ni ni-ungroup"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toTransaction()"-->
+<!--            :title="$t('homePage.totalTxs')"-->
+<!--            type="gradient-orange"-->
+<!--            :startVal="startTxVal"-->
+<!--            :endVal="txCount"-->
+<!--            icon="ni ni-cart"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toAsset()"-->
+<!--            :title="$t('homePage.totalTokens')"-->
+<!--            type="gradient-red"-->
+<!--            :startVal="startAssetVal"-->
+<!--            :endVal="assetCount"-->
+<!--            icon="ni ni-money-coins"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row mt-4">-->
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toContract()"-->
+<!--            :title="$t('homePage.totalCntrts')"-->
+<!--            type="gradient-purple"-->
+<!--            :startVal="startContractVal"-->
+<!--            :endVal="contractCount"-->
+<!--            icon="ni ni-collection"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toAddress()"-->
+<!--            :title="$t('homePage.totalAddrs')"-->
+<!--            type="gradient-green"-->
+<!--            :startVal="startAccountVal"-->
+<!--            :endVal="accountCount"-->
+<!--            icon="ni ni-single-02"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+<!--        </div>-->
+
+<!--        <div class="col">-->
+<!--          <stats-card-->
+<!--            shadow-->
+<!--            style="cursor: pointer"-->
+<!--            @click="toCandidate()"-->
+<!--            :title="$t('homePage.totalCndidtes')"-->
+<!--            type="gradient-blue"-->
+<!--            :startVal="startCandidateVal"-->
+<!--            :endVal="candidateCount"-->
+<!--            icon="ni ni-badge"-->
+<!--            class="mb-4 mb-xl-0"-->
+<!--          >-->
+<!--          </stats-card>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+      <div  class="col-2 font-weight-bold mb-0 "
+            style="font-size: 20px ;color:black">
+        <span>Overview</span>
       </div>
-      <div class="row mt-4">
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toContract()"
-            :title="$t('homePage.totalCntrts')"
-            type="gradient-purple"
-            :startVal="startContractVal"
-            :endVal="contractCount"
-            icon="ni ni-collection"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
+      <div class="row mt-3"></div>
+      <div class="elements">
+        <div class="row elerow">
+          <div class="col-4 ele">
+          <div class="eleName">
+            {{$t('homePage.totalBLocks')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000'></count-to>
+          </div>
+          </div>
+          <div class="col-4 ele">
+          <div class="eleName">
+            {{$t('homePage.totalTxs')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startTxVal :endVal=this.txCount :duration='2000'></count-to>
+          </div>
+
+          </div>
+          <div class="col-4 ele">
+          <div class="eleName">
+            {{$t('homePage.totalTokens')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startAssetVal :endVal=this.assetCount :duration='2000'></count-to>
+          </div>
+
+          </div>
+        </div>
+        <div class="row mt-3"></div>
+        <div class="row elerow">
+          <div class="col-4 ele">
+          <div class="eleName">
+            {{$t('homePage.totalCntrts')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000'></count-to>
+          </div>
+          </div>
+          <div class="col-4 ele ">
+          <div class="eleName">
+            {{$t('homePage.totalAddrs')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startAccountVal :endVal=this.accountCount :duration='2000'></count-to>
+          </div>
+
+          </div>
+          <div class="col-4 ele">
+          <div class="eleName">
+            {{$t('homePage.totalCndidtes')}}
+          </div>
+            <div class="row mt-2"></div>
+            <div class="eleValue">
+              <count-to :startVal=this.startCandidateVal :endVal=this.candidateCount :duration='2000'></count-to>
+          </div>
+
+          </div>
 
         </div>
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toAddress()"
-            :title="$t('homePage.totalAddrs')"
-            type="gradient-green"
-            :startVal="startAccountVal"
-            :endVal="accountCount"
-            icon="ni ni-single-02"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
-
-        <div class="col">
-          <stats-card
-            shadow
-            style="cursor: pointer"
-            @click="toCandidate()"
-            :title="$t('homePage.totalCndidtes')"
-            type="gradient-blue"
-            :startVal="startCandidateVal"
-            :endVal="candidateCount"
-            icon="ni ni-badge"
-            class="mb-4 mb-xl-0"
-          >
-          </stats-card>
-        </div>
+        <div class="row mt-3"></div>
       </div>
       <div class="row mt-4">
         <div class="col-6">
@@ -142,7 +220,7 @@
 import BlocksTableHomepage from "../views/Tables/BlocksTableHomepage";
 import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
 import axios from "axios";
-import StatsCard from "../components/StatsCard";
+// import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
 import {render} from "timeago.js";
 
@@ -150,7 +228,7 @@ export default {
   name: "Home",
   components: {
     BlocksTableHomepage,
-    StatsCard,
+    // StatsCard,
     TransactionTableHomepage,
 
   },
@@ -647,7 +725,7 @@ export default {
 </script>
 <style>
 .Intro {
-  background: #e2e2e2;
+  background: #F2F2F2;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -657,18 +735,18 @@ export default {
 .Intro-h {
   font-family: "Gill Sans";
   font-style: normal;
-  font-weight: 800;
-  font-size: 48px;
+  font-weight: bold !important;
+  font-size: 45px!important;
   line-height: 58px;
   /* identical to box height */
-  color: #282b34;
+  color: black;
   margin-bottom: 80px;
 }
 
 .search {
   width: 100%;
-  max-width: 800px;
-  height: 60px;
+  max-width: 1100px!important;
+  height: 70px !important;
   position: relative;
   filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.04));
 }
@@ -684,7 +762,7 @@ export default {
   background: rgba(255, 255, 255, 1);
   border: 0px !important;
   border-radius: 4px;
-  color: #282828;
+  color: black;
 }
 .button {
   cursor: pointer;
@@ -699,5 +777,35 @@ export default {
   background: #ffffff !important;
   border-radius: 4px;
   border: white;
+}
+.elements{
+  background: white;
+}
+.ele{
+
+}
+.eleName{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 15px;
+  align-items: center;
+
+  color: rgba(40, 43, 52, 0.3);
+
+  mix-blend-mode: normal;
+}
+.elerow{
+  padding-top: 30px;
+  padding-left: 50px;
+}
+.eleValue{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
 }
 </style>
