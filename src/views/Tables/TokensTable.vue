@@ -5,21 +5,21 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
       <div class="row align-items-center">
-        <div class="col-8">
+        <div class="col-9">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
             {{ title }}
           </h3>
         </div>
-        <div class="col-4">
-          <div class="search" style="height: 45px">
+        <div class="col-3">
+          <div class="searchName" style="height: 45px">
             <input
               type="text"
-              class="over-ellipsis"
+              class="over-ellipsis-Name"
               :placeholder="$t('tokensTable.prompt')"
               v-model="searchVal"
               autocomplete="off"
               @keyup.enter="search()"
-            /><button class="button" @click="search()">
+            /><button class="buttonName" @click="search()" style="border: white">
               <svg
                 width="18"
                 height="18"
