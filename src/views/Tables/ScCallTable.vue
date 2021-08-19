@@ -14,16 +14,16 @@
         :data="ScCallList"
       >
         <template v-slot:columns>
-          <th>{{ $t("contract.txID") }}</th>
-          <th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.txID") }}</th>
+          <th style="background:#5576EC; color:#ffffff">
             {{ $t("contract.sender") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
               {{ button.buttonName }}
             </button>
           </th>
-          <th>{{ $t("contract.method") }}</th>
-          <th>{{ $t("contract.callFlags") }}</th>
-          <th>{{ $t("contract.time") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.method") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.callFlags") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
