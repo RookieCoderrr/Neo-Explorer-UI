@@ -9,24 +9,24 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{ $t("tokenTx.txid") }}</th>
-          <th>{{ $t("transferList.token") }}</th>
-          <th>{{ $t("transferList.type") }}</th>
-          <th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.txid") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.token") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.type") }}</th>
+          <th style="background:#5576EC; color:#ffffff">
             {{ $t("transferList.from") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(this.fromButton)">
               {{ this.fromButton.buttonName }}
             </button>
           </th>
-          <th></th>
-          <th>
+          <th style="background:#5576EC; color:#ffffff"></th>
+          <th style="background:#5576EC; color:#ffffff">
             {{ $t("transferList.to") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(this.toButton)">
               {{ this.toButton.buttonName }}
             </button>
           </th>
-          <th>{{ $t("transferList.amount") }}</th>
-          <th>{{ $t("tokenTx.time") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.amount") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.time") }}</th>
         </template>
         <template v-slot:default="row">
           <td class="budget">

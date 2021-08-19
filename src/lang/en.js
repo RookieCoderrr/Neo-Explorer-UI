@@ -33,6 +33,7 @@ const en = {
     recentBlocks: "Recent Blocks",
     recentTxs: "Recent Transactions",
     seeAll: "See All",
+    more: "More",
     txTable: {
       txID: "Transaction ID",
       size: "Size",

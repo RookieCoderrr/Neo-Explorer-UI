@@ -55,17 +55,17 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th>{{ $t("contract.hash") }}</th>
-          <th>{{ $t("contract.name") }}</th>
-          <th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.hash") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.name") }}</th>
+          <th style="background:#5576EC; color:#ffffff">
             {{ $t("contract.creator") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
               {{ this.button.buttonName }}
             </button>
           </th>
-          <th>{{$t('contract.index')}}</th>
-          <th>{{ $t("contract.updates") }}</th>
-          <th>{{ $t("contract.time") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{$t('contract.index')}}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.updates") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">

@@ -1,10 +1,10 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''" >
     <div
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-      <div class="row align-items-center">
+      <div class="row align-items-center" >
         <div class="col">
           <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
             {{ title }}
@@ -28,12 +28,12 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th>{{ $t("blockinfo.height") }}</th>
-          <th>{{ $t("blockinfo.hash") }}</th>
-          <th>{{ $t("blockinfo.time") }}</th>
-          <th>{{ $t("blockinfo.txns") }}</th>
-          <th>{{ $t("blockinfo.size") }}</th>
-          <th></th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.height") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.hash") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.time") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txns") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.size") }}</th>
+          <th style="background:#5576EC; color:#ffffff"></th>
         </template>
 
         <template v-slot:default="row">
@@ -222,6 +222,6 @@ input::-webkit-inner-spin-button {
   height: 100%;
   line-height: 2.5;
   vertical-align: middle;
-  font-size: 5;
+  font-size: 5px;
 }
 </style>

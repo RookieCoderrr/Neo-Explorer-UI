@@ -28,11 +28,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th>{{ $t("candidate.address") }}</th>
-          <th>{{ $t("candidate.committee") }}</th>
-          <th>{{ $t("candidate.rank") }}</th>
-          <th>{{ $t("candidate.votes") }}</th>
-          <th>{{ $t("candidate.percentage") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.address") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.committee") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.rank") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.votes") }}</th>
+          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.percentage") }}</th>
         </template>
 
         <template v-slot:default="row">
