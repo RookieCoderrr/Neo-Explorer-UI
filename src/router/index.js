@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 //import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
+// import NavBarLayout from "../layout/NavBarLayout";
 import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import TokenInfo from "../views/TokenInfo.vue";

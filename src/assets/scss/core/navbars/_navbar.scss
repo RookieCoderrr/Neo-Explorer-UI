@@ -1,22 +1,31 @@
-//
-// Navbar
-//
-
-
-// Navbar links
-
 .navbar-horizontal {
+    width: 100%;
+    height: 70px;
+    background: #FFFFFF;
+    font-size: 18px;
+    display: flex;
     .navbar-nav {
-        .nav-link {
-            font-size: $navbar-nav-link-font-size;
-            font-weight: $navbar-nav-link-font-weight;
-            text-transform: $navbar-nav-link-text-transform;
-            letter-spacing: $navbar-nav-link-letter-spacing;
-            @include transition($navbar-transition);
 
-            .nav-link-inner--text {
-                margin-left: .25rem;
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            height: 50px;
+            text-align: center;
+            margin-left: .25rem;
+            color: rgba(40, 43, 52, 0.3);
+            font-family: Inter;
+            font-style: normal;
+            font-weight: 350;
+            font-size: 14px;
+            line-height: 17px;
+            mix-blend-mode: normal;
+            &:hover{
+                color: black;
+                border-bottom:2px solid black ;
             }
+
+
+
         }
     }
 
@@ -48,11 +57,11 @@
     }
 
     .navbar-nav {
-      .nav-item {
-        .media:not(:last-child){
-          margin-bottom: 1.5rem;
+        .nav-item {
+            .media:not(:last-child){
+                margin-bottom: 1.5rem;
+            }
         }
-      }
     }
 
     @include media-breakpoint-up(lg) {
@@ -73,7 +82,7 @@
             .nav-link {
                 padding-top: $navbar-nav-link-padding-y;
                 padding-bottom: $navbar-nav-link-padding-y;
-                border-radius: $navbar-nav-link-border-radius;
+
 
                 i {
                     margin-right: .625rem;
