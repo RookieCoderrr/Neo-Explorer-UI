@@ -33,6 +33,7 @@ module.exports = {
     recentBlocks: "区块",
     recentTxs: "交易",
     seeAll: "更多",
+    more: "更多",
     txTable: {
       txID: "交易哈希",
       size: "大小",
