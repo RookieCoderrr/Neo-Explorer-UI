@@ -165,7 +165,7 @@
                   <el-collapse-item
                       :title=" $t('transactionInfo.invocation')  "
                       name="1"
-                      class="text-muted"
+                      class="itemCollapse"
                   >
                     <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
                        <span v-html="item['invocation']">
