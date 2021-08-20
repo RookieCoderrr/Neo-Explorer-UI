@@ -175,17 +175,26 @@ export default {
         this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        if (this.name !== "") {
+          this.getTokenListByName(name, skip);
+        }else{
+        this.getTokenList(skip);}
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
-        this.getTokenList(skip);
+        if (this.name !== "") {
+          this.getTokenListByName(name, skip);
+        }else{
+          this.getTokenList(skip);}
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTokenList(skip);
+        if (this.name !== "") {
+          this.getTokenListByName(name, skip);
+        }else{
+          this.getTokenList(skip);}
       }
     },
     pageChange(pageNumber) {
@@ -194,8 +203,8 @@ export default {
       const skip = (pageNumber - 1) * this.resultsPerPage;
       if (this.name !== "") {
         this.getTokenListByName(name, skip);
-      }
-      this.getTokenList(skip);
+      }else{
+        this.getTokenList(skip);}
     },
     getTokenList(skip) {
       axios({

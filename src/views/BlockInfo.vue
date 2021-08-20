@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="padding-bottom: 80px">
+    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
-          <div class="card shadow">
-            <div class="top">
+
+            <div class="top"  >
               <loading
                 :is-full-page="false"
                 :opacity="0.9"
@@ -32,91 +32,77 @@
                 <i class="ni ni-single-copy-04" id="blockButton"  title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
                 <span style="color: #42b983"  id="blockSpan" ></span>
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-3">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">
-                          {{ $t("blockinfo.time") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ convertPreciseTime(this.block_info.timestamp) }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div class="col-3">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">
-                          {{ $t("blockinfo.size") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.block_info.size }} {{ $t("blockinfo.bytes") }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div class="col-3">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">
-                          {{ $t("blockinfo.height") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.block_info.index }}
-                        </div>
-                      </div>
-                    </card>
+                <div class="row mt-3"></div>
+
+                <card shadow class="card-style">
+                  <div class="row  mt-1 mb-1">
+                    <div class="col-2 lable-title">
+                      {{ $t("blockinfo.height") }}
+                    </div>
+                    <div class=" col-10 context-black">
+                      {{ this.block_info.index }}
+                    </div>
                   </div>
 
-                  <div class="col-3">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="h2 font-weight-bold mb-0">
-                          {{ $t("blockinfo.version") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.block_info.version }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                </div>
-                <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("blockinfo.speaker") }}
-                      </div>
+                  <div class="row  mt-3  mb-1 " >
+                    <div class="col-2 lable-title">
+                      {{ $t("blockinfo.time") }}
                     </div>
-                    <div class="col-4" v-if="block_info['speaker']">
+                    <div class="col-10 context-black">
+                      {{ convertPreciseTime(this.block_info.timestamp) }}
+                    </div>
+                  </div>
+
+
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
+                      {{ $t("blockinfo.size") }}
+                    </div>
+                    <div class="col-10 context-black">
+                      {{ this.block_info.size }} {{ $t("blockinfo.bytes") }}
+                    </div>
+                  </div>
+
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
+                      {{ $t("blockinfo.version") }}
+                    </div>
+                    <div class="col-10 context-black">
+                      {{ this.block_info.version }}
+                    </div>
+                  </div>
+
+                  <div class="row mt-3  mb-1"  >
+                    <div class="col-2 lable-title">
+                      {{ $t("blockinfo.blockReward") }}
+                    </div>
+                    <div class="col-10 context-black">0.5 GAS</div>
+                  </div>
+
+
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
+                        {{ $t("blockinfo.speaker") }}
+                    </div>
+                    <div class="col-8 context-black" v-if="this.block_info['speaker']">
                       <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
-                        {{ button.state ? scriptHashToAddress( block_info["speaker"]) : block_info["speaker"] }}
+                        {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
                       <span style="color: #42b983" id="speakerSpan" ></span>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                       <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
                     </div>
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("blockinfo.blockReward") }}
-                      </div>
-                    </div>
-                    <div class="col-2">0.5 GAS</div>
                   </div>
-                </card>
-                <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2 font-weight-bold mb-0">
+
+
+
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <div class="col-10" v-if="block_info['prevhash']">
+                    <div class="col-10 context-black" v-if="block_info['prevhash']">
                     <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
@@ -124,118 +110,114 @@
                     <span style="color: #42b983" id="preHashSpan" ></span>
                     </div>
                   </div>
-                </card>
 
-                <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("blockinfo.txns") }}
-                      </div>
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
+                      <div>{{ $t("blockinfo.hash") }}</div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-10 context-black" v-if="block_info.hash" id="Hash">
+                      {{ block_info.hash  }}
+                      <i class="ni ni-single-copy-04" id="HashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('Hash','HashButton','HashSpan')"></i>
+                      <span style="color: #42b983" id="HashSpan" ></span>
+                    </div>
+                  </div>
+
+                  <div class="row  mt-3  mb-1" >
+                    <div class="col-2 lable-title ">
+                        {{ $t("blockinfo.txns") }}
+                    </div>
+                    <div class="col-10 context-black">
                       {{ this.block_info.transactioncount }}
                     </div>
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
+                  </div>
+
+                  <div class="row mt-3  mb-1 "  >
+                    <div class="col-2 lable-title">
                         {{ $t("blockinfo.transfers") }}
-                      </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-10 context-black">
                       {{
-                        parseInt(block_info.nep11count) +
-                        parseInt(block_info.nep17count)
+                      parseInt(block_info.nep11count) +
+                      parseInt(block_info.nep17count)
                       }}
                     </div>
                   </div>
-                </card>
-                <div class="row mt-3"></div>
-                <card shadow>
-                  <div class="row">
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
+
+                  <div class="row  mt-3  mb-1" >
+                    <div class="col-2 lable-title ">
                         {{ $t("blockinfo.totalSysFee") }}
-                      </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-10 context-black">
                       {{ this.block_info.systemFee / 100000000 }}
                     </div>
-                    <div class="col-2">
-                      <div class="font-weight-bold mb-0">
+                  </div>
+
+                  <div class="row mt-3  mb-1" >
+                    <div class="col-2 lable-title">
                         {{ $t("blockinfo.totalNetFee") }}
-                      </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-10 context-black">
                       {{ this.block_info.networkFee / 100000000 }}
                     </div>
                   </div>
+                  <div class="row mt-3 mb-3"></div>
                 </card>
+                <div class="row mt-3 mb-3"></div>
 
-                <div class="row mt-3"></div>
+              <div class=" row mt-3  mb-3 title2"> {{ $t('transactionInfo.witness') }} </div>
+                <card shadow class="card-style" v-if="block_info.witnesses">
+                  <el-collapse v-model="activeNames" @change="handleChange"  style="border: white">
+                    <el-collapse-item :title="$t('transactionInfo.invocation')" name="1"  class="text-title3"  >
+                      <div  v-html=" block_info['witnesses'][0]['invocation']"></div>
+                    </el-collapse-item>
+                    <el-collapse-item :title="$t('transactionInfo.verification')" name="2"  >
+                      <div  v-html=" block_info['witnesses'][0]['verification']"></div>
+                    </el-collapse-item>
+                  </el-collapse>
 
-                <card shadow>
-                  <div
-                          class="col-2 font-weight-bold mb-0"
-                          style="font-size: 20px"
-                  >
-                    {{ $t('transactionInfo.witness') }}
-                  </div>
-                  <hr />
-                    <div class="row" v-if="block_info.witnesses" style="margin-bottom: 15px">
-                      <div class="col-6 font-weight-bold mb-0 ">{{ $t('transactionInfo.invocation') }}</div>
-                      <div class="col-6 font-weight-bold mb-0 " style="padding-left: 80px" >{{ $t('transactionInfo.verification') }}</div>
-                      </div>
-                  <div class="row" v-if="block_info.witnesses">
-                    <div class="col-6" v-html=" block_info['witnesses'][0]['invocation']"></div>
-                    <div class="col-6 " style="padding-left: 80px"  v-html=" block_info['witnesses'][0]['verification']"></div>
-                    </div>
                 </card>
                 <div class="row mt-3"></div>
 
               </div>
+          <div style="margin-top: 30px;margin-bottom: 20px">
+          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)">
+            <el-menu-item index="1" class="item-title">{{$t('blockinfo.txnsList')}}</el-menu-item>
+            <el-menu-item index="2" class="item-title">{{$t('blockinfo.trfsList')}}</el-menu-item>
+          </el-menu>
+
+          </div>
               <div>
-                <tabs fill class="flex-column flex-md-row">
-                  <tab-pane
-                    icon="ni ni-diamond"
-                    :title="$t('blockinfo.txnsList')"
-                  >
+                  <div  v-if="whichIndex === 1"  >
                     <block-transaction
-                      v-if="
-                        this.block_info != '' &&
-                        this.block_info.transactioncount != 0
-                      "
+                      v-if=" this.block_info.transactioncount != 0"
                       :title="$t('blockinfo.txnsList')"
                       :blockHash="this.BlockHash"
                     ></block-transaction>
-                    <card shadow v-else class="text-center">{{
+                    <card shadow v-else class="text-center card-style" style="margin-bottom: 50px">{{
                       $t("blockinfo.nullPrompt")
                     }}</card>
-                  </tab-pane>
-                  <tab-pane
-                    icon="ni ni-single-02 mr-2"
-                    :title="$t('blockinfo.trfsList')"
-                  >
-                  <block-transfer
-                    v-if="
-                      this.block_info != '' &&
-                      parseInt(block_info.transfer11count) +
-                        parseInt(block_info.transfer17count) !=0 "
-                    :title="$t('blockinfo.txnsList')"
-                    :blockHash="this.BlockHash"
-                  ></block-transfer>
-                    <card shadow v-else class="text-center">{{
+                  </div>
+                  <div v-else>
+                    <div  v-if="
+                      block_info != '' &&
+                      (block_info.transfer11count !=0||
+                        block_info.transfer17count !=0 )">
+                    <block-transfer
+                            :title="$t('blockinfo.txnsList')"
+                            :blockHash="this.BlockHash"
+                    ></block-transfer>
+                    </div>
+                    <card shadow  v-else class="text-center card-style" style="margin-bottom: 50px">{{
                       $t("blockinfo.nullPrompt")
                     }}</card>
-                  </tab-pane>
-                </tabs>
+                  </div>
               </div>
             </div>
           </div>
-        </div>
+
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -261,11 +243,15 @@ export default {
       manifest: "",
       TxList: [],
       transfercount: "",
-      button: { state: true, buttonName: "Hash" }
+      button: { state: true, buttonName: "Hash" },
+      activeIndex: "1",
+      whichIndex: 1,
+      activeNames: ['0']
     };
   },
   created() {
     this.getBlock(this.BlockHash);
+    console.log("????")
   },
   watch: {
     $route: "watchrouter",
@@ -275,6 +261,12 @@ export default {
     changeFormat,
     convertPreciseTime,
     copyItem,
+    handleSelect(key) {
+      this.whichIndex = parseInt(key)
+    },
+    handleChange(val) {
+      console.log(val);
+    },
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {
@@ -289,6 +281,7 @@ export default {
     },
 
     getBlock(hash) {
+      console.log(hash)
       axios({
         method: "post",
         url: "/api",
@@ -313,6 +306,8 @@ export default {
 
         this.block_info["speaker"]=words[this.block_info["primary"]+1].substring(10)
         this.isLoading = false;
+      }).catch((e)=>{
+        console.log(e)
       });
     },
     getBlockByBlockHeight(blockheight) {
@@ -345,4 +340,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  .el-collapse-item__header{
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+  }
+</style>

@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
 
       <div class="row">
         <div class="col">
-          <div class="card shadow">
             <loading
                     :is-full-page="false"
                     :opacity="0.9"
@@ -14,133 +13,144 @@
               <div class="h2 font-weight-bold mb-0">
                 {{ $t('transactionInfo.txId') }}
               </div>
-              <span id ="tx">{{ this.tabledata["hash"] }}</span>
-              <span> </span>
-              <i class="ni ni-single-copy-04" id="txButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('tx','txButton','txSpan')"></i>
-              <span  style="color: #42b983"  id="txSpan" ></span>
             </div>
             <div class="card-body">
-              <div class="row">
-                <div class="col-3">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">
+
+                  <card shadow class="card-style">
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">
+                        {{ $t('transactionInfo.txId') }}
+                      </div>
+                      <div class="col-10 context-black">
+                        <span id ="tx">{{ this.tabledata["hash"] }}</span>
+                        <span> </span>
+                        <i class="ni ni-single-copy-04" id="txButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('tx','txButton','txSpan')"></i>
+                        <span  style="color: #42b983"  id="txSpan" ></span>
+                      </div>
+                    </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">
                         {{ $t('transactionInfo.time') }}
                       </div>
-                      <div class="panel-body">
+                      <div class="col-10 context-black">
                         {{ convertPreciseTime(this.blocktime) }}
                       </div>
                     </div>
-                  </card>
-                </div>
 
-                <div class="col-3">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">
                         {{ $t('transactionInfo.blockHeight') }}
                       </div>
-                      <div class="panel-body">
+                      <div class="col-10 context-black">
                         {{ this.tabledata["blockIndex"] }}
                       </div>
                     </div>
-                  </card>
-                </div>
 
-                <div class="col-3">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">
                         {{ $t('transactionInfo.size') }}
                       </div>
-                      <div class="panel-body">
-                        {{ this.tabledata["size"] }}
+                      <div class="col-10 context-black">
+                        {{ this.tabledata["size"] }} {{ $t("bytes")}}
                       </div>
                     </div>
-                  </card>
-                </div>
 
-                <div class="col-3">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="h2 font-weight-bold mb-0">
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">
                         {{ $t('transactionInfo.version') }}
                       </div>
-                      <div class="panel-body">
+                      <div class="col-10 context-black">
                         {{ this.tabledata["version"] }}
                       </div>
                     </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">{{ $t('transactionInfo.blockHash') }}</div>
+                      <div class="col-10  context">
+                        <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
+                          <span id="block">{{ this.blockhash }}</span>
+                        </router-link>
+                        <i class="ni ni-single-copy-04" id="blockButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
+                        <span  style="color: #42b983"  id="blockSpan" ></span>
+                      </div>
+                    </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">{{ $t('transactionInfo.sender') }}</div>
+                      <div class="col-8 context-black">
+                        <router-link class="name mb-0 text-sm" id="sender" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
+                          {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
+                        </router-link>
+                        <i class="ni ni-single-copy-04" id="senderButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')"></i>
+                        <span style="color: #42b983"  id="senderSpan" ></span>
+                      </div>
+                      <div class="col-2">
+                        <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
+                      </div>
+                    </div>
+
+                    <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">{{ $t('transactionInfo.netFee') }}</div>
+                    <div class="col-10 context-black">
+                      {{ convertGas(this.tabledata["netfee"]) }}
+                    </div>
+                  </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">{{ $t('transactionInfo.sysFee') }}</div>
+                      <div class="col-10 context-black">
+                        {{ convertGas(this.tabledata["sysfee"]) }}
+                      </div>
+                    </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">{{$t('transactionInfo.vmState') }}</div>
+                      <div class="col-10 context-black">
+                        {{ this.vmstate }}
+                      </div>
+
+                    </div>
+                    <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">{{$t('transactionInfo.exception') }}</div>
+                    <div class="col-10 context-black">
+                      {{ this.exception === null? "Null":this.exception}}
+                    </div>
+                    </div>
+
+                    <div class="row  mt-3  mb-1">
+                      <div class="col-2 lable-title">{{$t('transactionInfo.trigger') }}</div>
+                      <div class="col-10 context-black">
+                        {{this.trigger}}
+                      </div>
+                    </div>
+
+                    <div class="row  mt-5  mb-1">
+                      <div class="col-2 title3">{{ $t('transactionInfo.signers') }}</div>
+                    </div>
+                    <div v-if="this.tabledata.signers">
+                      <div class="row  mt-3  mb-1">
+                        <div class="col-2 lable-title">{{ $t('transactionInfo.account') }}</div>
+                        <div class="col-10 context-black">
+                          <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
+                            {{item['account']}}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row  mt-3  mb-1">
+                        <div class="col-2 lable-title">{{ $t('transactionInfo.scopes') }}</div>
+                        <div class="col-10 context-black">
+                          <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
+                            {{item['scopes']}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </card>
-                </div>
-              </div>
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.blockHash') }}</div>
-                  <div class="col-10">
-                    <router-link class="name mb-0 text-sm" style="cursor: pointer" :to="'/blockinfo/'+this.blockhash" >
-                      <span id="block">{{ this.blockhash }}</span>
-                    </router-link>
-                    <i class="ni ni-single-copy-04" id="blockButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
-                    <span  style="color: #42b983"  id="blockSpan" ></span>
-                  </div>
-                </div>
-              </card>
 
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sender') }}</div>
-                  <div class="col-9">
-                    <router-link class="name mb-0 text-sm" id="sender" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
-                      {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
-                    </router-link>
-                    <i class="ni ni-single-copy-04" id="senderButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')"></i>
-                    <span style="color: #42b983"  id="senderSpan" ></span>
-                  </div>
-                  <div class="col-1">
-                    <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
-                  </div>
-                </div>
-              </card>
-
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.netFee') }}</div>
-                  <div class="col-4">
-                    {{ convertGas(this.tabledata["netfee"]) }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.sysFee') }}</div>
-                  <div class="col-4">
-                    {{ convertGas(this.tabledata["sysfee"]) }}
-                  </div>
-                </div>
-              </card>
-
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.vmState') }}</div>
-                  <div class="col-4">
-                    {{ this.vmstate }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.exception') }}</div>
-                  <div class="col-4">
-                    {{ this.exception === null? "Null":this.exception}}
-                  </div>
-                </div>
-              </card>
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">{{$t('transactionInfo.trigger') }}</div>
-                  <div class="col-10">
-                    {{this.trigger}}
-                  </div>
-                </div>
-              </card>
-              <div class="row mt-3"></div>
+              <div class=" row mt-3 title2"> {{ $t('transactionInfo.script') }}</div>
               <transfers-list
                   :title="$t('transactionInfo.nep17')"
                   :txhash="this.txhash"
@@ -178,10 +188,11 @@
                   </div>
                 </div>
                 </div>
-
               </card>
 
-              <div class="row mt-3"></div>
+              <div class="row mt-3">
+              </div>
+
 
               <card shadow>
                 <div
@@ -222,11 +233,13 @@
                   <div class="col-10" v-html="this.tabledata['script']"></div>
                 </div>
               </card>
-
-              <div class="row mt-3"></div>
-
-              <tabs fill class="flex-column flex-md-row">
-                <tab-pane icon="ni ni-folder-17" :title="$t('transactionInfo.notification')">
+              <div style="margin-top: 30px;margin-bottom: 20px">
+              <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="width:80%;margin-left:10%;background-color: rgb(250,250,250);">
+                <el-menu-item index="1" class="item-title">{{$t('transactionInfo.notification')}}</el-menu-item>
+                <el-menu-item index="2"  class="item-title">{{$t('transactionInfo.systemCall')}}</el-menu-item>
+              </el-menu>
+              </div>
+               <div v-if="whichIndex === 1">
                   <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
                     <div v-if="this.countApp ===0">
                       <card
@@ -289,9 +302,8 @@
                   <card shadow v-else class="text-center ">
                     This transaction has no events.
                   </card>
-                </tab-pane>
-
-                <tab-pane icon="ni ni-active-40" :title= "$t('transactionInfo.systemCall')">
+                </div>
+                 <div v-else>
                   <div v-if="this.tabledataCall&&this.tabledataCall['length'] != 0">
                     <div v-if="this.countSys === 0">
                       <card
@@ -351,11 +363,11 @@
                       </card>
                     </div>
                   </div>
-                </tab-pane>
-              </tabs>
+                </div>
 
 
-            </div>
+
+
           </div>
         </div>
       </div>
@@ -407,6 +419,8 @@ export default {
       countApp:0,
       countSys:0,
       List:[],
+      activeIndex:"1",
+      whichIndex:1,
     };
   },
   created() {
@@ -426,6 +440,10 @@ export default {
     convertPreciseTime,
     changeFormat,
     copyItem,
+    handleSelect(key) {
+      this.whichIndex = parseInt(key)
+    },
+
     watchrouter() {//如果路由有变化，执行的对应的动作
       this.isLoading = true
       if(this.$route.name === 'transactionInfo'){
@@ -673,4 +691,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+
+</style>

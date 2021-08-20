@@ -5,11 +5,6 @@
     :class="type === 'dark' ? 'bg-default' : ''"
   >
     <div class="table-responsive">
-      <loading
-        :is-full-page="false"
-        :opacity="0.9"
-        :active="isLoading"
-      ></loading>
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -139,12 +134,10 @@
       ></base-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center">{{ $t("tokenTx.nullPrompt") }}</card>
+
 </template>
 <script>
 import axios from "axios";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
 import {changeFormat, convertTime, convertToken, scriptHashToAddress} from "../../store/util";
 
 export default {
@@ -156,9 +149,7 @@ export default {
     blockHash: String,
     decimal: Number,
   },
-  components: {
-    Loading,
-  },
+
   data() {
     return {
       NEP17TxList: [],

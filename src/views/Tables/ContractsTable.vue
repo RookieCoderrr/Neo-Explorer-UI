@@ -195,17 +195,27 @@ export default {
         this.isLoading = true;
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getContractList(skip);
+        if (this.name !== "") {
+          this.getContractListByName(name,skip);
+        }else{
+          this.getContractList(skip);}
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
-        this.getContractList(skip);
+        if (this.name !== "") {
+          this.getContractListByName(name,skip);
+        }else{
+          this.getContractList(skip);}
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getContractList(skip);
+        console.log(this.name)
+        if (this.name !== "") {
+          this.getContractListByName(name,skip);
+        }else{
+          this.getContractList(skip);}
       }
     },
     pageChange(pageNumber) {
@@ -213,9 +223,9 @@ export default {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       if (this.name !== "") {
-        this.getContractListByName(name, skip);
-      }
-      this.getContractList(skip);
+        this.getContractListByName(name,skip);
+      }else{
+        this.getContractList(skip);}
     },
     getContract(hash) {
       this.$router.push({
@@ -287,7 +297,8 @@ export default {
         return;
       }
       this.name = value;
-      this.searchVal = "";
+       this.searchVal = "";
+      this.pagination = 1 ;
       this.getContractListByName(value, 0);
     },
   },
