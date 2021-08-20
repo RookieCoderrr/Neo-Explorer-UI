@@ -14,6 +14,8 @@ module.exports = {
   wif: "地址",
   page: "页",
   bytes: "字节",
+  overview:"总览",
+  blockDetail:"区块详情" ,
   authLayout: {
     home: "主页",
     blocks: "区块",
