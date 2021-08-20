@@ -18,16 +18,16 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenHolder.ranking") }}</th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader">{{ $t("tokenHolder.ranking") }}</th>
+          <th class="tableHeader">
             {{ $t("tokenHolder.address") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
               {{ button.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenHolder.balance") }}</th>
+          <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
           <!--          <th>Last Transferred</th>-->
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenHolder.percentage") }}</th>
+          <th class="tableHeader">{{ $t("tokenHolder.percentage") }}</th>
         </template>
 
         <template v-slot:default="row">

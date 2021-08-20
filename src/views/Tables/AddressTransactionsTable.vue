@@ -9,11 +9,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.transactionId") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.blockHeight") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.size") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.time") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.gasConsumed") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.transactionId") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.blockHeight") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.size") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.time") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.gasConsumed") }}</th>
         </template>
 
         <template v-slot:default="row">
