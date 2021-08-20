@@ -10,23 +10,10 @@
                 :active="isLoading"
               ></loading>
               <div class=" row mt-3  mb-5  title1" > {{ $t('tokenDetail') }} </div>
-<!--              <div class="card-header bg-transparent">-->
-
-<!--                <a-->
-<!--                  class="mb-0"-->
-<!--                  id="token"-->
-<!--                  style="cursor: pointer"-->
-<!--                  @click="getContract(this.token_info['hash'])"-->
-<!--                  >{{ this.token_info["hash"] }}</a-->
-<!--                >-->
-<!--                <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>-->
-<!--                <span  style="color: #42b983"  id="hashSpan" ></span>-->
-<!--              </div>-->
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
               <div class="row mt-3"></div>
 
               <card shadow class="card-style">
-
 
                 <div class="row">
                   <div class="col-2 lable-title">
@@ -47,7 +34,20 @@
                     </div>
                 </div>
 
-                <div class="row  mt-1 mb-1">
+                <div class="row  mt-3  mb-1">
+                  <div class="col-2 lable-title">
+                    {{ $t("hash") }}
+                  </div>
+                  <div class="col-10 context-black"  id="token">
+                      {{ this.token_info['hash']}}
+
+                    <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>
+                    <span  style="color: #42b983"  id="hashSpan" ></span>
+                  </div>
+
+                </div>
+
+                <div class="row  mt-3 mb-1">
                   <div class="col-2 lable-title">
                     {{ $t("tokenInfo.symbol") }}
                   </div>
@@ -65,11 +65,15 @@
                   </div>
                 </div>
 
+
+
+
                 <div class="row  mt-3  mb-1">
                   <div class="col-2 lable-title">
                     {{ $t("tokenInfo.standard") }}
                   </div>
                   <div class="col-10 context-black">
+                    {{ $t("tokenInfo.standard") }}
                     {{ this.token_info["type"] }}
                   </div>
                 </div>

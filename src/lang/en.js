@@ -17,6 +17,7 @@ const en = {
   overview:"Overview",
   blockDetail:"Block Details",
   tokenDetail:"Token Details",
+  contractDetail:"Contract Details",
   authLayout: {
     home: "Home",
     blocks: "Blocks",
