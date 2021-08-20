@@ -5,6 +5,7 @@
       class="navbar-horizontal navbar-dark"
       containerClasses="px-4 container"
       expand
+
     >
       <svg
         style="cursor: pointer"
@@ -103,7 +104,7 @@
           </router-link>
         </li>
       </ul>
-      <div>
+      <div class="drop">
         <base-dropdown >
           <template v-slot:title>
             <base-button type="default" class="btn btn-sm">
@@ -127,46 +128,41 @@
           </li>
         </base-dropdown>
       </div>
-    </base-nav>
-    <!-- Header -->
-    <div
-      v-if="$route.meta.showSearch"
-      class="header  py-7 py-lg-7"
-      style="background: #F2F2F2"
-    >
-      <div class="searchAuth mt--6 ml-6" style="width: 600px; height: 45px">
+      <div class="searchDiv mr--8" v-if="$route.meta.showSearch">
         <input
-          type="text"
-          class="over-ellipsis-Auth"
-          :placeholder="$t('search.placeholder')"
-          v-model="searchVal"
-          autocomplete="off"
-          @keyup.enter="search()"
-        /><button class="buttonAuth" @click="search()" style="border: white">
-          <svg
+            type="text"
+            class="over-ellipsis-Auth"
+            :placeholder="$t('search.placeholder')"
+            v-model="searchVal"
+            autocomplete="off"
+            @keyup.enter="search()"
+        /><button class="buttonres " @click="search()" style="border: white">
+        <svg
             width="18"
             height="18"
             viewBox="0 0 18 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
+        >
+          <path
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
               fill="#1e90ff"
-            />
-          </svg>
-        </button>
+          />
+        </svg>
+      </button>
       </div>
-    </div>
+    </base-nav>
+    <!-- Header -->
+
     <div
-        v-else-if="$route.meta.HomePage"
+        v-if="$route.meta.HomePage"
         style="background: #FaFaFa">
 
     </div>
     <div v-else class="header  py-7 py-lg-6"
-         style="background: rgb(250,250,250)">
+         style="background: #F2F2F2">
 
     </div>
 
@@ -179,7 +175,6 @@ import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "auth-layout",
-
   data() {
     return {
       searchVal: "",
@@ -441,17 +436,18 @@ export default {
   position: relative;
 
 }
-.buttonAuth {
+.buttonres {
   cursor: pointer;
   position: absolute;
-  right: 1px;
-  bottom: 1px;
-  top: 1px;
-  width: 50px;
+  right:1px;
+  top:1px;
+  botton:1px;
+  width: 40px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important;
+  background: white!important;
   mix-blend-mode: normal;
   border-radius: 4px;
 }
@@ -463,12 +459,22 @@ export default {
 .over-ellipsis-Auth {
   width: 100%;
   height: 100%;
-  padding-right: 61px;
+  padding-right: 15px;
   padding-left: 11px;
   font-size: 16px;
   background: rgba(255, 255, 255, 1);
   border: 0 !important;
   border-radius: 4px;
   color: black;
+}
+.drop {
+  width:10%;
+  margin-left: 1%;
+}
+.searchDiv{
+  width: 25%;
+  background: white;
+  height: 35px;
+  position: relative;
 }
 </style>

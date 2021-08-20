@@ -1,6 +1,11 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
+  <div class="col list-title">
+    <h1 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+      {{ title }}
+    </h1>
+  </div>
+  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+    <!--div
         class="card-header border-0"
         :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -11,28 +16,30 @@
           </h3>
         </div>
       </div>
-    </div>
-
+    </div-->
     <div class="table-responsive">
       <loading
-          :is-full-page="false"
-          :opacity="0.9"
-          :active="isLoading"
+        :is-full-page="false"
+        :opacity="0.9"
+        :active="isLoading"
       ></loading>
       <base-table
-          class="table align-items-center table-flush"
-          :class="type === 'dark' ? 'table-dark' : ''"
-          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-          tbody-classes="list"
-          :data="tableData"
+        class="table align-items-center table-flush list-table"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tableData"
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("addressPage.number") }}</th>
           <th class="tableHeader">
             {{ $t("addressPage.address")
-            }}<button class="btn btn-sm btn-primary" @click="changeFormat(button)">
-            {{ this.button.buttonName }}
-          </button>
+            }}<button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(button)"
+            >
+              {{ this.button.buttonName }}
+            </button>
           </th>
           <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
           <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
@@ -44,18 +51,18 @@
           </td>
           <td class="address">
             <router-link
-                class="mb-0 text-sm"
-                v-if="this.button.state"
-                style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.address"
+              class="mb-0 text-sm"
+              v-if="this.button.state"
+              style="cursor: pointer"
+              :to="'/accountprofile/' + row.item.address"
             >
               {{ scriptHashToAddress(row.item.address) }}
             </router-link>
             <router-link
-                class="mb-0 text-sm"
-                v-else
-                style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.address"
+              class="mb-0 text-sm"
+              v-else
+              style="cursor: pointer"
+              :to="'/accountprofile/' + row.item.address"
             >
               {{ row.item.address }}
             </router-link>
@@ -75,24 +82,24 @@
     </div>
 
     <div
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
-        style="height: 70px"
+      class="card-footer d-flex justify-content-end"
+      :class="type === 'dark' ? 'bg-transparent' : ''"
+      style="height: 70px"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">{{ $t("page") }} &nbsp;</div>
         <base-input
-            type="number"
-            :style="text(pagination)"
-            :placeholder="pagination"
-            v-on:changeinput="pageChangeByInput($event)"
+          type="number"
+          :style="text(pagination)"
+          :placeholder="pagination"
+          v-on:changeinput="pageChangeByInput($event)"
         ></base-input>
         <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
       </div>
       <base-pagination
-          :total="this.totalAccount"
-          :value="this.pagination"
-          v-on:input="pageChange($event)"
+        :total="this.totalAccount"
+        :value="this.pagination"
+        v-on:input="pageChange($event)"
       ></base-pagination>
     </div>
   </div>
@@ -101,8 +108,14 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertGas, convertTime, scriptHashToAddress,addressToScriptHash, changeFormat} from "../../store/util";
-import {render} from "timeago.js";
+import {
+  convertGas,
+  convertTime,
+  scriptHashToAddress,
+  addressToScriptHash,
+  changeFormat,
+} from "../../store/util";
+import { render } from "timeago.js";
 
 export default {
   name: "accounts-table",
@@ -124,20 +137,20 @@ export default {
       neoBalance: 0,
       isLoading: true,
       countPage: 0,
-      button: { state: true, buttonName: "Hash"},
+      button: { state: true, buttonName: "Hash" },
     };
   },
   created() {
     this.getAccoutsList(0);
   },
   updated() {
-    const nodes = document.getElementsByClassName('timeago')
-    console.log(nodes)
-    if(nodes.length != 0){
-      if(this.$i18n.locale === 'cn'){
-        render(nodes, 'zh_CN');
-      }else{
-        render(nodes, this.$i18n.locale );
+    const nodes = document.getElementsByClassName("timeago");
+    console.log(nodes);
+    if (nodes.length != 0) {
+      if (this.$i18n.locale === "cn") {
+        render(nodes, "zh_CN");
+      } else {
+        render(nodes, this.$i18n.locale);
       }
     }
   },
@@ -146,9 +159,9 @@ export default {
       return function (value) {
         let inputLength = value.toString().length * 10 + 30;
         return (
-            "width: " +
-            inputLength +
-            "px!important;text-align: center;height:80%;margin-top:5%;"
+          "width: " +
+          inputLength +
+          "px!important;text-align: center;height:80%;margin-top:5%;"
         );
       };
     },
@@ -199,24 +212,27 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            let temp = res["data"]["result"]["result"];
-            for (let k = 0; k < temp.length; k++) {
-              temp[k]["firstusetime"] = convertTime(temp[k]["firstusetime"], this.$i18n.locale);
-              temp[k]["neoBalance"] = "";
-              temp[k]["gasBalance"] = "";
-              temp[k]["number"] =
-                  k + 1 + this.resultsPerPage * (this.pagination - 1);
-            }
-            this.tableData = temp;
-            this.totalAccount = res["data"]["result"]["totalCount"];
-            this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
-            this.getBalance();
-            this.isLoading = false;
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          let temp = res["data"]["result"]["result"];
+          for (let k = 0; k < temp.length; k++) {
+            temp[k]["firstusetime"] = convertTime(
+              temp[k]["firstusetime"],
+              this.$i18n.locale
+            );
+            temp[k]["neoBalance"] = "";
+            temp[k]["gasBalance"] = "";
+            temp[k]["number"] =
+              k + 1 + this.resultsPerPage * (this.pagination - 1);
+          }
+          this.tableData = temp;
+          this.totalAccount = res["data"]["result"]["totalCount"];
+          this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
+          this.getBalance();
+          this.isLoading = false;
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
     getAddress(accountAddress) {
       this.$router.push({
@@ -244,18 +260,18 @@ export default {
             crossDomain: "true",
           },
         })
-            .then((res) => {
-              this.tableData[k]["gasBalance"] = this.convertGas(
-                  res["data"]["result"]["balance"]
-              );
-            })
-            .catch((err) => {
-              if (Object.getPrototypeOf(TypeError) === Error) {
-                this.tableData[k]["gasBalance"] = "0";
-              } else {
-                console.log("Error", err);
-              }
-            });
+          .then((res) => {
+            this.tableData[k]["gasBalance"] = this.convertGas(
+              res["data"]["result"]["balance"]
+            );
+          })
+          .catch((err) => {
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["gasBalance"] = "0";
+            } else {
+              console.log("Error", err);
+            }
+          });
         axios({
           method: "post",
           url: "/api",
@@ -274,16 +290,16 @@ export default {
             crossDomain: "true",
           },
         })
-            .then((res) => {
-              this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
-            })
-            .catch((err) => {
-              if (Object.getPrototypeOf(TypeError) === Error) {
-                this.tableData[k]["neoBalance"] = "0";
-              } else {
-                console.log("Error", err);
-              }
-            });
+          .then((res) => {
+            this.tableData[k]["neoBalance"] = res["data"]["result"]["balance"];
+          })
+          .catch((err) => {
+            if (Object.getPrototypeOf(TypeError) === Error) {
+              this.tableData[k]["neoBalance"] = "0";
+            } else {
+              console.log("Error", err);
+            }
+          });
       }
     },
     getNeoBalance(accountAddress) {
@@ -305,12 +321,12 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            return res["data"]["result"]["balance"];
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          return res["data"]["result"]["balance"];
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
     getGasBalance(accountAddress) {
       axios({
@@ -331,12 +347,12 @@ export default {
           crossDomain: "true",
         },
       })
-          .then((res) => {
-            return this.convertGas(res["data"]["result"]["balance"]);
-          })
-          .catch((err) => {
-            console.log("Error", err);
-          });
+        .then((res) => {
+          return this.convertGas(res["data"]["result"]["balance"]);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
     },
   },
 };

@@ -1,6 +1,11 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
+  <div class="col list-title">
+    <h1 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+      {{ title }}
+    </h1>
+  </div>
+  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+    <!--div
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -39,8 +44,7 @@
           </div>
         </div>
       </div>
-    </div>
-
+    </div-->
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -48,7 +52,7 @@
         :active="isLoading"
       ></loading>
       <base-table
-        class="table align-items-center table-flush"
+        class="table align-items-center table-flush list-table"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
@@ -59,11 +63,14 @@
           <th class="tableHeader">{{ $t("contract.name") }}</th>
           <th class="tableHeader">
             {{ $t("contract.creator") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
+            <button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(button)"
+            >
               {{ this.button.buttonName }}
             </button>
           </th>
-          <th class="tableHeader">{{$t('contract.index')}}</th>
+          <th class="tableHeader">{{ $t("contract.index") }}</th>
           <th class="tableHeader">{{ $t("contract.updates") }}</th>
           <th class="tableHeader">{{ $t("contract.time") }}</th>
         </template>
@@ -75,7 +82,7 @@
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/contractinfo/'+row.item.hash"
+                  :to="'/contractinfo/' + row.item.hash"
                   >{{ row.item.hash }}</router-link
                 >
               </div>
@@ -92,7 +99,10 @@
               class="mb-0 text-sm"
               v-else-if="button.state"
               style="cursor: pointer"
-              :to="'/accountprofile/'+ addressToScriptHash(row.item.Transaction[0]['sender'])"
+              :to="
+                '/accountprofile/' +
+                addressToScriptHash(row.item.Transaction[0]['sender'])
+              "
             >
               {{ row.item.Transaction[0]["sender"] }}
             </router-link>
@@ -100,7 +110,10 @@
               class="mb-0 text-sm"
               v-else
               style="cursor: pointer"
-              :to="'/accountprofile/'+ addressToScriptHash(row.item.Transaction[0]['sender'])"
+              :to="
+                '/accountprofile/' +
+                addressToScriptHash(row.item.Transaction[0]['sender'])
+              "
             >
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>
@@ -126,7 +139,8 @@
     >
       <div style="margin-right: 10px; width: 250px" class="row pageInput">
         <div class="text">Page &nbsp;</div>
-        <base-input class="page"
+        <base-input
+          class="page"
           type="number"
           :style="text(pagination)"
           :placeholder="pagination"
@@ -146,7 +160,11 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime, addressToScriptHash, changeFormat} from "../../store/util";
+import {
+  convertTime,
+  addressToScriptHash,
+  changeFormat,
+} from "../../store/util";
 
 export default {
   name: "contracts-table",
@@ -169,7 +187,7 @@ export default {
       searchVal: "",
       name: "",
       countPage: 0,
-      button: { state: true, buttonName: "Hash"},
+      button: { state: true, buttonName: "Hash" },
     };
   },
   created() {
@@ -197,26 +215,29 @@ export default {
         this.pagination = this.countPage;
         const skip = (this.countPage - 1) * this.resultsPerPage;
         if (this.name !== "") {
-          this.getContractListByName(name,skip);
-        }else{
-          this.getContractList(skip);}
+          this.getContractListByName(name, skip);
+        } else {
+          this.getContractList(skip);
+        }
       } else if (pageNumber <= 0) {
         this.isLoading = true;
         this.pagination = 1;
         const skip = this.resultsPerPage;
         if (this.name !== "") {
-          this.getContractListByName(name,skip);
-        }else{
-          this.getContractList(skip);}
+          this.getContractListByName(name, skip);
+        } else {
+          this.getContractList(skip);
+        }
       } else {
         this.isLoading = true;
         this.pagination = pageNumber;
         const skip = (pageNumber - 1) * this.resultsPerPage;
-        console.log(this.name)
+        console.log(this.name);
         if (this.name !== "") {
-          this.getContractListByName(name,skip);
-        }else{
-          this.getContractList(skip);}
+          this.getContractListByName(name, skip);
+        } else {
+          this.getContractList(skip);
+        }
       }
     },
     pageChange(pageNumber) {
@@ -224,9 +245,10 @@ export default {
       this.pagination = pageNumber;
       const skip = (pageNumber - 1) * this.resultsPerPage;
       if (this.name !== "") {
-        this.getContractListByName(name,skip);
-      }else{
-        this.getContractList(skip);}
+        this.getContractListByName(name, skip);
+      } else {
+        this.getContractList(skip);
+      }
     },
     getContract(hash) {
       this.$router.push({
@@ -298,8 +320,8 @@ export default {
         return;
       }
       this.name = value;
-       this.searchVal = "";
-      this.pagination = 1 ;
+      this.searchVal = "";
+      this.pagination = 1;
       this.getContractListByName(value, 0);
     },
   },

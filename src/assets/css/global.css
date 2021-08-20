@@ -205,3 +205,18 @@
     mix-blend-mode: normal;
     opacity: 0.6;
 }
+
+.list-card {
+    width: 96%;
+    margin-left: 2%;
+}
+.list-title {
+    margin-bottom: 2%;
+}
+.list-table {
+    text-align: center;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 3%;
+}
