@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
 
@@ -10,28 +10,29 @@
                 :opacity="0.9"
                 :active="isLoading"
               ></loading>
-              <div class="card-header bg-transparent">
-                <div class="row">
-                 <h1 class="mb-0" style="margin-right: 10px;margin-left: 10px">
-                {{ this.block_info.index }}
-               </h1>
-                  <base-button
-                          type="primary"
-                          size="sm"
-                          @click="getBlockByBlockHeight(this.block_info.index - 1)"
-                  >&lt;</base-button>
-                   <base-button
-                           type="primary"
-                           size="sm"
-                           @click="getBlockByBlockHeight(this.block_info.index + 1)"
-                   >&gt;</base-button>
-               </div>
-                <span class="text-muted" id="block">{{ this.block_info.hash }}</span>
+<!--              <div class="card-header bg-transparent">-->
+                <div class=" row mt-3  mb-5  title1" > {{ $t('blockDetail') }} </div>
+<!--                <div class="row">-->
+<!--                 <h1 class="mb-0" style="margin-right: 10px;margin-left: 10px">-->
+<!--                {{ this.block_info.index }}-->
+<!--               </h1>-->
+<!--                  <base-button-->
+<!--                          type="primary"-->
+<!--                          size="sm"-->
+<!--                          @click="getBlockByBlockHeight(this.block_info.index - 1)"-->
+<!--                  >&lt;</base-button>-->
+<!--                   <base-button-->
+<!--                           type="primary"-->
+<!--                           size="sm"-->
+<!--                           @click="getBlockByBlockHeight(this.block_info.index + 1)"-->
+<!--                   >&gt;</base-button>-->
+<!--               </div>-->
 
 
-                <i class="ni ni-single-copy-04" id="blockButton"  title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>
-                <span style="color: #42b983"  id="blockSpan" ></span>
-              </div>
+<!--                <i class="ni ni-single-copy-04" id="blockButton"  title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>-->
+<!--                <span style="color: #42b983"  id="blockSpan" ></span>-->
+<!--              </div>-->
+              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
                 <div class="row mt-3"></div>
 
                 <card shadow class="card-style">
@@ -166,52 +167,50 @@
 
               <div class=" row mt-3  mb-3 title2"> {{ $t('transactionInfo.witness') }} </div>
                 <card shadow class="card-style" v-if="block_info.witnesses">
-                  <el-collapse v-model="activeNames" @change="handleChange"  style="border: white">
+                  <el-collapse v-model="activeNames"    style="border: white;">
                     <el-collapse-item :title="$t('transactionInfo.invocation')" name="1"  class="text-title3"  >
                       <div  v-html=" block_info['witnesses'][0]['invocation']"></div>
                     </el-collapse-item>
-                    <el-collapse-item :title="$t('transactionInfo.verification')" name="2"  >
+                    <el-collapse-item :title="$t('transactionInfo.verification')" name="2"  style="" >
                       <div  v-html=" block_info['witnesses'][0]['verification']"></div>
                     </el-collapse-item>
                   </el-collapse>
 
                 </card>
                 <div class="row mt-3"></div>
-
               </div>
-          <div style="margin-top: 30px;margin-bottom: 20px">
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)">
-            <el-menu-item index="1" class="item-title">{{$t('blockinfo.txnsList')}}</el-menu-item>
-            <el-menu-item index="2" class="item-title">{{$t('blockinfo.trfsList')}}</el-menu-item>
-          </el-menu>
 
-          </div>
-              <div>
-                  <div  v-if="whichIndex === 1"  >
+          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)" >
+            <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
                     <block-transaction
-                      v-if=" this.block_info.transactioncount != 0"
-                      :title="$t('blockinfo.txnsList')"
-                      :blockHash="this.BlockHash"
-                    ></block-transaction>
-                    <card shadow v-else class="text-center card-style" style="margin-bottom: 50px">{{
-                      $t("blockinfo.nullPrompt")
-                    }}</card>
-                  </div>
-                  <div v-else>
-                    <div  v-if="
-                      block_info != '' &&
-                      (block_info.transfer11count !=0||
-                        block_info.transfer17count !=0 )">
-                    <block-transfer
+                            v-if=" this.block_info.transactioncount != 0"
                             :title="$t('blockinfo.txnsList')"
                             :blockHash="this.BlockHash"
-                    ></block-transfer>
-                    </div>
-                    <card shadow  v-else class="text-center card-style" style="margin-bottom: 50px">{{
+                    ></block-transaction>
+                    <card shadow v-else class="text-center " style="margin-bottom: 50px">{{
                       $t("blockinfo.nullPrompt")
-                    }}</card>
-                  </div>
+                      }}</card>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('blockinfo.trfsList')"  name="second">
+              <div  v-if="
+                      block_info != '' &&
+                      (block_info.transfer11count !=0||
+                        block_info.transfer17count !=0 )"  >
+                <block-transfer
+                        :title="$t('blockinfo.txnsList')"
+                        :blockHash="this.BlockHash"
+                ></block-transfer>
+                <div class="row mt-3"></div>
               </div>
+              <card shadow  v-else class="text-center card-style" style="margin-bottom: 50px">{{
+                $t("blockinfo.nullPrompt")
+                }}</card>
+
+            </el-tab-pane>
+          </el-tabs>
+          <div style="margin-top: 30px;margin-bottom: 20px">
+
+          </div>
             </div>
           </div>
 
@@ -244,9 +243,9 @@ export default {
       TxList: [],
       transfercount: "",
       button: { state: true, buttonName: "Hash" },
-      activeIndex: "1",
-      whichIndex: 1,
-      activeNames: ['0']
+      activeNames: ['0'],
+        activeName: 'second',
+
     };
   },
   created() {
@@ -261,12 +260,7 @@ export default {
     changeFormat,
     convertPreciseTime,
     copyItem,
-    handleSelect(key) {
-      this.whichIndex = parseInt(key)
-    },
-    handleChange(val) {
-      console.log(val);
-    },
+ 
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {

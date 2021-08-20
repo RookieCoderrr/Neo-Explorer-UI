@@ -14,6 +14,8 @@
                 {{ $t('transactionInfo.txId') }}
               </div>
             </div>
+
+          <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
             <div class="card-body">
 
                   <card shadow class="card-style">

@@ -14,6 +14,8 @@ const en = {
   wif: "WIF",
   page: "Page",
   bytes: "Bytes",
+  overview:"Overview",
+  blockDetail:"Block Details",
   authLayout: {
     home: "Home",
     blocks: "Blocks",

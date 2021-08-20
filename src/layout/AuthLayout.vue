@@ -162,11 +162,11 @@
     </div>
     <div
         v-else-if="$route.meta.HomePage"
-        style="background: #F2F2F2">
+        style="background: #FaFaFa">
 
     ></div>
     <div v-else class="header  py-7 py-lg-6"
-         style="background: #F2F2F2">
+         style="background: rgb(250,250,250)">
 
     </div>
 
