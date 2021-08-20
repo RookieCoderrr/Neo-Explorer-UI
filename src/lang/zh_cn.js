@@ -106,7 +106,7 @@ module.exports = {
     page: "页数",
   },
   transactionInfo: {
-    txId: "交易哈希",
+    txId: "交易信息",
     time: "时间",
     blockHeight: "区块高度",
     size: "大小",

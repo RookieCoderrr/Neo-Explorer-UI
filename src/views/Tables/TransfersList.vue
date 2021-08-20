@@ -1,22 +1,10 @@
 <template>
-  <div v-show="this.length != 0">
+  <div v-if="this.length != 0">
     <div
-      v-show="this.length != 0"
+      v-if="this.length != 0"
       class="card shadow"
       :class="type === 'dark' ? 'bg-default' : ''"
     >
-      <div
-        class="card-header border-0"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
-      >
-        <div class="row align-items-center">
-          <div class="col">
-            <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-              {{ $t("transferList.title") }}
-            </h3>
-          </div>
-        </div>
-      </div>
 
       <div class="table-responsive">
         <base-table
@@ -27,10 +15,10 @@
           :data="tableData"
         >
           <template v-slot:columns>
-            <th>{{ $t("transactionTransfer.contract") }}</th>
-            <th>{{ $t("transactionTransfer.token") }}</th>
-            <th>{{ $t("transactionTransfer.type") }}</th>
-            <th>
+            <th class="tableHeader">{{ $t("transactionTransfer.contract") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.token") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
+            <th class="tableHeader">
               {{ $t("transactionTransfer.from")
               }}
               <span>       </span>
@@ -38,17 +26,17 @@
                 {{ fromButton.buttonName }}
               </button>
             </th>
-            <th>{{ $t("transactionTransfer.fromBalance") }}</th>
-            <th></th>
-            <th>
+            <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
+            <th class="tableHeader"></th>
+            <th class="tableHeader">
               {{ $t("transactionTransfer.to")
               }}
               <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
                 {{ toButton.buttonName }}
               </button>
             </th>
-            <th>{{ $t("transactionTransfer.toBalance") }}</th>
-            <th>{{ $t("transactionTransfer.amount") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.amount") }}</th>
           </template>
 
           <template v-slot:default="row">
@@ -160,6 +148,9 @@
       ></div>
     </div>
   </div>
+  <card shadow v-else class="text-center ">
+    This transaction has no NEP17 Transfers.
+  </card>
 </template>
 <script>
 import axios from "axios";

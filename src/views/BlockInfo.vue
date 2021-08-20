@@ -85,16 +85,15 @@
                     <div class="col-2 lable-title">
                         {{ $t("blockinfo.speaker") }}
                     </div>
-                    <div class="col-8 context-black" v-if="this.block_info['speaker']">
+                    <div class="col-10 context-black" v-if="this.block_info['speaker']">
+                      <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
                       <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
                       <span style="color: #42b983" id="speakerSpan" ></span>
                     </div>
-                    <div class="col-2">
-                      <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
-                    </div>
+
                   </div>
 
                   <div class="row  mt-3  mb-1">
