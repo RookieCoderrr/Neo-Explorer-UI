@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt--7">
+  <div class="container-fluid mt--7" style="background: #F2F2F2">
     <div class="row">
       <div class="col">
         <accounts-table

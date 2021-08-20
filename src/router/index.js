@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 //import DashboardLayout from "@/layout/DashboardLayout";
-import AuthLayout from "@/layout/AuthLayout";
+// import AuthLayout from "@/layout/AuthLayout";
 import Contracts from "../views/Contracts";
 import ContractInfo from "../views/ContractInfo";
 import TokenInfo from "../views/TokenInfo.vue";
@@ -20,6 +20,7 @@ import BurnFee from "../views/BurnFee";
 import importEcharts from "../views/importEcharts";
 
 import TransactionInfo from "../views/TransactionInfo.vue";
+import AuthLayout from "../layout/AuthLayout";
 
 const routes = [
   {
@@ -72,7 +73,7 @@ const routes = [
         name: "tokeninfo",
         components: { default: TokenInfo },
         meta: {
-          showSearch: true,
+          showSearch: false,
         },
       },
       {
@@ -80,7 +81,7 @@ const routes = [
         name: "blockinfo",
         components: { default: BlockInfo },
         meta: {
-          showSearch: true,
+          showSearch: false,
         },
       },
       {
@@ -96,7 +97,7 @@ const routes = [
         name: "contractinfo",
         components: { default: ContractInfo },
         meta: {
-          showSearch: true,
+          showSearch: false,
         },
       },
       {
@@ -120,7 +121,7 @@ const routes = [
         name: "AccountProfile",
         components: { default: AccountProfile },
         meta: {
-          showSearch: true,
+          showSearch: false,
         },
       },
       {
@@ -137,6 +138,7 @@ const routes = [
         components: { default: HomePage },
         meta: {
           showSearch: false,
+          HomePage:true,
         },
       },
       {
@@ -144,7 +146,7 @@ const routes = [
         name: "transactionInfo",
         components: { default: TransactionInfo },
         meta: {
-          showSearch: true,
+          showSearch: false,
         },
       },
       {
