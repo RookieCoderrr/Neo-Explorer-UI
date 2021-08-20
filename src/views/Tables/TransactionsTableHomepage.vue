@@ -118,8 +118,5 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.item-name {
-  width: 40px;
-  text-align: right;
-}
+
 </style>

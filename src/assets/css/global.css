@@ -170,3 +170,7 @@
     width: 80%;
     margin-left: 10%;
 }
+.item-name {
+    width: 5%!important;
+    text-align: left;
+}
