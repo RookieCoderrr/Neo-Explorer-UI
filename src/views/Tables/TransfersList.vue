@@ -15,10 +15,10 @@
           :data="tableData"
         >
           <template v-slot:columns>
-            <th>{{ $t("transactionTransfer.contract") }}</th>
-            <th>{{ $t("transactionTransfer.token") }}</th>
-            <th>{{ $t("transactionTransfer.type") }}</th>
-            <th>
+            <th class="tableHeader">{{ $t("transactionTransfer.contract") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.token") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
+            <th class="tableHeader">
               {{ $t("transactionTransfer.from")
               }}
               <span>       </span>
@@ -26,17 +26,17 @@
                 {{ fromButton.buttonName }}
               </button>
             </th>
-            <th>{{ $t("transactionTransfer.fromBalance") }}</th>
-            <th></th>
-            <th>
+            <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
+            <th class="tableHeader"></th>
+            <th class="tableHeader">
               {{ $t("transactionTransfer.to")
               }}
               <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
                 {{ toButton.buttonName }}
               </button>
             </th>
-            <th>{{ $t("transactionTransfer.toBalance") }}</th>
-            <th>{{ $t("transactionTransfer.amount") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
+            <th class="tableHeader">{{ $t("transactionTransfer.amount") }}</th>
           </template>
 
           <template v-slot:default="row">

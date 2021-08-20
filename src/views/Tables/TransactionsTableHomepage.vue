@@ -69,7 +69,6 @@
             <div>Size: {{ row.item.size }} {{ $t("bytes") }}</div>
             <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
-
         </template>
       </base-table>
     </div>
