@@ -1,6 +1,11 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
-    <div
+  <div class="col list-title">
+    <h1 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
+      {{ title }}
+    </h1>
+  </div>
+  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+    <!--div
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
@@ -38,7 +43,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div-->
 
     <div class="table-responsive">
       <loading
@@ -47,7 +52,7 @@
         :active="isLoading"
       ></loading>
       <base-table
-        class="table align-items-center table-flush"
+        class="table align-items-center table-flush list-table"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
