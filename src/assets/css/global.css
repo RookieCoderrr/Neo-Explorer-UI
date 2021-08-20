@@ -1,0 +1,104 @@
+
+
+
+.card-style{
+    /*position: absolute;*/
+    width: 80%;
+    height: 30%;
+    /*top: 268px;*/
+    margin-left: 10%;
+    background: #FFFFFF;
+    border-radius: 4px;
+}
+
+
+
+.el-menu-item.is-active {
+    background-color: rgb(250, 250, 250) !important;
+}
+.item-title{
+    height: 22px;
+    left: 0%;
+    right: 91.67%;
+    top: calc(50% - 22px/2 - 11.75px);
+
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.lable-title{
+    height: 20px;
+    left: 2%;
+    top: calc(50% - 20px/2 - 200.5px);
+
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #282B34;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+}
+.context{
+    height: 20px;
+    left: 10%;
+    right: 60.05%;
+    top: calc(50% - 20px/2 - 521.5px);
+
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #5576EC;
+}
+.context-black{
+    height: 20px;
+    left: 10%;
+    right: 53.07%;
+    top: calc(50% - 20px/2 - 483.5px);
+
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #000000;
+}
+.title3{
+    height: 20px;
+    left: 0%;
+    right: 89.66%;
+    top: calc(50% - 20px/2 - 40px);
+
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+    color: #000000;
+    mix-blend-mode: normal;
+}
+
+.title2{
+    width: 80%!important;
+    margin-left: 10%!important;
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+    text-align: right;
+    color: #000000;
+}

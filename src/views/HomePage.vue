@@ -262,9 +262,15 @@ export default {
   },
 
   created() {
+    this.getBlockCount();
+    this.getTxCount();
+    this.getAccountCount();
+    this.getAssetCount();
+    this.getContractCount();
+    this.getCandidateCount();
     this.getBlockList();
     this.getTransactionList();
-      this.initWebSocket()
+      // this.initWebSocket()
   },
   updated() {
     const nodes = document.getElementsByClassName('timeago')
@@ -297,13 +303,13 @@ export default {
       this.initWebSocket();
     },
     websocketonmessage(e){ //数据接收
-
+  // console.log(e.data)
       if( e.data != 'hello neo3fura'){
       try{
       const redata = JSON.parse(e.data);
       if (Object.keys(redata)[0] ==="BlockCount"){
           this.startBlockVal = this.blockCount
-          this.blockCount = redata['BlockCount']["index"]
+          this.blockCount = redata['BlockCount']["total counts"]
         }else if(Object.keys(redata)[0] ==="TransactionCount"){
           this.startTxVal = this.txCount
           this.txCount = redata["TransactionCount"]["total counts"]
@@ -349,6 +355,7 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
+        console.log(res["data"]["result"]["total counts"])
         this.blockCount = res["data"]["result"]["index"];
       });
     },
