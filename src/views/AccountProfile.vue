@@ -3,155 +3,137 @@
     <div class="container-fluid mt--7" style="background-color: #F2F2F2">
       <div class="row">
         <div class="col">
-          <div class="card shadow">
             <loading
               :is-full-page="false"
               :opacity="0.9"
               :active="isLoading"
             ></loading>
-            <div class="card-header bg-transparent">
-              <h1 v-if="this.type === 'normal' || this.type === 'candidate'" class="mb-0">
-                {{ $t("addressPage.addressProfile.title") }}
-              </h1>
-              <h1 v-else-if="this.type === 'committee'" class="mb-0">
-                {{ $t("addressPage.addressProfile.title") }} <i class="ni ni-badge"></i>
-              </h1>
-              <span class="text-muted" id="address">
-                {{ this.scriptHashToAddress(this.accountAddress) }}
-              </span>
-              <i class="ni ni-single-copy-04" id="addressButton" style="padding-left: 5px; color: grey; cursor: pointer;" title="Copy to Clipboard"  @click="copyItem('address','addressButton','addressSpan')"></i>
-              <span style="color: #42b983" id="addressSpan" ></span>
+            <div class="bat">
+              <div class="title">
+                <h1 v-if="this.type === 'normal' || this.type === 'candidate'" class="mb-0">
+                  {{ $t("addressPage.addressProfile.title") }}
+                </h1>
+                <h1 v-else-if="this.type === 'committee'" class="mb-0">
+                  {{ $t("addressPage.addressProfile.title") }} <i class="ni ni-badge"></i>
+                </h1>
+              </div>
             </div>
+          <div class = "card-body">
+            <card shadow class ="card-style">
 
-            <div class="card-body">
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">
-                    {{ $t("addressPage.createdTime") }}
-                  </div>
-                  <div class="col-4">
-                    {{ convertPreciseTime(this.createdTime) }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">
-                    {{ $t("addressPage.addressProfile.type") }}
-                  </div>
-                  <div v-if="this.type === 'normal'" class="col-4">
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.title") }}
+                </div>
+                <div class="col-10 context-black">
+                  <span  id="address">
+                {{ this.scriptHashToAddress(this.accountAddress) }}
+                  </span>
+                  <i class="ni ni-single-copy-04" id="addressButton" style="padding-left: 5px; color: grey; cursor: pointer;" title="Copy to Clipboard"  @click="copyItem('address','addressButton','addressSpan')"></i>
+                  <span style="color: #42b983" id="addressSpan" ></span>
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.createdTime") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ convertPreciseTime(this.createdTime) }}
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.type") }}
+                </div>
+                <div class="col-10 context-black">
+                  <div v-if="this.type === 'normal'" >
                     {{ $t("addressPage.typeEnum.normal") }}
                   </div>
-                  <div v-else-if="this.type === 'candidate'" class="col-4">
+                  <div v-else-if="this.type === 'candidate'" >
                     {{ $t("addressPage.typeEnum.candidate") }}
                   </div>
-                  <div v-else-if="this.type === 'committee'" class="col-4">
+                  <div v-else-if="this.type === 'committee'" >
                     {{ $t("addressPage.typeEnum.committee") }}
                   </div>
                 </div>
-              </card>
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div class="row">
-                  <div class="col-2 font-weight-bold mb-0">
-                    {{ $t("addressPage.neoBalance") }}
-                  </div>
-                  <div class="col-4">
-                    {{ this.neoBalance }}
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">
-                    {{ $t("addressPage.gasBalance") }}
-                  </div>
-                  <div class="col-4">
-                    {{ this.gasBalance }}
-                  </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.neoBalance") }}
                 </div>
-              </card>
-              <div class="row mt-3"></div>
-              <div class="row">
-                <div class="col-4">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("addressPage.addressProfile.txNums") }}
-                      </div>
-                      <div class="panel-body">
-                        {{ this.numOfTxns }}
-                      </div>
-                    </div>
-                  </card>
-                </div>
-                <div class="col-4">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("addressPage.addressProfile.nep17Transfers") }}
-                      </div>
-                      <div  class="panel-body">
-                        {{ this.numOfnep17Transfers }}
-                      </div>
-                    </div>
-                  </card>
-                </div>
-                <div class="col-4">
-                  <card shadow>
-                    <div class="panel panel-primary">
-                      <div class="font-weight-bold mb-0">
-                        {{ $t("addressPage.addressProfile.nep11Transfers") }}
-                      </div>
-                      <div class="panel-body">
-                        {{ this.numOfnep11Transfers }}
-                      </div>
-                    </div>
-                  </card>
+                <div class="col-10 context-black">
+                  {{ this.neoBalance }}
                 </div>
               </div>
-              <tabs fill class="flex-column flex-md-row">
-                <tab-pane
-                  icon="ni ni-money-coins"
-                  :title="$t('addressPage.addressProfile.tokenBalance')"
-                >
-                  <div class="row">
-                    <div class="col">
-                      <address-tokens-table
-                        :account_address="accountAddress"
-                      ></address-tokens-table>
-                    </div>
-                  </div>
-                </tab-pane>
-                <tab-pane
-                  icon="ni ni-single-02 mr-2"
-                  :title="$t('addressPage.addressProfile.tx')"
-                >
-                  <div class="row">
-                    <div class="col">
-                      <address-transactions-table
-                        :account_address="accountAddress"
-                      ></address-transactions-table>
-                    </div>
-                  </div>
-                </tab-pane>
-                <tab-pane
-                  icon="ni ni-collection"
-                  :title="$t('addressPage.addressProfile.nep17title')"
-                >
-                  <div class="row">
-                    <div class="col">
-                      <address17-ts-table :account_address="accountAddress">
-                      </address17-ts-table>
-                    </div>
-                  </div>
-                </tab-pane>
-                <tab-pane
-                  icon="ni ni-collection"
-                  :title="$t('addressPage.addressProfile.nep11title')"
-                >
-                  <div class="row">
-                    <div class="col">
-                      <address11-ts-table :account_address="accountAddress">
-                      </address11-ts-table>
-                    </div>
-                  </div>
-                </tab-pane>
-                <!--tab-pane icon="ni ni-collection" title="Contracts"> </tab-pane-->
-              </tabs>
-            </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.gasBalance") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ this.gasBalance }}
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.txNums") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ this.numOfTxns }}
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.txNums") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ this.numOfTxns }}
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.nep17Transfers") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ this.numOfnep17Transfers }}
+                </div>
+              </div>
+              <div class="row mt-3 mb-1">
+                <div class="col-2 lable-title">
+                  {{ $t("addressPage.addressProfile.nep11Transfers") }}
+                </div>
+                <div class="col-10 context-black">
+                  {{ this.numOfnep11Transfers }}
+                </div>
+              </div>
+
+              <div class="row mt-4"></div>
+
+            </card>
+            <div class="row mt-3"></div>
+            <el-tabs v-model="activeName" style="width:80%;margin-left: 10%;background-color:#F2F2F2" >
+              <el-tab-pane :label="$t('addressPage.addressProfile.tokenBalance')" name="first">
+                <address-tokens-table
+                    :account_address="accountAddress"
+                ></address-tokens-table>
+              </el-tab-pane>
+
+              <el-tab-pane :label="$t('addressPage.addressProfile.tx')" name="second">
+                <address-transactions-table
+                    :account_address="accountAddress"
+                ></address-transactions-table>
+              </el-tab-pane>
+
+              <el-tab-pane :label="$t('addressPage.addressProfile.nep17title')" name="third">
+                <address17-ts-table :account_address="accountAddress">
+                </address17-ts-table>
+              </el-tab-pane>
+
+              <el-tab-pane :label="$t('addressPage.addressProfile.nep11title')" name="forth">
+                <address11-ts-table :account_address="accountAddress">
+                </address11-ts-table>
+              </el-tab-pane>
+
+            </el-tabs>
           </div>
         </div>
       </div>
@@ -183,6 +165,7 @@ export default {
       numOfnep17Transfers: -1,
       numOfnep11Transfers: 0,
       type: "normal",
+      activeName:'second',
 
     };
   },
