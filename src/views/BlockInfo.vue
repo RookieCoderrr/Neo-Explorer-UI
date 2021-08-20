@@ -97,8 +97,6 @@
                     </div>
                   </div>
 
-
-
                   <div class="row  mt-3  mb-1">
                     <div class="col-2 lable-title">
                       <div>{{ $t("blockinfo.preHash") }}</div>
@@ -260,11 +258,11 @@ export default {
     changeFormat,
     convertPreciseTime,
     copyItem,
- 
+
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       if (this.$route.name === "blockinfo") {
-        this.isLoading = true
+        this.isLoading = true;
         this.BlockHash = this.$route.params.hash;
         this.getBlock(this.BlockHash);
       }
@@ -275,7 +273,7 @@ export default {
     },
 
     getBlock(hash) {
-      console.log(hash)
+      console.log(hash);
       axios({
         method: "post",
         url: "/api",
@@ -290,10 +288,13 @@ export default {
           withCredentials: " true",
           crossDomain: "true",
         },
-      }).then((res) => {
-        console.log(res)
-        this.block_info = res["data"]["result"];
-        this.block_info["witnesses"][0]["invocation"] = toOpcode( this.block_info["witnesses"][0]["invocation"])
+      })
+        .then((res) => {
+          console.log(res);
+          this.block_info = res["data"]["result"];
+          this.block_info["witnesses"][0]["invocation"] = toOpcode(
+            this.block_info["witnesses"][0]["invocation"]
+          );
 
         this.block_info["witnesses"][0]["verification"] = toOpcode( this.block_info["witnesses"][0]["verification"])
         let words = this.block_info["witnesses"][0]["verification"].split("<br>")

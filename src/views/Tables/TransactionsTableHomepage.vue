@@ -11,10 +11,10 @@
       </div>
       <div class="col text-right">
         <base-button
+            class="seeMoreButton"
             type="primary"
             size="sm"
             @click="toTransactionsTable()"
-            style="background-color: #FFFFFF; color: #000000; border-color: #FFFFFF"
         >{{ $t("homePage.more") }}
           <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect width="10.8333" height="10" fill="url(#pattern0)"/>

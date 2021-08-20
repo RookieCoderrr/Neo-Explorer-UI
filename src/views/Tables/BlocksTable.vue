@@ -28,12 +28,12 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.height") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.hash") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.time") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txns") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.size") }}</th>
-          <th style="background:#5576EC; color:#ffffff"></th>
+          <th class="tableHeader">{{ $t("blockinfo.height") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.hash") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.time") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txns") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.size") }}</th>
+          <th class="tableHeader"></th>
         </template>
 
         <template v-slot:default="row">
@@ -65,6 +65,7 @@
       v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
+      style="height: 70px"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>

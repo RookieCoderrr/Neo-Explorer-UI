@@ -28,11 +28,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.address") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.committee") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.rank") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.votes") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("candidate.percentage") }}</th>
+          <th class="tableHeader">{{ $t("candidate.address") }}</th>
+          <th class="tableHeader">{{ $t("candidate.committee") }}</th>
+          <th class="tableHeader">{{ $t("candidate.rank") }}</th>
+          <th class="tableHeader">{{ $t("candidate.votes") }}</th>
+          <th class="tableHeader">{{ $t("candidate.percentage") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -66,6 +66,7 @@
       v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
+      style="height: 70px"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">Page &nbsp;</div>

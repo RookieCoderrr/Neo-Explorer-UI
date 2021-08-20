@@ -1,6 +1,5 @@
 
 
-
 .card-style{
     /*position: absolute;*/
     width: 80%;
@@ -128,4 +127,25 @@
 .el-tabs__item:hover {
     color:  #000000;
     cursor: pointer;
+}
+
+.seeMoreButton {
+    background-color: #FFFFFF;
+    color: #000000;
+    border-color: #FFFFFF;
+}
+
+.tableHeader {
+    background:#5576EC!important;
+    color:#ffffff!important;
+}
+
+.block-page-card {
+    /*position: absolute;*/
+    width: 80%;
+    /*height: 40%;*/
+    /*top: 268px;*/
+    margin-left: 10%;
+    background: #FFFFFF;
+    /*border-radius: 4px;*/
 }

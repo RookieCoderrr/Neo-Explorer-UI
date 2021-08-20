@@ -14,11 +14,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txTable.txID") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txTable.height") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txTable.size") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txTable.time") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txTable.gas") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.txID") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.height") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.size") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.time") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.gas") }}</th>
         </template>
 
         <template v-slot:default="row">

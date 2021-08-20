@@ -10,7 +10,7 @@
         </h3>
       </div>
       <div class="col text-right">
-        <base-button  type="primary" size="sm" @click="toBlocksTable()" style="background-color: #FFFFFF; color: #000000; border-color: #FFFFFF">{{
+        <base-button  class="seeMoreButton" type="primary" size="sm" @click="toBlocksTable()">{{
             $t("homePage.more")
           }}
           <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

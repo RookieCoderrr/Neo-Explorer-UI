@@ -27,11 +27,11 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff" >{{ $t("transactionList.transactionId") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.blockHeight") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.size") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.time") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("transactionList.gasConsumed") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.transactionId") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.blockHeight") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.size") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.time") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.gasConsumed") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -68,6 +68,7 @@
       v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
+      style="height: 70px"
     >
       <div style="margin-right: 10px; width: 250px" class="row">
         <div class="text">{{ $t("transactionList.page") }} &nbsp;</div>

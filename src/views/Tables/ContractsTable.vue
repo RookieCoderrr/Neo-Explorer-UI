@@ -55,17 +55,17 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.hash") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.name") }}</th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader">{{ $t("contract.hash") }}</th>
+          <th class="tableHeader">{{ $t("contract.name") }}</th>
+          <th class="tableHeader">
             {{ $t("contract.creator") }}
             <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
               {{ this.button.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff">{{$t('contract.index')}}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.updates") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.time") }}</th>
+          <th class="tableHeader">{{$t('contract.index')}}</th>
+          <th class="tableHeader">{{ $t("contract.updates") }}</th>
+          <th class="tableHeader">{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -122,10 +122,11 @@
       v-if="this.totalCount > 10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
+      style="height: 70px"
     >
-      <div style="margin-right: 10px; width: 250px" class="row">
+      <div style="margin-right: 10px; width: 250px" class="row pageInput">
         <div class="text">Page &nbsp;</div>
-        <base-input
+        <base-input class="page"
           type="number"
           :style="text(pagination)"
           :placeholder="pagination"
