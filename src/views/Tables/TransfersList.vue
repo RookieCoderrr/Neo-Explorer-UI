@@ -1,7 +1,7 @@
 <template>
-  <div v-show="this.length != 0">
+  <div v-if="this.length != 0">
     <div
-      v-show="this.length != 0"
+      v-if="this.length != 0"
       class="card shadow"
       :class="type === 'dark' ? 'bg-default' : ''"
     >
@@ -160,6 +160,9 @@
       ></div>
     </div>
   </div>
+  <card shadow v-else class="text-center ">
+    This transaction has no NEP17 Transfers.
+  </card>
 </template>
 <script>
 import axios from "axios";

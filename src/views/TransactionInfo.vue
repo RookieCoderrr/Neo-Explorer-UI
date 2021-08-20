@@ -208,12 +208,13 @@
 
               <div style="margin-top: 30px;margin-bottom: 20px">
               <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="width:80%;margin-left:10%;background-color: rgb(250,250,250);">
-                <el-menu-item index="1" class="item-title">Transfers</el-menu-item>
-                <el-menu-item index="2"  class="item-title">{{$t('transactionInfo.notification')}}</el-menu-item>
-                <el-menu-item index="3" class="item-title">{{$t('transactionInfo.systemCall')}}</el-menu-item>
+                <el-menu-item index="1" class="item-title">Nep17Transfers</el-menu-item>
+                <el-menu-item index="2" class="item-title">Nep11Transfers</el-menu-item>
+                <el-menu-item index="3"  class="item-title">{{$t('transactionInfo.notification')}}</el-menu-item>
+                <el-menu-item index="4" class="item-title">{{$t('transactionInfo.systemCall')}}</el-menu-item>
               </el-menu>
               </div>
-               <div v-if="whichIndex === 2">
+               <div v-if="whichIndex === 3">
                   <div class="notificationDiv" v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
                     <div v-if="this.countApp ===0">
                       <card
@@ -277,7 +278,7 @@
                     This transaction has no events.
                   </card>
                 </div>
-                 <div v-else-if="whichIndex===3">
+                 <div v-else-if="whichIndex===4">
                   <div class="systemCallDiv" v-if="this.tabledataCall&&this.tabledataCall['length'] != 0">
                     <div v-if="this.countSys === 0">
                       <card
@@ -338,24 +339,27 @@
                     </div>
                   </div>
                 </div>
-                <div v-else>
+                <div v-else-if="whichIndex ===1 ">
                   <div class="transferTable">
                     <transfers-list
                         :title="$t('transactionInfo.nep17')"
                         :txhash="this.txhash"
                     ></transfers-list>
 
-                    <nft-table
-                        :title="$t('transactionInfo.nep11')"
-                        :txhash="this.txhash"
-                    ></nft-table>
                   </div>
                 </div>
+              <div v-else>
+                <div class="transferTable">
+                  <nft-table
+                      :title="$t('transactionInfo.nep11')"
+                      :txhash="this.txhash"
+                  ></nft-table>
+                </div>
+              </div>
 
 
 
-
-          </div>
+            </div>
         </div>
       </div>
     </div>

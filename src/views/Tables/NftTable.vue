@@ -156,6 +156,9 @@
     ></div>
   </div>
   </div>
+  <card shadow v-else class="text-center ">
+    This transaction has no NEP11 Transfers.
+  </card>
 </template>
 <script>
 import axios from "axios";
