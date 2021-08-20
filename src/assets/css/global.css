@@ -175,6 +175,37 @@
     text-align: left;
 }
 
+.title4{
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+    color: #000000;
+}
+.title5{
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    /*line-height: ;*/
+    /* identical to box height, or 133% */
+    color: #000000;
+}
+.parameters-name{
+    left: 2%;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #000000;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+}
+
 .list-card {
     width: 96%;
     margin-left: 2%;

@@ -16,6 +16,7 @@ module.exports = {
   bytes: "字节",
   overview:"总览",
   blockDetail:"区块详情" ,
+  contractDetail:"合约详情",
   authLayout: {
     home: "主页",
     blocks: "区块",
@@ -175,6 +176,7 @@ module.exports = {
     prompt: "以通证名称搜索",
   },
   tokenInfo: {
+    name:"通证名称",
     symbol: "通证符号",
     decimal: "小数位数",
     standard: "合约标准",

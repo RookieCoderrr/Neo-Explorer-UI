@@ -1,171 +1,144 @@
 <template>
   <div>
-    <div class="container-fluid mt--7"  style="background-color: #F2F2F2" >
+    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
-          <div class="card shadow">
             <div class="top">
               <loading
                 :is-full-page="false"
                 :opacity="0.9"
                 :active="isLoading"
               ></loading>
-              <div class="card-header bg-transparent">
+              <div class=" row mt-3  mb-5  title1" > {{ $t('tokenDetail') }} </div>
+              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
+              <div class="row mt-3"></div>
+
+              <card shadow class="card-style">
+
                 <div class="row">
-                  <div class="col-10">
-                    <h1 v-if="this.token_info.ispopular" class="mb-0">
+                  <div class="col-2 lable-title">
+                    {{ $t("tokenInfo.name") }}
+                  </div>
+                  <div class="col-8 context-black">
+                    <div v-if="this.token_info.ispopular" >
                       {{ this.token_info["tokenname"] }} &#x1F525;
-                      <button
-                          class="btn btn-primary btn-sm"
-                          @click="getContract(this.token_info['hash'])"
-                      >
-                        Contract
-                      </button>
-                    </h1>
-                    <h1 v-else class="mb-0">{{ this.token_info["tokenname"] }}
-                      <button
-                          class="btn btn-primary btn-sm"
-                          @click="getContract(this.token_info['hash'])"
-                      >
-                        Contract
-                      </button>
-                    </h1>
+                    </div>
+                    <div v-else >{{ this.token_info["tokenname"] }}
+                    </div>
+                  </div>
+                    <div class="col-2">
+                    <button class="btn btn-primary btn-sm"
+                            @click="getContract(this.token_info['hash'])">
+                      Contract
+                    </button>
+                    </div>
+                </div>
+
+                <div class="row  mt-3  mb-1">
+                  <div class="col-2 lable-title">
+                    {{ $t("hash") }}
+                  </div>
+                  <div class="col-10 context-black"  id="token">
+                      {{ this.token_info['hash']}}
+
+                    <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>
+                    <span  style="color: #42b983"  id="hashSpan" ></span>
                   </div>
 
                 </div>
-                <a
-                  class="mb-0"
-                  id="token"
-                  style="cursor: pointer"
-                  @click="getContract(this.token_info['hash'])"
-                  >{{ this.token_info["hash"] }}</a
-                >
-                <i class="ni ni-single-copy-04" id="hashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('token','hashButton','hashSpan')"></i>
-                <span  style="color: #42b983"  id="hashSpan" ></span>
-              </div>
 
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.symbol") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.token_info["symbol"] }}
-                        </div>
-                      </div>
-                    </card>
+                <div class="row  mt-3 mb-1">
+                  <div class="col-2 lable-title">
+                    {{ $t("tokenInfo.symbol") }}
                   </div>
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.decimal") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.token_info["decimals"] }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.standard") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.token_info["type"] }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                </div>
-                <div class="row mt-3"></div>
-                <div class="row">
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.transferred") }}
-                        </div>
-                        <div class="panel-body">
-                          <div v-if="this.token_info.firsttransfertime">
-                            {{
-                              this.convertPreciseTime(
-                                this.token_info["firsttransfertime"]
-                              )
-                            }}
-                          </div>
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.supply") }}
-                        </div>
-                        <div class="panel-body">
-                          {{
-                            convertToken(
-                              this.token_info["totalsupply"],
-                              this.decimal
-                            )
-                          }}
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div class="col-4">
-                    <card shadow>
-                      <div class="panel panel-primary">
-                        <div class="font-weight-bold mb-0">
-                          {{ $t("tokenInfo.holders") }}
-                        </div>
-                        <div class="panel-body">
-                          {{ this.token_info["holders"] }}
-                        </div>
-                      </div>
-                    </card>
+                  <div class=" col-10 context-black">
+                    {{ this.token_info["symbol"] }}
                   </div>
                 </div>
 
-                <div class="row mt-3"></div>
-              </div>
-              <tabs fill class="flex-column flex-md-row">
-                <tab-pane
-                  icon="ni ni-diamond"
-                  :title="$t('tokenInfo.recentTransfers')"
-                >
+                <div class="row  mt-3  mb-1 ">
+                  <div class="col-2 lable-title">
+                    {{ $t("tokenInfo.decimal") }}
+                  </div>
+                  <div class="col-10 context-black">
+                    {{ this.token_info["decimals"] }}
+                  </div>
+                </div>
+
+
+
+
+                <div class="row  mt-3  mb-1">
+                  <div class="col-2 lable-title">
+                    {{ $t("tokenInfo.standard") }}
+                  </div>
+                  <div class="col-10 context-black">
+                    {{ $t("tokenInfo.standard") }}
+                    {{ this.token_info["type"] }}
+                  </div>
+                </div>
+
+                <div class="row  mt-3  mb-1">
+                  <div class="col-2 lable-title">
+                    {{ $t("tokenInfo.transferred") }}
+                  </div>
+                  <div class="col-10 context-black">
+                    <div v-if="this.token_info.firsttransfertime">
+                      {{
+                      this.convertPreciseTime(
+                      this.token_info["firsttransfertime"]
+                      )
+                      }}
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="row mt-3  mb-1" >
+                    <div class="col-2 lable-title">
+                      {{ $t("tokenInfo.supply") }}
+                    </div>
+                    <div class="col-10 context-black">
+                      {{
+                      convertToken(
+                      this.token_info["totalsupply"],
+                      this.decimal
+                      )
+                      }}
+                    </div>
+                  </div>
+
+                  <div class="row  mt-3  mb-1">
+                    <div class="col-2 lable-title">
+                      {{ $t("tokenInfo.holders") }}
+                    </div>
+                    <div class="col-10 context-black">
+                      {{ this.token_info["holders"] }}
+                    </div>
+                  </div>
+
+              </card>
+
+                <div class="row mt-5"></div>
+              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)" >
+                <el-tab-pane :label="$t('tokenInfo.recentTransfers')"  name="first">
                   <tokens-tx-nep17
-                    :contractHash="token_id"
-                    :decimal="decimal == '' ? 0 : decimal"
+                          :contractHash="token_id"
+                          :decimal="decimal == '' ? 0 : decimal"
                   ></tokens-tx-nep17>
                   <tokens-tx-nep11
-                      :contractHash="token_id"
-                    :decimal="decimal == '' ? 0 : decimal"
+                          :contractHash="token_id"
+                          :decimal="decimal == '' ? 0 : decimal"
                   ></tokens-tx-nep11>
-                </tab-pane>
-                <tab-pane
-                  icon="ni ni-single-02 mr-2"
-                  :title="$t('tokenInfo.topHolders')"
-                >
+                </el-tab-pane>
+                <el-tab-pane :label="$t('tokenInfo.topHolders')"  name="second">
                   <token-holder
-                    :contract-hash="token_id"
-                    :decimal="decimal == '' ? 0 : decimal"
+                          :contract-hash="token_id"
+                          :decimal="decimal == '' ? 0 : decimal"
                   ></token-holder>
-                </tab-pane>
-                <tab-pane
-                  icon="ni ni-collection"
-                  :title="$t('tokenInfo.contractInfo')"
-                >
-                  <card shadow type="secondary">
+                </el-tab-pane>
+                <el-tab-pane :label="$t('tokenInfo.contractInfo')"  name="third">
                     <div class="extra" v-if="this.manifest.extra && JSON.stringify(this.manifest.extra) !== '{}'">
-                      <h3 class="mt-2">{{ $t("tokenInfo.extra") }}</h3>
+                      <div class="mt-2 mb-3 title4">{{ $t("tokenInfo.extra") }}</div>
                       <card shadow>
                         <div class="row">
                           <div class="col-auto">
@@ -187,109 +160,124 @@
                     </div>
                     <div class="abi" v-if="this.manifest.abi">
                       <div
-                        class="events"
-                        v-if="this.manifest.abi.events.length !== 0"
+                              class="events"
+                              v-if="this.manifest.abi.events.length !== 0"
                       >
-                        <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
-                        <card
-                          shadow
-                          v-for="(item, index) in this.manifest['abi'][
-                            'events'
-                          ]"
-                          :key="index"
-                        >
-                          <h3 class="method-name">{{ item["name"] }}</h3>
-                          <div class="row">
-                            <div class="col">
-                              <div class="params">
-                                <div class="text-muted">parameters:</div>
-                                <div v-if="item['parameters'].length !== 0">
-                                  <li
-                                    v-for="(param, ind) in item['parameters']"
-                                    :key="ind"
-                                  >
-                                    {{ param["name"] }}: {{ param["type"] }}
-                                  </li>
-                                </div>
-                                <div v-else>null</div>
-                              </div>
+                        <div class="mt-2 mb-3 title4">{{ $t("tokenInfo.events") }}</div>
+                        <card shadow>
+                        <div  v-for="(item, index) in this.manifest['abi']['events']"
+                                :key="index" >
+                          <div class="method-name title5 mt-3">{{ item["name"] }}</div>
+
+                          <div class="row mt-3  mb-1" >
+                            <div class="col-2 lable-title" >
+                              {{$t('tokenInfo.params')}}:
                             </div>
                           </div>
-                        </card>
+                          <div v-if="item['parameters'].length !== 0" >
+                          <div class="row mt-3  mb-1"  v-for="(param, ind) in item['parameters']"
+                               :key="ind" >
+                            <div class="col-2 parameters-name" >
+                              {{ param["name"] }}:
+                            </div>
+
+                            <div class="col-10 context-black" >
+                              {{ param["type"] }}
+                            </div>
+                          </div>
+                          </div>
+
+
+                        </div>
+                      </card>
                       </div>
-                      <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
-                      <card
-                          shadow
-                          v-for="(item, index) in this.manifest['abi']['methods']"
-                          :key="index"
+                      <div class="mt-4 mb-3 title4">{{ $t("tokenInfo.methods") }}</div>
+
+                    <card>
+                      <div
+                              v-for="(item, index) in this.manifest['abi']['methods']"
+                              :key="index"
                       >
-                        <div class="row">
-                          <h3 class="col-auto">{{ item["name"] }}</h3>
+                        <div class="mt-3 mb-4 "></div>
+                        <div class="row ">
+                          <div class="col-auto title5 ">{{ item["name"] }}</div>
                           <div style="padding-left: 5px" v-if="item['safe']">
                             <button
-                                class="btn btn-sm btn-primary"
-                                @click="onQuery(index)"
+                                    class="btn btn-sm btn-primary"
+                                    @click="onQuery(index)"
                             >
                               {{ $t("tokenInfo.query") }}
                             </button>
                           </div>
                         </div>
+
                         <div class="row">
                           <div class="col-4">
                             <div class="params">
-                              <div class="text-muted">{{$t('tokenInfo.params')}}</div>
+                              <div class="  lable-title mt-2 mb-2 ml-1">{{$t('tokenInfo.params')}}</div>
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-if="item['safe']">
                                   <div
-                                      v-for="(param, ind) in item['parameters']"
-                                      :key="ind"
+                                          v-for="(param, ind) in item['parameters']"
+                                          :key="ind"
                                   >
+                                    <div class="row">
+                                      <div class="col-3 parameters-name" >
+                                        {{ param["name"] }}:
+                                      </div>
 
-                                    <li>
-                                      {{ param["name"] }}: {{ param["type"] }}
+                                      <div class="col-6 context-black" >
+                                        {{ param["type"] }}
+                                      </div>
+                                    </div>
                                       <div>
                                         <input
-                                            type="text"
-                                            style="border: 2px solid #676c6c; border-radius: 4px;"
-                                            v-model="
+                                                type="text"
+                                                style="border: 2px solid #676c6c; border-radius: 4px;"
+                                                v-model="
                                             manifest['abi']['methods'][index][
                                               'parameters'
                                             ][ind].value
                                           "
                                         />
                                       </div>
-                                    </li>
                                   </div>
                                 </div>
                                 <div v-else>
-                                  <li
-                                      v-for="(param, ind) in item['parameters']"
-                                      :key="ind"
+                                  <div   class="row  "
+                                          v-for="(param, ind) in item['parameters']"
+                                          :key="ind"
                                   >
-                                    {{ param["name"] }}: {{ param["type"] }}
-                                  </li>
+                                    <div class="col-4 parameters-name" >
+                                      {{ param["name"] }}:
+                                    </div>
+
+                                    <div class="col-6 context-black" >
+                                      {{ param["type"] }}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div v-else>{{$t('tokenInfo.noParam')}}</div>
+                              <div v-else class=" ml-3 context-black">{{$t('tokenInfo.noParam')}}</div>
                             </div>
                           </div>
                           <div class="col">
                             <div class="return">
-                              <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
-                              {{ item["returntype"] }}
+                              <div class=" parameters-name ">{{$t('tokenInfo.returnType')}}</div>
+                              <div class="context-black">{{ item["returntype"] }}</div>
                             </div>
                           </div>
                           <div class="col">
-                            <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
-                            {{ item["offset"] }}
+                            <div class=" parameters-name">{{$t('tokenInfo.offset')}}</div>
+                            <div class="context-black"> {{ item["offset"] }}</div>
                           </div>
                           <div class="col">
-                            <div class="text-muted">{{$t('tokenInfo.safe')}}</div>
-                            {{ item["safe"] }}
+                            <div class=" parameters-name">{{$t('tokenInfo.safe')}}</div>
+                            <div class="context-black">{{ item["safe"] }}</div>
                           </div>
                         </div>
                         <div
-                            class="mt-3"
+                                class="mt-3"
                         >
                           <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
                             <h3>{{$t('tokenInfo.error')}}</h3>
@@ -300,8 +288,8 @@
                               <h3 class="col-auto">{{$t('tokenInfo.response')}}</h3>
                               <div>
                                 <button
-                                    class="btn btn-sm btn-primary ml-2"
-                                    @click="decode(index)"
+                                        class="btn btn-sm btn-primary ml-2"
+                                        @click="decode(index)"
                                 >
                                   {{ manifest['abi']['methods'][index]['button'] }}
                                 </button>
@@ -311,14 +299,15 @@
                             <json-view v-else :json="manifest['abi']['methods'][index]['display']"></json-view>
                           </div>
                         </div>
-                      </card>
+                      </div>
+                    </card>
                     </div>
-                  </card>
-                </tab-pane>
-              </tabs>
+                </el-tab-pane>
+              </el-tabs>
+
             </div>
           </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -351,6 +340,7 @@ export default {
       standard: 0,
       manifest: "",
       decimal: "",
+      activeName: 'first',
     };
   },
   created() {
