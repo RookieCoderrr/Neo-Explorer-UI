@@ -19,26 +19,26 @@
         :data="NEP11TxList"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.txid") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.type") }}</th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
+          <th class="tableHeader">
             {{ $t("tokenTx.from") }}
             <span> </span>
             <button class="btn btn-sm btn-primary" @click="changeFormat(fromButton)">
               {{ this.fromButton.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff"></th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader"></th>
+          <th class="tableHeader">
             {{ $t("tokenTx.to") }}
             <span> </span>
             <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
               {{ this.toButton.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.amount") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.time") }}</th>
-          <th astyle="background:#5576EC; color:#ffffff">{{ $t("tokenTx.tokenID") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.tokenID") }}</th>
         </template>
 
         <template v-slot:default="row">

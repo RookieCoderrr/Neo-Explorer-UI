@@ -27,16 +27,16 @@
           :data="tableData"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("addressPage.number") }}</th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader">{{ $t("addressPage.number") }}</th>
+          <th class="tableHeader">
             {{ $t("addressPage.address")
             }}<button class="btn btn-sm btn-primary" @click="changeFormat(button)">
             {{ this.button.buttonName }}
           </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("addressPage.neoBalance") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("addressPage.gasBalance") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("addressPage.createdTime") }}</th>
+          <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
+          <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
+          <th class="tableHeader">{{ $t("addressPage.createdTime") }}</th>
         </template>
         <template v-slot:default="row">
           <td>

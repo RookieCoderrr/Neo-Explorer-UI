@@ -18,9 +18,9 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.txid") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.type") }}</th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
+          <th class="tableHeader">
             {{ $t("tokenTx.from")
             }}
             <button
@@ -30,8 +30,8 @@
               {{ this.fromButton.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff"></th>
-          <th style="background:#5576EC; color:#ffffff">
+          <th class="tableHeader"></th>
+          <th class="tableHeader">
             {{ $t("tokenTx.to") }}
             <span>       </span>
             <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">

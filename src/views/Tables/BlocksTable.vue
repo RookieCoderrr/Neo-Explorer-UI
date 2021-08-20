@@ -28,12 +28,12 @@
         style="text-align: center"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.height") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.hash") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.time") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.txns") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("blockinfo.size") }}</th>
-          <th style="background:#5576EC; color:#ffffff"></th>
+          <th class="tableHeader">{{ $t("blockinfo.height") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.hash") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.time") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txns") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.size") }}</th>
+          <th class="tableHeader"></th>
         </template>
 
         <template v-slot:default="row">
