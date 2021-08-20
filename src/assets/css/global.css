@@ -1,6 +1,5 @@
 
 
-
 .card-style{
     /*position: absolute;*/
     width: 80%;
@@ -101,4 +100,10 @@
     /* identical to box height, or 133% */
     text-align: right;
     color: #000000;
+}
+
+.seeMoreButton {
+    background-color: #FFFFFF;
+    color: #000000;
+    border-color: #FFFFFF;
 }
