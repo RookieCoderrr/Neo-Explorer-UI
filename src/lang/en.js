@@ -104,7 +104,7 @@ const en = {
     page: "Page",
   },
   transactionInfo: {
-    txId: "Tx ID",
+    txId: "Transaction Info",
     time: "Time",
     blockHeight: "Block Height",
     size: "Size",

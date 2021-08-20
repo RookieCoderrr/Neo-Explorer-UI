@@ -102,7 +102,7 @@ const fr = {
   },
 
   transactionInfo: {
-    txId: "Tx ID",
+    txId: "Transaction Info",
     time: "Temps",
     blockHeight: "Index de Bloc",
     size: "Taille",

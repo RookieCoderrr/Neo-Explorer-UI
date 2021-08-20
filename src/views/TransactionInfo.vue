@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--7" style="background-color: #F2F2F2">
 
       <div class="row">
         <div class="col">
@@ -9,11 +9,12 @@
                     :opacity="0.9"
                     :active="isLoading"
             ></loading>
-            <div class="card-header bg-transparent">
-              <div class="h2 font-weight-bold mb-0">
+            <div class="bat">
+              <div class="title">
                 {{ $t('transactionInfo.txId') }}
               </div>
             </div>
+
             <div class="card-body">
 
                   <card shadow class="card-style">
@@ -79,15 +80,14 @@
 
                     <div class="row  mt-3  mb-1">
                       <div class="col-2 lable-title">{{ $t('transactionInfo.sender') }}</div>
-                      <div class="col-8 context-black">
+                      <div class="col-10 context-black">
+                        <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
+                        <span></span>
                         <router-link class="name mb-0 text-sm" id="sender" style="cursor: pointer" :to="'/accountprofile/'+this.address" >
                           {{ this.button.state ===true ? this.address :addressToScriptHash(this.address)}}
                         </router-link>
                         <i class="ni ni-single-copy-04" id="senderButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;" @click="copyItem('sender','senderButton','senderSpan')"></i>
                         <span style="color: #42b983"  id="senderSpan" ></span>
-                      </div>
-                      <div class="col-2">
-                        <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{this.button.buttonName}}</button>
                       </div>
                     </div>
 
@@ -125,122 +125,96 @@
                         {{this.trigger}}
                       </div>
                     </div>
-
-                    <div class="row  mt-5  mb-1">
-                      <div class="col-2 title3">{{ $t('transactionInfo.signers') }}</div>
-                    </div>
-                    <div v-if="this.tabledata.signers">
-                      <div class="row  mt-3  mb-1">
-                        <div class="col-2 lable-title">{{ $t('transactionInfo.account') }}</div>
-                        <div class="col-10 context-black">
-                          <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
-                            {{item['account']}}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row  mt-3  mb-1">
-                        <div class="col-2 lable-title">{{ $t('transactionInfo.scopes') }}</div>
-                        <div class="col-10 context-black">
-                          <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
-                            {{item['scopes']}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </card>
-
-              <div class=" row mt-3 title2"> {{ $t('transactionInfo.script') }}</div>
-              <transfers-list
-                  :title="$t('transactionInfo.nep17')"
-                  :txhash="this.txhash"
-              ></transfers-list>
-
-              <nft-table
-                  :title="$t('transactionInfo.nep11')"
-                  :txhash="this.txhash"
-              ></nft-table>
-
-              <div class="row mt-3"></div>
-              <card shadow>
-                <div
-                  class="col-2 font-weight-bold mb-0"
-                  style="font-size: 20px"
+              <div class="row mt-3 mb-3 title2">
+                {{ $t("transactionInfo.signers") }}
+              </div>
+              <card shadow class="card-style" v-if="this.tabledata.signers">
+                <el-collapse
+                    v-model="activeSignersNames"
+                    style="border: white"
                 >
-                  {{ $t('transactionInfo.signers') }}
-                </div>
-                <hr />
-                <div v-if="this.tabledata.signers">
-                <div class="row" >
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.account') }}</div>
-                  <div class="col-4" >
+                  <el-collapse-item
+                      :title="$t('transactionInfo.account') "
+                      name="1"
+                      class="text-title3"
+                  >
                     <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
                       {{item['account']}}
                     </div>
-
-                  </div>
-                  <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.scopes') }}</div>
-                  <div class="col-4" >
+                  </el-collapse-item>
+                  <el-collapse-item
+                      :title="$t('transactionInfo.scopes')"
+                      name="2"
+                  >
                     <div  v-for="(item,index) in this.tabledata['signers']" :key="index">
                       {{item['scopes']}}
                     </div>
-                    <div class="row mt-2"></div>
-                  </div>
-                </div>
-                </div>
+                  </el-collapse-item>
+                </el-collapse>
               </card>
 
-              <div class="row mt-3">
+              <div class="row mt-3 mb-3 title2">
+                {{ $t('transactionInfo.witness') }}
               </div>
-
-
-              <card shadow>
-                <div
-                  class="col-2 font-weight-bold mb-0"
-                  style="font-size: 20px"
+              <card shadow class="card-style" v-if="tabledata.witnesses">
+                <el-collapse
+                    v-model="activeWitnessesNames"
+                    style="border: white"
                 >
-                  {{ $t('transactionInfo.witness') }}
-                </div>
-                <hr />
-                <div v-if="tabledata.witnesses">
-                  <div class="row" >
-                    <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.invocation') }}</div>
-                    <div class="col-4" >
-                      <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
+                  <el-collapse-item
+                      :title=" $t('transactionInfo.invocation')  "
+                      name="1"
+                      class="text-muted"
+                  >
+                    <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
                        <span v-html="item['invocation']">
                        </span>
-                      </div>
-
                     </div>
-                    <div class="col-2 font-weight-bold mb-0">{{ $t('transactionInfo.verification') }}</div>
-                    <div class="col-4" >
-                      <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
-                        <span v-html="item['verification']"></span>
-                      </div>
-
+                  </el-collapse-item>
+                  <el-collapse-item
+                      :title="$t('transactionInfo.verification') "
+                      name="2"
+                  >
+                    <div v-for="(item,index) in this.tabledata['witnesses']" :key="index">
+                      <span v-html="item['verification']"></span>
                     </div>
-                  </div>
-                </div>
+
+                  </el-collapse-item>
+                </el-collapse>
+              </card>
+              <div class="row mt-3 mb-3 title2">
+                {{ $t('transactionInfo.script') }}
+              </div>
+              <card shadow class="card-style" >
+                <el-collapse
+                    v-model="activeScriptsNames"
+                    style="border: white"
+                >
+                  <el-collapse-item
+                      :title=" $t('transactionInfo.script')  "
+                      name="1"
+                      class="item-collapse"
+                  >
+                    <div
+                        v-html="this.tabledata['script']"
+                    ></div>
+                  </el-collapse-item>
+                </el-collapse>
               </card>
 
-              <div class="row mt-3"></div>
 
-              <card shadow>
-                <div class="row">
-                  <div class="col-2">
-                    <div class="text-muted"><h3>{{ $t('transactionInfo.script') }}</h3></div>
-                  </div>
-                  <div class="col-10" v-html="this.tabledata['script']"></div>
-                </div>
-              </card>
+
+
               <div style="margin-top: 30px;margin-bottom: 20px">
               <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" style="width:80%;margin-left:10%;background-color: rgb(250,250,250);">
-                <el-menu-item index="1" class="item-title">{{$t('transactionInfo.notification')}}</el-menu-item>
-                <el-menu-item index="2"  class="item-title">{{$t('transactionInfo.systemCall')}}</el-menu-item>
+                <el-menu-item index="1" class="item-title">Transfers</el-menu-item>
+                <el-menu-item index="2"  class="item-title">{{$t('transactionInfo.notification')}}</el-menu-item>
+                <el-menu-item index="3" class="item-title">{{$t('transactionInfo.systemCall')}}</el-menu-item>
               </el-menu>
               </div>
-               <div v-if="whichIndex === 1">
-                  <div v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
+               <div v-if="whichIndex === 2">
+                  <div class="notificationDiv" v-if="this.tabledataApp['notifications']&&this.tabledataApp['notifications'].length != 0">
                     <div v-if="this.countApp ===0">
                       <card
                           shadow
@@ -303,8 +277,8 @@
                     This transaction has no events.
                   </card>
                 </div>
-                 <div v-else>
-                  <div v-if="this.tabledataCall&&this.tabledataCall['length'] != 0">
+                 <div v-else-if="whichIndex===3">
+                  <div class="systemCallDiv" v-if="this.tabledataCall&&this.tabledataCall['length'] != 0">
                     <div v-if="this.countSys === 0">
                       <card
                           shadow
@@ -364,6 +338,19 @@
                     </div>
                   </div>
                 </div>
+                <div v-else>
+                  <div class="transferTable">
+                    <transfers-list
+                        :title="$t('transactionInfo.nep17')"
+                        :txhash="this.txhash"
+                    ></transfers-list>
+
+                    <nft-table
+                        :title="$t('transactionInfo.nep11')"
+                        :txhash="this.txhash"
+                    ></nft-table>
+                  </div>
+                </div>
 
 
 
@@ -421,6 +408,9 @@ export default {
       List:[],
       activeIndex:"1",
       whichIndex:1,
+      activeSignersNames:["0"],
+      activeWitnessesNames:["0"],
+      activeScriptsNames:["0"],
     };
   },
   created() {
