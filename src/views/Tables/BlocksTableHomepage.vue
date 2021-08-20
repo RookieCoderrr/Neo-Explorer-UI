@@ -125,12 +125,4 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.item-name {
-  width: 5px;
-}
-.moreButton {
-  background-color: #FFFFFF;
-  color: #000000;
-  border: #FFFFFF;
-}
 </style>
