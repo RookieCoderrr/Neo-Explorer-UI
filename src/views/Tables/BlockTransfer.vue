@@ -103,7 +103,7 @@
             </div>
           </td>
           <td class="Value">
-            {{ convertToken(row.item.value, 8) }}
+            {{ convertToken(row.item.value, 8) }}Gas
           </td>
           <td class="time">
             {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
