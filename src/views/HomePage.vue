@@ -133,6 +133,7 @@ import axios from "axios";
 // import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
 import {render} from "timeago.js";
+import CountTo from "../components/countTo";
 
 export default {
   name: "Home",
@@ -140,7 +141,7 @@ export default {
     BlocksTableHomepage,
     // StatsCard,
     TransactionTableHomepage,
-
+    CountTo,
   },
   data() {
     return {
@@ -180,7 +181,7 @@ export default {
     this.getCandidateCount();
     this.getBlockList();
     this.getTransactionList();
-      // this.initWebSocket()
+    this.initWebSocket()
   },
   updated() {
     const nodes = document.getElementsByClassName('timeago')

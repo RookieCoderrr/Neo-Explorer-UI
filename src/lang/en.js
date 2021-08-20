@@ -16,6 +16,7 @@ const en = {
   bytes: "Bytes",
   overview:"Overview",
   blockDetail:"Block Details",
+  tokenDetail:"Token Details",
   authLayout: {
     home: "Home",
     blocks: "Blocks",
@@ -175,6 +176,7 @@ const en = {
     prompt: "Search by Token Name",
   },
   tokenInfo: {
+    name:"Token Name",
     symbol: "Token Symbol",
     decimal: "Decimal",
     standard: "Supported Standard",

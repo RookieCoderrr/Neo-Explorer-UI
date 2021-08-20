@@ -175,6 +175,7 @@ module.exports = {
     prompt: "以通证名称搜索",
   },
   tokenInfo: {
+    name:"通证名称",
     symbol: "通证符号",
     decimal: "小数位数",
     standard: "合约标准",

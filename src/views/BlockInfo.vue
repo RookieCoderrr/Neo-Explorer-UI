@@ -242,7 +242,7 @@ export default {
       transfercount: "",
       button: { state: true, buttonName: "Hash" },
       activeNames: ['0'],
-        activeName: 'second',
+        activeName: 'first',
 
     };
   },

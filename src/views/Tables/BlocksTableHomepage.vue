@@ -45,7 +45,7 @@
         <template v-slot:default="row">
           <td style="width: 5px;">
             <div class="item-name">Blocks: </div>
-            <div class="item-name"> Hash:</div>
+            <div class="item-name">Hash:</div>
           </td>
           <td style="text-align: left">
               <tr>

@@ -3,7 +3,6 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <div class="card shadow">
             <div class="top">
               <loading
                 :is-full-page="false"
@@ -322,7 +321,7 @@
               </tabs>
             </div>
           </div>
-        </div>
+
       </div>
     </div>
   </div>
