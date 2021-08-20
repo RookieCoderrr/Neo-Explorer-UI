@@ -134,7 +134,7 @@
       class="header  py-7 py-lg-7"
       style="background: #F2F2F2"
     >
-      <div class="searchAuth mt--6 ml-5" style="width: 600px; height: 45px">
+      <div class="searchAuth mt--6 ml-6" style="width: 600px; height: 45px">
         <input
           type="text"
           class="over-ellipsis-Auth"
@@ -164,7 +164,7 @@
         v-else-if="$route.meta.HomePage"
         style="background: #F2F2F2">
 
-    ></div>
+    </div>
     <div v-else class="header  py-7 py-lg-6"
          style="background: #F2F2F2">
 
@@ -435,10 +435,11 @@ export default {
   width: 100%;
 }
 .searchAuth {
-  width: 100%;
+  width: 80%;
   max-width: 565px;
   height: 50px;
   position: relative;
+
 }
 .buttonAuth {
   cursor: pointer;

@@ -1,219 +1,129 @@
 <template>
-  <section class="Intro">
-    <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
-    <div class="search mt--5 ml-5">
-      <input
-        type="text"
-        class="over-ellipsis"
-        :placeholder="$t('search.placeholder')"
-        v-model="searchVal"
-        @keyup.enter="search()"
-      /><button class="button" @click="search()">
+  <div class="home" style="background: #F2F2F2" >
+    <section class="Intro">
+      <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
+      <div class="search mt--5 ml-5">
+        <input
+            type="text"
+            class="over-ellipsis"
+            :placeholder="$t('search.placeholder')"
+            v-model="searchVal"
+            @keyup.enter="search()"
+        /><button class="button" @click="search()">
         <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
-            fill="#1e90ff"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+              fill="#1e90ff"
           />
         </svg>
       </button>
-    </div>
-  </section>
-  <div class="row mt-5"></div>
-
-
-
-
-  <div>
-    <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
-
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toBlock()"-->
-<!--            :title="$t('homePage.totalBLocks')"-->
-<!--            type="gradient-red"-->
-<!--            :startVal="startBlockVal"-->
-<!--            :endVal="blockCount"-->
-<!--            icon="ni ni-ungroup"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toTransaction()"-->
-<!--            :title="$t('homePage.totalTxs')"-->
-<!--            type="gradient-orange"-->
-<!--            :startVal="startTxVal"-->
-<!--            :endVal="txCount"-->
-<!--            icon="ni ni-cart"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toAsset()"-->
-<!--            :title="$t('homePage.totalTokens')"-->
-<!--            type="gradient-red"-->
-<!--            :startVal="startAssetVal"-->
-<!--            :endVal="assetCount"-->
-<!--            icon="ni ni-money-coins"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="row mt-4">-->
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toContract()"-->
-<!--            :title="$t('homePage.totalCntrts')"-->
-<!--            type="gradient-purple"-->
-<!--            :startVal="startContractVal"-->
-<!--            :endVal="contractCount"-->
-<!--            icon="ni ni-collection"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toAddress()"-->
-<!--            :title="$t('homePage.totalAddrs')"-->
-<!--            type="gradient-green"-->
-<!--            :startVal="startAccountVal"-->
-<!--            :endVal="accountCount"-->
-<!--            icon="ni ni-single-02"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-<!--        </div>-->
-
-<!--        <div class="col">-->
-<!--          <stats-card-->
-<!--            shadow-->
-<!--            style="cursor: pointer"-->
-<!--            @click="toCandidate()"-->
-<!--            :title="$t('homePage.totalCndidtes')"-->
-<!--            type="gradient-blue"-->
-<!--            :startVal="startCandidateVal"-->
-<!--            :endVal="candidateCount"-->
-<!--            icon="ni ni-badge"-->
-<!--            class="mb-4 mb-xl-0"-->
-<!--          >-->
-<!--          </stats-card>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-      <div  class="col-2 font-weight-bold mb-0 "
-            style="font-size: 20px ;color:black">
-        <span>Overview</span>
       </div>
-      <div class="row mt-3"></div>
-      <div class="elements">
-        <div class="row elerow">
-          <div class="col-4 ele">
-          <div class="eleName">
-            {{$t('homePage.totalBLocks')}}
-          </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000'></count-to>
-          </div>
-          </div>
-          <div class="col-4 ele">
-          <div class="eleName">
-            {{$t('homePage.totalTxs')}}
-          </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startTxVal :endVal=this.txCount :duration='2000'></count-to>
-          </div>
+    </section>
+    <div class="row mt-5"></div>
 
-          </div>
-          <div class="col-4 ele">
-          <div class="eleName">
-            {{$t('homePage.totalTokens')}}
-          </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startAssetVal :endVal=this.assetCount :duration='2000'></count-to>
-          </div>
 
-          </div>
+
+
+    <div class="main">
+      <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
+        <div  class="col-2 font-weight-bold mb-0 "
+              style="font-size: 20px ;color:black">
+          <span>Overview</span>
         </div>
         <div class="row mt-3"></div>
-        <div class="row elerow">
-          <div class="col-4 ele">
-          <div class="eleName">
-            {{$t('homePage.totalCntrts')}}
+        <div class="elements">
+          <div class="row elerow">
+            <div class="col-4 ele">
+              <div class="eleName">
+                {{$t('homePage.totalBLocks')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000'></count-to>
+              </div>
+            </div>
+            <div class="col-4 ele">
+              <div class="eleName">
+                {{$t('homePage.totalTxs')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startTxVal :endVal=this.txCount :duration='2000'></count-to>
+              </div>
+
+            </div>
+            <div class="col-4 ele">
+              <div class="eleName">
+                {{$t('homePage.totalTokens')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startAssetVal :endVal=this.assetCount :duration='2000'></count-to>
+              </div>
+
+            </div>
           </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000'></count-to>
-          </div>
-          </div>
-          <div class="col-4 ele ">
-          <div class="eleName">
-            {{$t('homePage.totalAddrs')}}
-          </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startAccountVal :endVal=this.accountCount :duration='2000'></count-to>
-          </div>
+          <div class="row mt-3"></div>
+          <div class="row elerow">
+            <div class="col-4 ele">
+              <div class="eleName">
+                {{$t('homePage.totalCntrts')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000'></count-to>
+              </div>
+            </div>
+            <div class="col-4 ele ">
+              <div class="eleName">
+                {{$t('homePage.totalAddrs')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startAccountVal :endVal=this.accountCount :duration='2000'></count-to>
+              </div>
+
+            </div>
+            <div class="col-4 ele">
+              <div class="eleName">
+                {{$t('homePage.totalCndidtes')}}
+              </div>
+              <div class="row mt-2"></div>
+              <div class="eleValue">
+                <count-to :startVal=this.startCandidateVal :endVal=this.candidateCount :duration='2000'></count-to>
+              </div>
+
+            </div>
 
           </div>
-          <div class="col-4 ele">
-          <div class="eleName">
-            {{$t('homePage.totalCndidtes')}}
-          </div>
-            <div class="row mt-2"></div>
-            <div class="eleValue">
-              <count-to :startVal=this.startCandidateVal :endVal=this.candidateCount :duration='2000'></count-to>
-          </div>
-
-          </div>
-
+          <div class="row mt-3"></div>
         </div>
-        <div class="row mt-3"></div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-6">
-          <blocks-table-homepage
-            :title="$t('homePage.recentBlocks')"
-            :table-data="blockList"
-          ></blocks-table-homepage>
-        </div>
-        <div class="col-6">
-          <transaction-table-homepage
-            :title="$t('homePage.recentTxs')"
-            :table-data="transactionList"
-          ></transaction-table-homepage>
+        <div class="row mt-4">
+          <div class="col-6">
+            <blocks-table-homepage
+                :title="$t('homePage.recentBlocks')"
+                :table-data="blockList"
+            ></blocks-table-homepage>
+          </div>
+          <div class="col-6">
+            <transaction-table-homepage
+                :title="$t('homePage.recentTxs')"
+                :table-data="transactionList"
+            ></transaction-table-homepage>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -732,6 +642,8 @@ export default {
 </script>
 <style>
 .Intro {
+  width: 79%;
+  margin-left: 9%;
   background: #F2F2F2;
   height: 400px;
   display: flex;
@@ -752,9 +664,8 @@ export default {
 
 .search {
   width: 100%;
-  max-width: 1100px!important;
+  max-width: 1200px!important;
   height: 70px !important;
-  position: relative;
   filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.04));
 }
 .img {
@@ -814,5 +725,13 @@ export default {
   font-size: 24px;
   line-height: 29px;
   color: #000000;
+}
+.main{
+  width: 85%;
+  height: 30%;
+  /*top: 268px;*/
+  margin:0 auto;
+  background: #FFFFFF;
+  border-radius: 4px;
 }
 </style>

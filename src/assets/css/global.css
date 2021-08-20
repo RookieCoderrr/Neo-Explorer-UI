@@ -102,3 +102,7 @@
     text-align: right;
     color: #000000;
 }
+.page{
+    height: 5px!important;
+    width: 5px!important;
+}
