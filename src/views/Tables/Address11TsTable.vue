@@ -8,24 +8,24 @@
       :data="tableData"
     >
       <template v-slot:columns>
-        <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.txid") }}</th>
-        <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.token") }}</th>
-        <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.type") }}</th>
-        <th style="background:#5576EC; color:#ffffff">
+        <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
+        <th class="tableHeader">{{ $t("transferList.token") }}</th>
+        <th class="tableHeader">{{ $t("transferList.type") }}</th>
+        <th class="tableHeader">
           {{ $t("transferList.from") }}
           <button class="btn btn-sm btn-primary" @click="changeFormat(this.fromButton)">
             {{ this.fromButton.buttonName }}
           </button>
         </th>
-        <th style="background:#5576EC; color:#ffffff"></th>
-        <th style="background:#5576EC; color:#ffffff">
+        <th class="tableHeader"></th>
+        <th class="tableHeader">
           {{ $t("transferList.to") }}
           <button class="btn btn-sm btn-primary" @click="changeFormat(this.toButton)">
             {{ this.toButton.buttonName }}
           </button>
         </th>
-        <th style="background:#5576EC; color:#ffffff">{{ $t("transferList.amount") }}</th>
-        <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.time") }}</th>
+        <th class="tableHeader">{{ $t("transferList.amount") }}</th>
+        <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
       </template>
 
       <template v-slot:default="row">

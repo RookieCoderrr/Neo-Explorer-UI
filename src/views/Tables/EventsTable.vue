@@ -14,11 +14,11 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.txID") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.eventName") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.vmState") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.index") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("contract.time") }}</th>
+          <th class="tableHeader">{{ $t("contract.txID") }}</th>
+          <th class="tableHeader">{{ $t("contract.eventName") }}</th>
+          <th class="tableHeader">{{ $t("contract.vmState") }}</th>
+          <th class="tableHeader">{{ $t("contract.index") }}</th>
+          <th class="tableHeader">{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">

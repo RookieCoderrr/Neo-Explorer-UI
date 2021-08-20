@@ -107,3 +107,8 @@
     color: #000000;
     border-color: #FFFFFF;
 }
+
+.tableHeader {
+    background:#5576EC!important;
+    color:#ffffff!important;
+}
