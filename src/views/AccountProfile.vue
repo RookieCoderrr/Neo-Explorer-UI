@@ -1,36 +1,48 @@
 <template>
-  <div >
-    <div class="container-fluid mt--8 " style="background-color: #F2F2F2">
+  <div>
+    <div
+      class="container-fluid mt--8"
+      style="background-color: rgb(250, 250, 250)"
+    >
       <div class="row">
         <div class="col">
-            <loading
-              :is-full-page="false"
-              :opacity="0.9"
-              :active="isLoading"
-            ></loading>
-            <div class="bat">
-              <div class="title">
-                <h1 v-if="this.type === 'normal' || this.type === 'candidate'" class="mb-0">
-                  {{ $t("addressPage.addressProfile.title") }}
-                </h1>
-                <h1 v-else-if="this.type === 'committee'" class="mb-0">
-                  {{ $t("addressPage.addressProfile.title") }} <i class="ni ni-badge"></i>
-                </h1>
-              </div>
+          <loading
+            :is-full-page="false"
+            :opacity="0.9"
+            :active="isLoading"
+          ></loading>
+          <div class="bat">
+            <div class="title">
+              <h1
+                v-if="this.type === 'normal' || this.type === 'candidate'"
+                class="mb-0"
+              >
+                {{ $t("addressPage.addressProfile.title") }}
+              </h1>
+              <h1 v-else-if="this.type === 'committee'" class="mb-0">
+                {{ $t("addressPage.addressProfile.title") }}
+                <i class="ni ni-badge"></i>
+              </h1>
             </div>
-          <div class = "card-body">
-            <card shadow class ="card-style">
-
+          </div>
+          <div class="card-body">
+            <card shadow class="card-style">
               <div class="row mt-3 mb-1">
                 <div class="col-2 lable-title">
                   {{ $t("addressPage.addressProfile.title") }}
                 </div>
                 <div class="col-10 context-black">
-                  <span  id="address">
-                {{ this.scriptHashToAddress(this.accountAddress) }}
+                  <span id="address">
+                    {{ this.scriptHashToAddress(this.accountAddress) }}
                   </span>
-                  <i class="ni ni-single-copy-04" id="addressButton" style="padding-left: 5px; color: grey; cursor: pointer;" title="Copy to Clipboard"  @click="copyItem('address','addressButton','addressSpan')"></i>
-                  <span style="color: #42b983" id="addressSpan" ></span>
+                  <i
+                    class="ni ni-single-copy-04"
+                    id="addressButton"
+                    style="padding-left: 5px; color: grey; cursor: pointer"
+                    title="Copy to Clipboard"
+                    @click="copyItem('address', 'addressButton', 'addressSpan')"
+                  ></i>
+                  <span style="color: #42b983" id="addressSpan"></span>
                 </div>
               </div>
               <div class="row mt-3 mb-1">
@@ -46,13 +58,13 @@
                   {{ $t("addressPage.addressProfile.type") }}
                 </div>
                 <div class="col-10 context-black">
-                  <div v-if="this.type === 'normal'" >
+                  <div v-if="this.type === 'normal'">
                     {{ $t("addressPage.typeEnum.normal") }}
                   </div>
-                  <div v-else-if="this.type === 'candidate'" >
+                  <div v-else-if="this.type === 'candidate'">
                     {{ $t("addressPage.typeEnum.candidate") }}
                   </div>
-                  <div v-else-if="this.type === 'committee'" >
+                  <div v-else-if="this.type === 'committee'">
                     {{ $t("addressPage.typeEnum.committee") }}
                   </div>
                 </div>
@@ -105,37 +117,49 @@
                   {{ this.numOfnep11Transfers }}
                 </div>
               </div>
-
               <div class="row mt-4"></div>
-
             </card>
             <div class="row mt-3"></div>
-            <el-tabs v-model="activeName" style="width:80%;margin-left: 10%;background-color:#F2F2F2" >
-              <el-tab-pane :label="$t('addressPage.addressProfile.tokenBalance')" name="first">
+            <el-tabs
+              v-model="activeName"
+              style="
+                width: 80%;
+                margin-left: 10%;
+                background-color: rgb(250, 250, 250);
+              "
+            >
+              <el-tab-pane
+                :label="$t('addressPage.addressProfile.tokenBalance')"
+                name="first"
+              >
                 <address-tokens-table
-                    :account_address="accountAddress"
+                  :account_address="accountAddress"
                 ></address-tokens-table>
               </el-tab-pane>
-
-              <el-tab-pane :label="$t('addressPage.addressProfile.tx')" name="second">
+              <el-tab-pane
+                :label="$t('addressPage.addressProfile.tx')"
+                name="second"
+              >
                 <address-transactions-table
-                    :account_address="accountAddress"
+                  :account_address="accountAddress"
                 ></address-transactions-table>
               </el-tab-pane>
-
-              <el-tab-pane :label="$t('addressPage.addressProfile.nep17title')" name="third">
+              <el-tab-pane
+                :label="$t('addressPage.addressProfile.nep17title')"
+                name="third"
+              >
                 <address17-ts-table :account_address="accountAddress">
                 </address17-ts-table>
               </el-tab-pane>
-
-              <el-tab-pane :label="$t('addressPage.addressProfile.nep11title')" name="forth">
+              <el-tab-pane
+                :label="$t('addressPage.addressProfile.nep11title')"
+                name="forth"
+              >
                 <address11-ts-table :account_address="accountAddress">
                 </address11-ts-table>
               </el-tab-pane>
-
             </el-tabs>
           </div>
-
         </div>
       </div>
     </div>
@@ -149,7 +173,12 @@ import AddressTokensTable from "./Tables/AddressTokensTable";
 import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
 import Address17TsTable from "./Tables/Address17TsTable";
 import Address11TsTable from "./Tables/Address11TsTable";
-import {scriptHashToAddress, convertPreciseTime, convertGas,copyItem} from "../store/util";
+import {
+  scriptHashToAddress,
+  convertPreciseTime,
+  convertGas,
+  copyItem,
+} from "../store/util";
 
 export default {
   name: "account-profile",
@@ -166,8 +195,7 @@ export default {
       numOfnep17Transfers: -1,
       numOfnep11Transfers: 0,
       type: "normal",
-      activeName:'second',
-
+      activeName: "second",
     };
   },
   components: {
@@ -197,7 +225,7 @@ export default {
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")
-      this.isLoading = true
+      this.isLoading = true;
 
       if (this.$route.name === "AccountProfile") {
         this.accountAddress = this.$route.params.accountAddress;
@@ -341,38 +369,36 @@ export default {
       })
         .then((res) => {
           this.numOfnep17Transfers = res["data"]["result"]["total counts"];
-
         })
         .catch((err) => {
           console.log("Get nep 17 transfers error: ", err);
         });
     },
-      getNep11Transfers() {
-        axios({
-          method: "post",
-          url: "/api",
-          data: {
-            jsonrpc: "2.0",
-            id: 1,
-            params: {
-              Address: this.accountAddress,
-            },
-            method: "GetNep11TransferCountByAddress",
+    getNep11Transfers() {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.accountAddress,
           },
-          headers: {
-            "Content-Type": "application/json",
-            withCredentials: " true",
-            crossDomain: "true",
-          },
+          method: "GetNep11TransferCountByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      })
+        .then((res) => {
+          this.numOfnep11Transfers = res["data"]["result"]["total counts"];
         })
-            .then((res) => {
-              this.numOfnep11Transfers = res["data"]["result"]["total counts"];
-
-            })
-            .catch((err) => {
-              console.log("Get nep 11 transfers error: ", err);
-            });
-      },
+        .catch((err) => {
+          console.log("Get nep 11 transfers error: ", err);
+        });
+    },
     getCandidateByAddress() {
       axios({
         method: "post",
