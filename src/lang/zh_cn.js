@@ -226,6 +226,7 @@ module.exports = {
     createdTime: "创建时间",
     accountsTable: "地址",
     hash: "哈希",
+    tokennullPrompt: "该账户不包含通证。",
     txnullPrompt: "该账户不包含交易。",
     nep17nullPrompt: "该账户不包含NEP17转账。",
     nep11nullPrompt: "该账户不包含NEP11转账。",

@@ -1,90 +1,94 @@
 <template>
-  <div
-    v-if="this.totalCount != 0"
-    class="card shadow"
-    :class="type === 'dark' ? 'bg-default' : ''"
-  >
-    <div class="table-responsive">
-      <base-table
-        class="table align-items-center table-flush"
-        :class="type === 'dark' ? 'table-dark' : ''"
-        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-        tbody-classes="list"
-        :data="tokenList"
-      >
-        <template v-slot:columns>
-          <th class="tableHeader">{{ $t("hash") }}</th>
-          <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
-          <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
-          <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
-          <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
-        </template>
-
-        <template v-slot:default="row">
-          <th scope="row">
-            <div class="media align-items-center">
-              <div class="media-body">
-                <router-link
-                  class="name mb-0 text-sm"
-                  style="cursor: pointer"
-                  :to="'/tokeninfo/'+row.item.asset"
-                  >{{ row.item.asset }}</router-link
-                >
-              </div>
-            </div>
-          </th>
-          <td class="name">
-            {{ row.item.tokenname }}
-          </td>
-          <td class="symbol">
-            {{ row.item.symbol }}
-          </td>
-          <td>
-            <badge
-              v-if="row.item.standard === 'NEP17'"
-              class="badge-dot mr-4"
-              type="primary"
-            >
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-            <badge v-else class="badge-dot mr-4" type="success">
-              <span class="">{{ row.item.standard }}</span>
-            </badge>
-          </td>
-          <td class="balance">
-            {{ convertToken(row.item.balance, row.item.decimals) }}
-          </td>
-        </template>
-      </base-table>
-    </div>
-
+  <div v-if="this.totalCount != 0">
     <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-      style="height: 70px"
+      v-if="this.totalCount != 0"
+      class="card shadow"
+      :class="type === 'dark' ? 'bg-default' : ''"
     >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+      <div class="table-responsive">
+        <base-table
+          class="table align-items-center table-flush"
+          :class="type === 'dark' ? 'table-dark' : ''"
+          :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+          tbody-classes="list"
+          :data="tokenList"
+        >
+          <template v-slot:columns>
+            <th class="tableHeader">{{ $t("hash") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
+            <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
+          </template>
+
+          <template v-slot:default="row">
+            <th scope="row">
+              <div class="media align-items-center">
+                <div class="media-body">
+                  <router-link
+                    class="name mb-0 text-sm"
+                    style="cursor: pointer"
+                    :to="'/tokeninfo/' + row.item.asset"
+                    >{{ row.item.asset }}</router-link
+                  >
+                </div>
+              </div>
+            </th>
+            <td class="name">
+              {{ row.item.tokenname }}
+            </td>
+            <td class="symbol">
+              {{ row.item.symbol }}
+            </td>
+            <td>
+              <badge
+                v-if="row.item.standard === 'NEP17'"
+                class="badge-dot mr-4"
+                type="primary"
+              >
+                <span class="">{{ row.item.standard }}</span>
+              </badge>
+              <badge v-else class="badge-dot mr-4" type="success">
+                <span class="">{{ row.item.standard }}</span>
+              </badge>
+            </td>
+            <td class="balance">
+              {{ convertToken(row.item.balance, row.item.decimals) }}
+            </td>
+          </template>
+        </base-table>
+        <div
+          v-if="this.totalCount > 10"
+          class="card-footer d-flex justify-content-end"
+          :class="type === 'dark' ? 'bg-transparent' : ''"
+          style="height: 70px"
+        >
+          <div style="margin-right: 10px; width: 250px" class="row">
+            <div class="text">Page &nbsp;</div>
+            <base-input
+              type="number"
+              :style="text(pagination)"
+              :placeholder="pagination"
+              v-on:changeinput="pageChangeByInput($event)"
+            ></base-input>
+            <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+          </div>
+          <base-pagination
+            :total="this.totalCount"
+            :value="pagination"
+            v-on:input="pageChange($event)"
+          ></base-pagination>
+        </div>
       </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center">
+    {{ $t("addressPage.tokennullPrompt") }}</card
+  >
 </template>
 <script>
 import axios from "axios";
-import {convertToken} from "../../store/util";
+import { convertToken } from "../../store/util";
 export default {
   name: "address-tokens-table",
   props: {
