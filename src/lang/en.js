@@ -18,6 +18,9 @@ const en = {
   blockDetail:"Block Details",
   tokenDetail:"Token Details",
   contractDetail:"Contract Details",
+  allFilter:"All Filter",
+  transactionFilter:"Transaction",
+  blockFilter:"BlockFilter",
   authLayout: {
     home: "Home",
     blocks: "Blocks",
@@ -227,6 +230,7 @@ const en = {
     createdTime: "Created Time",
     hash: "Hash",
     accountsTable: "Address",
+    tokennullPrompt: "This address has no tokens.",
     txnullPrompt: "This address has no transactions.",
     nep17nullPrompt: "This address has no NEP17 transfers.",
     nep11nullPrompt: "This address has no NEP11 transfers.",
@@ -244,7 +248,7 @@ const en = {
       tokenBalance: "Token Balance",
       tx: "Transactions",
       nep17title: "NEP17 Transfers",
-      nep11title: "NEp11 Transfers",
+      nep11title: "NEP11 Transfers",
     },
   },
   candidate: {

@@ -5,7 +5,6 @@
       class="card shadow"
       :class="type === 'dark' ? 'bg-default' : ''"
     >
-
       <div class="table-responsive">
         <base-table
           class="table align-items-center table-flush"
@@ -15,27 +14,38 @@
           :data="tableData"
         >
           <template v-slot:columns>
-            <th class="tableHeader">{{ $t("transactionTransfer.contract") }}</th>
+            <th class="tableHeader">
+              {{ $t("transactionTransfer.contract") }}
+            </th>
             <th class="tableHeader">{{ $t("transactionTransfer.token") }}</th>
             <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
             <th class="tableHeader">
-              {{ $t("transactionTransfer.from")
-              }}
-              <span>       </span>
-              <button class="btn btn-sm btn-primary" @click="changeFormat(fromButton)">
+              {{ $t("transactionTransfer.from") }}
+              <span> </span>
+              <button
+                class="btn btn-sm btn-primary"
+                @click="changeFormat(fromButton)"
+              >
                 {{ fromButton.buttonName }}
               </button>
             </th>
-            <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
+            <th class="tableHeader">
+              {{ $t("transactionTransfer.fromBalance") }}
+            </th>
             <th class="tableHeader"></th>
             <th class="tableHeader">
-              {{ $t("transactionTransfer.to")
-              }}
-              <span>       </span><button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
+              {{ $t("transactionTransfer.to") }}
+              <span> </span
+              ><button
+                class="btn btn-sm btn-primary"
+                @click="changeFormat(toButton)"
+              >
                 {{ toButton.buttonName }}
               </button>
             </th>
-            <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
+            <th class="tableHeader">
+              {{ $t("transactionTransfer.toBalance") }}
+            </th>
             <th class="tableHeader">{{ $t("transactionTransfer.amount") }}</th>
           </template>
 
@@ -45,7 +55,7 @@
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/contractinfo/'+row.item.contract"
+                  :to="'/contractinfo/' + row.item.contract"
                   >{{ row.item.contract }}</router-link
                 >
               </div>
@@ -87,7 +97,7 @@
                   class="name mb-0 text-sm"
                   v-else
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.from"
+                  :to="'/accountprofile/' + row.item.from"
                   >{{
                     this.fromButton.state
                       ? scriptHashToAddress(row.item.from)
@@ -116,7 +126,7 @@
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.to"
+                  :to="'/accountprofile/' + row.item.to"
                   >{{
                     this.toButton.state
                       ? scriptHashToAddress(row.item.to)
@@ -141,20 +151,20 @@
           </template>
         </base-table>
       </div>
-
-      <div
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
-      ></div>
     </div>
   </div>
-  <card shadow v-else class="text-center ">
+  <card shadow v-else class="text-center">
     This transaction has no NEP17 Transfers.
   </card>
 </template>
 <script>
 import axios from "axios";
-import {changeFormat, convertToken, addressToScriptHash, scriptHashToAddress} from "../../store/util";
+import {
+  changeFormat,
+  convertToken,
+  addressToScriptHash,
+  scriptHashToAddress,
+} from "../../store/util";
 
 export default {
   name: "transfers-list",
@@ -169,8 +179,8 @@ export default {
     return {
       tableData: [],
       length,
-      fromButton: { state: true, buttonName: "Hash"},
-      toButton: { state: true, buttonName: "Hash"},
+      fromButton: { state: true, buttonName: "Hash" },
+      toButton: { state: true, buttonName: "Hash" },
     };
   },
   created() {

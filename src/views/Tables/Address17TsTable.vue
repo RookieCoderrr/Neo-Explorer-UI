@@ -1,5 +1,4 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div v-if="this.totalCount != 0" class="table-responsive">
       <base-table
         class="table align-items-center table-flush"
@@ -14,14 +13,20 @@
           <th class="tableHeader">{{ $t("transferList.type") }}</th>
           <th class="tableHeader">
             {{ $t("transferList.from") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(this.fromButton)">
+            <button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(this.fromButton)"
+            >
               {{ this.fromButton.buttonName }}
             </button>
           </th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("transferList.to") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(this.toButton)">
+            <button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(this.toButton)"
+            >
               {{ this.toButton.buttonName }}
             </button>
           </th>
@@ -44,7 +49,7 @@
                 <router-link
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/transactionInfo/'+row.item.txid"
+                  :to="'/transactionInfo/' + row.item.txid"
                   >{{ row.item.txid }}</router-link
                 >
               </div>
@@ -91,8 +96,7 @@
               <span
                 class="text-success"
                 v-else-if="
-                  row.item.from === null &&
-                  row.item.tokenname === 'GasToken'
+                  row.item.from === null && row.item.tokenname === 'GasToken'
                 "
                 type="primary"
               >
@@ -120,14 +124,15 @@
                   v-if="row.item.from === this.account_address"
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.from"
-                  ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.from) }}
+                  :to="'/accountprofile/' + row.item.from"
+                  ><i class="ni ni-tag"></i
+                  >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
                 <router-link
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.from"
+                  :to="'/accountprofile/' + row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
               </div>
@@ -136,14 +141,14 @@
                   v-if="row.item.from === this.account_address"
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.from"
+                  :to="'/accountprofile/' + row.item.from"
                   ><i class="ni ni-tag"></i>{{ row.item.from }}
                 </router-link>
                 <router-link
                   v-else
                   class="name mb-0 text-sm"
                   style="cursor: pointer"
-                  :to="'/accountprofile/'+row.item.from"
+                  :to="'/accountprofile/' + row.item.from"
                   >{{ row.item.from }}
                 </router-link>
               </div>
@@ -161,14 +166,14 @@
                 v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.to"
+                :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
               </router-link>
               <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.to"
+                :to="'/accountprofile/' + row.item.to"
                 >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
             </div>
@@ -177,14 +182,14 @@
                 v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.to"
+                :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ row.item.to }}
               </router-link>
               <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/'+row.item.to"
+                :to="'/accountprofile/' + row.item.to"
                 >{{ row.item.to }}
               </router-link>
             </div>
@@ -200,40 +205,42 @@
           </td>
         </template>
       </base-table>
-    </div>
-    <div v-else class="row">
-      <div class="col">
-        <card shadow class="text-center">{{
-          $t("addressPage.nep17nullPrompt")
-        }}</card>
+      <div
+        v-if="this.totalCount > 10"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+        style="height: 70px"
+      >
+        <div style="margin-right: 10px; width: 250px" class="row">
+          <div class="text">Page &nbsp;</div>
+          <base-input
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
+          ></base-input>
+          <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+        </div>
+        <base-pagination
+          :total="this.totalCount"
+          :value="pagination"
+          v-on:input="pageChange($event)"
+        ></base-pagination>
       </div>
     </div>
-    <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
-      </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
-    </div>
-  </div>
+    <card v-else shadow class="text-center">{{
+      $t("addressPage.nep17nullPrompt")
+    }}</card>
 </template>
 <script>
 import axios from "axios";
-import { changeFormat, convertToken, convertTime, addressToScriptHash, scriptHashToAddress} from "../../store/util";
+import {
+  changeFormat,
+  convertToken,
+  convertTime,
+  addressToScriptHash,
+  scriptHashToAddress,
+} from "../../store/util";
 
 export default {
   name: "address17-ts-table",
@@ -255,7 +262,7 @@ export default {
       toButton: { state: true, buttonName: "Hash" },
       txId: "",
       timeStamp: 0,
-      totalCount: 0 ,
+      totalCount: 0,
     };
   },
   created() {
