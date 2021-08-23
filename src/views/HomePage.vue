@@ -2,30 +2,71 @@
   <div class="home" style="background: #F2F2F2" >
     <section class="Intro">
       <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
-      <div class="search mt--5 ml-5">
-        <input
-            type="text"
-            class="over-ellipsis"
-            :placeholder="$t('search.placeholder')"
-            v-model="searchVal"
-            @keyup.enter="search()"
-        /><button class="button" @click="search()">
-        <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
-              fill="#1e90ff"
+      <div class=" dropAndSearch mt--5">
+        <base-dropdown class="dropHome">
+          <template v-slot:title >
+            <base-button type="secondary" class=" dropdown-toggle dropHomeTitle" >
+              {{this.filterName }}
+            </base-button>
+          </template>
+          <li>
+            <a class="dropdown-item"  @click="switch_the_filter(0)">
+              <span>All Filters</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item"  @click="switch_the_filter(1)">
+              <span>Block</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" @click="switch_the_filter(2)">
+              <span>Transaction</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" @click="switch_the_filter(3)">
+              <span>Contract</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" @click="switch_the_filter(4)">
+              <span>Token</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" @click="switch_the_filter(5)">
+              <span>Address</span>
+            </a>
+          </li>
+        </base-dropdown>
+        <div class="search">
+          <input
+              type="text"
+              class="over-ellipsis"
+              :placeholder="$t('search.placeholder')"
+              v-model="searchVal"
+              @keyup.enter="search()"
           />
-        </svg>
-      </button>
+          <button class="button" @click="search(this.filter)">
+            <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+                  fill="#1e90ff"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
+
     </section>
     <div class="row mt-5"></div>
 
@@ -169,6 +210,8 @@ export default {
       websock: null,
       blockList:[],
       transactionList:[],
+      filter:0,
+      filterName: "All",
     };
   },
 
@@ -252,6 +295,48 @@ export default {
     websocketclose(e){  //关闭
       console.log('断开连接',e);
     },
+    switch_the_filter(num){
+      switch (num){
+        case 0:
+          this.filter=0
+          this.filterName= "All Filters"
+          break;
+        case 1:
+          this.filter=1
+          this.filterName= "Block"
+          break;
+        case 2:
+          this.filter=2
+          this.filterName="Transaction"
+          break;
+        case 3:
+          this.filter=3
+          this.filterName="Contract"
+          break;
+        case 4:
+          this.filter=4
+          this.filterName="Token"
+          break;
+        case 5:
+          this.filter=5
+          this.filterName="Address"
+          break;
+        default:
+          this.filter=0
+          this.filterName="All Filters"
+      }
+
+    },
+    switch_the_language(language) {
+      this.$i18n.locale = language;
+      if (language === "cn") {
+        this.lang = "中文 " + "🇨🇳";
+      } else if (language === "en") {
+        this.lang = "English " + "🇬🇧";
+      } else if (language === "fr") {
+        this.lang = "Français " + "🇫🇷";
+      }
+    },
     getBlockCount() {
       axios({
         method: "post",
@@ -266,7 +351,6 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        console.log(res["data"]["result"]["total counts"])
         this.blockCount = res["data"]["result"]["index"];
       });
     },
@@ -391,46 +475,282 @@ export default {
         this.transactionList = res["data"]["result"]["result"];
       });
     },
-    search() {
-      this.isLoading = true;
-      let value = this.searchVal;
-      value = value.trim();
-      this.searchVal = "";
-      if (value === "") {
-        this.$router.push({
-          path: `/homepage`,
-        });
-        this.isLoading = false;
-      } else if (this.isHashPattern.test(value)) {
-        if (value.length === 64) {
-          value = "0x" + value;
-        }
-        this.getTransactionByTransactionHash(value);
-      } else if (this.isAssetPattern.test(value)) {
-        if (value.length === 40) {
-          value = "0x" + value;
-        }
-        this.getToken(value);
-      } else if (Number(value[0]) >= 0) {
-        value = value.replace(/[,，]/g, "");
-        if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
-          if (Number.isInteger(Number(value))) {
-            this.getBlockByBlockHeight(value);
+    search(num) {
+      var value;
+      switch (num){
+        case 0:
+          console.log("All success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
+          } else if (this.isHashPattern.test(value)) {
+            if (value.length === 64) {
+              value = "0x" + value;
+            }
+            this.getTransactionByTransactionHash(value);
+          } else if (this.isAssetPattern.test(value)) {
+            if (value.length === 40) {
+              value = "0x" + value;
+            }
+            this.getToken(value);
+          } else if (Number(value[0]) >= 0) {
+            value = value.replace(/[,，]/g, "");
+            if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
+              if (Number.isInteger(Number(value))) {
+                this.getBlockByBlockHeight(value);
+              }
+            } else {
+              this.isLoading = false;
+              this.$router.push({
+                path: `/search`,
+              });
+            }
+          } else if (this.isAddressPattern.test(value)) {
+            this.getAddressByAddress(this.addressToScriptHash(value));
+          } else {
+            this.isLoading = false;
+            this.$router.push({
+              path: `/search`,
+            });
+          };
+          break;
+        case 1:
+          console.log("Block success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
           }
-        } else {
-          this.isLoading = false;
-          this.$router.push({
-            path: `/search`,
-          });
-        }
-      } else if (this.isAddressPattern.test(value)) {
-        this.getAddressByAddress(this.addressToScriptHash(value));
-      } else {
-        this.isLoading = false;
-        this.$router.push({
-          path: `/search`,
-        });
+          else if (this.isHashPattern.test(value)) {
+            console.log(2)
+            if (value.length === 64) {
+              value = "0x" + value;
+            }
+            this.getBlockByBlockHash(value);
+          }else if (Number(value[0]) >= 0) {
+            console.log(1)
+            value = value.replace(/[,，]/g, "");
+            if (!isNaN(Number(value)) && this.isNumberPattern.test(value)) {
+              if (Number.isInteger(Number(value))) {
+                this.getBlockByBlockHeight(value);
+              }
+            } else {
+              this.isLoading = false;
+              this.$router.push({
+                path: `/search`,
+              });
+            }
+          }  else {
+            console.log(3)
+            this.isLoading = false;
+            this.$router.push({
+              path: `/search`,
+            });
+          }
+          break;
+        case 2:
+          console.log("Transaction success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
+          }else if (this.isHashPattern.test(value)) {
+            if (value.length === 64) {
+              value = "0x" + value;
+            }
+            axios({
+              method: "post",
+              url: "/api",
+              data: {
+                jsonrpc: "2.0",
+                id: 1,
+                params: { TransactionHash: value },
+                method: "GetRawTransactionByTransactionHash",
+              },
+              headers: {
+                "Content-Type": "application/json",
+                withCredentials: " true",
+                crossDomain: "true",
+              },
+            }).then((res) => {
+              this.isLoading = false;
+              if (res["data"]["error"] == null) {
+                this.$router.push({
+                  path: `/transactionInfo/${value}`,
+                });
+              } else {
+                this.$router.push({
+                  path: `/search`,
+                });
+              }
+            });
+          }else {
+            this.isLoading = false;
+            this.$router.push({
+              path: `/search`,
+            });
+          };
+          break;
+        case 3:
+          console.log("Contract success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
+          }else if (this.isAssetPattern.test(value)) {
+            if (value.length === 40) {
+              value = "0x" + value;
+            }
+            axios({
+              method: "post",
+              url: "/api",
+              data: {
+                jsonrpc: "2.0",
+                id: 1,
+                params: { ContractHash: value },
+                method: "GetContractByContractHash",
+              },
+              headers: {
+                "Content-Type": "application/json",
+                withCredentials: " true",
+                crossDomain: "true",
+              },
+            }).then((res) => {
+              this.isLoading = false;
+              if (res["data"]["error"] == null) {
+                this.$router.push({
+                  path: `/contractinfo/${value}`,
+                });
+              } else {
+                this.$router.push({
+                  path: `/search`,
+                });
+              }
+            });
+          } else {
+            this.isLoading = false;
+            this.$router.push({
+              path: `/search`,
+            });
+          };
+          break;
+        case 4:
+          console.log("Asset success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
+          } else if (this.isAssetPattern.test(value)) {
+            if (value.length === 40) {
+              value = "0x" + value;
+            }
+            axios({
+              method: "post",
+              url: "/api",
+              data: {
+                jsonrpc: "2.0",
+                id: 1,
+                params: { ContractHash: value },
+                method: "GetAssetInfoByContractHash",
+              },
+              headers: {
+                "Content-Type": "application/json",
+                withCredentials: " true",
+                crossDomain: "true",
+              },
+            }).then((res) => {
+              this.isLoading = false;
+              if (res["data"]["error"] == null) {
+                this.$router.push({
+                  path: `/tokeninfo/${value}`,
+                });
+              } else {
+                this.$router.push({
+                  path: `/search`,
+                });
+              }
+            });
+          }
+          else {
+            this.isLoading = false;
+            this.$router.push({
+              path: `/search`,
+            });
+          };
+          break;
+        case 5:
+          console.log("Address success")
+          this.isLoading = true;
+          value = this.searchVal;
+          value = value.trim();
+          this.searchVal = "";
+          if (value === "") {
+            this.$router.push({
+              path: `/homepage`,
+            });
+            this.isLoading = false;
+          }else if (this.isAssetPattern.test(value)) {
+            if (value.length === 40) {
+              value = "0x" + value;
+            }
+            axios({
+              method: "post",
+              url: "/api",
+              data: {
+                jsonrpc: "2.0",
+                method: "GetAddressByAddress",
+                params: { Address: value },
+                id: 1,
+              },
+              headers: {
+                "Content-Type": "application/json",
+                withCredentials: "true",
+                crossDomain: "true",
+              },
+            }).then((res) => {
+              this.isLoading = false;
+              if (res["data"]["error"] == null) {
+                this.$router.push({
+                  path: `/accountprofile/${value}`,
+                });
+              } else {
+                this.isLoading = false;
+                this.$router.push({
+                  path: `/search`,
+                });
+              }
+            });
+          } else if (this.isAddressPattern.test(value)) {
+            this.getAddressByAddress(this.addressToScriptHash(value));
+          }
       }
+
     },
     addressToScriptHash(addr) {
       try {
@@ -643,8 +963,8 @@ export default {
 </script>
 <style>
 .Intro {
-  width: 79%;
-  margin-left: 9%;
+  width: 80%;
+  margin-left: 10%;
   background: #F2F2F2;
   height: 400px;
   display: flex;
@@ -662,12 +982,32 @@ export default {
   color: black;
   margin-bottom: 80px;
 }
-
-.search {
+.dropAndSearch{
+  background: #F2F2F2;
   width: 100%;
   max-width: 1200px!important;
+  padding-right: 1px;
   height: 70px !important;
+}
+
+.search {
+  background: white;
+  max-width: 1200px!important;
+  width: 89%;
+  float: right;
+  height: 100%;
   filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.04));
+}
+.dropHome {
+  height: 70px!important;
+  width: 11%;
+}
+.dropHomeTitle{
+  height: 70px!important;
+  width: 100%;
+  background: white;
+  border-radius: 2px!important;
+  box-shadow: none!important;
 }
 .img {
   width: 26px;
@@ -676,12 +1016,13 @@ export default {
   width: 100%;
   height: 100%;
   padding-right: 71px;
-  padding-left: 11px;
+  padding-left: 10px;
   font-size: 18px;
-  background: rgba(255, 255, 255, 1);
+  background: white;
   border: 0px !important;
   border-radius: 4px;
   color: black;
+  outline:none
 }
 .button {
   cursor: pointer;
@@ -697,6 +1038,7 @@ export default {
   border-radius: 4px;
   border: white;
 }
+
 .elements{
   background: white;
 }

@@ -18,6 +18,9 @@ const en = {
   blockDetail:"Block Details",
   tokenDetail:"Token Details",
   contractDetail:"Contract Details",
+  allFilter:"All Filter",
+  transactionFilter:"Transaction",
+  blockFilter:"BlockFilter",
   authLayout: {
     home: "Home",
     blocks: "Blocks",

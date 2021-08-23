@@ -9,7 +9,7 @@
                 :opacity="0.9"
                 :active="isLoading"
               ></loading>
-              <div class=" row mt-3  mb-5  title1" > {{ $t('tokenDetail') }} </div>
+              <div class=" row mt-3  mb-5  title1" > {{ $t('contractDetail') }} </div>
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
               <card shadow class="card-style">
 
@@ -328,7 +328,7 @@ export default {
       isToken:false,
       activeName: 'first',
       activeNames: ['0'],
-      activeNames2:['0'],
+      activeNames2:['0'], 
     };
   },
   created() {
