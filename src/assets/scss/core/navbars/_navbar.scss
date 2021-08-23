@@ -8,27 +8,26 @@
 
         .nav-link {
             display: block;
-            text-decoration: none;
-            height: 50px;
+            height: 70px;
             text-align: center;
             margin-left: .25rem;
-            color: rgba(40, 43, 52, 0.3);
+            color:darkgrey;
             font-family: Inter;
             font-style: normal;
             font-weight: 350;
             font-size: 14px;
-            line-height: 17px;
+            line-height: 35px;
             mix-blend-mode: normal;
+
             &:hover{
                 color: black;
             }
-            .nav-link.active {
-                color: $navbar-dark-active-color;
-                border-bottom:2px solid black ;
-            }
 
-
-
+        }
+        .active > .nav-link,
+        .nav-link.active {
+            color: black;
+            border-bottom:2px solid black ;
         }
     }
 
@@ -47,23 +46,147 @@
         }
     }
 
-    .navbar-dark {
-        .navbar-brand {
-            color: $white;
+
+}
+.navbar-dark {
+    .navbar-brand {
+        color: $white;
+    }
+    .navbar-brand {
+        color: $navbar-dark-brand-color;
+
+        @include hover-focus() {
+            color: $navbar-dark-brand-hover-color;
         }
-        .navbar-brand {
-            color: $navbar-dark-brand-color;
+    }
+
+    .navbar-nav {
+        .nav-link {
+            color: $navbar-dark-color;
 
             @include hover-focus() {
-                color: $navbar-dark-brand-hover-color;
+                color: $navbar-dark-hover-color;
+            }
+
+            &.disabled {
+                color: $navbar-dark-disabled-color;
             }
         }
 
+        .show > .nav-link,
+        .active > .nav-link,
+        .nav-link.show,
+        .nav-link.active {
+            color: red;
+            border-bottom:2px solid black ;
+        }
+    }
+
+    .navbar-toggler {
+        color: $navbar-dark-color;
+        border-color: $navbar-dark-toggler-border-color;
+    }
+
+    .navbar-toggler-icon {
+        background-image: escape-svg($navbar-dark-toggler-icon-bg);
+    }
+
+    .navbar-text {
+        color: $navbar-dark-color;
+        a {
+            color: $navbar-dark-active-color;
+
+            @include hover-focus() {
+                color: $navbar-dark-active-color;
+            }
+        }
+    }
+}
+
+.navbar-light {
+    .navbar-brand {
+        color: $gray-800;
+    }
+}
+
+.navbar-nav {
+    .nav-item {
+        .media:not(:last-child){
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .navbar-nav {
+        .nav-item {
+            margin-right: .5rem;
+
+            [data-toggle="dropdown"]::after {
+                transition: $transition-base;
+            }
+
+            &.show {
+                [data-toggle="dropdown"]::after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        .nav-link {
+            padding-top: $navbar-nav-link-padding-y;
+            padding-bottom: $navbar-nav-link-padding-y;
+
+
+            i {
+                margin-right: .625rem;
+            }
+        }
+
+        .nav-link-icon {
+            padding-left: .5rem !important;
+            padding-right: .5rem !important;
+            font-size: 1rem;
+            border-radius: $navbar-nav-link-border-radius;
+
+            i {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+
+// Transparent navbar
+
+.navbar-transparent {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+
+    .navbar-brand {
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .navbar-toggler {
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .navbar-toggler-icon {
+        background-image: $navbar-dark-toggler-icon-bg;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .navbar-transparent {
         .navbar-nav {
             .nav-link {
                 color: $navbar-dark-color;
 
-                @include hover-focus() {
+                @include hover-focus {
                     color: $navbar-dark-hover-color;
                 }
 
@@ -76,138 +199,15 @@
             .active > .nav-link,
             .nav-link.show,
             .nav-link.active {
-                color: $navbar-light-hover-color;
-                border-bottom:2px solid black ;
-            }
-        }
-
-        .navbar-toggler {
-            color: $navbar-dark-color;
-            border-color: $navbar-dark-toggler-border-color;
-        }
-
-        .navbar-toggler-icon {
-            background-image: escape-svg($navbar-dark-toggler-icon-bg);
-        }
-
-        .navbar-text {
-            color: $navbar-dark-color;
-            a {
                 color: $navbar-dark-active-color;
-
-                @include hover-focus() {
-                    color: $navbar-dark-active-color;
-                }
             }
         }
-    }
-
-    .navbar-light {
-        .navbar-brand {
-            color: $gray-800;
-        }
-    }
-
-    .navbar-nav {
-        .nav-item {
-            .media:not(:last-child){
-                margin-bottom: 1.5rem;
-            }
-        }
-    }
-
-    @include media-breakpoint-up(lg) {
-        .navbar-nav {
-            .nav-item {
-                margin-right: .5rem;
-
-                [data-toggle="dropdown"]::after {
-                    transition: $transition-base;
-                }
-
-                &.show {
-                    [data-toggle="dropdown"]::after {
-                        transform: rotate(180deg);
-                    }
-                }
-            }
-            .nav-link {
-                padding-top: $navbar-nav-link-padding-y;
-                padding-bottom: $navbar-nav-link-padding-y;
-
-
-                i {
-                    margin-right: .625rem;
-                }
-            }
-
-            .nav-link-icon {
-                padding-left: .5rem !important;
-                padding-right: .5rem !important;
-                font-size: 1rem;
-                border-radius: $navbar-nav-link-border-radius;
-
-                i {
-                    margin-right: 0;
-                }
-            }
-        }
-    }
-
-
-    // Transparent navbar
-
-    .navbar-transparent {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 100;
-        background-color: transparent;
-        border: 0;
-        box-shadow: none;
 
         .navbar-brand {
-            color: rgba(255, 255, 255, 1);
-        }
+            color: $navbar-dark-color;
 
-        .navbar-toggler {
-            color: rgba(255, 255, 255, 1);
-        }
-
-        .navbar-toggler-icon {
-            background-image: $navbar-dark-toggler-icon-bg;
-        }
-    }
-
-    @include media-breakpoint-up(md) {
-        .navbar-transparent {
-            .navbar-nav {
-                .nav-link {
-                    color: $navbar-dark-color;
-
-                    @include hover-focus {
-                        color: $navbar-dark-hover-color;
-                    }
-
-                    &.disabled {
-                        color: $navbar-dark-disabled-color;
-                    }
-                }
-
-                .show > .nav-link,
-                .active > .nav-link,
-                .nav-link.show,
-                .nav-link.active {
-                    color: $navbar-dark-active-color;
-                }
-            }
-
-            .navbar-brand {
+            @include hover-focus {
                 color: $navbar-dark-color;
-
-                @include hover-focus {
-                    color: $navbar-dark-color;
-                }
             }
         }
     }

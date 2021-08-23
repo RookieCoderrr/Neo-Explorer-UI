@@ -2,7 +2,7 @@
   <div class="main-content bg-default">
     <!-- Navbar -->
     <base-nav
-      class="navbar-horizontal navbar-dark"
+      class="navbar-horizontal"
       containerClasses="px-4 container"
       expand
 
