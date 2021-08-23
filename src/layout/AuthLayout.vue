@@ -159,16 +159,29 @@ export default {
       lang: "English 🇬🇧",
     };
   },
-
+  created() {
+    let lang = this.$i18n.locale;
+    if (lang === "cn") {
+      this.lang = "中文 " + "🇨🇳";
+    } else if (lang === "en") {
+      this.lang = "English " + "🇬🇧";
+    } else if (lang === "fr") {
+      this.lang = "Français " + "🇫🇷";
+    }
+  },
   methods: {
+    // 语言切换
     switch_the_language(language) {
       this.$i18n.locale = language;
       if (language === "cn") {
         this.lang = "中文 " + "🇨🇳";
+        localStorage.setItem('lang',"cn")
       } else if (language === "en") {
         this.lang = "English " + "🇬🇧";
+        localStorage.setItem('lang',"en")
       } else if (language === "fr") {
         this.lang = "Français " + "🇫🇷";
+        localStorage.setItem('lang',"fr")
       }
     },
     backHome() {
