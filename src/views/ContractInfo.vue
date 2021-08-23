@@ -324,7 +324,7 @@ export default {
       isToken:false,
       activeName: 'first',
       activeNames: ['0'],
-      activeNames2:['0'],
+      activeNames2:['0'], 
     };
   },
   created() {
