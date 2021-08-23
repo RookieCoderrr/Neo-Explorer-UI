@@ -397,7 +397,6 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        console.log(res["data"]["result"]["total counts"])
         this.blockCount = res["data"]["result"]["index"];
       });
     },

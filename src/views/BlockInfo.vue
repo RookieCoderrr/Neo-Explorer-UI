@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--8" style="background-color: rgb(242,242,242)">
       <div class="row">
         <div class="col">
 
@@ -225,6 +225,7 @@ import BlockTransfer from "./Tables/BlockTransfer";
 import toOpcode from "../directives/typeConvertion";
 import {convertPreciseTime, scriptHashToAddress, changeFormat, copyItem} from "../store/util";
 export default {
+
   components: {
     BlockTransaction,
     BlockTransfer,

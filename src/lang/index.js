@@ -3,7 +3,7 @@ import cn from "./zh_cn.js";
 import fr from "./fr.js";
 
 export default {
-  en,
   cn,
+  en,
   fr,
 };

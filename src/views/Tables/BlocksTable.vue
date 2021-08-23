@@ -202,19 +202,7 @@ export default {
 };
 </script>
 <style>
-/*.blockid {*/
-/*  width: 150px !important;*/
-/*  white-space: nowrap;*/
-/*  overflow: hidden;*/
-/*  text-overflow: ellipsis;*/
-/*}*/
-.class123 /deep/ .a input::-webkit-outer-spin-button,
-.class123 /deep/ .a input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-.class123 /deep/ .a input[type="number"] {
-  -moz-appearance: textfield;
-}
+
 input::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
   margin: 0;
