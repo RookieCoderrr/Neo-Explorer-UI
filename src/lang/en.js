@@ -227,6 +227,7 @@ const en = {
     createdTime: "Created Time",
     hash: "Hash",
     accountsTable: "Address",
+    tokennullPrompt: "This address has no tokens.",
     txnullPrompt: "This address has no transactions.",
     nep17nullPrompt: "This address has no NEP17 transfers.",
     nep11nullPrompt: "This address has no NEP11 transfers.",

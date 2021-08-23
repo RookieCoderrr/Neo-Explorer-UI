@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="container-fluid mt--8"
+      class="container-fluid mt--7"
       style="background-color: rgb(250, 250, 250)"
     >
       <div class="row">
@@ -119,7 +119,7 @@
               </div>
               <div class="row mt-4"></div>
             </card>
-            <div class="row mt-3"></div>
+            <div class="row mt-4"></div>
             <el-tabs
               v-model="activeName"
               style="
@@ -160,6 +160,7 @@
               </el-tab-pane>
             </el-tabs>
           </div>
+          <div style="margin-top: 30px; margin-bottom: 20px"></div>
         </div>
       </div>
     </div>
