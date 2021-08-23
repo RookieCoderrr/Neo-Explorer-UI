@@ -142,10 +142,6 @@
         </base-table>
       </div>
 
-      <div
-        class="card-footer d-flex justify-content-end"
-        :class="type === 'dark' ? 'bg-transparent' : ''"
-      ></div>
     </div>
   </div>
   <card shadow v-else class="text-center ">

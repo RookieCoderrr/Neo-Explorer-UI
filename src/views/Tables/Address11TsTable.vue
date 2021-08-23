@@ -199,35 +199,33 @@
         </td>
       </template>
     </base-table>
-  </div>
-  <div v-else class="row">
-    <div class="col">
-      <card shadow class="text-center">{{
-        $t("addressPage.nep11nullPrompt")
-      }}</card>
+    <div
+        v-if="this.totalCount > 10"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+        style="height: 70px"
+    >
+      <div style="margin-right: 10px; width: 250px" class="row">
+        <div class="text">Page &nbsp;</div>
+        <base-input
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
+        ></base-input>
+        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+      </div>
+      <base-pagination
+          :total="this.totalCount"
+          :value="pagination"
+          v-on:input="pageChange($event)"
+      ></base-pagination>
     </div>
   </div>
-  <div
-    v-if="this.totalCount > 10"
-    class="card-footer d-flex justify-content-end"
-    :class="type === 'dark' ? 'bg-transparent' : ''"
-  >
-    <div style="margin-right: 10px; width: 250px" class="row">
-      <div class="text">Page &nbsp;</div>
-      <base-input
-        type="number"
-        :style="text(pagination)"
-        :placeholder="pagination"
-        v-on:changeinput="pageChangeByInput($event)"
-      ></base-input>
-      <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
-    </div>
-    <base-pagination
-      :total="this.totalCount"
-      :value="pagination"
-      v-on:input="pageChange($event)"
-    ></base-pagination>
-  </div>
+
+  <card shadow v-else class="text-center">{{
+      $t("addressPage.nep11nullPrompt")
+    }}</card>
 </template>
 <script>
 import axios from "axios";

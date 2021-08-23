@@ -22,6 +22,10 @@
             &:hover{
                 color: black;
             }
+            .nav-link.active {
+                color: $navbar-dark-active-color;
+                border-bottom:2px solid black ;
+            }
 
 
 

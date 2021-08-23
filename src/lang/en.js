@@ -244,7 +244,7 @@ const en = {
       tokenBalance: "Token Balance",
       tx: "Transactions",
       nep17title: "NEP17 Transfers",
-      nep11title: "NEp11 Transfers",
+      nep11title: "NEP11 Transfers",
     },
   },
   candidate: {

@@ -132,6 +132,9 @@
         :value="pagination"
         v-on:input="pageChange($event)"
       ></base-pagination>
+      <div style="margin-top: 30px;margin-bottom: 20px">
+
+      </div>
     </div>
   </div>
 

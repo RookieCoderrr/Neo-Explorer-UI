@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container-fluid mt--7" style="background-color: #F2F2F2">
+  <div >
+    <div class="container-fluid mt--8 " style="background-color: #F2F2F2">
       <div class="row">
         <div class="col">
             <loading
@@ -135,6 +135,7 @@
 
             </el-tabs>
           </div>
+
         </div>
       </div>
     </div>
