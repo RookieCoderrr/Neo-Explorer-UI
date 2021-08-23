@@ -14,6 +14,12 @@ const fr = {
   wif: "WIF",
   page: "Page",
   bytes: "Octets",
+  allFilter:"Tout",
+  transactionFilter:"Transaction",
+  blockFilter:"Bloc",
+  contractFilter:"Contract",
+  tokenFilter:"Jeton",
+  addressFilter:"Addresse",
   authLayout: {
     home: "Accueil",
     blocks: "Blocs",

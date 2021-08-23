@@ -49,8 +49,8 @@
 
         <template v-slot:default="row">
           <td style="text-align: right">
-            <div class="item-name">TRANSCATION ID: </div>
-            <div class="item-name">GAS: </div>
+            <div class="item-name">{{ $t("transactionId") }}</div>
+            <div class="item-name">{{ $t("gas") }}</div>
           </td>
           <td>
             <div class="txid">
@@ -66,7 +66,7 @@
             </div>
           </td>
           <td style="text-align: right">
-            <div>Size: {{ row.item.size }} {{ $t("bytes") }}</div>
+            <div>{{ $t("size") }} {{ row.item.size }} {{ $t("bytes") }}</div>
             <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
         </template>

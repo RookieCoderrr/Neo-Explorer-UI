@@ -44,8 +44,8 @@
         </template-->
         <template v-slot:default="row">
           <td style="width: 5px;">
-            <div class="item-name">Blocks: </div>
-            <div class="item-name">Hash:</div>
+            <div class="item-name">{{$t("block")}}</div>
+            <div class="item-name">{{$t("ahash")}}</div>
           </td>
           <td style="text-align: left">
               <tr>
@@ -61,7 +61,7 @@
           </td>
           <td style="text-align: right">
               <div>
-              Size: {{ row.item.size }} Bytes
+                {{$t("size")}} {{ row.item.size }} {{$t("bytes")}}
             </div>
               <div  class="timeago"  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
           </td>

@@ -1,4 +1,4 @@
-module.exports = {
+const zh = {
   home: "欢迎使用NeoExplorer",
   na: "不适用",
   blockReward: "区块奖励",
@@ -14,9 +14,20 @@ module.exports = {
   wif: "地址",
   page: "页",
   bytes: "字节",
+  transactionId:"交易ID: ",
+  gas:"Gas: ",
+  size:"大小: ",
+  block:"区块高度: ",
+  ahash:"哈希: ",
   overview:"总览",
   blockDetail:"区块详情" ,
   contractDetail:"合约详情",
+  allFilter:"所有",
+  transactionFilter:"交易",
+  blockFilter:"区块",
+  contractFilter:"合约",
+  tokenFilter:"通证",
+  addressFilter:"地址",
   authLayout: {
     home: "主页",
     blocks: "区块",
@@ -288,3 +299,4 @@ module.exports = {
     information_v: "请过几分钟后再试，或者检查输入路径",
   },
 };
+export default zh;

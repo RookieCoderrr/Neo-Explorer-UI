@@ -10,33 +10,33 @@
             </base-button>
           </template>
           <li>
-            <a class="dropdown-item"  @click="switch_the_filter(0)">
-              <span>All Filters</span>
+            <a class="dropdown-item"  @click="switch_the_filter(0,this.$i18n.locale)">
+              <span>{{$t("allFilter")}}</span>
             </a>
           </li>
           <li>
-            <a class="dropdown-item"  @click="switch_the_filter(1)">
-              <span>Block</span>
+            <a class="dropdown-item"  @click="switch_the_filter(1,this.$i18n.locale)">
+              <span>{{$t("blockFilter")}}</span>
             </a>
           </li>
           <li>
-            <a class="dropdown-item" @click="switch_the_filter(2)">
-              <span>Transaction</span>
+            <a class="dropdown-item" @click="switch_the_filter(2,this.$i18n.locale)">
+              <span>{{$t("transactionFilter")}}</span>
             </a>
           </li>
           <li>
-            <a class="dropdown-item" @click="switch_the_filter(3)">
-              <span>Contract</span>
+            <a class="dropdown-item" @click="switch_the_filter(3,this.$i18n.locale)">
+              <span>{{$t("contractFilter")}}</span>
             </a>
           </li>
           <li>
-            <a class="dropdown-item" @click="switch_the_filter(4)">
-              <span>Token</span>
+            <a class="dropdown-item" @click="switch_the_filter(4,this.$i18n.locale)">
+              <span>{{$t("tokenFilter")}}</span>
             </a>
           </li>
           <li>
-            <a class="dropdown-item" @click="switch_the_filter(5)">
-              <span>Address</span>
+            <a class="dropdown-item" @click="switch_the_filter(5,this.$i18n.locale)">
+              <span>{{$t("addressFilter")}}</span>
             </a>
           </li>
         </base-dropdown>
@@ -77,7 +77,7 @@
       <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
         <div  class="col-2 font-weight-bold mb-0 "
               style="font-size: 20px ;color:black">
-          <span>Overview</span>
+          <span>{{$t('overview')}}</span>
         </div>
         <div class="row mt-3"></div>
         <div class="elements">
@@ -88,7 +88,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000'></count-to>
+                <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000' @click="toBlock" style="cursor: pointer"></count-to>
               </div>
             </div>
             <div class="col-4 ele">
@@ -97,7 +97,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startTxVal :endVal=this.txCount :duration='2000'></count-to>
+                <count-to :startVal=this.startTxVal :endVal=this.txCount :duration='2000' @click="toTransaction" style="cursor: pointer"></count-to>
               </div>
 
             </div>
@@ -107,7 +107,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startAssetVal :endVal=this.assetCount :duration='2000'></count-to>
+                <count-to :startVal=this.startAssetVal :endVal=this.assetCount :duration='2000' @click="toAsset" style="cursor: pointer"></count-to>
               </div>
 
             </div>
@@ -120,7 +120,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000'></count-to>
+                <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000' @click="toContract" style="cursor: pointer"></count-to>
               </div>
             </div>
             <div class="col-4 ele ">
@@ -129,7 +129,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startAccountVal :endVal=this.accountCount :duration='2000'></count-to>
+                <count-to :startVal=this.startAccountVal :endVal=this.accountCount :duration='2000' @click="toAddress" style="cursor: pointer"></count-to>
               </div>
 
             </div>
@@ -139,7 +139,7 @@
               </div>
               <div class="row mt-2"></div>
               <div class="eleValue">
-                <count-to :startVal=this.startCandidateVal :endVal=this.candidateCount :duration='2000'></count-to>
+                <count-to :startVal=this.startCandidateVal :endVal=this.candidateCount :duration='2000' @click="toCandidate" style="cursor: pointer"></count-to>
               </div>
 
             </div>
@@ -175,6 +175,9 @@ import axios from "axios";
 import Neon from "@cityofzion/neon-js";
 import {render} from "timeago.js";
 import CountTo from "../components/countTo";
+import en from "../lang/en.js"
+import zh from "../lang/zh_cn.js"
+import fr from "../lang/fr.js"
 
 export default {
   name: "Home",
@@ -211,7 +214,7 @@ export default {
       blockList:[],
       transactionList:[],
       filter:0,
-      filterName: "All",
+      filterName: "All Filter",
     };
   },
 
@@ -295,40 +298,83 @@ export default {
     websocketclose(e){  //关闭
       console.log('断开连接',e);
     },
-    switch_the_filter(num){
+    switch_the_filter(num,language){
+      this.$i18n.locale = language;
       switch (num){
         case 0:
           this.filter=0
-          this.filterName= "All Filters"
+          if (language === "en") {
+            this.filterName= en.allFilter
+          }else if (language === "cn") {
+            this.filterName = zh.allFilter
+          }else {
+            console.log(language)
+            this.filterName = fr.allFilter
+          }
           break;
         case 1:
           this.filter=1
-          this.filterName= "Block"
+          if (language === "en") {
+            this.filterName= en.blockFilter
+          }else if (language === "cn") {
+            this.filterName = zh.blockFilter
+          }else {
+            this.filterName = fr.blockFilter
+          }
           break;
         case 2:
           this.filter=2
-          this.filterName="Transaction"
+          if (language === "en") {
+            this.filterName= en.transactionFilter
+          }else if (language === "cn") {
+            this.filterName = zh.transactionFilter
+          }else {
+            this.filterName = fr.transactionFilter
+          }
           break;
         case 3:
           this.filter=3
-          this.filterName="Contract"
+          if (language === "en") {
+            this.filterName= en.contractFilter
+          }else if (language === "cn") {
+            this.filterName = zh.contractFilter
+          }else {
+            this.filterName = fr.contractFilter
+          }
           break;
         case 4:
           this.filter=4
-          this.filterName="Token"
+          if (language === "en") {
+            this.filterName= en.tokenFilter
+          }else if (language === "cn") {
+            this.filterName = zh.tokenFilter
+          }else {
+            this.filterName = fr.tokenFilter
+          }
           break;
         case 5:
           this.filter=5
-          this.filterName="Address"
+          if (language === "en") {
+            this.filterName= en.addressFilter
+          }else if (language === "cn") {
+            this.filterName = zh.addressFilter
+          }else {
+            this.filterName = fr.addressFilter
+          }
           break;
         default:
           this.filter=0
-          this.filterName="All Filters"
+          if (language === "en") {
+            this.filterName= en.allFilter
+          }else if (language === "cn") {
+            this.filterName = zh.allFilter
+          }else {
+            this.filterName = fr.allFilter
+          }
       }
 
     },
     switch_the_language(language) {
-      this.$i18n.locale = language;
       if (language === "cn") {
         this.lang = "中文 " + "🇨🇳";
       } else if (language === "en") {

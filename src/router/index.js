@@ -73,7 +73,7 @@ const routes = [
         name: "tokeninfo",
         components: { default: TokenInfo },
         meta: {
-          showSearch: false,
+          showSearch: true,
         },
       },
       {
@@ -81,7 +81,7 @@ const routes = [
         name: "blockinfo",
         components: { default: BlockInfo },
         meta: {
-          showSearch: false,
+          showSearch: true,
         },
       },
       {
@@ -97,7 +97,7 @@ const routes = [
         name: "contractinfo",
         components: { default: ContractInfo },
         meta: {
-          showSearch: false,
+          showSearch: true,
         },
       },
       {
@@ -121,7 +121,7 @@ const routes = [
         name: "AccountProfile",
         components: { default: AccountProfile },
         meta: {
-          showSearch: false,
+          showSearch: true,
         },
       },
       {
@@ -146,7 +146,7 @@ const routes = [
         name: "transactionInfo",
         components: { default: TransactionInfo },
         meta: {
-          showSearch: false,
+          showSearch: true,
         },
       },
       {
