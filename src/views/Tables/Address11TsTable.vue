@@ -1,238 +1,240 @@
 <template>
-  <div v-if="this.totalCount != 0" class="table-responsive">
-    <base-table
-      class="table align-items-center table-flush"
-      :class="type === 'dark' ? 'table-dark' : ''"
-      :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
-      tbody-classes="list"
-      :data="tableData"
-    >
-      <template v-slot:columns>
-        <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
-        <th class="tableHeader">{{ $t("transferList.token") }}</th>
-        <th class="tableHeader">{{ $t("transferList.type") }}</th>
-        <th class="tableHeader">
-          {{ $t("transferList.from") }}
-          <button
-            class="btn btn-sm btn-primary"
-            @click="changeFormat(this.fromButton)"
-          >
-            {{ this.fromButton.buttonName }}
-          </button>
-        </th>
-        <th class="tableHeader"></th>
-        <th class="tableHeader">
-          {{ $t("transferList.to") }}
-          <button
-            class="btn btn-sm btn-primary"
-            @click="changeFormat(this.toButton)"
-          >
-            {{ this.toButton.buttonName }}
-          </button>
-        </th>
-        <th class="tableHeader">{{ $t("transferList.amount") }}</th>
-        <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
-      </template>
+  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+    <div v-if="this.totalCount != 0" class="table-responsive">
+      <base-table
+        class="table align-items-center table-flush"
+        :class="type === 'dark' ? 'table-dark' : ''"
+        :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
+        tbody-classes="list"
+        :data="tableData"
+      >
+        <template v-slot:columns>
+          <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
+          <th class="tableHeader">{{ $t("transferList.token") }}</th>
+          <th class="tableHeader">{{ $t("transferList.type") }}</th>
+          <th class="tableHeader">
+            {{ $t("transferList.from") }}
+            <button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(this.fromButton)"
+            >
+              {{ this.fromButton.buttonName }}
+            </button>
+          </th>
+          <th class="tableHeader"></th>
+          <th class="tableHeader">
+            {{ $t("transferList.to") }}
+            <button
+              class="btn btn-sm btn-primary"
+              @click="changeFormat(this.toButton)"
+            >
+              {{ this.toButton.buttonName }}
+            </button>
+          </th>
+          <th class="tableHeader">{{ $t("transferList.amount") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+        </template>
 
-      <template v-slot:default="row">
-        <td class="budget">
-          <div>
-            <div
-              class="text-muted"
-              v-if="
-                row.item.txid ===
-                '0x0000000000000000000000000000000000000000000000000000000000000000'
-              "
-            >
-              {{ $t("na") }}
-            </div>
-            <div class="txid" v-else>
-              <router-link
-                class="name mb-0 text-sm"
-                style="cursor: pointer"
-                :to="'/transactionInfo/' + row.item.address"
-                >{{ row.item.txid }}</router-link
+        <template v-slot:default="row">
+          <td class="budget">
+            <div>
+              <div
+                class="text-muted"
+                v-if="
+                  row.item.txid ===
+                  '0x0000000000000000000000000000000000000000000000000000000000000000'
+                "
               >
+                {{ $t("na") }}
+              </div>
+              <div class="txid" v-else>
+                <router-link
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  :to="'/transactionInfo/' + row.item.address"
+                  >{{ row.item.txid }}</router-link
+                >
+              </div>
             </div>
-          </div>
-        </td>
-        <td class="budget">
-          <div class="from">
-            {{ row.item.tokenname }}
-          </div>
-        </td>
-        <td class="Type">
-          <div>
-            <span
-              class="text-primary"
-              v-if="
-                row.item.txid ===
-                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                row.item.from === null &&
-                row.item.value === '50000000'
-              "
-              type="primary"
-              >{{ $t("blockReward") }}</span
-            >
-            <span
-              class="text-warning"
-              v-else-if="
-                row.item.txid ===
-                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                row.item.from === null
-              "
-              type="primary"
-              >{{ $t("networkFeeReward") }}</span
-            >
-            <span
-              class="text-danger"
-              v-else-if="
-                row.item.txid ===
-                  '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                row.item.to === null
-              "
-              type="primary"
-              >{{ $t("feeBurn") }}</span
-            >
-            <span
-              class="text-success"
-              v-else-if="
-                row.item.from === null &&
-                this.contractHash ===
-                  '0xd2a4cff31913016155e38e474a2c06d08be276cf'
-              "
-              type="primary"
-            >
-              {{ $t("transferReward") }}
-            </span>
-            <span
-              class="text-success"
-              v-else-if="row.item.from === null"
-              type="primary"
-              >{{ $t("mint") }}</span
-            >
-            <span class="text-danger" v-else-if="row.item.to === null">
-              {{ $t("burn") }}</span
-            >
-            <span class="text-info" v-else> {{ $t("transfer") }}</span>
-          </div>
-        </td>
-        <td class="from">
-          <div>
-            <div class="text-muted" v-if="row.item.from === null">
+          </td>
+          <td class="budget">
+            <div class="from">
+              {{ row.item.tokenname }}
+            </div>
+          </td>
+          <td class="Type">
+            <div>
+              <span
+                class="text-primary"
+                v-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null &&
+                  row.item.value === '50000000'
+                "
+                type="primary"
+                >{{ $t("blockReward") }}</span
+              >
+              <span
+                class="text-warning"
+                v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null
+                "
+                type="primary"
+                >{{ $t("networkFeeReward") }}</span
+              >
+              <span
+                class="text-danger"
+                v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.to === null
+                "
+                type="primary"
+                >{{ $t("feeBurn") }}</span
+              >
+              <span
+                class="text-success"
+                v-else-if="
+                  row.item.from === null &&
+                  this.contractHash ===
+                    '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+                "
+                type="primary"
+              >
+                {{ $t("transferReward") }}
+              </span>
+              <span
+                class="text-success"
+                v-else-if="row.item.from === null"
+                type="primary"
+                >{{ $t("mint") }}</span
+              >
+              <span class="text-danger" v-else-if="row.item.to === null">
+                {{ $t("burn") }}</span
+              >
+              <span class="text-info" v-else> {{ $t("transfer") }}</span>
+            </div>
+          </td>
+          <td class="from">
+            <div>
+              <div class="text-muted" v-if="row.item.from === null">
+                {{ $t("nullAddress") }}
+              </div>
+              <div v-else-if="fromButton.state" class="addr">
+                <router-link
+                  v-if="row.item.from === this.account_address"
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  :to="'/accountprofile/' + row.item.from"
+                  ><i class="ni ni-tag"></i
+                  >{{ scriptHashToAddress(row.item.from) }}
+                </router-link>
+                <router-link
+                  v-else
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  :to="'/accountprofile/' + row.item.from"
+                  >{{ scriptHashToAddress(row.item.from) }}
+                </router-link>
+              </div>
+              <div v-else class="addr">
+                <router-link
+                  v-if="row.item.from === this.account_address"
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  :to="'/accountprofile/' + row.item.from"
+                  ><i class="ni ni-tag"></i>{{ row.item.from }}
+                </router-link>
+                <router-link
+                  v-else
+                  class="name mb-0 text-sm"
+                  style="cursor: pointer"
+                  :to="'/accountprofile/' + row.item.from"
+                  >{{ row.item.from }}
+                </router-link>
+              </div>
+            </div>
+          </td>
+          <td>
+            <h1 style="color: #42b983">&#8594;</h1>
+          </td>
+          <td class="to">
+            <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>
-            <div v-else-if="fromButton.state" class="addr">
+            <div v-else-if="toButton.state" class="addr">
               <router-link
-                v-if="row.item.from === this.account_address"
+                v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/' + row.item.from"
-                ><i class="ni ni-tag"></i
-                >{{ scriptHashToAddress(row.item.from) }}
+                :to="'/accountprofile/' + row.item.to"
+                ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
               </router-link>
               <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/' + row.item.from"
-                >{{ scriptHashToAddress(row.item.from) }}
+                :to="'/accountprofile/' + row.item.to"
+                >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
             </div>
             <div v-else class="addr">
               <router-link
-                v-if="row.item.from === this.account_address"
+                v-if="row.item.to === this.account_address"
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/' + row.item.from"
-                ><i class="ni ni-tag"></i>{{ row.item.from }}
+                :to="'/accountprofile/' + row.item.to"
+                ><i class="ni ni-tag"></i>{{ row.item.to }}
               </router-link>
               <router-link
                 v-else
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
-                :to="'/accountprofile/' + row.item.from"
-                >{{ row.item.from }}
+                :to="'/accountprofile/' + row.item.to"
+                >{{ row.item.to }}
               </router-link>
             </div>
-          </div>
-        </td>
-        <td>
-          <h1 style="color: #42b983">&#8594;</h1>
-        </td>
-        <td class="to">
-          <div class="text-muted" v-if="row.item.to === null">
-            {{ $t("nullAddress") }}
-          </div>
-          <div v-else-if="toButton.state" class="addr">
-            <router-link
-              v-if="row.item.to === this.account_address"
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              :to="'/accountprofile/' + row.item.to"
-              ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
-            </router-link>
-            <router-link
-              v-else
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              :to="'/accountprofile/' + row.item.to"
-              >{{ scriptHashToAddress(row.item.to) }}
-            </router-link>
-          </div>
-          <div v-else class="addr">
-            <router-link
-              v-if="row.item.to === this.account_address"
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              :to="'/accountprofile/' + row.item.to"
-              ><i class="ni ni-tag"></i>{{ row.item.to }}
-            </router-link>
-            <router-link
-              v-else
-              class="name mb-0 text-sm"
-              style="cursor: pointer"
-              :to="'/accountprofile/' + row.item.to"
-              >{{ row.item.to }}
-            </router-link>
-          </div>
-        </td>
+          </td>
 
-        <td class="budget">
-          {{ row.item.value }}
-        </td>
-        <td class="budget">
-          {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
-        </td>
-      </template>
-    </base-table>
-    <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-      style="height: 70px"
-    >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+          <td class="budget">
+            {{ row.item.value }}
+          </td>
+          <td class="budget">
+            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+          </td>
+        </template>
+      </base-table>
+      <div
+        v-if="this.totalCount > 10"
+        class="card-footer d-flex justify-content-end"
+        :class="type === 'dark' ? 'bg-transparent' : ''"
+        style="height: 70px"
+      >
+        <div style="margin-right: 10px; width: 250px" class="row">
+          <div class="text">Page &nbsp;</div>
+          <base-input
+            type="number"
+            :style="text(pagination)"
+            :placeholder="pagination"
+            v-on:changeinput="pageChangeByInput($event)"
+          ></base-input>
+          <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
+        </div>
+        <base-pagination
+          :total="this.totalCount"
+          :value="pagination"
+          v-on:input="pageChange($event)"
+        ></base-pagination>
       </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
     </div>
-  </div>
 
-  <card shadow v-else class="text-center">{{
-    $t("addressPage.nep11nullPrompt")
-  }}</card>
+    <card shadow v-else class="text-center">{{
+      $t("addressPage.nep11nullPrompt")
+    }}</card>
+  </div>
 </template>
 <script>
 import axios from "axios";
