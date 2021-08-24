@@ -47,8 +47,8 @@ const en = {
     totalCntrts: "Total Contracts",
     totalAddrs: "Total Addresses",
     totalCndidtes: "Total Candidates",
-    recentBlocks: "Recent Blocks",
-    recentTxs: "Recent Transactions",
+    recentBlocks: "Latest Blocks",
+    recentTxs: "Latest Transactions",
     seeAll: "See All",
     more: "More",
     txTable: {

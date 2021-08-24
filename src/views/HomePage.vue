@@ -76,7 +76,7 @@
     <div class="main">
       <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
         <div  class="col-2 font-weight-bold mb-0 "
-              style="font-size: 20px ;color:black">
+              style="font-size: 20px ;color:black;width: 80%">
           <span>{{$t('overview')}}</span>
         </div>
         <div class="row mt-3"></div>

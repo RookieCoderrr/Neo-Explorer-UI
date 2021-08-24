@@ -171,8 +171,15 @@
 /*    margin-left: 10%;*/
 /*}*/
 .item-name {
-    width: 5%!important;
-    text-align: left;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px!important;
+    line-height: 24px;
+    /* or 171% */
+    color: #000000!important;
+    mix-blend-mode: normal!important;
+    opacity: 0.6;
 }
 
 .title4{

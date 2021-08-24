@@ -60,10 +60,10 @@
               </div>
           </td>
           <td style="text-align: right">
-              <div>
-                {{$t("size")}} {{ row.item.size }} {{$t("bytes")}}
+            <div>
+              {{$t("size")}}{{ row.item.size }} {{$t("bytes")}}
             </div>
-              <div  class="timeago"  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
+              <div  class="timeago item-name"  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
           </td>
             <!--td>
               {{ row.item.transactioncount }}
