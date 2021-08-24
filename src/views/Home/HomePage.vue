@@ -168,16 +168,16 @@
 </template>
 
 <script>
-import BlocksTableHomepage from "../views/Tables/BlocksTableHomepage";
-import TransactionTableHomepage from "../views/Tables/TransactionsTableHomepage";
+import BlocksTableHomepage from "./BlocksTableHomepage";
+import TransactionTableHomepage from "./TransactionsTableHomepage";
 import axios from "axios";
 // import StatsCard from "../components/StatsCard";
 import Neon from "@cityofzion/neon-js";
 import {render} from "timeago.js";
-import CountTo from "../components/countTo";
-import en from "../lang/en.js"
-import zh from "../lang/zh_cn.js"
-import fr from "../lang/fr.js"
+import CountTo from "../../components/countTo";
+import en from "../../lang/en.js"
+import zh from "../../lang/zh_cn.js"
+import fr from "../../lang/fr.js"
 
 export default {
   name: "Home",

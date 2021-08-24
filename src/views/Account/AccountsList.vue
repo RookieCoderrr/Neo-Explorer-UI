@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import AccountsTable from "./Tables/AccountsTable";
+import AccountsTable from "./AccountsTable";
 export default {
   name: "accounts-list",
   components: {

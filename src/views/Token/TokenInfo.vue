@@ -379,10 +379,10 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import TokensTxNep17 from "./Tables/TokenTxNep17";
-import TokensTxNep11 from "./Tables/TokenTxNep11";
-import TokenHolder from "./Tables/TokenHolder";
-import JsonView from "./Tables/JsonView";
+import TokensTxNep17 from "./TokenTxNep17";
+import TokensTxNep11 from "./TokenTxNep11";
+import TokenHolder from "./TokenHolder";
+import JsonView from "../Contract/JsonView";
 import Neon from "@cityofzion/neon-js";
 import {
   convertPreciseTime,
@@ -390,7 +390,7 @@ import {
   responseConverter,
   RPC_NODE,
   copyItem,
-} from "../store/util";
+} from "../../store/util";
 
 export default {
   components: {

@@ -663,19 +663,19 @@
 
 <script>
 import axios from "axios";
-import TransfersList from "./Tables/TransfersList";
-import NftTable from "./Tables/NftTable";
+import TransfersList from "./TransfersList";
+import NftTable from "./NftTable";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import Neon from "@cityofzion/neon-js";
-import toOpcode from "../directives/typeConvertion";
+import toOpcode from "../../directives/typeConvertion";
 import {
   convertPreciseTime,
   changeFormat,
   convertGas,
   addressToScriptHash,
   copyItem,
-} from "../store/util";
+} from "../../store/util";
 
 export default {
   components: {
