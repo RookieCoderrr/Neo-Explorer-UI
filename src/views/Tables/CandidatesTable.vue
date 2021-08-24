@@ -44,7 +44,8 @@
             <div class="address">
               <router-link
                 class="name mb-0 text-sm"
-                style="cursor: pointer"
+
+                style="cursor: pointer; text-align: center;"
                 :to="'/accountprofile/' + row.item.candidate"
               >
                 {{ row.item.candidate }}

@@ -145,6 +145,7 @@
 }
 
 .tableHeader {
+    text-align: center;
     background:#5576EC!important;
     color:#ffffff!important;
 }
