@@ -81,19 +81,17 @@
             {{ row.item.symbol }}
           </td>
           <td>
-            <badge
+            <el-tag
               v-if="row.item.type === 'NEP17'"
-
-              type="primary"
             >
               <span class="">{{ row.item.type }}</span>
-            </badge>
-            <badge v-else-if="row.item.type === 'NEP11'"  type="success">
+            </el-tag>
+            <el-tag v-else-if="row.item.type === 'NEP11'"  type="success" >
               <span class="">{{ row.item.type }}</span>
-            </badge>
-            <badge v-else type="danger">
+            </el-tag>
+            <el-tag v-else type="info"  >
               <span class="">{{ row.item.type==="UNKNOW"? "Unknown":"Unknown" }}</span>
-            </badge>
+            </el-tag>
           </td>
           <td class="holders">
             {{ row.item.holders }}

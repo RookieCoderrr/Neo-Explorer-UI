@@ -70,11 +70,10 @@
 
     <div
       v-if="this.totalCount > 10"
-      class="card-footer d-flex "
+      class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
       style="height: 70px"
     >
-
           <el-pagination
                   @current-change="handleCurrentChange"
                   :current-page="pagination"
@@ -123,7 +122,6 @@ export default {
   updated() {
     const nodes = document.getElementsByClassName('timeago')
     if(nodes.length != 0){
-        document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳转'
       if(this.$i18n.locale === 'cn'){
         render(nodes, 'zh_CN');
       }else{
