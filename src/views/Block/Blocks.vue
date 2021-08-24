@@ -3,20 +3,19 @@
     <div class="container-fluid mt--7 mb--7" style="background: #F2F2F2; width: 95%">
       <div class="row">
         <div class="col">
-          <transactions-table title="Transaction List"></transactions-table>
+          <blocks-table :title="$t('blockinfo.title')"></blocks-table>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import TransactionsTable from "./Tables/TransactionsTable";
+import BlocksTable from "./BlocksTable";
 export default {
-  name: "tables",
+  name: "Blocks",
   components: {
-    TransactionsTable,
+    BlocksTable,
   },
-
 };
 </script>
 <style></style>

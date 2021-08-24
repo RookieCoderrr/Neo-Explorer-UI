@@ -177,7 +177,7 @@
                 <div class="row mt-3"></div>
               </div>
 
-          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)" >
+          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(242,242,242)" >
             <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
                     <block-transaction
                             v-if=" this.block_info.transactioncount != 0"
@@ -220,10 +220,10 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import BlockTransaction from "./Tables/BlockTransaction";
-import BlockTransfer from "./Tables/BlockTransfer";
-import toOpcode from "../directives/typeConvertion";
-import {convertPreciseTime, scriptHashToAddress, changeFormat, copyItem} from "../store/util";
+import BlockTransaction from "./BlockTransaction";
+import BlockTransfer from "./BlockTransfer";
+import toOpcode from "../../directives/typeConvertion";
+import {convertPreciseTime, scriptHashToAddress, changeFormat, copyItem} from "../../store/util";
 export default {
 
   components: {

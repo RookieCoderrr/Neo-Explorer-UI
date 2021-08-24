@@ -2,7 +2,7 @@
   <div>
     <div
       class="container-fluid mt--7"
-      style="background-color: rgb(250, 250, 250)"
+      style="background-color: rgb(242,242,242)"
     >
       <div class="row">
         <div class="col">
@@ -34,6 +34,7 @@
                 <div class="col-10 context-black">
                   <span id="address">
                     {{ this.scriptHashToAddress(this.accountAddress) }}
+
                   </span>
                   <i
                     class="ni ni-single-copy-04"
@@ -170,16 +171,16 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import AddressTokensTable from "./Tables/AddressTokensTable";
-import AddressTransactionsTable from "./Tables/AddressTransactionsTable";
-import Address17TsTable from "./Tables/Address17TsTable";
-import Address11TsTable from "./Tables/Address11TsTable";
+import AddressTokensTable from "./AddressTokensTable";
+import AddressTransactionsTable from "./AddressTransactionsTable";
+import Address17TsTable from "./Address17TsTable";
+import Address11TsTable from "./Address11TsTable";
 import {
   scriptHashToAddress,
   convertPreciseTime,
   convertGas,
   copyItem,
-} from "../store/util";
+} from "../../store/util";
 
 export default {
   name: "account-profile",

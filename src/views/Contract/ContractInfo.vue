@@ -301,11 +301,11 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import EventsTable from "./Tables/EventsTable";
-import ScCallTable from "./Tables/ScCallTable";
+import EventsTable from "./EventsTable";
+import ScCallTable from "./ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import JsonView from "./Tables/JsonView";
-import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../store/util";
+import JsonView from "./JsonView";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../../store/util";
 
 export default {
   components: {
@@ -328,7 +328,7 @@ export default {
       isToken:false,
       activeName: 'first',
       activeNames: ['0'],
-      activeNames2:['0'], 
+      activeNames2:['0'],
     };
   },
   created() {

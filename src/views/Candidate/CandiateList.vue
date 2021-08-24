@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import CandidatesTable from "./Tables/CandidatesTable";
+import CandidatesTable from "./CandidatesTable";
 
 export default {
   components: {

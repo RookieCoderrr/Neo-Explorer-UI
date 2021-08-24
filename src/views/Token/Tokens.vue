@@ -3,18 +3,19 @@
     <div class="container-fluid mt--7 mb--7" style="background: #F2F2F2; width: 95%">
       <div class="row">
         <div class="col">
-          <contracts-table title="Contract List"></contracts-table>
+          <tokens-table :title="$t('tokensTable.title')"></tokens-table>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import ContractsTable from "./Tables/ContractsTable";
+import TokensTable from "./TokensTable";
+
 export default {
-  name: "contracts",
+  name: "tokens",
   components: {
-    ContractsTable,
+    TokensTable,
   },
 };
 </script>

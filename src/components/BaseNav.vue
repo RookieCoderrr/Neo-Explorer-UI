@@ -39,12 +39,10 @@
   </nav>
 </template>
 <script>
-import NavbarToggleButton from "./NavbarToggleButton";
 
 export default {
   name: "base-nav",
   components: {
-    NavbarToggleButton,
   },
   props: {
     type: {
