@@ -14,13 +14,23 @@ const en = {
   wif: "WIF",
   page: "Page",
   bytes: "Bytes",
+  transactionId:"TRANSCATION ID: ",
+  gas:"GAS: ",
+  size:"Size",
+  block:"Block Index: ",
+  ahash:"Hash: ",
+  byte:"Bytes ",
   overview:"Overview",
   blockDetail:"Block Details",
   tokenDetail:"Token Details",
   contractDetail:"Contract Details",
+  overView:"Overview",
   allFilter:"All Filter",
   transactionFilter:"Transaction",
-  blockFilter:"BlockFilter",
+  blockFilter:"Block",
+  contractFilter:"Contract",
+  tokenFilter:"Token",
+  addressFilter:"Address",
   authLayout: {
     home: "Home",
     blocks: "Blocks",
@@ -37,8 +47,8 @@ const en = {
     totalCntrts: "Total Contracts",
     totalAddrs: "Total Addresses",
     totalCndidtes: "Total Candidates",
-    recentBlocks: "Recent Blocks",
-    recentTxs: "Recent Transactions",
+    recentBlocks: "Latest Blocks",
+    recentTxs: "Latest Transactions",
     seeAll: "See All",
     more: "More",
     txTable: {
@@ -293,5 +303,6 @@ const en = {
     information_t: "The Page You Visited Is Not Available.",
     information_v: "Try visiting in a few minutes and check your path input.",
   },
+
 };
 export default en;
