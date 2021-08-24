@@ -1,26 +1,38 @@
-//import { createRouter, createWebHashHistory } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
-
-// import AuthLayout from "@/layout/AuthLayout";
-import Contracts from "../views/Contract/Contracts";
-import ContractInfo from "../views/Contract/ContractInfo";
-import TokenInfo from "../views/Token/TokenInfo.vue";
-import BlockInfo from "../views/Block/BlockInfo.vue";
-import CandiateList from "../views/Candidate/CandiateList.vue";
-import Account from "../views/Account/AccountsList";
-import TransactionList from "../views/Transaction/TransactionList.vue";
-import AccountProfile from "../views/Account/AccountProfile";
-import Tokens from "../views/Token/Tokens.vue";
-import Blocks from "../views/Block/Blocks.vue";
-import Search from "../views/NotFound/SearchNotFound";
-import HomePage from "../views/Home/HomePage";
-import PageNotFound from "../views/NotFound/PageNotFound";
-import BurnFee from "../views/BurnGas/BurnFee";
-import importEcharts from "../views/BurnGas/importEcharts";
-
-import TransactionInfo from "../views/Transaction/TransactionInfo.vue";
+// import Contracts from "../views/Contract/Contracts";
+const Contracts = ()=>import('../views/Contract/Contracts');
+const ContractInfo = ()=>import('../views/Contract/ContractInfo');
+const TokenInfo = ()=>import('../views/Token/TokenInfo');
+const BlockInfo = ()=>import('../views/Block/BlockInfo');
+const CandiateList = ()=>import('../views/Candidate/CandiateList');
+const Account = ()=>import('../views/Account/AccountsList');
+// import ContractInfo from "../views/Contract/ContractInfo";
+// import TokenInfo from "../views/Token/TokenInfo.vue";
+// import BlockInfo from "../views/Block/BlockInfo.vue";
+// import CandiateList from "../views/Candidate/CandiateList.vue";
+// import Account from "../views/Account/AccountsList";
+// import TransactionList from "../views/Transaction/TransactionList.vue";
+const TransactionList = ()=>import('../views/Transaction/TransactionList');
+// import AccountProfile from "../views/Account/AccountProfile";
+const AccountProfile = ()=>import('../views/Account/AccountProfile');
+// import Tokens from "../views/Token/Tokens.vue";
+const Tokens = ()=>import('../views/Token/Tokens');
+// import Blocks from "../views/Block/Blocks.vue";
+const Blocks = ()=>import('../views/Block/Blocks');
+// import Search from "../views/NotFound/SearchNotFound";
+const Search = ()=>import('../views/NotFound/SearchNotFound');
+// import HomePage from "../views/Home/HomePage";
+const HomePage = ()=>import('../views/Home/HomePage');
+// import PageNotFound from "../views/NotFound/PageNotFound";
+const PageNotFound = ()=>import('../views/NotFound/PageNotFound');
+// import BurnFee from "../views/BurnGas/BurnFee";
+const BurnFee = ()=>import('../views/BurnGas/BurnFee');
+// import importEcharts from "../views/BurnGas/importEcharts";
+const importEcharts = ()=>import('../views/BurnGas/importEcharts');
+// import TransactionInfo from "../views/Transaction/TransactionInfo.vue";
+const TransactionInfo = ()=>import('../views/Transaction/TransactionInfo');
 import AuthLayout from "../layout/AuthLayout";
-
+// const AccountProfile = ()=>import('../views/Account/AccountProfile');
 const routes = [
   {
     path: "/",
@@ -30,7 +42,7 @@ const routes = [
       {
         path: "/:pathMatch(.*)*",
         name: "404",
-        components: { default: PageNotFound },
+        component: PageNotFound,
         meta: {
           showSearch: false,
         },
@@ -38,7 +50,7 @@ const routes = [
       {
         path: "/tokens",
         name: "tokens",
-        components: { default: Tokens },
+        component:Tokens ,
         meta: {
           showSearch: true,
         },
@@ -46,7 +58,7 @@ const routes = [
       {
         path: "/burn",
         name: "burn",
-        components: { default: BurnFee },
+        component: BurnFee ,
         meta: {
           showSearch: true,
         },
@@ -54,7 +66,7 @@ const routes = [
       {
         path: "/echarts",
         name: "echarts",
-        components: { default: importEcharts },
+        component: importEcharts ,
         meta: {
           showSearch: true,
         },
@@ -62,7 +74,7 @@ const routes = [
       {
         path: "/blocks",
         name: "blocks",
-        components: { default: Blocks },
+        component: Blocks ,
         meta: {
           showSearch: true,
         },
@@ -70,7 +82,7 @@ const routes = [
       {
         path: "/tokeninfo/:hash",
         name: "tokeninfo",
-        components: { default: TokenInfo },
+        component: TokenInfo ,
         meta: {
           showSearch: true,
         },
@@ -78,7 +90,7 @@ const routes = [
       {
         path: "/blockinfo/:hash",
         name: "blockinfo",
-        components: { default: BlockInfo },
+        component:  BlockInfo ,
         meta: {
           showSearch: true,
         },
@@ -86,7 +98,7 @@ const routes = [
       {
         path: "/contracts",
         name: "contracts",
-        components: { default: Contracts },
+        component: Contracts,
         meta: {
           showSearch: true,
         },
@@ -94,7 +106,7 @@ const routes = [
       {
         path: "/contractinfo/:hash",
         name: "contractinfo",
-        components: { default: ContractInfo },
+        component:  ContractInfo ,
         meta: {
           showSearch: true,
         },
@@ -102,7 +114,7 @@ const routes = [
       {
         path: "/candidates",
         name: "Candidates",
-        components: { default: CandiateList },
+        component:  CandiateList ,
         meta: {
           showSearch: true,
         },
@@ -110,7 +122,7 @@ const routes = [
       {
         path: "/account",
         name: "Accounts",
-        components: { default: Account },
+        component:  Account,
         meta: {
           showSearch: true,
         },
@@ -118,7 +130,7 @@ const routes = [
       {
         path: "/accountprofile/:accountAddress",
         name: "AccountProfile",
-        components: { default: AccountProfile },
+        component:  AccountProfile ,
         meta: {
           showSearch: true,
         },
@@ -126,7 +138,7 @@ const routes = [
       {
         path: "/Transactions",
         name: "transactions",
-        components: { default: TransactionList },
+        component:  TransactionList ,
         meta: {
           showSearch: true,
         },
@@ -134,7 +146,7 @@ const routes = [
       {
         path: "/homepage",
         name: "homepage",
-        components: { default: HomePage },
+        component: HomePage ,
         meta: {
           showSearch: false,
           HomePage:true,
@@ -143,7 +155,7 @@ const routes = [
       {
         path: "/transactionInfo/:txhash",
         name: "transactionInfo",
-        components: { default: TransactionInfo },
+        component:  TransactionInfo ,
         meta: {
           showSearch: true,
         },
@@ -151,7 +163,7 @@ const routes = [
       {
         path: "search",
         name: "search",
-        components: { default: Search },
+        component:  Search,
         meta: {
           showSearch: false,
         },
@@ -161,7 +173,6 @@ const routes = [
 ];
 
 const router = createRouter({
-  //history: createWebHashHistory(),
   history: createWebHistory(),
   linkActiveClass: "active",
   routes,

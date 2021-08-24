@@ -66,26 +66,19 @@
     </div>
 
     <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-      style="height: 70px"
+            class="card-footer d-flex justify-content-end"
+            :class="type === 'dark' ? 'bg-transparent' : ''"
+            style="height: 70px"
     >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          @changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
-      </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
+      <el-pagination
+              @current-change="handleCurrentChange"
+              :hide-on-single-page="totalCount<=10"
+              :current-page="pagination"
+              :pager-count= "5"
+              :page-size= "10"
+              layout="jumper, prev, pager, next"
+              :total="totalCount">
+      </el-pagination>
     </div>
   </div>
 </template>

@@ -88,7 +88,7 @@
     >
       <el-pagination
               @current-change="handleCurrentChange"
-              :hide-on-single-page="totalCount<=10"
+              :hide-on-single-page="totalAccount<=10"
               :current-page="pagination"
               :pager-count= "5"
               :page-size= "10"
