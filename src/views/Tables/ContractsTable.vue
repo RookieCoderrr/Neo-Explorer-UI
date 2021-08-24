@@ -5,17 +5,8 @@
     </h1>
   </div>
   <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
-    <!--div
-      class="card-header border-0"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-    >
-      <div class="row align-items-center">
-        <div class="col-2">
-          <h3 class="mb-0" :class="type === 'dark' ? 'text-white' : ''">
-            {{ $t("contract.title") }}
-          </h3>
-        </div>
-        <div class="col-7"></div>
+      <div class="" style="margin-top: 10px;margin-bottom: 1px;height: 45px">
+        <div class="col-9"></div>
         <div class="col-3">
           <div class="searchName" style="height: 45px">
             <input
@@ -43,16 +34,15 @@
             </button>
           </div>
         </div>
-      </div>
-    </div-->
-    <div class="table-responsive">
+    </div>
+    <div class="table-responsive" >
       <loading
         :is-full-page="false"
         :opacity="0.9"
         :active="isLoading"
       ></loading>
       <base-table
-        class="table align-items-center table-flush list-table"
+        class="table align-items-center table-flush list-table InfoTable"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
@@ -331,7 +321,6 @@ export default {
 .searchName {
   width: 100%;
   max-width: 300px;
-  height: 20px;
   position: relative;
 }
 .buttonName {
@@ -365,4 +354,6 @@ export default {
   border-radius: 4px;
   color: black;
 }
+
+
 </style>
