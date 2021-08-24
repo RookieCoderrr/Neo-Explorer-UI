@@ -113,28 +113,19 @@
     </div>
 
     <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
+            class="card-footer d-flex justify-content-end"
+            :class="type === 'dark' ? 'bg-transparent' : ''"
+            style="height: 70px"
     >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
-      </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
-      <div style="margin-top: 30px;margin-bottom: 20px">
-
-      </div>
+      <el-pagination
+              @current-change="handleCurrentChange"
+              :hide-on-single-page="totalCount<=10"
+              :current-page="pagination"
+              :pager-count= "5"
+              :page-size= "10"
+              layout="jumper, prev, pager, next"
+              :total="totalCount">
+      </el-pagination>
     </div>
   </div>
 
@@ -168,18 +159,6 @@ export default {
   created() {
     this.getTransferList(0);
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-  },
   watch: {
     blockHash: "watchblock",
   },
@@ -192,28 +171,10 @@ export default {
       //如果路由有变化，执行的对应的动作
       this.getTransferList(0);
     },
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= this.countPage) {
-        this.isLoading = true;
-        this.pagination = this.countPage;
-        const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getTransferList(skip);
-      } else if (pageNumber <= 0) {
-        this.isLoading = true;
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        this.getTransferList(skip);
-      } else {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTransferList(skip);
-      }
-    },
-    pageChange(pageNumber) {
+    handleCurrentChange(val) {
       this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.pagination = val;
+      const skip = (val - 1) * this.resultsPerPage;
       this.getTransferList(skip);
     },
     getTransferList(skip) {

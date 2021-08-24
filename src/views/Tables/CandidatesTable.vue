@@ -119,21 +119,6 @@ export default {
       countPage: 0,
     };
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-    multiple() {
-      return this.resultsPerPage * (this.pagination - 1);
-    },
-  },
 
   created() {
     this.getCandidateList(0);
@@ -155,31 +140,12 @@ export default {
         path: `/accountprofile/${accountAddress}`,
       });
     },
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= this.countPage) {
-        this.isLoading = true;
-        this.pagination = this.countPage;
-        const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getCandidateList(skip);
-      } else if (pageNumber <= 0) {
-        this.isLoading = true;
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        this.getCandidateList(skip);
-      } else {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getCandidateList(skip);
-      }
-    },
-    pageChange(pageNumber) {
+    handleCurrentChange(val) {
       this.isLoading = true;
-      this.pagination = pageNumber;
-      this.skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getCandidateList(this.skip);
+      this.pagination = val;
+      const skip = (val - 1) * this.resultsPerPage;
+      this.getCandidateList(skip);
     },
-
     getCandidateList(skip) {
       axios({
         method: "post",

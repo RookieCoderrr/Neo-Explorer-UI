@@ -127,22 +127,14 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
       style="height: 70px"
     >
-      <div style="margin-right: 10px; width: 250px" class="row pageInput">
-        <div class="text">Page &nbsp;</div>
-        <base-input
-          class="page"
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ this.countPage }}</div>
-      </div>
-      <base-pagination
-        :total="totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
+      <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page="pagination"
+              :pager-count= "5"
+              :page-size= "10"
+              layout="jumper, prev, pager, next"
+              :total="totalCount">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -183,64 +175,21 @@ export default {
   created() {
     this.getContractList(0);
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-  },
   methods: {
     convertTime,
     addressToScriptHash,
     changeFormat,
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= this.countPage) {
-        this.isLoading = true;
-        this.pagination = this.countPage;
-        const skip = (this.countPage - 1) * this.resultsPerPage;
-        if (this.name !== "") {
-          this.getContractListByName(name, skip);
-        } else {
-          this.getContractList(skip);
-        }
-      } else if (pageNumber <= 0) {
-        this.isLoading = true;
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        if (this.name !== "") {
-          this.getContractListByName(name, skip);
-        } else {
-          this.getContractList(skip);
-        }
-      } else {
-        this.isLoading = true;
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        console.log(this.name);
-        if (this.name !== "") {
-          this.getContractListByName(name, skip);
-        } else {
-          this.getContractList(skip);
-        }
-      }
-    },
-    pageChange(pageNumber) {
+    handleCurrentChange(val) {
       this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
+      this.pagination = val;
+      const skip = (val - 1) * this.resultsPerPage;
       if (this.name !== "") {
         this.getContractListByName(name, skip);
       } else {
         this.getContractList(skip);
       }
     },
-    getContract(hash) {
+      getContract(hash) {
       this.$router.push({
         path: `/contractinfo/${hash}`,
       });

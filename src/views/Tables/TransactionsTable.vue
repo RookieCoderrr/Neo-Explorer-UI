@@ -70,25 +70,20 @@
 
     <div
       v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
+      class="card-footer d-flex "
       :class="type === 'dark' ? 'bg-transparent' : ''"
       style="height: 70px"
     >
-      <div style="margin-right: 10px; width: 250px" class="row">
-        <div class="text">{{ $t("transactionList.page") }} &nbsp;</div>
-        <base-input
-          type="number"
-          :style="text(pagination)"
-          :placeholder="pagination"
-          v-on:changeinput="pageChangeByInput($event)"
-        ></base-input>
-        <div class="text">&nbsp; of &nbsp;{{ countPage }}</div>
-      </div>
-      <base-pagination
-        :total="this.totalCount"
-        :value="pagination"
-        v-on:input="pageChange($event)"
-      ></base-pagination>
+
+          <el-pagination
+                  @current-change="handleCurrentChange"
+                  :current-page="pagination"
+                  :pager-count= "5"
+                  :page-size= "10"
+                  layout="jumper, prev, pager, next"
+                  :total="totalCount">
+          </el-pagination>
+
     </div>
   </div>
 </template>
@@ -118,6 +113,7 @@ export default {
       placeHolder: 0,
       isLoading: true,
       countPage: 0,
+      currentPage4: 4,
     };
   },
 
@@ -127,6 +123,7 @@ export default {
   updated() {
     const nodes = document.getElementsByClassName('timeago')
     if(nodes.length != 0){
+        document.getElementsByClassName('el-pagination__jump')[0].childNodes[0].nodeValue = '跳转'
       if(this.$i18n.locale === 'cn'){
         render(nodes, 'zh_CN');
       }else{
@@ -134,22 +131,17 @@ export default {
       }
     }
   },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 50;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
-  },
+
   methods: {
     convertGas,
     convertTime,
     convertISOTime,
+    handleCurrentChange(val) {
+        this.isLoading = true;
+        this.pagination = val;
+        const skip = (val - 1) * this.resultsPerPage;
+        this.getTransactionList(skip);
+    },
     getTransaction(txhash) {
       this.$router.push({
         path: `/transactionInfo/${txhash}`,
@@ -160,28 +152,6 @@ export default {
         path: `/blockinfo/${blochash}`,
       });
     },
-    pageChange(pageNumber) {
-      this.isLoading = true;
-      this.pagination = pageNumber;
-      const skip = (pageNumber - 1) * this.resultsPerPage;
-      this.getTransactionList(skip);
-    },
-    pageChangeByInput(pageNumber) {
-      if (pageNumber >= this.countPage) {
-        this.pagination = this.countPage;
-        const skip = (this.countPage - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else if (pageNumber <= 0) {
-        this.pagination = 1;
-        const skip = this.resultsPerPage;
-        this.getTransactionList(skip);
-      } else {
-        this.pagination = pageNumber;
-        const skip = (pageNumber - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
-      }
-    },
-
     getTransactionList(skip) {
       axios({
         method: "post",
