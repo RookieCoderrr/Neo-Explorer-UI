@@ -147,6 +147,20 @@
           </div>
           <div class="row mt-3"></div>
         </div>
+
+        <div class="row mt-4">
+          <div class="col-6" style="height: 400px">
+            <daily-transaction>
+
+            </daily-transaction>
+          </div>
+
+          <div class="col-6">
+            <active-address>
+
+            </active-address>
+          </div>
+        </div>
         <div class="row mt-4">
           <div class="col-6">
             <blocks-table-homepage
@@ -178,11 +192,15 @@ import CountTo from "../../components/countTo";
 import en from "../../lang/en.js"
 import zh from "../../lang/zh_cn.js"
 import fr from "../../lang/fr.js"
+import DailyTransaction from "../BurnGas/DailyTransaction";
+import ActiveAddress from "../BurnGas/ActiveAddress";
 
 export default {
   name: "Home",
   components: {
+    DailyTransaction,
     BlocksTableHomepage,
+    ActiveAddress,
     // StatsCard,
     TransactionTableHomepage,
     CountTo,

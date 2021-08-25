@@ -28,7 +28,7 @@ const PageNotFound = ()=>import('../views/NotFound/PageNotFound');
 // import BurnFee from "../views/BurnGas/BurnFee";
 const BurnFee = ()=>import('../views/BurnGas/BurnFee');
 // import importEcharts from "../views/BurnGas/importEcharts";
-const importEcharts = ()=>import('../views/BurnGas/importEcharts');
+const importEcharts = ()=>import('../views/BurnGas/DailyTransaction');
 // import TransactionInfo from "../views/Transaction/TransactionInfo.vue";
 const TransactionInfo = ()=>import('../views/Transaction/TransactionInfo');
 import AuthLayout from "../layout/AuthLayout";
