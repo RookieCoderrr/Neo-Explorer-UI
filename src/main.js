@@ -8,11 +8,14 @@ import ElementPlus from "element-plus";
 import './assets/css/global.css'
 
 
+
+
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(i18n);
 appInstance.use(ElementPlus)
 appInstance.use(NeoDashboard);
 appInstance.mount("#app");
+
 
 
