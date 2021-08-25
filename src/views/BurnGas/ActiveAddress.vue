@@ -91,7 +91,6 @@ export default {
           });
         }
 
-        // 指定图表的配置项和数据
         var option = {
           color:['#c20a0a','#ffcc66'],
           title: [{
@@ -141,35 +140,67 @@ export default {
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-        // myChart.on('legendselectchanged', function (params){
-        //   console.log(params)
-        //   let legend = params.name;
-        //   let selected = params.selected;
-        //   if (selected !== undefined) {
-        //     if(legend ==="Recent 30 days") {
-        //       if(selected["Recent 30 days"]===true) {
-        //         selected["Recent 30 days"]=true;
-        //         selected["Recent 14 days"]=false;
-        //       }else {
-        //         selected["Recent 30 days"]=false;
-        //         selected["Recent 14 days"]=true;
-        //       }
-        //     }else {
-        //       if(selected["Recent 14 days"]===true) {
-        //         selected["Recent 14 days"]=true;
-        //         selected["Recent 30 days"]=false;
-        //       }else {
-        //         selected["Recent 14 days"]=false;
-        //         selected["Recent 30 days"]=true;
-        //       }
-        //     }
-        //   }
-        //   console.log(params)
-        //   var option =myChart.getOption()
-        //   option.legend.selected = selected
-        //   myChart.setOption(option)
-        // });
+        myChart.on('legendselectchanged', function (params){
+          console.log(params)
+          let legend = params.name;
+          let selected = params.selected;
+          if (selected !== undefined) {
+            if(legend ==="Recent 14 days") {
+              console.log(legend)
+              if(selected["Recent 14 days"]===true && selected["Recent 30 days"]===true) {
+                console.log("winner")
+                myChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: true,
+                      ["Recent 30 days"]: false
+                    }}
+                })
+              }
+              if(selected["Recent 14 days"]===false && selected["Recent 30 days"]===false){
+                myChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: false,
+                      ["Recent 30 days"]: true
+                    }}
+                })
+              }
+            }else {
+              console.log(legend)
+              console.log(selected["Recent 30 days"])
+              console.log(selected["Recent 14 days"])
+              if(selected["Recent 30 days"]==false && selected["Recent 14 days"]==false) {
+
+                myChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: false,
+                      ["Recent 14 days"] :true
+                    }}
+                })
+                console.log("we change it")
+              }
+              if(selected["Recent 30 days"]==true && selected["Recent 14 days"]==true) {
+                console.log("we change it")
+                myChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: true ,
+                      ["Recent 14 days"] :false
+                    }}
+                })
+
+              }
+            }
+          }
+        });
       }
+
       //onMounted
       onMounted(()=>{
         echartInit()
