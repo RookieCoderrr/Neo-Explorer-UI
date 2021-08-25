@@ -30,7 +30,7 @@ export default {
         var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 
-        getDailyTransactions(7)
+        getDailyTransactions(14)
 
         getDailyTransactions(30)
 
@@ -60,9 +60,9 @@ export default {
           }
           return m;
         }
-        function refreshData(Data){
+        function refreshData(Data,index){
             var option =myTransactionChart.getOption()
-            option.series[0].data = Data
+            option.series[index].data = Data
             myTransactionChart.setOption(option)
         }
 
@@ -81,19 +81,19 @@ export default {
               "Content-Type": "application/json",
             },
           }).then((res) => {
-            if(day === 7) {
+            if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
                 sdata14.push(res["data"]["result"][j]["DailyTransactions"])
               }
               console.log(sdata14)
-              refreshData(sdata14)
+              refreshData(sdata14,0)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
                 sdata30.push(res["data"]["result"][m]["DailyTransactions"])
               }
               console.log(sdata30)
-              refreshData(sdata30)
+              refreshData(sdata30,1)
             }
           });
         }
@@ -148,6 +148,10 @@ export default {
         };
         // 使用刚指定的配置项和数据显示图表。
         myTransactionChart.setOption(option);
+        window.addEventListener("resize", function () {
+
+          myTransactionChart.resize()
+        });
         myTransactionChart.on('legendselectchanged', function (params){
           console.log(params)
           let legend = params.name;

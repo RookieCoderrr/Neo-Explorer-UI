@@ -29,7 +29,7 @@ export default {
 
         var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        getActiveAddress(7)
+        getActiveAddress(14)
 
         getActiveAddress(30)
 
@@ -58,9 +58,9 @@ export default {
           }
           return m;
         }
-        function refreshData(Data){
+        function refreshData(Data,index){
             var option =myChart.getOption()
-            option.series[0].data = Data
+            option.series[index].data = Data
             myChart.setOption(option)
         }
 
@@ -79,18 +79,20 @@ export default {
               "Content-Type": "application/json",
             },
           }).then((res) => {
-            if(day === 7) {
+            console.log(res)
+            if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
                 sdata14.push(res["data"]["result"][j]["ActiveAddresses"])
               }
               console.log(sdata14)
-              refreshData(sdata14)
+              refreshData(sdata14,0)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
                 sdata30.push(res["data"]["result"][m]["ActiveAddresses"])
               }
               console.log("nouse")
+              refreshData(sdata30,1)
             }
           });
         }
@@ -144,6 +146,10 @@ export default {
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
+        window.addEventListener("resize", function () {
+
+          myChart.resize()
+        });
         myChart.on('legendselectchanged', function (params){
           console.log(params)
           let legend = params.name;
