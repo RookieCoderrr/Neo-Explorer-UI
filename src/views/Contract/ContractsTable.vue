@@ -122,13 +122,13 @@
     </div>
 
     <div
-      v-if="this.totalCount > 10"
-      class="card-footer d-flex justify-content-end"
-      :class="type === 'dark' ? 'bg-transparent' : ''"
-      style="height: 70px"
+            class="card-footer d-flex justify-content-end"
+            :class="type === 'dark' ? 'bg-transparent' : ''"
+            style="height: 70px"
     >
       <el-pagination
               @current-change="handleCurrentChange"
+              :hide-on-single-page="totalCount<=10"
               :current-page="pagination"
               :pager-count= "5"
               :page-size= "10"

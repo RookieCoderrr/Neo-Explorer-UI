@@ -41,16 +41,14 @@
               {{ row.item.symbol }}
             </td>
             <td>
-              <badge
+              <el-tag
                 v-if="row.item.standard === 'NEP17'"
-                class="badge-dot mr-4"
-                type="primary"
               >
                 <span class="">{{ row.item.standard }}</span>
-              </badge>
-              <badge v-else class="badge-dot mr-4" type="success">
+              </el-tag>
+              <el-tag v-else class="badge-dot mr-4" type="success">
                 <span class="">{{ row.item.standard }}</span>
-              </badge>
+              </el-tag>
             </td>
             <td class="balance">
               {{ convertToken(row.item.balance, row.item.decimals) }}

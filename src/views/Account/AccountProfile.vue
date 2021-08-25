@@ -126,7 +126,7 @@
               style="
                 width: 80%;
                 margin-left: 10%;
-                background-color: rgb(250, 250, 250);
+                background-color: rgb(242, 242, 242);
               "
             >
               <el-tab-pane
@@ -197,7 +197,7 @@ export default {
       numOfnep17Transfers: -1,
       numOfnep11Transfers: 0,
       type: "normal",
-      activeName: "second",
+      activeName: "first",
     };
   },
   components: {
