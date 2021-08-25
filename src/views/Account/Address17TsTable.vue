@@ -1,5 +1,12 @@
 <template>
-    <div v-if="this.totalCount != 0" class="table-responsive">
+    <div v-if="this.totalCount != 0" >
+      <div
+              v-if="this.totalCount != 0"
+              class="card shadow"
+              :class="type === 'dark' ? 'bg-default' : ''"
+      >
+
+      <div class="table-responsive">
       <base-table
         class="table align-items-center table-flush"
         :class="type === 'dark' ? 'table-dark' : ''"
@@ -155,7 +162,7 @@
             </div>
           </td>
           <td>
-            <h1 style="color: #42b983">&#8594;</h1>
+            <h3 style="color: #42b983">&#8594;</h3>
           </td>
           <td class="to">
             <div class="text-muted" v-if="row.item.to === null">
@@ -221,6 +228,7 @@
         </el-pagination>
       </div>
     </div>
+      </div></div>
     <card v-else shadow class="text-center">{{
       $t("addressPage.nep17nullPrompt")
     }}</card>
