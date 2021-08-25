@@ -21,23 +21,26 @@ export default {
       const echartInit = () =>{
         var myTransactionChart = echarts.init(document.getElementById('main'));
 
-        var xdata =[]
+        var xdata14 =[]
 
-        var sdata =[0,0,0,0,0,0,0,0,0,0,0]
+        var xdata30 =[]
 
-        var ndata=[]
+        var sdata14 =[0,0,0,0,0,0,0,0,0,0,0]
 
-        for(var i = 0; i <7; i ++) {
-          ndata.push(i)
-        }
-        console.log(ndata)
+        var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        getDailyTransactions(7)
 
-        console.log(sdata)
+        getDailyTransactions(14)
+
+        getDailyTransactions(30)
+
+
 
         for (var k = -13; k <= 0 ; k ++) {
-          xdata.push(getDay(k))
+          xdata14.push(getDay(k))
+        }
+        for (var n = - 29; n <=0; n ++) {
+          xdata30.push(getDay(n))
         }
         function getDay(day){
           var today = new Date();
@@ -57,9 +60,9 @@ export default {
           }
           return m;
         }
-        function refreshData(Data){
+        function refreshData(Data,index){
             var option =myTransactionChart.getOption()
-            option.series[0].data = Data
+            option.series[index].data = Data
             myTransactionChart.setOption(option)
         }
 
@@ -78,15 +81,19 @@ export default {
               "Content-Type": "application/json",
             },
           }).then((res) => {
-            if(day === 7) {
+            if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
-                sdata.push(res["data"]["result"][j]["DailyTransactions"])
+                sdata14.push(res["data"]["result"][j]["DailyTransactions"])
               }
-              console.log(sdata)
-              refreshData(sdata)
+              console.log(sdata14)
+              refreshData(sdata14,0)
             }
             else {
-              console.log("nouse")
+              for (var m = 0; m < res["data"]["result"].length; m ++) {
+                sdata30.push(res["data"]["result"][m]["DailyTransactions"])
+              }
+              console.log(sdata30)
+              refreshData(sdata30,1)
             }
           });
         }
@@ -111,7 +118,7 @@ export default {
           },
           xAxis: {
             type: 'category',
-            data: xdata,
+            data: xdata14,
             splitLine: {
               show: false
             },
@@ -134,41 +141,85 @@ export default {
             {
               name: 'Recent 30 days',
               type: 'line',
-              data: ndata,
+              data: [1,5,23,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
               smooth: true
             }
           ]
         };
         // 使用刚指定的配置项和数据显示图表。
         myTransactionChart.setOption(option);
-        // myChart.on('legendselectchanged', function (params){
-        //   console.log(params)
-        //   let legend = params.name;
-        //   let selected = params.selected;
-        //   if (selected !== undefined) {
-        //     if(legend ==="Recent 30 days") {
-        //       if(selected["Recent 30 days"]===true) {
-        //         selected["Recent 30 days"]=true;
-        //         selected["Recent 14 days"]=false;
-        //       }else {
-        //         selected["Recent 30 days"]=false;
-        //         selected["Recent 14 days"]=true;
-        //       }
-        //     }else {
-        //       if(selected["Recent 14 days"]===true) {
-        //         selected["Recent 14 days"]=true;
-        //         selected["Recent 30 days"]=false;
-        //       }else {
-        //         selected["Recent 14 days"]=false;
-        //         selected["Recent 30 days"]=true;
-        //       }
-        //     }
-        //   }
-        //   console.log(params)
-        //   var option =myChart.getOption()
-        //   option.legend.selected = selected
-        //   myChart.setOption(option)
-        // });
+        window.addEventListener("resize", function () {
+
+          myTransactionChart.resize()
+        });
+        myTransactionChart.on('legendselectchanged', function (params){
+          console.log(params)
+          let legend = params.name;
+          let selected = params.selected;
+          if (selected !== undefined) {
+            if(legend ==="Recent 14 days") {
+              console.log(legend)
+              if(selected["Recent 14 days"]===true && selected["Recent 30 days"]===true) {
+                console.log("winner")
+                myTransactionChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: true,
+                      ["Recent 30 days"]: false
+                    }},
+                  xAxis:{
+                    data:xdata14
+                  },
+
+                })
+              }
+              if(selected["Recent 14 days"]===false && selected["Recent 30 days"]===false){
+                myTransactionChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: false,
+                      ["Recent 30 days"]: true
+                    }},
+                  xAxis:{
+                    data:xdata30
+                  },
+                })
+              }
+            }else {
+
+              if(selected["Recent 30 days"]==false && selected["Recent 14 days"]==false) {
+
+                myTransactionChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: false,
+                      ["Recent 14 days"] :true
+                    }},
+                  xAxis:{
+                    data:xdata14
+                  },
+                })
+              }
+              if(selected["Recent 30 days"]==true && selected["Recent 14 days"]==true) {
+                myTransactionChart.setOption({
+
+                  legend:{
+                    selected:{
+                      [legend]: true ,
+                      ["Recent 14 days"] :false
+                    }},
+                  xAxis:{
+                    data:xdata30
+                  },
+                })
+
+              }
+            }
+          }
+        });
       }
       //onMounted
       onMounted(()=>{
