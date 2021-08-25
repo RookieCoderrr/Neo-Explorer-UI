@@ -7,59 +7,59 @@
 
 <script>
 
-//    import * as echarts from 'echarts'
-//    import { onMounted } from "vue";
-//    export default {
-//
-//        setup() {
-//            //methods
-//            const echartInit = () =>{
-//                var myChart = echarts.init(document.getElementById('main'));
-//                // 指定图表的配置项和数据
-//                var option = {
-//                    title: {
-//                        text: 'ECharts 入门示例'
-//                    },
-//                    tooltip: { trigger: 'axis',
-//                        axisPointer: {
-//                            type: 'cross',
-//                            label: {
-//                                backgroundColor: '#6a7985'
-//                            }
-//                        }},
-//                    legend: {
-//                        data:['销量']
-//                    },
-//                    xAxis: {
-//                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-//                    },
-//                    yAxis: {
-//                        "axisTick":{       //y轴刻度线
-//                            "show":true
-//                        },"splitLine": {     //网格线
-//                            "show": false
-//                        }
-//                    },
-//                    series: [{
-//                        type: 'line',
-//                        smooth: true,
-//                        // symbol:'none',
-//                        data: [5, 20, 36, 10, 10, 20]
-//                    }],
-//                };
-//                // 使用刚指定的配置项和数据显示图表。
-//                myChart.setOption(option);
-//            }
-//            //onMounted
-//            onMounted(()=>{
-//                echartInit()
-//            })
-//            //return
-//            return {
-//                echartInit
-//            };
-//        }
-//    }
+   import * as echarts from 'echarts'
+   import { onMounted } from "vue";
+   export default {
+
+       setup() {
+           //methods
+           const echartInit = () =>{
+               var myChart = echarts.init(document.getElementById('main'));
+               // 指定图表的配置项和数据
+               var option = {
+                   title: {
+                       text: 'ECharts 入门示例'
+                   },
+                   // tooltip: { trigger: 'axis',
+                   //     axisPointer: {
+                   //         type: 'cross',
+                   //         label: {
+                   //             backgroundColor: '#6a7985'
+                   //         }
+                   //     }},
+                   legend: {
+                       data:['销量']
+                   },
+                   xAxis: {
+                       data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                   },
+                   yAxis: {
+                       "axisTick":{       //y轴刻度线
+                           "show":true
+                       },"splitLine": {     //网格线
+                           "show": false
+                       }
+                   },
+                   series: [{
+                       type: 'line',
+                       smooth: true,
+                       // symbol:'none',
+                       data: [5, 20, 36, 10, 10, 20]
+                   }],
+               };
+               // 使用刚指定的配置项和数据显示图表。
+               myChart.setOption(option);
+           }
+           //onMounted
+           onMounted(()=>{
+               echartInit()
+           })
+           //return
+           return {
+               echartInit
+           };
+       }
+   }
 
 </script>
 

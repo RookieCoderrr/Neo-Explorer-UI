@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-10 context">
                   <router-link
-                    class="name mb-0 text-sm"
+                    class="name mb-0 "
                     style="cursor: pointer"
                     :to="'/blockinfo/' + this.blockhash"
                   >
@@ -89,6 +89,7 @@
                     @click="copyItem('block', 'blockButton', 'blockSpan')"
                   ></i>
                   <span style="color: #42b983" id="blockSpan"></span>
+                  <el-button type="primary" size="small" style="height: 19px;margin-left: 20px;">Hash</el-button>
                 </div>
               </div>
 
@@ -97,15 +98,8 @@
                   {{ $t("transactionInfo.sender") }}
                 </div>
                 <div class="col-10 context-black">
-                  <button
-                    class="btn btn-sm btn-primary"
-                    @click="changeFormat(button)"
-                  >
-                    {{ this.button.buttonName }}
-                  </button>
-                  <span></span>
                   <router-link
-                    class="name mb-0 text-sm"
+                    class="name mb-0 "
                     id="sender"
                     style="cursor: pointer"
                     :to="'/accountprofile/' + this.address"
