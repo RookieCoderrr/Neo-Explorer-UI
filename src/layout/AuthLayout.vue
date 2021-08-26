@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content bg-default">
+  <div class="main-content bg-default" style="background-color: #fafafa!important;">
     <!-- Navbar -->
     <base-nav
       class="navbar-horizontal"
@@ -138,7 +138,7 @@
     <!-- Header -->
 
     <div v-if="$route.meta.HomePage" style="background: #fafafa"></div>
-    <div v-else class="header py-7 py-lg-6" style="background: #f2f2f2"></div>
+    <div v-else class="header py-7 py-lg-6" style="background: #fafafa"></div>
 
     <router-view></router-view>
   </div>
