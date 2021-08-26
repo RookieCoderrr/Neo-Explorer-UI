@@ -19,7 +19,6 @@ const en = {
   size:"Size",
   block:"Block Index: ",
   ahash:"Hash: ",
-  byte:"Bytes ",
   overview:"Overview",
   blockDetail:"Block Details",
   tokenDetail:"Token Details",

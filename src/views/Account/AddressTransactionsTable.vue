@@ -26,22 +26,22 @@
             <td>
               <div class="txid">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/transactionInfo/' + row.item.hash"
                   >{{ row.item.hash }}</router-link
                 >
               </div>
             </td>
-            <td class="budget">
+            <td class="table-list-item">
               {{ row.item.blockIndex }}
             </td>
-            <td class="budget">{{ row.item.size }} bytes</td>
-            <td class="budget">
+            <td class="table-list-item">{{ row.item.size }} bytes</td>
+            <td class="table-list-item">
               {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
             </td>
 
-            <td class="budget">
+            <td class="table-list-item">
               {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
             </td>
           </template>

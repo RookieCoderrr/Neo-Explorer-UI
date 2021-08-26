@@ -77,7 +77,7 @@
     font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     /* identical to box height, or 143% */
     color: #000000;
@@ -145,7 +145,7 @@
 }
 
 .tableHeader {
-    background:#5576EC!important;
+    background:rgb(100,100,100)!important;
     color:#ffffff!important;
 }
 
@@ -229,4 +229,74 @@
 }
 .InfoTable{
     margin-top: 5px!important;
+}
+.event_parameters{
+    margin-left: 30px;
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #000000;
+    mix-blend-mode: normal;
+    opacity: 0.3;
+}
+.event_param{
+    height: 20px;
+    margin-left: 30px;
+    top: calc(50% - 20px/2 - 200.5px);
+
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #282B34;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+}
+.el-collapse-item__header{
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+}
+.el-button--mini, .el-button--mini.is-round {
+    padding: 5px 5px;
+    color: #5e72e4;
+}
+.el-button--small {
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 3px;
+    background-color: #5576EC;
+}
+.el-button--small:hover{
+    background-color: rgba(85,118,236,0.8);
+}
+
+.table-list-item{
+    font-family: Avenir,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #000000;
+
+}
+.table-list-item-blue{
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #5576EC;
 }

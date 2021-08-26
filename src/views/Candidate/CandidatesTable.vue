@@ -43,7 +43,7 @@
           <td class="budget">
             <div class="address">
               <router-link
-                class="name mb-0 text-sm"
+                class=" table-list-item-blue mb-0 "
                 style="cursor: pointer"
                 :to="'/accountprofile/' + row.item.candidate"
               >
@@ -52,13 +52,13 @@
             </div>
           </td>
           <td><i v-if="row.item.isCommittee" class="ni ni-badge"></i></td>
-          <td class="budget">
+          <td  class="table-list-item">
             {{ row.index + 1 + this.count }}
-          </td>
-          <td class="budget">
+          </td >
+          <td  class="table-list-item">
             {{ row.item.votesOfCandidate }}
           </td>
-          <td class="budget">
+          <td  class="table-list-item">
             {{ getVotePercentage(row.item.votesOfCandidate) }}
           </td>
         </template>

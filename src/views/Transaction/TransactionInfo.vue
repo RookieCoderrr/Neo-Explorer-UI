@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="background-color: #f2f2f2">
+    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
           <loading
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-10 context">
                   <router-link
-                    class="name mb-0 text-sm"
+                    class="name mb-0 "
                     style="cursor: pointer"
                     :to="'/blockinfo/' + this.blockhash"
                   >
@@ -97,15 +97,8 @@
                   {{ $t("transactionInfo.sender") }}
                 </div>
                 <div class="col-10 context-black">
-                  <button
-                    class="btn btn-sm btn-primary"
-                    @click="changeFormat(button)"
-                  >
-                    {{ this.button.buttonName }}
-                  </button>
-                  <span></span>
                   <router-link
-                    class="name mb-0 text-sm"
+                    class="name mb-0 "
                     id="sender"
                     style="cursor: pointer"
                     :to="'/accountprofile/' + this.address"
@@ -116,6 +109,7 @@
                         : addressToScriptHash(this.address)
                     }}
                   </router-link>
+                  <span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                   <i
                     class="ni ni-single-copy-04"
                     id="senderButton"
@@ -124,6 +118,8 @@
                     @click="copyItem('sender', 'senderButton', 'senderSpan')"
                   ></i>
                   <span style="color: #42b983" id="senderSpan"></span>
+                  </span>
+                  <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)"> {{ this.button.buttonName }}</el-button>
                 </div>
               </div>
 
@@ -182,6 +178,7 @@
                   class="text-title3"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['signers']"
                     :key="index"
                   >
@@ -193,6 +190,7 @@
                   name="2"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['signers']"
                     :key="index"
                   >
@@ -213,6 +211,7 @@
                   class="itemCollapse"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['witnesses']"
                     :key="index"
                   >
@@ -224,6 +223,7 @@
                   name="2"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['witnesses']"
                     :key="index"
                   >
@@ -242,14 +242,14 @@
                   name="1"
                   class="item-collapse"
                 >
-                  <div v-html="this.tabledata['script']"></div>
+                  <div class="ml-4" v-html="this.tabledata['script']"></div>
                 </el-collapse-item>
               </el-collapse>
             </card>
             <div class="row mt-4"></div>
             <el-tabs
               v-model="activeName"
-              style="width: 80%; margin-left: 10%; background-color: #f2f2f2"
+              style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
             >
               <el-tab-pane label="Nep17Transfers" name="first">
                 <transfers-list

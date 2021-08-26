@@ -70,7 +70,7 @@
             <div class="media align-items-center">
               <div class="media-body">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" table-list-item-blue mb-0 "
                   style="cursor: pointer"
                   :to="'/contractinfo/' + row.item.hash"
                   >{{ row.item.hash }}</router-link
@@ -78,15 +78,15 @@
               </div>
             </div>
           </th>
-          <td class="name">
+          <td  class="table-list-item">
             {{ row.item.name }}
           </td>
-          <td class="Creator">
+          <td  class="table-list-item-blue">
             <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
               $t("contract.available")
             }}</span>
             <router-link
-              class="mb-0 text-sm"
+              class="table-list-item-blue mb-0"
               v-else-if="button.state"
               style="cursor: pointer"
               :to="
@@ -97,7 +97,7 @@
               {{ row.item.Transaction[0]["sender"] }}
             </router-link>
             <router-link
-              class="mb-0 text-sm"
+              class="table-list-item-blue mb-0 "
               v-else
               style="cursor: pointer"
               :to="
@@ -108,13 +108,13 @@
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>
           </td>
-          <td class="updates">
+          <td  class="table-list-item">
             {{ row.item.id }}
           </td>
-          <td class="updates">
+          <td  class="table-list-item">
             {{ row.item.updatecounter }}
           </td>
-          <td class="time">
+          <td  class="table-list-item">
             {{ convertTime(row.item.createtime, this.$i18n.locale) }}
           </td>
         </template>

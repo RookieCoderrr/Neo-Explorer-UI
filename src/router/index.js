@@ -1,38 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import Contracts from "../views/Contract/Contracts";
 const Contracts = ()=>import('../views/Contract/Contracts');
 const ContractInfo = ()=>import('../views/Contract/ContractInfo');
 const TokenInfo = ()=>import('../views/Token/TokenInfo');
 const BlockInfo = ()=>import('../views/Block/BlockInfo');
 const CandiateList = ()=>import('../views/Candidate/CandiateList');
 const Account = ()=>import('../views/Account/AccountsList');
-// import ContractInfo from "../views/Contract/ContractInfo";
-// import TokenInfo from "../views/Token/TokenInfo.vue";
-// import BlockInfo from "../views/Block/BlockInfo.vue";
-// import CandiateList from "../views/Candidate/CandiateList.vue";
-// import Account from "../views/Account/AccountsList";
-// import TransactionList from "../views/Transaction/TransactionList.vue";
 const TransactionList = ()=>import('../views/Transaction/TransactionList');
-// import AccountProfile from "../views/Account/AccountProfile";
 const AccountProfile = ()=>import('../views/Account/AccountProfile');
-// import Tokens from "../views/Token/Tokens.vue";
 const Tokens = ()=>import('../views/Token/Tokens');
-// import Blocks from "../views/Block/Blocks.vue";
 const Blocks = ()=>import('../views/Block/Blocks');
-// import Search from "../views/NotFound/SearchNotFound";
 const Search = ()=>import('../views/NotFound/SearchNotFound');
-// import HomePage from "../views/Home/HomePage";
 const HomePage = ()=>import('../views/Home/HomePage');
-// import PageNotFound from "../views/NotFound/PageNotFound";
 const PageNotFound = ()=>import('../views/NotFound/PageNotFound');
-// import BurnFee from "../views/BurnGas/BurnFee";
 const BurnFee = ()=>import('../views/BurnGas/BurnFee');
-// import importEcharts from "../views/BurnGas/importEcharts";
-const importEcharts = ()=>import('../views/BurnGas/importEcharts');
-// import TransactionInfo from "../views/Transaction/TransactionInfo.vue";
+const importEcharts = ()=>import('../views/BurnGas/DailyTransaction');
 const TransactionInfo = ()=>import('../views/Transaction/TransactionInfo');
 import AuthLayout from "../layout/AuthLayout";
-// const AccountProfile = ()=>import('../views/Account/AccountProfile');
+
 const routes = [
   {
     path: "/",
@@ -40,8 +24,8 @@ const routes = [
     component: AuthLayout,
     children: [
       {
-        path: "/:pathMatch(.*)*",
-        name: "404",
+        path: '/:pathMatch(.*)',
+        name: '404',
         component: PageNotFound,
         meta: {
           showSearch: false,
@@ -170,6 +154,7 @@ const routes = [
       },
     ],
   },
+
 ];
 
 const router = createRouter({

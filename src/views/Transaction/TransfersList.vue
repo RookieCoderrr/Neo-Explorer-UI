@@ -53,7 +53,7 @@
             <td class="budget">
               <div class="contract">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/contractinfo/' + row.item.contract"
                   >{{ row.item.contract }}</router-link
@@ -61,7 +61,7 @@
               </div>
             </td>
             <td class="budget">
-              <div class="from">
+              <div class="table-list-item">
                 {{ row.item.tokenname }}
               </div>
             </td>
@@ -94,7 +94,7 @@
                   {{ $t("nullAddress") }}</span
                 >
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   v-else
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.from"
@@ -110,7 +110,7 @@
               <span class="text-muted" v-if="row.item.from === null">{{
                 $t("nullBalance")
               }}</span>
-              <span v-else>{{
+              <span v-else class="table-list-item">{{
                 convertToken(row.item.frombalance, row.item.decimals)
               }}</span>
             </td>
@@ -124,7 +124,7 @@
                 >
                 <router-link
                   v-else
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.to"
                   >{{
@@ -140,12 +140,12 @@
               <span class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullBalance") }}
               </span>
-              <span v-else>
+              <span v-else class="table-list-item">
                 {{ convertToken(row.item.tobalance, row.item.decimals) }}</span
               >
             </td>
 
-            <td class="budget">
+            <td class="table-list-item">
               {{ convertToken(row.item.value, row.item.decimals) }}
             </td>
           </template>

@@ -13,18 +13,16 @@
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
               <card shadow class="card-style">
 
-                <div class="row  mt-3  mb-1">
+                <div class="row   mb-1">
                   <div class="col-2 lable-title">
                     {{ $t("contract.name") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-8 context-black">
                     {{ this.contract_info["name"] }}
-                    <button
-                            v-if="isToken"
-                            class="btn btn-primary btn-sm"
-                            @click="getToken(this.contract_id)">
-                      Token
-                    </button>
+                  </div>
+                  <div class="col-2">
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 25px; margin-left: 60px" @click="getToken(this.contract_id)">
+                      Token</el-button>
                   </div>
                 </div>
 
@@ -49,13 +47,13 @@
                       {{$t("contract.available") }}
                     </span>
                     <div v-else>
-                        <button class="btn btn-sm btn-primary" @click="changeFormat(button)">{{ this.button.buttonName }}</button>
                       <router-link
-                              class="name mb-0 text-sm"
+                              class="name mb-0 "
                               style="cursor: pointer"
                               :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                       >{{ button.state ?this.contract_info["sender"] : addressToScriptHash(this.contract_info["sender"])}}</router-link
                       >
+                      <el-button type="primary" size="small" style="height: 19px;margin-left: 20px;">Hash</el-button>
                     </div>
                   </div>
                 </div>
@@ -153,25 +151,28 @@
                         <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
 
 
-                        <el-collapse v-model="activeNames"    style="border: white;">
-                          <el-collapse-item
-                              v-for="(item, index) in this.manifest['abi']['events']"
-                              :key="index"
-                              :name="index"
-                              :title="item['name']"
-                            class="text-title3"
-                        >
+                        <el-collapse v-model="activeNames"
+                                     v-for="(item, index) in this.manifest['abi']['events']"
+                                     :key="index"
+                                     :name="index"
+                                      style="border: white;">
+
+                          <el-collapse-item    :title="item['name']"  style="margin-bottom: 20px" >
                           <div class="row">
                             <div class="col">
                               <div class="params">
-                                <div class="text-muted">{{$t('tokenInfo.params')}}</div>
+                                <div class="event_parameters">{{$t('tokenInfo.params')}}</div>
                                 <div v-if="item['parameters'].length !== 0">
-                                  <li
-                                          v-for="(param, ind) in item['parameters']"
-                                          :key="ind"
-                                  >
-                                    {{ param["name"] }}: {{ param["type"] }}
-                                  </li>
+                                  <div v-for="(param, ind) in item['parameters']"
+                                       :key="ind"  class="row  mt-3  mb-1">
+                                    <div class="col-2 event_param" >
+                                      {{ param["name"] }}:
+                                    </div>
+                                    <div class="col-9 context-black">
+                                      {{ param["type"] }}
+                                    </div>
+
+                                  </div>
                                 </div>
                                 <div v-else>null</div>
                               </div>
@@ -184,17 +185,15 @@
                       </div>
                       <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
 
-                      <el-collapse v-model="activeNames2"    style="border: white;">
-                      <el-collapse-item
-                              v-for="(item, index) in this.manifest['abi']['methods']"
-                              :key="index"
-                              :name="index"
-                              :title="item['name']"
-                              class="text-title3"
+                      <el-collapse v-model="activeNames2"
+                                    v-for="(item, index) in this.manifest['abi']['methods']"
+                                   :key="index"
+                                   :name="index"
+                                   style="border: white;"
                       >
+                      <el-collapse-item :title="item['name']" style="margin-bottom: 20px">
                         <div class="row">
-                          <h3 class="col-auto">{{ item["name"] }}</h3>
-                          <div style="padding-left: 5px" v-if="item['safe']">
+                          <div style="margin-left: 4%" v-if="item['safe']">
                             <button
                                     class="btn btn-sm btn-primary"
                                     @click="onQuery(index)"
@@ -204,16 +203,13 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-4">
+                          <div class="col-4" style="margin-left: 3%">
                             <div class="params">
                               <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-if="item['safe']">
-                                  <div
-                                          v-for="(param, ind) in item['parameters']"
-                                          :key="ind"
-                                  >
-
+                                  <div v-for="(param, ind) in item['parameters']"
+                                       :key="ind">
                                     <li>
                                       {{ param["name"] }}: {{ param["type"] }}
                                       <div>
@@ -242,13 +238,13 @@
                               <div v-else>{{$t('tokenInfo.noParam')}}</div>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-3">
                             <div class="return">
                               <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
                               {{ item["returntype"] }}
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-3">
                             <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
                             {{ item["offset"] }}
                           </div>
@@ -258,7 +254,7 @@
                           </div>
                         </div>
                         <div
-                                class="mt-3"
+                                class="mt-3 ml-4"
                         >
                           <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
                             <h3>{{$t('tokenInfo.error')}}</h3>
@@ -276,8 +272,8 @@
                                 </button>
                               </div>
                             </div>
-                            <json-view v-if="manifest['abi']['methods'][index]['isRaw']" :json="manifest['abi']['methods'][index]['raw']"></json-view>
-                            <json-view v-else :json="manifest['abi']['methods'][index]['display']"></json-view>
+                            <contract-json-view v-if="manifest['abi']['methods'][index]['isRaw']" :json="manifest['abi']['methods'][index]['raw']"></contract-json-view>
+                            <contract-json-view v-else :json="manifest['abi']['methods'][index]['display']"></contract-json-view>
                           </div>
                         </div>
                       </el-collapse-item>
@@ -304,7 +300,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./EventsTable";
 import ScCallTable from "./ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import JsonView from "./JsonView";
+import ContractJsonView from "./ContractJsonView";
 import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../../store/util";
 
 export default {
@@ -312,7 +308,7 @@ export default {
     Loading,
     EventsTable,
     ScCallTable,
-    JsonView,
+    ContractJsonView,
   },
   data() {
     return {
@@ -477,4 +473,28 @@ export default {
 </script>
 
 <style>
+
+  .el-collapse-item__header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 70px;
+    line-height: 48px;
+    background-color: #FFF;
+    color: #000000;
+    mix-blend-mode: normal;
+    cursor: pointer;
+    border-bottom: 0px!important;
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    padding-left: 30px;
+    -webkit-transition: border-bottom-color .3s;
+    transition: border-bottom-color .3s;
+    outline: 0;
+  }
 </style>
