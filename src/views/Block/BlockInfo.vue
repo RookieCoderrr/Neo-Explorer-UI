@@ -93,10 +93,11 @@
                       <router-link class="name mb-0 " id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
+<span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
-                      <span style="color: #42b983" id="speakerSpan" ></span>
-
-                      <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)">
+                      <span style="color: #42b983;" id="speakerSpan" ></span>
+</span>
+                      <el-button type="primary" size="small" style="height: 21px;" @click="changeFormat(button)">
                         {{this.button.buttonName}}</el-button>
                     </div>
                     <div class="col-2 "  v-if="this.block_info['speaker']" >

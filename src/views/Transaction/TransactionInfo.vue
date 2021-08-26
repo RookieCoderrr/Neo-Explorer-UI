@@ -109,6 +109,7 @@
                         : addressToScriptHash(this.address)
                     }}
                   </router-link>
+                  <span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                   <i
                     class="ni ni-single-copy-04"
                     id="senderButton"
@@ -117,6 +118,7 @@
                     @click="copyItem('sender', 'senderButton', 'senderSpan')"
                   ></i>
                   <span style="color: #42b983" id="senderSpan"></span>
+                  </span>
                   <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)"> {{ this.button.buttonName }}</el-button>
                 </div>
               </div>
