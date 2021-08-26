@@ -38,8 +38,8 @@
               {{ this.toButton.buttonName }}
             </button>
           </th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.amount") }}</th>
-          <th style="background:#5576EC; color:#ffffff">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
         </template>
 
         <template v-slot:default="row">

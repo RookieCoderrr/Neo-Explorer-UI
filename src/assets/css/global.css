@@ -145,8 +145,15 @@
 }
 
 .tableHeader {
-    background:rgb(100,100,100)!important;
-    color:#ffffff!important;
+    background:rgb(242,242,242)!important;
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+    color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: normal;
 }
 
 .block-page-card {

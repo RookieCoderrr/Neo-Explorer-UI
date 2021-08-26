@@ -10,6 +10,7 @@ const en = {
   transfer: "Transfer",
   nullAddress: "Null Address",
   nullBalance: "Null Balance",
+  nullTransaction:"Null Transaction",
   hash: "Hash",
   wif: "WIF",
   page: "Page",

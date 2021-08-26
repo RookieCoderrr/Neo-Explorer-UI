@@ -199,10 +199,10 @@
             </div>
           </td>
 
-          <td class="budget">
+          <td class="table-list-item">
             {{ row.item.value }}
           </td>
-          <td class="budget">
+          <td class="table-list-item">
             {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
         </template>

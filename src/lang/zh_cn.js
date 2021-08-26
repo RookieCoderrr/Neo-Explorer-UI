@@ -10,6 +10,7 @@ const zh = {
   transfer: "转账",
   nullAddress: "空地址",
   nullBalance: "不适用",
+  nullTransaction:"暂无交易",
   hash: "哈希",
   wif: "地址",
   page: "页",
