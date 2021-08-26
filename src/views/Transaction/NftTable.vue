@@ -21,19 +21,16 @@
           <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
           <th class="tableHeader">
             {{ $t("transactionTransfer.from") }}
-            <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFormat(fromButton)">
-              {{ fromButton.buttonName }}
-            </button>
+
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
+              {{fromButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("transactionTransfer.to") }}
-            <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
-              {{ toButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
+              {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
           <th class="tableHeader">{{ $t("transactionTransfer.amount") }}</th>

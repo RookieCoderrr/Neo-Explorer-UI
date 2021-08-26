@@ -33,13 +33,11 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("addressPage.number") }}</th>
           <th class="tableHeader">
-            {{ $t("addressPage.address")
-            }}<button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(button)"
-            >
-              {{ this.button.buttonName }}
-            </button>
+            {{ $t("addressPage.accountsTable")
+            }}
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
           <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>

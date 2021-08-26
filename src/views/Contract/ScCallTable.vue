@@ -17,9 +17,8 @@
           <th class="tableHeader">{{ $t("contract.txID") }}</th>
           <th class="tableHeader">
             {{ $t("contract.sender") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
-              {{ button.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("contract.method") }}</th>
           <th class="tableHeader">{{ $t("contract.callFlags") }}</th>
