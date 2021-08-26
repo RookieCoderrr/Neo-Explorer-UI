@@ -96,7 +96,8 @@
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
                       <span style="color: #42b983" id="speakerSpan" ></span>
 
-                      <el-button type="primary" size="small" style="height: 19px;margin-left: 20px;">Hash</el-button>
+                      <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)">
+                        {{this.button.buttonName}}</el-button>
                     </div>
                     <div class="col-2 "  v-if="this.block_info['speaker']" >
                      </div>

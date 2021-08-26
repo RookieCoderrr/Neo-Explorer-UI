@@ -89,7 +89,6 @@
                     @click="copyItem('block', 'blockButton', 'blockSpan')"
                   ></i>
                   <span style="color: #42b983" id="blockSpan"></span>
-                  <el-button type="primary" size="small" style="height: 19px;margin-left: 20px;">Hash</el-button>
                 </div>
               </div>
 
@@ -118,6 +117,7 @@
                     @click="copyItem('sender', 'senderButton', 'senderSpan')"
                   ></i>
                   <span style="color: #42b983" id="senderSpan"></span>
+                  <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)"> {{ this.button.buttonName }}</el-button>
                 </div>
               </div>
 
@@ -176,6 +176,7 @@
                   class="text-title3"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['signers']"
                     :key="index"
                   >
@@ -187,6 +188,7 @@
                   name="2"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['signers']"
                     :key="index"
                   >
@@ -207,6 +209,7 @@
                   class="itemCollapse"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['witnesses']"
                     :key="index"
                   >
@@ -218,6 +221,7 @@
                   name="2"
                 >
                   <div
+                      class="ml-4"
                     v-for="(item, index) in this.tabledata['witnesses']"
                     :key="index"
                   >
@@ -236,7 +240,7 @@
                   name="1"
                   class="item-collapse"
                 >
-                  <div v-html="this.tabledata['script']"></div>
+                  <div class="ml-4" v-html="this.tabledata['script']"></div>
                 </el-collapse-item>
               </el-collapse>
             </card>
