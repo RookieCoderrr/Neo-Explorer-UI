@@ -35,14 +35,13 @@
 <script>
 export default {
   name: "Home",
-  data() {},
-  methods: {
-    toHomePage() {
-      this.$router.push({
-        path: `/homepage`,
-      });
-    },
+  data() {
+    return{
+
+    }
   },
+
+
 };
 </script>
 <style>
