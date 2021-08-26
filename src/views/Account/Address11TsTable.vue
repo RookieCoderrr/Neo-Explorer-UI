@@ -39,7 +39,7 @@
           <td class="budget">
             <div>
               <div
-                class="text-muted"
+                      class="table-list-item"
                 v-if="
                   row.item.txid ===
                   '0x0000000000000000000000000000000000000000000000000000000000000000'
@@ -49,7 +49,7 @@
               </div>
               <div class="txid" v-else>
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/transactionInfo/' + row.item.address"
                   >{{ row.item.txid }}</router-link
@@ -57,12 +57,12 @@
               </div>
             </div>
           </td>
-          <td class="budget">
+          <td class="table-list-item">
             <div class="from">
               {{ row.item.tokenname }}
             </div>
           </td>
-          <td class="Type">
+          <td class="table-list-item">
             <div>
               <span
                 class="text-primary"

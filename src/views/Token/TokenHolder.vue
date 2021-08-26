@@ -50,25 +50,25 @@
           <td class="Address">
             <router-link
               v-if="button.state"
-              class="name mb-0 text-sm"
+              class="  mb-0 table-list-item-blue"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
               >{{ scriptHashToAddress(row.item.address) }}</router-link>
             <router-link
               v-else
-              class="name mb-0 text-sm"
+              class="  mb-0 table-list-item-blue"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
             </router-link>
           </td>
-          <td class="balance">
+          <td class="table-list-item">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
           <!--          <td class="firstused">-->
           <!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
           <!--          </td>-->
-          <td class="percentage">
+          <td class="table-list-item">
             {{ toPercentage(row.item.percentage) }}
           </td>
         </template>

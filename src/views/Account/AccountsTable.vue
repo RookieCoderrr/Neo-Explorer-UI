@@ -46,12 +46,12 @@
           <th class="tableHeader">{{ $t("addressPage.createdTime") }}</th>
         </template>
         <template v-slot:default="row">
-          <td>
+          <td class="table-list-item" >
             {{ row.item.number }}
           </td>
           <td class="address">
             <router-link
-              class="mb-0 text-sm"
+              class="mb-0 table-list-item-blue"
               v-if="this.button.state"
               style="cursor: pointer"
               :to="'/accountprofile/' + row.item.address"
@@ -59,7 +59,7 @@
               {{ scriptHashToAddress(row.item.address) }}
             </router-link>
             <router-link
-              class="mb-0 text-sm"
+              class="mb-0 table-list-item-blue"
               v-else
               style="cursor: pointer"
               :to="'/accountprofile/' + row.item.address"
@@ -68,13 +68,13 @@
             </router-link>
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
-          <td class="neoBalance">
+          <td class="table-list-item">
             {{ row.item.neoBalance }}
           </td>
-          <td class="gasBalance">
+          <td class="table-list-item">
             {{ row.item.gasBalance }}
           </td>
-          <td class="firstusetime">
+          <td class="table-list-item">
             {{ row.item.firstusetime }}
           </td>
         </template>

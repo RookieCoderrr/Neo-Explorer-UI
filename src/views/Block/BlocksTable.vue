@@ -40,25 +40,25 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row">
-            {{ row.item.index }}
-          </th>
+          <td >
+            <div  class="table-list-item" >{{ row.item.index }}</div>
+          </td>
           <td style="padding-left: 100px">
             <div>
               <router-link
-                class="name mb-0 text-sm"
+                class="table-list-item-blue name mb-0"
                 style="cursor: pointer"
                 :to="'/blockinfo/'+row.item.hash"
                 >{{ row.item.hash }}</router-link>
             </div>
           </td>
-          <td>
+          <td class="table-list-item">
             {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
-          <td class="txnumber">
+          <td class="table-list-item">
             {{ row.item.transactioncount }}
           </td>
-          <td>{{ row.item.size }} {{ $t("bytes") }}</td>
+          <td class="table-list-item">{{ row.item.size }} {{ $t("bytes") }}</td>
         </template>
       </base-table>
     </div>

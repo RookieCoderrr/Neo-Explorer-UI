@@ -39,7 +39,7 @@
                   >Null Transaction</span
                 >
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   v-else
                   style="cursor: pointer"
                   :to="'/transactionInfo/'+row.item.txid "
@@ -55,24 +55,24 @@
               </span>
               <router-link
                 v-else-if="button.state"
-                class="name mb-0 text-sm"
+                class=" mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ scriptHashToAddress(row.item.originSender) }}</router-link
               >
               <router-link
                 v-else
-                class="name mb-0 text-sm"
+                class="  mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ row.item.originSender }}</router-link
               >
             </div>
           </td>
-          <td class="Method">
+          <td class="table-list-item">
             {{ row.item.method }}
           </td>
-          <td class="Call Flags">
+          <td class="table-list-item">
             {{ row.item.callFlags }}
           </td>
           <td class="time">
