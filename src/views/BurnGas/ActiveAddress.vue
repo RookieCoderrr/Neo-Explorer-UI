@@ -48,7 +48,7 @@ export default {
           var tDate = today.toDateString().split(" ")[2]
           tMonth = doHandleMonth(tMonth);
           tDate = doHandleMonth(tDate);
-          return tMonth+"-" +tDate;
+          return tMonth+" " +tDate;
         }
 
         function doHandleMonth(month){

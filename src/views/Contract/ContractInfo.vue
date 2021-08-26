@@ -13,18 +13,16 @@
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
               <card shadow class="card-style">
 
-                <div class="row  mt-3  mb-1">
+                <div class="row   mb-1">
                   <div class="col-2 lable-title">
                     {{ $t("contract.name") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-8 context-black">
                     {{ this.contract_info["name"] }}
-                    <button
-                            v-if="isToken"
-                            class="btn btn-primary btn-sm"
-                            @click="getToken(this.contract_id)">
-                      Token
-                    </button>
+                  </div>
+                  <div class="col-2">
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 25px; margin-left: 60px" @click="getToken(this.contract_id)">
+                      Token</el-button>
                   </div>
                 </div>
 
@@ -195,7 +193,7 @@
                       >
                       <el-collapse-item :title="item['name']" style="margin-bottom: 20px">
                         <div class="row">
-                          <div style="padding-left: 5px" v-if="item['safe']">
+                          <div style="margin-left: 4%" v-if="item['safe']">
                             <button
                                     class="btn btn-sm btn-primary"
                                     @click="onQuery(index)"
@@ -205,7 +203,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-4">
+                          <div class="col-4" style="margin-left: 3%">
                             <div class="params">
                               <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                               <div v-if="item['parameters'].length !== 0">
@@ -240,13 +238,13 @@
                               <div v-else>{{$t('tokenInfo.noParam')}}</div>
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-3">
                             <div class="return">
                               <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
                               {{ item["returntype"] }}
                             </div>
                           </div>
-                          <div class="col">
+                          <div class="col-3">
                             <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
                             {{ item["offset"] }}
                           </div>
@@ -256,7 +254,7 @@
                           </div>
                         </div>
                         <div
-                                class="mt-3"
+                                class="mt-3 ml-4"
                         >
                           <div v-if="manifest['abi']['methods'][index]['error'] && manifest['abi']['methods'][index]['error'] !== ''">
                             <h3>{{$t('tokenInfo.error')}}</h3>

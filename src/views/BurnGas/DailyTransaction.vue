@@ -50,7 +50,7 @@ export default {
           var tDate = today.toDateString().split(" ")[2]
           tMonth = doHandleMonth(tMonth);
           tDate = doHandleMonth(tDate);
-          return tMonth+"-" +tDate;
+          return tMonth+" " +tDate;
         }
 
         function doHandleMonth(month){
@@ -85,15 +85,17 @@ export default {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
                 sdata14.push(res["data"]["result"][j]["DailyTransactions"])
               }
-              console.log(sdata14)
               refreshData(sdata14,0)
+              console.log("this is 14 days ")
+              console.log(sdata14)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
                 sdata30.push(res["data"]["result"][m]["DailyTransactions"])
               }
-              console.log(sdata30)
               refreshData(sdata30,1)
+              console.log("this is 30 days")
+              console.log(sdata30)
             }
           });
         }
@@ -153,14 +155,13 @@ export default {
           myTransactionChart.resize()
         });
         myTransactionChart.on('legendselectchanged', function (params){
-          console.log(params)
+
           let legend = params.name;
           let selected = params.selected;
           if (selected !== undefined) {
             if(legend ==="Recent 14 days") {
-              console.log(legend)
+
               if(selected["Recent 14 days"]===true && selected["Recent 30 days"]===true) {
-                console.log("winner")
                 myTransactionChart.setOption({
 
                   legend:{
