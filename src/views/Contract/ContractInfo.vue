@@ -272,8 +272,8 @@
                                 </button>
                               </div>
                             </div>
-                            <json-view v-if="manifest['abi']['methods'][index]['isRaw']" :json="manifest['abi']['methods'][index]['raw']"></json-view>
-                            <json-view v-else :json="manifest['abi']['methods'][index]['display']"></json-view>
+                            <contract-json-view v-if="manifest['abi']['methods'][index]['isRaw']" :json="manifest['abi']['methods'][index]['raw']"></contract-json-view>
+                            <contract-json-view v-else :json="manifest['abi']['methods'][index]['display']"></contract-json-view>
                           </div>
                         </div>
                       </el-collapse-item>
@@ -300,7 +300,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./EventsTable";
 import ScCallTable from "./ScCallTable";
 import Neon from "@cityofzion/neon-js";
-import JsonView from "./JsonView";
+import ContractJsonView from "./ContractJsonView";
 import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../../store/util";
 
 export default {
@@ -308,7 +308,7 @@ export default {
     Loading,
     EventsTable,
     ScCallTable,
-    JsonView,
+    ContractJsonView,
   },
   data() {
     return {
@@ -322,7 +322,7 @@ export default {
       totalsccall: 0,
       isAddress: false,
       isToken:false,
-      activeName: 'third',
+      activeName: 'first',
       activeNames: ['0'],
       activeNames2:['0'],
     };

@@ -17,7 +17,7 @@
             <th class="tableHeader">{{ $t("hash") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
-            <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
             <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
           </template>
 
@@ -26,7 +26,7 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <router-link
-                    class="name mb-0 text-sm"
+                    class="  mb-0 table-list-item-blue"
                     style="cursor: pointer"
                     :to="'/tokeninfo/' + row.item.asset"
                     >{{ row.item.asset }}</router-link
@@ -34,10 +34,10 @@
                 </div>
               </div>
             </th>
-            <td class="name">
+            <td class="table-list-item">
               {{ row.item.tokenname }}
             </td>
-            <td class="symbol">
+            <td class="table-list-item">
               {{ row.item.symbol }}
             </td>
             <td>
@@ -50,7 +50,7 @@
                 <span class="">{{ row.item.standard }}</span>
               </el-tag>
             </td>
-            <td class="balance">
+            <td class="table-list-item">
               {{ convertToken(row.item.balance, row.item.decimals) }}
             </td>
           </template>

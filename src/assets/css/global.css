@@ -145,7 +145,7 @@
 }
 
 .tableHeader {
-    background:#5576EC!important;
+    background:rgb(100,100,100)!important;
     color:#ffffff!important;
 }
 
@@ -277,4 +277,26 @@
 }
 .el-button--small:hover{
     background-color: rgba(85,118,236,0.8);
+}
+
+.table-list-item{
+    font-family: Avenir,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+
+    color: #000000;
+
+}
+.table-list-item-blue{
+    font-family: Inter,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #5576EC;
 }
