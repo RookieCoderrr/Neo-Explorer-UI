@@ -40,10 +40,11 @@
         </template>
 
         <template v-slot:default="row">
+
           <td >
             <div  class="table-list-item" >{{ row.item.index }}</div>
           </td>
-          <td style="padding-left: 100px">
+          <td style="text-align: left;margin-left: 2%">
             <div>
               <router-link
                 class="table-list-item-blue name mb-0"

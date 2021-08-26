@@ -17,7 +17,7 @@
             <th class="tableHeader">{{ $t("hash") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
-            <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
             <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
           </template>
 

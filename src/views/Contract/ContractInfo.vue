@@ -116,12 +116,10 @@
                     }}</card>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('contract.eventTitle')"  name="second">
-                  <div v-if="this.totalsccall != 0">
+                  <div >
                     <events-table :contractHash="contract_id"></events-table>
                   </div>
-                  <card shadow v-else class="text-center">{{
-                    $t("contract.noEvent")
-                    }}</card>
+
                 </el-tab-pane>
                 <el-tab-pane :label="$t('contract.conInfo')"  name="third">
                     <div class="extra" v-if="this.manifest.extra && JSON.stringify(this.manifest.extra) !== '{}'">
@@ -378,6 +376,7 @@ export default {
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
         this.isLoading = false;
+        console.log(raw)
       });
     },
     getToken(contract){

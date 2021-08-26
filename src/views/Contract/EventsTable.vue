@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div v-if="totalCount!= 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -75,6 +75,9 @@
       </el-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center">{{
+      $t("contract.noEvent")
+    }}</card>
 </template>
 <script>
 import axios from "axios";

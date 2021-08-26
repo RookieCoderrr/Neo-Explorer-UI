@@ -53,12 +53,9 @@
           <th class="tableHeader">{{ $t("contract.name") }}</th>
           <th class="tableHeader">
             {{ $t("contract.creator") }}
-            <button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(button)"
-            >
-              {{ this.button.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader">{{ $t("contract.index") }}</th>
           <th class="tableHeader">{{ $t("contract.updates") }}</th>
@@ -66,8 +63,8 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row" v-if="row.item">
-            <div class="media align-items-center">
+          <td scope="row" v-if="row.item">
+            <div style="text-align: left">
               <div class="media-body">
                 <router-link
                   class=" table-list-item-blue mb-0 "
@@ -77,7 +74,8 @@
                 >
               </div>
             </div>
-          </th>
+
+          </td>
           <td  class="table-list-item">
             {{ row.item.name }}
           </td>

@@ -60,8 +60,8 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row">
-            <div class="media align-items-center">
+          <td scope="row">
+            <div style="text-align: left;margin-left: 4%">
               <div class="media-body">
                 <router-link
                   class="table-list-item-blue mb-0 "
@@ -70,7 +70,7 @@
                   >{{ row.item.hash }}</router-link>
               </div>
             </div>
-          </th>
+          </td>
           <td  class="table-list-item">
             <span v-if="row.item.ispopular"
               >{{ row.item.tokenname }} &#x1F525;

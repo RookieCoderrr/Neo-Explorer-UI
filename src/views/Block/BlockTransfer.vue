@@ -17,20 +17,16 @@
           <th class="tableHeader">
             {{ $t("tokenTx.from")
             }}
-            <span>       </span><button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(fromButton)"
-            >
-              {{ this.fromButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(fromButton)">
+              {{this.fromButton.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("tokenTx.to") }}
             <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
-              {{ this.toButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(toButton)">
+              {{this.toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
           <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
