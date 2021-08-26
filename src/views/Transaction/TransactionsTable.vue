@@ -40,12 +40,14 @@
 
         <template v-slot:default="row">
           <td class="id">
+            <div style="text-align: left;">
             <router-link
               class="name mb-0 text-sm"
               style="cursor: pointer"
               :to="'/transactionInfo/'+row.item.hash"
               >{{ row.item.hash }}</router-link
             >
+            </div>
           </td>
           <td class="id">
             <router-link

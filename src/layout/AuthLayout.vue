@@ -448,6 +448,7 @@ export default {
   border: 0 !important;
   border-radius: 4px;
   color: black;
+  outline-color: #000000;
 }
 .drop {
   width: 10%;

@@ -66,8 +66,8 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row" v-if="row.item">
-            <div class="media align-items-center">
+          <td scope="row" v-if="row.item">
+            <div style="text-align: left">
               <div class="media-body">
                 <router-link
                   class="name mb-0 text-sm"
@@ -77,7 +77,7 @@
                 >
               </div>
             </div>
-          </th>
+          </td>
           <td class="name">
             {{ row.item.name }}
           </td>

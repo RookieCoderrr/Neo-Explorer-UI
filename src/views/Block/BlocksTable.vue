@@ -43,8 +43,8 @@
           <th scope="row">
             {{ row.item.index }}
           </th>
-          <td style="padding-left: 100px">
-            <div>
+          <td >
+            <div style="text-align: left;margin-left: 2%">
               <router-link
                 class="name mb-0 text-sm"
                 style="cursor: pointer"
