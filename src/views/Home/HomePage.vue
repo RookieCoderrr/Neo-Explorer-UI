@@ -1,5 +1,5 @@
 <template>
-  <div class="home" style="background: #F2F2F2" >
+  <div class="home" style="background: rgb(250,250,250)" >
     <section class="Intro">
       <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
       <div class=" dropAndSearch mt--5">
@@ -74,7 +74,7 @@
 
 
     <div class="main">
-      <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #F2F2F2">
+      <div class="container-fluid mt--8" style="padding-bottom: 50px;background: rgb(250,250,250)">
         <div  class="col-2 font-weight-bold mb-0 "
               style="font-size: 20px ;color:black;width: 80%">
           <span>{{$t('overview')}}</span>
@@ -1029,7 +1029,7 @@ export default {
 .Intro {
   width: 80%;
   margin-left: 10%;
-  background: #F2F2F2;
+  background: rgb(250,250,250);
   height: 400px;
   display: flex;
   justify-content: center;
@@ -1047,7 +1047,7 @@ export default {
   margin-bottom: 80px;
 }
 .dropAndSearch{
-  background: #F2F2F2;
+  background: rgb(250,250,250);
   width: 100%;
   max-width: 1200px!important;
   padding-right: 1px;

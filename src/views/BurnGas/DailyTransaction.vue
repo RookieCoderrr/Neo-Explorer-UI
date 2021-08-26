@@ -25,9 +25,9 @@ export default {
 
         var xdata30 =[]
 
-        var sdata14 =[0,0,0,0,0,0,0,0,0,0,0]
+        var sdata14 =[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 
         getDailyTransactions(14)
@@ -83,7 +83,7 @@ export default {
           }).then((res) => {
             if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
-                sdata14.push(res["data"]["result"][j]["DailyTransactions"])
+                sdata14[13-j]= res["data"]["result"][j]["DailyTransactions"]
               }
               refreshData(sdata14,0)
               console.log("this is 14 days ")
@@ -91,7 +91,7 @@ export default {
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
-                sdata30.push(res["data"]["result"][m]["DailyTransactions"])
+                sdata30[29-m] = res["data"]["result"][m]["DailyTransactions"]
               }
               refreshData(sdata30,1)
               console.log("this is 30 days")
@@ -137,13 +137,13 @@ export default {
           series: [{
             name: 'Recent 14 days',
             type: 'line',
-            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            data: sdata14,
             smooth: true,
           },
             {
               name: 'Recent 30 days',
               type: 'line',
-              data: [1,5,23,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              data: sdata30,
               smooth: true
             }
           ]

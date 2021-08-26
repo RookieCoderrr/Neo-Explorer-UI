@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="background-color: #f2f2f2">
+    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
           <loading
@@ -249,7 +249,7 @@
             <div class="row mt-4"></div>
             <el-tabs
               v-model="activeName"
-              style="width: 80%; margin-left: 10%; background-color: #f2f2f2"
+              style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
             >
               <el-tab-pane label="Nep17Transfers" name="first">
                 <transfers-list

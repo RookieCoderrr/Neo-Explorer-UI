@@ -25,9 +25,9 @@ export default {
 
         var xdata30 =[]
 
-        var sdata14 =[0,0,0,0,0,0,0,0,0,0,0]
+        var sdata14 =[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var sdata30=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
         getActiveAddress(14)
 
@@ -82,14 +82,14 @@ export default {
             console.log(res)
             if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
-                sdata14.push(res["data"]["result"][j]["ActiveAddresses"])
+                sdata14[13-j]=res["data"]["result"][j]["ActiveAddresses"]
               }
               console.log(sdata14)
               refreshData(sdata14,0)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
-                sdata30.push(res["data"]["result"][m]["ActiveAddresses"])
+                sdata30[29-m] = res["data"]["result"][m]["ActiveAddresses"]
               }
               console.log("nouse")
               refreshData(sdata30,1)
@@ -133,13 +133,13 @@ export default {
           series: [{
             name: 'Recent 14 days',
             type: 'line',
-            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            data: sdata14,
             smooth: true,
           },
             {
               name: 'Recent 30 days',
               type: 'line',
-              data: [2,24,5,6,7,4,26,17,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              data: sdata30,
               smooth: true
             }
           ]
