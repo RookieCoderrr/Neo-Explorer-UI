@@ -141,7 +141,7 @@
     <div v-else class="header py-7 py-lg-6" style="background: #fafafa"></div>
 
     <router-view></router-view>
-    <div style="border-top: 1px solid rgba(40, 43, 52, 0.1);;background-color: rgb(250,250,250);height: 280px">
+    <div style="border-top: 1px solid rgba(40, 43, 52, 0.1);;background-color: rgb(250,250,250);height: 300px">
 
       <div class="row mt-5 mb-3" style="width: 80%;margin-left: 10%">
         <div class="col-2">
@@ -161,24 +161,24 @@
         </div>
 
         <div  class="col-2">
-          <div class="footer-title">开发者</div>
+          <div class="footer-title">{{$t('bottomBar.developers')}}</div>
           <div style="text-align: center;"><a
               href="https://neo.org/dev#tooling"
               class="nav-link"
               target="_blank"
-          >工具</a
+          >{{$t('bottomBar.tooling')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/dev#examples"
               class="nav-link"
               target="_blank"
-          >案例教学</a
+          >{{$t('bottomBar.examples_and_tutorials')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://docs.neo.org/docs/zh-cn/index.html"
               class="nav-link"
               target="_blank"
-          >开发者文档</a
+          >{{$t('bottomBar.documentation')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://github.com/neo-project"
@@ -190,87 +190,87 @@
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
-          >生态支持</a
+          >{{$t('bottomBar.eco_support')}}</a
           ></div>
         </div>
         <div  class="col-2">
-          <div class="footer-title">社区成员</div>
+          <div class="footer-title">{{$t('bottomBar.for_token_holders')}}</div>
           <div style="text-align: center;"><a
               href="https://neo.org/gov"
               class="nav-link"
               target="_blank"
-          >治理</a
+          > {{$t('bottomBar.governance')}} </a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/neogas#tokens"
               class="nav-link"
               target="_blank"
-          >NEO&GAS</a
+          >{{$t('bottomBar.neo_and_gas')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/neogas#wallet"
               class="nav-link"
               target="_blank"
-          >钱包</a
+          >{{$t('bottomBar.wallet')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/news?type=blog"
               class="nav-link"
               target="_blank"
-          >博客</a
+          > {{$t('bottomBar.blogs')}} </a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/news?type=event"
               class="nav-link"
               target="_blank"
-          >活动</a
+          > {{$t('bottomBar.events')}} </a
           ></div>
 
         </div>
         <div  class="col-2">
-          <div class="footer-title">联系 NGD</div>
+          <div class="footer-title">{{$t('bottomBar.contact_ngd')}}</div>
           <div style="text-align: center;"><a
               href="https://neo.org/joinus"
               class="nav-link"
               target="_blank"
-          >加入我们</a
+          >{{$t('bottomBar.join_us')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
-          >市场运营</a
+          >{{$t('bottomBar.marketing')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
-          >生态发展</a
+          >{{$t('bottomBar.eco_support')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
-          >一般事务</a
+          >{{$t('bottomBar.general')}}</a
           ></div>
         </div>
         <div  class="col-2">
-          <div class="footer-title">媒体</div>
+          <div class="footer-title">{{$t('bottomBar.for_media')}}</div>
           <div style="text-align: center;"><a
               href="https://neo.org/about"
               class="nav-link"
               target="_blank"
-          >关于 NEO</a
+          >{{$t('bottomBar.about_neo')}}</a
           ></div>
           <div style="text-align: center;"><a
               href="https://neo.org/presskit"
               class="nav-link"
               target="_blank"
-          >媒体资源</a
+          >{{$t('bottomBar.press_kit')}}</a
           ></div>
         </div>
         <div  class="col-2">
-          <div class="footer-title">保持联系</div>
+          <div class="footer-title">{{$t('bottomBar.keep_in_touch')}}</div>
           <div class="row">
             <div class="col" style="text-align:center">
           <a class="btn btn-sm btn-icon btn-pill" href="https://www.facebook.com/NeoBlockchainOfficial" rel="nofollow noopener" target="_blank" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
@@ -664,6 +664,7 @@ export default {
   border: 0px solid transparent!important;
 
 }
+
   .footer-title{
     font-family: Inter,sans-serif;
     font-style: normal;
