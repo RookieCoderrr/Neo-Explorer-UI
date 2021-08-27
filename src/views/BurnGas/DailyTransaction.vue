@@ -86,16 +86,16 @@ export default {
                 sdata14[13-j]= res["data"]["result"][j]["DailyTransactions"]
               }
               refreshData(sdata14,0)
-              console.log("this is 14 days ")
-              console.log(sdata14)
+              //console.log("this is 14 days ")
+              //console.log(sdata14)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
                 sdata30[29-m] = res["data"]["result"][m]["DailyTransactions"]
               }
               refreshData(sdata30,1)
-              console.log("this is 30 days")
-              console.log(sdata30)
+              // console.log("this is 30 days")
+              // console.log(sdata30)
             }
           });
         }
