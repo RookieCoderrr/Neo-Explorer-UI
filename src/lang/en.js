@@ -326,6 +326,5 @@ const en = {
     press_kit: "Press Kit",
     keep_in_touch: "Keep in touch",
   },
-
 };
 export default en;

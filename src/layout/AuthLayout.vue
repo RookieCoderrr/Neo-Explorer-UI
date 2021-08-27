@@ -229,25 +229,25 @@
         </div>
         <div  class="col-2">
           <div class="footer-title">{{$t('bottomBar.contact_ngd')}}</div>
-          <div style="text-align: center;"><a
+          <div style="text-align: center;" > <a
               href="https://neo.org/joinus"
               class="nav-link"
               target="_blank"
           >{{$t('bottomBar.join_us')}}</a
           ></div>
-          <div style="text-align: center;"><a
+          <div style="text-align: center;" ><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
           >{{$t('bottomBar.marketing')}}</a
           ></div>
-          <div style="text-align: center;"><a
+          <div style="text-align: center;" ><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
           >{{$t('bottomBar.eco_support')}}</a
           ></div>
-          <div style="text-align: center;"><a
+          <div style="text-align: center;" ><a
               href="https://neo.org/eco"
               class="nav-link"
               target="_blank"
@@ -664,7 +664,6 @@ export default {
   border: 0px solid transparent!important;
 
 }
-
   .footer-title{
     font-family: Inter,sans-serif;
     font-style: normal;
@@ -675,4 +674,5 @@ export default {
     color: #000000;
     margin-bottom: 20px
   }
+
 </style>

@@ -322,5 +322,6 @@ const zh = {
     press_kit: "媒体资源",
     keep_in_touch: "保持联系",
   },
+
 };
 export default zh;
