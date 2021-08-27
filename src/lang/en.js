@@ -303,6 +303,14 @@ const en = {
     information_t: "The Page You Visited Is Not Available.",
     information_v: "Try visiting in a few minutes and check your path input.",
   },
+  bottomBar: {
+    description: "Neo Explorer is a Block Explorer and Analytics Platform for Neo, a decentralized smart contracts platform.",
+    developers: "Developers",
+    tooling: "Tooling",
+    examples_and_tutorials: "Examples and tutorials",
+    documentation: "Documentation",
+    eco_support: "Eco-Support",
+  },
 
 };
 export default en;

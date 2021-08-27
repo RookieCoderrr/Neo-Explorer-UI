@@ -159,7 +159,7 @@ font-style: normal;
 font-weight: normal;
 font-size: 12px;
 line-height: 20px;
-color: rgba(0, 0, 0, 0.6);"> neo explorer is a Block Explorer and Analytics Platform for neo, a decentralized smart contracts platform.</div>
+color: rgba(0, 0, 0, 0.6);"> {{$t('bottomBar.description')}} </div>
         </div>
         <div  class="col-3">
             <div style="font-family: Inter;
@@ -168,12 +168,12 @@ font-weight: 500;
 font-size: 14px;
 line-height: 17px;
 color: #000000;
-margin-bottom: 20px">开发者</div>
-            <div>工具</div>
-            <div>案例与教学</div>
-            <div>开发者文档</div>
+margin-bottom: 20px"> {{$t('bottomBar.developers')}} </div>
+            <div> {{$t('bottomBar.tooling')}} </div>
+            <div>{{$t('bottomBar.examples_and_tutorials')}}</div>
+            <div>{{$t('bottomBar.documentation')}}</div>
             <div>GitHub</div>
-            <div>生态支持</div>
+            <div>{{$t('bottomBar.eco_support')}}</div>
         </div>
           <div  class="col-3">
             <div style="font-family: Inter;

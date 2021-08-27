@@ -299,5 +299,13 @@ const zh = {
     information_t: "您访问的界面不存在",
     information_v: "请过几分钟后再试，或者检查输入路径",
   },
+  bottomBar: {
+    description: "Neo Explorer是去中心化的智能合约平台Neo的区块浏览器和分析平台。",
+    developers: "开发者",
+    tooling: "工具",
+    examples_and_tutorials: "案例与教学",
+    documentation: "开发者文档",
+    eco_support: "生态支持",
+  },
 };
 export default zh;
