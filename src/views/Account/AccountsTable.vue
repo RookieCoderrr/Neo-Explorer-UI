@@ -35,7 +35,7 @@
           <th class="tableHeader">
             {{ $t("addressPage.accountsTable")
             }}
-            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
               {{this.button.buttonName}}</el-button>
 
           </th>
@@ -79,7 +79,7 @@
       </base-table>
     </div>
 
-    <div
+    <div   v-if="totalAccount>=10"
             class="card-footer d-flex justify-content-end"
             :class="type === 'dark' ? 'bg-transparent' : ''"
             style="height: 70px"

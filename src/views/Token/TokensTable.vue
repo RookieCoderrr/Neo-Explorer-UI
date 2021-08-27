@@ -100,7 +100,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="totalCount>=10"
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
       style="height: 70px"

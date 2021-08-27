@@ -22,14 +22,14 @@
           <th class="tableHeader">
             {{ $t("transactionTransfer.from") }}
 
-            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{fromButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("transactionTransfer.to") }}
-            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
               {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
