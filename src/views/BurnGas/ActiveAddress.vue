@@ -79,19 +79,19 @@ export default {
               "Content-Type": "application/json",
             },
           }).then((res) => {
-            console.log(res)
+            // console.log(res)
             if(day === 14) {
               for (var j = 0; j < res["data"]["result"].length; j ++) {
                 sdata14[13-j]=res["data"]["result"][j]["ActiveAddresses"]
               }
-              console.log(sdata14)
+              // console.log(sdata14)
               refreshData(sdata14,0)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
                 sdata30[29-m] = res["data"]["result"][m]["ActiveAddresses"]
               }
-              console.log("nouse")
+              // console.log("nouse")
               refreshData(sdata30,1)
             }
           });
