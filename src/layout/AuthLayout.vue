@@ -141,7 +141,7 @@
     <div v-else class="header py-7 py-lg-6" style="background: #fafafa"></div>
 
     <router-view></router-view>
-    <div style="border-top: 1px solid rgba(40, 43, 52, 0.1);;background-color: rgb(250,250,250);height: 280px">
+    <div style="border-top: 1px solid rgba(40, 43, 52, 0.1);;background-color: rgb(250,250,250);height: 300px">
 
       <div class="row mt-5 mb-3" style="width: 80%;margin-left: 10%">
         <div class="col-2">
@@ -664,6 +664,7 @@ export default {
   border: 0px solid transparent!important;
 
 }
+
   .footer-title{
     font-family: Inter,sans-serif;
     font-style: normal;
