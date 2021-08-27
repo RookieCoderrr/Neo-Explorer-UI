@@ -178,7 +178,6 @@
       </div>
     </div>
   </div>
-  <content-footer></content-footer>
 </template>
 
 <script>
@@ -194,12 +193,10 @@ import zh from "../../lang/zh_cn.js"
 import fr from "../../lang/fr.js"
 import DailyTransaction from "../BurnGas/DailyTransaction";
 import ActiveAddress from "../BurnGas/ActiveAddress";
-import ContentFooter from "../../layout/ContentFooter";
 
 export default {
   name: "Home",
   components: {
-    ContentFooter,
     DailyTransaction,
     BlocksTableHomepage,
     ActiveAddress,
