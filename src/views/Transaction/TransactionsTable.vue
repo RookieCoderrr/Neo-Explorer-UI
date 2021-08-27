@@ -40,28 +40,30 @@
 
         <template v-slot:default="row">
           <td class="id">
+            <div style="text-align: left;">
             <router-link
-              class="name mb-0 text-sm"
+              class="table-list-item-blue mb-0 "
               style="cursor: pointer"
               :to="'/transactionInfo/'+row.item.hash"
               >{{ row.item.hash }}</router-link
             >
+            </div>
           </td>
           <td class="id">
             <router-link
-              class="name mb-0 text-sm"
+              class="table-list-item-blue mb-0 "
               style="cursor: pointer"
               :to="'/blockinfo/'+row.item.blockhash"
               >{{ row.item.blockIndex }}</router-link
             >
           </td>
-          <td class="budget">{{ row.item.size }} {{ $t("bytes") }}</td>
-          <td >
-<!--            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}-->
-            <div class="timeago" :datetime="(convertISOTime(row.item.blocktime))"> </div>
+          <td class="table-list-item">{{ row.item.size }} {{ $t("bytes") }}</td>
+          <td class="table-list-item">
+            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
+
           </td>
 
-          <td class="budget">
+          <td class="table-list-item">
             {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
           </td>
         </template>
@@ -90,8 +92,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { convertGas, convertTime, convertISOTime } from "../../store/util";
-import {render} from "timeago.js";
+import { convertGas, convertTime } from "../../store/util";
 export default {
   name: "transactions-table",
   props: {
@@ -119,21 +120,10 @@ export default {
   created() {
     this.getTransactionList(0);
   },
-  updated() {
-    const nodes = document.getElementsByClassName('timeago')
-    if(nodes.length != 0){
-      if(this.$i18n.locale === 'cn'){
-        render(nodes, 'zh_CN');
-      }else{
-        render(nodes, this.$i18n.locale );
-      }
-    }
-  },
 
   methods: {
     convertGas,
     convertTime,
-    convertISOTime,
     handleCurrentChange(val) {
         this.isLoading = true;
         this.pagination = val;

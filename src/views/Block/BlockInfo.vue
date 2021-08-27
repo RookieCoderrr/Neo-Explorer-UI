@@ -16,16 +16,7 @@
 <!--                 <h1 class="mb-0" style="margin-right: 10px;margin-left: 10px">-->
 <!--                {{ this.block_info.index }}-->
 <!--               </h1>-->
-<!--                  <base-button-->
-<!--                          type="primary"-->
-<!--                          size="sm"-->
-<!--                          @click="getBlockByBlockHeight(this.block_info.index - 1)"-->
-<!--                  >&lt;</base-button>-->
-<!--                   <base-button-->
-<!--                           type="primary"-->
-<!--                           size="sm"-->
-<!--                           @click="getBlockByBlockHeight(this.block_info.index + 1)"-->
-<!--                   >&gt;</base-button>-->
+
 <!--               </div>-->
 
 
@@ -42,6 +33,19 @@
                     </div>
                     <div class=" col-10 context-black">
                       {{ this.block_info.index }}
+                      <el-button
+                              id="leftButton"
+                              size="mini"
+                              icon="el-icon-caret-left"
+                              style="margin-left: 5px"
+                              @click="getBlockByBlockHeight(this.block_info.index - 1)"
+                      ></el-button>
+                      <el-button
+                              id="rightButton"
+                              size="mini"
+                              icon="el-icon-caret-right"
+                              @click="getBlockByBlockHeight(this.block_info.index + 1)"
+                      ></el-button>
                     </div>
                   </div>
 
@@ -86,14 +90,18 @@
                         {{ $t("blockinfo.speaker") }}
                     </div>
                     <div class="col-10 context-black" v-if="this.block_info['speaker']">
-                      <button  class="btn btn-sm btn-primary" @click="changeFormat(button)">{{button.buttonName}}</button>
-                      <router-link class="name mb-0 text-sm" id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
+                      <router-link class="name mb-0 " id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
+<span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
-                      <span style="color: #42b983" id="speakerSpan" ></span>
+                      <span style="color: #42b983;" id="speakerSpan" ></span>
+</span>
+                      <el-button type="primary" size="small" style="height: 21px;" @click="changeFormat(button)">
+                        {{this.button.buttonName}}</el-button>
                     </div>
-
+                    <div class="col-2 "  v-if="this.block_info['speaker']" >
+                     </div>
                   </div>
 
                   <div class="row  mt-3  mb-1">
@@ -101,7 +109,7 @@
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
                     <div class="col-10 context-black" v-if="block_info['prevhash']">
-                    <router-link    class="name mb-0 text-sm" id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
+                    <router-link    class="name mb-0 " id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
                     <i class="ni ni-single-copy-04" id="preHashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('preHash','preHashButton','preHashSpan')"></i>
@@ -322,6 +330,8 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
+        document.getElementById("leftButton").blur()
+        document.getElementById("rightButton").blur()
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/blockinfo/${res["data"]["result"]["hash"]}`,
@@ -336,11 +346,5 @@ export default {
 </script>
 
 <style>
-  .el-collapse-item__header{
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 22px;
-  }
+
 </style>

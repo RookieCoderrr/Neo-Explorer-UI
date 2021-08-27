@@ -18,8 +18,8 @@
                 </p>
                 <div v-if="!innerclosed && length" class="json-body">
                     <template v-for="(item, index) in items" :key="index">
-                        <json-view :closed="closed" v-if="item.isJSON"  :json="item.value"
-                                   :jsonKey="item.key" :isLast="index === items.length - 1"></json-view>
+                        <contract-json-view :closed="closed" v-if="item.isJSON"  :json="item.value"
+                                   :jsonKey="item.key" :isLast="index === items.length - 1"></contract-json-view>
                         <p class="json-item" v-else >
             <span class="json-key">
                 {{(isArray ? '' : '"' + item.key + '"')}}
@@ -42,7 +42,7 @@
 
 <script>
     export default {
-        name: 'jsonView',
+        name: 'contractJsonView',
         props: {
             json: [Object, Array],
             jsonKey: {
@@ -76,7 +76,8 @@
         methods: {
             isObjectOrArray(source) {
                 const type = Object.prototype.toString.call(source)
-                return type === '[object Array]' || type === '[object Object]'
+                const res = type === '[object Array]' || type === '[object Object]'
+                return res
             },
             toggleClose() {
                 if (this.innerclosed) {

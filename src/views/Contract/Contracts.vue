@@ -1,6 +1,6 @@
 <template>
-  <div style="padding-bottom: 10%!important; background: #F2F2F2">
-    <div class="container-fluid mt--7 mb--7" style="background: #F2F2F2; width: 95%">
+  <div style="padding-bottom: 10%!important; background: rgb(250,250,250)">
+    <div class="container-fluid mt--7 mb--7" style="background: rgb(250,250,250); width: 95%">
       <div class="row">
         <div class="col">
           <contracts-table title="Contract List"></contracts-table>

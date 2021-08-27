@@ -21,9 +21,9 @@
           <th class="tableHeader">{{ $t("tokenHolder.ranking") }}</th>
           <th class="tableHeader">
             {{ $t("tokenHolder.address") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
-              {{ button.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
           <!--          <th>Last Transferred</th>-->
@@ -50,25 +50,25 @@
           <td class="Address">
             <router-link
               v-if="button.state"
-              class="name mb-0 text-sm"
+              class="  mb-0 table-list-item-blue"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
               >{{ scriptHashToAddress(row.item.address) }}</router-link>
             <router-link
               v-else
-              class="name mb-0 text-sm"
+              class="  mb-0 table-list-item-blue"
               style="cursor: pointer"
               :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
             </router-link>
           </td>
-          <td class="balance">
+          <td class="table-list-item">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
           <!--          <td class="firstused">-->
           <!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
           <!--          </td>-->
-          <td class="percentage">
+          <td class="table-list-item">
             {{ toPercentage(row.item.percentage) }}
           </td>
         </template>

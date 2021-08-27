@@ -60,24 +60,24 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row">
-            <div class="media align-items-center">
+          <td scope="row">
+            <div style="text-align: left;margin-left: 4%">
               <div class="media-body">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="table-list-item-blue mb-0 "
                   style="cursor: pointer"
                   :to="'/tokeninfo/'+row.item.hash"
                   >{{ row.item.hash }}</router-link>
               </div>
             </div>
-          </th>
-          <td class="name">
+          </td>
+          <td  class="table-list-item">
             <span v-if="row.item.ispopular"
               >{{ row.item.tokenname }} &#x1F525;
             </span>
             <span v-else>{{ row.item.tokenname }}</span>
           </td>
-          <td class="symbol">
+          <td class="table-list-item">
             {{ row.item.symbol }}
           </td>
           <td>
@@ -93,7 +93,7 @@
               <span class="">{{ row.item.type==="UNKNOW"? "Unknown":"Unknown" }}</span>
             </el-tag>
           </td>
-          <td class="holders">
+          <td class="table-list-item">
             {{ row.item.holders }}
           </td>
         </template>

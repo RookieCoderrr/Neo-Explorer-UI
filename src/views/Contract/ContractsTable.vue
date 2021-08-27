@@ -53,12 +53,9 @@
           <th class="tableHeader">{{ $t("contract.name") }}</th>
           <th class="tableHeader">
             {{ $t("contract.creator") }}
-            <button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(button)"
-            >
-              {{ this.button.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader">{{ $t("contract.index") }}</th>
           <th class="tableHeader">{{ $t("contract.updates") }}</th>
@@ -66,27 +63,28 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row" v-if="row.item">
-            <div class="media align-items-center">
+          <td scope="row" v-if="row.item">
+            <div style="text-align: left">
               <div class="media-body">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" table-list-item-blue mb-0 "
                   style="cursor: pointer"
                   :to="'/contractinfo/' + row.item.hash"
                   >{{ row.item.hash }}</router-link
                 >
               </div>
             </div>
-          </th>
-          <td class="name">
+
+          </td>
+          <td  class="table-list-item">
             {{ row.item.name }}
           </td>
-          <td class="Creator">
+          <td  class="table-list-item-blue">
             <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
               $t("contract.available")
             }}</span>
             <router-link
-              class="mb-0 text-sm"
+              class="table-list-item-blue mb-0"
               v-else-if="button.state"
               style="cursor: pointer"
               :to="
@@ -97,7 +95,7 @@
               {{ row.item.Transaction[0]["sender"] }}
             </router-link>
             <router-link
-              class="mb-0 text-sm"
+              class="table-list-item-blue mb-0 "
               v-else
               style="cursor: pointer"
               :to="
@@ -108,13 +106,13 @@
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>
           </td>
-          <td class="updates">
+          <td  class="table-list-item">
             {{ row.item.id }}
           </td>
-          <td class="updates">
+          <td  class="table-list-item">
             {{ row.item.updatecounter }}
           </td>
-          <td class="time">
+          <td  class="table-list-item">
             {{ convertTime(row.item.createtime, this.$i18n.locale) }}
           </td>
         </template>

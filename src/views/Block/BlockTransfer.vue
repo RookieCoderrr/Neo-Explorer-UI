@@ -17,20 +17,16 @@
           <th class="tableHeader">
             {{ $t("tokenTx.from")
             }}
-            <span>       </span><button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(fromButton)"
-            >
-              {{ this.fromButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(fromButton)">
+              {{this.fromButton.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("tokenTx.to") }}
             <span>       </span>
-            <button class="btn btn-sm btn-primary" @click="changeFormat(toButton)">
-              {{ this.toButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(toButton)">
+              {{this.toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
           <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
@@ -63,14 +59,14 @@
               </div>
               <div v-else-if="fromButton.state" class="addr">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}</router-link>
               </div>
               <div v-else class="addr">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.from"
                   >{{ row.item.from }}</router-link>
@@ -87,7 +83,7 @@
               </div>
               <div v-else-if="toButton.state" class="addr">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.to"
                   >{{ scriptHashToAddress(row.item.to) }}</router-link
@@ -95,17 +91,17 @@
               </div>
               <div v-else class="addr">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/'+row.item.to"
                   >{{ row.item.to }}</router-link>
               </div>
             </div>
           </td>
-          <td class="Value">
+          <td class="table-list-item">
             {{ convertToken(row.item.value, 8) }}Gas
           </td>
-          <td class="time">
+          <td class="table-list-item">
             {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
         </template>

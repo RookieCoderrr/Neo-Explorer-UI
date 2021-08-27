@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
+  <div v-if="totalCount!= 0" class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <loading
         :is-full-page="false"
@@ -34,7 +34,7 @@
                   >{{ $t("na") }}
                 </span>
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   v-else
                   style="cursor: pointer"
                   :to="'/transactionInfo/'+row.item.txid"
@@ -43,16 +43,16 @@
               </div>
             </div>
           </th>
-          <td class="name">
+          <td class="table-list-item">
             {{ row.item.eventname }}
           </td>
-          <td class="vm">
+          <td class="table-list-item">
             {{ row.item.Vmstate }}
           </td>
-          <td class="index">
+          <td class="table-list-item">
             {{ row.item.index }}
           </td>
-          <td class="event">
+          <td class="table-list-item">
             {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
         </template>
@@ -75,6 +75,9 @@
       </el-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center">{{
+      $t("contract.noEvent")
+    }}</card>
 </template>
 <script>
 import axios from "axios";

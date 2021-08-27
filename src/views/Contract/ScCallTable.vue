@@ -17,9 +17,8 @@
           <th class="tableHeader">{{ $t("contract.txID") }}</th>
           <th class="tableHeader">
             {{ $t("contract.sender") }}
-            <button class="btn btn-sm btn-primary" @click="changeFormat(button)">
-              {{ button.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("contract.method") }}</th>
           <th class="tableHeader">{{ $t("contract.callFlags") }}</th>
@@ -36,10 +35,10 @@
                     row.item.txid ===
                     '0x0000000000000000000000000000000000000000000000000000000000000000'
                   "
-                  >Null Transaction</span
+                  >{{$t('Null Transaction')}}</span
                 >
                 <router-link
-                  class="name mb-0 text-sm"
+                  class=" mb-0 table-list-item-blue"
                   v-else
                   style="cursor: pointer"
                   :to="'/transactionInfo/'+row.item.txid "
@@ -51,33 +50,33 @@
           <td class="Sender">
             <div class="addr">
               <span class="text-muted" v-if="row.item.originSender === null">
-                Null Account
+               {{$t('nullAddress')}}
               </span>
               <router-link
                 v-else-if="button.state"
-                class="name mb-0 text-sm"
+                class=" mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ scriptHashToAddress(row.item.originSender) }}</router-link
               >
               <router-link
                 v-else
-                class="name mb-0 text-sm"
+                class="  mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ row.item.originSender }}</router-link
               >
             </div>
           </td>
-          <td class="Method">
+          <td class="table-list-item">
             {{ row.item.method }}
           </td>
-          <td class="Call Flags">
+          <td class="table-list-item">
             {{ row.item.callFlags }}
           </td>
-          <td class="time">
-            Currently Unavailable
-            <!--            //{{ convertTime(row.item.time) }}-->
+          <td class="table-list-item">
+
+            {{ convertTime(row.item.time) }}
           </td>
         </template>
       </base-table>
@@ -130,18 +129,6 @@ export default {
   },
   created() {
     this.getScCallList(0);
-  },
-  computed: {
-    text() {
-      return function (value) {
-        let inputLength = value.toString().length * 10 + 30;
-        return (
-          "width: " +
-          inputLength +
-          "px!important;text-align: center;height:80%;margin-top:5%;"
-        );
-      };
-    },
   },
   watch: {
     contractHash: "watchcontract",

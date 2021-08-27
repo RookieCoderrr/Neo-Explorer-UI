@@ -1,14 +1,14 @@
 <template>
   <footer class="footer px-4">
+
     <div class="row align-items-center justify-content-lg-between">
       <div class="col-lg-6">
         <div class="copyright text-center text-lg-left text-muted">
           © {{ year }}
-          <a
-            href="https://www.creative-tim.com"
+          <span
             class="font-weight-bold ml-1"
             target="_blank"
-            >Creative Tim</a
+            >Neo Explorer</span
           >
         </div>
       </div>
@@ -18,34 +18,18 @@
         >
           <li class="nav-item">
             <a
-              href="https://www.creative-tim.com"
+              href="https://github.com/RookieCoderrr/Neo-Explorer-UI"
               class="nav-link"
               target="_blank"
-              >Creative Tim</a
+              >Github</a
             >
           </li>
           <li class="nav-item">
             <a
-              href="https://www.creative-tim.com/presentation"
+              href="https://neo.org/converter/index"
               class="nav-link"
               target="_blank"
-              >About Us</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              href="https://www.creative-tim.com/blog"
-              class="nav-link"
-              target="_blank"
-              >Blog</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              href="https://www.creative-tim.com/license"
-              class="nav-link"
-              target="_blank"
-              >License</a
+              >OpCode Converter</a
             >
           </li>
         </ul>

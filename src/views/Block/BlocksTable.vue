@@ -40,26 +40,26 @@
         </template>
 
         <template v-slot:default="row">
-          <th scope="row">
-            {{ row.item.index }}
-          </th>
-          <td style="padding-left: 100px">
+
+          <td >
+            <div  class="table-list-item" >{{ row.item.index }}</div>
+          </td>
+          <td style="text-align: left;margin-left: 2%">
             <div>
               <router-link
-                class="name mb-0 text-sm"
+                class="table-list-item-blue name mb-0"
                 style="cursor: pointer"
                 :to="'/blockinfo/'+row.item.hash"
                 >{{ row.item.hash }}</router-link>
             </div>
           </td>
-          <td>
-<!--            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}-->
-            <div class="timeago" :datetime="(convertISOTime(row.item.timestamp))"> </div>
+          <td class="table-list-item">
+            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}
           </td>
-          <td class="txnumber">
+          <td class="table-list-item">
             {{ row.item.transactioncount }}
           </td>
-          <td>{{ row.item.size }} {{ $t("bytes") }}</td>
+          <td class="table-list-item">{{ row.item.size }} {{ $t("bytes") }}</td>
         </template>
       </base-table>
     </div>
@@ -85,8 +85,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime,convertISOTime} from "../../store/util";
-
+import {convertTime,} from "../../store/util";
 export default {
   name: "blocks-table",
   props: {
@@ -115,7 +114,7 @@ export default {
 
   methods: {
     convertTime,
-    convertISOTime,
+
     getBlock(hash) {
       this.$router.push(`/blockinfo/${hash}`);
     },

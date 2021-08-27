@@ -21,13 +21,9 @@
             <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
             <th class="tableHeader">
               {{ $t("transactionTransfer.from") }}
-              <span> </span>
-              <button
-                class="btn btn-sm btn-primary"
-                @click="changeFormat(fromButton)"
-              >
-                {{ fromButton.buttonName }}
-              </button>
+              <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
+                {{fromButton.buttonName}}</el-button>
+
             </th>
             <th class="tableHeader">
               {{ $t("transactionTransfer.fromBalance") }}
@@ -35,13 +31,9 @@
             <th class="tableHeader"></th>
             <th class="tableHeader">
               {{ $t("transactionTransfer.to") }}
-              <span> </span
-              ><button
-                class="btn btn-sm btn-primary"
-                @click="changeFormat(toButton)"
-              >
-                {{ toButton.buttonName }}
-              </button>
+              <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
+                {{toButton.buttonName}}</el-button>
+
             </th>
             <th class="tableHeader">
               {{ $t("transactionTransfer.toBalance") }}
@@ -53,7 +45,7 @@
             <td class="budget">
               <div class="contract">
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/contractinfo/' + row.item.contract"
                   >{{ row.item.contract }}</router-link
@@ -61,7 +53,7 @@
               </div>
             </td>
             <td class="budget">
-              <div class="from">
+              <div class="table-list-item">
                 {{ row.item.tokenname }}
               </div>
             </td>
@@ -94,7 +86,7 @@
                   {{ $t("nullAddress") }}</span
                 >
                 <router-link
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   v-else
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.from"
@@ -110,7 +102,7 @@
               <span class="text-muted" v-if="row.item.from === null">{{
                 $t("nullBalance")
               }}</span>
-              <span v-else>{{
+              <span v-else class="table-list-item">{{
                 convertToken(row.item.frombalance, row.item.decimals)
               }}</span>
             </td>
@@ -124,7 +116,7 @@
                 >
                 <router-link
                   v-else
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.to"
                   >{{
@@ -140,12 +132,12 @@
               <span class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullBalance") }}
               </span>
-              <span v-else>
+              <span v-else class="table-list-item">
                 {{ convertToken(row.item.tobalance, row.item.decimals) }}</span
               >
             </td>
 
-            <td class="budget">
+            <td class="table-list-item">
               {{ convertToken(row.item.value, row.item.decimals) }}
             </td>
           </template>

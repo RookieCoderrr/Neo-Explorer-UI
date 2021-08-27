@@ -20,22 +20,14 @@
           <th class="tableHeader">{{ $t("transferList.type") }}</th>
           <th class="tableHeader">
             {{ $t("transferList.from") }}
-            <button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(this.fromButton)"
-            >
-              {{ this.fromButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
+              {{fromButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("transferList.to") }}
-            <button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(this.toButton)"
-            >
-              {{ this.toButton.buttonName }}
-            </button>
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
+              {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transferList.amount") }}</th>
           <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
@@ -62,10 +54,8 @@
               </div>
             </div>
           </td>
-          <td class="budget">
-            <div>
+          <td class="table-list-item">
               {{ row.item.tokenname }}
-            </div>
           </td>
           <td class="Type">
             <div>
@@ -129,7 +119,7 @@
               <div v-else-if="fromButton.state" class="addr">
                 <router-link
                   v-if="row.item.from === this.account_address"
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.from"
                   ><i class="ni ni-tag"></i
@@ -146,14 +136,14 @@
               <div v-else class="addr">
                 <router-link
                   v-if="row.item.from === this.account_address"
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.from"
                   ><i class="ni ni-tag"></i>{{ row.item.from }}
                 </router-link>
                 <router-link
                   v-else
-                  class="name mb-0 text-sm"
+                  class="  mb-0 table-list-item-blue"
                   style="cursor: pointer"
                   :to="'/accountprofile/' + row.item.from"
                   >{{ row.item.from }}
@@ -171,14 +161,14 @@
             <div v-else-if="toButton.state" class="addr">
               <router-link
                 v-if="row.item.to === this.account_address"
-                class="name mb-0 text-sm"
+                class="  mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
               </router-link>
               <router-link
                 v-else
-                class="name mb-0 text-sm"
+                class="  mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/' + row.item.to"
                 >{{ scriptHashToAddress(row.item.to) }}
@@ -187,14 +177,14 @@
             <div v-else class="addr">
               <router-link
                 v-if="row.item.to === this.account_address"
-                class="name mb-0 text-sm"
+                class="mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ row.item.to }}
               </router-link>
               <router-link
                 v-else
-                class="name mb-0 text-sm"
+                class="mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/' + row.item.to"
                 >{{ row.item.to }}
@@ -202,10 +192,10 @@
             </div>
           </td>
 
-          <td class="budget">
+          <td class="table-list-item">
             {{ convertToken(row.item.value, row.item.decimals) }}
           </td>
-          <td class="budget">
+          <td class="table-list-item">
             <div>
               {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
             </div>

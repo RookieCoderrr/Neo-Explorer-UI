@@ -33,25 +33,23 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("addressPage.number") }}</th>
           <th class="tableHeader">
-            {{ $t("addressPage.address")
-            }}<button
-              class="btn btn-sm btn-primary"
-              @click="changeFormat(button)"
-            >
-              {{ this.button.buttonName }}
-            </button>
+            {{ $t("addressPage.accountsTable")
+            }}
+            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
+              {{this.button.buttonName}}</el-button>
+
           </th>
           <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
           <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
           <th class="tableHeader">{{ $t("addressPage.createdTime") }}</th>
         </template>
         <template v-slot:default="row">
-          <td>
+          <td class="table-list-item" >
             {{ row.item.number }}
           </td>
           <td class="address">
             <router-link
-              class="mb-0 text-sm"
+              class="mb-0 table-list-item-blue"
               v-if="this.button.state"
               style="cursor: pointer"
               :to="'/accountprofile/' + row.item.address"
@@ -59,7 +57,7 @@
               {{ scriptHashToAddress(row.item.address) }}
             </router-link>
             <router-link
-              class="mb-0 text-sm"
+              class="mb-0 table-list-item-blue"
               v-else
               style="cursor: pointer"
               :to="'/accountprofile/' + row.item.address"
@@ -68,13 +66,13 @@
             </router-link>
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
-          <td class="neoBalance">
+          <td class="table-list-item">
             {{ row.item.neoBalance }}
           </td>
-          <td class="gasBalance">
+          <td class="table-list-item">
             {{ row.item.gasBalance }}
           </td>
-          <td class="firstusetime">
+          <td class="table-list-item">
             {{ row.item.firstusetime }}
           </td>
         </template>
