@@ -167,6 +167,265 @@
                 </div>
               </div>
             </card>
+            <div class="row mt-4"></div>
+            <el-tabs
+                v-model="activeName"
+                style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
+            >
+              <el-tab-pane label="Nep17Transfers" name="first">
+                <transfers-list
+                    :title="$t('transactionInfo.nep17')"
+                    :txhash="this.txhash"
+                ></transfers-list>
+              </el-tab-pane>
+              <el-tab-pane label="Nep11Transfers" name="second">
+                <nft-table
+                    :title="$t('transactionInfo.nep11')"
+                    :txhash="this.txhash"
+                ></nft-table>
+              </el-tab-pane>
+              <el-tab-pane
+                  :label="$t('transactionInfo.notification')"
+                  name="third"
+              >
+                <div
+                    class="notificationDiv"
+                    v-if="
+                    this.tabledataApp['notifications'] &&
+                    this.tabledataApp['notifications'].length != 0
+                  "
+                >
+                  <div v-if="this.countApp === 0">
+                    <card
+                        shadow
+                        v-for="(item, index) in this.tabledataApp[
+                        'notifications'
+                      ]"
+                        :key="index"
+                    >
+                      <div class="row">
+                        <div class="col-2">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.eventName") }}:
+                          </div>
+                          {{ item["eventname"] }}
+                        </div>
+                        <div class="col-1">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.vmState") }}:
+                          </div>
+                          {{ item["Vmstate"] }}
+                        </div>
+                        <div class="col-4">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.contract") }}:
+                          </div>
+                          <router-link
+                              class="name mb-0 text-sm"
+                              style="cursor: pointer"
+                              :to="'/contractinfo/' + item['contract']"
+                          >
+                            {{ item["contract"] }}
+                          </router-link>
+                        </div>
+                        <div class="col-5">
+                          <div class="params">
+                            <div class="text-muted">
+                              {{ $t("transactionInfo.State") }}:
+                            </div>
+                            <div v-if="item['state'].length !== 0">
+                              <li
+                                  v-for="(param, ind) in item['state']['value']"
+                                  :key="ind"
+                              >
+                                <span
+                                    v-if="
+                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])[ind] === 'Hash160'
+                                  "
+                                >
+                                  {{ param["type"] }}:
+                                  {{
+                                    param["value"] === null
+                                        ? "Null"
+                                        : base64ToHash(param["value"])
+                                  }}
+                                </span>
+                                <span
+                                    v-else-if="
+                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])[ind] === 'String'
+                                  "
+                                >
+                                  {{ param["type"] }}:
+                                  {{ base64ToString(param["value"]) }}
+                                </span>
+                                <span
+                                    v-else-if="
+                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])[ind] === 'Array'
+                                  "
+                                >
+                                  {{ param["type"] }}:{{
+                                    base64ToByteArray(param["value"])
+                                  }}
+                                </span>
+                                <span
+                                    v-else-if="
+                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])[ind] ===
+                                      'ByteArray'
+                                  "
+                                >
+                                  {{ param["type"] }}:{{
+                                    base64ToByteArray(param["value"])
+                                  }}
+                                </span>
+                                <span v-else>
+                                  {{ param["type"] }}: {{ param["value"] }}
+                                </span>
+                              </li>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </card>
+                  </div>
+                  <div v-else>
+                    <span
+                    >Some contract does not exist in the database(To do)</span
+                    >
+                  </div>
+                </div>
+
+                <card shadow v-else class="text-center">
+                  This transaction has no events.
+                </card>
+              </el-tab-pane>
+              <el-tab-pane
+                  :label="$t('transactionInfo.systemCall')"
+                  name="forth"
+              >
+                <div
+                    class="systemCallDiv"
+                    v-if="this.tabledataCall && this.tabledataCall['length'] != 0"
+                >
+                  <div v-if="this.countSys === 0">
+                    <card
+                        shadow
+                        v-for="(item, index) in this.tabledataCall['result']"
+                        :key="index"
+                    >
+                      <div class="row">
+                        <div class="col-2">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.method") }}:
+                          </div>
+                          {{ item["method"] }}
+                        </div>
+                        <div class="col-4">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.originSender") }}:
+                          </div>
+                          <router-link
+                              class="name mb-0 text-sm"
+                              style="cursor: pointer"
+                              :to="'/accountprofile/' + item['originSender']"
+                          >
+                            {{ item["originSender"] }}
+                          </router-link>
+                        </div>
+                        <div class="col-4">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.contract") }}:
+                          </div>
+                          <router-link
+                              class="name mb-0 text-sm"
+                              style="cursor: pointer"
+                              :to="'/contractinfo/' + item['contractHash']"
+                          >
+                            {{ item["contractHash"] }}
+                          </router-link>
+                        </div>
+                        <div class="col-2">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.callFlags") }}:
+                          </div>
+                          {{ item["callFlags"] }}
+                        </div>
+                      </div>
+                      <div class="row mt-3"></div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="text-muted">
+                            {{ $t("transactionInfo.params") }}:
+                          </div>
+                          <div v-if="List[index] && List[index]['key']">
+                            <li
+                                class="col-12"
+                                v-for="(param, ind) in item['hexStringParams']"
+                                :key="ind"
+                            >
+                              <span
+                                  v-if="
+                                  List[index]['key'][ind]['type'] === 'Hash160'
+                                "
+                              >
+                                {{ List[index]["key"][ind]["name"] }}:
+                                {{
+                                  param === "" ? "null" : this.hexToHash(param)
+                                }}
+                              </span>
+                              <span
+                                  v-else-if="
+                                  List[index] &&
+                                  List[index]['key'] &&
+                                  List[index]['key'][ind]['type'] === 'String'
+                                "
+                              >
+                                {{ List[index]["key"][ind]["name"] }}:
+                                {{
+                                  param === ""
+                                      ? "null"
+                                      : this.hexToString(param)
+                                }}
+                              </span>
+                              <span
+                                  v-else-if="
+                                  List[index] &&
+                                  List[index]['key'] &&
+                                  List[index]['key'][ind]['type'] === 'Integer'
+                                "
+                              >
+                                {{ List[index]["key"][ind]["name"] }}:
+                                {{
+                                  param === ""
+                                      ? "null"
+                                      : this.hexToInteger(param)
+                                }}
+                              </span>
+                              <span v-else>
+                                {{ List[index]["key"][ind]["name"] }}:
+                                {{ param === "" ? "null" : param }}
+                              </span>
+                            </li>
+                          </div>
+                        </div>
+                      </div>
+                    </card>
+                  </div>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+
             <div class="row mt-3 mb-3 title2">
               {{ $t("transactionInfo.signers") }}
             </div>
@@ -246,264 +505,7 @@
                 </el-collapse-item>
               </el-collapse>
             </card>
-            <div class="row mt-4"></div>
-            <el-tabs
-              v-model="activeName"
-              style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
-            >
-              <el-tab-pane label="Nep17Transfers" name="first">
-                <transfers-list
-                  :title="$t('transactionInfo.nep17')"
-                  :txhash="this.txhash"
-                ></transfers-list>
-              </el-tab-pane>
-              <el-tab-pane label="Nep11Transfers" name="second">
-                <nft-table
-                  :title="$t('transactionInfo.nep11')"
-                  :txhash="this.txhash"
-                ></nft-table>
-              </el-tab-pane>
-              <el-tab-pane
-                :label="$t('transactionInfo.notification')"
-                name="third"
-              >
-                <div
-                  class="notificationDiv"
-                  v-if="
-                    this.tabledataApp['notifications'] &&
-                    this.tabledataApp['notifications'].length != 0
-                  "
-                >
-                  <div v-if="this.countApp === 0">
-                    <card
-                      shadow
-                      v-for="(item, index) in this.tabledataApp[
-                        'notifications'
-                      ]"
-                      :key="index"
-                    >
-                      <div class="row">
-                        <div class="col-2">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.eventName") }}:
-                          </div>
-                          {{ item["eventname"] }}
-                        </div>
-                        <div class="col-1">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.vmState") }}:
-                          </div>
-                          {{ item["Vmstate"] }}
-                        </div>
-                        <div class="col-4">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.contract") }}:
-                          </div>
-                          <router-link
-                            class="name mb-0 text-sm"
-                            style="cursor: pointer"
-                            :to="'/contractinfo/' + item['contract']"
-                          >
-                            {{ item["contract"] }}
-                          </router-link>
-                        </div>
-                        <div class="col-5">
-                          <div class="params">
-                            <div class="text-muted">
-                              {{ $t("transactionInfo.State") }}:
-                            </div>
-                            <div v-if="item['state'].length !== 0">
-                              <li
-                                v-for="(param, ind) in item['state']['value']"
-                                :key="ind"
-                              >
-                                <span
-                                  v-if="
-                                    this.mapTotalApp.get(item['contract']) &&
-                                    this.mapTotalApp
-                                      .get(item['contract'])
-                                      .get(item['eventname'])[ind] === 'Hash160'
-                                  "
-                                >
-                                  {{ param["type"] }}:
-                                  {{
-                                    param["value"] === null
-                                      ? "Null"
-                                      : base64ToHash(param["value"])
-                                  }}
-                                </span>
-                                <span
-                                  v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
-                                    this.mapTotalApp
-                                      .get(item['contract'])
-                                      .get(item['eventname'])[ind] === 'String'
-                                  "
-                                >
-                                  {{ param["type"] }}:
-                                  {{ base64ToString(param["value"]) }}
-                                </span>
-                                <span
-                                  v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
-                                    this.mapTotalApp
-                                      .get(item['contract'])
-                                      .get(item['eventname'])[ind] === 'Array'
-                                  "
-                                >
-                                  {{ param["type"] }}:{{
-                                    base64ToByteArray(param["value"])
-                                  }}
-                                </span>
-                                <span
-                                  v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
-                                    this.mapTotalApp
-                                      .get(item['contract'])
-                                      .get(item['eventname'])[ind] ===
-                                      'ByteArray'
-                                  "
-                                >
-                                  {{ param["type"] }}:{{
-                                    base64ToByteArray(param["value"])
-                                  }}
-                                </span>
-                                <span v-else>
-                                  {{ param["type"] }}: {{ param["value"] }}
-                                </span>
-                              </li>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                  <div v-else>
-                    <span
-                      >Some contract does not exist in the database(To do)</span
-                    >
-                  </div>
-                </div>
 
-                <card shadow v-else class="text-center">
-                  This transaction has no events.
-                </card>
-              </el-tab-pane>
-              <el-tab-pane
-                :label="$t('transactionInfo.systemCall')"
-                name="forth"
-              >
-                <div
-                  class="systemCallDiv"
-                  v-if="this.tabledataCall && this.tabledataCall['length'] != 0"
-                >
-                  <div v-if="this.countSys === 0">
-                    <card
-                      shadow
-                      v-for="(item, index) in this.tabledataCall['result']"
-                      :key="index"
-                    >
-                      <div class="row">
-                        <div class="col-2">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.method") }}:
-                          </div>
-                          {{ item["method"] }}
-                        </div>
-                        <div class="col-4">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.originSender") }}:
-                          </div>
-                          <router-link
-                            class="name mb-0 text-sm"
-                            style="cursor: pointer"
-                            :to="'/accountprofile/' + item['originSender']"
-                          >
-                            {{ item["originSender"] }}
-                          </router-link>
-                        </div>
-                        <div class="col-4">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.contract") }}:
-                          </div>
-                          <router-link
-                            class="name mb-0 text-sm"
-                            style="cursor: pointer"
-                            :to="'/contractinfo/' + item['contractHash']"
-                          >
-                            {{ item["contractHash"] }}
-                          </router-link>
-                        </div>
-                        <div class="col-2">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.callFlags") }}:
-                          </div>
-                          {{ item["callFlags"] }}
-                        </div>
-                      </div>
-                      <div class="row mt-3"></div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="text-muted">
-                            {{ $t("transactionInfo.params") }}:
-                          </div>
-                          <div v-if="List[index] && List[index]['key']">
-                            <li
-                              class="col-12"
-                              v-for="(param, ind) in item['hexStringParams']"
-                              :key="ind"
-                            >
-                              <span
-                                v-if="
-                                  List[index]['key'][ind]['type'] === 'Hash160'
-                                "
-                              >
-                                {{ List[index]["key"][ind]["name"] }}:
-                                {{
-                                  param === "" ? "null" : this.hexToHash(param)
-                                }}
-                              </span>
-                              <span
-                                v-else-if="
-                                  List[index] &&
-                                  List[index]['key'] &&
-                                  List[index]['key'][ind]['type'] === 'String'
-                                "
-                              >
-                                {{ List[index]["key"][ind]["name"] }}:
-                                {{
-                                  param === ""
-                                    ? "null"
-                                    : this.hexToString(param)
-                                }}
-                              </span>
-                              <span
-                                v-else-if="
-                                  List[index] &&
-                                  List[index]['key'] &&
-                                  List[index]['key'][ind]['type'] === 'Integer'
-                                "
-                              >
-                                {{ List[index]["key"][ind]["name"] }}:
-                                {{
-                                  param === ""
-                                    ? "null"
-                                    : this.hexToInteger(param)
-                                }}
-                              </span>
-                              <span v-else>
-                                {{ List[index]["key"][ind]["name"] }}:
-                                {{ param === "" ? "null" : param }}
-                              </span>
-                            </li>
-                          </div>
-                        </div>
-                      </div>
-                    </card>
-                  </div>
-                </div>
-              </el-tab-pane>
-            </el-tabs>
           </div>
           <div style="margin-top: 30px; margin-bottom: 20px"></div>
         </div>
