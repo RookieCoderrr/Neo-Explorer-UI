@@ -21,7 +21,7 @@
           <th class="tableHeader">{{ $t("tokenHolder.ranking") }}</th>
           <th class="tableHeader">
             {{ $t("tokenHolder.address") }}
-            <el-button type="info" plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
+            <el-button type="info" :plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
               {{this.button.buttonName}}</el-button>
 
           </th>
@@ -75,7 +75,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="totalCount>=10"
             class="card-footer d-flex justify-content-end"
             :class="type === 'dark' ? 'bg-transparent' : ''"
             style="height: 70px"

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="container-fluid mt--8" style="background-color: rgb(242,242,242)">
+    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
 
-            <div class="top"  >
+            <div class="top" >
               <loading
                 :is-full-page="false"
                 :opacity="0.9"
@@ -174,10 +174,10 @@
                 <card shadow class="card-style" v-if="block_info.witnesses">
                   <el-collapse v-model="activeNames"    style="border: white;">
                     <el-collapse-item :title="$t('transactionInfo.invocation')" name="1"  class="text-title3"  >
-                      <div  v-html=" block_info['witnesses'][0]['invocation']"></div>
+                      <div  v-html=" block_info['witnesses'][0]['invocation']" style="margin-left: 5%"></div>
                     </el-collapse-item>
                     <el-collapse-item :title="$t('transactionInfo.verification')" name="2"  style="" >
-                      <div  v-html=" block_info['witnesses'][0]['verification']"></div>
+                      <div  v-html=" block_info['witnesses'][0]['verification']"  style="margin-left:5%"></div>
                     </el-collapse-item>
                   </el-collapse>
 
@@ -185,7 +185,7 @@
                 <div class="row mt-3"></div>
               </div>
 
-          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(242,242,242)" >
+          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;" >
             <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
                     <block-transaction
                             v-if=" this.block_info.transactioncount != 0"

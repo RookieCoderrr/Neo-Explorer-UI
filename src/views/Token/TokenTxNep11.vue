@@ -23,13 +23,13 @@
           <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
           <th class="tableHeader">
             {{ $t("tokenTx.from") }}
-            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{fromButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader"></th>
           <th class="tableHeader">
             {{ $t("tokenTx.to") }}
-            <el-button type="info" plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
               {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
@@ -139,7 +139,7 @@
       </base-table>
     </div>
 
-    <div
+    <div v-if="totalCount>=10"
             class="card-footer d-flex justify-content-end"
             :class="type === 'dark' ? 'bg-transparent' : ''"
             style="height: 70px"
