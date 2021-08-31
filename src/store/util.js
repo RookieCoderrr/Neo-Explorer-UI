@@ -2,8 +2,8 @@
 import {format} from "timeago.js";
 import Neon from "@cityofzion/neon-js";
 
-const RPC_NODE = "http://seed2t4.neo.org:20332";
-
+// const RPC_NODE = "http://seed2t4.neo.org:20332";
+const RPC_NODE = "https://testneofura.ngd.network:444"
 function changeFormat(button) {
     if(button.state) {
         button.state = false;

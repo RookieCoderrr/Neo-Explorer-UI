@@ -53,7 +53,7 @@
                               :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                       >{{ button.state ?this.contract_info["sender"] : addressToScriptHash(this.contract_info["sender"])}}</router-link
                       >
-                      <el-button type="primary" size="small" style="height: 19px;margin-left: 20px;">Hash</el-button>
+                      <el-button type="primary" size="small" style="height: 19px;margin-left: 20px" @click="changeFormat(button)">{{ this.button.buttonName }}</el-button>
                     </div>
                   </div>
                 </div>
@@ -364,7 +364,7 @@ export default {
           method: "GetContractByContractHash",
         },
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
           withCredentials: " true",
           crossDomain: "true",
         },
