@@ -29,7 +29,7 @@
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div class="table-responsive">
       <base-table
-        class="table align-items-center table-flush"
+        class="table align-items-center table-hover"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
@@ -43,7 +43,7 @@
           <th>{{ $t("blockinfo.size") }}</th>
         </template-->
         <template v-slot:default="row">
-          <td style="width: 5px;">
+          <td style="text-align: left">
             <div class="item-name">{{$t("block")}}</div>
             <div class="item-name">{{$t("ahash")}}</div>
           </td>
@@ -61,9 +61,9 @@
           </td>
           <td style="text-align: right">
             <div>
-              {{$t("size")}}{{ row.item.size }} {{$t("bytes")}}
+              {{$t("size")}} {{ row.item.size }} {{$t("bytes")}}
             </div>
-              <div  class="timeago item-name"  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
+              <div  class="timeago "  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
           </td>
             <!--td>
               {{ row.item.transactioncount }}

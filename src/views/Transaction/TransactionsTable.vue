@@ -24,7 +24,7 @@
         :active="isLoading"
       ></loading>
       <base-table
-        class="table align-items-center table-flush list-table"
+        class="table align-items-center table-hover list-table"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"

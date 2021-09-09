@@ -2,7 +2,7 @@
   <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <div v-if="this.totalCount != 0" class="table-responsive">
       <base-table
-        class="table align-items-center table-flush"
+        class="table align-items-center table-hover"
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
