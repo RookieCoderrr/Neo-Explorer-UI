@@ -66,7 +66,7 @@ function convertPreciseTime(time) {
     const h = date.getHours() < 10 ? ('0' + date.getHours()): date.getHours()
     const mi = date.getMinutes() < 10 ? ('0' + date.getMinutes()): date.getMinutes()
     const s = date.getSeconds() < 10 ? ('0' + date.getSeconds()): date.getSeconds()
-    return m+'-'+d+'-'+y+' '+h+':'+mi+':'+ s +' +' + "UTC";
+    return m+'-'+d+'-'+y+' '+h+':'+mi+':'+ s  + " UTC+8";
 }
 
 function convertISOTime(time) {
