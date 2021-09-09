@@ -10,7 +10,7 @@ Neo-Explorer-UI is a blockchain browser which could visulize Neo chain data of N
 git clone https://github.com/RookieCoderrr/Neo-Explorer-UI.git
 
 # enter project directory
-cd Neo-Explorer-UI
+cd Neo-Explorer-UI-main
 
 # install dependencies
 npm install
@@ -26,8 +26,8 @@ npm run serve
 # download project
 git clone https://github.com/RookieCoderrr/Neo-Explorer-UI.git
 
-# ebter project directory
-cd Neo-Explorer-UI
+# enter project directory
+cd Neo-Explorer-UI-main
 
 # run shell to start docker container
 ./run.sh
