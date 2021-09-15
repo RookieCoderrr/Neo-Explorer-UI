@@ -28,10 +28,10 @@
           <div class="card-body">
             <card shadow class="card-style">
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.title") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <span id="address">
                     {{ this.scriptHashToAddress(this.accountAddress) }}
 
@@ -47,18 +47,18 @@
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.createdTime") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ convertPreciseTime(this.createdTime) }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.type") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <div v-if="this.type === 'normal'">
                     {{ $t("addressPage.typeEnum.normal") }}
                   </div>
@@ -71,50 +71,50 @@
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.neoBalance") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.neoBalance }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.gasBalance") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.gasBalance }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.txNums") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.numOfTxns }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.txNums") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.numOfTxns }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.nep17Transfers") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.numOfnep17Transfers }}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.nep11Transfers") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.numOfnep11Transfers }}
                 </div>
               </div>

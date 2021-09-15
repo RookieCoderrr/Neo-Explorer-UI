@@ -28,10 +28,10 @@
 
                 <card shadow class="card-style">
                   <div class="row  mt-1 mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("blockinfo.height") }}
                     </div>
-                    <div class=" col-10 context-black">
+                    <div class=" col-9 context-black">
                       {{ this.block_info.index }}
                       <el-button
                               id="leftButton"
@@ -50,46 +50,46 @@
                   </div>
 
                   <div class="row  mt-3  mb-1 " >
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("blockinfo.time") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ convertPreciseTime(this.block_info.timestamp) }}
                     </div>
                   </div>
 
 
                   <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("blockinfo.size") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ this.block_info.size }} {{ $t("blockinfo.bytes") }}
                     </div>
                   </div>
 
                   <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("blockinfo.version") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ this.block_info.version }}
                     </div>
                   </div>
 
                   <div class="row mt-3  mb-1"  >
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("blockinfo.blockReward") }}
                     </div>
-                    <div class="col-10 context-black">0.5 GAS</div>
+                    <div class="col-9 context-black">0.5 GAS</div>
                   </div>
 
 
                   <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                         {{ $t("blockinfo.speaker") }}
                     </div>
-                    <div class="col-10 context-black" v-if="this.block_info['speaker']">
+                    <div class="col-9 context-black" v-if="this.block_info['speaker']">
                       <router-link class="name mb-0 " id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
@@ -105,10 +105,10 @@
                   </div>
 
                   <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
-                    <div class="col-10 context-black" v-if="block_info['prevhash']">
+                    <div class="col-9 context-black" v-if="block_info['prevhash']">
                     <router-link    class="name mb-0 " id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
@@ -118,10 +118,10 @@
                   </div>
 
                   <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       <div>{{ $t("blockinfo.hash") }}</div>
                     </div>
-                    <div class="col-10 context-black" v-if="block_info.hash" id="Hash">
+                    <div class="col-9 context-black" v-if="block_info.hash" id="Hash">
                       {{ block_info.hash  }}
                       <i class="ni ni-single-copy-04" id="HashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('Hash','HashButton','HashSpan')"></i>
                       <span style="color: #42b983" id="HashSpan" ></span>
@@ -129,19 +129,19 @@
                   </div>
 
                   <div class="row  mt-3  mb-1" >
-                    <div class="col-2 lable-title ">
+                    <div class="col-3 lable-title ">
                         {{ $t("blockinfo.txns") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ this.block_info.transactioncount }}
                     </div>
                   </div>
 
                   <div class="row mt-3  mb-1 "  >
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                         {{ $t("blockinfo.transfers") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{
                       parseInt(block_info.nep11count) +
                       parseInt(block_info.nep17count)
@@ -150,19 +150,19 @@
                   </div>
 
                   <div class="row  mt-3  mb-1" >
-                    <div class="col-2 lable-title ">
+                    <div class="col-3 lable-title ">
                         {{ $t("blockinfo.totalSysFee") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ this.block_info.systemFee / 100000000 }}
                     </div>
                   </div>
 
                   <div class="row mt-3  mb-1" >
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                         {{ $t("blockinfo.totalNetFee") }}
                     </div>
-                    <div class="col-10 context-black">
+                    <div class="col-9 context-black">
                       {{ this.block_info.networkFee / 100000000 }}
                     </div>
                   </div>

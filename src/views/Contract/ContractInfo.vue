@@ -14,10 +14,10 @@
               <card shadow class="card-style">
 
                 <div class="row   mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.name") }}
                   </div>
-                  <div class="col-8 context-black">
+                  <div class="col-7 context-black">
                     {{ this.contract_info["name"] }}
                   </div>
                   <div class="col-2">
@@ -27,10 +27,10 @@
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.hash") }}
                   </div>
-                  <div class="col-10 context-black" id="contract">
+                  <div class="col-9 context-black" id="contract">
                     {{ this.contract_info["hash"] }}
                     <i class="ni ni-single-copy-04" id="contractButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')"></i>
                     <span  style="color: #42b983"  id="contractSpan" ></span>
@@ -39,10 +39,10 @@
 
 
                 <div class="row  mt-3  mb-1">
-                    <div class="col-2 lable-title">
+                    <div class="col-3 lable-title">
                       {{ $t("contract.creator") }}
                     </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     <span v-if="this.contract_info['sender'] === null">
                       {{$t("contract.available") }}
                     </span>
@@ -59,46 +59,46 @@
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.time") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     {{ convertPreciseTime(this.contract_info["createtime"]) }}
                   </div>
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.update") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     {{ this.contract_info["updatecounter"] }}
                   </div>
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.index") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     {{ this.contract_info["id"] }}
                   </div>
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.compiler") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     {{ this.nef["compiler"] }}
                   </div>
                 </div>
 
                 <div class="row  mt-3  mb-1">
-                  <div class="col-2 lable-title">
+                  <div class="col-3 lable-title">
                     {{ $t("contract.txns") }}
                   </div>
-                  <div class="col-10 context-black">
+                  <div class="col-9 context-black">
                     {{ this.contract_info["totalsccall"] }}
                   </div>
                 </div>

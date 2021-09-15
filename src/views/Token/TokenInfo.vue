@@ -18,10 +18,10 @@
 
             <card shadow class="card-style">
               <div class="row">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.name") }}
                 </div>
-                <div class="col-8 context-black">
+                <div class="col-7 context-black">
                   <div v-if="this.token_info.ispopular">
                     {{ this.token_info["tokenname"] }} &#x1F525;
                   </div>
@@ -34,10 +34,10 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("hash") }}
                 </div>
-                <div class="col-10 context-black" id="token">
+                <div class="col-9 context-black" id="token">
                   {{ this.token_info["hash"] }}
 
                   <i
@@ -52,38 +52,38 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.symbol") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.token_info["symbol"] }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.decimal") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.token_info["decimals"] }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.standard") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ $t("tokenInfo.standard") }}
                   {{ this.token_info["type"] }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.transferred") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <div v-if="this.token_info.firsttransfertime">
                     {{
                       this.convertPreciseTime(
@@ -95,10 +95,10 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.supply") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{
                     convertToken(this.token_info["totalsupply"], this.decimal)
                   }}
@@ -106,10 +106,10 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("tokenInfo.holders") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.token_info["holders"] }}
                 </div>
               </div>

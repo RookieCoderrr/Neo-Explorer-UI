@@ -17,10 +17,10 @@
           <div class="card-body">
             <card shadow class="card-style">
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.txId") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <span id="tx">{{ this.tabledata["hash"] }}</span>
                   <span> </span>
                   <i
@@ -33,47 +33,48 @@
                   <span style="color: #42b983" id="txSpan"></span>
                 </div>
               </div>
+
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.time") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ convertPreciseTime(this.blocktime) }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.blockHeight") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.tabledata["blockIndex"] }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.size") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.tabledata["size"] }} {{ $t("bytes") }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.version") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.tabledata["version"] }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.blockHash") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <router-link
                     class="name mb-0 "
                     style="cursor: pointer"
@@ -93,10 +94,10 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.sender") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   <router-link
                     class="name mb-0 "
                     id="sender"
@@ -124,50 +125,51 @@
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.netFee") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ convertGas(this.tabledata["netfee"]) }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.sysFee") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ convertGas(this.tabledata["sysfee"]) }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.vmState") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.vmstate }}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+
+              <div class="row  mt-3 mb-1" >
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 exception context-black">
                   {{ this.exception === null ? "Null" : this.exception }}
                 </div>
               </div>
 
               <div class="row mt-3 mb-1">
-                <div class="col-2 lable-title">
+                <div class="col-3 lable-title">
                   {{ $t("transactionInfo.trigger") }}
                 </div>
-                <div class="col-10 context-black">
+                <div class="col-9 context-black">
                   {{ this.trigger }}
                 </div>
               </div>
             </card>
-            <div class="row mt-4"></div>
+            <div class="row mt-5"></div>
             <el-tabs
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
@@ -426,7 +428,7 @@
               </el-tab-pane>
             </el-tabs>
 
-            <div class="row mt-3 mb-3 title2">
+            <div class="row mt-5 mb-3 title2">
               {{ $t("transactionInfo.signers") }}
             </div>
             <card shadow class="card-style" v-if="this.tabledata.signers">
@@ -459,7 +461,7 @@
               </el-collapse>
             </card>
 
-            <div class="row mt-3 mb-3 title2">
+            <div class="row mt-4 mb-3 title2">
               {{ $t("transactionInfo.witness") }}
             </div>
             <card shadow class="card-style" v-if="tabledata.witnesses">
@@ -491,7 +493,7 @@
                 </el-collapse-item>
               </el-collapse>
             </card>
-            <div class="row mt-3 mb-3 title2">
+            <div class="row mt-4 mb-3 title2">
               {{ $t("transactionInfo.script") }}
             </div>
             <card shadow class="card-style">
@@ -849,4 +851,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.exception{
+  word-break: break-all;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+}
+</style>

@@ -14,7 +14,7 @@
     font-style: normal;
     font-weight: 800;
     font-size: 32px;
-    line-height: 39px;
+    line-height: 1.4;
     color:black;
     width: 80%;
     margin-left: 13%;
@@ -69,9 +69,7 @@
     color: #5576EC;
 }
 .context-black{
-    height: 20px;
-    left: 10%;
-    right: 53.07%;
+
     top: calc(50% - 20px/2 - 483.5px);
 
     font-family: Inter, sans-serif;
@@ -79,6 +77,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
+
     /* identical to box height, or 143% */
     color: #000000;
 }
