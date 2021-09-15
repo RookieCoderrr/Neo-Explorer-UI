@@ -398,6 +398,7 @@ export default {
         this.lang = "English " + "🇬🇧";
       } else if (language === "fr") {
         this.lang = "Français " + "🇫🇷";
+
       }
     },
     getBlockCount() {
@@ -1116,7 +1117,7 @@ export default {
   line-height: 15px;
   align-items: center;
 
-  color: rgba(40, 43, 52, 0.3);
+  color: rgb(156, 163, 168);
 
   mix-blend-mode: normal;
 }

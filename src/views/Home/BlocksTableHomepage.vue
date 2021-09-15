@@ -48,7 +48,7 @@
             <div class="item-name">{{$t("ahash")}}</div>
           </td>
           <td style="text-align: left">
-              <tr>
+              <tr class="item-name">
                 {{ row.item.index }}
               </tr>
               <div class="blockid">
@@ -124,5 +124,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px;
 }
 </style>

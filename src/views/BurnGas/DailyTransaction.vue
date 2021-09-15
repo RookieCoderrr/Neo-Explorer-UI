@@ -102,7 +102,7 @@ export default {
 
         // 指定图表的配置项和数据
         var option = {
-          color:['#c20a0a','#ffcc66'],
+          color:['#08BEA0','#08BEA0'],
           title: [{
             left: 'center',
             text: 'Daily Transaction',

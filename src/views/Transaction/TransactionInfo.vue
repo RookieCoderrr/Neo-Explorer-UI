@@ -73,7 +73,7 @@
                 <div class="col-2 lable-title">
                   {{ $t("transactionInfo.blockHash") }}
                 </div>
-                <div class="col-10 context">
+                <div class="col-10 context-black">
                   <router-link
                     class="name mb-0 "
                     style="cursor: pointer"

@@ -53,20 +53,20 @@
             <div class="item-name">{{ $t("gas") }}</div>
           </td>
           <td>
-            <div class="txid">
+            <div class="txidhomepage">
               <router-link
-                class="name mb-0 text-sm"
+                class="name mb-0 "
                 style="cursor: pointer"
                 :to="'/transactionInfo/'+row.item.hash"
                 >{{ row.item.hash }}</router-link
               >
             </div>
-            <div>
+            <div class="item-name">
               {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
             </div>
           </td>
           <td style="text-align: right">
-            <div>{{ $t("size") }} {{ row.item.size }} {{ $t("bytes") }}</div>
+            <div class="item-name">{{ $t("size") }} {{ row.item.size }} {{ $t("bytes") }}</div>
             <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
         </template>
@@ -111,11 +111,12 @@ export default {
 };
 </script>
 <style>
-.txid {
+.txidhomepage {
   width: 200px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px !important;
 }
 
 </style>

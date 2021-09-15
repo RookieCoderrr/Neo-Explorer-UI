@@ -98,7 +98,7 @@ export default {
         }
 
         var option = {
-          color:['#c20a0a','#ffcc66'],
+          color:['#08BEA0','#08BEA0'],
           title: [{
             left: 'center',
             text: 'Active Address',
