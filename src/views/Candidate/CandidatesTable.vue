@@ -35,7 +35,7 @@
           <th class="tableHeader">{{ $t("candidate.address") }}</th>
           <th class="tableHeader">
             {{ $t("candidate.committee") }}
-            <el-tooltip  content="The attribute indicates whether this wallet address is a committee member." placement="top" @click.stop.prevent>
+            <el-tooltip  content="The status attribute includes 2 types: committee member, candidate member. The top 21 candidates are committee members." placement="top" @click.stop.prevent>
               <i class="el-icon-question"/>
             </el-tooltip>
           </th>
@@ -56,9 +56,12 @@
               </router-link>
             </div>
           </td>
-          <td><i v-if="row.item.isCommittee" class="ni ni-badge"></i></td>
+          <td>
+            <i v-if="row.item.isCommittee" class="ni ni-badge"> Committee</i>
+            <span v-else>Candidate</span>
+          </td>
           <td  class="table-list-item">
-            {{ row.index + 1 + this.count }}
+            {{ row.index + 1 + (this.pagination-1)*this.resultsPerPage }}
           </td >
           <td  class="table-list-item">
             {{ row.item.votesOfCandidate }}

@@ -263,7 +263,7 @@ const en = {
   },
   candidate: {
     title: "Candidate List",
-    committee:"Committee",
+    committee:"Status",
     address: "Address",
     rank: "Ranking",
     votes: "Votes",

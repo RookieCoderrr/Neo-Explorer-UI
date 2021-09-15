@@ -261,7 +261,7 @@ const zh = {
   },
   candidate: {
     title: "候选人列表",
-    committee:"委员会",
+    committee:"身份",
     address: "地址",
     rank: "排名    ",
     votes: "投票",

@@ -44,7 +44,7 @@
           <td >
             <div  class="table-list-item" >{{ row.item.index }}</div>
           </td>
-          <td style="text-align: left;margin-left: 2%">
+          <td style="text-align: center;">
             <div>
               <router-link
                 class="table-list-item-blue name mb-0"

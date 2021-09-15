@@ -40,7 +40,7 @@
 
         <template v-slot:default="row">
           <td class="id">
-            <div style="text-align: left;">
+            <div style="text-align: center;">
             <router-link
               class="table-list-item-blue mb-0 "
               style="cursor: pointer"

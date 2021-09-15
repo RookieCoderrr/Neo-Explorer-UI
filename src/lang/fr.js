@@ -262,7 +262,7 @@ const fr = {
   },
   candidate: {
     title: "Candidats",
-    committee:"Comité",
+    committee:"Statut",
     address: "Addresse",
     rank: "Classement",
     votes: "Suffrage",

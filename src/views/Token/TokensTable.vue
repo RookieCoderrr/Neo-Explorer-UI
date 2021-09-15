@@ -61,7 +61,7 @@
 
         <template v-slot:default="row">
           <td scope="row">
-            <div style="text-align: left;margin-left: 4%">
+            <div style="text-align: center;">
               <div class="media-body">
                 <router-link
                   class="table-list-item-blue mb-0 "

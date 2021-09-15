@@ -1,7 +1,7 @@
 <template>
-    <div v-if="this.totalCount != 0" >
+    <div v-if="this.flag===true?this.totalCount != 0:this.totalCountTransfer != 0" >
       <div
-              v-if="this.totalCount != 0"
+              v-if="this.flag===true?this.totalCount != 0:this.totalCountTransfer != 0"
               class="card shadow"
               :class="type === 'dark' ? 'bg-default' : ''"
       >
@@ -12,7 +12,7 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="tableData"
+        :data="this.flag===true?tableData:tableDataTransfer"
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
@@ -214,7 +214,7 @@
                 :pager-count= "5"
                 :page-size= "10"
                 layout="jumper, prev, pager, next"
-                :total="totalCount">
+                :total="this.flag===true?totalCount:totalCountTransfer">
         </el-pagination>
       </div>
     </div>
@@ -246,18 +246,19 @@ export default {
   data() {
     return {
       tableData: [],
+      tableDataTransfer:[],
       resultsPerPage: 10,
       pagination: 1,
       countPage: 0,
       fromButton: { state: true, buttonName: "Hash" },
       toButton: { state: true, buttonName: "Hash" },
-      txId: "",
-      timeStamp: 0,
       totalCount: 0,
+      totalCountTransfer: 0,
+      flag:true
     };
   },
   created() {
-    this.GetNep17TransferByAddress(0);
+    this.GetNep17TransferByAddress(0,true);
   },
 
   watch: {
@@ -270,8 +271,14 @@ export default {
     addressToScriptHash,
     scriptHashToAddress,
     watchaddress() {
+      if(this.flag===true ) {
+        this.GetNep17TransferByAddress(0,true);
+      }
       //如果路由有变化，执行的对应的动作
-      this.GetNep17TransferByAddress(0);
+      else {
+        this.GetNep17TransferByAddress(0,false);
+      }
+
     },
     getTransaction(txhash) {
       this.$router.push({
@@ -282,7 +289,12 @@ export default {
       this.isLoading = true;
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
-      this.GetNep17TransferByAddress(skip);
+      if(this.flag===true) {
+        this.GetNep17TransferByAddress(skip,true);
+      } else {
+        this.GetNep17TransferByAddress(skip,false);
+      }
+
     },
     getContract(ctrHash) {
       this.$router.push({
@@ -295,7 +307,7 @@ export default {
         path: `/accountprofile/${accountAddress}`,
       });
     },
-    GetNep17TransferByAddress(skip) {
+    GetNep17TransferByAddress(skip,flag) {
       axios({
         method: "post",
         url: "/api",
@@ -316,38 +328,73 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData = res["data"]["result"]["result"];
-        this.totalCount = res["data"]["result"]["totalCount"];
-        this.txId = res["data"]["result"]["result"]["txid"];
-        this.timeStamp = res["data"]["result"]["result"]["timestamp"];
-        this.countPage =
-          this.totalCount === 0
-            ? 1
-            : Math.ceil(this.totalCount / this.resultsPerPage);
-        for (let k = 0; k < this.tableData.length; k++) {
-          axios({
-            method: "post",
-            url: "/api",
-            data: {
-              jsonrpc: "2.0",
-              id: 1,
-              params: {
-                ContractHash: this.tableData[k]["contract"],
-                Limit: this.resultsPerPage,
-                Skip: skip,
+        if(flag === true) {
+          this.flag=true;
+          this.tableData = res["data"]["result"]["result"];
+          console.log(this.tableData)
+          this.totalCount = res["data"]["result"]["totalCount"];
+          for (let k = 0; k < this.tableData.length; k++) {
+            axios({
+              method: "post",
+              url: "/api",
+              data: {
+                jsonrpc: "2.0",
+                id: 1,
+                params: {
+                  ContractHash: this.tableData[k]["contract"],
+                  Limit: this.resultsPerPage,
+                  Skip: skip,
+                },
+                method: "GetAssetInfoByContractHash",
               },
-              method: "GetAssetInfoByContractHash",
-            },
-            headers: {
-              "Content-Type": "application/json",
-              withCredentials: " true",
-              crossDomain: "true",
-            },
-          }).then((res) => {
-            this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
-            this.tableData[k]["decimals"] = res["data"]["result"]["decimals"];
-          });
+              headers: {
+                "Content-Type": "application/json",
+                withCredentials: " true",
+                crossDomain: "true",
+              },
+            }).then((res) => {
+              this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+              this.tableData[k]["decimals"] = res["data"]["result"]["decimals"];
+            });
+          }
+        } else {
+          this.flag=false;
+          console.log(res["data"]["result"]["result"][0]["from"] !==null)
+          console.log( res["data"]["result"]["result"][0]["to"])
+          for (let i = 0; i <res["data"]["result"]["totalCount"];i++){
+            if (res["data"]["result"]["result"][i]["from"] !== null && res["data"]["result"]["result"][i]["to"]!== null) {
+              console.log("successs")
+              axios({
+                method: "post",
+                url: "/api",
+                data: {
+                  jsonrpc: "2.0",
+                  id: 1,
+                  params: {
+                    ContractHash: res["data"]["result"]["result"][i]["contract"],
+                    Limit: this.resultsPerPage,
+                    Skip: skip,
+                  },
+                  method: "GetAssetInfoByContractHash",
+                },
+                headers: {
+                  "Content-Type": "application/json",
+                  withCredentials: " true",
+                  crossDomain: "true",
+                },
+              }).then((res1) => {
+                var temp = res["data"]["result"]["result"][i];
+                temp["tokenname"] = res1["data"]["result"]["tokenname"];
+                temp["decimals"] = res1["data"]["result"]["decimals"];
+                this.tableDataTransfer.push(temp)
+                this.totalCountTransfer = this.tableDataTransfer.length;
+              });
+
+            }
+          }
+          console.log(this.tableDataTransfer)
         }
+
       });
     },
   },
