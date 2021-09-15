@@ -2,7 +2,7 @@
   <div>
     <div
       class="container-fluid mt--7"
-      style="background-color: rgb(242,242,242)"
+      style="background-color: rgb(250,250,250)"
     >
       <div class="row">
         <div class="col">
@@ -126,7 +126,7 @@
               style="
                 width: 80%;
                 margin-left: 10%;
-                background-color: rgb(242, 242, 242);
+
               "
             >
               <el-tab-pane

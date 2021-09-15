@@ -146,7 +146,7 @@ const fr = {
     remind:" Ce transaction n'a pas de événement",
     nep11: "Nep11 Transferts",
     nep17: "Nep17 Transferts",
-    notification:"Notification",
+    notification:"Évenement",
     systemCall:"Appel de Système",
     method:"Méthode",
     originSender:"Envoyeur original",

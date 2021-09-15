@@ -155,8 +155,14 @@
                 <div class="col-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
                 </div>
-                <div class="col-9 exception context-black">
-                  {{ this.exception === null ? "Null" : this.exception }}
+                <div class="col-9 exception context-black" >
+                  <el-tag v-if="this.exception === null" type="success" size="small">
+                    No exception
+                  </el-tag>
+                  <span v-else>
+                    {{this.exception}}
+                  </span>
+
                 </div>
               </div>
 
@@ -435,7 +441,7 @@
               <el-collapse v-model="activeSignersNames" style="border: white">
                 <el-collapse-item
                   :title="$t('transactionInfo.account')"
-                  name="1"
+                  name="0"
                   class="text-title3"
                 >
                   <div
@@ -448,7 +454,7 @@
                 </el-collapse-item>
                 <el-collapse-item
                   :title="$t('transactionInfo.scopes')"
-                  name="2"
+                  name="1"
                 >
                   <div
                       class="ml-4"
@@ -468,7 +474,7 @@
               <el-collapse v-model="activeWitnessesNames" style="border: white">
                 <el-collapse-item
                   :title="$t('transactionInfo.invocation')"
-                  name="1"
+                  name="0"
                   class="itemCollapse"
                 >
                   <div
@@ -481,7 +487,7 @@
                 </el-collapse-item>
                 <el-collapse-item
                   :title="$t('transactionInfo.verification')"
-                  name="2"
+                  name="1"
                 >
                   <div
                       class="ml-4"
@@ -500,7 +506,7 @@
               <el-collapse v-model="activeScriptsNames" style="border: white">
                 <el-collapse-item
                   :title="$t('transactionInfo.script')"
-                  name="1"
+                  name="0"
                   class="item-collapse"
                 >
                   <div class="ml-4" v-html="this.tabledata['script']"></div>
@@ -568,10 +574,10 @@ export default {
       List: [],
       activeIndex: "1",
       whichIndex: 1,
-      activeSignersNames: ["0"],
-      activeWitnessesNames: ["0"],
+      activeSignersNames: ["0","1"],
+      activeWitnessesNames: ["0","1"],
       activeScriptsNames: ["0"],
-      activeName: "second",
+      activeName: "first",
     };
   },
   created() {

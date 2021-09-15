@@ -274,9 +274,9 @@ export default {
 .buttonName {
   cursor: pointer;
   position: absolute;
-  right: 1px;
-  bottom: 1px;
-  top: 1px;
+  right: 2px;
+  bottom: 2px;
+  top: 2px;
   width: 50px;
   display: inline-flex;
   align-items: center;
@@ -297,7 +297,8 @@ export default {
   padding-left: 11px;
   font-size: 16px;
   background: rgba(255, 255, 255, 1);
-  border: 0 !important;
+  border: 1 !important;
+  border-color:rgb(22, 29, 50);
 
   border-radius: 4px;
   color: black;

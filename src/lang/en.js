@@ -121,7 +121,7 @@ const en = {
     page: "Page",
   },
   transactionInfo: {
-    txId: "Transaction Info",
+    txId: "Transaction Details",
     time: "Time",
     blockHeight: "Block Height",
     size: "Size",
@@ -146,7 +146,7 @@ const en = {
     remind:" This transaction has no event.",
     nep11: "Nep11 Transfers",
     nep17: "Nep17 Transfers",
-    notification:"Notification",
+    notification:"Transaction Event",
     systemCall:"System Call",
     method:"Method",
     originSender:"OriginSender",
