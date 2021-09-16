@@ -125,7 +125,7 @@
       </svg>
 
 
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-7">
         <li class="nav-item">
           <router-link class="nav-link" to="/homepage">
             {{ $t("authLayout.home") }}
@@ -162,7 +162,7 @@
           </router-link>
         </li>
       </ul>
-      <div class="drop">
+      <div class="drop ml-1">
         <base-dropdown>
           <template v-slot:title>
             <base-button type="default" class="btn btn-sm">
@@ -186,7 +186,7 @@
           </li>
         </base-dropdown>
       </div>
-      <div class="searchDiv mr--8" v-if="$route.meta.showSearch">
+      <div class="searchDiv mr--7" v-if="$route.meta.showSearch">
         <input
           type="text"
           class="over-ellipsis-Auth"
@@ -206,7 +206,7 @@
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
-              fill="black"
+              fill="lightgrey"
             />
           </svg>
         </button>
@@ -716,11 +716,9 @@ export default {
   padding-left: 11px;
   font-size: 16px;
   background: rgba(255, 255, 255, 1);
-  border: 1 !important;
+  border: 1px solid rgb(242,242,242);
   border-radius: 4px;
-  border-color:rgb(22, 29, 50);
-  color: black;
-  outline-color: #000000;
+  outline-color:  lightgrey;
 }
 .drop {
   width: 10%;

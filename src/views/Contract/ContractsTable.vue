@@ -4,7 +4,7 @@
       {{ title }}
     </h1>
   </div>
-  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+  <div class="card shadow " :class="type === 'dark' ? 'bg-default' : ''">
       <div class="" style="margin-top: 10px;margin-bottom: 1px;height: 45px">
         <div class="col-9"></div>
         <div class="col-3">
@@ -275,7 +275,7 @@ export default {
   cursor: pointer;
   position: absolute;
   right: 2px;
-  bottom: 2px;
+  bottom: 7px;
   top: 2px;
   width: 50px;
   display: inline-flex;
@@ -292,16 +292,13 @@ export default {
 
 .over-ellipsis-Name {
   width: 100%;
-  height: 100%;
+  height: 90%;
   padding-right: 61px;
   padding-left: 11px;
-  font-size: 16px;
   background: rgba(255, 255, 255, 1);
-  border: 1 !important;
-  border-color:rgb(22, 29, 50);
-
+  border: 1px solid rgb(242,242,242);
   border-radius: 4px;
-  color: black;
+  outline-color:  lightgrey;
 }
 
 

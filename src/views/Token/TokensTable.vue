@@ -4,7 +4,7 @@
       {{ title }}
     </h1>
   </div>
-  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+  <div class="card shadow " :class="type === 'dark' ? 'bg-default' : ''">
 
       <div class="" style="margin-top: 10px;margin-bottom: 1px;height: 45px">
         <div class="col-9">

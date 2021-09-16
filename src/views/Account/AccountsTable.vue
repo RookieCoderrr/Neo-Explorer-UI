@@ -4,7 +4,7 @@
       {{ title }}
     </h1>
   </div>
-  <div class="card shadow list-card" :class="type === 'dark' ? 'bg-default' : ''">
+  <div class="card shadow" :class="type === 'dark' ? 'bg-default' : ''">
     <!--div
         class="card-header border-0"
         :class="type === 'dark' ? 'bg-transparent' : ''"
