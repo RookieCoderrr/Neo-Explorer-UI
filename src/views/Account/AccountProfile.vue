@@ -1,31 +1,33 @@
 <template>
   <div>
     <div
-      class="container-fluid mt--7"
+      class="container-fluid mt--8"
       style="background-color: rgb(250,250,250)"
     >
       <div class="row">
         <div class="col">
-          <loading
-            :is-full-page="false"
-            :opacity="0.9"
-            :active="isLoading"
-          ></loading>
-          <div class="bat">
-            <div class="title">
-              <h1
-                v-if="this.type === 'normal' || this.type === 'candidate'"
-                class="mb-0"
+          <div class="top">
+            <loading
+                :is-full-page="false"
+                :opacity="0.9"
+                :active="isLoading"
+            ></loading>
+            <div class="bat">
+              <div class=" row mt-3  mb-5  title1" >
+              <span
+                  v-if="this.type === 'normal' || this.type === 'candidate'"
+                  class="mb-0"
               >
                 {{ $t("addressPage.addressProfile.title") }}
-              </h1>
-              <h1 v-else-if="this.type === 'committee'" class="mb-0">
+              </span>
+                <span v-else-if="this.type === 'committee'" class="mb-0">
                 {{ $t("addressPage.addressProfile.title") }}
                 <i class="ni ni-badge"></i>
-              </h1>
+              </span>
+              </div>
+              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
             </div>
-          </div>
-          <div class="card-body">
+
             <card shadow class="card-style">
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
@@ -37,11 +39,11 @@
 
                   </span>
                   <i
-                    class="ni ni-single-copy-04"
-                    id="addressButton"
-                    style="padding-left: 5px; color: grey; cursor: pointer"
-                    title="Copy to Clipboard"
-                    @click="copyItem('address', 'addressButton', 'addressSpan')"
+                      class="ni ni-single-copy-04"
+                      id="addressButton"
+                      style="padding-left: 5px; color: grey; cursor: pointer"
+                      title="Copy to Clipboard"
+                      @click="copyItem('address', 'addressButton', 'addressSpan')"
                   ></i>
                   <span style="color: #42b983" id="addressSpan"></span>
                 </div>
@@ -94,14 +96,8 @@
                   {{ this.numOfTxns }}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
-                  {{ $t("addressPage.addressProfile.txNums") }}
-                </div>
-                <div class="col-9 context-black">
-                  {{ this.numOfTxns }}
-                </div>
-              </div>
+
+
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.nep17Transfers") }}
@@ -120,8 +116,10 @@
               </div>
               <div class="row mt-4"></div>
             </card>
-            <div class="row mt-4"></div>
-            <el-tabs
+            <div class="row mt-4 mb-3"></div>
+          </div>
+
+          <el-tabs
               v-model="activeName"
               style="
                 width: 80%;
@@ -160,7 +158,7 @@
                 </address11-ts-table>
               </el-tab-pane>
             </el-tabs>
-          </div>
+
           <div style="margin-top: 30px; margin-bottom: 20px"></div>
         </div>
       </div>

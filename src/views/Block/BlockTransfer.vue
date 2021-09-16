@@ -34,7 +34,7 @@
 
         <template v-slot:default="row">
           <td class="Type">
-            <div>
+            <div class="table-list-item">
               <span
                 class="text-primary"
                 v-if="row.item.from === null && row.item.value === '50000000'"
@@ -52,7 +52,7 @@
               }}</span>
             </div>
           </td>
-          <td class="From">
+          <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
@@ -76,7 +76,7 @@
           <td>
             <h1 style="color: #42b983">&#8594;</h1>
           </td>
-          <td class="To">
+          <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}

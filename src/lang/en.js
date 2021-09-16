@@ -250,7 +250,7 @@ const en = {
       candidate: "Candidate",
     },
     addressProfile: {
-      title: "Address",
+      title: "Address Details",
       type: "Type",
       txNums: "Transactions",
       nep17Transfers: "NEP17 Transfers",

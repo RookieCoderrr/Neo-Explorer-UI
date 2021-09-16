@@ -13,15 +13,15 @@
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
               <card shadow class="card-style">
 
-                <div class="row   mb-1">
+                <div class="row  mb-1 " >
                   <div class="col-3 lable-title">
                     {{ $t("contract.name") }}
                   </div>
                   <div class="col-7 context-black">
                     {{ this.contract_info["name"] }}
                   </div>
-                  <div class="col-2">
-                    <el-button v-if="isToken" type="primary" size="small" style="height: 25px; margin-left: 60px" @click="getToken(this.contract_id)">
+                  <div class="col-2 "  >
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getToken(this.contract_id)">
                       Token</el-button>
                   </div>
                 </div>

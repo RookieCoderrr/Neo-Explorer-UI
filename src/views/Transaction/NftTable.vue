@@ -58,7 +58,7 @@
             </div>
           </td>
           <td class="budget">
-            <div>
+            <div class="table-list-item">
               <span
                 class="text-success"
                 v-if="row.item.from === null"
@@ -72,13 +72,13 @@
             </div>
           </td>
           <td class="budget">
-            <div class="from">
+            <div class="table-list-item">
               <span class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}</span
               >
               <span v-else>
               <router-link
-                class="name mb-0 text-sm"
+                class="mb-0 table-list-item-blue"
                 style="cursor: pointer"
                 :to="'/accountprofile/'+row.item.from"
                 >{{
@@ -89,7 +89,7 @@
               </span>
             </div>
           </td>
-          <td class="budget">
+          <td class="table-list-item">
             <span class="text-muted" v-if="row.item.from === null">{{
               $t("nullBalance")
             }}</span>
@@ -101,7 +101,7 @@
             <h1 style="color: #42b983">&#8594;</h1>
           </td>
           <td class="budget">
-            <div class="to">
+            <div class="table-list-item">
               <span class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}</span
               >
@@ -119,7 +119,7 @@
             </div>
           </td>
 
-          <td class="budget">
+          <td class="table-list-item">
             <span class="text-muted" v-if="row.item.to === null">
               {{ $t("nullBalance") }}
             </span>
@@ -128,8 +128,10 @@
             >
           </td>
 
-          <td class="table-list-item">
-            {{ convertToken(row.item.value, row.item.decimals) }}
+          <td >
+            <span class="table-list-item">
+              {{ convertToken(row.item.value, row.item.decimals) }}
+            </span>
           </td>
         </template>
       </base-table>

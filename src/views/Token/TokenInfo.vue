@@ -28,7 +28,7 @@
                   <div v-else>{{ this.token_info["tokenname"] }}</div>
                 </div>
                 <div class="col-2">
-                  <el-button type="primary" size="small" style="height: 25px; margin-left: 60px" @click="getContract(this.token_info['hash'])">
+                  <el-button type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getContract(this.token_info['hash'])">
                     Contract</el-button>
                 </div>
               </div>

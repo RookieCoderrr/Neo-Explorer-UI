@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="container-fluid mt--7" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
       <div class="row">
         <div class="col">
-          <loading
-            :is-full-page="false"
-            :opacity="0.9"
-            :active="isLoading"
-          ></loading>
-          <div class="bat">
-            <div class="title">
-              {{ $t("transactionInfo.txId") }}
+          <div class="top">
+            <loading
+                :is-full-page="false"
+                :opacity="0.9"
+                :active="isLoading"
+            ></loading>
+            <div class="bat">
+              <div class=" row mt-3  mb-5  title1" >
+                {{ $t("transactionInfo.txId") }}
+              </div>
+              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
             </div>
-          </div>
-
-          <div class="card-body">
             <card shadow class="card-style">
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
@@ -24,11 +24,11 @@
                   <span id="tx">{{ this.tabledata["hash"] }}</span>
                   <span> </span>
                   <i
-                    class="ni ni-single-copy-04"
-                    id="txButton"
-                    title="Copy to Clipboard"
-                    style="padding-left: 5px; color: grey; cursor: pointer"
-                    @click="copyItem('tx', 'txButton', 'txSpan')"
+                      class="ni ni-single-copy-04"
+                      id="txButton"
+                      title="Copy to Clipboard"
+                      style="padding-left: 5px; color: grey; cursor: pointer"
+                      @click="copyItem('tx', 'txButton', 'txSpan')"
                   ></i>
                   <span style="color: #42b983" id="txSpan"></span>
                 </div>
@@ -76,18 +76,18 @@
                 </div>
                 <div class="col-9 context-black">
                   <router-link
-                    class="name mb-0 "
-                    style="cursor: pointer"
-                    :to="'/blockinfo/' + this.blockhash"
+                      class="name mb-0 "
+                      style="cursor: pointer"
+                      :to="'/blockinfo/' + this.blockhash"
                   >
                     <span id="block">{{ this.blockhash }}</span>
                   </router-link>
                   <i
-                    class="ni ni-single-copy-04"
-                    id="blockButton"
-                    title="Copy to Clipboard"
-                    style="padding-left: 5px; color: grey; cursor: pointer"
-                    @click="copyItem('block', 'blockButton', 'blockSpan')"
+                      class="ni ni-single-copy-04"
+                      id="blockButton"
+                      title="Copy to Clipboard"
+                      style="padding-left: 5px; color: grey; cursor: pointer"
+                      @click="copyItem('block', 'blockButton', 'blockSpan')"
                   ></i>
                   <span style="color: #42b983" id="blockSpan"></span>
                 </div>
@@ -99,24 +99,24 @@
                 </div>
                 <div class="col-9 context-black">
                   <router-link
-                    class="name mb-0 "
-                    id="sender"
-                    style="cursor: pointer"
-                    :to="'/accountprofile/' + this.address"
+                      class="name mb-0 "
+                      id="sender"
+                      style="cursor: pointer"
+                      :to="'/accountprofile/' + this.address"
                   >
                     {{
                       this.button.state === true
-                        ? this.address
-                        : addressToScriptHash(this.address)
+                          ? this.address
+                          : addressToScriptHash(this.address)
                     }}
                   </router-link>
                   <span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                   <i
-                    class="ni ni-single-copy-04"
-                    id="senderButton"
-                    title="Copy to Clipboard"
-                    style="padding-left: 5px; color: grey; cursor: pointer"
-                    @click="copyItem('sender', 'senderButton', 'senderSpan')"
+                      class="ni ni-single-copy-04"
+                      id="senderButton"
+                      title="Copy to Clipboard"
+                      style="padding-left: 5px; color: grey; cursor: pointer"
+                      @click="copyItem('sender', 'senderButton', 'senderSpan')"
                   ></i>
                   <span style="color: #42b983" id="senderSpan"></span>
                   </span>
@@ -129,7 +129,7 @@
                   {{ $t("transactionInfo.netFee") }}
                 </div>
                 <div class="col-9 context-black">
-                  {{ convertGas(this.tabledata["netfee"]) }}
+                  {{ convertGas(this.tabledata["netfee"])}} GAS
                 </div>
               </div>
 
@@ -138,7 +138,7 @@
                   {{ $t("transactionInfo.sysFee") }}
                 </div>
                 <div class="col-9 context-black">
-                  {{ convertGas(this.tabledata["sysfee"]) }}
+                  {{ convertGas(this.tabledata["sysfee"]) }} GAS
                 </div>
               </div>
 
@@ -175,7 +175,7 @@
                 </div>
               </div>
             </card>
-            <div class="row mt-5"></div>
+            <div class="row mt-4 mb-3"></div>
             <el-tabs
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
@@ -440,26 +440,26 @@
             <card shadow class="card-style" v-if="this.tabledata.signers">
               <el-collapse v-model="activeSignersNames" style="border: white">
                 <el-collapse-item
-                  :title="$t('transactionInfo.account')"
-                  name="0"
-                  class="text-title3"
+                    :title="$t('transactionInfo.account')"
+                    name="0"
+                    class="text-title3"
                 >
                   <div
                       class="ml-4"
-                    v-for="(item, index) in this.tabledata['signers']"
-                    :key="index"
+                      v-for="(item, index) in this.tabledata['signers']"
+                      :key="index"
                   >
                     {{ item["account"] }}
                   </div>
                 </el-collapse-item>
                 <el-collapse-item
-                  :title="$t('transactionInfo.scopes')"
-                  name="1"
+                    :title="$t('transactionInfo.scopes')"
+                    name="1"
                 >
                   <div
                       class="ml-4"
-                    v-for="(item, index) in this.tabledata['signers']"
-                    :key="index"
+                      v-for="(item, index) in this.tabledata['signers']"
+                      :key="index"
                   >
                     {{ item["scopes"] }}
                   </div>
@@ -473,26 +473,26 @@
             <card shadow class="card-style" v-if="tabledata.witnesses">
               <el-collapse v-model="activeWitnessesNames" style="border: white">
                 <el-collapse-item
-                  :title="$t('transactionInfo.invocation')"
-                  name="0"
-                  class="itemCollapse"
+                    :title="$t('transactionInfo.invocation')"
+                    name="0"
+                    class="itemCollapse"
                 >
                   <div
                       class="ml-4"
-                    v-for="(item, index) in this.tabledata['witnesses']"
-                    :key="index"
+                      v-for="(item, index) in this.tabledata['witnesses']"
+                      :key="index"
                   >
                     <span v-html="item['invocation']"> </span>
                   </div>
                 </el-collapse-item>
                 <el-collapse-item
-                  :title="$t('transactionInfo.verification')"
-                  name="1"
+                    :title="$t('transactionInfo.verification')"
+                    name="1"
                 >
                   <div
                       class="ml-4"
-                    v-for="(item, index) in this.tabledata['witnesses']"
-                    :key="index"
+                      v-for="(item, index) in this.tabledata['witnesses']"
+                      :key="index"
                   >
                     <span v-html="item['verification']"></span>
                   </div>
@@ -505,16 +505,17 @@
             <card shadow class="card-style">
               <el-collapse v-model="activeScriptsNames" style="border: white">
                 <el-collapse-item
-                  :title="$t('transactionInfo.script')"
-                  name="0"
-                  class="item-collapse"
+                    :title="$t('transactionInfo.script')"
+                    name="0"
+                    class="item-collapse"
                 >
                   <div class="ml-4" v-html="this.tabledata['script']"></div>
                 </el-collapse-item>
               </el-collapse>
             </card>
-
           </div>
+
+
           <div style="margin-top: 30px; margin-bottom: 20px"></div>
         </div>
       </div>

@@ -12,17 +12,7 @@
               ></loading>
 <!--              <div class="card-header bg-transparent">-->
                 <div class=" row mt-3  mb-5  title1" > {{ $t('blockDetail') }} </div>
-<!--                <div class="row">-->
-<!--                 <h1 class="mb-0" style="margin-right: 10px;margin-left: 10px">-->
-<!--                {{ this.block_info.index }}-->
-<!--               </h1>-->
 
-<!--               </div>-->
-
-
-<!--                <i class="ni ni-single-copy-04" id="blockButton"  title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('block','blockButton','blockSpan')"></i>-->
-<!--                <span style="color: #42b983"  id="blockSpan" ></span>-->
-<!--              </div>-->
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
                 <div class="row mt-3"></div>
 

@@ -33,7 +33,7 @@
           <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
         </template>
         <template v-slot:default="row">
-          <td class="budget">
+          <td class="table-list-item">
             <div>
               <div
                 class="text-muted"
@@ -57,7 +57,7 @@
           <td class="table-list-item">
               {{ row.item.tokenname }}
           </td>
-          <td class="Type">
+          <td class="table-list-item">
             <div>
               <span
                 class="text-primary"
@@ -111,7 +111,7 @@
               <span class="text-info" v-else> {{ $t("transfer") }}</span>
             </div>
           </td>
-          <td class="from">
+          <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
@@ -154,7 +154,7 @@
           <td>
             <h3 style="color: #42b983">&#8594;</h3>
           </td>
-          <td class="to">
+          <td class="table-list-item">
             <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>

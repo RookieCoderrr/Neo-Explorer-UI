@@ -39,7 +39,7 @@
         <template v-slot:default="row">
           <th scope="row">
             <div class="media align-items-center">
-              <div class="media-body">
+              <div class="table-list-item">
                 <div
                   class="text-muted"
                   v-if="
@@ -60,7 +60,7 @@
               </div>
             </div>
           </th>
-          <td class="Type">
+          <td class="table-list-item">
             <div>
               <span
                 class="text-primary"
@@ -116,7 +116,7 @@
               <span class="text-info" v-else> {{ $t("transfer") }}</span>
             </div>
           </td>
-          <td class="From">
+          <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
@@ -142,7 +142,7 @@
           <td>
             <h1 style="color: #42b983">&#8594;</h1>
           </td>
-          <td class="To">
+          <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
