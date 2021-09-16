@@ -34,16 +34,16 @@
           <th scope="row">
             <div class="media align-items-center">
               <div class="media-body">
-                <div v-if="row.index + (pagination - 1) * 10 === 0">
-                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129351;
+                <div v-if="row.index + (pagination - 1) * this.resultsPerPage === 0">
+                  {{ row.index + (this.pagination - 1) * this.resultsPerPage + 1 }} &#129351;
                 </div>
-                <div v-else-if="row.index + (pagination - 1) * 10 === 1">
-                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129352;
+                <div v-else-if="row.index + (pagination - 1) * this.resultsPerPage === 1">
+                  {{ row.index + (this.pagination - 1) * this.resultsPerPage + 1 }} &#129352;
                 </div>
-                <div v-else-if="row.index + (pagination - 1) * 10 === 2">
-                  {{ row.index + (pagination - 1) * 10 + 1 }} &#129353;
+                <div v-else-if="row.index + (pagination - 1) * this.resultsPerPage === 2">
+                  {{ row.index + (this.pagination - 1) * this.resultsPerPage + 1 }} &#129353;
                 </div>
-                <div v-else>{{ row.index + (pagination - 1) * 10 + 1 }}</div>
+                <div v-else>{{ row.index + (pagination - 1) * this.resultsPerPage + 1 }}</div>
               </div>
             </div>
           </th>
@@ -141,7 +141,7 @@ export default {
       this.isLoading = true;
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
-      this.getBlockList(skip);
+      this.getTokenList(skip);
     },
     toPercentage(num) {
       let s = Number(num * 100).toFixed(2);

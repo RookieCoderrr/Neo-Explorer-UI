@@ -146,7 +146,7 @@
                     <div class="abi" v-if="this.manifest.abi">
                       <div    class="events"
                               v-if="this.manifest.abi.events.length !== 0">
-                        <h3 class="mt-2">{{ $t("tokenInfo.events") }}</h3>
+                        <h2 class="mt-2">{{ $t("tokenInfo.events") }}</h2>
 
 
                         <el-collapse v-model="activeNames"
@@ -181,7 +181,7 @@
                         </el-collapse>
 
                       </div>
-                      <h3 class="mt-2">{{ $t("tokenInfo.methods") }}</h3>
+                      <h2 class="mt-2">{{ $t("tokenInfo.methods") }}</h2>
 
                       <el-collapse v-model="activeNames2"
                                     v-for="(item, index) in this.manifest['abi']['methods']"

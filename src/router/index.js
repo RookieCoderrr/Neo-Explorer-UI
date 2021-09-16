@@ -29,6 +29,7 @@ const routes = [
         component: PageNotFound,
         meta: {
           showSearch: false,
+          showBot:false,
         },
       },
       {
@@ -37,6 +38,7 @@ const routes = [
         component:Tokens ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -45,6 +47,7 @@ const routes = [
         component: BurnFee ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -53,6 +56,7 @@ const routes = [
         component: importEcharts ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -61,6 +65,7 @@ const routes = [
         component: Blocks ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -69,6 +74,7 @@ const routes = [
         component: TokenInfo ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -77,6 +83,7 @@ const routes = [
         component:  BlockInfo ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -85,6 +92,7 @@ const routes = [
         component: Contracts,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -93,6 +101,7 @@ const routes = [
         component:  ContractInfo ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -101,6 +110,7 @@ const routes = [
         component:  CandiateList ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -109,6 +119,7 @@ const routes = [
         component:  Account,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -117,6 +128,7 @@ const routes = [
         component:  AccountProfile ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -125,6 +137,7 @@ const routes = [
         component:  TransactionList ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -134,6 +147,7 @@ const routes = [
         meta: {
           showSearch: false,
           HomePage:true,
+          showBot:true,
         },
       },
       {
@@ -142,6 +156,7 @@ const routes = [
         component:  TransactionInfo ,
         meta: {
           showSearch: true,
+          showBot:true,
         },
       },
       {
@@ -150,6 +165,7 @@ const routes = [
         component:  Search,
         meta: {
           showSearch: false,
+          showBot:false,
         },
       },
     ],

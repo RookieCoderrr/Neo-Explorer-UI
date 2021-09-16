@@ -251,6 +251,7 @@ const en = {
     },
     addressProfile: {
       title: "Address Details",
+      address:"Address",
       type: "Type",
       txNums: "Transactions",
       nep17Transfers: "NEP17 Transfers",

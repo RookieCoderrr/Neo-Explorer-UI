@@ -250,6 +250,7 @@ const zh = {
     addressProfile: {
       title: "地址",
       type: "类型",
+      address:"地址",
       txNums: "交易数",
       nep17Transfers: "NEP17转账数",
       nep11Transfers: "NEP11转账数",

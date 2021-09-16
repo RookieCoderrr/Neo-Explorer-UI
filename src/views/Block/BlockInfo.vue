@@ -159,7 +159,34 @@
                   <div class="row mt-3 mb-3"></div>
                 </card>
                 <div class="row mt-3 mb-3"></div>
+              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;" >
+                <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
+                  <block-transaction
+                      v-if=" this.block_info.transactioncount != 0"
+                      :title="$t('blockinfo.txnsList')"
+                      :blockHash="this.BlockHash"
+                  ></block-transaction>
+                  <card shadow v-else class="text-center " style="margin-bottom: 50px">{{
+                      $t("blockinfo.nullPrompt")
+                    }}</card>
+                </el-tab-pane>
+                <el-tab-pane :label="$t('blockinfo.trfsList')"  name="second">
+                  <div  v-if="
+                      block_info != '' &&
+                      (block_info.transfer11count !=0||
+                        block_info.transfer17count !=0 )"  >
+                    <block-transfer
+                        :title="$t('blockinfo.txnsList')"
+                        :blockHash="this.BlockHash"
+                    ></block-transfer>
+                    <div class="row mt-3"></div>
+                  </div>
+                  <card shadow  v-else class="text-center card-style" style="margin-bottom: 50px">{{
+                      $t("blockinfo.nullPrompt")
+                    }}</card>
 
+                </el-tab-pane>
+              </el-tabs>
               <div class=" row mt-3  mb-3 title2"> {{ $t('transactionInfo.witness') }} </div>
                 <card shadow class="card-style" v-if="block_info.witnesses">
                   <el-collapse v-model="activeNames"    style="border: white;">
@@ -175,34 +202,7 @@
                 <div class="row mt-3"></div>
               </div>
 
-          <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;" >
-            <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
-                    <block-transaction
-                            v-if=" this.block_info.transactioncount != 0"
-                            :title="$t('blockinfo.txnsList')"
-                            :blockHash="this.BlockHash"
-                    ></block-transaction>
-                    <card shadow v-else class="text-center " style="margin-bottom: 50px">{{
-                      $t("blockinfo.nullPrompt")
-                      }}</card>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('blockinfo.trfsList')"  name="second">
-              <div  v-if="
-                      block_info != '' &&
-                      (block_info.transfer11count !=0||
-                        block_info.transfer17count !=0 )"  >
-                <block-transfer
-                        :title="$t('blockinfo.txnsList')"
-                        :blockHash="this.BlockHash"
-                ></block-transfer>
-                <div class="row mt-3"></div>
-              </div>
-              <card shadow  v-else class="text-center card-style" style="margin-bottom: 50px">{{
-                $t("blockinfo.nullPrompt")
-                }}</card>
 
-            </el-tab-pane>
-          </el-tabs>
           <div style="margin-top: 30px;margin-bottom: 20px">
 
           </div>

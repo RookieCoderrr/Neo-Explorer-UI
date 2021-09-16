@@ -31,7 +31,7 @@
             <card shadow class="card-style">
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
-                  {{ $t("addressPage.addressProfile.title") }}
+                  {{ $t("addressPage.addressProfile.address") }}
                 </div>
                 <div class="col-9 context-black">
                   <span id="address">
@@ -127,6 +127,7 @@
 
               "
             >
+
               <el-tab-pane
                 :label="$t('addressPage.addressProfile.tokenBalance')"
                 name="first"

@@ -251,6 +251,7 @@ const fr = {
     addressProfile: {
       title: "Compte ",
       type: "Genre",
+      address:"Addresse",
       txNums: "Transactions",
       nep17Transfers: "NEP17 Transferts",
       nep11Transfers: "NEP11 Transferts",
