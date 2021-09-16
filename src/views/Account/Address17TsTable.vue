@@ -271,14 +271,8 @@ export default {
     addressToScriptHash,
     scriptHashToAddress,
     watchaddress() {
-      if(this.flag===true ) {
-        this.GetNep17TransferByAddress(0,true);
-      }
-      //如果路由有变化，执行的对应的动作
-      else {
-        this.GetNep17TransferByAddress(0,false);
-      }
 
+      this.GetNep17TransferByAddress(0,true);
     },
     getTransaction(txhash) {
       this.$router.push({
@@ -289,11 +283,8 @@ export default {
       this.isLoading = true;
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
-      if(this.flag===true) {
-        this.GetNep17TransferByAddress(skip,true);
-      } else {
-        this.GetNep17TransferByAddress(skip,false);
-      }
+      this.GetNep17TransferByAddress(skip,true);
+
 
     },
     getContract(ctrHash) {
