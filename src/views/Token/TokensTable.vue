@@ -121,6 +121,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import net from "../../store/store";
 
 export default {
   name: "tokens-table",
@@ -133,6 +134,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tokenList: [],
       tokenListName: [],
       totalCount: 0,
@@ -161,7 +163,7 @@ export default {
     getTokenList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -183,7 +185,7 @@ export default {
     getTokenListByName(name, skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

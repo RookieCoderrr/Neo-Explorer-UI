@@ -300,6 +300,7 @@ import ScCallTable from "./ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import ContractJsonView from "./ContractJsonView";
 import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../../store/util";
+import net from "../../store/store";
 
 export default {
   components: {
@@ -310,6 +311,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       contract_id: this.$route.params.hash,
       isLoading: true,
       contract_info: [],
@@ -356,7 +358,7 @@ export default {
     getContract(contract_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -385,7 +387,7 @@ export default {
     testAddress(addr) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -405,7 +407,7 @@ export default {
     testToken(contract){
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetAssetInfoByContractHash",

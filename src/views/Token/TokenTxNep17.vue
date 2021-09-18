@@ -197,6 +197,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { changeFormat, convertToken, convertTime, scriptHashToAddress } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "tokens-tx-nep17",
@@ -212,6 +213,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       NEP17TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -246,7 +248,7 @@ export default {
     getTokenList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

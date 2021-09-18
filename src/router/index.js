@@ -30,6 +30,7 @@ const routes = [
         meta: {
           showSearch: false,
           showBot:false,
+          showNet:true,
         },
       },
       {
@@ -39,6 +40,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -48,6 +50,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -57,6 +60,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -66,6 +70,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -75,6 +80,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:false,
         },
       },
       {
@@ -84,6 +90,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:false,
         },
       },
       {
@@ -93,6 +100,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -102,6 +110,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:false,
         },
       },
       {
@@ -111,6 +120,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -120,6 +130,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -129,6 +140,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:false,
         },
       },
       {
@@ -138,6 +150,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -148,6 +161,7 @@ const routes = [
           showSearch: false,
           HomePage:true,
           showBot:true,
+          showNet:true,
         },
       },
       {
@@ -157,6 +171,7 @@ const routes = [
         meta: {
           showSearch: true,
           showBot:true,
+          showNet:false,
         },
       },
       {
@@ -166,6 +181,7 @@ const routes = [
         meta: {
           showSearch: false,
           showBot:false,
+          showNet:true,
         },
       },
     ],

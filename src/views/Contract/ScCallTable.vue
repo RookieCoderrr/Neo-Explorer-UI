@@ -104,6 +104,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import {scriptHashToAddress, convertTime, changeFormat} from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "sc-call-table",
@@ -118,6 +119,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       ScCallList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -150,7 +152,7 @@ export default {
     getScCallList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

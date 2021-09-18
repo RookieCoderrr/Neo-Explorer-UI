@@ -9,11 +9,13 @@
 import * as echarts from 'echarts'
 import { onMounted } from "vue";
 import axios from "axios";
+import net from "../../store/store";
 export default {
 
   created() {
     this.setup()
   },
+
 
   methods: {
     setup() {
@@ -70,7 +72,7 @@ export default {
         function getDailyTransactions(day){
           axios({
             method: "post",
-            url: "/api",
+            url: net.url===null?"/bpi":net.url,
             data: {
               params: {days:day},
               jsonrpc: "2.0",

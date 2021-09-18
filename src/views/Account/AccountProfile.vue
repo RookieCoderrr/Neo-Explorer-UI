@@ -180,11 +180,13 @@ import {
   convertGas,
   copyItem,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "account-profile",
   data() {
     return {
+      network: net.url,
       accountAddress: this.$route.params.accountAddress,
       neoBalance: "0",
       gasBalance: "0",
@@ -197,6 +199,7 @@ export default {
       numOfnep11Transfers: 0,
       type: "normal",
       activeName: "first",
+      net:window.URL,
     };
   },
   components: {
@@ -242,7 +245,7 @@ export default {
     getNeoBalance() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -272,7 +275,7 @@ export default {
     getGasBalance() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -302,7 +305,7 @@ export default {
     getTransactions() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetTransactionCountByAddress",
@@ -327,7 +330,7 @@ export default {
     getCreatedTime() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -353,7 +356,7 @@ export default {
     getNep17Transfers() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -378,7 +381,7 @@ export default {
     getNep11Transfers() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -403,7 +406,7 @@ export default {
     getCandidateByAddress() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

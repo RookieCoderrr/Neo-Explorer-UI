@@ -102,7 +102,7 @@
                       class="name mb-0 "
                       id="sender"
                       style="cursor: pointer"
-                      :to="'/accountprofile/' + this.address"
+                      :to="'/accountprofile/' + addressToScriptHash(this.address)"
                   >
                     {{
                       this.button.state === true
@@ -538,6 +538,7 @@ import {
   addressToScriptHash,
   copyItem,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   components: {
@@ -547,6 +548,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tabledata: [],
       tabledataApp: [],
       tabledataCall: [],
@@ -684,7 +686,7 @@ export default {
     getApplicationLogByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -714,7 +716,7 @@ export default {
     getContractsApp(ctr_hash) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -755,7 +757,7 @@ export default {
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -794,7 +796,7 @@ export default {
     getScCallByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -821,7 +823,7 @@ export default {
     getContractsSys(ctr_hash, method) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

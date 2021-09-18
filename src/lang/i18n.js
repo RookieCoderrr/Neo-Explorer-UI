@@ -9,7 +9,7 @@ const i18n = createI18n({
   messages,
 });
 
-// 1const locales = messages
+// 1const locales = messagesxx
 // 1export const setup = lang => {
 // 1  if (lang === undefined) {
 // 1    lang = window.localStorage.getItem(LOCALE_KEY)

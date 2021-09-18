@@ -163,6 +163,7 @@ import {
   addressToScriptHash,
   scriptHashToAddress,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "transfers-list",
@@ -175,6 +176,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       length,
       fromButton: { state: true, buttonName: "Hash" },
@@ -210,7 +212,7 @@ export default {
     getNep17TransferByTransactionHash(txhash) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

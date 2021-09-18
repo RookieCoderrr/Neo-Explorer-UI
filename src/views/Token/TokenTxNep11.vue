@@ -167,6 +167,7 @@ import {
   changeFormat,
   convertTime,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "tokens-tx-nep11",
@@ -182,6 +183,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       NEP11TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -218,7 +220,7 @@ export default {
     getTokenList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

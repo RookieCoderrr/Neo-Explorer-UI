@@ -186,6 +186,26 @@
           </li>
         </base-dropdown>
       </div>
+      <div class="drop ml-1" v-if="$route.meta.showNet">
+        <base-dropdown>
+          <template v-slot:title>
+            <base-button type="default" class="btn btn-sm">
+              {{ this.netShow }}
+            </base-button>
+          </template>
+          <li>
+            <a class="dropdown-item" @click="switchNet('main')">
+              <span>Mainnet</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" @click="switchNet('test')">
+              <span>Testnet</span>
+            </a>
+          </li>
+
+        </base-dropdown>
+      </div>
       <div class="searchDiv mr--7" v-if="$route.meta.showSearch">
         <input
           type="text"
@@ -239,18 +259,20 @@
 
         <div  class="col-2">
           <div class="footer-title">{{$t('bottomBar.developers')}}</div>
-          <div style="text-align: center;"><a
+          <div style="text-align: center;">
+            <a
               href="https://neo.org/dev#tooling"
               class="nav-link"
               target="_blank"
-          >{{$t('bottomBar.tooling')}}</a
-          ></div>
+          >{{$t('bottomBar.tooling')}}</a>
+
+          </div>
           <div style="text-align: center;"><a
               href="https://neo.org/dev#examples"
               class="nav-link"
               target="_blank"
           >{{$t('bottomBar.examples_and_tutorials')}}</a
-          ></div>
+          >{{getURL}}</div>
           <div style="text-align: center;"><a
               href="https://docs.neo.org/docs/zh-cn/index.html"
               class="nav-link"
@@ -417,11 +439,13 @@ color: rgba(0, 0, 0, 0.7);">
 <script>
 import axios from "axios";
 import Neon from "@cityofzion/neon-js";
-
+import net from "../store/store";
 export default {
   name: "auth-layout",
   data() {
     return {
+      network: net.url,
+      netShow:"Mainnet",
       searchVal: "",
       isHashPattern: /^((0x)?)([0-9a-f]{64})$/,
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
@@ -430,8 +454,10 @@ export default {
       lang: "English 🇬🇧",
     };
   },
+
   created() {
     let lang = this.$i18n.locale;
+    let netShow = net.url
     if (lang === "cn") {
       this.lang = "中文 " + "🇨🇳";
     } else if (lang === "en") {
@@ -439,6 +465,16 @@ export default {
     } else if (lang === "fr") {
       this.lang = "Français " + "🇫🇷";
     }
+    if(netShow ==="/bpi"){
+      this.netShow="Mainnet"
+    } else if (netShow==="/api"){
+      this.netShow = "Testnet"
+    }
+  },
+  computed: {
+    getUrl() {
+      return this.$URL
+    },
   },
   methods: {
     // 语言切换
@@ -454,6 +490,18 @@ export default {
         this.lang = "Français " + "🇫🇷";
         localStorage.setItem('lang',"fr")
       }
+    },
+    switchNet(net){
+      if(net=='main'){
+        localStorage.setItem("net","/bpi")
+        console.log(localStorage.getItem("net"))
+        this.netShow="Mainnet"
+      } else if(net=='test'){
+        localStorage.setItem("net","/api")
+        console.log(localStorage.getItem("net"))
+        this.netShow="Testnet"
+      }
+      location.href = `${location.pathname}`;
     },
     backHome() {
       this.$router.push({
@@ -509,7 +557,7 @@ export default {
     getBlockByBlockHash(block_hash) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -536,7 +584,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -563,7 +611,7 @@ export default {
     getAddressByAddress(addr) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -591,7 +639,7 @@ export default {
     getToken(value) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -617,7 +665,7 @@ export default {
       return new Promise(() => {
         axios({
           method: "post",
-          url: "/api",
+          url: this.network===null?"/bpi":this.network,
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -644,7 +692,7 @@ export default {
     getTransactionByTransactionHash(value) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

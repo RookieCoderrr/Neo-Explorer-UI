@@ -129,6 +129,7 @@
 <script>
 import axios from "axios";
 import {changeFormat, convertTime, convertToken, scriptHashToAddress} from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "block-transfer",
@@ -142,6 +143,7 @@ export default {
 
   data() {
     return {
+      network: net.url,
       NEP17TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -176,7 +178,7 @@ export default {
     getTransferList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

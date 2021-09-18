@@ -94,6 +94,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import net from "../../store/store";
 
 export default {
   name: "candidates-table",
@@ -109,6 +110,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       totalCount: 0,
       votesCount: 0,
@@ -150,7 +152,7 @@ export default {
     getCandidateList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -180,7 +182,7 @@ export default {
     getTotalVotes() {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

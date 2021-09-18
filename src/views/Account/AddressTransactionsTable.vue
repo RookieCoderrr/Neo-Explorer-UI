@@ -71,6 +71,7 @@
 <script>
 import axios from "axios";
 import { convertTime, convertGas } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "transactions-table",
@@ -83,6 +84,7 @@ export default {
 
   data() {
     return {
+      network: net.url,
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -131,7 +133,7 @@ export default {
     getTransactions(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetRawTransactionByAddress",

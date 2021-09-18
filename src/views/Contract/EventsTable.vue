@@ -84,6 +84,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import {convertTime} from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "events-table",
@@ -98,6 +99,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       contractList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -128,7 +130,7 @@ export default {
     getContractList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

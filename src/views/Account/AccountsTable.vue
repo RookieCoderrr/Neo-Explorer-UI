@@ -108,6 +108,7 @@ import {
   changeFormat,
 } from "../../store/util";
 import { render } from "timeago.js";
+import net from "../../store/store";
 
 export default {
   name: "accounts-table",
@@ -122,6 +123,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       totalAccount: 0,
       pagination: 1,
@@ -162,7 +164,7 @@ export default {
     getAccoutsList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetAddressList",
@@ -207,7 +209,7 @@ export default {
         let addr = this.tableData[k].address;
         axios({
           method: "post",
-          url: "/api",
+          url: this.network===null?"/bpi":this.network,
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -237,7 +239,7 @@ export default {
           });
         axios({
           method: "post",
-          url: "/api",
+          url: this.network===null?"/bpi":this.network,
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -268,7 +270,7 @@ export default {
     getNeoBalance(accountAddress) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -294,7 +296,7 @@ export default {
     getGasBalance(accountAddress) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",

@@ -145,6 +145,7 @@ import {
   addressToScriptHash,
   changeFormat,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "contracts-table",
@@ -159,6 +160,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       contractList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -195,7 +197,7 @@ export default {
     getContractList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -221,7 +223,7 @@ export default {
     getContractListByName(name, skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

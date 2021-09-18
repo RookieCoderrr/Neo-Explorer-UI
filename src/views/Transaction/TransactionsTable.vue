@@ -31,7 +31,7 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("transactionList.transactionId") }}</th>
+          <th class="tableHeader">{{ $t("transactionList.transactionId")+getUrl}}</th>
           <th class="tableHeader">{{ $t("transactionList.blockHeight") }}</th>
           <th class="tableHeader">{{ $t("transactionList.size") }}</th>
           <th class="tableHeader">{{ $t("transactionList.time") }}</th>
@@ -93,6 +93,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { convertGas, convertTime } from "../../store/util";
+import net from "../../store/store";
 export default {
   name: "transactions-table",
   props: {
@@ -106,6 +107,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -118,8 +120,23 @@ export default {
   },
 
   created() {
-    this.getTransactionList(0);
+
+    this.getTransactionList(0,);
+    console.log(this.net)
   },
+  // computed: {
+  //   showUrl(){
+  //     return this.$store.getters.showUrl
+  //   }
+  // },
+  // mounted() {
+  //   window.addEventListener('storage',(e) =>{
+  //     if(e.key &&e.key =='net' && e.newValue) {
+  //       console.log("i did it ")
+  //       this.getTransactionList(0,)
+  //     }
+  //   })
+  // },
 
   methods: {
     convertGas,
@@ -135,6 +152,10 @@ export default {
         path: `/transactionInfo/${txhash}`,
       });
     },
+    changeNet(){
+      this.getTransactionList(0);
+    },
+
     getBlock(blochash) {
       this.$router.push({
         path: `/blockinfo/${blochash}`,
@@ -143,7 +164,7 @@ export default {
     getTransactionList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -156,6 +177,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log("sdad")
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];

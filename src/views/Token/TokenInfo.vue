@@ -336,6 +336,7 @@ import {
   RPC_NODE,
   copyItem,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   components: {
@@ -347,6 +348,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       token_id: this.$route.params.hash,
       isLoading: true,
       token_info: [],
@@ -392,7 +394,7 @@ export default {
     getToken(token_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -450,7 +452,7 @@ export default {
     getContractManifest(token_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

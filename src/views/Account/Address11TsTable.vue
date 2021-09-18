@@ -230,6 +230,7 @@ import {
   addressToScriptHash,
   scriptHashToAddress,
 } from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "address11-ts-table",
@@ -241,6 +242,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       resultsPerPage: 10,
       pagination: 1,
@@ -288,7 +290,7 @@ export default {
     GetNep11TransferByAddress(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -315,7 +317,7 @@ export default {
         for (let k = 0; k < this.tableData.length; k++) {
           axios({
             method: "post",
-            url: "/api",
+            url: this.network===null?"/api":this.network,
             data: {
               jsonrpc: "2.0",
               id: 1,

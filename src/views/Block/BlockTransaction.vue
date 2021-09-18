@@ -70,6 +70,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import {convertTime, convertGas} from "../../store/util";
+import net from "../../store/store";
 
 export default {
   name: "block-transaction",
@@ -85,6 +86,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -120,7 +122,7 @@ export default {
     getTransactionList(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

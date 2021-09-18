@@ -9,6 +9,7 @@
 import * as echarts from 'echarts'
 import { onMounted } from "vue";
 import axios from "axios";
+import net from "../../store/store";
 export default {
 
   created() {
@@ -68,7 +69,7 @@ export default {
         function getActiveAddress(day){
           axios({
             method: "post",
-            url: "/api",
+            url: net.url===null?"/bpi":net.url,
             data: {
               params: {days:day},
               jsonrpc: "2.0",
@@ -108,6 +109,7 @@ export default {
             trigger: 'axis'
           },
           legend: {
+            icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
             top:5,

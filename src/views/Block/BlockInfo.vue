@@ -222,6 +222,7 @@ import BlockTransaction from "./BlockTransaction";
 import BlockTransfer from "./BlockTransfer";
 import toOpcode from "../../directives/typeConvertion";
 import {convertPreciseTime, scriptHashToAddress, changeFormat, copyItem} from "../../store/util";
+import net from "../../store/store";
 export default {
 
   components: {
@@ -231,6 +232,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       BlockHash: this.$route.params.hash,
       isLoading: true,
       block_info: [],
@@ -274,7 +276,7 @@ export default {
       console.log(hash);
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -306,7 +308,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

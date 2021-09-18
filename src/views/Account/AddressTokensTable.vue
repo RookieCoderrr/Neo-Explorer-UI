@@ -80,6 +80,7 @@
 <script>
 import axios from "axios";
 import { convertToken } from "../../store/util";
+import net from "../../store/store";
 export default {
   name: "address-tokens-table",
   props: {
@@ -90,6 +91,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       tokenList: [],
       totalCount: 0,
       resultsPerPage: 10,
@@ -121,7 +123,7 @@ export default {
     getTokenListWithBalance(skip) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -158,7 +160,7 @@ export default {
       for (let k = 0; k < address_list.length; k++) {
         axios({
           method: "post",
-          url: "/api",
+          url: this.network===null?"/bpi":this.network,
           data: {
             jsonrpc: "2.0",
             id: 1,

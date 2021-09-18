@@ -9,14 +9,15 @@ export default {
   name: "test",
   data(){
     return {
-      table:[]
+      table:[],
+      network:net.url
     }
   },
   methods:{
     getContract(contract_id) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/bpi":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

@@ -200,7 +200,7 @@ export default {
     getNep11TransferByTransactionHash(txhash) {
       axios({
         method: "post",
-        url: "/api",
+        url: this.network===null?"/api":this.network,
         data: {
           jsonrpc: "2.0",
           id: 1,

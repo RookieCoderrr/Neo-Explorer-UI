@@ -75,6 +75,7 @@
 </template>
 <script>
 import {convertTime,convertISOTime} from "../../store/util";
+import net from "../../store/store";
 
 
 export default {
@@ -88,6 +89,7 @@ export default {
   },
   data() {
     return {
+      network: net.url,
       blockList: [],
       totalCount: 0,
       resultsPerPage: 10,
