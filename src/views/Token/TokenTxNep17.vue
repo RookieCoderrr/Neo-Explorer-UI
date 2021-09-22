@@ -33,7 +33,10 @@
               {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
-          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
         </template>
 
         <template v-slot:default="row">
@@ -169,7 +172,7 @@
             {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="table-list-item">
-            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
         </template>
       </base-table>
@@ -196,7 +199,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { changeFormat, convertToken, convertTime, scriptHashToAddress } from "../../store/util";
+import { changeFormat, convertToken, convertTime, scriptHashToAddress,convertISOTime,switchTime } from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -213,6 +216,7 @@ export default {
   },
   data() {
     return {
+      time:{state:true},
       network: net.url,
       NEP17TxList: [],
       totalCount: 0,
@@ -233,6 +237,8 @@ export default {
   methods: {
     convertToken,
     convertTime,
+    convertISOTime,
+    switchTime,
     scriptHashToAddress,
     changeFormat,
     watchcontract() {

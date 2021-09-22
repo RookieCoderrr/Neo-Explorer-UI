@@ -33,7 +33,10 @@
               {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
-          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
           <th class="tableHeader">{{ $t("tokenTx.tokenID") }}</th>
         </template>
 
@@ -128,7 +131,7 @@
             {{ convertToken(row.item.value, this.decimal) }}
           </td>
           <td class="table-list-item">
-            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
           <td class="TokenID">
             <div class="table-list-item">
@@ -164,6 +167,8 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import {
   convertToken,
   scriptHashToAddress,
+  convertISOTime,
+  switchTime,
   changeFormat,
   convertTime,
 } from "../../store/util";
@@ -183,6 +188,7 @@ export default {
   },
   data() {
     return {
+      time:{state:true},
       network: net.url,
       NEP11TxList: [],
       totalCount: 0,
@@ -204,6 +210,8 @@ export default {
   },
   methods: {
     convertToken,
+    convertISOTime,
+    switchTime,
     scriptHashToAddress,
     changeFormat,
     convertTime,

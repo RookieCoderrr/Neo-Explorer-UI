@@ -30,7 +30,10 @@
               {{toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("transferList.amount") }}</th>
-          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
         </template>
         <template v-slot:default="row">
           <td class="table-list-item">
@@ -197,7 +200,7 @@
           </td>
           <td class="table-list-item">
             <div>
-              {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+              {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
             </div>
           </td>
         </template>
@@ -229,6 +232,8 @@ import {
   changeFormat,
   convertToken,
   convertTime,
+  convertISOTime,
+  switchTime,
   addressToScriptHash,
   scriptHashToAddress,
 } from "../../store/util";
@@ -246,6 +251,7 @@ export default {
 
   data() {
     return {
+      time:{state:true},
       network: net.url,
       tableData: [],
       tableDataTransfer:[],
@@ -270,6 +276,8 @@ export default {
     changeFormat,
     convertToken,
     convertTime,
+    convertISOTime,
+    switchTime,
     addressToScriptHash,
     scriptHashToAddress,
     watchaddress() {

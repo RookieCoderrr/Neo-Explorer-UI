@@ -12,7 +12,6 @@
               ></loading>
 <!--              <div class="card-header bg-transparent">-->
                 <div class=" row mt-3  mb-5  title1" > {{ $t('blockDetail') }} </div>
-
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
                 <div class="row mt-3"></div>
 
@@ -78,7 +77,11 @@
                   <div class="row  mt-3  mb-1">
                     <div class="col-3 lable-title">
                         {{ $t("blockinfo.speaker") }}
+                      <el-tooltip  content="Speaker is the node who invokes this block." placement="top" @click.stop.prevent>
+                        <i class="el-icon-question"/>
+                      </el-tooltip>
                     </div>
+
                     <div class="col-9 context-black" v-if="this.block_info['speaker']">
                       <router-link class="name mb-0 " id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
@@ -144,7 +147,7 @@
                         {{ $t("blockinfo.totalSysFee") }}
                     </div>
                     <div class="col-9 context-black">
-                      {{ this.block_info.systemFee / 100000000 }}
+                      {{ this.block_info.systemFee / 100000000 }} GAS
                     </div>
                   </div>
 
@@ -153,24 +156,15 @@
                         {{ $t("blockinfo.totalNetFee") }}
                     </div>
                     <div class="col-9 context-black">
-                      {{ this.block_info.networkFee / 100000000 }}
+                      {{ this.block_info.networkFee / 100000000 }} GAS
                     </div>
                   </div>
                   <div class="row mt-3 mb-3"></div>
                 </card>
                 <div class="row mt-3 mb-3"></div>
               <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;" >
-                <el-tab-pane :label="$t('blockinfo.txnsList')"  name="first">
-                  <block-transaction
-                      v-if=" this.block_info.transactioncount != 0"
-                      :title="$t('blockinfo.txnsList')"
-                      :blockHash="this.BlockHash"
-                  ></block-transaction>
-                  <card shadow v-else class="text-center " style="margin-bottom: 50px">{{
-                      $t("blockinfo.nullPrompt")
-                    }}</card>
-                </el-tab-pane>
-                <el-tab-pane :label="$t('blockinfo.trfsList')"  name="second">
+
+                <el-tab-pane :label="$t('blockinfo.trfsList')"  name="first">
                   <div  v-if="
                       block_info != '' &&
                       (block_info.transfer11count !=0||
@@ -185,6 +179,16 @@
                       $t("blockinfo.nullPrompt")
                     }}</card>
 
+                </el-tab-pane>
+                <el-tab-pane :label="$t('blockinfo.txnsList')"  name="second">
+                  <block-transaction
+                      v-if=" this.block_info.transactioncount != 0"
+                      :title="$t('blockinfo.txnsList')"
+                      :blockHash="this.BlockHash"
+                  ></block-transaction>
+                  <card shadow v-else class="text-center " style="margin-bottom: 50px">{{
+                      $t("blockinfo.nullPrompt")
+                    }}</card>
                 </el-tab-pane>
               </el-tabs>
               <div class=" row mt-3  mb-3 title2"> {{ $t('transactionInfo.witness') }} </div>
@@ -241,9 +245,8 @@ export default {
       TxList: [],
       transfercount: "",
       button: { state: true, buttonName: "Hash" },
-      activeNames: ['0'],
-        activeName: 'first',
-
+      activeNames: ['1','2'],
+      activeName:"first"
     };
   },
   created() {

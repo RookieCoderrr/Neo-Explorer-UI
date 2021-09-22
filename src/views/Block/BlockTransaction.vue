@@ -17,7 +17,10 @@
           <th class="tableHeader">{{ $t("blockinfo.txTable.txID") }}</th>
           <th class="tableHeader">{{ $t("blockinfo.txTable.height") }}</th>
           <th class="tableHeader">{{ $t("blockinfo.txTable.size") }}</th>
-          <th class="tableHeader">{{ $t("blockinfo.txTable.time") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.txTable.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
           <th class="tableHeader">{{ $t("blockinfo.txTable.gas") }}</th>
         </template>
 
@@ -37,7 +40,7 @@
           </td>
           <td class="table-list-item">{{ row.item.size }} bytes</td>
           <td  class="table-list-item">
-            {{ convertTime(row.item.blocktime, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.blocktime, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
 
           <td  class="table-list-item">
@@ -69,7 +72,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime, convertGas} from "../../store/util";
+import {convertTime, convertGas,convertISOTime,switchTime} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -86,6 +89,7 @@ export default {
   },
   data() {
     return {
+      time: {state: true},
       network: net.url,
       tableData: [],
       totalCount: 0,
@@ -105,6 +109,8 @@ export default {
   methods: {
     convertGas,
     convertTime,
+    convertISOTime,
+    switchTime,
     watchBlockHash() {
       this.getTransactionList(0);
     },

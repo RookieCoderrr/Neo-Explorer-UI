@@ -29,7 +29,10 @@
               {{this.toButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
-          <th class="tableHeader">{{ $t("tokenTx.time") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
         </template>
 
         <template v-slot:default="row">
@@ -99,10 +102,10 @@
             </div>
           </td>
           <td class="table-list-item">
-            {{ convertToken(row.item.value, 8) }}Gas
+            {{ convertToken(row.item.value, 8) }} GAS
           </td>
           <td class="table-list-item">
-            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
         </template>
       </base-table>
@@ -128,7 +131,7 @@
 </template>
 <script>
 import axios from "axios";
-import {changeFormat, convertTime, convertToken, scriptHashToAddress} from "../../store/util";
+import {changeFormat, convertTime, convertToken, scriptHashToAddress,convertISOTime,switchTime} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -143,6 +146,7 @@ export default {
 
   data() {
     return {
+      time: {state: true},
       network: net.url,
       NEP17TxList: [],
       totalCount: 0,
@@ -165,6 +169,8 @@ export default {
     convertTime,
     convertToken,
     scriptHashToAddress,
+    convertISOTime,
+    switchTime,
     watchblock() {
       //如果路由有变化，执行的对应的动作
       this.getTransferList(0);

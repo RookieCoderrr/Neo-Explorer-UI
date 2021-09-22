@@ -18,7 +18,10 @@
           <th class="tableHeader">{{ $t("contract.eventName") }}</th>
           <th class="tableHeader">{{ $t("contract.vmState") }}</th>
           <th class="tableHeader">{{ $t("contract.index") }}</th>
-          <th class="tableHeader">{{ $t("contract.time") }}</th>
+          <th class="tableHeader">{{ $t("contract.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
         </template>
 
         <template v-slot:default="row">
@@ -53,7 +56,7 @@
             {{ row.item.index }}
           </td>
           <td class="table-list-item">
-            {{ convertTime(row.item.timestamp, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
         </template>
       </base-table>
@@ -83,7 +86,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime} from "../../store/util";
+import {convertTime,convertISOTime,switchTime} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -99,6 +102,7 @@ export default {
   },
   data() {
     return {
+      time:{state:true},
       network: net.url,
       contractList: [],
       totalCount: 0,
@@ -112,6 +116,8 @@ export default {
     this.getContractList(0);
   },
   methods: {
+    convertISOTime,
+    switchTime,
     convertTime,
     handleCurrentChange(val) {
       this.isLoading = true;

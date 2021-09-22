@@ -22,7 +22,6 @@
           </th>
           <th class="tableHeader">{{ $t("contract.method") }}</th>
           <th class="tableHeader">{{ $t("contract.callFlags") }}</th>
-          <th class="tableHeader">{{ $t("contract.time") }}</th>
         </template>
 
         <template v-slot:default="row">
@@ -74,10 +73,6 @@
           <td class="table-list-item">
             {{ row.item.callFlags }}
           </td>
-          <td class="table-list-item">
-
-            {{ convertTime(row.item.time) }}
-          </td>
         </template>
       </base-table>
     </div>
@@ -103,7 +98,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {scriptHashToAddress, convertTime, changeFormat} from "../../store/util";
+import {scriptHashToAddress, changeFormat} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -119,6 +114,7 @@ export default {
   },
   data() {
     return {
+
       network: net.url,
       ScCallList: [],
       totalCount: 0,
@@ -137,7 +133,6 @@ export default {
   },
   methods: {
     scriptHashToAddress,
-    convertTime,
     changeFormat,
     watchcontract() {
       //如果路由有变化，执行的对应的动作
