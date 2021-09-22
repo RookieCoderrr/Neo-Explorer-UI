@@ -31,10 +31,14 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("transactionList.transactionId")+getUrl}}</th>
+          <th class="tableHeader">{{ $t("transactionList.transactionId")}}</th>
           <th class="tableHeader">{{ $t("transactionList.blockHeight") }}</th>
           <th class="tableHeader">{{ $t("transactionList.size") }}</th>
-          <th class="tableHeader">{{ $t("transactionList.time") }}</th>
+          <th class="tableHeader">
+            {{ $t("transactionList.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
           <th class="tableHeader">{{ $t("transactionList.gasConsumed") }}</th>
         </template>
 
@@ -59,7 +63,7 @@
           </td>
           <td class="table-list-item">{{ row.item.size }} {{ $t("bytes") }}</td>
           <td class="table-list-item">
-            {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.blocktime, this.$i18n.locale):this.convertISOTime(row.item.blocktime) }}
 
           </td>
 
@@ -92,7 +96,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import { convertGas, convertTime } from "../../store/util";
+import { convertGas, convertTime,convertISOTime ,switchTime} from "../../store/util";
 import net from "../../store/store";
 export default {
   name: "transactions-table",
@@ -107,6 +111,7 @@ export default {
   },
   data() {
     return {
+      time: {state: true},
       network: net.url,
       tableData: [],
       totalCount: 0,
@@ -139,8 +144,10 @@ export default {
   // },
 
   methods: {
+    convertISOTime,
     convertGas,
     convertTime,
+    switchTime,
     handleCurrentChange(val) {
         this.isLoading = true;
         this.pagination = val;
@@ -161,6 +168,7 @@ export default {
         path: `/blockinfo/${blochash}`,
       });
     },
+
     getTransactionList(skip) {
       axios({
         method: "post",

@@ -47,16 +47,16 @@
             <div class="item-name">{{$t("block")}}</div>
             <div class="item-name">{{$t("ahash")}}</div>
           </td>
-          <td style="text-align: left">
-              <tr class="item-name">
-                {{ row.item.index }}
-              </tr>
-              <div class="blockid">
+          <td >
+              <div class="txidhomepage">
                 <router-link
-                    class="name mb-0 text-sm"
+                    class="name mb-0 "
                     style="cursor: pointer"
                     :to="'/blockinfo/'+row.item.hash"
-                >{{ row.item.hash }}</router-link>
+                >{{ row.item.index }}</router-link>
+              </div>
+              <div class="item-name">
+                {{ row.item.transactioncount }} txns
               </div>
           </td>
           <td style="text-align: right">
@@ -65,9 +65,6 @@
             </div>
               <div  class="timeago "  :datetime="(convertISOTime(row.item.timestamp)).toString()"></div>
           </td>
-            <!--td>
-              {{ row.item.transactioncount }}
-            </td-->
         </template>
       </base-table>
     </div>

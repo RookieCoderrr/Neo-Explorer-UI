@@ -299,7 +299,7 @@ import EventsTable from "./EventsTable";
 import ScCallTable from "./ScCallTable";
 import Neon from "@cityofzion/neon-js";
 import ContractJsonView from "./ContractJsonView";
-import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, copyItem} from "../../store/util";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, RPC_NODE_MAIN, copyItem} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -446,7 +446,13 @@ export default {
           return;
         }
       }
-      const client = Neon.create.rpcClient(RPC_NODE);
+      let client = "";
+      if(this.network===null || this.network==="/bpi"){
+         client = Neon.create.rpcClient(RPC_NODE_MAIN);
+      } else {
+        client = Neon.create.rpcClient(RPC_NODE)
+      }
+
       client.invokeFunction(this.contract_id, name, contractParams)
         .then((res) => {
           if (res["exception"] != null) {

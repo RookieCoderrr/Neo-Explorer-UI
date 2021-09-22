@@ -334,7 +334,7 @@ import {
   convertToken,
   responseConverter,
   RPC_NODE,
-  copyItem,
+  copyItem, RPC_NODE_MAIN,
 } from "../../store/util";
 import net from "../../store/store";
 
@@ -429,7 +429,13 @@ export default {
           return;
         }
       }
-      const client = Neon.create.rpcClient(RPC_NODE);
+      let client = ""
+      if(this.network ===null ||this.network==="/bpi") {
+        client = Neon.create.rpcClient(RPC_NODE_MAIN);
+      } else {
+        client = Neon.create.rpcClient(RPC_NODE)
+      }
+
       client
         .invokeFunction(this.token_id, name, contractParams)
         .then((res) => {

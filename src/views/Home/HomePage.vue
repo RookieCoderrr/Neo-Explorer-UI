@@ -310,6 +310,7 @@ export default {
           this.candidateCount = redata["CandidateCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="BlockInfoList"){
           this.blockList = redata["BlockInfoList"]
+        console.log(this.blockList)
       }else if (Object.keys(redata)[0] ==="TransactionList"){
         this.transactionList = redata["TransactionList"]
       }
@@ -527,6 +528,7 @@ export default {
         },
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
+        console.log(this.blockList)
       });
     },
     getTransactionList() {

@@ -62,11 +62,11 @@
               >
             </div>
             <div class="item-name">
-              {{ this.convertGas(row.item.netfee + row.item.sysfee) }}
+              {{ this.convertGas(row.item.netfee + row.item.sysfee) }} gas
             </div>
           </td>
           <td style="text-align: right">
-            <div class="item-name">{{ $t("size") }} {{ row.item.size }} {{ $t("bytes") }}</div>
+            <div >{{ $t("size") }} {{ row.item.size }} {{ $t("bytes") }}</div>
             <div  class="timeago"  :datetime="(convertISOTime(row.item.blocktime)).toString()"></div>
           </td>
         </template>

@@ -5,6 +5,7 @@ import Neon from "@cityofzion/neon-js";
 
 // const RPC_NODE = "http://seed2t4.neo.org:20332";
 const RPC_NODE = "https://testneofura.ngd.network:444"
+const RPC_NODE_MAIN = "https://neofura.ngd.network:1927"
 function changeFormat(button) {
     if(button.state) {
         button.state = false;
@@ -41,6 +42,15 @@ async function copyItem(ele, button,span) {
     await sleep(500);
     document.getElementById(button).style.color = "grey";
     document.getElementById(span).innerText = "";
+}
+
+function switchTime(time){
+    if (time.state){
+        time.state= false;
+    } else {
+        time.state = true;
+    }
+
 }
 
 function convertToken(token, decimal) {
@@ -139,6 +149,8 @@ function responseConverter(key, val) {
 
 export {
     RPC_NODE,
+    RPC_NODE_MAIN,
+    switchTime,
     changeFormat,
     convertToken,
     convertGas,

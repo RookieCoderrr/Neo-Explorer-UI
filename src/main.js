@@ -12,38 +12,7 @@ import net from "./store/store.js";
 import './assets/css/global.css'
 
 
-// if(window.URL==="/api"){
-//     window.URL="/api"
-//     console.log("1")
-// } else if (window.URL==="/bpi"){
-//     window.URL = "bpi"
-//     console.log("2")
-// } else {
-//     window.URL ="/api"
-//     console.log("3")
-// }
-// const store = new Vuex.Store(
-//     {
-//         state(){
-//             return{
-//                 url:'/api'
-//             }
-//         },
-//         mutations:{
-//             toMain(){
-//                 this.state.url="/bpi"
-//             },
-//             toTest(){
-//                 this.state.url="/api"
-//             }
-//         },
-//         getters: {
-//             showUrl(state){
-//                 return state.url
-//             }
-//         }
-//     }
-// )
+
 
 const appInstance = createApp(App);
 appInstance.use(router);

@@ -41,7 +41,11 @@
           </th>
           <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
           <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
-          <th class="tableHeader">{{ $t("addressPage.createdTime") }}</th>
+          <th class="tableHeader">
+            {{ $t("addressPage.createdTime") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
         </template>
         <template v-slot:default="row">
           <td class="table-list-item" >
@@ -73,7 +77,7 @@
             {{ row.item.gasBalance }}
           </td>
           <td class="table-list-item">
-            {{ row.item.firstusetime }}
+            {{time.state?this.convertTime(row.item.firstusetime,this.$i18n.locale):this.convertISOTime(row.item.firstusetime) }}
           </td>
         </template>
       </base-table>
@@ -102,6 +106,8 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import {
   convertGas,
+  convertISOTime,
+  switchTime,
   convertTime,
   scriptHashToAddress,
   addressToScriptHash,
@@ -123,6 +129,7 @@ export default {
   },
   data() {
     return {
+      time:{state:true},
       network: net.url,
       tableData: [],
       totalAccount: 0,
@@ -151,6 +158,8 @@ export default {
 
   methods: {
     convertGas,
+    convertISOTime,
+    switchTime,
     convertTime,
     addressToScriptHash,
     scriptHashToAddress,
@@ -180,10 +189,7 @@ export default {
         .then((res) => {
           let temp = res["data"]["result"]["result"];
           for (let k = 0; k < temp.length; k++) {
-            temp[k]["firstusetime"] = convertTime(
-              temp[k]["firstusetime"],
-              this.$i18n.locale
-            );
+
             temp[k]["neoBalance"] = "";
             temp[k]["gasBalance"] = "";
             temp[k]["number"] =

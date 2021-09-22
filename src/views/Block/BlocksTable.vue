@@ -33,28 +33,33 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("blockinfo.height") }}</th>
           <th class="tableHeader">{{ $t("blockinfo.hash") }}</th>
-          <th class="tableHeader">{{ $t("blockinfo.time") }}</th>
+          <th class="tableHeader">{{ $t("blockinfo.time") }}
+            <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+              Format</el-button>
+          </th>
           <th class="tableHeader">{{ $t("blockinfo.txns") }}</th>
           <th class="tableHeader">{{ $t("blockinfo.size") }}</th>
-          <th class="tableHeader"></th>
+
         </template>
 
         <template v-slot:default="row">
 
           <td >
-            <div  class="table-list-item" >{{ row.item.index }}</div>
+            <div  class="table-list-item" >
+              <router-link
+                  class="table-list-item-blue name mb-0"
+                  style="cursor: pointer"
+                  :to="'/blockinfo/'+row.item.hash"
+              >{{ row.item.index }}</router-link>
+            </div>
           </td>
           <td style="text-align: center;">
             <div>
-              <router-link
-                class="table-list-item-blue name mb-0"
-                style="cursor: pointer"
-                :to="'/blockinfo/'+row.item.hash"
-                >{{ row.item.hash }}</router-link>
+              {{ row.item.hash }}
             </div>
           </td>
           <td class="table-list-item">
-            {{ this.convertTime(row.item.timestamp, this.$i18n.locale) }}
+            {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
           <td class="table-list-item">
             {{ row.item.transactioncount }}
@@ -85,7 +90,7 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import {convertTime,} from "../../store/util";
+import {convertTime,convertISOTime,switchTime} from "../../store/util";
 import net from "../../store/store";
 export default {
   name: "blocks-table",
@@ -100,6 +105,7 @@ export default {
   },
   data() {
     return {
+      time: {state: true},
       network: net.url,
       blockList: [],
       totalCount: 0,
@@ -116,6 +122,8 @@ export default {
 
   methods: {
     convertTime,
+    convertISOTime,
+    switchTime,
 
     getBlock(hash) {
       this.$router.push(`/blockinfo/${hash}`);
@@ -142,6 +150,7 @@ export default {
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        console.log(this.blockList)
         this.countPage =
           this.totalCount === 0
             ? 1
