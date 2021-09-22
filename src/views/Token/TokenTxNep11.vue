@@ -21,6 +21,7 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
           <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
+          <th class="tableHeader">{{ $t("tokenTx.tokenID") }}</th>
           <th class="tableHeader">
             {{ $t("tokenTx.from") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
@@ -37,7 +38,7 @@
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
           </th>
-          <th class="tableHeader">{{ $t("tokenTx.tokenID") }}</th>
+
         </template>
 
         <template v-slot:default="row">
@@ -78,6 +79,11 @@
               <span class="text-info" v-else> {{ $t("transfer") }}</span>
             </div>
           </td>
+          <td class="TokenID">
+            <div class="table-list-item">
+              {{ row.item.tokenId }}
+            </div>
+          </td>
           <td class="From">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
@@ -91,6 +97,7 @@
                   >{{ scriptHashToAddress(row.item.from) }}</router-link
                 >
               </div>
+
               <div v-else class="addr">
                 <router-link
                   class="  mb-0 table-list-item-blue"
@@ -133,11 +140,7 @@
           <td class="table-list-item">
             {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
-          <td class="TokenID">
-            <div class="table-list-item">
-              {{ row.item.tokenId }}
-            </div>
-          </td>
+
         </template>
       </base-table>
     </div>

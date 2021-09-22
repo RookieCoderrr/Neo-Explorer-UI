@@ -77,7 +77,7 @@
                   <div class="row  mt-3  mb-1">
                     <div class="col-3 lable-title">
                         {{ $t("blockinfo.speaker") }}
-                      <el-tooltip  content="Speaker is the node who invokes this block." placement="top" @click.stop.prevent>
+                      <el-tooltip  content="Speaker is the node who invokes this block." placement="right" @click.stop.prevent>
                         <i class="el-icon-question"/>
                       </el-tooltip>
                     </div>

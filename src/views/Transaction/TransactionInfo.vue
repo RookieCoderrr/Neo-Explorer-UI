@@ -48,7 +48,13 @@
                   {{ $t("transactionInfo.blockHeight") }}
                 </div>
                 <div class="col-9 context-black">
-                  {{ this.tabledata["blockIndex"] }}
+                  <router-link
+                      class="name mb-0 "
+                      style="cursor: pointer"
+                      :to="'/blockinfo/' + this.blockhash"
+                  >
+                    {{ this.tabledata["blockIndex"]}}
+                  </router-link>
                 </div>
               </div>
 
@@ -75,13 +81,8 @@
                   {{ $t("transactionInfo.blockHash") }}
                 </div>
                 <div class="col-9 context-black">
-                  <router-link
-                      class="name mb-0 "
-                      style="cursor: pointer"
-                      :to="'/blockinfo/' + this.blockhash"
-                  >
+
                     <span id="block">{{ this.blockhash }}</span>
-                  </router-link>
                   <i
                       class="ni ni-single-copy-04"
                       id="blockButton"
@@ -145,6 +146,9 @@
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
                   {{ $t("transactionInfo.vmState") }}
+                  <el-tooltip  content="HALT means this transaction has no error, FAULT means this transcation has errors." placement="right" @click.stop.prevent>
+                    <i class="el-icon-question"/>
+                  </el-tooltip>
                 </div>
                 <div class="col-9 context-black">
                   {{ this.vmstate }}
@@ -154,6 +158,9 @@
               <div class="row  mt-3 mb-1" >
                 <div class="col-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
+                  <el-tooltip  content="NeoVm throws an exception when this transcation has errors." placement="right" @click.stop.prevent>
+                    <i class="el-icon-question"/>
+                  </el-tooltip>
                 </div>
                 <div class="col-9 exception context-black" >
                   <el-tag v-if="this.exception === null" type="success" size="small">

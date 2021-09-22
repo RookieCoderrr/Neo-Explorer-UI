@@ -1143,7 +1143,7 @@ export default {
   color: #000000;
 }
 .main{
-  width: 80%;
+  width: 85%;
   height: 30%;
   /*top: 268px;*/
   margin:0 auto;
