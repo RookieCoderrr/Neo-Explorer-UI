@@ -49,8 +49,8 @@
         :data="contractList"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("contract.hash") }}</th>
           <th class="tableHeader">{{ $t("contract.name") }}</th>
+          <th class="tableHeader">{{ $t("contract.hash") }}</th>
           <th class="tableHeader">
             {{ $t("contract.creator") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(button)">
@@ -67,6 +67,9 @@
         </template>
 
         <template v-slot:default="row">
+          <td  class="table-list-item">
+            {{ row.item.name }}
+          </td>
           <td scope="row" v-if="row.item">
             <div style="text-align: center">
               <div class="media-body">
@@ -80,9 +83,7 @@
             </div>
 
           </td>
-          <td  class="table-list-item">
-            {{ row.item.name }}
-          </td>
+
           <td  class="table-list-item-blue">
             <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
               $t("contract.available")
@@ -180,6 +181,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.getContractList(0);
   },
   methods: {

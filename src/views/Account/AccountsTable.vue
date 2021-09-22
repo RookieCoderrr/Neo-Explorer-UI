@@ -31,7 +31,7 @@
         :data="tableData"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("addressPage.number") }}</th>
+
           <th class="tableHeader">
             {{ $t("addressPage.accountsTable")
             }}
@@ -39,18 +39,19 @@
               {{this.button.buttonName}}</el-button>
 
           </th>
-          <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
-          <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
           <th class="tableHeader">
             {{ $t("addressPage.createdTime") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
           </th>
+          <th class="tableHeader">{{ $t("addressPage.neoBalance") }}</th>
+          <th class="tableHeader">{{ $t("addressPage.gasBalance") }}</th>
+          <th class="tableHeader">{{$t('addressPage.Nep17Transfers')}}</th>
+          <th class="tableHeader">{{$t('addressPage.Nep11Transfers')}}</th>
+
         </template>
         <template v-slot:default="row">
-          <td class="table-list-item" >
-            {{ row.item.number }}
-          </td>
+
           <td class="address">
             <router-link
               class="mb-0 table-list-item-blue"
@@ -71,14 +72,21 @@
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
           <td class="table-list-item">
+            {{time.state?this.convertTime(row.item.firstusetime,this.$i18n.locale):this.convertISOTime(row.item.firstusetime) }}
+          </td>
+          <td class="table-list-item">
             {{ row.item.neoBalance }}
           </td>
           <td class="table-list-item">
             {{ row.item.gasBalance }}
           </td>
           <td class="table-list-item">
-            {{time.state?this.convertTime(row.item.firstusetime,this.$i18n.locale):this.convertISOTime(row.item.firstusetime) }}
+            {{ row.item.Nep17Transfers }}
           </td>
+          <td class="table-list-item">
+            {{ row.item.Nep11Transfers }}
+          </td>
+
         </template>
       </base-table>
     </div>
@@ -142,6 +150,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.getAccoutsList(0);
   },
   updated() {
@@ -198,8 +207,11 @@ export default {
           this.tableData = temp;
           this.totalAccount = res["data"]["result"]["totalCount"];
           this.countPage = Math.ceil(this.totalAccount / this.resultsPerPage);
+          this.getNep11Transfers();
+          this.getNep17Transfers();
           this.getBalance();
           this.isLoading = false;
+          console.log(this.tableData)
         })
         .catch((err) => {
           console.log("Error", err);
@@ -271,6 +283,62 @@ export default {
               console.log("Error", err);
             }
           });
+      }
+    },
+    getNep17Transfers() {
+      for (let k = 0; k < this.tableData.length; k++) {
+        let address = this.tableData[k].address;
+        axios({
+          method: "post",
+          url: this.network === null ? "/api" : this.network,
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {
+              Address: address,
+            },
+            method: "GetNep17TransferCountByAddress",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        })
+            .then((res) => {
+              this.tableData[k]["Nep17Transfers"] = res["data"]["result"]["total counts"];
+            })
+            .catch((err) => {
+              console.log("Get nep 17 transfers error: ", err);
+            });
+      }
+    },
+    getNep11Transfers() {
+      for (let k = 0; k < this.tableData.length; k++) {
+        let address = this.tableData[k].address;
+        axios({
+          method: "post",
+          url: this.network === null ? "/api" : this.network,
+          data: {
+            jsonrpc: "2.0",
+            id: 1,
+            params: {
+              Address: address,
+            },
+            method: "GetNep11TransferCountByAddress",
+          },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: " true",
+            crossDomain: "true",
+          },
+        })
+            .then((res) => {
+              this.tableData[k]["Nep11Transfers"] = res["data"]["result"]["total counts"];
+            })
+            .catch((err) => {
+              console.log("Get nep 11 transfers error: ", err);
+            });
       }
     },
     getNeoBalance(accountAddress) {

@@ -52,10 +52,11 @@
         :data="tokenList"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("tokensTable.hash") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
+          <th class="tableHeader">{{ $t("tokensTable.decimal") }}</th>
+          <th class="tableHeader">{{ $t("tokensTable.totalSupply") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.holders") }}</th>
         </template>
 
@@ -65,18 +66,20 @@
               <div class="media-body">
                 <router-link
                   class="table-list-item-blue mb-0 "
+                  v-if="row.item.ispopular"
                   style="cursor: pointer"
                   :to="'/tokeninfo/'+row.item.hash"
-                  >{{ row.item.hash }}</router-link>
+                  >{{ row.item.tokenname }}  &#x1F525;</router-link>
+                <router-link
+                    class="table-list-item-blue mb-0 "
+                    v-else
+                    style="cursor: pointer"
+                    :to="'/tokeninfo/'+row.item.hash"
+                >{{ row.item.tokenname }}</router-link>
               </div>
             </div>
           </td>
-          <td  class="table-list-item">
-            <span v-if="row.item.ispopular"
-              >{{ row.item.tokenname }} &#x1F525;
-            </span>
-            <span v-else>{{ row.item.tokenname }}</span>
-          </td>
+
           <td class="table-list-item">
             {{ row.item.symbol }}
           </td>
@@ -92,6 +95,12 @@
             <el-tag v-else type="info"  >
               <span class="">{{ row.item.type==="UNKNOW"? "Unknown":"Unknown" }}</span>
             </el-tag>
+          </td>
+          <td class="table-list-item">
+          {{row.item.decimals}}
+          </td>
+          <td class="table-list-item">
+            {{row.item.totalsupply}}
           </td>
           <td class="table-list-item">
             {{ row.item.holders }}
@@ -147,6 +156,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.getTokenList(0);
   },
 
@@ -178,6 +188,7 @@ export default {
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
+        console.log(this.tokenList)
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });

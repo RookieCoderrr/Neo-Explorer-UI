@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="background: rgb(250,250,250)" >
-    <section class="Intro">
+    <div class="Intro">
       <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
       <div class=" dropAndSearch mt--5">
         <base-dropdown class="dropHome">
@@ -67,11 +67,9 @@
         </div>
       </div>
 
-    </section>
+    </div>
+
     <div class="row mt-5"></div>
-
-
-
 
     <div class="main">
       <div class="container-fluid mt--8" style="padding-bottom: 50px;background: rgb(250,250,250)">
@@ -238,6 +236,7 @@ export default {
   },
 
   created() {
+    window.scroll(0, 0);
     this.getBlockCount();
     this.getTxCount();
     this.getAccountCount();
@@ -310,7 +309,6 @@ export default {
           this.candidateCount = redata["CandidateCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="BlockInfoList"){
           this.blockList = redata["BlockInfoList"]
-        console.log(this.blockList)
       }else if (Object.keys(redata)[0] ==="TransactionList"){
         this.transactionList = redata["TransactionList"]
       }
@@ -1145,11 +1143,11 @@ export default {
   color: #000000;
 }
 .main{
-  width: 85%;
+  width: 80%;
   height: 30%;
   /*top: 268px;*/
   margin:0 auto;
-  background: #FFFFFF;
+  background: rgb(250,250,250);
   border-radius: 4px;
 }
 </style>

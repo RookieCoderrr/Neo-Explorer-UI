@@ -584,6 +584,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.txhash = this.$route.params.txhash;
     this.getTransactionByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash);

@@ -124,6 +124,7 @@ export default {
   },
 
   created() {
+    window.scroll(0, 0);
     this.getCandidateList(0);
     this.getTotalVotes();
   },

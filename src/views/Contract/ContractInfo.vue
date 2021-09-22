@@ -328,6 +328,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.getContract(this.contract_id);
     this.testToken(this.contract_id)
   },

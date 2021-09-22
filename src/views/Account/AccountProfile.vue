@@ -210,6 +210,7 @@ export default {
     Address11TsTable,
   },
   created() {
+    window.scroll(0, 0);
     this.getNep17Transfers();
     this.getNep11Transfers();
     this.getNeoBalance();

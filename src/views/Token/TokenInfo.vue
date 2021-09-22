@@ -361,6 +361,7 @@ export default {
     };
   },
   created() {
+    window.scroll(0, 0);
     this.getToken(this.token_id);
     this.getContractManifest(this.token_id);
   },
