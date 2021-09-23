@@ -1,7 +1,37 @@
 <template>
-    <div v-if="this.flag===true?this.totalCount != 0:this.totalCountTransfer != 0" >
+    <div class="card-header border-0"
+         :class="type==='dark' ?'bg-transparent':''">
+      <div class="row align-items-center">
+        <div class="col-2">
+          <base-dropdown>
+            <template v-slot:title>
+              <base-button type="default" class="btn btn-sm">
+                {{ this.listButton.buttonName }}
+              </base-button>
+            </template>
+            <li>
+              <a class="dropdown-item" @click="switchTransferList('All')">
+                <span>All Types</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switchTransferList('Only')">
+                <span>Transfers Only</span>
+              </a>
+            </li>
+
+          </base-dropdown>
+        </div>
+        <div class="col-10">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div v-if="this.totalCount!=0" >
       <div
-              v-if="this.flag===true?this.totalCount != 0:this.totalCountTransfer != 0"
+              v-if="this.totalCount!=0"
               class="card shadow"
               :class="type === 'dark' ? 'bg-default' : ''"
       >
@@ -12,7 +42,7 @@
         :class="type === 'dark' ? 'table-dark' : ''"
         :thead-classes="type === 'dark' ? 'thead-dark' : 'thead-light'"
         tbody-classes="list"
-        :data="this.flag===true?tableData:tableDataTransfer"
+        :data="tableData"
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
@@ -217,7 +247,7 @@
                 :pager-count= "5"
                 :page-size= "10"
                 layout="jumper, prev, pager, next"
-                :total="this.flag===true?totalCount:totalCountTransfer">
+                :total="totalCount">
         </el-pagination>
       </div>
     </div>
@@ -262,11 +292,11 @@ export default {
       toButton: { state: true, buttonName: "Hash" },
       totalCount: 0,
       totalCountTransfer: 0,
-      flag:true
+      listButton:{ flag:false,buttonName:"All Types",}
     };
   },
   created() {
-    this.GetNep17TransferByAddress(0,true);
+    this.GetNep17TransferByAddress(0,this.listButton.flag);
   },
 
   watch: {
@@ -282,7 +312,7 @@ export default {
     scriptHashToAddress,
     watchaddress() {
 
-      this.GetNep17TransferByAddress(0,true);
+      this.GetNep17TransferByAddress(0,this.listButton.flag);
     },
     getTransaction(txhash) {
       this.$router.push({
@@ -293,7 +323,7 @@ export default {
       this.isLoading = true;
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
-      this.GetNep17TransferByAddress(skip,true);
+      this.GetNep17TransferByAddress(skip,this.listButton.flag);
 
 
     },
@@ -308,6 +338,17 @@ export default {
         path: `/accountprofile/${accountAddress}`,
       });
     },
+    switchTransferList(type){
+      if(type==="All"){
+        this.listButton.flag=false;
+        this.listButton.buttonName="All Types"
+      } else if (type==="Only") {
+        this.listButton.flag=true;
+        this.listButton.buttonName="Transfers Only"
+      }
+      this.pagination =1
+      this.GetNep17TransferByAddress(0,this.listButton.flag)
+    },
     GetNep17TransferByAddress(skip,flag) {
       axios({
         method: "post",
@@ -318,6 +359,7 @@ export default {
           params: {
             Address: this.account_address,
             Limit: this.resultsPerPage,
+            ExcludeBonusAndBurn:flag,
             Skip: skip,
           },
           // TODO 是否可以按照时间排序，似乎需要修改后端
@@ -329,8 +371,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        if(flag === true) {
-          this.flag=true;
           this.tableData = res["data"]["result"]["result"];
           console.log(this.tableData)
           this.totalCount = res["data"]["result"]["totalCount"];
@@ -358,43 +398,6 @@ export default {
               this.tableData[k]["decimals"] = res["data"]["result"]["decimals"];
             });
           }
-        } else {
-          this.flag=false;
-          console.log(res["data"]["result"]["result"][0]["from"] !==null)
-          console.log( res["data"]["result"]["result"][0]["to"])
-          for (let i = 0; i <res["data"]["result"]["totalCount"];i++){
-            if (res["data"]["result"]["result"][i]["from"] !== null && res["data"]["result"]["result"][i]["to"]!== null) {
-              console.log("successs")
-              axios({
-                method: "post",
-                url: this.network===null?"/api":this.network,
-                data: {
-                  jsonrpc: "2.0",
-                  id: 1,
-                  params: {
-                    ContractHash: res["data"]["result"]["result"][i]["contract"],
-                    Limit: this.resultsPerPage,
-                    Skip: skip,
-                  },
-                  method: "GetAssetInfoByContractHash",
-                },
-                headers: {
-                  "Content-Type": "application/json",
-                  withCredentials: " true",
-                  crossDomain: "true",
-                },
-              }).then((res1) => {
-                var temp = res["data"]["result"]["result"][i];
-                temp["tokenname"] = res1["data"]["result"]["tokenname"];
-                temp["decimals"] = res1["data"]["result"]["decimals"];
-                this.tableDataTransfer.push(temp)
-                this.totalCountTransfer = this.tableDataTransfer.length;
-              });
-
-            }
-          }
-          console.log(this.tableDataTransfer)
-        }
 
       });
     },

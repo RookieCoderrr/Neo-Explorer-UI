@@ -77,7 +77,7 @@
                   {{ $t("addressPage.neoBalance") }}
                 </div>
                 <div class="col-9 context-black">
-                  {{ this.neoBalance }}
+                  {{ numFormat(this.neoBalance )}}
                 </div>
               </div>
               <div class="row mt-3 mb-1">
@@ -178,6 +178,7 @@ import {
   scriptHashToAddress,
   convertPreciseTime,
   convertGas,
+  numFormat,
   copyItem,
 } from "../../store/util";
 import net from "../../store/store";
@@ -227,6 +228,7 @@ export default {
     convertGas,
     convertPreciseTime,
     copyItem,
+    numFormat,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
       //console.log("watch router")

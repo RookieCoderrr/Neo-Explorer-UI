@@ -22,6 +22,16 @@ function changeFormat(button) {
 *   buttonName: string
 * }
 * */
+
+function numFormat(num){
+    var res=num.toString().replace(/\d+/, function(n){
+        return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
+            return $1+",";
+        });
+    })
+    return res;
+}
+
 function sleep(ms) {
     return new Promise(resolve =>
         setTimeout(resolve, ms)
@@ -54,11 +64,11 @@ function switchTime(time){
 }
 
 function convertToken(token, decimal) {
-    return parseFloat((token * Math.pow(10, -decimal)).toFixed(8))
+    return numFormat(parseFloat((token * Math.pow(10, -decimal)).toFixed(8)))
 }
 
 function convertGas(gas) {
-    return parseFloat((gas * Math.pow(0.1, 8)).toFixed(8));
+    return numFormat(parseFloat((gas * Math.pow(0.1, 8)).toFixed(8)));
 }
 
 function convertTime(ts, locale) { // this.$i18n.locale
@@ -151,6 +161,7 @@ export {
     RPC_NODE,
     RPC_NODE_MAIN,
     switchTime,
+    numFormat,
     changeFormat,
     convertToken,
     convertGas,

@@ -75,7 +75,7 @@
             {{time.state?this.convertTime(row.item.firstusetime,this.$i18n.locale):this.convertISOTime(row.item.firstusetime) }}
           </td>
           <td class="table-list-item">
-            {{ row.item.neoBalance }}
+            {{numFormat( row.item.neoBalance )}}
           </td>
           <td class="table-list-item">
             {{ row.item.gasBalance }}
@@ -117,6 +117,7 @@ import {
   convertISOTime,
   switchTime,
   convertTime,
+  numFormat,
   scriptHashToAddress,
   addressToScriptHash,
   changeFormat,
@@ -169,6 +170,7 @@ export default {
     convertGas,
     convertISOTime,
     switchTime,
+    numFormat,
     convertTime,
     addressToScriptHash,
     scriptHashToAddress,

@@ -57,7 +57,6 @@
               {{this.button.buttonName}}</el-button>
 
           </th>
-          <th class="tableHeader">{{ $t("contract.index") }}</th>
           <th class="tableHeader">{{ $t("contract.updates") }}</th>
           <th class="tableHeader">
             {{ $t("contract.time") }}
@@ -110,9 +109,6 @@
             >
               {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
             </router-link>
-          </td>
-          <td  class="table-list-item">
-            {{ row.item.id }}
           </td>
           <td  class="table-list-item">
             {{ row.item.updatecounter }}

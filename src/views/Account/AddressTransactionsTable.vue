@@ -19,7 +19,9 @@
             </th>
             <th class="tableHeader">{{ $t("transactionList.blockHeight") }}</th>
             <th class="tableHeader">{{ $t("transactionList.size") }}</th>
-            <th class="tableHeader">{{ $t("transactionList.time") }}</th>
+            <th class="tableHeader">{{ $t("transactionList.time") }}
+              <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
+                Format</el-button></th>
             <th class="tableHeader">{{ $t("transactionList.gasConsumed") }}</th>
           </template>
           <template v-slot:default="row">
@@ -38,7 +40,7 @@
             </td>
             <td class="table-list-item">{{ row.item.size }} bytes</td>
             <td class="table-list-item">
-              {{ this.convertTime(row.item.blocktime, this.$i18n.locale) }}
+              {{ time.state?this.convertTime(row.item.blocktime, this.$i18n.locale):this.convertISOTime(row.item.blocktime) }}
             </td>
 
             <td class="table-list-item">
@@ -70,7 +72,7 @@
 </template>
 <script>
 import axios from "axios";
-import { convertTime, convertGas } from "../../store/util";
+import { convertTime, convertGas,convertISOTime,switchTime } from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -84,6 +86,7 @@ export default {
 
   data() {
     return {
+      time:{state:true},
       network: net.url,
       tableData: [],
       totalCount: 0,
@@ -114,6 +117,8 @@ export default {
   methods: {
     convertTime,
     convertGas,
+    convertISOTime,
+    switchTime,
     watchaddress() {
       //如果路由有变化，执行的对应的动作
       this.getTransactions(0);
