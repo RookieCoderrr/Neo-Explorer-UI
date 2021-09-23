@@ -1,5 +1,5 @@
 const fr = {
-  home: "Bienvenue sur NeoExplorer",
+  home: "Bienvenue sur OneGate Explorer",
   na: "non disponible",
   blockReward: " Bloc Récompense",
   networkFeeReward: "Récompense de frais de système",

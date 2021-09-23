@@ -59,6 +59,9 @@
               <div class="row mt-3 mb-1">
                 <div class="col-3 lable-title">
                   {{ $t("addressPage.addressProfile.type") }}
+                  <el-tooltip  content="Account includes Normal, Candidate, Committee 3 types." placement="top" @click.stop.prevent>
+                    <i class="el-icon-question"/>
+                  </el-tooltip>
                 </div>
                 <div class="col-9 context-black">
                   <div v-if="this.type === 'normal'">

@@ -185,7 +185,6 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("sdad")
         this.isLoading = false;
         this.tableData = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];

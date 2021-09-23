@@ -70,6 +70,9 @@
                 <div class="row  mt-3  mb-1">
                   <div class="col-3 lable-title">
                     {{ $t("contract.update") }}
+                    <el-tooltip  content="This attribute shows the number of times this contract has been updated and the contract info displayed here is in the newest version." placement="top" @click.stop.prevent>
+                      <i class="el-icon-question"/>
+                    </el-tooltip>
                   </div>
                   <div class="col-9 context-black">
                     {{ this.contract_info["updatecounter"] }}

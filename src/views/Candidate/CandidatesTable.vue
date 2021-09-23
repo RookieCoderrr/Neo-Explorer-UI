@@ -35,7 +35,7 @@
           <th class="tableHeader">{{ $t("candidate.address") }}</th>
           <th class="tableHeader">
             {{ $t("candidate.committee") }}
-            <el-tooltip  content="The status attribute includes 2 types: committee member, candidate member. The top 21 candidates are committee members." placement="top" @click.stop.prevent>
+            <el-tooltip  content="The status attribute includes 2 types: committee member, candidate member. The top 21 candidates become committee members." placement="top" @click.stop.prevent>
               <i class="el-icon-question"/>
             </el-tooltip>
           </th>
