@@ -85,37 +85,37 @@
 
 
       <ul class="navbar-nav ml-md-4">
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/homepage">
             {{ $t("authLayout.home") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/blocks">
             {{ $t("authLayout.blocks") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="-1">
           <router-link class="nav-link" to="/transactions">
             {{ $t("authLayout.txs") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/tokens">
             {{ $t("authLayout.tokens") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/contracts">
             {{ $t("authLayout.contracts") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/account">
             {{ $t("authLayout.address") }}
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item-1">
           <router-link class="nav-link" to="/candidates">
             {{ $t("authLayout.committee") }}
           </router-link>
@@ -346,6 +346,9 @@ export default {
   },
 
   created() {
+    // if(localStorage.getItem("net")===null){
+    //   localStorage.setItem("net","/bpi")
+    // }
     let lang = this.$i18n.locale;
     let netShow = net.url
     if (lang === "cn") {

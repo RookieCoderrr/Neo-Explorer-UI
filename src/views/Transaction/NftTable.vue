@@ -146,7 +146,7 @@
 <script>
 import axios from "axios";
 import { convertToken, scriptHashToAddress, addressToScriptHash, changeFormat} from "../../store/util";
-
+import net from "../../store/store";
 export default {
   name: "transfers-table",
   props: {
@@ -158,6 +158,7 @@ export default {
   },
   data() {
     return {
+      network:net.url,
       tableData: [],
       length,
       fromState: true,
