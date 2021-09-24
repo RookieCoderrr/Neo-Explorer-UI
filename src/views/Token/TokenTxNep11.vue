@@ -249,6 +249,7 @@ export default {
         },
       }).then((res) => {
         this.NEP11TxList = res["data"]["result"]["result"];
+        console.log(this.NEP11TxList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0

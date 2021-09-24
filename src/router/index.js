@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 const Contracts = ()=>import('../views/Contract/Contracts');
 const ContractInfo = ()=>import('../views/Contract/ContractInfo');
-const TokenInfo = ()=>import('../views/Token/TokenInfo');
+const TokenInfoNep17 = ()=>import('../views/Token/TokenInfonNep17');
+const TokenInfoNep11 = ()=>import('../views/Token/TokenInfonNep11');
 const BlockInfo = ()=>import('../views/Block/BlockInfo');
 const CandiateList = ()=>import('../views/Candidate/CandiateList');
 const Account = ()=>import('../views/Account/AccountsList');
@@ -74,9 +75,19 @@ const routes = [
         },
       },
       {
-        path: "/tokeninfo/:hash",
-        name: "tokeninfo",
-        component: TokenInfo ,
+        path: "/NEP17tokeninfo/:hash",
+        name: "NEP17tokeninfo",
+        component: TokenInfoNep17 ,
+        meta: {
+          showSearch: true,
+          showBot:true,
+          showNet:false,
+        },
+      },
+      {
+        path: "/NFTtokeninfo/:hash",
+        name: "NFTtokeninfo",
+        component: TokenInfoNep11 ,
         meta: {
           showSearch: true,
           showBot:true,
