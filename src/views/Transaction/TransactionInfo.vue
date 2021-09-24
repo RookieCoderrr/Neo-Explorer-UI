@@ -694,7 +694,7 @@ export default {
     getApplicationLogByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -724,7 +724,7 @@ export default {
     getContractsApp(ctr_hash) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -765,7 +765,7 @@ export default {
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -804,7 +804,7 @@ export default {
     getScCallByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -831,7 +831,7 @@ export default {
     getContractsSys(ctr_hash, method) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

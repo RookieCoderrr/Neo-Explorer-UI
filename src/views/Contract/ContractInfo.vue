@@ -362,7 +362,7 @@ export default {
     getContract(contract_id) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -391,7 +391,7 @@ export default {
     testAddress(addr) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -411,7 +411,7 @@ export default {
     testToken(contract){
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAssetInfoByContractHash",

@@ -17,7 +17,7 @@ export default {
     getContract(contract_id) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

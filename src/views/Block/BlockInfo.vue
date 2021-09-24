@@ -280,7 +280,7 @@ export default {
       console.log(hash);
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -312,7 +312,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

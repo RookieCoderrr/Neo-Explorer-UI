@@ -412,7 +412,7 @@ export default {
     getBlockCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -429,7 +429,7 @@ export default {
     getTxCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -446,7 +446,7 @@ export default {
     getAccountCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -463,7 +463,7 @@ export default {
     getAssetCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -480,7 +480,7 @@ export default {
     getContractCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -497,7 +497,7 @@ export default {
     getCandidateCount() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           params: {},
           jsonrpc: "2.0",
@@ -514,7 +514,7 @@ export default {
     getBlockList() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -532,7 +532,7 @@ export default {
     getTransactionList() {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -649,7 +649,7 @@ export default {
             }
             axios({
               method: "post",
-              url: this.network===null?"/bpi":this.network,
+              url: "/api",
               data: {
                 jsonrpc: "2.0",
                 id: 1,
@@ -697,7 +697,7 @@ export default {
             }
             axios({
               method: "post",
-              url: this.network===null?"/bpi":this.network,
+              url: "/api",
               data: {
                 jsonrpc: "2.0",
                 id: 1,
@@ -745,7 +745,7 @@ export default {
             }
             axios({
               method: "post",
-              url: this.network===null?"/bpi":this.network,
+              url: "/api",
               data: {
                 jsonrpc: "2.0",
                 id: 1,
@@ -794,7 +794,7 @@ export default {
             }
             axios({
               method: "post",
-              url: this.network===null?"/bpi":this.network,
+              url: "/api",
               data: {
                 jsonrpc: "2.0",
                 method: "GetAddressByAddress",
@@ -838,7 +838,7 @@ export default {
     getBlockByBlockHash(block_hash) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -866,7 +866,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -894,7 +894,7 @@ export default {
     getAddressByAddress(addr) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -924,7 +924,7 @@ export default {
     getToken(value) {
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -950,7 +950,7 @@ export default {
     getContractInfoByContractHash(value) {
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -977,7 +977,7 @@ export default {
     getTransactionByTransactionHash(value) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

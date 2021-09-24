@@ -298,7 +298,7 @@ export default {
     GetNep11TransferByAddress(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -325,7 +325,7 @@ export default {
         for (let k = 0; k < this.tableData.length; k++) {
           axios({
             method: "post",
-            url: this.network===null?"/api":this.network,
+            url: "/api",
             data: {
               jsonrpc: "2.0",
               id: 1,

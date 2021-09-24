@@ -184,7 +184,7 @@ export default {
     getAccoutsList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressList",
@@ -229,7 +229,7 @@ export default {
         let addr = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -259,7 +259,7 @@ export default {
           });
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -292,7 +292,7 @@ export default {
         let address = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network === null ? "/api" : this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -320,7 +320,7 @@ export default {
         let address = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network === null ? "/api" : this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -346,7 +346,7 @@ export default {
     getNeoBalance(accountAddress) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -372,7 +372,7 @@ export default {
     getGasBalance(accountAddress) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",

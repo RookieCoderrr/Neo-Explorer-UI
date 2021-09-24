@@ -383,15 +383,21 @@ export default {
     },
     switchNet(net){
       if(net=='main'){
-        localStorage.setItem("net","/bpi")
-        console.log(localStorage.getItem("net"))
+        // localStorage.setItem("net","/bpi")
+        // console.log(localStorage.getItem("net"))
+        location.href = "http://mainnet.explorer.onegate.space"+`${location.pathname}`;
+        console.log(`${location.hostname}`)
+        console.log(`${location.pathname}`)
         this.netShow="Mainnet"
       } else if(net=='test'){
-        localStorage.setItem("net","/api")
-        console.log(localStorage.getItem("net"))
+        // location.href = "http://testnet.explorer.onegate.space"+`${location.pathname}`;
+        location.href = "http://baidu.com";
         this.netShow="Testnet"
+        console.log(`${location.hostname}`)
+        console.log(`${location.pathname}`)
       }
-      location.href = `${location.pathname}`;
+
+
     },
     backHome() {
       this.$router.push({
@@ -447,7 +453,7 @@ export default {
     getBlockByBlockHash(block_hash) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -474,7 +480,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -501,7 +507,7 @@ export default {
     getAddressByAddress(addr) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -529,7 +535,7 @@ export default {
     getToken(value) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -555,7 +561,7 @@ export default {
       return new Promise(() => {
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -582,7 +588,7 @@ export default {
     getTransactionByTransactionHash(value) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
