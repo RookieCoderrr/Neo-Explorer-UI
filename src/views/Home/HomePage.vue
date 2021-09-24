@@ -265,12 +265,13 @@ export default {
     initWebSocket(){ //初始化weosocket
       const wsuri = "ws://testneofura.ngd.network:2026/home";
       const wsuriMain = "ws://neofura.ngd.network:2027/home";
-      if (this.network===null ||this.network==="/bpi"){
+      console.log(`${location.hostname}`)
+      if (`${location.hostname}`=== "mainnet.explorer.onegate.space"){
         this.websock = new WebSocket(wsuriMain);
-        console.log("1" +this.network)
-      } else {
+
+      } else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         this.websock = new WebSocket(wsuri);
-        console.log("2"+this.network)
+
       }
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;

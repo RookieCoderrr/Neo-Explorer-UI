@@ -389,15 +389,11 @@ export default {
         // localStorage.setItem("net","/bpi")
         // console.log(localStorage.getItem("net"))
         location.href = "http://mainnet.explorer.onegate.space"+`${location.pathname}`;
-        console.log(`${location.hostname}`)
-        console.log(`${location.pathname}`)
         this.netShow="Mainnet"
       } else if(net=='test'){
-        // location.href = "http://testnet.explorer.onegate.space"+`${location.pathname}`;
-        location.href = "http://baidu.com";
+        location.href = "http://testnet.explorer.onegate.space"+`${location.pathname}`;
         this.netShow="Testnet"
-        console.log(`${location.hostname}`)
-        console.log(`${location.pathname}`)
+
       }
 
 
