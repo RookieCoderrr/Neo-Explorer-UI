@@ -395,7 +395,7 @@ export default {
     getToken(token_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -459,7 +459,7 @@ export default {
     getContractManifest(token_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

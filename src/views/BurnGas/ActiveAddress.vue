@@ -9,7 +9,6 @@
 import * as echarts from 'echarts'
 import { onMounted } from "vue";
 import axios from "axios";
-import net from "../../store/store";
 export default {
 
   created() {
@@ -69,7 +68,7 @@ export default {
         function getActiveAddress(day){
           axios({
             method: "post",
-            url: net.url===null?"/bpi":net.url,
+            url: "/api",
             data: {
               params: {days:day},
               jsonrpc: "2.0",

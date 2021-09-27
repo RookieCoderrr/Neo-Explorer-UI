@@ -175,7 +175,7 @@ export default {
     getTokenList(skip,type) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -197,7 +197,7 @@ export default {
     getTokenListByName(name, skip) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
