@@ -266,7 +266,7 @@ export default {
       const wsuri = "ws://testneofura.ngd.network:2026/home";
       const wsuriMain = "ws://neofura.ngd.network:2027/home";
       console.log(`${location.hostname}`)
-      if (`${location.hostname}`=== "mainnet.explorer.onegate.space"){
+      if (`${location.hostname}`=== "explorer.onegate.space"){
         this.websock = new WebSocket(wsuriMain);
 
       } else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
