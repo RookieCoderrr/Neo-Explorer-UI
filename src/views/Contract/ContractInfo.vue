@@ -451,7 +451,7 @@ export default {
         }
       }
       let client = "";
-      if(`${location.hostname}`=== "mainnet.explorer.onegate.space"){
+      if(`${location.hostname}`=== "explorer.onegate.space"){
          client = Neon.create.rpcClient(RPC_NODE_MAIN);
       }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)

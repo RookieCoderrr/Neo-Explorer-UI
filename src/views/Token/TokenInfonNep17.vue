@@ -409,6 +409,7 @@ export default {
         },
       }).then((res) => {
         let raw = res["data"]["result"];
+        console.log(raw)
         this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;
@@ -431,9 +432,9 @@ export default {
         }
       }
       let client = ""
-      if(this.network ===null ||this.network==="/bpi") {
+      if(`${location.hostname}`=== "explorer.onegate.space"){
         client = Neon.create.rpcClient(RPC_NODE_MAIN);
-      } else {
+      }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
       }
 

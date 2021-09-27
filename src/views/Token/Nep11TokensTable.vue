@@ -168,9 +168,9 @@ export default {
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
       if (this.name !== "") {
-        this.getTokenListByName(name, skip);
+        this.getTokenListByName(name, skip,'NEP11');
       }else{
-        this.getTokenList(skip);}
+        this.getTokenList(skip,'NEP11');}
     },
     getTokenList(skip,type) {
       axios({
@@ -194,14 +194,14 @@ export default {
         this.isLoading = false;
       });
     },
-    getTokenListByName(name, skip) {
+    getTokenListByName(name, skip, type) {
       axios({
         method: "post",
         url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip },
+          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip,Standard:type },
           method: "GetAssetInfosByName",
         },
         headers: {
@@ -226,7 +226,7 @@ export default {
       }
       this.name = value;
       this.searchVal = "";
-      this.getTokenListByName(value, 0);
+      this.getTokenListByName(value, 0,'NEP11');
     },
   },
 };

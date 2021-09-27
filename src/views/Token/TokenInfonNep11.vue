@@ -124,26 +124,13 @@
                 background-color: rgb(250, 250, 250);
               "
             >
-              <el-tab-pane
-                :label="$t('tokenInfo.recentTransfers')"
-                name="first"
-              >
-                <tokens-tx-nep17
-                  :contractHash="token_id"
-                  :decimal="decimal == '' ? 0 : decimal"
-                ></tokens-tx-nep17>
-                <tokens-tx-nep11
-                  :contractHash="token_id"
-                  :decimal="decimal == '' ? 0 : decimal"
-                ></tokens-tx-nep11>
-              </el-tab-pane>
-              <el-tab-pane :label="$t('tokenInfo.topHolders')" name="second">
-                <token-holder
+              <el-tab-pane :label="$t('tokenInfo.nftToken')" name="first">
+                <nft-token
                   :contract-hash="token_id"
                   :decimal="decimal == '' ? 0 : decimal"
-                ></token-holder>
+                ></nft-token>
               </el-tab-pane>
-              <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="third">
+              <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="second">
                 <div
                   class="extra"
                   v-if="
@@ -324,9 +311,6 @@
 import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import TokensTxNep17 from "./TokenTxNep17";
-import TokensTxNep11 from "./TokenTxNep11";
-import TokenHolder from "./TokenHolder";
 import ContractJsonView from "../Contract/ContractJsonView";
 import Neon from "@cityofzion/neon-js";
 import {
@@ -337,13 +321,13 @@ import {
   copyItem, RPC_NODE_MAIN,
 } from "../../store/util";
 import net from "../../store/store";
+import NftToken from "./NftTokens";
 
 export default {
   components: {
+    NftToken,
     ContractJsonView,
-    TokensTxNep17,
-    TokensTxNep11,
-    TokenHolder,
+
     Loading,
   },
   data() {
@@ -431,9 +415,9 @@ export default {
         }
       }
       let client = ""
-      if(this.network ===null ||this.network==="/bpi") {
+      if(`${location.hostname}`=== "explorer.onegate.space"){
         client = Neon.create.rpcClient(RPC_NODE_MAIN);
-      } else {
+      }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
       }
 

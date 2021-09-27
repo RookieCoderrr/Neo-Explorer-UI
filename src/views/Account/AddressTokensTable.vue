@@ -32,7 +32,7 @@
                   <router-link
                     class="  mb-0 table-list-item-blue"
                     style="cursor: pointer"
-                    :to="'/tokeninfo/' + row.item.asset"
+                    :to="'/NEP17tokeninfo/' + row.item.asset"
                     >{{ row.item.asset }}</router-link
                   >
                 </div>

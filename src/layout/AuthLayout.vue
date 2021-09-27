@@ -357,7 +357,7 @@ export default {
     } else if (lang === "fr") {
       this.lang = "Français " + "🇫🇷";
     }
-   if(`${location.hostname}`=== "mainnet.explorer.onegate.space"){
+   if(`${location.hostname}`=== "explorer.onegate.space"){
      this.netShow="Mainnet"
    }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
      this.netShow="Testnet"
@@ -388,7 +388,7 @@ export default {
       if(net=='main'){
         // localStorage.setItem("net","/bpi")
         // console.log(localStorage.getItem("net"))
-        location.href = "http://mainnet.explorer.onegate.space"+`${location.pathname}`;
+        location.href = "http://explorer.onegate.space"+`${location.pathname}`;
 
       } else if(net=='test'){
         location.href = "http://testnet.explorer.onegate.space"+`${location.pathname}`;

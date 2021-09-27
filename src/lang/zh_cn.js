@@ -23,6 +23,7 @@ const zh = {
   overview:"总览",
   blockDetail:"区块详情" ,
   contractDetail:"合约详情",
+  nftDetail:"NFT 详情",
   allFilter:"所有",
   transactionFilter:"交易",
   blockFilter:"区块",
@@ -37,6 +38,14 @@ const zh = {
     contracts: "合约",
     address: "地址",
     committee: "候选人",
+  },
+  nftInfo:{
+    name:"名称",
+    tokenId:"代币ID",
+    symbol:"代币符号",
+    contract:"合约",
+    address:"持有人",
+
   },
   homePage: {
     totalBLocks: "区块总数",
@@ -194,6 +203,7 @@ const zh = {
   tokenInfo: {
     name:"通证名称",
     symbol: "通证符号",
+    nftToken:"NFT 代币",
     decimal: "小数位数",
     standard: "合约标准",
     transferred: "首次交易时间",

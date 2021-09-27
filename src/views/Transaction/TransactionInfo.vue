@@ -779,10 +779,12 @@ export default {
         },
       }).then((res) => {
         this.tabledata = res["data"]["result"];
+
         this.blockhash = this.tabledata["blockhash"];
         this.address = this.tabledata["sender"];
         this.blocktime = this.tabledata["blocktime"];
         this.isLoading = false;
+        console.log(this.tabledata)
 
         this.convertScriptToOpcode();
       });

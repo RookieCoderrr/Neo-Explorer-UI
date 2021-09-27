@@ -8,6 +8,7 @@ const CandiateList = ()=>import('../views/Candidate/CandiateList');
 const Account = ()=>import('../views/Account/AccountsList');
 const TransactionList = ()=>import('../views/Transaction/TransactionList');
 const AccountProfile = ()=>import('../views/Account/AccountProfile');
+const NFTInfo = ()=>import('../views/Token/NFTInfo')
 const Tokens = ()=>import('../views/Token/Tokens');
 const Blocks = ()=>import('../views/Block/Blocks');
 const Search = ()=>import('../views/NotFound/SearchNotFound');
@@ -113,6 +114,16 @@ const routes = [
           showBot:true,
           showNet:true,
         },
+      },
+      {
+        path:"/NFTinfo/:contractHash",
+        name:"NftInfo",
+        component:NFTInfo,
+        meta:{
+          showSearch: true,
+          showBot:true,
+          showNet:false,
+        }
       },
       {
         path: "/contractinfo/:hash",
