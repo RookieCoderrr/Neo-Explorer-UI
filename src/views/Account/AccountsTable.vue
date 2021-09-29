@@ -156,7 +156,7 @@ export default {
   },
   updated() {
     const nodes = document.getElementsByClassName("timeago");
-    console.log(nodes);
+    // console.log(nodes);
     if (nodes.length != 0) {
       if (this.$i18n.locale === "cn") {
         render(nodes, "zh_CN");
@@ -213,7 +213,7 @@ export default {
           this.getNep17Transfers();
           this.getBalance();
           this.isLoading = false;
-          console.log(this.tableData)
+
         })
         .catch((err) => {
           console.log("Error", err);

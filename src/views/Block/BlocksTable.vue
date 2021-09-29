@@ -150,7 +150,7 @@ export default {
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        console.log(this.blockList)
+
         this.countPage =
           this.totalCount === 0
             ? 1

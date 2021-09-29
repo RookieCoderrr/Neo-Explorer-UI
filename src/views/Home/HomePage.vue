@@ -528,7 +528,7 @@ export default {
         },
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
-        console.log(this.blockList)
+        // console.log(this.blockList)
       });
     },
     getTransactionList() {

@@ -26,7 +26,7 @@
                   {{ $t("nftInfo.tokenId") }}
                 </div>
                 <div class="col-9 context-black">
-                  {{ this.token_info["decimals"] }}
+                  {{ this.token_info["tokenid"] }}
                 </div>
               </div>
 
@@ -36,13 +36,7 @@
                   {{ $t("nftInfo.contract") }}
                 </div>
                 <div class="col-9 context-black">
-                  <div v-if="this.token_info.firsttransfertime">
-                    {{
-                      this.convertPreciseTime(
-                        this.token_info["firsttransfertime"]
-                      )
-                    }}
-                  </div>
+                  {{ this.token_info["asset"] }}
                 </div>
               </div>
 
@@ -52,7 +46,7 @@
                 </div>
                 <div class="col-9 context-black">
                   {{
-                    convertToken(this.token_info["totalsupply"], this.decimal)
+                    this.token_info["address"]
                   }}
                 </div>
               </div>
@@ -70,10 +64,11 @@
               "
             >
               <el-tab-pane :label="$t('tokenInfo.nftToken')" name="first">
-                <nft-token
-                  :contract-hash="token_id"
+                <tokens-tx-nep11
+                  :contract-hash="contractHash"
+                  :token-id="token_id"
                   :decimal="decimal == '' ? 0 : decimal"
-                ></nft-token>
+                ></tokens-tx-nep11>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -94,18 +89,19 @@ import {
 
   copyItem,
 } from "../../store/util";
-import NftToken from "./NftTokens";
+
+import Neon from "@cityofzion/neon-js";
+import TokensTxNep11 from "./TokenTxNep11";
 
 export default {
   components: {
-    NftToken,
+    TokensTxNep11,
 
     Loading,
   },
   data() {
     return {
-      tableData:[],
-      token_id: this.$route.params.hash,
+      token_id: this.$route.params.tokenId,
       contractHash:this.$route.params.contractHash,
       address:this.$route.params.address,
       isLoading: true,
@@ -119,8 +115,13 @@ export default {
     };
   },
   created() {
-    window.scroll(0,0)
-    this.GetNep11BalanceByContractHashAddressTokenId(this.contractHash,this.token_id,this.address);
+    window.scroll(0,0);
+
+    this.GetNep11BalanceByContractHashAddressTokenId(this.contractHash,this.hashToBase64(this.token_id),this.address)
+
+    // console.log(this.contractHash)
+    // console.log(this.token_id)
+    // console.log(this.address)
 
   },
   watch: {
@@ -132,15 +133,28 @@ export default {
     copyItem,
     watchrouter() {
       //如果路由有变化，执行的对应的动作
-      if (this.$route.name === "tokeninfo") {
-        this.token_id = this.$route.params.hash;
-        this.getToken(this.$route.params.hash);
+      if (this.$route.name === "NFTinfo") {
+        this.token_id= this.$route.params.tokenId;
+        this.contractHash=this.$route.params.contractHash;
+        this.address=this.$route.params.address;
+        this.GetNep11BalanceByContractHashAddressTokenId(this.contractHash,this.hashToBase64(this.token_id),this.address)
 
       }
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
     },
+
+    hashToBase64(hash){
+      var res = Neon.u.hex2base64(hash);
+      return res;
+    },
+    base64ToHash(base) {
+      var res = Neon.u.base642hex(base);
+
+      return res;
+    },
+
     GetNep11BalanceByContractHashAddressTokenId(contract_hash,token_id,address) {
       axios({
         method: "post",
@@ -148,7 +162,7 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { ContractHash: contract_hash,TokenId:token_id,Address:address },
+          params: { ContractHash:contract_hash,TokenId:token_id,Address:address },
           method: "GetNep11BalanceByContractHashAddressTokenId",
         },
         headers: {
@@ -157,8 +171,8 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        this.tableData = res["data"]["result"];
-        console.log(this.tableData)
+        this.token_info = res["data"]["result"];
+        // console.log(this.tableData)
         this.isLoading = false;
       });
     },

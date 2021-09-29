@@ -116,7 +116,7 @@ const routes = [
         },
       },
       {
-        path:"/NFTinfo/:contractHash",
+        path:"/NFTinfo/:contractHash/:address/:tokenId",
         name:"NftInfo",
         component:NFTInfo,
         meta:{

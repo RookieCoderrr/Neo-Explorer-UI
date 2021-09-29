@@ -127,7 +127,7 @@ export default {
   created() {
     window.scroll(0, 0);
     this.getTransactionList(0,);
-    console.log(this.net)
+    // console.log(this.net)
   },
   // computed: {
   //   showUrl(){

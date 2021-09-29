@@ -784,7 +784,7 @@ export default {
         this.address = this.tabledata["sender"];
         this.blocktime = this.tabledata["blocktime"];
         this.isLoading = false;
-        console.log(this.tabledata)
+        // console.log(this.tabledata)
 
         this.convertScriptToOpcode();
       });
@@ -821,7 +821,7 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         this.tabledataCall = res["data"]["result"];
-        console.log(this.tabledataCall["totalCount"], "?????");
+        // console.log(this.tabledataCall["totalCount"], "?????");
         for (var i = 0; i < this.tabledataCall["totalCount"]; i++) {
           this.getContractsSys(
             this.tabledataCall["result"][i]["contractHash"],
@@ -863,7 +863,7 @@ export default {
           }
           this.List.push(json);
         }
-        console.log(this.List);
+        // console.log(this.List);
       });
     },
   },

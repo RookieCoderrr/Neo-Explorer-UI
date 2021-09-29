@@ -43,7 +43,7 @@
             <router-link
                 class="  mb-0 table-list-item-blue"
                 style="cursor: pointer"
-                :to="'/NFTinfo'+row.item.hash"
+                :to="'/NFTinfo/'+row.item.asset+'/'+row.item.address+'/'+base64ToHash(row.item.tokenid)"
             >{{row.item.tokenid}}</router-link>
           </td>
           <td class="Address">
@@ -150,6 +150,12 @@ export default {
 
       return res;
     },
+    base64ToHash(base) {
+      var res = Neon.u.base642hex(base);
+
+      return res;
+    },
+
     GetAssetHoldersByContractHash(skip) {
       axios({
         method: "post",
@@ -172,7 +178,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        console.log(this.tableData)
+        // console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;

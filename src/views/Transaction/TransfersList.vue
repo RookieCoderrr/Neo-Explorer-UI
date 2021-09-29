@@ -226,7 +226,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        console.log(this.tableData)
+        // console.log(this.tableData)
         this.length = this.tableData["length"];
       });
     },

@@ -387,7 +387,7 @@ export default {
     switchNet(net){
       if(net=='main'){
         // localStorage.setItem("net","/bpi")
-        // console.log(localStorage.getItem("net"))
+
         location.href = "http://explorer.onegate.space"+`${location.pathname}`;
 
       } else if(net=='test'){

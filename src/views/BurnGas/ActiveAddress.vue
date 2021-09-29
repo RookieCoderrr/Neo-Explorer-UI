@@ -152,14 +152,14 @@ export default {
           myChart.resize()
         });
         myChart.on('legendselectchanged', function (params){
-          console.log(params)
+          // console.log(params)
           let legend = params.name;
           let selected = params.selected;
           if (selected !== undefined) {
             if(legend ==="Recent 14 days") {
-              console.log(legend)
+              // console.log(legend)
               if(selected["Recent 14 days"]===true && selected["Recent 30 days"]===true) {
-                console.log("winner")
+                // console.log("winner")
                 myChart.setOption({
 
                   legend:{

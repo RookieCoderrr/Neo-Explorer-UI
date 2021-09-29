@@ -218,7 +218,7 @@ export default {
         },
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
-        console.log(this.contractList)
+        // console.log(this.contractList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0
