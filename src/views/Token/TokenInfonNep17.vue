@@ -132,10 +132,6 @@
                   :contractHash="token_id"
                   :decimal="decimal == '' ? 0 : decimal"
                 ></tokens-tx-nep17>
-                <tokens-tx-nep11
-                  :contractHash="token_id"
-                  :decimal="decimal == '' ? 0 : decimal"
-                ></tokens-tx-nep11>
               </el-tab-pane>
               <el-tab-pane :label="$t('tokenInfo.topHolders')" name="second">
                 <token-holder
@@ -325,7 +321,6 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import TokensTxNep17 from "./TokenTxNep17";
-import TokensTxNep11 from "./TokenTxNep11";
 import TokenHolder from "./TokenHolder";
 import ContractJsonView from "../Contract/ContractJsonView";
 import Neon from "@cityofzion/neon-js";
@@ -342,7 +337,6 @@ export default {
   components: {
     ContractJsonView,
     TokensTxNep17,
-    TokensTxNep11,
     TokenHolder,
     Loading,
   },
@@ -395,7 +389,7 @@ export default {
     getToken(token_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -409,6 +403,7 @@ export default {
         },
       }).then((res) => {
         let raw = res["data"]["result"];
+        // console.log(raw)
         this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;
@@ -431,9 +426,9 @@ export default {
         }
       }
       let client = ""
-      if(this.network ===null ||this.network==="/bpi") {
+      if(`${location.hostname}`=== "explorer.onegate.space"){
         client = Neon.create.rpcClient(RPC_NODE_MAIN);
-      } else {
+      }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
       }
 
@@ -459,7 +454,7 @@ export default {
     getContractManifest(token_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

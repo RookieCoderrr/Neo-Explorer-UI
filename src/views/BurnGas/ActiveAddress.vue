@@ -9,7 +9,6 @@
 import * as echarts from 'echarts'
 import { onMounted } from "vue";
 import axios from "axios";
-import net from "../../store/store";
 export default {
 
   created() {
@@ -69,7 +68,7 @@ export default {
         function getActiveAddress(day){
           axios({
             method: "post",
-            url: net.url===null?"/bpi":net.url,
+            url: "/api",
             data: {
               params: {days:day},
               jsonrpc: "2.0",
@@ -153,14 +152,14 @@ export default {
           myChart.resize()
         });
         myChart.on('legendselectchanged', function (params){
-          console.log(params)
+          // console.log(params)
           let legend = params.name;
           let selected = params.selected;
           if (selected !== undefined) {
             if(legend ==="Recent 14 days") {
-              console.log(legend)
+              // console.log(legend)
               if(selected["Recent 14 days"]===true && selected["Recent 30 days"]===true) {
-                console.log("winner")
+                // console.log("winner")
                 myChart.setOption({
 
                   legend:{

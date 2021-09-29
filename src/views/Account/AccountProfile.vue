@@ -233,8 +233,7 @@ export default {
     copyItem,
     numFormat,
     watchrouter() {
-      //如果路由有变化，执行的对应的动作
-      //console.log("watch router")
+
       this.isLoading = true;
 
       if (this.$route.name === "AccountProfile") {
@@ -251,7 +250,7 @@ export default {
     getNeoBalance() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -281,7 +280,7 @@ export default {
     getGasBalance() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -311,7 +310,7 @@ export default {
     getTransactions() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetTransactionCountByAddress",
@@ -336,7 +335,7 @@ export default {
     getCreatedTime() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -362,7 +361,7 @@ export default {
     getNep17Transfers() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -387,7 +386,7 @@ export default {
     getNep11Transfers() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -412,7 +411,7 @@ export default {
     getCandidateByAddress() {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

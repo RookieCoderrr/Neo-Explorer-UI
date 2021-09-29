@@ -204,7 +204,7 @@ export default {
     getContractList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -218,7 +218,7 @@ export default {
         },
       }).then((res) => {
         this.contractList = res["data"]["result"]["result"];
-        console.log(this.contractList)
+        // console.log(this.contractList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0
@@ -230,7 +230,7 @@ export default {
     getContractListByName(name, skip) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

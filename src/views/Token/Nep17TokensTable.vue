@@ -63,7 +63,7 @@
         <template v-slot:default="row">
           <td scope="row">
             <div style="text-align: center;">
-              <div class="media-body">
+              <div v-if="row.item.type==='NEP17'" class="media-body">
                 <router-link
                   class="table-list-item-blue mb-0 "
                   v-if="row.item.ispopular"
@@ -75,6 +75,20 @@
                     v-else
                     style="cursor: pointer"
                     :to="'/NEP17tokeninfo/'+row.item.hash"
+                >{{ row.item.tokenname }}</router-link>
+              </div>
+              <div v-if="row.item.type==='NEP11'" class="media-body">
+                <router-link
+                    class="table-list-item-blue mb-0 "
+                    v-if="row.item.ispopular"
+                    style="cursor: pointer"
+                    :to="'/NFTtokeninfo/'+row.item.hash"
+                >{{ row.item.tokenname }}  &#x1F525;</router-link>
+                <router-link
+                    class="table-list-item-blue mb-0 "
+                    v-else
+                    style="cursor: pointer"
+                    :to="'/NFTtokeninfo/'+row.item.hash"
                 >{{ row.item.tokenname }}</router-link>
               </div>
             </div>
@@ -168,14 +182,14 @@ export default {
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
       if (this.name !== "") {
-        this.getTokenListByName(name, skip);
+        this.getTokenListByName(name, skip,'NEP17');
       }else{
-        this.getTokenList(skip);}
+        this.getTokenList(skip,'NEP17');}
     },
     getTokenList(skip,type) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -189,20 +203,20 @@ export default {
         },
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
-        console.log(this.tokenList)
+        // console.log(this.tokenList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
       });
     },
-    getTokenListByName(name, skip) {
+    getTokenListByName(name, skip,type) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip },
+          params: { Name: this.name, Limit: this.resultsPerPage, Skip: skip ,Standard:type},
           method: "GetAssetInfosByName",
         },
         headers: {
@@ -212,6 +226,7 @@ export default {
         },
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
+        // console.log(this.tokenList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
@@ -227,7 +242,7 @@ export default {
       }
       this.name = value;
       this.searchVal = "";
-      this.getTokenListByName(value, 0);
+      this.getTokenListByName(value, 0,'NEP17');
     },
   },
 };

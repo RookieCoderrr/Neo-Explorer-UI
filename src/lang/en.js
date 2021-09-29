@@ -23,6 +23,7 @@ const en = {
   overview:"Overview",
   blockDetail:"Block Details",
   tokenDetail:"Token Details",
+  nftDetail:"NFT Details",
   contractDetail:"Contract Details",
   overView:"Overview",
   allFilter:"All Filter",
@@ -39,6 +40,14 @@ const en = {
     contracts: "Contracts",
     address: "Addresses",
     committee: "Committee",
+  },
+  nftInfo:{
+    name:"Name",
+    tokenId:"Token ID",
+    symbol:"Symbol",
+    contract:"Contract Hash",
+    address:"Holder",
+
   },
   homePage: {
     totalBLocks: "Total Blocks",
@@ -195,6 +204,7 @@ const en = {
   },
   tokenInfo: {
     name:"Token Name",
+    nftToken:"NFT Token",
     symbol: "Token Symbol",
     decimal: "Decimal",
     standard: "Supported Standard",
@@ -228,6 +238,11 @@ const en = {
     time: "time",
     tokenID: "tokenid",
     nullPrompt: "This token has no transactions.",
+  },
+  nftToken:{
+    name:"Name",
+    tokenId:"Token ID",
+    holder:"Holder",
   },
   tokenHolder: {
     ranking: "Ranking",

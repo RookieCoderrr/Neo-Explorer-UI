@@ -137,7 +137,7 @@ export default {
     getBlockList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -150,7 +150,7 @@ export default {
       }).then((res) => {
         this.blockList = res["data"]["result"]["result"];
         this.totalCount = res["data"]["result"]["totalCount"];
-        console.log(this.blockList)
+
         this.countPage =
           this.totalCount === 0
             ? 1

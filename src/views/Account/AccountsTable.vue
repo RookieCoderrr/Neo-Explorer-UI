@@ -156,7 +156,7 @@ export default {
   },
   updated() {
     const nodes = document.getElementsByClassName("timeago");
-    console.log(nodes);
+    // console.log(nodes);
     if (nodes.length != 0) {
       if (this.$i18n.locale === "cn") {
         render(nodes, "zh_CN");
@@ -184,7 +184,7 @@ export default {
     getAccoutsList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressList",
@@ -213,7 +213,7 @@ export default {
           this.getNep17Transfers();
           this.getBalance();
           this.isLoading = false;
-          console.log(this.tableData)
+
         })
         .catch((err) => {
           console.log("Error", err);
@@ -229,7 +229,7 @@ export default {
         let addr = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -259,7 +259,7 @@ export default {
           });
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             method: "GetBalanceByContractHashAddress",
@@ -292,7 +292,7 @@ export default {
         let address = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network === null ? "/api" : this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -320,7 +320,7 @@ export default {
         let address = this.tableData[k].address;
         axios({
           method: "post",
-          url: this.network === null ? "/api" : this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,
@@ -346,7 +346,7 @@ export default {
     getNeoBalance(accountAddress) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",
@@ -372,7 +372,7 @@ export default {
     getGasBalance(accountAddress) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetBalanceByContractHashAddress",

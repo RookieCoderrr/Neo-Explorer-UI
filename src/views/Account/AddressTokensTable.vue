@@ -32,7 +32,7 @@
                   <router-link
                     class="  mb-0 table-list-item-blue"
                     style="cursor: pointer"
-                    :to="'/tokeninfo/' + row.item.asset"
+                    :to="'/NEP17tokeninfo/' + row.item.asset"
                     >{{ row.item.asset }}</router-link
                   >
                 </div>
@@ -125,7 +125,7 @@ export default {
     getTokenListWithBalance(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -162,7 +162,7 @@ export default {
       for (let k = 0; k < address_list.length; k++) {
         axios({
           method: "post",
-          url: this.network===null?"/bpi":this.network,
+          url: "/api",
           data: {
             jsonrpc: "2.0",
             id: 1,

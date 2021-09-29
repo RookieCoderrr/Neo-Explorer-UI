@@ -212,7 +212,7 @@ export default {
     getNep17TransferByTransactionHash(txhash) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -226,7 +226,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        console.log(this.tableData)
+        // console.log(this.tableData)
         this.length = this.tableData["length"];
       });
     },

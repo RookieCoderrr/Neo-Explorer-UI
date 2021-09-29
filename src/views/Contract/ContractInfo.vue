@@ -20,8 +20,16 @@
                   <div class="col-7 context-black">
                     {{ this.contract_info["name"] }}
                   </div>
-                  <div class="col-2 "  >
-                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getToken(this.contract_id)">
+                  <div class="col-2 " v-if="this.standard===1">
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNep17Token(this.contract_id)">
+                      Token</el-button>
+                  </div>
+                  <div class="col-2 " v-else-if="this.standard===2">
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
+                      Token</el-button>
+                  </div>
+                  <div class="col-2 " v-else>
+                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
                       Token</el-button>
                   </div>
                 </div>
@@ -318,6 +326,7 @@ export default {
       contract_id: this.$route.params.hash,
       isLoading: true,
       contract_info: [],
+      standard:0,
       nef: "",
       manifest: "",
       button: {state: true, buttonName: "Hash"},
@@ -333,6 +342,7 @@ export default {
   created() {
     window.scroll(0, 0);
     this.getContract(this.contract_id);
+    this.getToken(this.contract_id)
     this.testToken(this.contract_id)
   },
   watch: {
@@ -357,12 +367,13 @@ export default {
       if (this.$route.name === "contractinfo") {
         this.contract_id = this.$route.params.hash;
         this.getContract(this.contract_id);
+        this.getToken(this.contract_id)
       }
     },
     getContract(contract_id) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -382,16 +393,47 @@ export default {
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
         this.isLoading = false;
-        console.log(raw)
+        // console.log(raw)
       });
     },
-    getToken(contract){
-      this.$router.push(`/tokeninfo/${contract}`);
+    getToken(contract_id) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash: contract_id },
+          method: "GetAssetInfoByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        let raw = res["data"]["result"];
+        // console.log(raw)
+        if(raw === null){
+          this.standard =3
+        }else{
+          this.standard = raw["type"] === "NEP17" ? 1 : 2;
+        }
+        // console.log(this.standard)
+
+      });
+    },
+
+    getNep17Token(contract){
+      this.$router.push(`/NEP17tokeninfo/${contract}`);
+    },
+    getNftToken(contract){
+      this.$router.push(`/NFTtokeninfo/${contract}`);
     },
     testAddress(addr) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAddressByAddress",
@@ -411,7 +453,7 @@ export default {
     testToken(contract){
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           method: "GetAssetInfoByContractHash",
@@ -451,9 +493,9 @@ export default {
         }
       }
       let client = "";
-      if(this.network===null || this.network==="/bpi"){
+      if(`${location.hostname}`=== "explorer.onegate.space"){
          client = Neon.create.rpcClient(RPC_NODE_MAIN);
-      } else {
+      }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
       }
 

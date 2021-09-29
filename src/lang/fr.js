@@ -24,6 +24,7 @@ const fr = {
   blockDetail:"Details du Bloc",
   tokenDetail:"Details du Jeton",
   contractDetail:"Details du Contrat",
+  nftDetail:"Details du NFT",
   overView:"Aperçu",
   allFilter:"Tout",
   transactionFilter:"Transaction",
@@ -39,6 +40,14 @@ const fr = {
     contracts: "Contrats",
     address: "Addresses",
     committee: "Comité",
+  },
+  nftInfo:{
+    name:"Nom",
+    tokenId:"Jeton ID",
+    symbol:"Symbol",
+    contract:"Contrat Hash",
+    address:"Porteur",
+
   },
   homePage: {
     totalBLocks: "Blocs Totals",
@@ -196,6 +205,7 @@ const fr = {
   tokenInfo: {
     name:"Nom de Jeton",
     symbol: " Symbole Jeton",
+    nftToken:"NFT Jeton",
     decimal: "Décimal",
     standard: "Standard Support",
     transferred: "Premier Transfert",

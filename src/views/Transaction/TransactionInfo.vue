@@ -694,7 +694,7 @@ export default {
     getApplicationLogByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -724,7 +724,7 @@ export default {
     getContractsApp(ctr_hash) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -765,7 +765,7 @@ export default {
     getTransactionByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -779,10 +779,12 @@ export default {
         },
       }).then((res) => {
         this.tabledata = res["data"]["result"];
+
         this.blockhash = this.tabledata["blockhash"];
         this.address = this.tabledata["sender"];
         this.blocktime = this.tabledata["blocktime"];
         this.isLoading = false;
+        // console.log(this.tabledata)
 
         this.convertScriptToOpcode();
       });
@@ -804,7 +806,7 @@ export default {
     getScCallByTransactionHash(tx_id) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -819,7 +821,7 @@ export default {
       }).then((res) => {
         this.isLoading = false;
         this.tabledataCall = res["data"]["result"];
-        console.log(this.tabledataCall["totalCount"], "?????");
+        // console.log(this.tabledataCall["totalCount"], "?????");
         for (var i = 0; i < this.tabledataCall["totalCount"]; i++) {
           this.getContractsSys(
             this.tabledataCall["result"][i]["contractHash"],
@@ -831,7 +833,7 @@ export default {
     getContractsSys(ctr_hash, method) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -861,7 +863,7 @@ export default {
           }
           this.List.push(json);
         }
-        console.log(this.List);
+        // console.log(this.List);
       });
     },
   },

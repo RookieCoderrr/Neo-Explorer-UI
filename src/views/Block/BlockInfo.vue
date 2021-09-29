@@ -252,7 +252,7 @@ export default {
   created() {
     window.scroll(0, 0);
     this.getBlock(this.BlockHash);
-    console.log("????")
+    // console.log(this.BlockHash)
   },
   watch: {
     $route: "watchrouter",
@@ -277,10 +277,10 @@ export default {
     },
 
     getBlock(hash) {
-      console.log(hash);
+      // console.log(hash);
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
@@ -294,7 +294,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.block_info = res["data"]["result"];
           this.block_info["witnesses"][0]["invocation"] = toOpcode(
             this.block_info["witnesses"][0]["invocation"]
@@ -312,7 +312,7 @@ export default {
     getBlockByBlockHeight(blockheight) {
       axios({
         method: "post",
-        url: this.network===null?"/api":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,

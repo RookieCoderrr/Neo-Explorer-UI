@@ -24,12 +24,8 @@ function changeFormat(button) {
 * */
 
 function numFormat(num){
-    var res=num.toString().replace(/\d+/, function(n){
-        return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
-            return $1+",";
-        });
-    })
-    return res;
+    var reg=/\d{1,3}(?=(\d{3})+$)/g;
+    return (num + '').replace(reg, '$&,');
 }
 
 function sleep(ms) {

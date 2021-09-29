@@ -176,6 +176,7 @@ import {
   convertTime,
 } from "../../store/util";
 import net from "../../store/store";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "tokens-tx-nep11",
@@ -185,6 +186,7 @@ export default {
     },
     contractHash: String,
     decimal: Number,
+    tokenId: String,
   },
   components: {
     Loading,
@@ -205,6 +207,8 @@ export default {
     };
   },
   created() {
+    // console.log(this.contractHash)
+    // console.log(this.hashToBase64(this.tokenId))
     this.getTokenList(0);
   },
 
@@ -228,19 +232,24 @@ export default {
       const skip = (val - 1) * this.resultsPerPage;
       this.getTokenList(skip);
     },
+    hashToBase64(hash){
+      var res = Neon.u.hex2base64(hash);
+      return res;
+    },
     getTokenList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
           params: {
             ContractHash: this.contractHash,
+            tokenId: this.hashToBase64(this.tokenId),
             Limit: this.resultsPerPage,
             Skip: skip,
           },
-          method: "GetNep11TransferByContractHash",
+          method: "GetNep11TransferByContractHashTokenId",
         },
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +258,7 @@ export default {
         },
       }).then((res) => {
         this.NEP11TxList = res["data"]["result"]["result"];
-        console.log(this.NEP11TxList)
+        // console.log(this.NEP11TxList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0

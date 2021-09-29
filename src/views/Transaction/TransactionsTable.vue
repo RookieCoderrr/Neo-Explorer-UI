@@ -127,7 +127,7 @@ export default {
   created() {
     window.scroll(0, 0);
     this.getTransactionList(0,);
-    console.log(this.net)
+    // console.log(this.net)
   },
   // computed: {
   //   showUrl(){
@@ -172,7 +172,7 @@ export default {
     getTransactionList(skip) {
       axios({
         method: "post",
-        url: this.network===null?"/bpi":this.network,
+        url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
