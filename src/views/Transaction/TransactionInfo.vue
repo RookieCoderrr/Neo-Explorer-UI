@@ -16,11 +16,11 @@
               <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
             </div>
             <card shadow class="card-style">
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.txId") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   <span id="tx">{{ this.tabledata["hash"] }}</span>
                   <span> </span>
                   <i
@@ -34,20 +34,20 @@
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.time") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ convertPreciseTime(this.blocktime) }}
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.blockHeight") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   <router-link
                       class="name mb-0 "
                       style="cursor: pointer"
@@ -58,29 +58,29 @@
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.size") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.tabledata["size"] }} {{ $t("bytes") }}
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.version") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.tabledata["version"] }}
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.blockHash") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
 
                     <span id="block">{{ this.blockhash }}</span>
                   <i
@@ -94,11 +94,11 @@
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.sender") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   <router-link
                       class="name mb-0 "
                       id="sender"
@@ -125,44 +125,44 @@
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.netFee") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ convertGas(this.tabledata["netfee"])}} GAS
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.sysFee") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ convertGas(this.tabledata["sysfee"]) }} GAS
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.vmState") }}
                   <el-tooltip  content="HALT means this transaction has no error, FAULT means this transcation has errors." placement="right" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.vmstate }}
                 </div>
               </div>
 
-              <div class="row  mt-3 mb-1" >
-                <div class="col-3 lable-title">
+              <div class="row  info mt-3 mb-1" >
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
                   <el-tooltip  content="NeoVm throws an exception when this transcation has errors." placement="right" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
-                <div class="col-9 exception context-black" >
+                <div class="col-md-9 exception context-black" >
                   <el-tag v-if="this.exception === null" type="success" size="small">
                     No exception
                   </el-tag>
@@ -173,11 +173,11 @@
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.trigger") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.trigger }}
                 </div>
               </div>
@@ -877,5 +877,12 @@ export default {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 10;
+}
+@media screen and (max-width: 790px ){
+  .info{
+    margin-top:1.5rem!important;
+    margin-bottom:1.5rem!important; ;
+  }
+
 }
 </style>

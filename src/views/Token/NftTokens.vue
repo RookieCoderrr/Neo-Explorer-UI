@@ -82,7 +82,7 @@
     </div>
   </div>
   <card shadow v-else class="text-center">{{
-    $t("tokenHolder.nullPrompt")
+    $t("NftToken.nullPrompt")
   }}</card>
 </template>
 <script>

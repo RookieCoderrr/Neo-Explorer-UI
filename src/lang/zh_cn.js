@@ -244,6 +244,9 @@ const zh = {
     percentage: "资产占比",
     nullPrompt: "该通证暂无持有人。",
   },
+  NftToken:{
+    nullPrompt:"代币不包含NFT"
+  },
   addressPage: {
     number: "序号",
     address: "地址列表",

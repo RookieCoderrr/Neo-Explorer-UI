@@ -1,86 +1,87 @@
 <template>
   <div class="home" style="background: rgb(250,250,250)" >
     <div class="Intro">
-      <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
-      <div class=" dropAndSearch mt--5">
-        <base-dropdown class="dropHome">
-          <template v-slot:title >
-            <base-button type="secondary" class=" dropdown-toggle dropHomeTitle" >
-              {{this.filterName }}
-            </base-button>
-          </template>
-          <li>
-            <a class="dropdown-item"  @click="switch_the_filter(0,this.$i18n.locale)">
-              <span>{{$t("allFilter")}}</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item"  @click="switch_the_filter(1,this.$i18n.locale)">
-              <span>{{$t("blockFilter")}}</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_filter(2,this.$i18n.locale)">
-              <span>{{$t("transactionFilter")}}</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_filter(3,this.$i18n.locale)">
-              <span>{{$t("contractFilter")}}</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_filter(4,this.$i18n.locale)">
-              <span>{{$t("tokenFilter")}}</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_filter(5,this.$i18n.locale)">
-              <span>{{$t("addressFilter")}}</span>
-            </a>
-          </li>
-        </base-dropdown>
-        <div class="search">
-          <input
-              type="text"
-              class="over-ellipsis"
-              :placeholder="$t('search.placeholder')"
-              v-model="searchVal"
-              @keyup.enter="search()"
-          />
-          <button class="button" @click="search(this.filter)">
-            <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
-                  fill="black"
-              />
-            </svg>
-          </button>
+      <div class="container-fluid mt--5" >
+        <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
+        <div class=" dropAndSearch mt--5">
+          <base-dropdown class="dropHome">
+            <template v-slot:title >
+              <base-button type="secondary" class=" dropdown-toggle dropHomeTitle" >
+                {{this.filterName }}
+              </base-button>
+            </template>
+            <li>
+              <a class="dropdown-item"  @click="switch_the_filter(0,this.$i18n.locale)">
+                <span>{{$t("allFilter")}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"  @click="switch_the_filter(1,this.$i18n.locale)">
+                <span>{{$t("blockFilter")}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_filter(2,this.$i18n.locale)">
+                <span>{{$t("transactionFilter")}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_filter(3,this.$i18n.locale)">
+                <span>{{$t("contractFilter")}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_filter(4,this.$i18n.locale)">
+                <span>{{$t("tokenFilter")}}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" @click="switch_the_filter(5,this.$i18n.locale)">
+                <span>{{$t("addressFilter")}}</span>
+              </a>
+            </li>
+          </base-dropdown>
+          <div class="search">
+            <input
+                type="text"
+                class="over-ellipsis"
+                :placeholder="$t('search.placeholder')"
+                v-model="searchVal"
+                @keyup.enter="search()"
+            />
+            <button class="button" @click="search(this.filter)">
+              <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+                    fill="black"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-
     </div>
 
     <div class="row mt-5"></div>
 
     <div class="main">
       <div class="container-fluid mt--8" style="padding-bottom: 50px;background: rgb(250,250,250)">
-        <div  class="col-2 font-weight-bold mb-0 "
+        <div  class="col-md-2 font-weight-bold mb-0 "
               style="font-size: 20px ;color:black;width: 80%">
           <span>{{$t('overview')}}</span>
         </div>
         <div class="row mt-3"></div>
         <div class="elements">
           <div class="row elerow">
-            <div class="col-4 ele">
+            <div class="col-md-4  ele">
               <div class="eleName">
                 {{$t('homePage.totalBLocks')}}
               </div>
@@ -89,7 +90,7 @@
                 <count-to :startVal=this.startBlockVal :endVal=this.blockCount :duration='2000' @click="toBlock" style="cursor: pointer"></count-to>
               </div>
             </div>
-            <div class="col-4 ele">
+            <div class="col-md-4  ele">
               <div class="eleName">
                 {{$t('homePage.totalTxs')}}
               </div>
@@ -99,7 +100,7 @@
               </div>
 
             </div>
-            <div class="col-4 ele">
+            <div class="col-md-4  ele">
               <div class="eleName">
                 {{$t('homePage.totalTokens')}}
               </div>
@@ -110,9 +111,9 @@
 
             </div>
           </div>
-          <div class="row mt-3"></div>
+          <div class="row mt-0 mt-md-3"></div>
           <div class="row elerow">
-            <div class="col-4 ele">
+            <div class=" col-md-4 ele">
               <div class="eleName">
                 {{$t('homePage.totalCntrts')}}
               </div>
@@ -121,7 +122,7 @@
                 <count-to :startVal=this.startContractVal :endVal=this.contractCount :duration='2000' @click="toContract" style="cursor: pointer"></count-to>
               </div>
             </div>
-            <div class="col-4 ele ">
+            <div class=" col-md-4 ele ">
               <div class="eleName">
                 {{$t('homePage.totalAddrs')}}
               </div>
@@ -131,7 +132,7 @@
               </div>
 
             </div>
-            <div class="col-4 ele">
+            <div class="  col-md-4 ele">
               <div class="eleName">
                 {{$t('homePage.totalCndidtes')}}
               </div>
@@ -147,26 +148,26 @@
         </div>
 
         <div class="row mt-4">
-          <div class="col-6" style="height: 400px">
+          <div class="col-lg-6" style="height: 400px">
             <daily-transaction>
 
             </daily-transaction>
           </div>
 
-          <div class="col-6">
+          <div class="col-lg-6">
             <active-address>
 
             </active-address>
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-6">
+          <div class="col-lg-6">
             <blocks-table-homepage
                 :title="$t('homePage.recentBlocks')"
                 :table-data="blockList"
             ></blocks-table-homepage>
           </div>
-          <div class="col-6">
+          <div class="col-lg-6">
             <transaction-table-homepage
                 :title="$t('homePage.recentTxs')"
                 :table-data="transactionList"
@@ -1038,8 +1039,8 @@ export default {
 </script>
 <style>
 .Intro {
-  width: 80%;
-  margin-left: 10%;
+  width: 85%;
+  margin:0 auto;
   background: rgb(250,250,250);
   height: 400px;
   display: flex;
@@ -1053,6 +1054,7 @@ export default {
   font-weight: bold !important;
   font-size: 45px!important;
   line-height: 58px;
+  text-align: center;
   /* identical to box height */
   color: black;
   margin-bottom: 80px;
@@ -1060,14 +1062,11 @@ export default {
 .dropAndSearch{
   background: rgb(250,250,250);
   width: 100%;
-  max-width: 1200px!important;
-  padding-right: 1px;
   height: 70px !important;
 }
 
 .search {
   background: white;
-  max-width: 1200px!important;
   width: 89%;
   float: right;
   height: 100%;
@@ -1151,5 +1150,14 @@ export default {
   margin:0 auto;
   background: rgb(250,250,250);
   border-radius: 4px;
+}
+@media screen and (max-width: 992px ){
+  .dropHome{
+    display: none;
+  }
+  .search{
+    width: 100%;
+  }
+
 }
 </style>

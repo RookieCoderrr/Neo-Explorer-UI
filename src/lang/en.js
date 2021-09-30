@@ -251,6 +251,9 @@ const en = {
     percentage: "percentage",
     nullPrompt: "This token has no holders.",
   },
+  NftToken:{
+    nullPrompt:"This Token has no NFT supply"
+  },
   addressPage: {
     number: "No.",
     address: "Address List",

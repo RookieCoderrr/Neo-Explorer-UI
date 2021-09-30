@@ -29,11 +29,11 @@
             </div>
 
             <card shadow class="card-style">
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.address") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   <span id="address">
                     {{ this.scriptHashToAddress(this.accountAddress) }}
 
@@ -48,22 +48,22 @@
                   <span style="color: #42b983" id="addressSpan"></span>
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.createdTime") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ convertPreciseTime(this.createdTime) }}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.type") }}
                   <el-tooltip  content="Account includes Normal, Candidate, Committee 3 types." placement="top" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   <div v-if="this.type === 'normal'">
                     {{ $t("addressPage.typeEnum.normal") }}
                   </div>
@@ -75,45 +75,45 @@
                   </div>
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.neoBalance") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ numFormat(this.neoBalance )}}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.gasBalance") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.gasBalance }}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.txNums") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.numOfTxns }}
                 </div>
               </div>
 
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.nep17Transfers") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.numOfnep17Transfers }}
                 </div>
               </div>
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info  mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.nep11Transfers") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.numOfnep11Transfers }}
                 </div>
               </div>
@@ -443,4 +443,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+@media screen and (max-width: 790px ) {
+  .info {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;;
+  }
+}
+</style>

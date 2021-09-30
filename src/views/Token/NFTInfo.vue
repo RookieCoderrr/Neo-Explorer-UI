@@ -21,30 +21,30 @@
 
 
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("nftInfo.tokenId") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.token_info["tokenid"] }}
                 </div>
               </div>
 
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("nftInfo.contract") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{ this.token_info["asset"] }}
                 </div>
               </div>
 
-              <div class="row mt-3 mb-1">
-                <div class="col-3 lable-title">
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
                   {{ $t("nftInfo.address") }}
                 </div>
-                <div class="col-9 context-black">
+                <div class="col-md-9 context-black">
                   {{
                     this.token_info["address"]
                   }}
@@ -183,5 +183,11 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 790px ){
+  .info{
+    margin-top:1.5rem!important;
+    margin-bottom:1.5rem!important; ;
+  }
 
+}
 </style>

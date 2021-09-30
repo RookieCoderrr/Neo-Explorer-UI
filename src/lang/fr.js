@@ -246,6 +246,9 @@ const fr = {
     percentage: "Pourcentage",
     nullPrompt: "Ce jeton n'a pas de porteur",
   },
+  NftToken:{
+    nullPrompt:"Ce jeton n'a pas de NFT"
+  },
   addressPage: {
     number: "No.",
     address: "Addresse",

@@ -10,35 +10,38 @@
                 :active="isLoading"
               ></loading>
               <div class=" row mt-3  mb-5  title1" > {{ $t('contractDetail') }} </div>
-              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
+              <div class=" row mt-3  mb-3 title2">
+                {{ $t('overview') }}
+                <div  v-if="this.standard===1">
+                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNep17Token(this.contract_id)">
+                    Token</el-button>
+                </div>
+                <div  v-else-if="this.standard===2">
+                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
+                    Token</el-button>
+                </div>
+                <div v-else>
+                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
+                    Token</el-button>
+                </div>
+              </div>
               <card shadow class="card-style">
 
                 <div class="row  mb-1 " >
-                  <div class="col-3 lable-title">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.name") }}
                   </div>
-                  <div class="col-7 context-black">
+                  <div class="col-md-9 context-black">
                     {{ this.contract_info["name"] }}
                   </div>
-                  <div class="col-2 " v-if="this.standard===1">
-                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNep17Token(this.contract_id)">
-                      Token</el-button>
-                  </div>
-                  <div class="col-2 " v-else-if="this.standard===2">
-                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
-                      Token</el-button>
-                  </div>
-                  <div class="col-2 " v-else>
-                    <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
-                      Token</el-button>
-                  </div>
+
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info mt-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.hash") }}
                   </div>
-                  <div class="col-9 context-black" id="contract">
+                  <div class="col-md-9 context-black" id="contract">
                     {{ this.contract_info["hash"] }}
                     <i class="ni ni-single-copy-04" id="contractButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('contract','contractButton','contractSpan')"></i>
                     <span  style="color: #42b983"  id="contractSpan" ></span>
@@ -46,11 +49,11 @@
                 </div>
 
 
-                <div class="row  mt-3  mb-1">
-                    <div class="col-3 lable-title">
+                <div class="row info mt-3  mb-1">
+                    <div class="col-md-3 lable-title">
                       {{ $t("contract.creator") }}
                     </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     <span v-if="this.contract_info['sender'] === null">
                       {{$t("contract.available") }}
                     </span>
@@ -66,50 +69,50 @@
                   </div>
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info mt-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.time") }}
                   </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     {{ convertPreciseTime(this.contract_info["createtime"]) }}
                   </div>
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info mt-md-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.update") }}
                     <el-tooltip  content="This attribute shows the number of times this contract has been updated and the contract info displayed here is in the newest version." placement="top" @click.stop.prevent>
                       <i class="el-icon-question"/>
                     </el-tooltip>
                   </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     {{ this.contract_info["updatecounter"] }}
                   </div>
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info mt-md-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.index") }}
                   </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     {{ this.contract_info["id"] }}
                   </div>
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info mt-md-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.compiler") }}
                   </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     {{ this.nef["compiler"] }}
                   </div>
                 </div>
 
-                <div class="row  mt-3  mb-1">
-                  <div class="col-3 lable-title">
+                <div class="row info  mt-md-3  mb-1">
+                  <div class="col-md-3 lable-title">
                     {{ $t("contract.txns") }}
                   </div>
-                  <div class="col-9 context-black">
+                  <div class="col-md-9 context-black">
                     {{ this.contract_info["totalsccall"] }}
                   </div>
                 </div>
@@ -549,5 +552,12 @@ export default {
     -webkit-transition: border-bottom-color .3s;
     transition: border-bottom-color .3s;
     outline: 0;
+  }
+  @media screen and (max-width: 790px ){
+    .info{
+      margin-top:1.5rem!important;
+      margin-bottom:1.5rem!important; ;
+    }
+
   }
 </style>

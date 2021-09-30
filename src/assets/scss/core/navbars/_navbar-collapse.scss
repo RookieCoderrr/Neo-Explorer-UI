@@ -5,7 +5,7 @@
 // Collapse
 
 .navbar-collapse-header {
-    display: none;
+
 }
 
 @include media-breakpoint-down(sm) {
@@ -28,16 +28,17 @@
     }
 
     .navbar-collapse {
-        width: calc(100% - 1.4rem);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1050;
-        margin: .7rem;
-        overflow-y: auto;
-        height: auto !important;
-        opacity: 0;
+        //width: calc(100% - 1.4rem);
+        //position: absolute;
+        //top: 0;
+        //left: 0;
+        //right: 0;
+        //z-index: 1050;
+        //margin: .7rem;
+        //overflow-y: auto;
+        //height: auto !important;
+        //opacity: 0;
+        display: flex!important;
 
         .navbar-toggler {
             width: 20px;
@@ -48,22 +49,22 @@
             padding: 0;
 
             span {
-                display: block;
-                position: absolute;
-                width: 100%;
-                height: 2px;
+                //display: block;
+                //position: absolute;
+                //width: 100%;
+                //height: 2px;
                 border-radius: 2px;
                 opacity: 1;
                 background: #283448;
             }
 
-            :nth-child(1) {
-                transform: rotate(135deg);
-            }
-
-            :nth-child(2) {
-                transform: rotate(-135deg);
-            }
+            //:nth-child(1) {
+            //    transform: rotate(135deg);
+            //}
+            //
+            //:nth-child(2) {
+            //    transform: rotate(-135deg);
+            //}
         }
 
         .navbar-collapse-header {
