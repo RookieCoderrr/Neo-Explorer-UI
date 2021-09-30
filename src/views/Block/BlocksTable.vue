@@ -4,7 +4,7 @@
       {{ title }}
     </h1>
   </div>
-  <div class="card shadow " :class="type === 'dark' ? 'bg-default' : ''" >
+  <div class="card shadow " :class="type === 'd  ark' ? 'bg-default' : ''" >
     <!--div
       class="card-header border-0"
       :class="type === 'dark' ? 'bg-transparent' : ''"
@@ -84,6 +84,9 @@
               :total="totalCount">
       </el-pagination>
   </div>
+  </div>
+  <div style="margin-top: 30px;margin-bottom: 20px">
+
   </div>
 </template>
 <script>
