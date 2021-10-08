@@ -175,6 +175,7 @@ const zh = {
     title: "Nep17 交易",
     contract: "合约",
     token: "通证",
+    id:"通证ID",
     type: "交易类型",
     from: "转出账户",
     fromBalance: "转出账户通证数量",

@@ -198,7 +198,7 @@
                                   <div class="col-lg-2 event_param" >
                                     {{ param["name"] }}:
                                   </div>
-                                  <div class="col-lg--9 context-black">
+                                  <div class="col-lg-9 context-black">
                                     {{ param["type"] }}
                                   </div>
 

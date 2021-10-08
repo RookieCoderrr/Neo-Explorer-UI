@@ -11,6 +11,7 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
           <th class="tableHeader">{{ $t("transferList.token") }}</th>
+          <th class="tableHeader">{{ $t("transferList.id") }}</th>
           <th class="tableHeader">{{ $t("transferList.type") }}</th>
           <th class="tableHeader">
             {{ $t("transferList.from") }}
@@ -55,6 +56,11 @@
           <td class="table-list-item">
             <div class="from">
               {{ row.item.tokenname }}
+            </div>
+          </td>
+          <td class="table-list-item">
+            <div >
+              {{ row.item.tokenId}}
             </div>
           </td>
           <td class="table-list-item">
@@ -327,7 +333,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        // console.log(this.tableData)
+        console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0

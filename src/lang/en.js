@@ -177,6 +177,7 @@ const en = {
     title: "Nep17 Transfers",
     contract: "Contract",
     token: "Token",
+    id:"TokenId",
     type: "Type",
     from: "From",
     fromBalance: "From Balance",

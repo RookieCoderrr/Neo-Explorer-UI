@@ -177,6 +177,7 @@ const fr = {
     title: "Nep17 Transferts",
     contract: "Contrat",
     token: "Jeton",
+    id:"ID",
     type: "Genre",
     from: "Envoyé de",
     fromBalance: " Jetons d'Envoyeur",

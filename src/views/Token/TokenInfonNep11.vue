@@ -186,10 +186,10 @@
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-for="(param, ind) in item['parameters']"
                                      :key="ind"  class="row  mt-3  mb-1">
-                                  <div class="col-md-2 event_param" >
+                                  <div class="col-lg-2 event_param" >
                                     {{ param["name"] }}:
                                   </div>
-                                  <div class="col-md-9 context-black">
+                                  <div class="col-lg-9 context-black">
                                     {{ param["type"] }}
                                   </div>
 
