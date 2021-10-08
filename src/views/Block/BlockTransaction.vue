@@ -56,15 +56,24 @@
             style="height: 70px"
     >
       <el-pagination
-              @current-change="handleCurrentChange"
-              :hide-on-single-page="totalCount<=10"
-              :current-page="pagination"
-              :pager-count= "5"
-              :page-size= "10"
-              layout="jumper, prev, pager, next"
-              :total="totalCount">
+          v-if="windowWidth > 552"
+          @current-change="handleCurrentChange"
+          :hide-on-single-page="totalCount<=10"
+          :current-page="pagination"
+          :pager-count= "3"
+          :page-size= "10"
+          layout="jumper, prev, pager, next"
+          :total="totalCount">
       </el-pagination>
-    </div>
+      <el-pagination
+          v-if="windowWidth < 552"
+          small ="true"
+          @current-change="handleCurrentChange"
+          :hide-on-single-page="totalCount<=10"
+          :current-page="pagination"
+          layout="prev,pager,next"
+          :total="totalCount">
+      </el-pagination>    </div>
   </div>
 </template>
 
@@ -98,6 +107,7 @@ export default {
       placeHolder: 0,
       isLoading: true,
       countPage: 0,
+      windowWidth:window.innerWidth,
     };
   },
   created() {

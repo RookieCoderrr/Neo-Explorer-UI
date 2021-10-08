@@ -195,10 +195,10 @@
                               <div v-if="item['parameters'].length !== 0">
                                 <div v-for="(param, ind) in item['parameters']"
                                      :key="ind"  class="row  mt-3  mb-1">
-                                  <div class="col-2 event_param" >
+                                  <div class="col-lg-2 event_param" >
                                     {{ param["name"] }}:
                                   </div>
-                                  <div class="col-9 context-black">
+                                  <div class="col-lg--9 context-black">
                                     {{ param["type"] }}
                                   </div>
 
@@ -224,7 +224,7 @@
                   >
                     <el-collapse-item :title="item['name']" style="margin-bottom: 20px">
                       <div class="row">
-                        <div style="margin-left: 4%" v-if="item['safe']">
+                        <div class="col" style="margin-left: 4%" v-if="item['safe']">
                           <button
                                   class="btn btn-sm btn-primary"
                                   @click="onQuery(index)"
@@ -234,7 +234,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-4" style="margin-left: 3%">
+                        <div class="col-lg-3" style="margin-left: 4%">
                           <div class="params">
                             <div class="text-muted">{{$t('tokenInfo.params')}}</div>
                             <div v-if="item['parameters'].length !== 0">
@@ -269,17 +269,17 @@
                             <div v-else>{{$t('tokenInfo.noParam')}}</div>
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-lg-3" style="margin-left: 4%">
                           <div class="return">
                             <div class="text-muted">{{$t('tokenInfo.returnType')}}</div>
                             {{ item["returntype"] }}
                           </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-lg-3" style="margin-left: 4%">
                           <div class="text-muted">{{$t('tokenInfo.offset')}}</div>
                           {{ item["offset"] }}
                         </div>
-                        <div class="col">
+                        <div class="col-lg" style="margin-left: 4%">
                           <div class="text-muted">{{$t('tokenInfo.safe')}}</div>
                           {{ item["safe"] }}
                         </div>

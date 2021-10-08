@@ -219,19 +219,19 @@
                         :key="index"
                     >
                       <div class="row">
-                        <div class="col-2">
+                        <div class="col-lg-2">
                           <div class="text-muted">
                             {{ $t("transactionInfo.eventName") }}:
                           </div>
                           {{ item["eventname"] }}
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1">
                           <div class="text-muted">
                             {{ $t("transactionInfo.vmState") }}:
                           </div>
                           {{ item["Vmstate"] }}
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4">
                           <div class="text-muted">
                             {{ $t("transactionInfo.contract") }}:
                           </div>
@@ -243,7 +243,7 @@
                             {{ item["contract"] }}
                           </router-link>
                         </div>
-                        <div class="col-5">
+                        <div class="col-lg-5">
                           <div class="params">
                             <div class="text-muted">
                               {{ $t("transactionInfo.State") }}:
@@ -340,13 +340,13 @@
                         :key="index"
                     >
                       <div class="row">
-                        <div class="col-2">
+                        <div class="col-lg-2">
                           <div class="text-muted">
                             {{ $t("transactionInfo.method") }}:
                           </div>
                           {{ item["method"] }}
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4">
                           <div class="text-muted">
                             {{ $t("transactionInfo.originSender") }}:
                           </div>
@@ -358,7 +358,7 @@
                             {{ item["originSender"] }}
                           </router-link>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4">
                           <div class="text-muted">
                             {{ $t("transactionInfo.contract") }}:
                           </div>
@@ -370,7 +370,7 @@
                             {{ item["contractHash"] }}
                           </router-link>
                         </div>
-                        <div class="col-2">
+                        <div class="col-lg-2">
                           <div class="text-muted">
                             {{ $t("transactionInfo.callFlags") }}:
                           </div>

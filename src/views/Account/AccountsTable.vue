@@ -97,13 +97,23 @@
             style="height: 70px"
     >
       <el-pagination
+              v-if="windowWidth > 552"
               @current-change="handleCurrentChange"
               :hide-on-single-page="totalAccount<=10"
               :current-page="pagination"
-              :pager-count= "5"
+              :pager-count= "3"
               :page-size= "10"
               layout="jumper, prev, pager, next"
               :total="totalAccount">
+      </el-pagination>
+      <el-pagination
+          v-if="windowWidth < 552"
+          small ="true"
+          @current-change="handleCurrentChange"
+          :hide-on-single-page="totalAccount<=10"
+          :current-page="pagination"
+          layout="prev,pager,next"
+          :total="totalAccount">
       </el-pagination>
     </div>
   </div>
@@ -147,6 +157,7 @@ export default {
       neoBalance: 0,
       isLoading: true,
       countPage: 0,
+      windowWidth:window.innerWidth,
       button: { state: true, buttonName: "Hash" },
     };
   },

@@ -50,7 +50,7 @@
 }
 .searchName {
     width: 100%;
-    max-width: 300px;
+    max-width: 500px;
     position: relative;
 }
 .buttonName {
@@ -59,7 +59,7 @@
     right: 2px;
     bottom: 7px;
     top: 2px;
-    width: 50px;
+    width: 30px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -98,9 +98,8 @@
     color: #5576EC;
 }
 .context-black{
-
+    left: 4%;
     top: calc(50% - 20px/2 - 483.5px);
-    left: 2%;
     font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -266,7 +265,7 @@
     margin-top: 5px!important;
 }
 .event_parameters{
-    margin-left: 30px;
+    margin-left: 4%;
     font-family: Inter,sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -279,7 +278,7 @@
 }
 .event_param{
     height: 20px;
-    margin-left: 30px;
+    margin-left: 4%;
     top: calc(50% - 20px/2 - 200.5px);
 
     font-family: Inter, sans-serif;

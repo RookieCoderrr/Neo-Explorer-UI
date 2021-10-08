@@ -150,8 +150,59 @@ export default {
             }
           ]
         };
+        var option2 = {
+          color:['#08BEA0','#08BEA0'],
+          title: [{
+            left: '2%',
+            text: 'Daily Transaction',
+            top:'2%',
+          }],
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: ['Recent 14 days', 'Recent 30 days'],
+            selected:{'Recent 30 days':false,'Recent 14 days':true},
+            top:5,
+            right:5,
+            orient: 'vertical',
+          },
+          xAxis: {
+            type: 'category',
+            data: xdata14,
+            splitLine: {
+              show: false
+            },
+            axisTick:{
+              show:false
+            }
+          },
+          yAxis: {
+            type: 'value',
+            splitLine: {
+              show: false
+            }
+          },
+          series: [{
+            name: 'Recent 14 days',
+            type: 'line',
+            data: sdata14,
+            smooth: true,
+          },
+            {
+              name: 'Recent 30 days',
+              type: 'line',
+              data: sdata30,
+              smooth: true
+            }
+          ]
+        };
         // 使用刚指定的配置项和数据显示图表。
-        myTransactionChart.setOption(option);
+        if(window.innerWidth > 552) {
+          myTransactionChart.setOption(option);
+        } else {
+          myTransactionChart.setOption(option2)
+        }
         window.addEventListener("resize", function () {
 
           myTransactionChart.resize()

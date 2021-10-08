@@ -80,14 +80,25 @@
       :class="type === 'dark' ? 'bg-transparent' : ''"
       style="height: 70px"
     >
-          <el-pagination
-                  @current-change="handleCurrentChange"
-                  :current-page="pagination"
-                  :pager-count= "5"
-                  :page-size= "10"
-                  layout="jumper, prev, pager, next"
-                  :total="totalCount">
-          </el-pagination>
+      <el-pagination
+          v-if="windowWidth > 552"
+          @current-change="handleCurrentChange"
+          :hide-on-single-page="totalCount<=10"
+          :current-page="pagination"
+          :pager-count= "3"
+          :page-size= "10"
+          layout="jumper, prev, pager, next"
+          :total="totalCount">
+      </el-pagination>
+      <el-pagination
+          v-if="windowWidth < 552"
+          small ="true"
+          @current-change="handleCurrentChange"
+          :hide-on-single-page="totalCount<=10"
+          :current-page="pagination"
+          layout="prev,pager,next"
+          :total="totalCount">
+      </el-pagination>
 
     </div>
   </div>
@@ -121,6 +132,7 @@ export default {
       isLoading: true,
       countPage: 0,
       currentPage4: 4,
+      windowWidth:window.innerWidth,
     };
   },
 
