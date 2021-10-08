@@ -126,7 +126,7 @@ export default {
       totalCount: 0,
       votesCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       skip: 0,
       count: 0,
       isLoading: true,
@@ -137,10 +137,12 @@ export default {
 
   created() {
     window.scroll(0, 0);
-    this.getCandidateList(0);
+    this.getCandidateList((this.pagination-1)*this.resultsPerPage);
     this.getTotalVotes();
   },
-
+  watch: {
+    $route: "watchrouter",
+  },
   methods: {
     getVotePercentage(votes) {
       var per = votes / this.votesCount;
@@ -159,8 +161,19 @@ export default {
     handleCurrentChange(val) {
       this.isLoading = true;
       this.pagination = val;
-      const skip = (val - 1) * this.resultsPerPage;
-      this.getCandidateList(skip);
+
+      this.$router.push({
+        path: `/candidates/${this.pagination}`,
+      });
+    },
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if (this.$route.name === "Candidates") {
+        console.log(this.pagination)
+        this.getCandidateList((this.pagination-1)*this.resultsPerPage)
+
+      }
     },
     getCandidateList(skip) {
       axios({

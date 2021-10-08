@@ -178,7 +178,7 @@ export default {
       contractList: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       isLoading: true,
       searchVal: "",
       name: "",
@@ -189,7 +189,10 @@ export default {
   },
   created() {
     window.scroll(0, 0);
-    this.getContractList(0);
+    this.getContractList((this.pagination-1)*this.resultsPerPage);
+  },
+  watch: {
+    $route: "watchrouter",
   },
   methods: {
     convertTime,
@@ -204,7 +207,9 @@ export default {
       if (this.name !== "") {
         this.getContractListByName(name, skip);
       } else {
-        this.getContractList(skip);
+        this.$router.push({
+          path: `/contracts/${this.pagination}`,
+        })
       }
     },
       getContract(hash) {
@@ -212,6 +217,15 @@ export default {
         path: `/contractinfo/${hash}`,
       });
     },
+  watchrouter() {
+    //如果路由有变化，执行的对应的动作
+    console.log(this.$route.name)
+    if (this.$route.name === "contracts") {
+      console.log(this.pagination)
+      this.getContractList((this.pagination-1)*this.resultsPerPage)
+
+    }
+  },
     getContractList(skip) {
       axios({
         method: "post",

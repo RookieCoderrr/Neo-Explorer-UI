@@ -124,17 +124,22 @@ export default {
       blockList: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       isLoading: true,
       placeHolder: 0,
       countPage: 0,
       windowWidth:window.innerWidth,
+
     };
   },
   created() {
-    this.getBlockList(0);
-  },
+      console.log(this.pagination)
+      this.getBlockList((this.pagination-1)*this.resultsPerPage)
 
+  },
+  watch: {
+    $route: "watchrouter",
+  },
   methods: {
     convertTime,
     convertISOTime,
@@ -146,9 +151,21 @@ export default {
     handleCurrentChange(val) {
           this.isLoading = true;
           this.pagination = val;
-          const skip = (val - 1) * this.resultsPerPage;
-          this.getBlockList(skip);
-      },
+
+
+      this.$router.push({
+        path: `/blocks/${this.pagination}`,
+      });
+    },
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if (this.$route.name === "blocks") {
+        console.log(this.pagination)
+        this.getBlockList((this.pagination-1)*this.resultsPerPage)
+
+      }
+    },
     getBlockList(skip) {
       axios({
         method: "post",

@@ -90,12 +90,12 @@
           </router-link>
         </li>
         <li class="nav-item-1">
-          <router-link class="nav-link" to="/blocks">
+          <router-link class="nav-link" to="/blocks/1">
             {{ $t("authLayout.blocks") }}
           </router-link>
         </li>
         <li class="nav-item-1">
-          <router-link class="nav-link" to="/transactions">
+          <router-link class="nav-link" to="/transactions/1">
             {{ $t("authLayout.txs") }}
           </router-link>
         </li>
@@ -105,17 +105,17 @@
           </router-link>
         </li>
         <li class="nav-item-1">
-          <router-link class="nav-link" to="/contracts">
+          <router-link class="nav-link" to="/contracts/1">
             {{ $t("authLayout.contracts") }}
           </router-link>
         </li>
         <li class="nav-item-1">
-          <router-link class="nav-link" to="/account">
+          <router-link class="nav-link" to="/account/1">
             {{ $t("authLayout.address") }}
           </router-link>
         </li>
         <li class="nav-item-1">
-          <router-link class="nav-link" to="/candidates">
+          <router-link class="nav-link" to="/candidates/1">
             {{ $t("authLayout.committee") }}
           </router-link>
         </li>

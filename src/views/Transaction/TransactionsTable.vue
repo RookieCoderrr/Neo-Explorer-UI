@@ -128,7 +128,7 @@ export default {
       tableData: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       placeHolder: 0,
       isLoading: true,
       countPage: 0,
@@ -139,7 +139,7 @@ export default {
 
   created() {
     window.scroll(0, 0);
-    this.getTransactionList(0,);
+    this.getTransactionList((this.pagination-1)*this.resultsPerPage);
     // console.log(this.net)
   },
   // computed: {
@@ -155,7 +155,9 @@ export default {
   //     }
   //   })
   // },
-
+  watch: {
+    $route: "watchrouter",
+  },
   methods: {
     convertISOTime,
     convertGas,
@@ -164,8 +166,18 @@ export default {
     handleCurrentChange(val) {
         this.isLoading = true;
         this.pagination = val;
-        const skip = (val - 1) * this.resultsPerPage;
-        this.getTransactionList(skip);
+      this.$router.push({
+        path: `/Transactions/${this.pagination}`,
+      });
+    },
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if (this.$route.name === "transactions") {
+        console.log(this.pagination)
+        this.getTransactionList((this.pagination-1)*this.resultsPerPage)
+
+      }
     },
     getTransaction(txhash) {
       this.$router.push({

@@ -66,7 +66,7 @@ const routes = [
         },
       },
       {
-        path: "/blocks",
+        path: "/blocks/:page",
         name: "blocks",
         component: Blocks ,
         meta: {
@@ -106,7 +106,7 @@ const routes = [
         },
       },
       {
-        path: "/contracts",
+        path: "/contracts/:page",
         name: "contracts",
         component: Contracts,
         meta: {
@@ -136,7 +136,7 @@ const routes = [
         },
       },
       {
-        path: "/candidates",
+        path: "/candidates/:page",
         name: "Candidates",
         component:  CandiateList ,
         meta: {
@@ -146,7 +146,7 @@ const routes = [
         },
       },
       {
-        path: "/account",
+        path: "/account/:page",
         name: "Accounts",
         component:  Account,
         meta: {
@@ -166,7 +166,7 @@ const routes = [
         },
       },
       {
-        path: "/Transactions",
+        path: "/Transactions/:page",
         name: "transactions",
         component:  TransactionList ,
         meta: {

@@ -153,7 +153,7 @@ export default {
       network: net.url,
       tableData: [],
       totalAccount: 0,
-      pagination: 1,
+      pagination: this.$route.params.page,
       resultsPerPage: 10,
       neoBalance: 0,
       isLoading: true,
@@ -164,7 +164,7 @@ export default {
   },
   created() {
     window.scroll(0, 0);
-    this.getAccoutsList(0);
+    this.getAccoutsList((this.pagination-1)*this.resultsPerPage);
   },
   updated() {
     const nodes = document.getElementsByClassName("timeago");
@@ -177,7 +177,9 @@ export default {
       }
     }
   },
-
+  watch: {
+    $route: "watchrouter",
+  },
   methods: {
     convertGas,
     convertISOTime,
@@ -190,9 +192,20 @@ export default {
     handleCurrentChange(val) {
       this.isLoading = true;
       this.pagination = val;
-      const skip = (val - 1) * this.resultsPerPage;
-      this.getAccoutsList(skip);
+      this.$router.push({
+        path: `/account/${this.pagination}`,
+      });
     },
+
+  watchrouter() {
+    //如果路由有变化，执行的对应的动作
+    console.log(this.$route.name)
+    if (this.$route.name === "Accounts") {
+      console.log(this.pagination)
+      this.getAccoutsList((this.pagination-1)*this.resultsPerPage)
+
+    }
+  },
     getAccoutsList(skip) {
       axios({
         method: "post",
