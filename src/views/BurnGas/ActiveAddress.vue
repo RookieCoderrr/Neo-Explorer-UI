@@ -150,6 +150,25 @@ export default {
         window.addEventListener("resize", function () {
 
           myChart.resize()
+          var windowWidth = window.innerWidth;
+          if(windowWidth < 552) {
+            myChart.setOption({
+              title: [{
+                left: '2%',
+                text: 'Active Address',
+                top:'2%',
+              }],
+            })
+          }
+          if(windowWidth > 552) {
+            myChart.setOption({
+              title: [{
+                left: 'center',
+                text: 'Active Address',
+                top:'2%',
+              }],
+            })
+          }
         });
         myChart.on('legendselectchanged', function (params){
           // console.log(params)

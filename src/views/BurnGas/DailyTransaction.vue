@@ -155,6 +155,25 @@ export default {
         window.addEventListener("resize", function () {
 
           myTransactionChart.resize()
+          var windowWidth = window.innerWidth;
+          if(windowWidth < 552) {
+            myTransactionChart.setOption({
+              title: [{
+                left: '2%',
+                text: 'Daily Transaction',
+                top:'2%',
+              }],
+            })
+          }
+          if(windowWidth > 552) {
+            myTransactionChart.setOption({
+              title: [{
+                left: 'center',
+                text: 'Daily Transaction',
+                top:'2%',
+              }],
+            })
+          }
         });
         myTransactionChart.on('legendselectchanged', function (params){
 
