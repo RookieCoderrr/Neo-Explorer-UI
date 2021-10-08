@@ -639,9 +639,15 @@ export default {
         },
       }).then((res) => {
         if (res["data"]["error"] == null) {
-          this.$router.push({
-            path: `/tokeninfo/${value}`,
-          });
+          if(res["data"]["result"]["type"] === "NEP17"){
+            this.$router.push({
+              path: `/NEP17tokeninfo/${value}`,
+            });
+          }else if (res["data"]["result"]["type"] === "NEP11"){
+            this.$router.push({
+              path: `/NFTtokeninfo/${value}`,
+            });
+          }
         } else {
           this.getContractInfoByContractHash(value);
         }

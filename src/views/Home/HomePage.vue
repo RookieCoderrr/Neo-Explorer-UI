@@ -274,7 +274,6 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
@@ -763,10 +762,16 @@ export default {
             }).then((res) => {
               this.isLoading = false;
               if (res["data"]["error"] == null) {
-                this.$router.push({
-                  path: `/tokeninfo/${value}`,
-                });
-              } else {
+                if(res["data"]["result"]["type"] === "NEP17"){
+                  this.$router.push({
+                    path: `/NEP17tokeninfo/${value}`,
+                  });
+                }else if (res["data"]["result"]["type"] === "NEP11"){
+                  this.$router.push({
+                    path: `/NFTtokeninfo/${value}`,
+                  });
+                }
+              }  else {
                 this.$router.push({
                   path: `/search`,
                 });
@@ -942,9 +947,15 @@ export default {
         }).then((res) => {
           this.isLoading = false;
           if (res["data"]["error"] == null) {
-            this.$router.push({
-              path: `/tokeninfo/${value}`,
-            });
+            if(res["data"]["result"]["type"] === "NEP17"){
+              this.$router.push({
+                path: `/NEP17tokeninfo/${value}`,
+              });
+            }else if (res["data"]["result"]["type"] === "NEP11"){
+              this.$router.push({
+                path: `/NFTtokeninfo/${value}`,
+              });
+            }
           } else {
             this.getContractInfoByContractHash(value);
           }
