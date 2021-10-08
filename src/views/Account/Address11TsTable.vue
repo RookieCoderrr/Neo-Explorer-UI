@@ -230,6 +230,7 @@
             @current-change="handleCurrentChange"
             :hide-on-single-page="totalCount<=10"
             :current-page="pagination"
+            :pager-count= "4"
             layout="prev,pager,next"
             :total="totalCount">
         </el-pagination>

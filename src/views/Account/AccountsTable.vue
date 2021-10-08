@@ -112,6 +112,7 @@
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalAccount<=10"
           :current-page="pagination"
+          :pager-count= "4"
           layout="prev,pager,next"
           :total="totalAccount">
       </el-pagination>
