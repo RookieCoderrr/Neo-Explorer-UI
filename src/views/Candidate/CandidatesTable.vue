@@ -171,6 +171,7 @@ export default {
       console.log(this.$route.name)
       if (this.$route.name === "Candidates") {
         console.log(this.pagination)
+        this.pagination = this.$route.params.page
         this.getCandidateList((this.pagination-1)*this.resultsPerPage)
 
       }

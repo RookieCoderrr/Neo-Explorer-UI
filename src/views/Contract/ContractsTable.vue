@@ -223,6 +223,7 @@ export default {
     console.log(this.$route.name)
     if (this.$route.name === "contracts") {
       console.log(this.pagination)
+      this.pagination = this.$route.params.page
       this.getContractList((this.pagination-1)*this.resultsPerPage)
 
     }

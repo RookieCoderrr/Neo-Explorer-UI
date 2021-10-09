@@ -169,6 +169,7 @@ export default {
       console.log(this.$route.name)
       if (this.$route.name === "tokens") {
         console.log(this.pagination)
+        this.pagination = this.$route.params.page
         this.getTokenList((this.pagination-1)*this.resultsPerPage)
 
       }

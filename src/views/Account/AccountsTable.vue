@@ -202,6 +202,7 @@ export default {
     //如果路由有变化，执行的对应的动作
     console.log(this.$route.name)
     if (this.$route.name === "Accounts") {
+      this.pagination = this.$route.params.page
       console.log(this.pagination)
       this.getAccoutsList((this.pagination-1)*this.resultsPerPage)
 

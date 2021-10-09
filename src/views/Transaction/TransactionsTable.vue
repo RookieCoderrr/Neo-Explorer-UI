@@ -175,6 +175,7 @@ export default {
       console.log(this.$route.name)
       if (this.$route.name === "transactions") {
         console.log(this.pagination)
+        this.pagination = this.$route.params.page
         this.getTransactionList((this.pagination-1)*this.resultsPerPage)
 
       }
