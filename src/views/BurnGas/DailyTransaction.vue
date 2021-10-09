@@ -114,6 +114,7 @@ export default {
             trigger: 'axis'
           },
           legend: {
+            icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
             top:5,
@@ -161,6 +162,7 @@ export default {
             trigger: 'axis'
           },
           legend: {
+            icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
             top:5,

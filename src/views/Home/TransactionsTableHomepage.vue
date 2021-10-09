@@ -105,7 +105,7 @@ export default {
     convertISOTime,
     toTransactionsTable() {
       this.$router.push({
-        path: `/Transactions`,
+        path: `/Transactions/1`,
       });
     },
   },

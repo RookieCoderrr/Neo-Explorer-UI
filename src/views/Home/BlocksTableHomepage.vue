@@ -109,7 +109,7 @@ export default {
     convertISOTime,
     toBlocksTable() {
       this.$router.push({
-        path: `/blocks`,
+        path: `/blocks/1`,
       });
     },
 
