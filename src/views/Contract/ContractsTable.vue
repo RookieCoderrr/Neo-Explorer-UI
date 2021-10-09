@@ -205,6 +205,7 @@ export default {
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
       if (this.name !== "") {
+
         this.getContractListByName(name, skip);
       } else {
         this.$router.push({
@@ -275,6 +276,7 @@ export default {
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;
+        console.log(this.totalCount)
       });
     },
     getSender(addr) {

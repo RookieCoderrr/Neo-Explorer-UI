@@ -162,6 +162,7 @@ export default {
       button: { state: true, buttonName: "Hash" },
     };
   },
+
   created() {
     window.scroll(0, 0);
     this.getAccoutsList((this.pagination-1)*this.resultsPerPage);

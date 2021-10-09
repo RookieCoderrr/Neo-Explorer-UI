@@ -36,7 +36,7 @@ const routes = [
         },
       },
       {
-        path: "/tokens",
+        path: "/tokens/:tab/:page",
         name: "tokens",
         component:Tokens ,
         meta: {

@@ -131,7 +131,7 @@ export default {
       NEP17TxList: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       isLoading: true,
       countPage: 0,
       button: { state: true, buttonName: "Hash" },
@@ -139,10 +139,11 @@ export default {
     };
   },
   created() {
-    this.getTokenList(0);
+    this.getTokenList((this.pagination-1)*this.resultsPerPage);
   },
   watch: {
     contractHash: "watchcontract",
+    $route: "watchrouter",
   },
   methods: {
     changeFormat,
@@ -154,13 +155,23 @@ export default {
     handleCurrentChange(val) {
       this.isLoading = true;
       this.pagination = val;
-      const skip = (val - 1) * this.resultsPerPage;
-      this.getTokenList(skip);
+      this.$router.push({
+        path: `/tokens/Neo/${this.pagination}`,
+      });
     },
     toPercentage(num) {
       let s = Number(num * 100).toFixed(2);
       s += "%";
       return s;
+    },
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if (this.$route.name === "tokens") {
+        console.log(this.pagination)
+        this.getTokenList((this.pagination-1)*this.resultsPerPage)
+
+      }
     },
     getAddress(accountAddress) {
       this.$router.push({

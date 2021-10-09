@@ -160,7 +160,7 @@ export default {
       tokenListName: [],
       totalCount: 0,
       resultsPerPage: 10,
-      pagination: 1,
+      pagination: this.$route.params.page,
       isLoading: true,
       name: "",
       searchVal: "",
@@ -170,9 +170,11 @@ export default {
   },
   created() {
     window.scroll(0, 0);
-    this.getTokenList(0,'NEP11');
+    this.getTokenList((this.pagination-1)*this.resultsPerPage,'NEP11');
   },
-
+  watch: {
+    $route: "watchrouter",
+  },
   methods: {
     numFormat,
     handleCurrentChange(val) {
@@ -181,8 +183,20 @@ export default {
       const skip = (val - 1) * this.resultsPerPage;
       if (this.name !== "") {
         this.getTokenListByName(name, skip,'NEP11');
-      }else{
-        this.getTokenList(skip,'NEP11');}
+      }else {
+        this.$router.push({
+          path: `/tokens/Nep11/${this.pagination}`,
+        });
+      }
+    },
+    watchrouter() {
+      //如果路由有变化，执行的对应的动作
+      console.log(this.$route.name)
+      if (this.$route.name === "tokens") {
+        console.log(this.pagination)
+        this.getTokenList((this.pagination-1)*this.resultsPerPage,"NEP11")
+
+      }
     },
     getTokenList(skip,type) {
       axios({
