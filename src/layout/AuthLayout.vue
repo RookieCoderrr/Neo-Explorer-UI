@@ -121,7 +121,7 @@
         </li>
 
       </ul>
-      <div class="mobileMenu ml-2"  style="display: none">
+      <div class="mobileMenu "  style="display: none">
 
         <base-dropdown>
           <template v-slot:title>
@@ -788,7 +788,7 @@ export default {
   }
   .mobileMenu{
     display: initial!important;
-    margin-right: 20px!important;
+    margin-inline-start: auto;
   }
   .dropbot{
     display:initial!important;
