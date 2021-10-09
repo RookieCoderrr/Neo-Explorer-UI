@@ -1016,32 +1016,32 @@ export default {
     },
     toBlock() {
       this.$router.push({
-        path: `/blocks`,
+        path: `/blocks/1`,
       });
     },
     toCandidate() {
       this.$router.push({
-        path: `/candidates`,
+        path: `/candidates/1`,
       });
     },
     toTransaction() {
       this.$router.push({
-        path: `/Transactions`,
+        path: `/Transactions/1`,
       });
     },
     toAsset() {
       this.$router.push({
-        path: `/tokens`,
+        path: `/tokens/Nep17/1`,
       });
     },
     toAddress() {
       this.$router.push({
-        path: `/account`,
+        path: `/account/1`,
       });
     },
     toContract() {
       this.$router.push({
-        path: `/contracts`,
+        path: `/contracts/1`,
       });
     },
 
