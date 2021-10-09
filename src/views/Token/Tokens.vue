@@ -14,9 +14,9 @@
               <nep11-tokens-table v-if="this.$route.params.tab==='Nep11'"></nep11-tokens-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('tokensTable.NeoTopHolders')" name="Neo">
-              <token-holder
+              <neo-top-holder
                   v-if="this.$route.params.tab==='Neo'"
-                  :contractHash="'0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5'" :decimal=0></token-holder>
+                  :contractHash="'0xef4073a0f2b305a38ec4050e4d3d28bc40ea63f5'" :decimal=0></neo-top-holder>
             </el-tab-pane>
           </el-tabs>
 
@@ -28,12 +28,12 @@
 <script>
 import Nep17TokensTable from "./Nep17TokensTable";
 import Nep11TokensTable from "./Nep11TokensTable";
-import TokenHolder from "./TokenHolder";
+import NeoTopHolder from "./NeoTopHolder";
 
 export default {
   name: "tokens",
   components: {
-    TokenHolder,
+    NeoTopHolder,
     Nep17TokensTable,
     Nep11TokensTable
   },
