@@ -12,7 +12,12 @@
 }
 
 .dropdown-menu {
-    min-width: 12rem;
+    min-width: 7rem;
+   @media screen and (max-width: 992px){
+       left: auto!important;
+       right: 0!important;
+
+   }
 
     .dropdown-item {
         padding: .5rem 1rem;
