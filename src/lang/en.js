@@ -197,6 +197,7 @@ const en = {
     decimal:"Decimal",
     totalSupply:"Total Supply",
     hash: "Hash",
+    tokenId:"tokenId",
     name: "Name",
     symbol: "Symbol",
     standard: "Standard",

@@ -710,25 +710,6 @@ export default {
 };
 </script>
 <style>
-.search-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 380px;
-  background: #fff;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  color: #282828;
-  margin-top: 36px;
-  width: 100%;
-}
-.searchAuth {
-  width: 80%;
-  max-width: 565px;
-  height: 50px;
-  position: relative;
-}
 .buttonres {
   cursor: pointer;
   position: absolute;
@@ -745,9 +726,6 @@ export default {
   border-radius: 4px;
 }
 
-.img {
-  width: 26px;
-}
 
 .over-ellipsis-Auth {
   width: 100%;
@@ -816,37 +794,6 @@ export default {
     display:initial!important;
   }
 }
-
-/*}*/
-/*.menu {*/
-/*  width: 100%;*/
-/*  height: 70px;*/
-/*  background: #FFFFFF;*/
-/*  font-size: 18px;*/
-/*  display: flex;*/
-/*}*/
-/*.menu-link {*/
-/*  display: block;*/
-/*  height: 70px;*/
-/*  text-align: center;*/
-/*  margin-left: .25rem;*/
-/*  color: rgb(156, 163, 168);*/
-/*  font-family: Inter;*/
-/*  font-style: normal;*/
-/*  font-weight: 350;*/
-/*  font-size: 14px;*/
-/*  line-height: 35px;*/
-/*  mix-blend-mode: normal;*/
-/*}*/
-
-/*menu-link:hover{*/
-/*   color: black;*/
-/* }*/
-/*menu-link:active{*/
-/*  color: black;*/
-/*  border-bottom:2px solid black ;*/
-/*}*/
-
 
 
 

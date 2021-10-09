@@ -197,6 +197,7 @@ const fr = {
     decimal:"Décimal",
     totalSupply:"Production Totale",
     hash: "Hash",
+    tokenId:"tokenId",
     name: "Nom",
     symbol: "Symbole",
     standard: "Standard",
@@ -229,6 +230,11 @@ const fr = {
     response: "Réponse",
     error: "Erreur",
     noParam: "Pas de Paramètre",
+  },
+  nftToken:{
+    name:"Nom",
+    tokenId:"Jeton ID",
+    holder:"Porteur",
   },
   tokenTx: {
     txid: "txid",

@@ -195,6 +195,7 @@ const zh = {
     decimal:"小数位数",
     totalSupply:"总供给",
     hash: "哈希",
+    tokenId:"通证Id",
     name: "名称",
     symbol: "符号",
     standard: "合约标准",
@@ -227,6 +228,11 @@ const zh = {
     response: "返回结果",
     error: "错误",
     noParam: "无参数",
+  },
+  nftToken:{
+    name:"名称",
+    tokenId:"通证 ID",
+    holder:"持有人",
   },
   tokenTx: {
     txid: "交易哈希",

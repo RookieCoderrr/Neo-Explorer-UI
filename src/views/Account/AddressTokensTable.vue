@@ -16,7 +16,7 @@
           <template v-slot:columns>
             <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
             <th class="tableHeader">{{ $t("hash") }}</th>
-
+            <th class="tableHeader">{{ $t("tokensTable.tokenId") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
             <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
@@ -28,7 +28,7 @@
             </td>
             <th scope="row">
               <div class="media align-items-center">
-                <div class="media-body">
+                <div v-if="row.item.standard==='NEP17'" class="media-body">
                   <router-link
                     class="  mb-0 table-list-item-blue"
                     style="cursor: pointer"
@@ -36,9 +36,23 @@
                     >{{ row.item.asset }}</router-link
                   >
                 </div>
+                <div v-else class="media-body">
+                  <router-link
+                      class="  mb-0 table-list-item-blue"
+                      style="cursor: pointer"
+                      :to="'/NFTtokeninfo/' + row.item.asset"
+                  >{{ row.item.asset }}</router-link
+                  >
+                </div>
+
               </div>
             </th>
-
+            <td v-if="row.item.tokenid===''" class="table-list-item">
+              NaN
+            </td>
+            <td v-else class="table-list-item">
+              {{ row.item.tokenid }}
+            </td>
             <td class="table-list-item">
               {{ row.item.symbol }}
             </td>
@@ -156,6 +170,7 @@ export default {
         },
       }).then((res) => {
         let temp = res["data"]["result"]["result"];
+        console.log(temp)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0
