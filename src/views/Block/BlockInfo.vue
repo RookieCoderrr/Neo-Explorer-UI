@@ -80,18 +80,19 @@
                       <el-tooltip  content="Speaker is the node who invokes this block." placement="right" @click.stop.prevent>
                         <i class="el-icon-question"/>
                       </el-tooltip>
+                      <el-button type="info" :plain="true" size="small" style="height: 21px; margin-left:6px" @click="changeFormat(button)">
+                        {{this.button.buttonName}}</el-button>
                     </div>
 
                     <div class="col-sm-9 context-black" v-if="this.block_info['speaker']">
-                      <router-link class="name mb-0 " id="speaker" style="cursor: pointer" :to="'/accountprofile/'+this.block_info.speaker">
+                      <router-link class="name mb-0 " id="speaker" style="cursor: pointer; " :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
 <span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
                       <span style="color: #42b983;" id="speakerSpan" ></span>
 </span>
-                      <el-button type="primary" size="small" style="height: 21px;" @click="changeFormat(button)">
-                        {{this.button.buttonName}}</el-button>
+
                     </div>
                     <div class="col-2 "  v-if="this.block_info['speaker']" >
                      </div>
@@ -102,7 +103,7 @@
                       <div>{{ $t("blockinfo.preHash") }}</div>
                     </div>
                     <div class="col-sm-9 context-black" v-if="block_info['prevhash']">
-                    <router-link    class="name mb-0 " id="preHash" style="cursor: pointer" :to="'/blockinfo/'+this.block_info.prevhash"   >
+                    <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/blockinfo/'+this.block_info.prevhash"   >
                         {{this.block_info.prevhash }}
                     </router-link>
                     <i class="ni ni-single-copy-04" id="preHashButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer" @click="copyItem('preHash','preHashButton','preHashSpan')"></i>

@@ -67,13 +67,13 @@
                 <router-link
                   class="table-list-item-blue mb-0 "
                   v-if="row.item.ispopular"
-                  style="cursor: pointer"
+                  style="cursor: pointer;"
                   :to="'/Nep17tokeninfo/'+row.item.hash"
                   >{{ row.item.tokenname }}  &#x1F525;</router-link>
                 <router-link
                     class="table-list-item-blue mb-0 "
                     v-else
-                    style="cursor: pointer"
+                    style="cursor: pointer; "
                     :to="'/NEP17tokeninfo/'+row.item.hash"
                 >{{ row.item.tokenname }}</router-link>
               </div>
@@ -81,13 +81,13 @@
                 <router-link
                     class="table-list-item-blue mb-0 "
                     v-if="row.item.ispopular"
-                    style="cursor: pointer"
+                    style="cursor: pointer; "
                     :to="'/NFTtokeninfo/'+row.item.hash"
                 >{{ row.item.tokenname }}  &#x1F525;</router-link>
                 <router-link
                     class="table-list-item-blue mb-0 "
                     v-else
-                    style="cursor: pointer"
+                    style="cursor: pointer; "
                     :to="'/NFTtokeninfo/'+row.item.hash"
                 >{{ row.item.tokenname }}</router-link>
               </div>

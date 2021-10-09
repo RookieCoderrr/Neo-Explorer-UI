@@ -56,7 +56,7 @@
             <div class="txidhomepage">
               <router-link
                 class="name mb-0 "
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 :to="'/transactionInfo/'+row.item.hash"
                 >{{ row.item.hash }}</router-link
               >

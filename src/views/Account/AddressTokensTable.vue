@@ -31,7 +31,7 @@
                 <div v-if="row.item.standard==='NEP17'" class="media-body">
                   <router-link
                     class="  mb-0 table-list-item-blue"
-                    style="cursor: pointer"
+                    style="cursor: pointer;"
                     :to="'/NEP17tokeninfo/' + row.item.asset"
                     >{{ row.item.asset }}</router-link
                   >
@@ -39,7 +39,7 @@
                 <div v-else class="media-body">
                   <router-link
                       class="  mb-0 table-list-item-blue"
-                      style="cursor: pointer"
+                      style="cursor: pointer; "
                       :to="'/NFTtokeninfo/' + row.item.asset"
                   >{{ row.item.asset }}</router-link
                   >

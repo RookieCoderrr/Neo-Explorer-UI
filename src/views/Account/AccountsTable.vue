@@ -56,7 +56,7 @@
             <router-link
               class="mb-0 table-list-item-blue"
               v-if="this.button.state"
-              style="cursor: pointer"
+              style="cursor: pointer;"
               :to="'/accountprofile/' + row.item.address"
             >
               {{ scriptHashToAddress(row.item.address) }}
@@ -64,7 +64,7 @@
             <router-link
               class="mb-0 table-list-item-blue"
               v-else
-              style="cursor: pointer"
+              style="cursor: pointer;"
               :to="'/accountprofile/' + row.item.address"
             >
               {{ row.item.address }}

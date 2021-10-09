@@ -13,15 +13,15 @@
               <div class=" row mt-3  mb-3 title2">
                 {{ $t('overview') }}
                 <div  v-if="this.standard===1">
-                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNep17Token(this.contract_id)">
+                  <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNep17Token(this.contract_id)">
                     Token</el-button>
                 </div>
                 <div  v-else-if="this.standard===2">
-                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
+                  <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNftToken(this.contract_id)">
                     Token</el-button>
                 </div>
                 <div v-else>
-                  <el-button v-if="isToken" type="primary" size="small" style="height: 22px; margin-left: 60px" @click="getNftToken(this.contract_id)">
+                  <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNftToken(this.contract_id)">
                     Token</el-button>
                 </div>
               </div>
@@ -52,6 +52,7 @@
                 <div class="row info mt-3  mb-1">
                     <div class="col-md-3 lable-title">
                       {{ $t("contract.creator") }}
+                      <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 6px" @click="changeFormat(button)">{{ this.button.buttonName }}</el-button>
                     </div>
                   <div class="col-md-9 context-black">
                     <span v-if="this.contract_info['sender'] === null">
@@ -60,12 +61,12 @@
                     <div v-else>
                       <router-link
                               class="name mb-0 "
-                              style="cursor: pointer"
+                              style="cursor: pointer;"
                               :to="'/accountprofile/'+ addressToScriptHash(contract_info['sender'])"
                       >{{ button.state ?this.contract_info["sender"] : addressToScriptHash(this.contract_info["sender"])}}</router-link
                       >
-                      <el-button type="primary" size="small" style="height: 19px;margin-left: 20px" @click="changeFormat(button)">{{ this.button.buttonName }}</el-button>
-                    </div>
+
+                  </div>
                   </div>
                 </div>
 

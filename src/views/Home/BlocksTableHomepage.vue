@@ -51,7 +51,7 @@
               <div class="txidhomepage">
                 <router-link
                     class="name mb-0 "
-                    style="cursor: pointer"
+                    style="cursor: pointer;"
                     :to="'/blockinfo/'+row.item.hash"
                 >{{ row.item.index }}</router-link>
               </div>

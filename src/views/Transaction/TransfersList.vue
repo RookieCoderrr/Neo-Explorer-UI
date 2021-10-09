@@ -46,7 +46,7 @@
               <div class="contract">
                 <router-link
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/contractinfo/' + row.item.contract"
                   >{{ row.item.contract }}</router-link
                 >
@@ -88,7 +88,7 @@
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   v-else
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/' + row.item.from"
                   >{{
                     this.fromButton.state
@@ -120,7 +120,7 @@
                 <router-link
                   v-else
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer ; "
                   :to="'/accountprofile/' + row.item.to"
                   >{{
                     this.toButton.state

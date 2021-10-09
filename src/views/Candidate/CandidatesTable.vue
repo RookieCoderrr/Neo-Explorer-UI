@@ -49,7 +49,7 @@
             <div style="text-align: center" >
               <router-link
                 class=" table-list-item-blue mb-0 "
-                style="cursor: pointer"
+                style="cursor: pointer;color: "
                 :to="'/accountprofile/' + row.item.candidate"
               >
                 {{ row.item.candidate }}

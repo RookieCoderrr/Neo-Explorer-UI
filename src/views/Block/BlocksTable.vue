@@ -48,7 +48,7 @@
             <div  class="table-list-item" >
               <router-link
                   class="table-list-item-blue name mb-0"
-                  style="cursor: pointer"
+                  style="cursor: pointer;"
                   :to="'/blockinfo/'+row.item.hash"
               >{{ row.item.index }}</router-link>
             </div>

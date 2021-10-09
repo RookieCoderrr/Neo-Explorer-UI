@@ -66,17 +66,18 @@
 
         <template v-slot:default="row">
           <td  class="table-list-item">
-            {{ row.item.name }}
+            <router-link
+                class=" table-list-item-blue mb-0 "
+                style="cursor: pointer;"
+                :to="'/contractinfo/' + row.item.hash"
+            >{{ row.item.name }}</router-link
+            >
+
           </td>
           <td scope="row" v-if="row.item">
             <div style="text-align: center">
               <div class="media-body">
-                <router-link
-                  class=" table-list-item-blue mb-0 "
-                  style="cursor: pointer"
-                  :to="'/contractinfo/' + row.item.hash"
-                  >{{ row.item.hash }}</router-link
-                >
+                {{ row.item.hash }}
               </div>
             </div>
 
@@ -89,7 +90,7 @@
             <router-link
               class="table-list-item-blue mb-0"
               v-else-if="button.state"
-              style="cursor: pointer"
+              style="cursor: pointer; "
               :to="
                 '/accountprofile/' +
                 addressToScriptHash(row.item.Transaction[0]['sender'])
@@ -100,7 +101,7 @@
             <router-link
               class="table-list-item-blue mb-0 "
               v-else
-              style="cursor: pointer"
+              style="cursor: pointer;color: "
               :to="
                 '/accountprofile/' +
                 addressToScriptHash(row.item.Transaction[0]['sender'])

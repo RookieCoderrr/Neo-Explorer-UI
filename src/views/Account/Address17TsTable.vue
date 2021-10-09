@@ -7,6 +7,7 @@
             <template v-slot:title>
               <base-button type="default" class="btn btn-sm">
                 {{ this.listButton.buttonName }}
+
               </base-button>
             </template>
             <li>
@@ -80,7 +81,7 @@
               <div class="txid" v-else>
                 <router-link
                   class="name mb-0 text-sm"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/transactionInfo/' + row.item.txid"
                   >{{ row.item.txid }}</router-link
                 >
@@ -153,7 +154,7 @@
                 <router-link
                   v-if="row.item.from === this.account_address"
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/' + row.item.from"
                   ><i class="ni ni-tag"></i
                   >{{ scriptHashToAddress(row.item.from) }}
@@ -161,7 +162,7 @@
                 <router-link
                   v-else
                   class="name mb-0 text-sm"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/' + row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
@@ -170,14 +171,14 @@
                 <router-link
                   v-if="row.item.from === this.account_address"
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/' + row.item.from"
                   ><i class="ni ni-tag"></i>{{ row.item.from }}
                 </router-link>
                 <router-link
                   v-else
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/' + row.item.from"
                   >{{ row.item.from }}
                 </router-link>
@@ -195,14 +196,14 @@
               <router-link
                 v-if="row.item.to === this.account_address"
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
               </router-link>
               <router-link
                 v-else
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 :to="'/accountprofile/' + row.item.to"
                 >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
@@ -211,14 +212,14 @@
               <router-link
                 v-if="row.item.to === this.account_address"
                 class="mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 :to="'/accountprofile/' + row.item.to"
                 ><i class="ni ni-tag"></i>{{ row.item.to }}
               </router-link>
               <router-link
                 v-else
                 class="mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer; "
                 :to="'/accountprofile/' + row.item.to"
                 >{{ row.item.to }}
               </router-link>

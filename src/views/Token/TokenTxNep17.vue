@@ -55,7 +55,7 @@
                 <div class="txid" v-else>
                   <router-link
                     class="  mb-0 table-list-item-blue"
-                    style="cursor: pointer"
+                    style="cursor: pointer; "
                     :to="'/transactionInfo/'+row.item.txid"
                     >{{ row.item.txid }}</router-link
                   >
@@ -127,7 +127,7 @@
               <div v-else-if="fromButton.state" class="addr">
                 <router-link
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/'+row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}</router-link
                 >
@@ -135,7 +135,7 @@
               <div v-else class="addr">
                 <router-link
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer; "
                   :to="'/accountprofile/'+row.item.from"
                   >{{ row.item.from }}</router-link
                 >
@@ -153,7 +153,7 @@
               <div v-else-if="toButton.state" class="addr">
                 <router-link
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer;"
                   :to="'/accountprofile/'+row.item.to"
                   >{{ scriptHashToAddress(row.item.to) }}</router-link
                 >
@@ -161,7 +161,7 @@
               <div v-else class="addr">
                 <router-link
                   class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer"
+                  style="cursor: pointer;"
                   :to="'/accountprofile/'+row.item.to"
                   >{{ row.item.to }}</router-link
                 >

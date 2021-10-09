@@ -29,7 +29,7 @@
             <div class="txid">
               <router-link
                 class="table-list-item-blue mb-0 "
-                style="cursor: pointer"
+                style="cursor: pointer; "
                 :to="'/transactionInfo/'+ row.item.hash"
                 >{{ row.item.hash }}</router-link
               >

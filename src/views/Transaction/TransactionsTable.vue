@@ -47,7 +47,7 @@
             <div style="text-align: center;">
             <router-link
               class="table-list-item-blue mb-0 "
-              style="cursor: pointer"
+              style="cursor: pointer; "
               :to="'/transactionInfo/'+row.item.hash"
               >{{ row.item.hash }}</router-link
             >
@@ -56,7 +56,7 @@
           <td class="id">
             <router-link
               class="table-list-item-blue mb-0 "
-              style="cursor: pointer"
+              style="cursor: pointer; "
               :to="'/blockinfo/'+row.item.blockhash"
               >{{ row.item.blockIndex }}</router-link
             >

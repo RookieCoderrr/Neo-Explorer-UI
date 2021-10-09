@@ -39,7 +39,7 @@
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   v-else
-                  style="cursor: pointer"
+                  style="cursor: pointer;color: "
                   :to="'/transactionInfo/'+row.item.txid"
                   >{{ row.item.txid }}</router-link
                 >

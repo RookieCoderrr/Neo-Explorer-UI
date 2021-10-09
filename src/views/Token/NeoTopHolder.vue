@@ -51,13 +51,13 @@
             <router-link
               v-if="button.state"
               class="  mb-0 table-list-item-blue"
-              style="cursor: pointer"
+              style="cursor: pointer;"
               :to="'/accountprofile/'+row.item.address"
               >{{ scriptHashToAddress(row.item.address) }}</router-link>
             <router-link
               v-else
               class="  mb-0 table-list-item-blue"
-              style="cursor: pointer"
+              style="cursor: pointer;"
               :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
             </router-link>

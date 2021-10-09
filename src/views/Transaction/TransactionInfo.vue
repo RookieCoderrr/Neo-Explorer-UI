@@ -50,7 +50,7 @@
                 <div class="col-md-9 context-black">
                   <router-link
                       class="name mb-0 "
-                      style="cursor: pointer"
+                      style="cursor: pointer; "
                       :to="'/blockinfo/' + this.blockhash"
                   >
                     {{ this.tabledata["blockIndex"]}}
@@ -97,12 +97,14 @@
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.sender") }}
+                  <el-button type="info" :plain="true" size="small" style="height: 21px;margin-left: 6px;" @click="changeFormat(button)"> {{ this.button.buttonName }}</el-button>
                 </div>
+
                 <div class="col-md-9 context-black">
                   <router-link
                       class="name mb-0 "
                       id="sender"
-                      style="cursor: pointer"
+                      style="cursor: pointer;"
                       :to="'/accountprofile/' + addressToScriptHash(this.address)"
                   >
                     {{
@@ -121,7 +123,7 @@
                   ></i>
                   <span style="color: #42b983" id="senderSpan"></span>
                   </span>
-                  <el-button type="primary" size="small" style="height: 21px;margin-left: 20px;" @click="changeFormat(button)"> {{ this.button.buttonName }}</el-button>
+
                 </div>
               </div>
 
@@ -237,7 +239,7 @@
                           </div>
                           <router-link
                               class="name mb-0 text-sm"
-                              style="cursor: pointer"
+                              style="cursor: pointer; "
                               :to="'/contractinfo/' + item['contract']"
                           >
                             {{ item["contract"] }}
@@ -352,7 +354,7 @@
                           </div>
                           <router-link
                               class="name mb-0 text-sm"
-                              style="cursor: pointer"
+                              style="cursor: pointer;"
                               :to="'/accountprofile/' + item['originSender']"
                           >
                             {{ item["originSender"] }}
@@ -364,7 +366,7 @@
                           </div>
                           <router-link
                               class="name mb-0 text-sm"
-                              style="cursor: pointer"
+                              style="cursor: pointer; "
                               :to="'/contractinfo/' + item['contractHash']"
                           >
                             {{ item["contractHash"] }}

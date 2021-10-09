@@ -42,7 +42,7 @@
           <td class="table-list-item">
             <router-link
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 :to="'/NFTinfo/'+row.item.asset+'/'+row.item.address+'/'+base64ToHash(row.item.tokenid)"
             >{{row.item.tokenid}}</router-link>
           </td>
@@ -50,13 +50,13 @@
             <router-link
                 v-if="button.state"
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer; "
                 :to="'/accountprofile/'+row.item.address"
             >{{ scriptHashToAddress(row.item.address) }}</router-link>
             <router-link
                 v-else
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer"
+                style="cursor: pointer; "
                 :to="'/accountprofile/'+row.item.address"
             >{{ row.item.address }}
             </router-link>
