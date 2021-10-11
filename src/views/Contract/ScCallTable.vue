@@ -39,7 +39,7 @@
                 <router-link
                   class=" mb-0 table-list-item-blue"
                   v-else
-                  style="cursor: pointer;color: "
+                  style="cursor: pointer;"
                   :to="'/transactionInfo/'+row.item.txid "
                   >{{ row.item.txid }}</router-link
                 >
@@ -54,14 +54,14 @@
               <router-link
                 v-else-if="button.state"
                 class=" mb-0 table-list-item-blue"
-                style="cursor: pointer;color: "
+                style="cursor: pointer; "
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ scriptHashToAddress(row.item.originSender) }}</router-link
               >
               <router-link
                 v-else
                 class="  mb-0 table-list-item-blue"
-                style="cursor: pointer;color: "
+                style="cursor: pointer; "
                 :to="'/accountprofile/'+row.item.originSender"
                 >{{ row.item.originSender }}</router-link
               >

@@ -40,7 +40,7 @@
           </td>
           <td class="table-list-item">{{ row.item.size }} bytes</td>
           <td  class="table-list-item">
-            {{time.state? this.convertTime(row.item.blocktime, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
+            {{time.state? this.convertTime(row.item.blocktime, this.$i18n.locale):this.convertISOTime(row.item.blocktime) }}
           </td>
 
           <td  class="table-list-item">

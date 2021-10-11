@@ -16,7 +16,7 @@
             <div class="row mt-3 mb-3 title2">
               {{ $t("overview") }}
               <div >
-                <el-button type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getContract(this.token_info['hash'])">
+                <el-button type="info" :plain="true" size="small" style="height: 23px; margin-left: 10px" @click="getContract(this.token_info['hash'])">
                   Contract</el-button>
               </div>
             </div>
