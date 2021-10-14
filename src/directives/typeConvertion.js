@@ -15,8 +15,9 @@ function b64ToHex(bin) {
     const buffer = Buffer.from(bin, "base64");
     const hex = buffer.toString("hex");
     if(Neon.is.publicKey(hex)) {
-        const acc = Neon.create.account(hex);
-        return "0x" + acc.scriptHash;
+        // const acc = Neon.create.account(hex);
+        // return "0x" + acc.scriptHash;
+        return hex
     }
     return  hex;
 }
@@ -93,6 +94,9 @@ function toOpcode(b64) {
         let op = opcodes[scripts[0]];
         let operandSizePrefix = OperandSizePrefixTable[scripts[0]];
         let operandSize = OperandSizeTable[scripts[0]];
+        // console.log(op)
+        // console.log(operandSizePrefix)
+        // console.log(operandSize)
         scripts = scripts.slice(1);
         //temp_result += op + '\n'
 
@@ -112,15 +116,19 @@ function toOpcode(b64) {
         }
         if (operandSizePrefix > 0) {
             let bytes = scripts.slice(0, operandSizePrefix)
+            // console.log(bytes)
             let number
             if (bytes[0] != 20) {
                 number = convertDecimal(bytes)
+                // console.log(number)
             } else {
                 number = bytes[0]
+                // console.log(number)
             }
             scripts = scripts.slice(operandSizePrefix)
 
             let operand = scripts.slice(0, number)
+            // console.log(operand)
             let flag = false
             for(let k=0; k<operand.length; k++) {
                 if (operand[k]>=48 && operand[k] <= 57)
@@ -134,11 +142,14 @@ function toOpcode(b64) {
             }
             if(flag) {
                 temp_result += op + ' ' + b64ToHex(operand);
+                // console.log(temp_result)
             } else {
                 temp_result += op + ' ' + bin2String(operand);
+                // console.log(temp_result)
             }
             result.push(temp_result)
             scripts = scripts.slice(number)
+            // console.log(scripts)
         }
         if (operandSizePrefix == 0 && operandSize ==0)
             result.push(op)

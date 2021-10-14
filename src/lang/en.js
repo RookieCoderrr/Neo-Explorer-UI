@@ -207,6 +207,7 @@ const en = {
   tokenInfo: {
     name:"Token Name",
     nftToken:"NFT Token",
+    transactions:"Transactions",
     symbol: "Token Symbol",
     decimal: "Decimal",
     standard: "Supported Standard",

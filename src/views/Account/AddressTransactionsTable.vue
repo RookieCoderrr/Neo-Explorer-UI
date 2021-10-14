@@ -36,7 +36,12 @@
               </div>
             </td>
             <td class="table-list-item">
-              {{ row.item.blockIndex }}
+              <router-link
+                  class=" mb-0 table-list-item-blue"
+                  style="cursor: pointer; "
+                  :to="'/blockinfo/' + row.item.blockhash"
+              >{{ row.item.blockIndex }}</router-link
+              >
             </td>
             <td class="table-list-item">{{ row.item.size }} bytes</td>
             <td class="table-list-item">

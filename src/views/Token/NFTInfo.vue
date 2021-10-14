@@ -63,7 +63,7 @@
                 background-color: rgb(250, 250, 250);
               "
             >
-              <el-tab-pane :label="$t('tokenInfo.nftToken')" name="first">
+              <el-tab-pane :label="$t('tokenInfo.transactions')" name="first">
                 <tokens-tx-nep11
                   :contract-hash="contractHash"
                   :token-id="token_id"
@@ -71,6 +71,9 @@
                 ></tokens-tx-nep11>
               </el-tab-pane>
             </el-tabs>
+          </div>
+          <div style="margin-top: 30px;margin-bottom: 20px">
+
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ const TransactionList = ()=>import('../views/Transaction/TransactionList');
 const AccountProfile = ()=>import('../views/Account/AccountProfile');
 const NFTInfo = ()=>import('../views/Token/NFTInfo')
 const Tokens = ()=>import('../views/Token/Tokens');
+const Form = ()=>import('../views/Block/Form');
 const Blocks = ()=>import('../views/Block/Blocks');
 const Search = ()=>import('../views/NotFound/SearchNotFound');
 const HomePage = ()=>import('../views/Home/HomePage');
@@ -35,6 +36,7 @@ const routes = [
           showNet:true,
         },
       },
+
       {
         path: "/tokens/:tab/:page",
         name: "tokens",
@@ -49,6 +51,16 @@ const routes = [
         path: "/burn",
         name: "burn",
         component: BurnFee ,
+        meta: {
+          showSearch: true,
+          showBot:true,
+          showNet:true,
+        },
+      },
+      {
+        path: "/Form",
+        name: "Form",
+        component: Form ,
         meta: {
           showSearch: true,
           showBot:true,

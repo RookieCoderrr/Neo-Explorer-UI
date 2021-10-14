@@ -208,6 +208,7 @@ const fr = {
     name:"Nom de Jeton",
     symbol: " Symbole Jeton",
     nftToken:"NFT Jeton",
+    transactions:"Transaction",
     decimal: "Décimal",
     standard: "Standard Support",
     transferred: "Premier Transfert",

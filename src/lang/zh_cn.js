@@ -206,6 +206,7 @@ const zh = {
     name:"通证名称",
     symbol: "通证符号",
     nftToken:"NFT 代币",
+    transactions:"交易",
     decimal: "小数位数",
     standard: "合约标准",
     transferred: "首次交易时间",

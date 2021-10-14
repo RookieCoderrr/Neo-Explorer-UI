@@ -304,6 +304,9 @@
               </el-tab-pane>
             </el-tabs>
           </div>
+          <div style="margin-top: 30px;margin-bottom: 20px">
+
+          </div>
         </div>
       </div>
     </div>
@@ -396,6 +399,7 @@ export default {
         },
       }).then((res) => {
         let raw = res["data"]["result"];
+        console.log(raw)
         this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;

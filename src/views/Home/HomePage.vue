@@ -288,7 +288,7 @@ export default {
       this.initWebSocket();
     },
     websocketonmessage(e){ //数据接收
-  // console.log(e.data)
+      // console.log(e.data)
       if( e.data != 'hello neo3fura'){
       try{
       const redata = JSON.parse(e.data);

@@ -216,6 +216,7 @@ export default {
         },
       }).then((res) => {
         this.tokenList = res["data"]["result"]["result"];
+        console.log(this.tokenList)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         this.isLoading = false;

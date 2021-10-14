@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="this.totalCount != 0"
+
     class="card shadow"
     :class="type === 'dark' ? 'bg-default' : ''"
   >
@@ -102,9 +102,6 @@
       </el-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center">{{
-    $t("tokenHolder.nullPrompt")
-  }}</card>
 </template>
 <script>
 import axios from "axios";
