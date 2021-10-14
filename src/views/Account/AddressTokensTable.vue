@@ -48,7 +48,7 @@
               </div>
             </th>
             <td v-if="row.item.tokenid===''" class="table-list-item">
-              NaN
+              ——
             </td>
             <td v-else class="table-list-item">
               {{ row.item.tokenid }}

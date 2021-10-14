@@ -35,7 +35,7 @@
           <th class="tableHeader">{{ $t("candidate.address") }}</th>
           <th class="tableHeader">
             {{ $t("candidate.committee") }}
-            <el-tooltip  content="The status attribute includes 2 types: committee member, candidate member. The top 21 candidates become committee members." placement="top" @click.stop.prevent>
+            <el-tooltip  content="The status attribute includes 3 types: Consensus Node(Top 7), Committee Node(Top 21), Candidate Node." placement="top" @click.stop.prevent>
               <i class="el-icon-question"/>
             </el-tooltip>
           </th>
@@ -57,7 +57,10 @@
             </div>
           </td>
           <td>
-            <i v-if="row.item.isCommittee" class="ni ni-badge"> Committee</i>
+            <i v-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) <=7 " class="ni ni-badge"> Consensus</i>
+            <i v-else-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) >7" class="ni ni-badge">
+              Committee
+            </i>
             <span v-else>Candidate</span>
           </td>
           <td  class="table-list-item">
@@ -145,8 +148,9 @@ export default {
   },
   methods: {
     getVotePercentage(votes) {
-      var per = votes / this.votesCount;
-      if (per == 0) {
+      // var per = votes / this.votesCount;
+      var per = votes / 100000000
+      if (votes == 0) {
         return 0;
       }
       var str = Number(per * 100).toFixed(2);
