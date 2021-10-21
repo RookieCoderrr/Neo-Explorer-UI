@@ -10,7 +10,7 @@ const TransactionList = ()=>import('../views/Transaction/TransactionList');
 const AccountProfile = ()=>import('../views/Account/AccountProfile');
 const NFTInfo = ()=>import('../views/Token/NFTInfo')
 const Tokens = ()=>import('../views/Token/Tokens');
-const Form = ()=>import('../views/Block/Form');
+const Form = ()=>import('../views/Contract/VerifyContract');
 const Blocks = ()=>import('../views/Block/Blocks');
 const Search = ()=>import('../views/NotFound/SearchNotFound');
 const HomePage = ()=>import('../views/Home/HomePage');
