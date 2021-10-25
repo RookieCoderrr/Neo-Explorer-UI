@@ -1,77 +1,81 @@
 <template>
   <div class="container-fluid mt--7"  >
-    <div class="text-center mb-3">
-      <div class="verifyTile">Verify & Publish Contract Source Code</div>
-      <p style="width: 60%;margin-left: 20%">
-        Source code verification provides transparency for users interacting with smart contracts.
-        By uploading the source code, OneGate Explorer will match the compiled code with that on the blockchain.
-        Just like contracts, a "smart contract" should provide end users with more information on what they are "digitally signing" for and give users an opportunity to audit the code to independently verify that it actually does what it is supposed to do.
-      </p>
+    <div class="row">
+      <div class="col">
+        <loading
+            :is-full-page="true"
+            :opacity="0.9"
+            :active="isLoading"
+        ></loading>
+        <div class="text-center mb-3">
+          <div class="verifyTile">Verify & Publish Contract Source Code</div>
+          <p style="width: 60%;margin-left: 20%">
+            Source code verification provides transparency for users interacting with smart contracts.
+            By uploading the source code, OneGate Explorer will match the compiled code with that on the blockchain.
+            Just like contracts, a "smart contract" should provide end users with more information on what they are "digitally signing" for and give users an opportunity to audit the code to independently verify that it actually does what it is supposed to do.
+          </p>
+        </div>
+        <hr>
+        <div  style="margin-left: 20%;width: 60%;display: flex">
+          <el-form  ref="form" :model="form" :rules="rules" label-width="auto"  style="margin: auto">
+
+            <el-form-item label="Contract hash" prop="hash" >
+              <el-input class="contractInput" v-model="form.hash" style="width: 400px"></el-input>
+            </el-form-item>
+            <el-form-item label="Compiler version" prop="version">
+              <el-select  class="contractInput" v-model="form.version" placeholder="please select your compiler version" style="width: 400px">
+                <el-option label ="Neo.Compiler.CSharp 3.0.0" value="Neo.Compiler.CSharp 3.0.0"></el-option>
+                <el-option label ="Neo.Compiler.CSharp 3.0.2" value="Neo.Compiler.CSharp 3.0.2"></el-option>
+                <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="Source code" required="true">
+              <el-upload
+                  ref="upload"
+                  class="upload-demo"
+                  action="http://127.0.0.1:8080/upload"
+                  :before-upload="onBeforeUpload"
+                  :auto-upload="false"
+                  :file-list="fileList"
+                  :accept="accept"
+                  :on-change="change"
+                  :on-remove="remove"
+                  :headers="headers"
+
+              >
+
+                <template #trigger>
+                  <el-button type="primary" size="medium">Select file</el-button>
+                </template>
+                <el-button
+                    style="margin-left: 10px"
+                    size="medium"
+                    type="primary"
+                    @click="uploadFilesAndParams"
+                    :disabled="form.hash===''||form.version===''||fileList.length<=1"
+                >Upload</el-button>
+                <template #tip>
+                  <div class="el-upload__tip">
+                    Please upload all files in cs, csproj format in your project.
+                  </div>
+                </template>
+              </el-upload>
+            </el-form-item>
+            <el-form-item>
+
+            </el-form-item>
+
+          </el-form>
+        </div>
+      </div>
     </div>
-    <hr>
-    <div class="mb-4" v-if="this.isLoading">
-      <loading
-               :is-full-page="false"
-               :opacity="0.9"
-               :active="isLoading"
-               style="margin-left: 45%"
-      ></loading>
-    </div>
-    <el-form v-else ref="form" :model="form" :rules="rules" label-width="200px" style="width: 60%;margin-left:20%;">
 
-      <el-form-item label="Contract hash" prop="hash" >
-        <el-input v-model="form.hash" style="width: 400px"></el-input>
-      </el-form-item>
-      <el-form-item label="Compiler version" prop="version">
-        <el-select v-model="form.version" placeholder="please select your compiler version" style="width: 400px">
-          <el-option label ="3.0.0" value="3.0.0"></el-option>
-          <el-option label ="3.0.2" value="3.0.2"></el-option>
-          <el-option label ="3.0.3" value="3.0.3"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Source code" required="true">
-        <el-upload
-            ref="upload"
-            class="upload-demo"
-            action="http://127.0.0.1:8080/upload"
-            :before-upload="onBeforeUpload"
-            :auto-upload="false"
-            :file-list="fileList"
-            :accept="accept"
-            :on-change="change"
-            :on-remove="remove"
-            :headers="headers"
 
-        >
-
-          <template #trigger>
-            <el-button size="small" type="primary">select file</el-button>
-          </template>
-          <el-button
-              style="margin-left: 10px"
-              size="small"
-              type="primary"
-              @click="uploadFilesAndParams"
-              :disabled="form.hash===''||form.version===''||fileList.length<=1"
-          >Upload</el-button>
-          <template #tip>
-            <div class="el-upload__tip">
-              Please upload all files in cs, csproj format in your project.
-            </div>
-          </template>
-        </el-upload>
-      </el-form-item>
-      <el-form-item>
-
-      </el-form-item>
-
-    </el-form>
 
   </div>
 
 </template>
 <script lang="ts">
-import "element-plus/lib/theme-chalk/index.css"
 import axios from "axios";
 import {ElMessage} from 'element-plus'
 import Loading from "vue-loading-overlay"
@@ -82,17 +86,13 @@ export default {
   data(){
     return {
       isLoading:false,
-      uploadData:{
-        Contract:"0xcd10d9f697230b04d9ebb8594a1ffe18fa95d9ad",
-        Version:"3.0.3"
-      },
       headers: {
         'Content-Type': 'multipart/form-data'
       },
       fileList:[],
       accept:".cs,.csproj",
       form:{
-        hash:'',
+        hash:this.$route.params.contractHash,
         version:'',
       },
       rules:{
@@ -131,7 +131,7 @@ export default {
 
         }
       }
-      axios.post("http://127.0.0.1:8080/upload",formData,config).then((res) => {
+      axios.post("http://127.0.0.1:1926/upload",formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
           ElMessage({
@@ -155,7 +155,7 @@ export default {
             showClose:true,
             duration:0,
             type:"error",
-            message:"Failed in querying contract info on blockChain!"
+            message:"Failed in querying contract info on blockChain!"+res.data.Msg
           })
           this.isLoading=false;
         } else if (res.data.Code=== 5 ) {
@@ -166,6 +166,9 @@ export default {
             message:"Contract verification success!"
           })
           this.isLoading=false;
+          this.$router.push({
+            path: `/contractinfo/${this.form.hash}`,
+          });
 
         } else if (res.data.Code===6) {
           ElMessage({
@@ -179,7 +182,7 @@ export default {
             showClose:true,
             duration:0,
             type:"error",
-            message:"Please select correct compiler version and try again!"
+            message:res.data.Msg
           })
           this.isLoading=false;
         } else {
@@ -230,5 +233,10 @@ export default {
   text-align: center;
   /* identical to box height */
   color: black;
+}
+@media screen and (max-width: 992px ){
+  .contractInput{
+    width: 100px!important;
+  }
 }
 </style>

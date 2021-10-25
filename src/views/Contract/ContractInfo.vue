@@ -30,9 +30,17 @@
                 <div class="row  mb-1 " >
                   <div class="col-md-3 lable-title">
                     {{ $t("contract.name") }}
+
                   </div>
                   <div class="col-md-9 context-black">
                     {{ this.contract_info["name"] }}
+                    <i class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
+                       Verified
+                    </i>
+                    <i class="el-icon-circle-close" style="color:red ;font-weight: bold">
+                      Unverified
+                    </i>
+
                   </div>
 
                 </div>
@@ -293,6 +301,19 @@
                       </el-collapse>
                     </div>
                 </el-tab-pane>
+                <el-tab-pane :label="$t('contract.sourceCode')" name="forth">
+                  <div v-if="this.contract_info['name']==='NeoToken'">
+                    <source-code :contractHash="contract_id"></source-code>
+                  </div>
+                  <card shadow v-else class="text-center">
+                    Sorry, we were unable to locate a matching Contract ABI or SourceCode for this contract.
+
+                    If you are the contract owner, please <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/VerifyContract/'+contract_id"   >
+                    Verify Your Contract Source Code
+                  </router-link>  here.
+
+                  </card>
+                </el-tab-pane>
               </el-tabs>
             </div>
           <div style="margin-top: 30px;margin-bottom: 20px">
@@ -312,6 +333,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./EventsTable";
 import ScCallTable from "./ScCallTable";
+import SourceCode from "./SourceCode";
 import Neon from "@cityofzion/neon-js";
 import ContractJsonView from "./ContractJsonView";
 import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, RPC_NODE_MAIN, copyItem} from "../../store/util";
@@ -320,6 +342,7 @@ import net from "../../store/store";
 export default {
   components: {
     Loading,
+    SourceCode,
     EventsTable,
     ScCallTable,
     ContractJsonView,
@@ -397,6 +420,28 @@ export default {
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
         this.isLoading = false;
+        // console.log(raw)
+      });
+    },
+    getVerifiedContract(contract_id) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash: contract_id },
+          method: "GetVerifiedContractByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        const raw = res["data"]["result"];
+        console.log(raw)
+
         // console.log(raw)
       });
     },

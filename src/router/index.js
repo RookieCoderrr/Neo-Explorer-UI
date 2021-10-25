@@ -10,7 +10,7 @@ const TransactionList = ()=>import('../views/Transaction/TransactionList');
 const AccountProfile = ()=>import('../views/Account/AccountProfile');
 const NFTInfo = ()=>import('../views/Token/NFTInfo')
 const Tokens = ()=>import('../views/Token/Tokens');
-const Form = ()=>import('../views/Contract/VerifyContract');
+const VerifyContract = ()=>import('../views/Contract/VerifyContract');
 const Blocks = ()=>import('../views/Block/Blocks');
 const Search = ()=>import('../views/NotFound/SearchNotFound');
 const HomePage = ()=>import('../views/Home/HomePage');
@@ -18,6 +18,7 @@ const PageNotFound = ()=>import('../views/NotFound/PageNotFound');
 const BurnFee = ()=>import('../views/BurnGas/BurnFee');
 const importEcharts = ()=>import('../views/BurnGas/DailyTransaction');
 const TransactionInfo = ()=>import('../views/Transaction/TransactionInfo');
+const SourceCode = ()=>import('../views/Contract/SourceCode')
 import AuthLayout from "../layout/AuthLayout";
 
 const routes = [
@@ -58,9 +59,19 @@ const routes = [
         },
       },
       {
-        path: "/Form",
-        name: "Form",
-        component: Form ,
+        path: "/VerifyContract/:contractHash",
+        name: "VerifyContract",
+        component: VerifyContract ,
+        meta: {
+          showSearch: true,
+          showBot:true,
+          showNet:true,
+        },
+      },
+      {
+        path: "/SourceCode",
+        name: "SourceCode",
+        component: SourceCode ,
         meta: {
           showSearch: true,
           showBot:true,

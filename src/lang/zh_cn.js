@@ -114,6 +114,7 @@ const zh = {
     eventName: "事件名称",
     vmState: "虚拟机状态",
     conInfo: "合约信息",
+    sourceCode:"合约源码",
     noScCall: "该合约暂无调用",
     noEvent: "该合约暂无事件",
     viewAsAddr: "以地址检索",

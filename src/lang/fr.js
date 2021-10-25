@@ -116,6 +116,7 @@ const fr = {
     eventName: "Nom d'événement",
     vmState: "Statut de VM",
     conInfo: "Contract Info",
+    sourceCode:"Code source",
     noScCall: "Ce contrat n'a pas d'appels systèmes ",
     noEvent: "Ce contrat n'a pas d'événement ",
     viewAsAddr: "Voir comme address",

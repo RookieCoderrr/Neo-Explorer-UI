@@ -116,6 +116,7 @@ const en = {
     eventName: "Event Name",
     vmState: "VM State",
     conInfo: "Contract Info",
+    sourceCode:"Source Code",
     noScCall: "This Contract has no System Contract Calls.",
     noEvent: "This Contract has no events.",
     viewAsAddr: "View as Address",
