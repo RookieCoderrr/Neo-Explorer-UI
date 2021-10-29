@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid" >
-    <div class="mb-3" v-for="(item,index) in this.code" :key="index" >
-      <h3><i class="el-icon-document"></i> {{item["Name"]}}</h3>
+    <div class="mb-3" v-for="(item,index) in this.sourceCodeList" :key="index" >
+      <h3><i class="el-icon-document"></i> {{item["fileName"]}}</h3>
       <v-ace-editor
-          v-model:value="item['Code']"
+          v-model:value="item['code']"
           theme="chrome"
           readonly="true"
           :options="editorOptions"
@@ -16,6 +16,7 @@
 </template>
 <script>
 import { VAceEditor } from 'vue3-ace-editor';
+import axios from "axios";
 
 export default {
   components: {
@@ -23,6 +24,10 @@ export default {
   },
   props: {
     contractHash: String,
+    updatecounter: Number,
+  },
+  created() {
+    this.getSourceCodeByContractHash(this.contractHash,this.updatecounter)
   },
   data: () => ({
     code:[{"Name":"CounterStorage.cs","Code":"using Neo.SmartContract.Framework.Services;\n" +
@@ -121,6 +126,8 @@ export default {
           "        private static byte[] GetKey(byte type, BigInteger random) => new byte[] { type }.Concat(random.ToByteArray());\n" +
           "    }\n" +
           "}"}],
+    sourceCodeList:[],
+    totalCount:0,
     editorOptions: {
       // 设置代码编辑器的样式
       enableBasicAutocompletion: true,
@@ -130,6 +137,27 @@ export default {
     },
   }),
   methods: {
+    getSourceCodeByContractHash(contract_id,updatecounter) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash: contract_id,updatecounter:updatecounter},
+          method: "GetSourceCodeByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.sourceCodeList= res["data"]["result"]["result"]
+        this.totalCount= res["data"]["result"]["totalCount"]
+
+      });
+    },
 
   },
 };

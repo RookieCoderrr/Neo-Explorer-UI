@@ -14,21 +14,21 @@
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">
             {{ $t("tokenTx.from")
             }}
             <el-button type="info" :plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{this.fromButton.buttonName}}</el-button>
 
           </th>
-          <th class="tableHeader"></th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">{{ $t("tokenTx.amount") }}</th>
+          <th class="tableHeader" style="text-align: center">
             {{ $t("tokenTx.to") }}
             <span>       </span>
             <el-button type="info" :plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(toButton)">
               {{this.toButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
+
           <th class="tableHeader">{{ $t("tokenTx.time") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
@@ -55,7 +55,7 @@
               }}</span>
             </div>
           </td>
-          <td class="table-list-item">
+          <td class="table-list-item" style="text-align: center">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
@@ -76,11 +76,15 @@
               </div>
             </div>
           </td>
-          <td>
-            <h1 style="color: #42b983">&#8594;</h1>
+          <td class="pt-4" style="text-align: center">
+            <div class="table-list-item mt-2" style="text-align: center">
+              {{ convertToken(row.item.value, 8) }} GAS
+            </div>
+            <span style="color: #42b983;font-size: 30px">&#10230;</span>
+
           </td>
-          <td class="table-list-item">
-            <div>
+          <td class="table-list-item" style="text-align: center">
+
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
@@ -99,11 +103,8 @@
                   :to="'/accountprofile/'+row.item.to"
                   >{{ row.item.to }}</router-link>
               </div>
-            </div>
           </td>
-          <td class="table-list-item">
-            {{ convertToken(row.item.value, 8) }} GAS
-          </td>
+
           <td class="table-list-item">
             {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
@@ -233,9 +234,6 @@ export default {
   text-overflow: ellipsis;
 }
 .addr {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
 }
 </style>

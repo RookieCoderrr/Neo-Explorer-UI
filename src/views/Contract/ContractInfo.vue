@@ -34,10 +34,10 @@
                   </div>
                   <div class="col-md-9 context-black">
                     {{ this.contract_info["name"] }}
-                    <i class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
+                    <i v-if="this.nef['compiler']==='neo-core-v3.0'||this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
                        Verified
                     </i>
-                    <i class="el-icon-circle-close" style="color:red ;font-weight: bold">
+                    <i v-else class="el-icon-circle-close" style="color:red ;font-weight: bold">
                       Unverified
                     </i>
 
@@ -302,15 +302,18 @@
                     </div>
                 </el-tab-pane>
                 <el-tab-pane :label="$t('contract.sourceCode')" name="forth">
-                  <div v-if="this.contract_info['name']==='NeoToken'">
-                    <source-code :contractHash="contract_id"></source-code>
+                  <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">
+                    This is a native contract, and the source code is registered on the blockchain.
+                  </card>
+                  <div v-else-if="this.isVerified" class="text-center">
+                    <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>
                   </div>
                   <card shadow v-else class="text-center">
-                    Sorry, we were unable to locate a matching Contract ABI or SourceCode for this contract.
+                    Sorry, we were unable to locate a matching SourceCode for this contract.
 
                     If you are the contract owner, please <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/VerifyContract/'+contract_id"   >
                     Verify Your Contract Source Code
-                  </router-link>  here.
+                  </router-link>  here. This feature only supports contracts complied by Csharp compiler now.
 
                   </card>
                 </el-tab-pane>
@@ -364,6 +367,8 @@ export default {
       activeName: 'first',
       activeNames: ['0'],
       activeNames2:['0'],
+      isVerified:false,
+      updatecounter:0,
     };
   },
   created() {
@@ -417,20 +422,22 @@ export default {
         this.nef = JSON.parse(raw["nef"]);
         this.manifest = JSON.parse(raw["manifest"]);
         this.contract_info = raw;
+        this.updatecounter = this.contract_info["updatecounter"]
         this.totalsccall = this.contract_info["totalsccall"];
         this.testAddress(contract_id);
+        this.getVerifiedContract(contract_id,this.updatecounter)
         this.isLoading = false;
         // console.log(raw)
       });
     },
-    getVerifiedContract(contract_id) {
+    getVerifiedContract(contract_id,updatecounter) {
       axios({
         method: "post",
         url: "/api",
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { ContractHash: contract_id },
+          params: { ContractHash: contract_id,updatecounter:updatecounter},
           method: "GetVerifiedContractByContractHash",
         },
         headers: {
@@ -440,9 +447,12 @@ export default {
         },
       }).then((res) => {
         const raw = res["data"]["result"];
-        console.log(raw)
+        if (raw !== null ) {
+          this.isVerified = true
+        } else {
+          this.isVerified = false
+        }
 
-        // console.log(raw)
       });
     },
     getToken(contract_id) {

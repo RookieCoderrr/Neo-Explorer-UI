@@ -19,21 +19,19 @@
           <th class="tableHeader">{{ $t("transactionTransfer.token") }}</th>
           <th class="tableHeader">{{ $t("transactionTransfer.tokenID") }}</th>
           <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">
             {{ $t("transactionTransfer.from") }}
 
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{fromButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader">{{ $t("transactionTransfer.fromBalance") }}</th>
-          <th class="tableHeader"></th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">{{ $t("transactionTransfer.amount") }}</th>
+          <th class="tableHeader" style="text-align: center">
             {{ $t("transactionTransfer.to") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
               {{toButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader">{{ $t("transactionTransfer.toBalance") }}</th>
-          <th class="tableHeader">{{ $t("transactionTransfer.amount") }}</th>
+
         </template>
 
         <template v-slot:default="row">
@@ -71,7 +69,7 @@
               <span class="text-info" v-else> {{ $t("transfer") }}</span>
             </div>
           </td>
-          <td class="budget">
+          <td class="budget" style="text-align: center">
             <div class="table-list-item">
               <span class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}</span
@@ -88,18 +86,13 @@
               </span>
             </div>
           </td>
-          <td class="table-list-item">
-            <span class="text-muted" v-if="row.item.from === null">{{
-              $t("nullBalance")
-            }}</span>
-            <span v-else class="table-list-item">{{
-              convertToken(row.item.frombalance, row.item.decimals)
-            }}</span>
+          <td class="pt-4" style="text-align: center">
+            <div class="table-list-item mt-2" style="text-align: center">
+              {{ convertToken(row.item.value, row.item.decimals) }}
+            </div>
+            <span style="color: #42b983;font-size: 30px">&#10230;</span>
           </td>
-          <td>
-            <h1 style="color: #42b983">&#8594;</h1>
-          </td>
-          <td class="budget">
+          <td class="budget" style="text-align: center">
             <div class="table-list-item">
               <span class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}</span
@@ -118,20 +111,6 @@
             </div>
           </td>
 
-          <td class="table-list-item">
-            <span class="text-muted" v-if="row.item.to === null">
-              {{ $t("nullBalance") }}
-            </span>
-            <span v-else class="table-list-item">
-              {{ convertToken(row.item.tobalance, row.item.decimals) }}</span
-            >
-          </td>
-
-          <td >
-            <span class="table-list-item">
-              {{ convertToken(row.item.value, row.item.decimals) }}
-            </span>
-          </td>
         </template>
       </base-table>
     </div>

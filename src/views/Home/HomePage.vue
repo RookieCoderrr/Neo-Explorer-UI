@@ -46,8 +46,9 @@
                 type="text"
                 class="over-ellipsis"
                 :placeholder="$t('search.placeholder')"
+                @keyup.enter="search(this.filter)"
                 v-model="searchVal"
-                @keyup.enter="search()"
+
             />
             <button class="button" @click="search(this.filter)">
               <svg

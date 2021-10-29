@@ -48,19 +48,19 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
           <th class="tableHeader">{{ $t("transferList.token") }}</th>
-          <th class="tableHeader">{{ $t("transferList.type") }}</th>
           <th class="tableHeader">
             {{ $t("transferList.from") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{fromButton.buttonName}}</el-button>
           </th>
           <th class="tableHeader"></th>
+          <th class="tableHeader" style="text-align: center">{{ $t("transferList.amount") }}</th>
           <th class="tableHeader">
             {{ $t("transferList.to") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
               {{toButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader">{{ $t("transferList.amount") }}</th>
+
           <th class="tableHeader">{{ $t("tokenTx.time") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
@@ -91,74 +91,17 @@
           <td class="table-list-item">
               {{ row.item.tokenname }}
           </td>
-          <td class="table-list-item">
-            <div>
-              <span
-                class="text-primary"
-                v-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.from === null &&
-                  row.item.value === '50000000'
-                "
-                type="primary"
-                >{{ $t("blockReward") }}</span
-              >
-              <span
-                class="text-warning"
-                v-else-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.from === null
-                "
-                type="primary"
-                >{{ $t("networkFeeReward") }}</span
-              >
-              <span
-                class="text-danger"
-                v-else-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.to === null
-                "
-                type="primary"
-                >{{ $t("feeBurn") }}</span
-              >
-              <span
-                class="text-success"
-                v-else-if="
-                  row.item.from === null && row.item.tokenname === 'GasToken'
-                "
-                type="primary"
-              >
-                {{ $t("transferReward") }}
-              </span>
-              <span
-                class="text-success"
-                v-else-if="row.item.from === null"
-                type="primary"
-                >{{ $t("mint") }}</span
-              >
-              <span class="text-danger" v-else-if="row.item.to === null">
-                {{ $t("burn") }}</span
-              >
-              <span class="text-info" v-else> {{ $t("transfer") }}</span>
-            </div>
-          </td>
+
           <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
               <div v-else-if="fromButton.state" class="addr">
-                <router-link
+                <span
                   v-if="row.item.from === this.account_address"
-                  class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer; "
-                  :to="'/accountprofile/' + row.item.from"
-                  ><i class="ni ni-tag"></i
                   >{{ scriptHashToAddress(row.item.from) }}
-                </router-link>
+                </span>
                 <router-link
                   v-else
                   class="name mb-0 text-sm"
@@ -168,13 +111,10 @@
                 </router-link>
               </div>
               <div v-else class="addr">
-                <router-link
+                <span
                   v-if="row.item.from === this.account_address"
-                  class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer; "
-                  :to="'/accountprofile/' + row.item.from"
-                  ><i class="ni ni-tag"></i>{{ row.item.from }}
-                </router-link>
+                  >{{ row.item.from }}
+                </span>
                 <router-link
                   v-else
                   class="  mb-0 table-list-item-blue"
@@ -185,21 +125,80 @@
               </div>
             </div>
           </td>
-          <td>
-            <h3 style="color: #42b983">&#8594;</h3>
+          <td class="table-list-item" style="text-align: center">
+            <el-tag v-if="row.item.to===this.account_address && row.item.from===this.account_address" type="info" hit color="" ><span style="font-weight: bold;font-size: 15px;">Self</span> </el-tag>
+            <el-tag v-else-if="row.item.to===this.account_address" type="success" hit color="" ><span style="font-weight: bold;font-size: 15px;">In</span> </el-tag>
+            <el-tag v-else-if="row.item.from===this.account_address" type="warning" hit color="" ><span style="font-weight: bold;font-size: 15px;">Out</span> </el-tag>
+          </td>
+          <td class="pt-4" style="text-align: center">
+            <div class="table-list-item mt-2" style="text-align: center">
+              {{ convertToken(row.item.value, row.item.decimals) }}
+              <span v-if="row.item.tokenname==='NeoToken'">Neo</span>
+              <span v-else-if="row.item.tokenname==='GasToken'">Gas</span>
+            </div>
+            <span style="color: #42b983;font-size: 30px">&#10230;</span>
+            <div  class="mt-2" style="text-align: center">
+              <span
+                  class="text-primary"
+                  v-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null &&
+                  row.item.value === '50000000'
+                "
+                  type="primary"
+              >{{ $t("blockReward") }}</span
+              >
+              <span
+                  class="text-warning"
+                  v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null
+                "
+                  type="primary"
+              >{{ $t("networkFeeReward") }}</span
+              >
+              <span
+                  class="text-danger"
+                  v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.to === null
+                "
+                  type="primary"
+              >{{ $t("feeBurn") }}</span
+              >
+              <span
+                  class="text-success"
+                  v-else-if="
+                  row.item.from === null && row.item.tokenname === 'GasToken'
+                "
+                  type="primary"
+              >
+                {{ $t("transferReward") }}
+              </span>
+              <span
+                  class="text-success"
+                  v-else-if="row.item.from === null"
+                  type="primary"
+              >{{ $t("mint") }}</span
+              >
+              <span class="text-danger" v-else-if="row.item.to === null">
+                {{ $t("burn") }}</span
+              >
+              <span  v-else style="color: seagreen"> {{ $t("transfer") }}</span>
+            </div>
           </td>
           <td class="table-list-item">
             <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>
             <div v-else-if="toButton.state" class="addr">
-              <router-link
-                v-if="row.item.to === this.account_address"
-                class="  mb-0 table-list-item-blue"
-                style="cursor: pointer;"
-                :to="'/accountprofile/' + row.item.to"
-                ><i class="ni ni-tag"></i>{{ scriptHashToAddress(row.item.to) }}
-              </router-link>
+              <span
+                v-if="row.item.to === this.account_address">
+               {{ scriptHashToAddress(row.item.to) }}
+              </span>
               <router-link
                 v-else
                 class="  mb-0 table-list-item-blue"
@@ -209,13 +208,11 @@
               </router-link>
             </div>
             <div v-else class="addr">
-              <router-link
+              <span
                 v-if="row.item.to === this.account_address"
-                class="mb-0 table-list-item-blue"
-                style="cursor: pointer;"
-                :to="'/accountprofile/' + row.item.to"
-                ><i class="ni ni-tag"></i>{{ row.item.to }}
-              </router-link>
+
+                >{{ row.item.to }}
+              </span>
               <router-link
                 v-else
                 class="mb-0 table-list-item-blue"
@@ -226,9 +223,7 @@
             </div>
           </td>
 
-          <td class="table-list-item">
-            {{ convertToken(row.item.value, row.item.decimals) }}
-          </td>
+
           <td class="table-list-item">
             <div>
               {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
@@ -385,7 +380,7 @@ export default {
         },
       }).then((res) => {
           this.tableData = res["data"]["result"]["result"];
-          // console.log(this.tableData)
+          console.log(this.tableData)
           this.totalCount = res["data"]["result"]["totalCount"];
           for (let k = 0; k < this.tableData.length; k++) {
             axios({

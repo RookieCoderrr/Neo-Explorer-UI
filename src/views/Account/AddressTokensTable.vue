@@ -28,19 +28,20 @@
             </td>
             <th scope="row">
               <div class="media align-items-center">
-                <div v-if="row.item.standard==='NEP17'" class="media-body">
-                  <router-link
-                    class="  mb-0 table-list-item-blue"
-                    style="cursor: pointer;"
-                    :to="'/NEP17tokeninfo/' + row.item.asset"
-                    >{{ row.item.asset }}</router-link
-                  >
-                </div>
-                <div v-else class="media-body">
+                <div v-if="row.item.standard==='NEP11'" class="media-body">
                   <router-link
                       class="  mb-0 table-list-item-blue"
                       style="cursor: pointer; "
                       :to="'/NFTtokeninfo/' + row.item.asset"
+                  >{{ row.item.asset }}</router-link
+                  >
+
+                </div>
+                <div v-else class="media-body">
+                  <router-link
+                      class="  mb-0 table-list-item-blue"
+                      style="cursor: pointer;"
+                      :to="'/NEP17tokeninfo/' + row.item.asset"
                   >{{ row.item.asset }}</router-link
                   >
                 </div>

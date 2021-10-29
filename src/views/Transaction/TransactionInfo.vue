@@ -157,7 +157,16 @@
                 </div>
               </div>
 
-              <div class="row  info mt-3 mb-1" >
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
+                  {{ $t("transactionInfo.trigger") }}
+                </div>
+                <div class="col-md-9 context-black">
+                  {{ this.trigger }}
+                </div>
+              </div>
+
+              <div class="row  info mt-3 mb-4" >
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
                   <el-tooltip  content="NeoVm throws an exception when this transcation has errors." placement="right" @click.stop.prevent>
@@ -168,21 +177,14 @@
                   <el-tag v-if="this.exception === null" type="success" size="small">
                     No exception
                   </el-tag>
-                  <span v-else>
+                  <div v-else  style="max-width: 95%">
                     {{this.exception}}
-                  </span>
+                  </div>
 
                 </div>
               </div>
 
-              <div class="row info mt-3 mb-1">
-                <div class="col-md-3 lable-title">
-                  {{ $t("transactionInfo.trigger") }}
-                </div>
-                <div class="col-md-9 context-black">
-                  {{ this.trigger }}
-                </div>
-              </div>
+
             </card>
             <div class="row mt-4 mb-3"></div>
             <el-tabs

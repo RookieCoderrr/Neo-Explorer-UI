@@ -19,20 +19,19 @@
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokenTx.txid") }}</th>
-          <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">
             {{ $t("tokenTx.from")
             }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(fromButton)">
               {{fromButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader"></th>
-          <th class="tableHeader">
+          <th class="tableHeader" style="text-align: center">{{ $t("tokenTx.amount") }}</th>
+          <th class="tableHeader" style="text-align: center">
             {{ $t("tokenTx.to") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="changeFormat(toButton)">
               {{toButton.buttonName}}</el-button>
           </th>
-          <th class="tableHeader">{{ $t("tokenTx.amount") }}</th>
+
           <th class="tableHeader">{{ $t("tokenTx.time") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
@@ -63,68 +62,12 @@
               </div>
             </div>
           </th>
-          <td class="table-list-item">
-            <div>
-              <span
-                class="text-primary"
-                v-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.from === null &&
-                  row.item.value === '50000000'
-                "
-                type="primary"
-                >{{ $t("blockReward") }}</span
-              >
-              <span
-                class="text-warning"
-                v-else-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.from === null
-                "
-                type="primary"
-                >{{ $t("networkFeeReward") }}</span
-              >
-              <span
-                class="text-danger"
-                v-else-if="
-                  row.item.txid ===
-                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
-                  row.item.to === null
-                "
-                type="primary"
-                >{{ $t("feeBurn") }}</span
-              >
-              <span
-                class="text-success"
-                v-else-if="
-                  row.item.from === null &&
-                  this.contractHash ===
-                    '0xd2a4cff31913016155e38e474a2c06d08be276cf'
-                "
-                type="primary"
-              >
-                {{ $t("transferReward") }}
-              </span>
-              <span
-                class="text-success"
-                v-else-if="row.item.from === null"
-                type="primary"
-                >{{ $t("mint") }}</span
-              >
-              <span class="text-danger" v-else-if="row.item.to === null">
-                {{ $t("burn") }}</span
-              >
-              <span class="text-info" v-else> {{ $t("transfer") }}</span>
-            </div>
-          </td>
-          <td class="table-list-item">
+          <td class="table-list-item" style="text-align: center">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" class="addr">
+              <div v-else-if="fromButton.state" class>
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer; "
@@ -142,10 +85,68 @@
               </div>
             </div>
           </td>
-          <td>
-            <h1 style="color: #42b983">&#8594;</h1>
+          <td class="pt-4" style="text-align: center">
+            <div class="table-list-item mt-2" style="text-align: center">
+              {{ convertToken(row.item.value, this.decimal) }}
+            </div>
+            <span style="color: #42b983;font-size: 30px">&#10230;</span>
+            <div>
+              <span
+                  class="text-primary"
+                  v-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null &&
+                  row.item.value === '50000000'
+                "
+                  type="primary"
+              >{{ $t("blockReward") }}</span
+              >
+              <span
+                  class="text-warning"
+                  v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.from === null
+                "
+                  type="primary"
+              >{{ $t("networkFeeReward") }}</span
+              >
+              <span
+                  class="text-danger"
+                  v-else-if="
+                  row.item.txid ===
+                    '0x0000000000000000000000000000000000000000000000000000000000000000' &&
+                  row.item.to === null
+                "
+                  type="primary"
+              >{{ $t("feeBurn") }}</span
+              >
+              <span
+                  class="text-success"
+                  v-else-if="
+                  row.item.from === null &&
+                  this.contractHash ===
+                    '0xd2a4cff31913016155e38e474a2c06d08be276cf'
+                "
+                  type="primary"
+              >
+                {{ $t("transferReward") }}
+              </span>
+              <span
+                  class="text-success"
+                  v-else-if="row.item.from === null"
+                  type="primary"
+              >{{ $t("mint") }}</span
+              >
+              <span class="text-danger" v-else-if="row.item.to === null">
+                {{ $t("burn") }}</span
+              >
+              <span class="text-info" v-else> {{ $t("transfer") }}</span>
+            </div>
+
           </td>
-          <td class="table-list-item">
+          <td class="table-list-item" style="text-align: center">
             <div>
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
@@ -168,9 +169,7 @@
               </div>
             </div>
           </td>
-          <td class="table-list-item">
-            {{ convertToken(row.item.value, this.decimal) }}
-          </td>
+
           <td class="table-list-item">
             {{time.state? this.convertTime(row.item.timestamp, this.$i18n.locale):this.convertISOTime(row.item.timestamp) }}
           </td>
@@ -306,16 +305,13 @@ export default {
 };
 </script>
 <style>
-.txid {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.addr {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+@media screen and (max-width: 1900px ) {
+  .txid {
+    width: 110px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 }
 </style>
