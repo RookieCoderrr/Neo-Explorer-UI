@@ -37,7 +37,7 @@
                     <i v-if="this.nef['compiler']==='neo-core-v3.0'||this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
                        Verified
                     </i>
-                    <i v-else class="el-icon-circle-close" style="color:red ;font-weight: bold">
+                    <i v-else-if="this.isVerified===false" class="el-icon-circle-close" style="color:red ;font-weight: bold">
                       Unverified
                     </i>
 
@@ -307,6 +307,9 @@
                   </card>
                   <div v-else-if="this.isVerified" class="text-center">
                     <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>
+<!--                    <card shadow>-->
+<!--                      Coming soon ~-->
+<!--                    </card>-->
                   </div>
                   <card shadow v-else class="text-center">
                     Sorry, we were unable to locate a matching SourceCode for this contract.
@@ -367,7 +370,7 @@ export default {
       activeName: 'first',
       activeNames: ['0'],
       activeNames2:['0'],
-      isVerified:false,
+      isVerified:0,
       updatecounter:0,
     };
   },

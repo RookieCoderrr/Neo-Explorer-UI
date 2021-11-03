@@ -1,15 +1,23 @@
 <template>
   <div class="container-fluid" >
-    <div class="mb-3" v-for="(item,index) in this.sourceCodeList" :key="index" >
-      <h3><i class="el-icon-document"></i> {{item["fileName"]}}</h3>
-      <v-ace-editor
-          v-model:value="item['code']"
-          theme="chrome"
-          readonly="true"
-          :options="editorOptions"
-          style="height: 300px" />
+    <div v-if="this.totalCount!==0">
+      <loading
+          :is-full-page="false"
+          :opacity="0.9"
+          :active="isLoading"
+      ></loading>
+      <div class="mb-3" v-for="(item,index) in this.sourceCodeList" :key="index" >
+        <h4 style="text-align: left"><i class="el-icon-document"></i> {{item["filename"]}}</h4>
+        <v-ace-editor
+            v-model:value="item['code']"
+            theme="chrome"
+            :readonly="this.write"
+            :options="this.editorOptions"
+            style="height: 300px" />
 
+      </div>
     </div>
+
   </div>
 
 
@@ -17,20 +25,25 @@
 <script>
 import { VAceEditor } from 'vue3-ace-editor';
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import 'ace-builds/src-noconflict/mode-text';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 export default {
   components: {
    VAceEditor,
+    Loading,
   },
   props: {
     contractHash: String,
     updatecounter: Number,
   },
+
   created() {
     this.getSourceCodeByContractHash(this.contractHash,this.updatecounter)
   },
   data: () => ({
-    code:[{"Name":"CounterStorage.cs","Code":"using Neo.SmartContract.Framework.Services;\n" +
+    code:[{"filename":"CounterStorage.cs","code":"using Neo.SmartContract.Framework.Services;\n" +
           "using System;\n" +
           "using System.Numerics;\n" +
           "\n" +
@@ -53,7 +66,7 @@ export default {
           "\n" +
           "        public static void Increase() => CounterMap.Put(key, Get() + 1);\n" +
           "    }\n" +
-          "}\n"},{"Name":"FragmentStorage.cs","Code":"using Neo.SmartContract.Framework;\n" +
+          "}\n"},{"filename":"FragmentStorage.cs","code":"using Neo.SmartContract.Framework;\n" +
           "using Neo.SmartContract.Framework.Native;\n" +
           "using Neo.SmartContract.Framework.Services;\n" +
           "using System;\n" +
@@ -128,6 +141,7 @@ export default {
           "}"}],
     sourceCodeList:[],
     totalCount:0,
+    write:true,
     editorOptions: {
       // 设置代码编辑器的样式
       enableBasicAutocompletion: true,
@@ -135,6 +149,7 @@ export default {
       enableLiveAutocompletion: true,
       showPrintMargin: false, //去除编辑器里的竖线
     },
+    isLoading:true,
   }),
   methods: {
     getSourceCodeByContractHash(contract_id,updatecounter) {
@@ -154,7 +169,10 @@ export default {
         },
       }).then((res) => {
         this.sourceCodeList= res["data"]["result"]["result"]
+        console.log(this.sourceCodeList)
         this.totalCount= res["data"]["result"]["totalCount"]
+        this.isLoading=false
+
 
       });
     },

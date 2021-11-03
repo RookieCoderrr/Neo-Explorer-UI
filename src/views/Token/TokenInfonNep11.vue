@@ -128,10 +128,12 @@
               "
             >
               <el-tab-pane :label="$t('tokenInfo.nftToken')" name="first">
-                <nft-token
-                  :contract-hash="token_id"
-                  :decimal="decimal == '' ? 0 : decimal"
-                ></nft-token>
+                <div v-if="this.token_info['totalsupply'] !== 0">
+                  <nft-token
+                      :contract-hash="token_id"
+                      :decimal="decimal == '' ? 0 : decimal"
+                  ></nft-token>
+                </div>
               </el-tab-pane>
               <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="second">
                 <div

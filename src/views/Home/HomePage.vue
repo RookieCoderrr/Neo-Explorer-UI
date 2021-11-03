@@ -265,8 +265,8 @@ export default {
   },
   methods: {
     initWebSocket(){ //初始化weosocket
-      const wsuri = "ws://testneofura.ngd.network:2026/home";
-      const wsuriMain = "ws://neofura.ngd.network:2027/home";
+      const wsuri = "wss://testneofura.ngd.network:2026/home";
+      const wsuriMain = "wss://neofura.ngd.network:2027/home";
       console.log(`${location.hostname}`)
       if (`${location.hostname}`=== "explorer.onegate.space"){
         this.websock = new WebSocket(wsuriMain);
@@ -275,7 +275,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      this.websock = new WebSocket(wsuri)
+      this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
@@ -289,7 +289,7 @@ export default {
       this.initWebSocket();
     },
     websocketonmessage(e){ //数据接收
-      // console.log(e.data)
+      console.log(e.data)
       if( e.data != 'hello neo3fura'){
       try{
       const redata = JSON.parse(e.data);

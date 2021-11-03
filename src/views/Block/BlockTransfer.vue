@@ -13,7 +13,6 @@
         :data="NEP17TxList"
       >
         <template v-slot:columns>
-          <th class="tableHeader">{{ $t("tokenTx.type") }}</th>
           <th class="tableHeader" style="text-align: center">
             {{ $t("tokenTx.from")
             }}
@@ -36,31 +35,12 @@
         </template>
 
         <template v-slot:default="row">
-          <td class="Type">
-            <div class="table-list-item">
-              <span
-                class="text-primary"
-                v-if="row.item.from === null && row.item.value === '50000000'"
-                type="primary"
-                >{{ $t("blockReward") }}</span
-              >
-              <span
-                class="text-warning"
-                v-else-if="row.item.from === null"
-                type="primary"
-                >{{ $t("networkFeeReward") }}</span
-              >
-              <span class="text-danger" v-else type="primary">{{
-                $t("feeBurn")
-              }}</span>
-            </div>
-          </td>
           <td class="table-list-item" style="text-align: center">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" class="addr">
+              <div v-else-if="fromButton.state" >
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer;"
@@ -81,6 +61,23 @@
               {{ convertToken(row.item.value, 8) }} GAS
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
+            <div class="table-list-item">
+              <span
+                  class="text-primary"
+                  v-if="row.item.from === null && row.item.value === '50000000'"
+                  type="primary"
+              >{{ $t("blockReward") }}</span
+              >
+              <span
+                  class="text-warning"
+                  v-else-if="row.item.from === null"
+                  type="primary"
+              >{{ $t("networkFeeReward") }}</span
+              >
+              <span class="text-danger" v-else type="primary">{{
+                  $t("feeBurn")
+                }}</span>
+            </div>
 
           </td>
           <td class="table-list-item" style="text-align: center">
@@ -88,7 +85,7 @@
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="toButton.state" class="addr">
+              <div v-else-if="toButton.state" >
                 <router-link
                   class=" mb-0 table-list-item-blue"
                   style="cursor: pointer;"

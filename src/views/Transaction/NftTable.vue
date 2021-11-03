@@ -18,7 +18,6 @@
           <th class="tableHeader">{{ $t("transactionTransfer.contract") }}</th>
           <th class="tableHeader">{{ $t("transactionTransfer.token") }}</th>
           <th class="tableHeader">{{ $t("transactionTransfer.tokenID") }}</th>
-          <th class="tableHeader">{{ $t("transactionTransfer.type") }}</th>
           <th class="tableHeader" style="text-align: center">
             {{ $t("transactionTransfer.from") }}
 
@@ -55,20 +54,6 @@
               {{ row.item.tokenId }}
             </div>
           </td>
-          <td class="budget">
-            <div class="table-list-item">
-              <span
-                class="text-success"
-                v-if="row.item.from === null"
-                type="primary"
-                >{{ $t("mint") }}</span
-              >
-              <span class="text-danger" v-else-if="row.item.to === null">
-                {{ $t("burn") }}</span
-              >
-              <span class="text-info" v-else> {{ $t("transfer") }}</span>
-            </div>
-          </td>
           <td class="budget" style="text-align: center">
             <div class="table-list-item">
               <span class="text-muted" v-if="row.item.from === null">
@@ -91,6 +76,18 @@
               {{ convertToken(row.item.value, row.item.decimals) }}
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
+            <div class="table-list-item">
+              <span
+                  class="text-success"
+                  v-if="row.item.from === null"
+                  type="primary"
+              >{{ $t("mint") }}</span
+              >
+              <span class="text-danger" v-else-if="row.item.to === null">
+                {{ $t("burn") }}</span
+              >
+              <span v-else style="color: seagreen" > {{ $t("transfer") }}</span>
+            </div>
           </td>
           <td class="budget" style="text-align: center">
             <div class="table-list-item">

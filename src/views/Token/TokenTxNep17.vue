@@ -75,7 +75,7 @@
                   >{{ scriptHashToAddress(row.item.from) }}</router-link
                 >
               </div>
-              <div v-else class="addr">
+              <div v-else >
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer; "
@@ -142,7 +142,7 @@
               <span class="text-danger" v-else-if="row.item.to === null">
                 {{ $t("burn") }}</span
               >
-              <span class="text-info" v-else> {{ $t("transfer") }}</span>
+              <span v-else style="color: seagreen" > {{ $t("transfer") }}</span>
             </div>
 
           </td>
@@ -151,7 +151,7 @@
               <div class="text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="toButton.state" class="addr">
+              <div v-else-if="toButton.state" >
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer;"
@@ -159,7 +159,7 @@
                   >{{ scriptHashToAddress(row.item.to) }}</router-link
                 >
               </div>
-              <div v-else class="addr">
+              <div v-else >
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer;"

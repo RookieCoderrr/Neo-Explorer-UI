@@ -592,6 +592,7 @@ export default {
       activeWitnessesNames: ["0","1"],
       activeScriptsNames: ["0"],
       activeName: "first",
+
     };
   },
   created() {
@@ -716,7 +717,7 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        // console.log(this.tabledataApp)
+        console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i < this.tabledataApp["notifications"].length; i++) {
           this.getContractsApp(
@@ -762,6 +763,7 @@ export default {
             map.set(temp["abi"]["events"][i]["name"], table);
           }
           this.mapTotalApp.set(raw["hash"], map);
+          console.log(this.mapTotalApp)
         }
       });
     },

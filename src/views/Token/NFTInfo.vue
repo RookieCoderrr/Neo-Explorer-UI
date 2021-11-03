@@ -19,7 +19,11 @@
             <card shadow class="card-style">
 
 
-
+              <div class="row  mb-1" >
+                <div class="col-md-3" >
+                  <img id="image" :src='this.image' onerror="this.onerror=null" style="width: 200px">
+                </div>
+              </div>
 
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
@@ -27,6 +31,16 @@
                 </div>
                 <div class="col-md-9 context-black">
                   {{ this.token_info["tokenid"] }}
+                </div>
+              </div>
+              <div class="row info mt-3 mb-1">
+                <div class="col-md-3 lable-title">
+                  {{ $t("nftInfo.name") }}
+                </div>
+                <div class="col-md-9 context-black">
+                  {{
+                    this.nftName
+                  }}
                 </div>
               </div>
 
@@ -115,12 +129,16 @@ export default {
       activeName: "first",
       activeNames: ['0'],
       activeNames2:['0'],
+      properties:1,
+      nftName:"——",
+      image:"",
     };
   },
   created() {
     window.scroll(0,0);
 
     this.GetNep11BalanceByContractHashAddressTokenId(this.contractHash,this.hashToBase64(this.token_id),this.address)
+    this.GetNep11PropertiesByContractHashTokenId(this.contractHash,this.hashToBase64(this.token_id))
 
     // console.log(this.contractHash)
     // console.log(this.token_id)
@@ -177,6 +195,43 @@ export default {
         this.token_info = res["data"]["result"];
         // console.log(this.tableData)
         this.isLoading = false;
+      });
+    },
+    GetNep11PropertiesByContractHashTokenId(contract_hash,token_id) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash:contract_hash,TokenId:token_id },
+          method: "GetNep11PropertiesByContractHashTokenId",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+       console.log(res)
+        // console.log(this.tableData)
+        this.isLoading = false;
+        console.log(res["data"]["result"]["asset"])
+        console.log(res["data"]["result"]["properties"])
+        if (res["data"]["result"]["properties"]===""){
+          this.properties=null
+        } else {
+          this.properties = JSON.parse(res["data"]["result"]["properties"])
+          if("name" in this.properties) {
+            this.nftName = this.properties["name"]
+            console.log(this.nftName)
+          }
+          if ("image" in this.properties) {
+            this.image = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
+            console.log(this.image)
+          }
+        }
+
       });
     },
 

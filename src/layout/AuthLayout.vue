@@ -479,10 +479,10 @@ export default {
       if(net=='main'){
         // localStorage.setItem("net","/bpi")
 
-        location.href = "http://explorer.onegate.space"+`${location.pathname}`;
+        location.href = "https://explorer.onegate.space"+`${location.pathname}`;
 
       } else if(net=='test'){
-        location.href = "http://testnet.explorer.onegate.space"+`${location.pathname}`;
+        location.href = "https://testnet.explorer.onegate.space"+`${location.pathname}`;
 
 
       }
@@ -610,6 +610,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
+        console.log("4")
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/accountprofile/${addr}`,
@@ -648,8 +649,10 @@ export default {
               path: `/NFTtokeninfo/${value}`,
             });
           }
+          console.log("2")
         } else {
           this.getContractInfoByContractHash(value);
+
         }
       });
     },
@@ -671,6 +674,7 @@ export default {
           },
         }).then((res) => {
           if (res["data"]["error"] == null) {
+            console.log("3")
             this.$router.push({
               path: `/contractinfo/${value}`,
             });

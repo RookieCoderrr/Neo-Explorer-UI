@@ -76,7 +76,7 @@
 
 </template>
 <script lang="ts">
-import axios from "axios";
+// import axios from "axios";
 import {ElMessage} from 'element-plus'
 import Loading from "vue-loading-overlay"
 export default {
@@ -106,96 +106,103 @@ export default {
 
   methods: {
     uploadFilesAndParams() {
-      this.isLoading= true;
-      console.log(this.fileList)
-      let formData = new FormData();
-      this.fileList.forEach((item) => {
-        formData.append("file", item.raw);
-      });
-      formData.append('Contract', this.form.hash);
-      if (!this.isContractPattern.test(this.form.hash)) {
-        ElMessage({
-          showClose:true,
-          duration:0,
-          type:"error",
-          message:"Contract hash format error, please check you contract hash! "
-        })
-        this.isLoading=false
-        return
-      }
-
-      formData.append('Version', this.form.version);
-      let config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-
-        }
-      }
-      axios.post("http://127.0.0.1:1926/upload",formData,config).then((res) => {
-        console.log(res)
-        if (res.data.Code === 2) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:"Compilation failed! Your .cs and .csproj files are not complete, please check and upload again! "
-          })
-          this.isLoading=false;
-
-        } else if (res.data.Code ===0 || res.data.Code === 1 || res.data.Code ===3){
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:"Server error, please try again later!"
-          })
-          this.isLoading=false;
-        } else if (res.data.Code === 4) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:"Failed in querying contract info on blockChain!"+res.data.Msg
-          })
-          this.isLoading=false;
-        } else if (res.data.Code=== 5 ) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"success",
-            message:"Contract verification success!"
-          })
-          this.isLoading=false;
-          this.$router.push({
-            path: `/contractinfo/${this.form.hash}`,
-          });
-
-        } else if (res.data.Code===6) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            message:"This contract has already been verified, please refresh this page!"
-          })
-          this.isLoading=false;
-        } else if (res.data.Code===7) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:res.data.Msg
-          })
-          this.isLoading=false;
-        } else {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:"Your contract source code doesn't match that on blockcahin!"
-          })
-          this.isLoading=false;
-
-        }
+      ElMessage({
+        showClose:true,
+        duration:0,
+        type:"error",
+        message:"Coming soon ~"
       })
+      this.isLoading=false;
+      // this.isLoading= true;
+      // console.log(this.fileList)
+      // let formData = new FormData();
+      // this.fileList.forEach((item) => {
+      //   formData.append("file", item.raw);
+      // });
+      // formData.append('Contract', this.form.hash);
+      // if (!this.isContractPattern.test(this.form.hash)) {
+      //   ElMessage({
+      //     showClose:true,
+      //     duration:0,
+      //     type:"error",
+      //     message:"Contract hash format error, please check you contract hash! "
+      //   })
+      //   this.isLoading=false
+      //   return
+      // }
+      //
+      // formData.append('Version', this.form.version);
+      // let config = {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //
+      //   }
+      // }
+      // axios.post("http://127.0.0.1:1926/upload",formData,config).then((res) => {
+      //   console.log(res)
+      //   if (res.data.Code === 2) {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"error",
+      //       message:"Compilation failed! Your .cs and .csproj files are not complete, please check and upload again! "
+      //     })
+      //     this.isLoading=false;
+      //
+      //   } else if (res.data.Code ===0 || res.data.Code === 1 || res.data.Code ===3){
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"error",
+      //       message:"Server error, please try again later!"
+      //     })
+      //     this.isLoading=false;
+      //   } else if (res.data.Code === 4) {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"error",
+      //       message:"Failed in querying contract info on blockChain!"+res.data.Msg
+      //     })
+      //     this.isLoading=false;
+      //   } else if (res.data.Code=== 5 ) {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"success",
+      //       message:"Contract verification success!"
+      //     })
+      //     this.isLoading=false;
+      //     this.$router.push({
+      //       path: `/contractinfo/${this.form.hash}`,
+      //     });
+      //
+      //   } else if (res.data.Code===6) {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       message:"This contract has already been verified, please refresh this page!"
+      //     })
+      //     this.isLoading=false;
+      //   } else if (res.data.Code===7) {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"error",
+      //       message:res.data.Msg
+      //     })
+      //     this.isLoading=false;
+      //   } else {
+      //     ElMessage({
+      //       showClose:true,
+      //       duration:0,
+      //       type:"error",
+      //       message:"Your contract source code doesn't match that on blockcahin!"
+      //     })
+      //     this.isLoading=false;
+      //
+      //   }
+      // })
 
       },
 
