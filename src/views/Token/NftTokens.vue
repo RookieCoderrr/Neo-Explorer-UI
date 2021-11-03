@@ -92,9 +92,7 @@
       </el-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center">{{
-    $t("NftToken.nullPrompt")
-  }}</card>
+
 </template>
 <script>
 import axios from "axios";

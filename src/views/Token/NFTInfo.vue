@@ -21,7 +21,12 @@
 
               <div class="row  mb-1" >
                 <div class="col-md-3" >
-                  <img id="image" :src='this.image' onerror="this.onerror=null" style="width: 200px">
+                  <el-image
+                    style="width: 150px"
+                    :src="this.image"
+                    :preview-src-list="this.imageList">
+
+                  </el-image>
                 </div>
               </div>
 
@@ -132,6 +137,8 @@ export default {
       properties:1,
       nftName:"——",
       image:"",
+      imageList:[]
+
     };
   },
   created() {
@@ -229,6 +236,7 @@ export default {
           if ("image" in this.properties) {
             this.image = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
             console.log(this.image)
+            this.imageList.push(this.image)
           }
         }
 
