@@ -325,7 +325,7 @@
             </g>
           </svg>
           <div class="mt-3">
-            <small>OneGate to the Blockchain</small>
+            <small>{{ $t("authLayout.oneGate") }}</small>
           </div>
         </div>
 
@@ -378,16 +378,16 @@
               </div>
             </div>
             <div class="col-lg-3 ">
-              <div class="mb-3"><strong>Help</strong></div>
-              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/manage-wallets">Wallet</a></div>
-              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/nfts">NFT</a></div>
+              <div class="mb-3"><strong>{{ $t("authLayout.help") }}</strong></div>
+              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/manage-wallets">{{ $t("authLayout.wallet") }}</a></div>
+              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/nfts">{{ $t("authLayout.nft") }}</a></div>
             </div>
             <div class="col-lg-3">
-              <div class="mb-3"><strong>Developer</strong></div>
-              <div><a class="text-muted" title="Coming Soon~" href="javascript:">dAPI</a></div>
+              <div class="mb-3"><strong>{{ $t("authLayout.developer") }}</strong></div>
+              <div><a class="text-muted" title="Coming Soon~" href="javascript:">{{ $t("authLayout.dApi") }}</a></div>
             </div>
             <div class="col-lg-3">
-              <div class="mb-3"><strong>Contact Us</strong></div>
+              <div class="mb-3"><strong>{{ $t("authLayout.contractUs") }}</strong></div>
               <div>
                 <a class="text-muted" title="Twitter: OneGateWallet" href="https://twitter.com/OneGateWallet">
 

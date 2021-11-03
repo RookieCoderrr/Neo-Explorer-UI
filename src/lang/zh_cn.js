@@ -38,6 +38,13 @@ const zh = {
     contracts: "合约",
     address: "地址",
     committee: "候选人",
+    help:"帮助",
+    wallet:"钱包",
+    nft:"NFT",
+    developer:"开发者",
+    dApi:"dAPI",
+    contractUs:"联系我们",
+    oneGate:"发现区块链新世界"
   },
   nftInfo:{
     name:"名称",

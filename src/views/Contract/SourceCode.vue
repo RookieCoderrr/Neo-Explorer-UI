@@ -144,9 +144,8 @@ export default {
     write:true,
     editorOptions: {
       // 设置代码编辑器的样式
-      enableBasicAutocompletion: true,
+      enableBasicAutocompletion:true,
       enableSnippets: true,
-      enableLiveAutocompletion: true,
       showPrintMargin: false, //去除编辑器里的竖线
     },
     isLoading:true,

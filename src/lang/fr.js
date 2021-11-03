@@ -40,6 +40,13 @@ const fr = {
     contracts: "Contrats",
     address: "Addresses",
     committee: "Comité",
+    help:"Aide",
+    wallet:"Portefeuille",
+    nft:"NFT",
+    developer:"Développeur",
+    dApi:"dAPI",
+    contractUs: "Nous contacter",
+    oneGate:"OneGate à la blockchain"
   },
   nftInfo:{
     name:"Nom",

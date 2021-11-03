@@ -52,7 +52,11 @@
               ——
             </td>
             <td v-else class="table-list-item">
-              {{ row.item.tokenid }}
+              <router-link
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer;"
+                  :to="'/NFTinfo/' + row.item.asset+'/'+this.account_address+'/'+base64ToHash(row.item.tokenid)"
+              >{{ row.item.tokenid }}</router-link>
             </td>
             <td class="table-list-item">
               {{ row.item.symbol }}
@@ -109,6 +113,7 @@
 import axios from "axios";
 import { convertToken } from "../../store/util";
 import net from "../../store/store";
+import Neon from "@cityofzion/neon-js";
 export default {
   name: "address-tokens-table",
   props: {
@@ -145,6 +150,11 @@ export default {
       this.pagination = val;
       const skip = (val - 1) * this.resultsPerPage;
       this.getTokenListWithBalance(skip);
+    },
+    base64ToHash(base) {
+      var res = Neon.u.base642hex(base);
+
+      return res;
     },
     getToken(hash) {
       this.$router.push(`/tokeninfo/${hash}`);
