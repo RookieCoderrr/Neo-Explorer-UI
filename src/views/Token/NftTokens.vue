@@ -1,6 +1,5 @@
 <template>
   <div
-      v-if="this.totalCount != 0"
     class="card shadow"
     :class="type === 'dark' ? 'bg-default' : ''"
   >
@@ -38,6 +37,8 @@
                 :preview-src-list="row.item.imageList">
               <template #error>
                 <div class="image-slot">
+                  <i class="ni ni-image">
+                  </i>
                 </div>
               </template>
             </el-image>
@@ -107,9 +108,7 @@
       </el-pagination>
     </div>
   </div>
-  <card shadow v-else class="text-center">{{
-      $t("NftToken.nullPrompt")
-    }}</card>
+
 </template>
 <script>
 import axios from "axios";
@@ -230,13 +229,18 @@ export default {
             // console.log(this.tableData)
             console.log(res["data"]["result"]["asset"])
             console.log(res["data"]["result"]["properties"])
+            this.tableData[k]["nftname"] = "——"
 
+            this.tableData[k]["description"]="No description"
             if (res["data"]["result"]["properties"]===""){
               this.properties=null
-              this.tableData[k]["nftname"] = "——"
-              this.tableData[k]["image"] = ""
             } else {
-              this.properties = JSON.parse(res["data"]["result"]["properties"])
+              try {
+                this.properties = JSON.parse(res["data"]["result"]["properties"])
+              } catch (e){
+                this.isLoading = false;
+                return
+              }
               if("name" in this.properties) {
                 this.tableData[k]["nftname"] = this.properties["name"]
                 console.log(this.tableData[k]["nftname"])

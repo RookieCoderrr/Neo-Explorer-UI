@@ -129,10 +129,14 @@
             >
               <el-tab-pane :label="$t('tokenInfo.nftToken')" name="first">
                   <nft-token
+                      v-if="this.token_id['totalsupply']!== 0"
                       :contract-hash="token_id"
                       :decimal="decimal == '' ? 0 : decimal"
                   ></nft-token>
-
+                <card shadow v-else class="text-center">
+                  {{
+                    $t("NftToken.nullPrompt")
+                  }}</card>
               </el-tab-pane>
               <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="second">
                 <div

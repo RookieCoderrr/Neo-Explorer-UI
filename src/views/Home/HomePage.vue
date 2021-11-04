@@ -331,7 +331,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      // this.websock = new WebSocket(wsuri);
+      this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
