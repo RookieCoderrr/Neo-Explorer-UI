@@ -87,7 +87,7 @@
           </td>
           <td class="pt-4" style="text-align: center">
             <div class="table-list-item mt-2" style="text-align: center">
-              {{ convertToken(row.item.value, this.decimal) }}
+              {{ convertToken(row.item.value, this.decimal) }} {{this.symbol}}
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
             <div>
@@ -204,6 +204,9 @@
       </el-pagination>
     </div>
   </div>
+  <card shadow v-else class="text-center">{{
+      $t("tokenTx.nullPrompt")
+    }}</card>
 </template>
 <script>
 import axios from "axios";
@@ -220,6 +223,7 @@ export default {
     },
     contractHash: String,
     decimal: Number,
+    symbol:String,
   },
   components: {
     Loading,

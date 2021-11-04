@@ -20,18 +20,30 @@
         <template v-slot:columns>
           <th class="tableHeader"> # </th>
 <!--          <th class="tableHeader">{{ $t("nftToken.name") }}</th>-->
-
+          <th class="tableHeader">{{ $t("nftToken.name") }}</th>
           <th class="tableHeader">{{ $t("nftToken.tokenId") }}</th>
           <!--          <th>Last Transferred</th>-->
           <th class="tableHeader">{{ $t("nftToken.holder") }}
             <el-button type="info" :plain="true" size="small" style="height: 21px;margin-left: 4px" @click="changeFormat(button)">
               {{this.button.buttonName}}</el-button>
           </th>
+          <th class="tableHeader">{{ $t("nftInfo.description") }}</th>
         </template>
 
         <template v-slot:default="row">
           <td>
-            <i class="ni ni-image"></i>
+            <el-image
+                style="width: 100px"
+                :src="row.item.image"
+                :preview-src-list="row.item.imageList">
+              <template #error>
+                <div class="image-slot">
+                </div>
+              </template>
+            </el-image>
+          </td>
+          <td>
+            {{row.item.nftname}}
           </td>
 <!--          <td class="table-list-item">-->
 <!--            {{base64ToString(row.item.tokenid)}}-->
@@ -60,6 +72,9 @@
                 :to="'/accountprofile/'+row.item.address"
             >{{ row.item.address }}
             </router-link>
+          </td>
+          <td>
+            {{row.item.description}}
           </td>
         </template>
       </base-table>
@@ -123,6 +138,8 @@ export default {
       countPage: 0,
       button: { state: true, buttonName: "Hash" },
       windowWidth:window.innerWidth,
+      properties:1,
+
     };
   },
   created() {
@@ -191,7 +208,53 @@ export default {
         console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
-        this.isLoading = false;
+        for (let k =0; k <this.tableData.length; k++){
+          axios({
+            method: "post",
+            url: "/api",
+            data: {
+              jsonrpc: "2.0",
+              id: 1,
+              params: { ContractHash:this.tableData[k]["asset"],TokenId:this.tableData[k]["tokenid"] },
+              method: "GetNep11PropertiesByContractHashTokenId",
+            },
+            headers: {
+              "Content-Type": "application/json",
+              withCredentials: " true",
+              crossDomain: "true",
+            },
+          }).then((res) => {
+            console.log(res)
+            // console.log(this.tableData)
+            console.log(res["data"]["result"]["asset"])
+            console.log(res["data"]["result"]["properties"])
+
+            if (res["data"]["result"]["properties"]===""){
+              this.properties=null
+              this.tableData[k]["nftname"] = "——"
+              this.tableData[k]["image"] = ""
+            } else {
+              this.properties = JSON.parse(res["data"]["result"]["properties"])
+              if("name" in this.properties) {
+                this.tableData[k]["nftname"] = this.properties["name"]
+                console.log(this.tableData[k]["nftname"])
+              }
+              if ("image" in this.properties) {
+                this.tableData[k]["image"] = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
+                this.tableData[k]["imageList"] = [this.tableData[k]["image"]]
+                console.log( this.tableData[k]["image"])
+              }
+              if ("description" in this.properties) {
+                this.tableData[k]["description"] =this.properties["description"]
+
+              }
+            }
+            this.isLoading = false;
+
+          });
+        }
+
+
       });
     },
   },

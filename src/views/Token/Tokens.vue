@@ -73,20 +73,20 @@ export default {
           path: `/tokens/Nep17/1`,
         });
 
-        location.href=`/tokens/Nep17/1`
+
       } else if (name === "Nep11"){
         this.$router.push({
           path: `/tokens/Nep11/1`,
         });
 
-        location.href=`/tokens/Nep11/1`
+
 
       } else {
         this.$router.push({
           path: `/tokens/Neo/1`,
         });
 
-          location.href=`/tokens/Neo/1`
+
 
 
       }

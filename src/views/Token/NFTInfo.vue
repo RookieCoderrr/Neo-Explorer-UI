@@ -21,6 +21,7 @@
 
               <div class="row  mb-1" >
                 <div class="col-md-3" >
+
                   <el-image
                     style="width: 150px"
                     :src="this.image"
@@ -66,6 +67,16 @@
                 <div class="col-md-9 context-black">
                   {{
                     this.token_info["address"]
+                  }}
+                </div>
+              </div>
+              <div class="row info mt-3 mb-1" v-if="this.description!==''">
+                <div class="col-md-3 lable-title">
+                  {{ $t("nftInfo.description") }}
+                </div>
+                <div class="col-md-9 context-black">
+                  {{
+                    this.description
                   }}
                 </div>
               </div>
@@ -137,7 +148,8 @@ export default {
       properties:1,
       nftName:"——",
       image:"",
-      imageList:[]
+      imageList:[],
+      description:"",
 
     };
   },
@@ -237,6 +249,10 @@ export default {
             this.image = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
             console.log(this.image)
             this.imageList.push(this.image)
+          }
+          if ("description" in this.properties) {
+            this.description=this.properties["description"]
+            console.log(this.description)
           }
         }
 

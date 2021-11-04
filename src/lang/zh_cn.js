@@ -52,6 +52,8 @@ const zh = {
     symbol:"代币符号",
     contract:"合约",
     address:"持有人",
+    description:"描述"
+
 
   },
   homePage: {
@@ -166,7 +168,8 @@ const zh = {
     method:"调用方法",
     originSender:"初始调用者",
     callFlags:"调用标志",
-    params:"传入参数"
+    params:"传入参数",
+    eventnull:"这笔交易不包含事件."
   },
   transactionTransfer: {
     contract: "合约",
@@ -178,6 +181,8 @@ const zh = {
     toBalance: "转入账户余额",
     amount: "金额",
     tokenID: "通证ID",
+    nep11null:"这笔交易不包含Nep11转账.",
+    nep17null:"这笔交易不包含Nep17转账."
   },
   transferList: {
     title: "Nep17 交易",

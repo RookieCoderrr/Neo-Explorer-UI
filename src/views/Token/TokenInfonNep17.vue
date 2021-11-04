@@ -134,6 +134,7 @@
                 <tokens-tx-nep17
                   :contractHash="token_id"
                   :decimal="decimal == '' ? 0 : decimal"
+                  :symbol="this.token_info['symbol']"
                 ></tokens-tx-nep17>
               </el-tab-pane>
               <el-tab-pane :label="$t('tokenInfo.topHolders')" name="second">

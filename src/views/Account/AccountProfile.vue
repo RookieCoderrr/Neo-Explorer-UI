@@ -59,7 +59,7 @@
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.type") }}
-                  <el-tooltip  content="Account includes Normal, Candidate, Committee 3 types." placement="top" @click.stop.prevent>
+                  <el-tooltip  :content=this.content placement="top" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
@@ -225,6 +225,18 @@ export default {
   },
   watch: {
     $route: "watchrouter",
+  },
+  computed:{
+    content:function (){
+      if(this.$i18n.locale==='en'){
+        return "Account includes consensus, committee, candidate, normal, 4 types."
+      } else if (this.$i18n.locale==='cn'){
+        return "账户包括 共识结点，委员会结点，候选人结点，普通结点四种类型"
+      } else {
+        return "Le compte contiens 4 types: consensus, comité, candidature, normal"
+      }
+
+    }
   },
   methods: {
     scriptHashToAddress,

@@ -648,6 +648,10 @@ export default {
             this.$router.push({
               path: `/NFTtokeninfo/${value}`,
             });
+          } else {
+            this.$router.push({
+              path: `/contractinfo/${value}`,
+            });
           }
           console.log("2")
         } else {

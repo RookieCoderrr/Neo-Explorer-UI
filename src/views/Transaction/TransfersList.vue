@@ -126,7 +126,7 @@
     </div>
   </div>
   <card shadow v-else class="text-center">
-    This transaction has no NEP17 Transfers.
+    {{ $t("transactionTransfer.nep17null") }}
   </card>
 </template>
 <script>

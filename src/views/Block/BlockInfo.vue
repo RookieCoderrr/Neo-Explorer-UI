@@ -77,7 +77,7 @@
                   <div class="row info mt-3  mb-1">
                     <div class="col-sm-3 lable-title">
                         {{ $t("blockinfo.speaker") }}
-                      <el-tooltip  content="Speaker is the node who invokes this block." placement="right" @click.stop.prevent>
+                      <el-tooltip  :content=this.content placement="right" @click.stop.prevent>
                         <i class="el-icon-question"/>
                       </el-tooltip>
                       <el-button type="info" :plain="true" size="small" style="height: 21px; margin-left:6px" @click="changeFormat(button)">
@@ -257,6 +257,18 @@ export default {
     window.scroll(0, 0);
     this.getBlock(this.BlockHash);
     // console.log(this.BlockHash)
+  },
+  computed:{
+    content:function (){
+      if(this.$i18n.locale==="en"){
+        return "Speaker is the node who invokes this block"
+      }else if (this.$i18n.locale==="cn") {
+        return "议长结点是提出该区块的结点"
+      } else {
+        return "Speaker est le nœud qui invoque ce bloc"
+      }
+    }
+
   },
   watch: {
     $route: "watchrouter",

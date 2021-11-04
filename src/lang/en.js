@@ -54,6 +54,7 @@ const en = {
     symbol:"Symbol",
     contract:"Contract Hash",
     address:"Holder",
+    description:"Description"
 
   },
   homePage: {
@@ -168,7 +169,8 @@ const en = {
     method:"Method",
     originSender:"OriginSender",
     callFlags:"CallFlags",
-    params:"Params"
+    params:"Params",
+    eventnull:"This transaction has no events."
   },
   transactionTransfer: {
     contract: "contract",
@@ -180,6 +182,8 @@ const en = {
     toBalance: "to balance",
     amount: "amount",
     tokenID: "tokenID",
+    nep11null:"This transaction has no NEP11 Transfers.",
+    nep17null:"这笔交易不包含Nep17转账."
   },
   transferList: {
     title: "Nep17 Transfers",

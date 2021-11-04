@@ -233,7 +233,6 @@ export default {
       blockList:[],
       transactionList:[],
       filter:0,
-      filterName: "All Filter",
     };
   },
 
@@ -258,6 +257,63 @@ export default {
       render(nodes, this.$i18n.locale );
     }
     }
+  },
+  computed:{
+    filterName:function (){
+      if(this.$i18n.locale==="en"){
+        switch (this.filter) {
+          case 0:
+            return en.allFilter
+          case 1:
+            return en.blockFilter
+          case 2:
+            return en.transactionFilter
+          case 3:
+            return en.contractFilter
+          case 4:
+            return en.tokenFilter
+          case 5:
+            return en.addressFilter
+          default:
+            return en.allFilter
+        }
+      }else if (this.$i18n.locale==="cn") {
+        switch (this.filter) {
+          case 0:
+            return zh.allFilter
+          case 1:
+            return zh.blockFilter
+          case 2:
+            return zh.transactionFilter
+          case 3:
+            return zh.contractFilter
+          case 4:
+            return zh.tokenFilter
+          case 5:
+            return zh.addressFilter
+          default:
+            return zh.allFilter
+        }
+      } else {
+        switch (this.filter) {
+          case 0:
+            return fr.allFilter
+          case 1:
+            return fr.blockFilter
+          case 2:
+            return fr.transactionFilter
+          case 3:
+            return fr.contractFilter
+          case 4:
+            return fr.tokenFilter
+          case 5:
+            return fr.addressFilter
+          default:
+            return fr.allFilter
+        }
+      }
+    }
+
   },
   unmounted() {
     //页面销毁时关闭长连接
@@ -289,7 +345,7 @@ export default {
       this.initWebSocket();
     },
     websocketonmessage(e){ //数据接收
-      console.log(e.data)
+      // console.log(e.data)
       if( e.data != 'hello neo3fura'){
       try{
       const redata = JSON.parse(e.data);
@@ -772,6 +828,10 @@ export default {
                   this.$router.push({
                     path: `/NFTtokeninfo/${value}`,
                   });
+                } else {
+                  this.$router.push({
+                    path: `/contractinfo/${value}`,
+                  });
                 }
               }  else {
                 this.$router.push({
@@ -956,6 +1016,10 @@ export default {
             }else if (res["data"]["result"]["type"] === "NEP11"){
               this.$router.push({
                 path: `/NFTtokeninfo/${value}`,
+              });
+            } else {
+              this.$router.push({
+                path: `/contractinfo/${value}`,
               });
             }
           } else {

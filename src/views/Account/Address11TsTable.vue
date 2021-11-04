@@ -104,7 +104,7 @@
           </td>
           <td class="pt-4" style="text-align: center">
             <div class="table-list-item mt-2" style="text-align: center">
-              {{ row.item.value }}
+              {{ row.item.value }} {{row.item.symbol}}
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
             <div class="mt-2" style="text-align: center">
@@ -353,6 +353,7 @@ export default {
             },
           }).then((res) => {
             this.tableData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            this.tableData[k]["symbol"] = res["data"]["result"]["symbol"];
           });
         }
       });

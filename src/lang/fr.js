@@ -54,6 +54,7 @@ const fr = {
     symbol:"Symbol",
     contract:"Contrat Hash",
     address:"Porteur",
+    description:"Description"
 
   },
   homePage: {
@@ -160,7 +161,7 @@ const fr = {
     eventName:"Nom d'événement",
     contract:"Contrat",
     State:"Résultat",
-    remind:" Ce transaction n'a pas de événement",
+    remind:" Ce transaction n'a pas de événement.",
     nep11: "Nep11 Transferts",
     nep17: "Nep17 Transferts",
     notification:"Évenement",
@@ -168,7 +169,8 @@ const fr = {
     method:"Méthode",
     originSender:"Envoyeur original",
     callFlags:"Drapeau d'appel",
-    params:"Paramètre"
+    params:"Paramètre",
+    eventnull:"Ce transaction n'a pas de événement."
   },
   transactionTransfer: {
     contract: "contrat",
@@ -180,6 +182,8 @@ const fr = {
     toBalance: "jetons de récepteur",
     amount: "somme",
     tokenID: "ID Jeton",
+    nep11null:"Il n'y a pas de Nep11 transfert.",
+    nep17null:"Il n'y a pas de Nep17 transfert."
   },
   transferList: {
     title: "Nep17 Transferts",

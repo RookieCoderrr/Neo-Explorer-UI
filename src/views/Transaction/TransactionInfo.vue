@@ -148,7 +148,7 @@
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.vmState") }}
-                  <el-tooltip  content="HALT means this transaction has no error, FAULT means this transcation has errors." placement="right" @click.stop.prevent>
+                  <el-tooltip  :content="this.vmStateTooltip" placement="right" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
@@ -169,7 +169,7 @@
               <div class="row  info mt-3 mb-4" >
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
-                  <el-tooltip  content="NeoVm throws an exception when this transcation has errors." placement="right" @click.stop.prevent>
+                  <el-tooltip  :content="this.exceptionToolTip" placement="right" @click.stop.prevent>
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
@@ -191,13 +191,13 @@
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
             >
-              <el-tab-pane label="Nep17Transfers" name="first">
+              <el-tab-pane :label="$t('transactionInfo.nep17')" name="first">
                 <transfers-list
                     :title="$t('transactionInfo.nep17')"
                     :txhash="this.txhash"
                 ></transfers-list>
               </el-tab-pane>
-              <el-tab-pane label="Nep11Transfers" name="second">
+              <el-tab-pane :label="$t('transactionInfo.nep11')" name="second">
                 <nft-table
                     :title="$t('transactionInfo.nep11')"
                     :txhash="this.txhash"
@@ -326,7 +326,7 @@
                 </div>
 
                 <card shadow v-else class="text-center">
-                  This transaction has no events.
+                  {{ $t("transactionInfo.eventnull") }}
                 </card>
               </el-tab-pane>
               <el-tab-pane
@@ -601,6 +601,27 @@ export default {
     this.getTransactionByTransactionHash(this.$route.params.txhash);
     this.getScCallByTransactionHash(this.$route.params.txhash);
     this.getApplicationLogByTransactionHash(this.$route.params.txhash);
+  },
+  computed:{
+    vmStateTooltip:function (){
+      if(this.$i18n.locale==="en"){
+        return "HALT means this transaction has no error, FAULT means this transcation has errors."
+      }else if (this.$i18n.locale==="cn") {
+        return "HALT 表示这笔交易没有错误，FAULT表示这笔交易有错误"
+      } else {
+        return "HALT signifie que cette transaction n'a pas d'erreur, FAULT signifie que cette transaction a des erreurs."
+      }
+    },
+    exceptionToolTip:function (){
+      if(this.$i18n.locale==="en"){
+        return "NeoVm throws an exception when this transcation has errors."
+      }else if (this.$i18n.locale==="cn") {
+        return "当这笔交易出现出现错误时，NeoVm虚拟机会抛出异常"
+      } else {
+        return "NeoVm lève une exception en cas d'erreur"
+      }
+    },
+
   },
   watch: {
     $route: "watchrouter",

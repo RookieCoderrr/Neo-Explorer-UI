@@ -21,7 +21,7 @@
                     Token</el-button>
                 </div>
                 <div v-else>
-                  <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNftToken(this.contract_id)">
+                  <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNep17Token(this.contract_id)">
                     Token</el-button>
                 </div>
               </div>
@@ -90,7 +90,7 @@
                 <div class="row info mt-md-3  mb-1">
                   <div class="col-md-3 lable-title">
                     {{ $t("contract.update") }}
-                    <el-tooltip  content="This attribute shows the number of times this contract has been updated and the contract info displayed here is in the newest version." placement="top" @click.stop.prevent>
+                    <el-tooltip  :content="this.updateCountToolTip" placement="top" @click.stop.prevent>
                       <i class="el-icon-question"/>
                     </el-tooltip>
                   </div>
@@ -383,6 +383,18 @@ export default {
   watch: {
     $route: "watchrouter",
   },
+  computed:{
+    updateCountToolTip:function (){
+      if(this.$i18n.locale==="en"){
+        return "Contract hash will not change when the contract is updated, and this page only displays the latest version of the contract"
+      }else if (this.$i18n.locale==="cn") {
+        return "更新合约后，合约哈希不会变化，此界面只展示最新版本的合约"
+      } else {
+        return "Le hash du contrat ne changera pas lorsque le contrat est mis à jour, et cette page n'affiche que la dernière version du contrat"
+      }
+    },
+
+  },
   methods: {
     addressToScriptHash,
     convertPreciseTime,
@@ -479,7 +491,13 @@ export default {
         if(raw === null){
           this.standard =3
         }else{
-          this.standard = raw["type"] === "NEP17" ? 1 : 2;
+          if (raw["type"] === "NEP17") {
+            this.standard=1
+          } else if (raw["type"] === "NEP11") {
+            this.standard=2
+          } else {
+            this.standard=0
+          }
         }
         // console.log(this.standard)
 
