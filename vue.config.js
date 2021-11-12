@@ -25,8 +25,8 @@ module.exports = {
       "/api": {
         changeOrigin: true,
         // target: m "http://127.0.0.1:1926",
-        target: "https://testneofura.ngd.network:444",
-        // target:"https://neofura.ngd.network",
+        // target: "https://testneofura.ngd.network:444",
+        target:"https://neofura.ngd.network",
         // target: "http://106.14.204.151:1926",
         // target: "http://192.168.1.89:1926"
       },

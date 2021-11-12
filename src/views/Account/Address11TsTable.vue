@@ -58,10 +58,13 @@
               {{ row.item.tokenname }}
             </div>
           </td>
-          <td class="table-list-item">
-            <div >
-              {{ row.item.tokenId}}
-            </div>
+
+          <td  class="table-list-item">
+            <router-link
+                class="  mb-0 table-list-item-blue"
+                style="cursor: pointer;"
+                :to="'/NFTinfo/' + row.item.contract+'/'+this.account_address+'/'+base64ToHash(row.item.tokenId)"
+            >{{ row.item.tokenId }}</router-link>
           </td>
           <td class="table-list-item">
             <div>
@@ -246,6 +249,7 @@ import {
   scriptHashToAddress,
 } from "../../store/util";
 import net from "../../store/store";
+import Neon from "@cityofzion/neon-js";
 
 export default {
   name: "address11-ts-table",
@@ -303,6 +307,11 @@ export default {
       this.$router.push({
         path: `/tokeninfo/${ctrHash}`,
       });
+    },
+    base64ToHash(base) {
+      var res = Neon.u.base642hex(base);
+
+      return res;
     },
 
     GetNep11TransferByAddress(skip) {

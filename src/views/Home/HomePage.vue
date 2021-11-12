@@ -321,7 +321,7 @@ export default {
   },
   methods: {
     initWebSocket(){ //初始化weosocket
-      const wsuri = "wss://testneofura.ngd.network:2026/home";
+      const wsuri = "wss://testneofura.ngd.network:3036/home";
       const wsuriMain = "wss://neofura.ngd.network:2027/home";
       console.log(`${location.hostname}`)
       if (`${location.hostname}`=== "explorer.onegate.space"){
@@ -331,7 +331,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      this.websock = new WebSocket(wsuri);
+      // this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;

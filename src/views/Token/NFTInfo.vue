@@ -223,7 +223,7 @@ export default {
         data: {
           jsonrpc: "2.0",
           id: 1,
-          params: { ContractHash:contract_hash,TokenId:token_id },
+          params: { ContractHash:contract_hash,tokenIds:[token_id] },
           method: "GetNep11PropertiesByContractHashTokenId",
         },
         headers: {
@@ -235,12 +235,13 @@ export default {
        console.log(res)
         // console.log(this.tableData)
         this.isLoading = false;
-        console.log(res["data"]["result"]["asset"])
-        console.log(res["data"]["result"]["properties"])
-        if (res["data"]["result"]["properties"]===""){
+        var value = res["data"]["result"]["result"][0]
+        console.log(value["asset"])
+        console.log(value["properties"])
+        if (value["properties"]===""){
           this.properties=null
         } else {
-          this.properties = JSON.parse(res["data"]["result"]["properties"])
+          this.properties = JSON.parse(value["properties"])
           if("name" in this.properties) {
             this.nftName = this.properties["name"]
             console.log(this.nftName)
