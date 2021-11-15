@@ -29,6 +29,12 @@
                 <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
               </el-select>
             </el-form-item>
+            <el-form-item label="Compile Command" prop="command">
+              <el-select  class="contractInput" v-model="form.command" placeholder="please select your compile command" style="width: 400px">
+              <el-option label ="nccs" value="nccs"></el-option>
+              <el-option label ="dotnet build (nccs --debug --no-optimize)" value="nccs --no-optimize"></el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label="Source code" required="true">
               <el-upload
                   ref="upload"
@@ -94,10 +100,13 @@ export default {
       form:{
         hash:this.$route.params.contractHash,
         version:'',
+        command:''
       },
       rules:{
         hash:[{required:true,message:"Please input contract hash",trigger:"blur"}],
         version:[{required:true,message:"Please select compiler version",trigger:"blur"}],
+        command:[{required:true,message:"Please select compile command",trigger:"blur"}],
+
       },
       isContractPattern: /^((0x)?)([0-9a-f]{40})$/,
 
@@ -125,6 +134,7 @@ export default {
       }
 
       formData.append('Version', this.form.version);
+      formData.append('CompileCommand',this.form.command)
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
