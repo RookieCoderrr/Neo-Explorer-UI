@@ -335,7 +335,7 @@ export default {
           },
         })
             .then((res) => {
-              this.tableData[k]["Nep17Transfers"] = res["data"]["result"]["total counts"];
+              this.tableData[k]["Nep17Transfers"] = res["data"]["result"];
             })
             .catch((err) => {
               console.log("Get nep 17 transfers error: ", err);
@@ -363,7 +363,7 @@ export default {
           },
         })
             .then((res) => {
-              this.tableData[k]["Nep11Transfers"] = res["data"]["result"]["total counts"];
+              this.tableData[k]["Nep11Transfers"] = res["data"]["result"];
             })
             .catch((err) => {
               console.log("Get nep 11 transfers error: ", err);
