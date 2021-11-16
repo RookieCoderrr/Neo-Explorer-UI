@@ -389,7 +389,7 @@ export default {
         },
       })
         .then((res) => {
-          this.numOfnep17Transfers = res["data"]["result"]["total counts"];
+          this.numOfnep17Transfers = res["data"]["result"];
         })
         .catch((err) => {
           console.log("Get nep 17 transfers error: ", err);
@@ -414,7 +414,7 @@ export default {
         },
       })
         .then((res) => {
-          this.numOfnep11Transfers = res["data"]["result"]["total counts"];
+          this.numOfnep11Transfers = res["data"]["result"];
         })
         .catch((err) => {
           console.log("Get nep 11 transfers error: ", err);
