@@ -34,7 +34,10 @@
                   </div>
                   <div class="col-md-9 context-black">
                     {{ this.contract_info["name"] }}
-                    <i v-if="this.nef['compiler']==='neo-core-v3.0'||this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
+                    <el-tag v-if="this.nef['compiler']==='neo-core-v3.0'" type="success" size="small" >
+                      Native
+                    </el-tag>
+                    <i v-else-if="this.nef['compiler']!=='neo-core-v3.0'&&this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
                        Verified
                     </i>
                     <i v-else-if="this.isVerified===false" class="el-icon-circle-close" style="color:red ;font-weight: bold">
@@ -301,7 +304,7 @@
                       </el-collapse>
                     </div>
                 </el-tab-pane>
-                <el-tab-pane :label="$t('contract.sourceCode')" name="forth">
+                <el-tab-pane :label="$t('contract.sourceCode')" name="forth" v-if="this.nef['compiler']!=='neo-core-v3.0'">
                   <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">
                     This is a native contract, and the source code is registered on the blockchain.
                   </card>
