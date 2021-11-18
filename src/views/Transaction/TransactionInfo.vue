@@ -335,7 +335,7 @@
               >
                 <div
                     class="systemCallDiv"
-                    v-if="this.tabledataCall && this.tabledataCall['length'] != 0"
+                    v-if="this.tabledataCall && this.tabledataCall.length !==0"
                 >
                   <div v-if="this.countSys === 0">
                     <card
@@ -442,6 +442,9 @@
                     </card>
                   </div>
                 </div>
+                <card shadow v-else class="text-center">
+                  {{ $t("transactionInfo.syscallnull") }}
+                </card>
               </el-tab-pane>
             </el-tabs>
 
@@ -847,14 +850,16 @@ export default {
         },
       }).then((res) => {
         this.isLoading = false;
-        this.tabledataCall = res["data"]["result"];
-        // console.log(this.tabledataCall["totalCount"], "?????");
-        for (var i = 0; i < this.tabledataCall["totalCount"]; i++) {
-          this.getContractsSys(
-            this.tabledataCall["result"][i]["contractHash"],
-            this.tabledataCall["result"][i]["method"]
-          );
+        if (res["data"]["result"]["totalCount"]!==0) {
+          this.tabledataCall = res["data"]["result"];
+          for (var i = 0; i < this.tabledataCall["totalCount"]; i++) {
+            this.getContractsSys(
+                this.tabledataCall["result"][i]["contractHash"],
+                this.tabledataCall["result"][i]["method"]
+            );
+          }
         }
+
       });
     },
     getContractsSys(ctr_hash, method) {

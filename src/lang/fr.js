@@ -173,7 +173,8 @@ const fr = {
     originSender:"Envoyeur original",
     callFlags:"Drapeau d'appel",
     params:"Paramètre",
-    eventnull:"Ce transaction n'a pas de événement."
+    eventnull:"Ce transaction n'a pas de événement.",
+    syscallnull:"Ce transaction n'a pas d'appel de système."
   },
   transactionTransfer: {
     contract: "Contrat",

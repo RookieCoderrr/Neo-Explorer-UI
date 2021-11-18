@@ -173,7 +173,8 @@ const en = {
     originSender:"OriginSender",
     callFlags:"CallFlags",
     params:"Params",
-    eventnull:"This transaction has no events."
+    eventnull:"This transaction has no events.",
+    syscallnull:"This transaction has no systemCall.",
   },
   transactionTransfer: {
     contract: "Contract",

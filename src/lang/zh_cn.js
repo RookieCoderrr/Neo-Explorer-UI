@@ -172,7 +172,8 @@ const zh = {
     originSender:"初始调用者",
     callFlags:"调用标志",
     params:"传入参数",
-    eventnull:"这笔交易不包含事件."
+    eventnull:"这笔交易不包含事件.",
+    syscallnull:"这笔交易不包含合约调用.",
   },
   transactionTransfer: {
     contract: "合约",
