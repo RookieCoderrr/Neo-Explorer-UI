@@ -2,7 +2,7 @@
   <div>
     <div
       class="container-fluid mt--8"
-      style="background-color: rgb(250, 250, 250)"
+      style="background-color: #f7f8fa"
     >
       <div class="row">
         <div class="col">
@@ -90,7 +90,7 @@
               style="
                 width: 80%;
                 margin-left: 10%;
-                background-color: rgb(250, 250, 250);
+                background-color: #f7f8fa;
               "
             >
               <el-tab-pane :label="$t('tokenInfo.transactions')" name="first">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--8" style="background-color: #f7f8fa">
       <div class="row">
         <div class="col">
             <div class="top">
@@ -132,7 +132,7 @@
                 <div class="row mt-3"></div>
                 <div class="row mt-3"></div>
 
-              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: rgb(250,250,250)" >
+              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: #f7f8fa" >
                 <el-tab-pane :label="$t('contract.scCallTitle')"  name="first">
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>

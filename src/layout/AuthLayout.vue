@@ -1,5 +1,5 @@
 <template>
-  <div class="content " style="background-color: #fafafa!important;">
+  <div class="content " style="background-color: white!important;">
     <!-- Navbar -->
     <base-nav
       class="navbar-horizontal"
@@ -307,11 +307,11 @@
 
     <!-- Header -->
 
-    <div v-if="$route.meta.HomePage" style="background: #fafafa"></div>
-    <div v-else class="header py-7 py-lg-6" style="background: #fafafa"></div>
+    <div v-if="$route.meta.HomePage" style="background: #f7f8fa"></div>
+    <div v-else class="header py-7 py-lg-6" style="background: #f7f8fa"></div>
 
     <router-view></router-view>
-    <div v-if="$route.meta.showBot ===true" style="border-top: 1px solid rgba(40, 43, 52, 0.1);;background-color: rgb(250,250,250);height: 300px">
+    <div v-if="$route.meta.showBot ===true" style="border-top: 1px solid white;;background-color: #fafafa;min-height: 300px;">
       <div class="mainHome"  >
       <div class="row mt-5 mb-3" >
         <div class="col-lg-5">
@@ -902,7 +902,7 @@ export default {
   height: 30%;
   /*top: 268px;*/
   margin:0 auto;
-  background: rgb(250,250,250);
+  background: #fafafa;
   border-radius: 4px;
 }
 .custom-icon {

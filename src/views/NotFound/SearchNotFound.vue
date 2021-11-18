@@ -1,5 +1,5 @@
 <template>
-  <div class="page-content" style="background-color: rgb(250,250,250)">
+  <div class="page-content" style="background-color: #f7f8fa">
 
       <div class="searchNotFound">
         <div class="row">
@@ -61,7 +61,7 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  background: rgb(250,250,250);
+  background: #f7f8fa;
   border-radius: 4px;
   color: #282828;
   width: 100%;

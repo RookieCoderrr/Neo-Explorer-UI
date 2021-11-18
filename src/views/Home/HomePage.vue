@@ -1,5 +1,5 @@
 <template>
-  <div class="home" style="background: rgb(250,250,250)" >
+  <div class="home" style="background: #f7f8fa" >
     <div class="Intro">
       <div class="container-fluid mt--5" >
         <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
@@ -54,7 +54,7 @@
     <div class="row mt-5"></div>
 
     <div class="main">
-      <div class="container-fluid mt--8" style="padding-bottom: 50px;background: rgb(250,250,250)">
+      <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #f7f8fa">
         <div  class="col-md-2 font-weight-bold mb-0 "
               style="font-size: 20px ;color:black;width: 80%">
           <span>{{$t('overview')}}</span>
@@ -702,6 +702,7 @@ export default {
         },
       }).then((res) => {
         this.transactionList = res["data"]["result"]["result"];
+
       });
     },
     search(num) {
@@ -1214,7 +1215,7 @@ export default {
 .Intro {
   width: 85%;
   margin:0 auto;
-  background: rgb(250,250,250);
+  background: #f7f8fa;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -1344,7 +1345,7 @@ export default {
   height: 30%;
   /*top: 268px;*/
   margin:0 auto;
-  background: rgb(250,250,250);
+  background-color: #f7f8fa;
   border-radius: 4px;
 }
 .fontsize{

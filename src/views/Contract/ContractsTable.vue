@@ -101,7 +101,7 @@
             <router-link
               class="table-list-item-blue mb-0 "
               v-else
-              style="cursor: pointer;color: "
+              style="cursor: pointer;"
               :to="
                 '/accountprofile/' +
                 addressToScriptHash(row.item.Transaction[0]['sender'])

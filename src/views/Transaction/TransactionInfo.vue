@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid mt--8" style="background-color: rgb(250,250,250)">
+    <div class="container-fluid mt--8" style="background-color: #f7f8fa">
       <div class="row">
         <div class="col">
           <div class="top">
@@ -189,7 +189,7 @@
             <div class="row mt-4 mb-3"></div>
             <el-tabs
                 v-model="activeName"
-                style="width: 80%; margin-left: 10%; background-color: rgb(250,250,250)"
+                style="width: 80%; margin-left: 10%; background-color: #f7f8fa"
             >
               <el-tab-pane :label="$t('transactionInfo.nep17')" name="first">
                 <transfers-list

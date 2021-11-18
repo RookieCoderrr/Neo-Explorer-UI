@@ -203,9 +203,9 @@ export default {
           ]
         };
         var option2 = {
-          color:['#08BEA0','#08BEA0'],
+          color:['#0060FF99','#0060FF99'],
           title: [{
-            left: '6%',
+            left: 'center',
             text: 'Daily Transaction',
             top:'4%',
             textStyle:{
@@ -220,8 +220,8 @@ export default {
             icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
-            top:'4%',
-            right:5,
+            top:'12%',
+            left:'center',
             orient: 'vertical',
             textStyle:{
               color: '#4E5969',
@@ -266,7 +266,8 @@ export default {
           grid : {
             left:'6%',
             containLabel: true,
-            bottom:'6%'
+            bottom:'6%',
+            top:'25%'
           },
           series: [{
             name: 'Recent 14 days',
@@ -315,18 +316,18 @@ export default {
           if(windowWidth < 552) {
             myTransactionChart.setOption({
               title: [{
-                left: '6%',
+                left: 'center',
                 text: 'Daily Transaction',
-                top:'2%',
+                top:'4%',
               }],
             })
           }
           if(windowWidth > 552) {
             myTransactionChart.setOption({
               title: [{
-                left: '6%',
+                left: 'center',
                 text: 'Daily Transaction',
-                top:'2%',
+                top:'4%',
               }],
             })
           }
