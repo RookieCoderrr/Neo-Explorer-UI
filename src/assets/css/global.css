@@ -166,21 +166,35 @@
 }
 
 .seeMoreButton {
-    background-color: #FFFFFF;
-    color: #000000;
-    border-color: #FFFFFF;
+    cursor: pointer;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    align-items: center;
+    text-align: right;
+
+    /* blue500 */
+
+    color: #165DFF;
 }
 
 .tableHeader {
-    background:rgb(242,242,242)!important;
-    font-family: Inter,sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
-    /* identical to box height */
-    color: rgba(0, 0, 0, 0.6);
-    mix-blend-mode: normal;
+    background-color: #FFFFFF!important;
+    font-family: Inter!important;
+    font-style: normal!important;
+    font-weight: normal!important;
+    font-size: 12px!important;
+    line-height: 18px!important;
+    text-transform:none!important;
+    border-top:none!important;
+    /* identical to box height, or 129% */
+
+
+    /* grey500 */
+
+    color: #86909C;
 }
 
 .block-page-card {
@@ -259,7 +273,13 @@
     width: 98%;
     margin-left: 1%;
     margin-right: 1%;
-    margin-top: 3%;
+    margin-top: 1%;
+}
+.hometablelist {
+    width:96%;
+    margin-left: 2%;
+    margin-right: 2%;
+
 }
 .InfoTable{
     margin-top: 5px!important;

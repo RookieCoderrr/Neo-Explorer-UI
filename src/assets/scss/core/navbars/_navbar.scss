@@ -13,12 +13,16 @@
             height: 70px;
             text-align: center;
             margin-left: .25rem;
-            color:rgb(156, 163, 168);
             font-family: Inter;
             font-style: normal;
-            font-weight: 350;
+            font-weight: 300;
             font-size: 14px;
-            line-height: 35px;
+            line-height: 38px;
+            /* identical to box height */
+
+
+            color: #4E5969;
+
             mix-blend-mode: normal;
 
             &:hover{
@@ -28,8 +32,8 @@
         }
         .active > .nav-link,
         .nav-link.active {
-            color: black;
-            border-bottom:2px solid black ;
+            color: #165DFF;
+            border-bottom:2px solid #165DFF ;
         }
     }
 

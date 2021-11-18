@@ -3,13 +3,12 @@
     <!-- Navbar -->
     <base-nav
       class="navbar-horizontal"
-      containerClasses="px-4 container"
       expand="false"
 
     >
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="cursor: pointer"
              @click="backHome()"
-             class="ml-2 logo" width="99pt" height="22pt" viewBox="0 0 99 22" version="1.1">
+             class=" logo" width="99pt" height="22pt" viewBox="0 0 99 22" version="1.1">
           <g id="surface1">
             <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 28.433594 7.222656 C 29.46875 7.222656 30.269531 7.4375 30.835938 7.859375 C 31.402344 8.289062 31.820312 8.886719 32.023438 9.574219 C 32.257812 10.351562 32.371094 11.15625 32.363281 11.96875 L 32.363281 18.996094 L 30.117188 18.996094 L 30.117188 12.125 C 30.125 11.617188 30.050781 11.113281 29.898438 10.628906 C 29.765625 10.214844 29.507812 9.851562 29.15625 9.597656 C 28.71875 9.328125 28.203125 9.21875 27.695312 9.289062 C 27.15625 9.28125 26.621094 9.40625 26.148438 9.664062 C 25.714844 9.894531 25.347656 10.230469 25.078125 10.640625 C 24.816406 11.042969 24.679688 11.519531 24.683594 12 L 24.683594 18.996094 L 22.4375 18.996094 L 22.4375 7.464844 L 24.683594 7.464844 L 24.683594 9.289062 C 25.082031 8.699219 25.605469 8.207031 26.210938 7.847656 C 26.878906 7.433594 27.652344 7.214844 28.433594 7.222656 Z M 28.433594 7.222656 "/>
             <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 45.03125 17.480469 L 45.007812 17.480469 C 43.773438 18.578125 42.1875 19.195312 40.539062 19.214844 C 39.441406 19.238281 38.355469 18.980469 37.386719 18.457031 C 36.503906 17.972656 35.769531 17.25 35.269531 16.371094 C 34.75 15.449219 34.488281 14.410156 34.507812 13.351562 C 34.472656 12.195312 34.75 11.050781 35.3125 10.042969 C 35.824219 9.160156 36.5625 8.429688 37.453125 7.9375 C 38.339844 7.445312 39.335938 7.191406 40.351562 7.199219 C 41.269531 7.1875 42.179688 7.433594 42.96875 7.910156 C 43.757812 8.386719 44.40625 9.066406 44.851562 9.875 C 45.335938 10.769531 45.578125 11.777344 45.554688 12.796875 L 45.535156 13.765625 L 36.746094 13.765625 C 36.832031 14.722656 37.289062 15.613281 38.019531 16.234375 C 38.792969 16.859375 39.765625 17.183594 40.757812 17.148438 C 41.429688 17.175781 42.101562 17.023438 42.695312 16.699219 C 43.128906 16.441406 43.539062 16.152344 43.917969 15.828125 Z M 40.34375 9.289062 C 39.550781 9.269531 38.773438 9.476562 38.097656 9.890625 C 37.457031 10.292969 37.035156 10.988281 36.832031 11.96875 L 43.242188 11.96875 L 43.242188 11.824219 C 43.210938 11.34375 43.042969 10.882812 42.757812 10.496094 C 42.476562 10.117188 42.113281 9.8125 41.695312 9.601562 C 41.273438 9.390625 40.8125 9.285156 40.347656 9.289062 Z M 40.34375 9.289062 "/>
@@ -83,44 +82,145 @@
             <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 10.351562 19.496094 L 5.882812 17.632812 L 6.796875 15.421875 L 11.265625 17.28125 Z M 6.589844 17.34375 L 10.058594 18.796875 L 10.5625 17.570312 L 7.085938 16.117188 Z M 10 18.609375 L 6.765625 17.277344 L 7.164062 16.304688 L 10.386719 17.648438 Z M 10 18.609375 "/>
           </g>
       </svg>
-      <ul class="navbar-nav menu ml-lg-auto">
+      <div class="searchDiv " v-if="$route.meta.showSearch">
+        <input
+            type="text"
+            class="over-ellipsis-Auth"
+            :placeholder="$t('search.placeholder')"
+            v-model="searchVal"
+            autocomplete="off"
+            @keyup.enter="search()"
+        /><button class="buttonres" @click="search()" style="border: white">
+        <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
+              fill="lightgrey"
+          />
+        </svg>
+      </button>
+      </div>
+      <div class="blanc" v-if="!$route.meta.showSearch" style="margin-left: auto;margin-right: 0;">
+
+      </div>
+      <ul class="navbar-nav mr-4 menu homeTag" >
         <li class="nav-item-1">
           <router-link class="nav-link" to="/homepage">
             {{ $t("authLayout.home") }}
           </router-link>
         </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/blocks/1">
-            {{ $t("authLayout.blocks") }}
-          </router-link>
-        </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/transactions/1">
-            {{ $t("authLayout.txs") }}
-          </router-link>
-        </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/tokens/Nep17/1">
-            {{ $t("authLayout.tokens") }}
-          </router-link>
-        </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/contracts/1">
-            {{ $t("authLayout.contracts") }}
-          </router-link>
-        </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/account/1">
-            {{ $t("authLayout.address") }}
-          </router-link>
-        </li>
-        <li class="nav-item-1">
-          <router-link class="nav-link" to="/candidates/1">
-            {{ $t("authLayout.committee") }}
-          </router-link>
-        </li>
+<!--        <li class="nav-item-1">-->
+<!--          <el-dropdown class="nav-link">-->
+<!--          <span class=" el-dropdown-link">-->
+<!--            Blockchain-->
+<!--            <i class="custom-icon el-icon-arrow-down" size="1px"></i>-->
+<!--          </span>-->
+<!--            <template #dropdown>-->
+<!--              <el-dropdown-menu>-->
+<!--                <el-dropdown-item >-->
+<!--                  <router-link  to="/blocks/1">-->
+<!--                    {{ $t("authLayout.blocks") }}-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
+<!--                <el-dropdown-item>-->
+<!--                  <router-link  to="/transactions/1">-->
+<!--                    {{ $t("authLayout.txs") }}-->
+<!--                  </router-link>-->
+<!--                </el-dropdown-item>-->
+<!--              </el-dropdown-menu>-->
+<!--            </template>-->
+<!--          </el-dropdown>-->
+<!--        </li>-->
+<!--        <li class="nav-item-1">-->
+<!--          <router-link class="nav-link" to="/transactions/1">-->
+<!--            {{ $t("authLayout.txs") }}-->
+<!--          </router-link>-->
+<!--        </li>-->
+<!--        <li class="nav-item-1">-->
+<!--          <router-link class="nav-link" to="/tokens/Nep17/1">-->
+<!--            {{ $t("authLayout.tokens") }}-->
+<!--          </router-link>-->
+<!--        </li>-->
+<!--        <li class="nav-item-1">-->
+<!--          <router-link class="nav-link" to="/contracts/1">-->
+<!--            {{ $t("authLayout.contracts") }}-->
+<!--          </router-link>-->
+<!--        </li>-->
+<!--        <li class="nav-item-1">-->
+<!--          <router-link class="nav-link" to="/account/1">-->
+<!--            {{ $t("authLayout.address") }}-->
+<!--          </router-link>-->
+<!--        </li>-->
+<!--        <li class="nav-item-1">-->
+<!--          <router-link class="nav-link" to="/candidates/1">-->
+<!--            {{ $t("authLayout.committee") }}-->
+<!--          </router-link>-->
+<!--        </li>-->
 
       </ul>
+      <el-dropdown class="mr-4" >
+          <span class=" el-dropdown-link droptitle drophide"  :style="handleStyle(1)">
+            {{ $t("authLayout.blockchain") }}
+           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+</svg>
+          </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="toBlock()">
+                {{ $t("authLayout.blocks") }}
+            </el-dropdown-item>
+            <el-dropdown-item @click="toTransaction()" >
+              {{ $t("authLayout.txs") }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <el-dropdown class="mr-4">
+          <span class=" el-dropdown-link droptitle drophide" :style="handleStyle(2)">
+            {{ $t("authLayout.tokenss") }}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+</svg>
+
+          </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="toAsset()">
+                {{ $t("authLayout.tokens") }}
+            </el-dropdown-item>
+            <el-dropdown-item @click="toContract()">
+                {{ $t("authLayout.contracts") }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <el-dropdown class="mr-3">
+          <span class=" el-dropdown-link droptitle drophide" :style="handleStyle(3)">
+            {{ $t("authLayout.addresses") }}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+</svg>
+
+          </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item  @click="toAddress()">
+                {{ $t("authLayout.address") }}
+            </el-dropdown-item>
+            <el-dropdown-item @click="toCandidate()">
+                {{ $t("authLayout.committee") }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
       <div class="mobileMenu "  style="display: none">
 
         <base-dropdown>
@@ -166,77 +266,43 @@
           </li>
         </base-dropdown>
       </div>
-      <div class="drop ml-2">
-        <base-dropdown>
-          <template v-slot:title>
-            <base-button type="default" class="btn btn-sm">
-              {{ this.lang }}
-            </base-button>
+      <el-divider class="mr-3" direction="vertical"></el-divider>
+
+      <div class=" mr-2 mb-1 drophide" v-if="$route.meta.showNet" style="width: 80px" >
+        <el-dropdown>
+          <span class=" el-dropdown-link droptitle">
+            {{this.netShow}}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+</svg>
+
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="switchNet('main')">MainNet</el-dropdown-item>
+              <el-dropdown-item @click="switchNet('test')">TestNet</el-dropdown-item>
+            </el-dropdown-menu>
           </template>
-          <li>
-            <a class="dropdown-item" @click="switch_the_language('en')">
-              <span>English 🇬🇧</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_language('cn')">
-              <span>中文 🇨🇳</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switch_the_language('fr')">
-              <span>Français 🇫🇷</span>
-            </a>
-          </li>
-        </base-dropdown>
+        </el-dropdown>
       </div>
-      <div class="drop ml-2" v-if="$route.meta.showNet">
-        <base-dropdown>
-          <template v-slot:title>
-            <base-button type="default" class="btn btn-sm">
-              {{ this.netShow }}
-            </base-button>
+      <div class=" mb-1  drophide dropTag " >
+        <el-dropdown>
+          <span class="el-dropdown-link droptitle">
+            {{this.lang}}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+</svg>
+
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="switch_the_language('en')">English 🇬🇧</el-dropdown-item>
+              <el-dropdown-item @click="switch_the_language('cn')">中文 🇨🇳</el-dropdown-item>
+              <el-dropdown-item @click="switch_the_language('fr')">Français 🇫🇷</el-dropdown-item>
+            </el-dropdown-menu>
           </template>
-          <li>
-            <a class="dropdown-item" @click="switchNet('main')">
-              <span>Mainnet</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" @click="switchNet('test')">
-              <span>Testnet</span>
-            </a>
-          </li>
-
-        </base-dropdown>
+        </el-dropdown>
       </div>
-      <div class="searchDiv mr--7" v-if="$route.meta.showSearch">
-        <input
-          type="text"
-          class="over-ellipsis-Auth"
-          :placeholder="$t('search.placeholder')"
-          v-model="searchVal"
-          autocomplete="off"
-          @keyup.enter="search()"
-        /><button class="buttonres" @click="search()" style="border: white">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M2.2141 2.31429C3.61587 0.771429 5.65481 0 7.56631 0C9.47782 0 11.5168 0.771429 13.1734 2.31429C15.8495 5.01429 16.1044 9.25714 13.938 12.2143L17.761 16.0714C18.0159 16.3286 18.0159 16.7143 17.761 16.9714L16.869 17.8714C16.7415 18 16.6141 18 16.3592 18C16.1044 18 15.9769 18 15.8495 17.8714L12.0265 14.0143C10.6247 14.9143 9.09552 15.4286 7.56631 15.4286C5.65481 15.4286 3.61587 14.6571 2.2141 13.2429C-0.716874 10.1571 -0.716874 5.27143 2.2141 2.31429ZM3.99817 11.3143C4.89021 12.3429 6.16454 12.8571 7.56631 12.8571C8.96808 12.8571 10.2424 12.3429 11.1345 11.3143C12.1539 10.4143 12.6637 9.12857 12.6637 7.71429C12.6637 6.3 12.1539 5.01429 11.1345 4.11429C10.2424 3.08571 8.96808 2.57143 7.56631 2.57143C6.16454 2.57143 4.89021 3.08571 3.99817 4.11429C2.9787 5.01429 2.46897 6.3 2.46897 7.71429C2.46897 9.12857 2.9787 10.4143 3.99817 11.3143Z"
-              fill="lightgrey"
-            />
-          </svg>
-        </button>
-      </div>
-
-
     </base-nav>
 
     <!-- Header -->
@@ -432,7 +498,8 @@ export default {
       isAssetPattern: /^((0x)?)([0-9a-f]{40})$/,
       isAddressPattern: /^N([0-9a-zA-Z]{33})$/,
       isNumberPattern: /^\d+$/,
-      lang: "English 🇬🇧",
+      lang: "En",
+      command:0,
     };
   },
 
@@ -442,11 +509,11 @@ export default {
     // }
     let lang = this.$i18n.locale;
     if (lang === "cn") {
-      this.lang = "中文 " + "🇨🇳";
+      this.lang = "Cn";
     } else if (lang === "en") {
-      this.lang = "English " + "🇬🇧";
+      this.lang = "En";
     } else if (lang === "fr") {
-      this.lang = "Français " + "🇫🇷";
+      this.lang = "Fr"
     }
    if(`${location.hostname}`=== "explorer.onegate.space"){
      this.netShow="Mainnet"
@@ -465,13 +532,13 @@ export default {
     switch_the_language(language) {
       this.$i18n.locale = language;
       if (language === "cn") {
-        this.lang = "中文 " + "🇨🇳";
+        this.lang = "Cn";
         localStorage.setItem('lang',"cn")
       } else if (language === "en") {
-        this.lang = "English " + "🇬🇧";
+        this.lang = "En";
         localStorage.setItem('lang',"en")
       } else if (language === "fr") {
-        this.lang = "Français " + "🇫🇷";
+        this.lang = "Fr";
         localStorage.setItem('lang',"fr")
       }
     },
@@ -486,6 +553,27 @@ export default {
 
 
       }
+    },
+    handleStyle(command){
+      switch (command){
+        case 1:
+          if (this.$route.name==="blocks"||this.$route.name==="transactions"||this.$route.name==="blockinfo"||this.$route.name==="transactionInfo"){
+            return {  color: "#165DFF"}
+          }
+          break;
+
+        case 2:
+          if (this.$route.name==="contractinfo"||this.$route.name==="NftInfo"||this.$route.name==="contracts"||this.$route.name==="NFTtokeninfo"||this.$route.name==="NEP17tokeninfo"||this.$route.name==="VerifyContract"||this.$route.name==="SourceCode"||this.$route.name==="tokens"){
+            return {  color: "#165DFF"}
+          }
+          break;
+        case 3:
+          if (this.$route.name==="AccountProfile"||this.$route.name==="Accounts"||this.$route.name==="Candidates"){
+            return {  color: "#165DFF"}
+          }
+          break;
+      }
+
 
 
     },
@@ -529,6 +617,36 @@ export default {
           path: `/search`,
         });
       }
+    },
+    toBlock() {
+      this.$router.push({
+        path: `/blocks/1`,
+      });
+    },
+    toCandidate() {
+      this.$router.push({
+        path: `/candidates/1`,
+      });
+    },
+    toTransaction() {
+      this.$router.push({
+        path: `/Transactions/1`,
+      });
+    },
+    toAsset() {
+      this.$router.push({
+        path: `/tokens/Nep17/1`,
+      });
+    },
+    toAddress() {
+      this.$router.push({
+        path: `/account/1`,
+      });
+    },
+    toContract() {
+      this.$router.push({
+        path: `/contracts/1`,
+      });
     },
     addressToScriptHash(addr) {
       try {
@@ -724,7 +842,7 @@ export default {
   right: 2px;
   top: 2px;
   botton: 3px;
-  width: 40px;
+  width: 30px;
   height: 30px;
   display: inline-flex;
   align-items: center;
@@ -751,10 +869,13 @@ export default {
   margin-left: 1%;
 }
 .searchDiv {
-  width: 25%;
+  margin-left: auto;
+  margin-right:1%;
+  width: 300px;
   background: white;
   height: 35px;
   position: relative;
+
 }
 .btn-icon svg:hover path{
   fill:rgb(85,118,236);
@@ -784,7 +905,42 @@ export default {
   background: rgb(250,250,250);
   border-radius: 4px;
 }
-@media screen and (max-width: 992px ){
+.custom-icon {
+  font-size:3px;
+}
+.logo {
+  margin-left:7.5%;
+}
+
+.homeTag {
+
+}
+.droptitle{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  /* identical to box height */
+
+
+  color: #4E5969;
+
+  mix-blend-mode: normal;
+
+}
+.droptitle:hover{
+  color: #165DFF;
+}
+.dropTag {
+  width: 50px;
+  margin-right:7.5%;
+
+}
+.color{
+  color: #165DFF;
+}
+
+@media screen and (max-width: 1200px ){
   .navbar-nav{
     display: none!important;
   }
@@ -800,6 +956,9 @@ export default {
   }
   .dropbot{
     display:initial!important;
+  }
+  .drophide{
+    display: none;
   }
 }
 

@@ -31,6 +31,9 @@ const zh = {
   tokenFilter:"通证",
   addressFilter:"地址",
   authLayout: {
+    blockchain:"区块链",
+    addresses:"地址",
+    tokenss:"合约代币",
     home: "主页",
     blocks: "区块",
     txs: "交易",

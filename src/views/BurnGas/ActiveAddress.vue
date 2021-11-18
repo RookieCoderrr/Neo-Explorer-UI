@@ -98,22 +98,35 @@ export default {
         }
 
         var option = {
-          color:['#08BEA0','#08BEA0'],
+          color:['#0060FF99','#0060FF99'],
           title: [{
-            left: 'center',
+            left: '6%',
             text: 'Active Address',
-            top:'2%',
+            top:'4%',
+            textStyle:{
+              color: '#1D2129',
+              fontSize:18
+            }
           }],
           tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            backgroundColor:'#FFFFFF',
+            // formatter:function (params){
+            //   console.log(JSON.stringify(params[0]))
+            //   return params[0]["name"] +"<br/>" +params[0]["value"]
+            // }
           },
           legend: {
             icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
-            top:5,
-            right:5,
+            top:'4%',
+            right:'2%',
             orient: 'vertical',
+            textStyle:{
+              color: '#4E5969',
+              fontSize:14
+            }
           },
           xAxis: {
             type: 'category',
@@ -123,34 +136,79 @@ export default {
             },
             axisTick:{
               show:false
-            }
+            },
+            axisLabel:{
+              textStyle: {
+                color: '#86909C',
+                fontSize : 12
+              }
+            },
+            axisLine:{
+              lineStyle:{
+                color:'#E5E6EB' //更改坐标轴颜色
+              }
+            },
           },
           yAxis: {
             type: 'value',
             splitLine: {
               show: false
-            }
+            },
+            axisLabel:{
+              textStyle: {
+                color: '#86909C',
+                fontSize : 12
+              }
+            },
+          },grid : {
+            left:'6%',
+            containLabel: true,
+            bottom:'6%'
           },
           series: [{
             name: 'Recent 14 days',
             type: 'line',
             data: sdata14,
             smooth: true,
+            areaStyle: {normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#e6effe'
+                }, {
+                  offset: 1,
+                  color: 'rgb(255,255,255)'
+
+          }]),
+              }}
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
-              smooth: true
+              smooth: true,
+              areaStyle: {normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#e6effe'
+                  }, {
+                    offset: 1,
+                    color: 'rgb(255,255,255)'
+
+                  }]),
+                }}
             }
           ]
         };
         var option2 = {
           color:['#08BEA0','#08BEA0'],
           title: [{
-            left: '2%',
+            left: '6%',
             text: 'Active Address',
-            top:'2%',
+            top:'4%',
+            textStyle:{
+              color: '#1D2129',
+              fontSize:18
+            }
           }],
           tooltip: {
             trigger: 'axis'
@@ -159,15 +217,30 @@ export default {
             icon:'circle',
             data: ['Recent 14 days', 'Recent 30 days'],
             selected:{'Recent 30 days':false,'Recent 14 days':true},
-            top:5,
-            right:5,
+            top:'4%',
+            right:'2%',
             orient: 'vertical',
+            textStyle:{
+              color: '#4E5969',
+              fontSize:14
+            }
           },
           xAxis: {
             type: 'category',
             data: xdata14,
             splitLine: {
               show: false
+            },
+            axisLabel:{
+              textStyle: {
+                color: '#86909C',
+                fontSize : 12
+              }
+            },
+            axisLine:{
+              lineStyle:{
+                color:'#E5E6EB' //更改坐标轴颜色
+              }
             },
             axisTick:{
               show:false
@@ -177,19 +250,50 @@ export default {
             type: 'value',
             splitLine: {
               show: false
-            }
+            },
+            axisLabel:{
+              textStyle: {
+                color: '#86909C',
+                fontSize : 12
+              }
+            },
+          },
+          grid : {
+            left:'6%',
+            containLabel: true,
+            bottom:'6%'
           },
           series: [{
             name: 'Recent 14 days',
             type: 'line',
             data: sdata14,
             smooth: true,
+            areaStyle: {normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#e6effe'
+                }, {
+                  offset: 1,
+                  color: 'rgb(255,255,255)'
+
+                }]),
+              }}
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
-              smooth: true
+              smooth: true,
+              areaStyle: {normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#e6effe'
+                  }, {
+                    offset: 1,
+                    color: 'rgb(255,255,255)'
+
+                  }]),
+                }}
             }
           ]
         };
@@ -207,7 +311,7 @@ export default {
           if(windowWidth < 552) {
             myChart.setOption({
               title: [{
-                left: '2%',
+                left: '6%',
                 text: 'Active Address',
                 top:'2%',
               }],
@@ -216,7 +320,7 @@ export default {
           if(windowWidth > 552) {
             myChart.setOption({
               title: [{
-                left: 'center',
+                left: '6%',
                 text: 'Active Address',
                 top:'2%',
               }],
