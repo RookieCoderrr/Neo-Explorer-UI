@@ -77,7 +77,7 @@
                   <div class="row info mt-3  mb-1">
                     <div class="col-sm-3 lable-title">
                         {{ $t("blockinfo.speaker") }}
-                      <el-tooltip  :content=this.content placement="right" @click.stop.prevent>
+                      <el-tooltip  :content=this.content placement="right">
                         <i class="el-icon-question"/>
                       </el-tooltip>
                       <el-button type="info" :plain="true" size="small" style="height: 21px; margin-left:6px" @click="changeFormat(button)">

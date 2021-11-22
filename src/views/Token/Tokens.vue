@@ -51,7 +51,7 @@ export default {
   },
   methods:{
     showtabs(){
-      console.log(this.$route.params.tab)
+      // console.log(this.$route.params.tab)
       if(this.$route.params.tab ==="Nep17"){
         this.activeTokenName ="Nep17"
       }else if (this.$route.params.tab ==="Nep11"){
@@ -67,7 +67,7 @@ export default {
     },
     handleLoad(data){
       let name = data.props.name
-      console.log(name)
+      // console.log(name)
       if (name ==="Nep17"){
         this.$router.push({
           path: `/tokens/Nep17/1`,

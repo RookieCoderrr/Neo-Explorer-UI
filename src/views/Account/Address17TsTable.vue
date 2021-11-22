@@ -238,8 +238,8 @@
             v-if="windowWidth > 552"
             @current-change="handleCurrentChange"
             :hide-on-single-page="totalCount<=10"
-            :current-page="pagination"
-            :pager-count= "3"
+            :current-page="parseInt(pagination)"
+            :pager-count= "5"
             :page-size= "10"
             layout="jumper, prev, pager, next"
             :total="totalCount">
@@ -249,8 +249,8 @@
             small ="true"
             @current-change="handleCurrentChange"
             :hide-on-single-page="totalCount<=10"
-            :current-page="pagination"
-            :pager-count= "4"
+            :current-page="parseInt(pagination)"
+            :pager-count= "5"
             layout="prev,pager,next"
             :total="totalCount">
         </el-pagination>
@@ -378,7 +378,7 @@ export default {
         },
       }).then((res) => {
           this.tableData = res["data"]["result"]["result"];
-          console.log(this.tableData)
+          // console.log(this.tableData)
           this.totalCount = res["data"]["result"]["totalCount"];
           for (let k = 0; k < this.tableData.length; k++) {
             axios({

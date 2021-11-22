@@ -59,7 +59,7 @@
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.type") }}
-                  <el-tooltip  :content=this.content placement="top" @click.stop.prevent>
+                  <el-tooltip  :content=this.content placement="top" >
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>

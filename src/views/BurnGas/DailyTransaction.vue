@@ -89,7 +89,7 @@ export default {
               }
               refreshData(sdata14,0)
               //console.log("this is 14 days ")
-              console.log(sdata14)
+              // console.log(sdata14)
             }
             else {
               for (var m = 0; m < res["data"]["result"].length; m ++) {
@@ -133,10 +133,10 @@ export default {
             type: 'category',
             data: xdata14,
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
             axisLine:{
               lineStyle:{
@@ -157,10 +157,10 @@ export default {
               show: false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
           },
           grid : {
@@ -173,7 +173,7 @@ export default {
             type: 'line',
             data: sdata14,
             smooth: true,
-            areaStyle: {normal: {
+            areaStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                   offset: 0,
                   color: '#e6effe'
@@ -182,14 +182,14 @@ export default {
                   color: 'rgb(255,255,255)'
 
                 }]),
-              }}
+              }
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
               smooth: true,
-              areaStyle: {normal: {
+              areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
                     color: '#e6effe'
@@ -198,7 +198,7 @@ export default {
                     color: 'rgb(255,255,255)'
 
                   }]),
-                }}
+                }
             }
           ]
         };
@@ -233,10 +233,10 @@ export default {
             data: xdata14,
             axisLabel:{
               show:true,
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
             axisLine:{
               lineStyle:{
@@ -256,10 +256,10 @@ export default {
               show: false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
 
           },
@@ -274,7 +274,7 @@ export default {
             type: 'line',
             data: sdata14,
             smooth: true,
-            areaStyle: {normal: {
+            areaStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                   offset: 0,
                   color: '#e6effe'
@@ -283,14 +283,14 @@ export default {
                   color: 'rgb(255,255,255)'
 
                 }]),
-              }}
+              }
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
               smooth: true,
-              areaStyle: {normal: {
+              areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
                     color: '#e6effe'
@@ -299,7 +299,7 @@ export default {
                     color: 'rgb(255,255,255)'
 
                   }]),
-                }}
+                }
             }
           ]
         };
@@ -314,22 +314,10 @@ export default {
           myTransactionChart.resize()
           var windowWidth = window.innerWidth;
           if(windowWidth < 552) {
-            myTransactionChart.setOption({
-              title: [{
-                left: 'center',
-                text: 'Daily Transaction',
-                top:'4%',
-              }],
-            })
+            myTransactionChart.setOption(option2)
           }
           if(windowWidth > 552) {
-            myTransactionChart.setOption({
-              title: [{
-                left: 'center',
-                text: 'Daily Transaction',
-                top:'4%',
-              }],
-            })
+            myTransactionChart.setOption(option)
           }
         });
         myTransactionChart.on('legendselectchanged', function (params){

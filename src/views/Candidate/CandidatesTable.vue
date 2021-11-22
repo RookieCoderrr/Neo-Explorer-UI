@@ -35,7 +35,7 @@
           <th class="tableHeader">{{ $t("candidate.address") }}</th>
           <th class="tableHeader">
             {{ $t("candidate.committee") }}
-            <el-tooltip  content="The status attribute includes 3 types: Consensus Node(Top 7), Committee Node(Top 21), Candidate Node." placement="top" @click.stop.prevent>
+            <el-tooltip  content="The status attribute includes 3 types: Consensus Node(Top 7), Committee Node(Top 21), Candidate Node." placement="top" >
               <i class="el-icon-question"/>
             </el-tooltip>
           </th>
@@ -85,19 +85,19 @@
           v-if="windowWidth > 552"
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "3"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           :page-size= "10"
           layout="jumper, prev, pager, next"
           :total="totalCount">
       </el-pagination>
       <el-pagination
           v-if="windowWidth < 552"
-          small ="true"
+          small
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "4"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           layout="prev,pager,next"
           :total="totalCount">
       </el-pagination>
@@ -172,7 +172,7 @@ export default {
     },
     watchrouter() {
       //如果路由有变化，执行的对应的动作
-      console.log(this.$route.name)
+      // console.log(this.$route.name)
       if (this.$route.name === "Candidates") {
         console.log(this.pagination)
         this.pagination = this.$route.params.page

@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <base-nav
       class="navbar-horizontal"
-      expand="false"
+      expand
 
     >
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="cursor: pointer"
@@ -728,7 +728,7 @@ export default {
           crossDomain: "true",
         },
       }).then((res) => {
-        console.log("4")
+        // console.log("4")
         if (res["data"]["error"] == null) {
           this.$router.push({
             path: `/accountprofile/${addr}`,
@@ -771,7 +771,7 @@ export default {
               path: `/contractinfo/${value}`,
             });
           }
-          console.log("2")
+          // console.log("2")
         } else {
           this.getContractInfoByContractHash(value);
 
@@ -796,7 +796,7 @@ export default {
           },
         }).then((res) => {
           if (res["data"]["error"] == null) {
-            console.log("3")
+            // console.log("3")
             this.$router.push({
               path: `/contractinfo/${value}`,
             });

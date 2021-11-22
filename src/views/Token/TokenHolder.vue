@@ -84,8 +84,8 @@
           v-if="windowWidth > 552"
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "3"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           :page-size= "10"
           layout="jumper, prev, pager, next"
           :total="totalCount">
@@ -95,8 +95,8 @@
           small ="true"
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "4"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           layout="prev,pager,next"
           :total="totalCount">
       </el-pagination>

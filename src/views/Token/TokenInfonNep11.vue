@@ -404,7 +404,7 @@ export default {
         },
       }).then((res) => {
         let raw = res["data"]["result"];
-        console.log(raw)
+        // console.log(raw)
         this.standard = raw["type"] === "NEP17" ? 1 : 2;
         this.decimal = raw["decimals"];
         this.token_info = raw;

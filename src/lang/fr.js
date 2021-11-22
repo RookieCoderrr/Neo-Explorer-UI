@@ -286,6 +286,7 @@ const fr = {
     txnullPrompt: "Ce compte n'a pas de transaction",
     nep17nullPrompt: "Ce compte n'a pas de transerts NEP17",
     nep11nullPrompt: "Ce compte n'a pas de transerts NEP11.",
+    tokennullPrompt:"Ce adresse n'a pas de jeton.",
     typeEnum: {
       normal: "Normal",
       committee: "Comité",

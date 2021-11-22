@@ -138,10 +138,10 @@ export default {
               show:false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
             axisLine:{
               lineStyle:{
@@ -155,10 +155,10 @@ export default {
               show: false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
           },grid : {
             left:'6%',
@@ -170,7 +170,7 @@ export default {
             type: 'line',
             data: sdata14,
             smooth: true,
-            areaStyle: {normal: {
+            areaStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                   offset: 0,
                   color: '#e6effe'
@@ -179,14 +179,14 @@ export default {
                   color: 'rgb(255,255,255)'
 
           }]),
-              }}
+              }
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
               smooth: true,
-              areaStyle: {normal: {
+              areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
                     color: '#e6effe'
@@ -195,7 +195,7 @@ export default {
                     color: 'rgb(255,255,255)'
 
                   }]),
-                }}
+                }
             }
           ]
         };
@@ -232,10 +232,10 @@ export default {
               show: false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
             axisLine:{
               lineStyle:{
@@ -252,10 +252,10 @@ export default {
               show: false
             },
             axisLabel:{
-              textStyle: {
+
                 color: '#86909C',
                 fontSize : 12
-              }
+
             },
           },
           grid : {
@@ -269,7 +269,7 @@ export default {
             type: 'line',
             data: sdata14,
             smooth: true,
-            areaStyle: {normal: {
+            areaStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                   offset: 0,
                   color: '#e6effe'
@@ -278,14 +278,14 @@ export default {
                   color: 'rgb(255,255,255)'
 
                 }]),
-              }}
+              }
           },
             {
               name: 'Recent 30 days',
               type: 'line',
               data: sdata30,
               smooth: true,
-              areaStyle: {normal: {
+              areaStyle: {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                     offset: 0,
                     color: '#e6effe'
@@ -294,7 +294,7 @@ export default {
                     color: 'rgb(255,255,255)'
 
                   }]),
-                }}
+                }
             }
           ]
         };
@@ -310,22 +310,10 @@ export default {
           myChart.resize()
           var windowWidth = window.innerWidth;
           if(windowWidth < 552) {
-            myChart.setOption({
-              title: [{
-                left: '6%',
-                text: 'Active Address',
-                top:'2%',
-              }],
-            })
+            myChart.setOption(option2)
           }
           if(windowWidth > 552) {
-            myChart.setOption({
-              title: [{
-                left: '6%',
-                text: 'Active Address',
-                top:'2%',
-              }],
-            })
+            myChart.setOption(option)
           }
         });
         myChart.on('legendselectchanged', function (params){

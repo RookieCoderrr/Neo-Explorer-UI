@@ -148,7 +148,7 @@
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.vmState") }}
-                  <el-tooltip  :content="this.vmStateTooltip" placement="right" @click.stop.prevent>
+                  <el-tooltip  :content="this.vmStateTooltip" placement="right" >
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
@@ -169,7 +169,7 @@
               <div class="row  info mt-3 mb-4" >
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.exception") }}
-                  <el-tooltip  :content="this.exceptionToolTip" placement="right" @click.stop.prevent>
+                  <el-tooltip  :content="this.exceptionToolTip" placement="right" >
                     <i class="el-icon-question"/>
                   </el-tooltip>
                 </div>
@@ -741,7 +741,7 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        console.log(this.tabledataApp)
+        // console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i < this.tabledataApp["notifications"].length; i++) {
           this.getContractsApp(
@@ -787,7 +787,7 @@ export default {
             map.set(temp["abi"]["events"][i]["name"], table);
           }
           this.mapTotalApp.set(raw["hash"], map);
-          console.log(this.mapTotalApp)
+          // console.log(this.mapTotalApp)
         }
       });
     },
@@ -858,6 +858,7 @@ export default {
                 this.tabledataCall["result"][i]["method"]
             );
           }
+          // console.log(this.List)
         }
 
       });

@@ -90,8 +90,8 @@
           v-if="windowWidth > 552"
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "3"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           :page-size= "10"
           layout="jumper, prev, pager, next"
           :total="totalCount">
@@ -101,8 +101,8 @@
           small ="true"
           @current-change="handleCurrentChange"
           :hide-on-single-page="totalCount<=10"
-          :current-page="pagination"
-          :pager-count= "4"
+          :current-page="parseInt(pagination)"
+          :pager-count= "5"
           layout="prev,pager,next"
           :total="totalCount">
       </el-pagination>
@@ -206,7 +206,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        console.log(this.tableData)
+        // console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage = Math.ceil(this.totalCount / this.resultsPerPage);
         for (let k =0; k <this.tableData.length; k++){
@@ -225,11 +225,11 @@ export default {
               crossDomain: "true",
             },
           }).then((res) => {
-            console.log(res)
+            // console.log(res)
             // console.log(this.tableData)
             var value = res["data"]["result"]["result"][0]
-            console.log(value["asset"])
-            console.log(value["properties"])
+            // console.log(value["asset"])
+            // console.log(value["properties"])
             this.tableData[k]["nftname"] = "——"
 
             this.tableData[k]["description"]="No description"
@@ -244,12 +244,12 @@ export default {
               }
               if("name" in this.properties) {
                 this.tableData[k]["nftname"] = this.properties["name"]
-                console.log(this.tableData[k]["nftname"])
+                // console.log(this.tableData[k]["nftname"])
               }
               if ("image" in this.properties) {
                 this.tableData[k]["image"] = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
                 this.tableData[k]["imageList"] = [this.tableData[k]["image"]]
-                console.log( this.tableData[k]["image"])
+                // console.log( this.tableData[k]["image"])
               }
               if ("description" in this.properties) {
                 this.tableData[k]["description"] =this.properties["description"]

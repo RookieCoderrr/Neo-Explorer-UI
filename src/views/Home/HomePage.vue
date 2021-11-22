@@ -419,9 +419,9 @@ export default {
     initWebSocket(){ //初始化weosocket
       const wsuri = "wss://testneofura.ngd.network:3036/home";
       const wsuriMain = "wss://neofura.ngd.network:2027/home";
-      console.log(`${location.hostname}`)
+      // console.log(`${location.hostname}`)
       if (`${location.hostname}`=== "explorer.onegate.space"){
-        this.websock = new WebSocket(wsuriMain);
+        this         .websock = new WebSocket(wsuriMain);
 
       } else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         this.websock = new WebSocket(wsuri);

@@ -93,7 +93,7 @@
                 <div class="row info mt-md-3  mb-1">
                   <div class="col-md-3 lable-title">
                     {{ $t("contract.update") }}
-                    <el-tooltip  :content="this.updateCountToolTip" placement="top" @click.stop.prevent>
+                    <el-tooltip  :content="this.updateCountToolTip" placement="top" >
                       <i class="el-icon-question"/>
                     </el-tooltip>
                   </div>
@@ -551,10 +551,10 @@ export default {
       }).then((res) => {
         if (res["data"]["error"] === null){
           this.isToken = true;
-          console.log("yes")
+          // console.log("yes")
         } else {
           this.isToken = false;
-          console.log("no")
+          // console.log("no")
         }
 
       });

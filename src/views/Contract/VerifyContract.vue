@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid mt--7"  >
+  <div class="container-fluid mt--7" style="background-color: #f7f8fa">
     <div class="row">
       <div class="col">
         <loading

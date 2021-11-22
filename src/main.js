@@ -5,7 +5,6 @@ import router from "./router";
 import NeoDashboard from "./plugins/Neo-dashboard";
 import i18n from "./lang/i18n.js";
 import ElementPlus from "element-plus";
-import net from "./store/store.js";
 
 // import Vuex  from "vuex";
 
@@ -18,7 +17,6 @@ import './assets/css/global.css'
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(i18n);
-appInstance.use(net)
 appInstance.use(ElementPlus)
 appInstance.use(NeoDashboard);
 appInstance.mount("#app");
