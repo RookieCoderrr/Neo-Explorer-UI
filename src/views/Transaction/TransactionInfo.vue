@@ -741,7 +741,7 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        // console.log(this.tabledataApp)
+        console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i < this.tabledataApp["notifications"].length; i++) {
           this.getContractsApp(

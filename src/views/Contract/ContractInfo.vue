@@ -34,6 +34,9 @@
                   </div>
                   <div class="col-md-9 context-black">
                     {{ this.contract_info["name"] }}
+                    <el-tag v-if="this.contract_info['updatecounter'] === -1" type="danger" size="small" >
+                      Destroyed
+                    </el-tag>
                     <el-tag v-if="this.nef['compiler']==='neo-core-v3.0'" type="success" size="small" >
                       Native
                     </el-tag>

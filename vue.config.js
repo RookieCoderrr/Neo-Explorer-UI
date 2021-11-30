@@ -17,6 +17,8 @@
 // setProxy(VINCENT_API)
 
 const webpack = require("webpack");
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const productionGzipExtensions = ['js', 'css']
 
 
 module.exports = {
@@ -25,8 +27,8 @@ module.exports = {
       "/api": {
         changeOrigin: true,
         // target: m "http://127.0.0.1:1926",
-        // target: "https://testneofura.ngd.network:444",
-        target:"https://neofura.ngd.network",
+        target: "https://testneofura.ngd.network:444",
+        // target:"https://neofura.ngd.network",
         // target: "http://106.14.204.151:1926",
         // target: "http://192.168.1.89:1926"
       },
@@ -57,8 +59,15 @@ module.exports = {
       "element-plus": "ElementPlus"
     },
     plugins: [
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        threshold: 10240,
+        minRatio: 0.8
+      }) ,
       new webpack.optimize.LimitChunkCountPlugin({
-        maxChunks: 6,
+        maxChunks: 5,
+        minChunkSize: 100
       }),
     ],
   },

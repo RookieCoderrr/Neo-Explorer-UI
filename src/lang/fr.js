@@ -312,6 +312,9 @@ const fr = {
     rank: "Classement",
     votes: "Suffrage",
     percentage: "Pourcentage",
+    consensus:"Consensus",
+    committees:"Comité",
+    candidate:"Candidat"
   },
   NftTable: {
     title: "NEP11 Transferts",

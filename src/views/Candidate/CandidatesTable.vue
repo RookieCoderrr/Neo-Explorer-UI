@@ -35,7 +35,7 @@
           <th class="tableHeader">{{ $t("candidate.address") }}</th>
           <th class="tableHeader">
             {{ $t("candidate.committee") }}
-            <el-tooltip  content="The status attribute includes 3 types: Consensus Node(Top 7), Committee Node(Top 21), Candidate Node." placement="top" >
+            <el-tooltip   :content=this.content placement="top" >
               <i class="el-icon-question"/>
             </el-tooltip>
           </th>
@@ -57,11 +57,11 @@
             </div>
           </td>
           <td>
-            <i v-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) <=7 " class="ni ni-badge"> Consensus</i>
-            <i v-else-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) >7" class="ni ni-badge">
-              Committee
-            </i>
-            <span v-else>Candidate</span>
+            <span v-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) <=7 " ><span></span>  {{ $t("candidate.consensus") }}</span>
+            <span v-else-if="row.item.isCommittee && (row.index + 1 + (this.pagination-1)*this.resultsPerPage) >7" >
+              <span></span> {{ $t("candidate.committees") }}
+            </span>
+            <span v-else>  {{ $t("candidate.candidate") }}</span>
           </td>
           <td  class="table-list-item">
             {{ row.index + 1 + (this.pagination-1)*this.resultsPerPage }}
@@ -117,6 +117,18 @@ export default {
       type: String,
     },
     title: String,
+  },
+  computed:{
+    content:function (){
+      if(this.$i18n.locale==='en'){
+        return "Account includes consensus, committee, candidate, normal, 4 types."
+      } else if (this.$i18n.locale==='cn'){
+        return "账户包括 共识结点，委员会结点，候选人结点，普通结点四种类型"
+      } else {
+        return "Le compte contiens 4 types: consensus, comité, candidature, normal"
+      }
+
+    }
   },
 
   components: {

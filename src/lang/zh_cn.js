@@ -311,6 +311,9 @@ const zh = {
     rank: "排名    ",
     votes: "投票",
     percentage: "占比",
+    consensus:"共识结点",
+    committees:"委员会成员",
+    candidate:"候选人"
   },
   NftTable: {
     title: "NEP11 交易",

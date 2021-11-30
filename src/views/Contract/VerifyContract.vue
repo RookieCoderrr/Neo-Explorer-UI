@@ -89,6 +89,9 @@ export default {
   components:{
     Loading,
   },
+  created() {
+    window.scroll(0, 0);
+  },
   data(){
     return {
       isLoading:false,

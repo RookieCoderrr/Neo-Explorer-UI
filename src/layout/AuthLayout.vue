@@ -1,5 +1,5 @@
 <template>
-  <div class="content " style="background-color: white!important;">
+  <div class="content " style="background-color: #f7f8fa!important;">
     <!-- Navbar -->
     <base-nav
       class="navbar-horizontal"
@@ -445,8 +445,8 @@
             </div>
             <div class="col-lg-3 ">
               <div class="mb-3"><strong>{{ $t("authLayout.help") }}</strong></div>
-              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/manage-wallets">{{ $t("authLayout.wallet") }}</a></div>
-              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/nfts">{{ $t("authLayout.nft") }}</a></div>
+              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/manage-wallets"  target="_blank" rel="noopener noreferrer">{{ $t("authLayout.wallet") }}</a></div>
+              <div><a class="text-muted" title="Coming Soon~" href="https://onegate.gitbook.io/onegate/nfts" target="_blank" rel="noopener noreferrer">{{ $t("authLayout.nft") }}</a></div>
             </div>
             <div class="col-lg-3">
               <div class="mb-3"><strong>{{ $t("authLayout.developer") }}</strong></div>
@@ -455,7 +455,8 @@
             <div class="col-lg-3">
               <div class="mb-3"><strong>{{ $t("authLayout.contractUs") }}</strong></div>
               <div>
-                <a class="text-muted" title="Twitter: OneGateWallet" href="https://twitter.com/OneGateWallet">
+                <a class="text-muted" title="Twitter: OneGateWallet" href="https://twitter.com/OneGateSpace" target="_blank"
+                rel="noopener noreferrer">
 
                   <svg width="27" height="22" viewBox="0 0 27 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M26.1358 3.26512C25.2059 3.67759 24.2063 3.95634 23.1575 4.08168C24.228 3.43988 25.0504 2.42364 25.4375 1.21265C24.4354 1.80698 23.3257 2.23852 22.1444 2.47103C21.1985 1.46318 19.8509 0.833496 18.3593 0.833496C15.4955 0.833496 13.1734 3.15527 13.1734 6.01912C13.1734 6.42554 13.2193 6.82134 13.3078 7.20093C8.99789 6.98464 5.17673 4.92012 2.6191 1.78265C2.17269 2.54854 1.91696 3.43934 1.91696 4.38973C1.91696 6.18888 2.83243 7.77613 4.22393 8.70615C3.37394 8.67908 2.57423 8.44588 1.87512 8.05747C1.87463 8.07913 1.87463 8.10077 1.87463 8.12265C1.87463 10.6353 3.66218 12.7311 6.03445 13.2076C5.59933 13.3261 5.14119 13.3895 4.66825 13.3895C4.33409 13.3895 4.00923 13.3569 3.69254 13.2965C4.35247 15.3566 6.26758 16.856 8.53685 16.8977C6.76207 18.2887 4.52606 19.1178 2.09642 19.1178C1.67784 19.1178 1.26506 19.0931 0.859375 19.0451C3.15431 20.5165 5.88017 21.3752 8.80867 21.3752C18.3471 21.3752 23.5633 13.4733 23.5633 6.62042C23.5633 6.39562 23.5582 6.17197 23.5482 5.94952C24.5615 5.21837 25.4406 4.30506 26.1358 3.26512Z" fill="#676c6c"/>
@@ -516,9 +517,21 @@ export default {
       this.lang = "Fr"
     }
    if(`${location.hostname}`=== "explorer.onegate.space"){
-     this.netShow="Mainnet"
+     if (this.$i18n.locale === "cn") {
+       this.netShow="主网"
+     } else if (this.$i18n.locale === "en") {
+       this.netShow = "Mainnet"
+     } else if (this.$i18n.locale === "fr") {
+       this.netShow="Mainnet"
+     }
    }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
-     this.netShow="Testnet"
+     if (this.$i18n.locale === "cn") {
+       this.netShow="测试网"
+     } else if (this.$i18n.locale === "en") {
+       this.netShow = "Testnet"
+     } else if (this.$i18n.locale === "fr") {
+       this.netShow="Testnet"
+     }
    }
   },
 
