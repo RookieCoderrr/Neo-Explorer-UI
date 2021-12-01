@@ -179,6 +179,7 @@ const en = {
   transactionTransfer: {
     contract: "Contract",
     token: "Token",
+    nftName:"Name",
     type: "Type",
     from: "From",
     fromBalance: "From balance",
@@ -214,6 +215,7 @@ const en = {
     totalSupply:"Total Supply",
     hash: "Hash",
     tokenId:"TokenId",
+    nftName:"NftName",
     name: "Name",
     symbol: "Symbol",
     standard: "Standard",

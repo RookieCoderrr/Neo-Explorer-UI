@@ -50,7 +50,7 @@
 }
 .searchName {
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
 }
 .buttonName {
@@ -103,7 +103,7 @@
     font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
 
     /* identical to box height, or 143% */

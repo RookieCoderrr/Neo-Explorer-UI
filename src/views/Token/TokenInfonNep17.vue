@@ -407,7 +407,7 @@ export default {
           "Content-Type": "application/json",
           withCredentials: " true",
           crossDomain: "true",
-        },
+        }
       }).then((res) => {
         let raw = res["data"]["result"];
         // console.log(raw)

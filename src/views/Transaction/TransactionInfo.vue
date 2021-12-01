@@ -187,25 +187,46 @@
 
             </card>
             <div class="row mt-4 mb-3"></div>
+
+            <div class="row mt-5 mb-3 title2">
+              {{ $t('transactionInfo.nep17') }}
+            </div>
+            <div  class="card-style" >
+              <transfers-list
+                  :title="$t('transactionInfo.nep17')"
+                  :txhash="this.txhash"
+              ></transfers-list>
+            </div>
+
+            <div class="row mt-5 mb-3 title2">
+              {{ $t('transactionInfo.nep11') }}
+            </div>
+            <div  class="card-style" >
+              <nft-table
+                  :title="$t('transactionInfo.nep11')"
+                  :txhash="this.txhash"
+              ></nft-table>
+            </div>
+            <div class="row mt-4 mb-3"></div>
             <el-tabs
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: #f7f8fa"
             >
-              <el-tab-pane :label="$t('transactionInfo.nep17')" name="first">
-                <transfers-list
-                    :title="$t('transactionInfo.nep17')"
-                    :txhash="this.txhash"
-                ></transfers-list>
-              </el-tab-pane>
-              <el-tab-pane :label="$t('transactionInfo.nep11')" name="second">
-                <nft-table
-                    :title="$t('transactionInfo.nep11')"
-                    :txhash="this.txhash"
-                ></nft-table>
-              </el-tab-pane>
+<!--              <el-tab-pane :label="$t('transactionInfo.nep17')" name="first">-->
+<!--                <transfers-list-->
+<!--                    :title="$t('transactionInfo.nep17')"-->
+<!--                    :txhash="this.txhash"-->
+<!--                ></transfers-list>-->
+<!--              </el-tab-pane>-->
+<!--              <el-tab-pane :label="$t('transactionInfo.nep11')" name="second">-->
+<!--                <nft-table-->
+<!--                    :title="$t('transactionInfo.nep11')"-->
+<!--                    :txhash="this.txhash"-->
+<!--                ></nft-table>-->
+<!--              </el-tab-pane>-->
               <el-tab-pane
                   :label="$t('transactionInfo.notification')"
-                  name="third"
+                  name="first"
               >
                 <div
                     class="notificationDiv"
@@ -331,7 +352,7 @@
               </el-tab-pane>
               <el-tab-pane
                   :label="$t('transactionInfo.systemCall')"
-                  name="forth"
+                  name="second"
               >
                 <div
                     class="systemCallDiv"
@@ -741,7 +762,7 @@ export default {
         this.exception = this.tabledataApp["exception"];
         this.trigger = this.tabledataApp["trigger"];
         this.vmstate = this.tabledataApp["vmstate"];
-        console.log(this.tabledataApp)
+        // console.log(this.tabledataApp)
         // console.log(this.tabledataApp["notifications"].length)
         for (var i = 0; i < this.tabledataApp["notifications"].length; i++) {
           this.getContractsApp(

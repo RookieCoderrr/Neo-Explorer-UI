@@ -179,6 +179,7 @@ const fr = {
   transactionTransfer: {
     contract: "Contrat",
     token: "Jeton",
+    nftName:"Nom",
     type: "Genre",
     from: "Envoyé de ",
     fromBalance: "Jetons d'Envoyeur",
@@ -215,6 +216,7 @@ const fr = {
     hash: "Hash",
     tokenId:"TokenId",
     name: "Nom",
+    nftName:"NFT Nom",
     symbol: "Symbole",
     standard: "Standard",
     holders: "Porteurs Totals",

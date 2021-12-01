@@ -178,6 +178,7 @@ const zh = {
   transactionTransfer: {
     contract: "合约",
     token: "通证",
+    nftName:"名称",
     type: "交易类型",
     from: "转出账户",
     fromBalance: "转出账户余额",
@@ -213,6 +214,7 @@ const zh = {
     totalSupply:"总供给",
     hash: "哈希",
     tokenId:"通证Id",
+    nftName:"NFT名称",
     name: "名称",
     symbol: "符号",
     standard: "合约标准",

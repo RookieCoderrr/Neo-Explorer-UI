@@ -7,7 +7,7 @@
   <div class="card shadow " :class="type === 'dark' ? 'bg-default' : ''">
       <div class="searchNameContent" style="margin-top: 10px;margin-bottom: 1px;height: 45px">
         <div class="col-3">
-          <div class="searchName" style="height: 45px">
+          <div class="searchName" style="height: 45px; ">
             <input
               type="text"
               class="over-ellipsis-Name"
@@ -15,7 +15,8 @@
               v-model="searchVal"
               autocomplete="off"
               @keyup.enter="search()"
-            /><button class="buttonName" @click="search()" style="border: white">
+            />
+            <button class="buttonName" @click="search()" style="border: white">
             <svg
                 width="18"
                 height="18"
@@ -31,8 +32,13 @@
               />
             </svg>
             </button>
+
+
+
           </div>
+
         </div>
+
     </div>
     <div class="table-responsive" >
       <loading

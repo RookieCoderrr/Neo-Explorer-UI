@@ -75,6 +75,11 @@ function convertGas(gas) {
     return numFormat(parseFloat((gas * Math.pow(0.1, 8)).toFixed(8)));
 }
 
+function convertTotalSupply(supply,decimal) {
+    return numFormat(parseFloat((supply * Math.pow(10, -decimal))))
+}
+
+
 function convertTime(ts, locale) { // this.$i18n.locale
     switch (locale) {
         case "cn":
@@ -176,4 +181,5 @@ export {
     responseConverter,
     copyItem,
     convertISOTime,
+    convertTotalSupply,
 };

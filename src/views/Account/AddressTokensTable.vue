@@ -14,15 +14,30 @@
           :data="tokenList"
         >
           <template v-slot:columns>
+            <th class="tableHeader"> # </th>
             <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
             <th class="tableHeader">{{ $t("hash") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.tokenId") }}</th>
+            <th class="tableHeader">{{ $t("tokensTable.nftName") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
             <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
             <th class="tableHeader">{{ $t("tokenHolder.balance") }}</th>
           </template>
 
           <template v-slot:default="row">
+            <td >
+              <el-image
+                  style="width: 100px"
+                  :src="row.item.image"
+                  :preview-src-list="row.item.imageList">
+                <template #error>
+                  <div class="image-slot">
+                    <i class="ni ni-image">
+                    </i>
+                  </div>
+                </template>
+              </el-image>
+            </td>
             <td class="table-list-item">
               {{ row.item.tokenname }}
             </td>
@@ -49,7 +64,7 @@
               </div>
             </th>
             <td v-if="row.item.tokenid===''" class="table-list-item">
-              ——
+
             </td>
             <td v-else class="table-list-item">
               <router-link
@@ -57,6 +72,9 @@
                   style="cursor: pointer;"
                   :to="'/NFTinfo/' + row.item.asset+'/'+this.account_address+'/'+base64ToHash(row.item.tokenid)"
               >{{ row.item.tokenid }}</router-link>
+            </td>
+            <td class="table-list-item">
+              {{ row.item.nftName }}
             </td>
             <td class="table-list-item">
               {{ row.item.symbol }}
@@ -188,11 +206,52 @@ export default {
             ? 1
             : Math.ceil(this.totalCount / this.resultsPerPage);
         let address_list = [];
-        for (let k = 0; k < temp.length; k++) {
-          address_list.push(temp[k]["asset"]);
+        for (let j = 0; j < temp.length; j++) {
+          address_list.push(temp[j]["asset"]);
         }
         // console.log("address_list", address_list)
         this.tokenList = temp;
+        for (let k = 0; k < temp.length; k++) {
+          if (this.tokenList['tokenid'] === ""){
+            return
+          }
+          axios({
+            method: "post",
+            url: "/api",
+            data: {
+              jsonrpc: "2.0",
+              id: 1,
+              params: { ContractHash:this.tokenList[k]["asset"],tokenIds:[this.tokenList[k]["tokenid"]] },
+              method: "GetNep11PropertiesByContractHashTokenId",
+            },
+            headers: {
+              "Content-Type": "application/json",
+              withCredentials: " true",
+              crossDomain: "true",
+            },
+          }).then((res) => {
+            console.log(res)
+            // console.log(this.tableData)
+            this.isLoading = false;
+            var value = res["data"]["result"]["result"][0]
+            // console.log(value["asset"])
+            // console.log(value["properties"])
+            if (value["properties"]===""){
+              this.tokenList[k]["nftName"]="——"
+            } else {
+              this.properties = JSON.parse(value["properties"])
+              if ("name" in this.properties) {
+                this.tokenList[k]['nftName'] = this.properties["name"]
+                // console.log( this.tokenList[k]['nftName'])
+              }
+              if ("image" in this.properties) {
+                this.tokenList[k]["image"] = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
+                this.tokenList[k]["imageList"] = [this.tokenList[k]["image"]]
+                // console.log( this.tableData[k]["image"])
+              }
+            }
+          })
+        }
         this.getTokenInfo(address_list);
       });
     },

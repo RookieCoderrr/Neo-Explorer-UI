@@ -197,7 +197,7 @@ export default {
             Skip: skip,
             balance:1,
           },
-          method: "GetAssetHoldersByContractHash",
+          method: "GetAssetHoldersListByContractHash",
         },
         headers: {
           "Content-Type": "application/json",

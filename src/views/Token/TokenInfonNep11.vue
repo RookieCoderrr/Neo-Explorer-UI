@@ -138,7 +138,17 @@
                     $t("NftToken.nullPrompt")
                   }}</card>
               </el-tab-pane>
-              <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="second">
+              <el-tab-pane :label="$t('tokenInfo.topHolders')" name="second">
+                <nft-token-holder
+                    v-if ="this.token_info['holders']"
+                    :contract-hash="token_id"
+                >
+                </nft-token-holder>
+                <card shadow v-else class="text-center">{{
+                    $t("tokenHolder.nullPrompt")
+                  }}</card>
+              </el-tab-pane>
+              <el-tab-pane :label="$t('tokenInfo.contractInfo')" name="third">
                 <div
                   class="extra"
                   v-if="
@@ -333,9 +343,11 @@ import {
 } from "../../store/util";
 import net from "../../store/store";
 import NftToken from "./NftTokens";
+import NftTokenHolder from "./NftTokenHolder";
 
 export default {
   components: {
+    NftTokenHolder,
     NftToken,
     ContractJsonView,
 

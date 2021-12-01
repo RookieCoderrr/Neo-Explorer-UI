@@ -114,7 +114,7 @@
           {{row.item.decimals}}
           </td>
           <td class="table-list-item">
-            {{numFormat(row.item.totalsupply)}}
+            {{convertTotalSupply(row.item.totalsupply,row.item.decimals)}}
           </td>
           <td class="table-list-item">
             {{ row.item.holders }}
@@ -156,7 +156,7 @@ import axios from "axios";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import net from "../../store/store";
-import {numFormat} from "../../store/util";
+import {convertTotalSupply} from "../../store/util";
 
 export default {
   name: "tokens-table",
@@ -191,7 +191,7 @@ export default {
     $route: "watchrouter",
   },
   methods: {
-    numFormat,
+    convertTotalSupply,
     handleCurrentChange(val) {
       this.isLoading = true;
       this.pagination = val;

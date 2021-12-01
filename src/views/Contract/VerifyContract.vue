@@ -82,7 +82,7 @@
 
 </template>
 <script lang="ts">
-// import axios from "axios";
+import axios from "axios";
 import {ElMessage} from 'element-plus'
 import Loading from "vue-loading-overlay"
 export default {
@@ -118,110 +118,105 @@ export default {
 
   methods: {
     uploadFilesAndParams() {
-      ElMessage({
-        showClose:true,
-        duration:0,
-        type:"success",
-        message:"This feature is being updated."
+      this.isLoading= true;
+      console.log(this.fileList)
+      let formData = new FormData();
+      this.fileList.forEach((item) => {
+        formData.append("file", item.raw);
+      });
+      formData.append('Contract', this.form.hash);
+      if (!this.isContractPattern.test(this.form.hash)) {
+        ElMessage({
+          showClose:true,
+          duration:0,
+          type:"error",
+          message:"Contract hash format error, please check you contract hash! "
+        })
+        this.isLoading=false
+        return
+      }
+
+      formData.append('Version', this.form.version);
+      formData.append('CompileCommand',this.form.command)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+
+        }
+      }
+      let node = ""
+      if(`${location.hostname}`=== "explorer.onegate.space"){
+        node = "https://neofura.ngd.network/upload"
+      }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
+       node = "https://testneofura.ngd.network:444/upload"
+      }
+      // node = "https://testneofura.ngd.network:444/upload"
+      axios.post(node,formData,config).then((res) => {
+        console.log(res)
+        if (res.data.Code === 2) {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:"Compilation failed! Your .cs and .csproj files are not complete, please check and upload again! "
+          })
+          this.isLoading=false;
+
+        } else if (res.data.Code ===0 || res.data.Code === 1 || res.data.Code ===3){
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:"Server error, please try it later!"
+          })
+          this.isLoading=false;
+          console.log(res.data.Code)
+        } else if (res.data.Code === 4) {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:"Failed in querying contract info on blockChain! "+res.data.Msg
+          })
+          this.isLoading=false;
+        } else if (res.data.Code=== 5 ) {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"success",
+            message:"Contract verification success!"
+          })
+          this.isLoading=false;
+          this.$router.push({
+            path: `/contractinfo/${this.form.hash}`,
+          });
+
+        } else if (res.data.Code===6) {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            message:"This contract has already been verified, please refresh this page!"
+          })
+          this.isLoading=false;
+        } else if (res.data.Code===7) {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:res.data.Msg
+          })
+          this.isLoading=false;
+        } else {
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:" Verification failed! Your contract source code doesn't match that on blockchain! please check if you have updated this contract,and upload the latest version!"
+          })
+          this.isLoading=false;
+
+        }
       })
-      // this.isLoading= true;
-      // console.log(this.fileList)
-      // let formData = new FormData();
-      // this.fileList.forEach((item) => {
-      //   formData.append("file", item.raw);
-      // });
-      // formData.append('Contract', this.form.hash);
-      // if (!this.isContractPattern.test(this.form.hash)) {
-      //   ElMessage({
-      //     showClose:true,
-      //     duration:0,
-      //     type:"error",
-      //     message:"Contract hash format error, please check you contract hash! "
-      //   })
-      //   this.isLoading=false
-      //   return
-      // }
-      //
-      // formData.append('Version', this.form.version);
-      // formData.append('CompileCommand',this.form.command)
-      // let config = {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //
-      //   }
-      // }
-      // let node = ""
-      // if(`${location.hostname}`=== "explorer.onegate.space"){
-      //   node = "https://neofura.ngd.network/upload"
-      // }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
-      //  node = "https://testneofura.ngd.network:444/upload"
-      // }
-      // axios.post(node,formData,config).then((res) => {
-      //   console.log(res)
-      //   if (res.data.Code === 2) {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"error",
-      //       message:"Compilation failed! Your .cs and .csproj files are not complete, please check and upload again! "
-      //     })
-      //     this.isLoading=false;
-      //
-      //   } else if (res.data.Code ===0 || res.data.Code === 1 || res.data.Code ===3){
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"error",
-      //       message:"Server error, please try it later!"
-      //     })
-      //     this.isLoading=false;
-      //     console.log(res.data.Code)
-      //   } else if (res.data.Code === 4) {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"error",
-      //       message:"Failed in querying contract info on blockChain! "+res.data.Msg
-      //     })
-      //     this.isLoading=false;
-      //   } else if (res.data.Code=== 5 ) {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"success",
-      //       message:"Contract verification success!"
-      //     })
-      //     this.isLoading=false;
-      //     this.$router.push({
-      //       path: `/contractinfo/${this.form.hash}`,
-      //     });
-      //
-      //   } else if (res.data.Code===6) {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       message:"This contract has already been verified, please refresh this page!"
-      //     })
-      //     this.isLoading=false;
-      //   } else if (res.data.Code===7) {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"error",
-      //       message:res.data.Msg
-      //     })
-      //     this.isLoading=false;
-      //   } else {
-      //     ElMessage({
-      //       showClose:true,
-      //       duration:0,
-      //       type:"error",
-      //       message:" Verification failed! Your contract source code doesn't match that on blockchain! please check if you have updated this contract,and upload the latest version!"
-      //     })
-      //     this.isLoading=false;
-      //
-      //   }
-      // })
 
       },
 
