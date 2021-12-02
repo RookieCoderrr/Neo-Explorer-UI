@@ -143,12 +143,12 @@
                   :to="'/accountprofile/' + item.from"
               >{{scriptHashToAddress(item.from)}}</router-link>
               <router-link class="table-list-item mt-2" style=" display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
-                [
-                {{ convertToken(item.value, item.decimals) }}
+
+                [{{ convertToken(item.value, item.decimals) }}
                 <span v-if="item.tokenname==='NeoToken'" style="color: #2dce89">Neo</span>
                 <span v-else-if="item.tokenname==='GasToken'" style="color: darkorange">Gas</span>
-                <span v-else>{{item.tokenname}}</span>
-                ]
+                <span v-else>{{item.tokenname}}</span>]
+
               </router-link>
 
             </div>
@@ -181,12 +181,12 @@
                 {{scriptHashToAddress(item['to']) }}
               </router-link>
               <router-link class="table-list-item mt-2" style="display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
-                [
-                {{ convertToken(item.value, item.decimals) }}
+
+                [{{ convertToken(item.value, item.decimals) }}
                 <span v-if="item.tokenname==='NeoToken'" style="color: #2dce89">Neo</span>
                 <span v-else-if="item.tokenname==='GasToken'" style="color: darkorange">Gas</span>
-                <span v-else>{{item.tokenname}}</span>
-                ]
+                <span v-else>{{item.tokenname}}</span>]
+
               </router-link>
 
 
@@ -201,7 +201,7 @@
             {{ $t("transactionTransfer.from") }}
           </div>
           <div class="colorTable" v-for ="(item, index) in this.tableData" :key="index" style="width: 100%">
-            <div class="table-list-item " v-if="item.from !== null" style=" height: 150px; text-align: center;padding-top: 24px;padding-left: 10%; padding-right: 10%">
+            <div class="table-list-item " v-if="item.from !== null" style=" height: 170px; text-align: center;padding-top: 26px;padding-left: 10%; padding-right: 10%">
 
                 <span class="text-muted" v-if="item.from === null" >
                   {{ $t("nullAddress") }}</span
@@ -213,25 +213,25 @@
                   :to="'/accountprofile/' + item.from"
               >{{scriptHashToAddress(item.from)}}</router-link>
               <div class="table-list-item mt-2" style="text-align: center;">
-                [
-                {{ convertToken(item.value, item.decimals) }}
 
-                ]
+                [{{ convertToken(item.value, item.decimals) }}]
+
+
               </div>
               <router-link v-if="item.tokenname==='NeoToken'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">Neo</router-link>
               <router-link v-else-if="item.tokenname==='GasToken'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">Gas</router-link>
               <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.tokenname}}</router-link>
 
             </div>
-            <div v-else style=" height: 150px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 24px"></div>
+            <div v-else style=" height: 170px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 26px"></div>
           </div>
         </div>
         <div  style="width: 6%;float: left">
           <p  style="height: 60px">
 
           </p>
-          <div  class="" v-for="index in this.length" :key="index" style=" height: 140px; text-align: center" >
-            <svg  class="" style="height: 140px" width="17px" height="17px" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>Combined Shape</title><g id="-1440-desktop-designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.93"><g id="Desktop--1440px-Invocation-information" transform="translate(-736.000000, -377.000000)" fill="#7D9FB1"><g id="Invocation-expanded" transform="translate(175.000000, 353.000000)"><path d="M601.5,24 C623.867532,24 642,42.1324676 642,64.5 C642,86.8675324 623.867532,105 601.5,105 C579.132468,105 561,86.8675324 561,64.5 C561,42.1324676 579.132468,24 601.5,24 Z M601.355881,46.4210802 L598.093181,49.68378 L610.978081,62.6239794 L582.885682,62.6239794 L582.885682,67.1585792 L610.978081,67.1585792 L598.093181,80.0987785 L601.355881,83.3614784 L619.82608,64.8912793 L601.355881,46.4210802 Z" id="Combined-Shape"></path></g></g></g></svg>
+          <div  class="" v-for="index in this.length" :key="index" style=" height: 170px; text-align: center" >
+            <svg  class="" style="height: 170px" width="17px" height="17px" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>Combined Shape</title><g id="-1440-desktop-designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.93"><g id="Desktop--1440px-Invocation-information" transform="translate(-736.000000, -377.000000)" fill="#7D9FB1"><g id="Invocation-expanded" transform="translate(175.000000, 353.000000)"><path d="M601.5,24 C623.867532,24 642,42.1324676 642,64.5 C642,86.8675324 623.867532,105 601.5,105 C579.132468,105 561,86.8675324 561,64.5 C561,42.1324676 579.132468,24 601.5,24 Z M601.355881,46.4210802 L598.093181,49.68378 L610.978081,62.6239794 L582.885682,62.6239794 L582.885682,67.1585792 L610.978081,67.1585792 L598.093181,80.0987785 L601.355881,83.3614784 L619.82608,64.8912793 L601.355881,46.4210802 Z" id="Combined-Shape"></path></g></g></g></svg>
           </div>
         </div>
         <div  style="width: 47% ;  background-color: white;border-radius: 10px;float: right" >
@@ -239,7 +239,7 @@
             {{ $t("transactionTransfer.to") }}
           </div>
           <div class="colorTable" v-for ="(item, index) in this.tableData" :key="index">
-            <div class="table-list-item " v-if="item.to !== null" style=" height: 150px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 24px" >
+            <div class="table-list-item " v-if="item.to !== null" style=" height: 170px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 26px" >
               <span class="text-muted" v-if="item.to === null" >
                   {{ $t("nullAddress") }}</span
                 >
@@ -252,16 +252,16 @@
                 {{scriptHashToAddress(item['to']) }}
               </router-link>
               <router-link class="table-list-item mt-2" style=" display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
-                [
-                {{ convertToken(item.value, item.decimals) }}
 
-                ]
+                [{{ convertToken(item.value, item.decimals) }}]
+
+
               </router-link>
               <router-link v-if="item.tokenname==='NeoToken'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">Neo</router-link>
               <router-link v-else-if="item.tokenname==='GasToken'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">Gas</router-link>
               <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.tokenname}}</router-link>
             </div>
-            <div v-else style=" height: 150px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 24px">
+            <div v-else style=" height: 170px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 26px">
 
             </div>
           </div>
@@ -380,7 +380,7 @@ export default {
     height: 110px!important;
   }
   .padding-size{
-    font-size:10px
+    font-size:13px
   }
   .paddingArrow{
     height:110px!important;

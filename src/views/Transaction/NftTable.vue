@@ -138,10 +138,11 @@
                 :to="'/accountprofile/' + item.from"
             >{{scriptHashToAddress(item.from)}}</router-link>
             <div class="table-list-item mt-2" style="text-align: center;">
-              [
-              {{ convertToken(item.value, item.decimals) }}
-              <router-link  style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
-              ]
+
+              [{{ convertToken(item.value, item.decimals) }}
+              <router-link  v-if="item.nftName!=='——'" style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+              <router-link v-else style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)">{{item.tokenname}}</router-link>]
+
             </div>
 
           </div>
@@ -174,10 +175,11 @@
               {{scriptHashToAddress(item['to']) }}
             </router-link>
             <div class="table-list-item mt-2" style="text-align: center">
-              [
-              {{ convertToken(item.value, item.decimals) }}
-              <router-link  style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
-              ]
+
+              [{{ convertToken(item.value, item.decimals) }}
+              <router-link  v-if="item.nftName!=='——'" style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+              <router-link v-else style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)">{{item.tokenname}}</router-link>]
+
             </div>
 
 
@@ -204,12 +206,12 @@
                 :to="'/accountprofile/' + item.from"
             >{{scriptHashToAddress(item.from)}}</router-link>
             <div class="table-list-item mt-2" style="text-align: center;">
-              [
-              {{ convertToken(item.value, item.decimals) }}
 
-              ]
+              [{{ convertToken(item.value, item.decimals) }}]
+
             </div>
-            <router-link  style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+            <router-link  v-if="item.nftName!=='——'" style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+            <router-link v-else style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)">{{item.tokenname}}</router-link>
 
           </div>
           <div v-else style=" height: 150px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 24px"></div>
@@ -219,8 +221,8 @@
         <p  style="height: 60px">
 
         </p>
-        <div  class="" v-for="index in this.totalCount" :key="index" style=" height: 140px; text-align: center" >
-          <svg  class="" style="height: 140px" width="17px" height="17px" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>Combined Shape</title><g id="-1440-desktop-designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.93"><g id="Desktop--1440px-Invocation-information" transform="translate(-736.000000, -377.000000)" fill="#7D9FB1"><g id="Invocation-expanded" transform="translate(175.000000, 353.000000)"><path d="M601.5,24 C623.867532,24 642,42.1324676 642,64.5 C642,86.8675324 623.867532,105 601.5,105 C579.132468,105 561,86.8675324 561,64.5 C561,42.1324676 579.132468,24 601.5,24 Z M601.355881,46.4210802 L598.093181,49.68378 L610.978081,62.6239794 L582.885682,62.6239794 L582.885682,67.1585792 L610.978081,67.1585792 L598.093181,80.0987785 L601.355881,83.3614784 L619.82608,64.8912793 L601.355881,46.4210802 Z" id="Combined-Shape"></path></g></g></g></svg>
+        <div  class="" v-for="index in this.totalCount" :key="index" style=" height: 150px; text-align: center" >
+          <svg  class="" style="height: 150px" width="17px" height="17px" viewBox="0 0 81 81" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>Combined Shape</title><g id="-1440-desktop-designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.93"><g id="Desktop--1440px-Invocation-information" transform="translate(-736.000000, -377.000000)" fill="#7D9FB1"><g id="Invocation-expanded" transform="translate(175.000000, 353.000000)"><path d="M601.5,24 C623.867532,24 642,42.1324676 642,64.5 C642,86.8675324 623.867532,105 601.5,105 C579.132468,105 561,86.8675324 561,64.5 C561,42.1324676 579.132468,24 601.5,24 Z M601.355881,46.4210802 L598.093181,49.68378 L610.978081,62.6239794 L582.885682,62.6239794 L582.885682,67.1585792 L610.978081,67.1585792 L598.093181,80.0987785 L601.355881,83.3614784 L619.82608,64.8912793 L601.355881,46.4210802 Z" id="Combined-Shape"></path></g></g></g></svg>
         </div>
       </div>
       <div  style="width: 47% ;  background-color: white;border-radius: 10px;float: right" >
@@ -241,12 +243,12 @@
               {{scriptHashToAddress(item['to']) }}
             </router-link>
             <div class="table-list-item mt-2" style="text-align: center">
-              [
-              {{ convertToken(item.value, item.decimals) }}
 
-              ]
+              [{{ convertToken(item.value, item.decimals) }}]
+
             </div>
-            <router-link  style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+            <router-link  v-if="item.nftName!=='——'" style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)"> {{item.nftName}}</router-link>
+            <router-link v-else style="cursor: pointer" :to="'/NFTinfo/' + item.contract+'/'+item.to+'/'+base64ToHash(item.tokenId)">{{item.tokenname}}</router-link>
 
 
           </div>
@@ -341,7 +343,7 @@ export default {
         },
       }).then((res) => {
         this.tableData = res["data"]["result"]["result"];
-        // console.log(this.tableData)
+        console.log(this.tableData)
         this.totalCount = res["data"]["result"]["totalCount"]
         for (let k = 0; k < this.tableData.length;k++) {
           axios({
@@ -359,7 +361,7 @@ export default {
               crossDomain: "true",
             },
           }).then((res) => {
-            console.log(res)
+            // console.log(res)
             // console.log(this.tableData)
             this.isLoading = false;
             var value = res["data"]["result"]["result"][0]
@@ -371,7 +373,7 @@ export default {
               this.properties = JSON.parse(value["properties"])
               if ("name" in this.properties) {
                 this.tableData[k]['nftName'] = this.properties["name"]
-                console.log( this.tableData[k]['nftName'])
+                // console.log( this.tableData[k]['nftName'])
               }
             }
           })

@@ -199,7 +199,7 @@ export default {
         },
       }).then((res) => {
         let temp = res["data"]["result"]["result"];
-        // console.log(temp)
+        console.log(temp)
         this.totalCount = res["data"]["result"]["totalCount"];
         this.countPage =
           this.totalCount === 0
@@ -212,8 +212,8 @@ export default {
         // console.log("address_list", address_list)
         this.tokenList = temp;
         for (let k = 0; k < temp.length; k++) {
-          if (this.tokenList['tokenid'] === ""){
-            return
+          if (this.tokenList[k]['tokenid'] === ""){
+            continue
           }
           axios({
             method: "post",

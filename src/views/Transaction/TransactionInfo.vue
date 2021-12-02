@@ -416,6 +416,7 @@
                             >
                               <span
                                   v-if="
+                                  List[index]['key'][ind]&&
                                   List[index]['key'][ind]['type'] === 'Hash160'
                                 "
                               >
@@ -428,6 +429,7 @@
                                   v-else-if="
                                   List[index] &&
                                   List[index]['key'] &&
+                                  List[index]['key'][ind]&&
                                   List[index]['key'][ind]['type'] === 'String'
                                 "
                               >
@@ -442,6 +444,7 @@
                                   v-else-if="
                                   List[index] &&
                                   List[index]['key'] &&
+                                  List[index]['key'][ind]&&
                                   List[index]['key'][ind]['type'] === 'Integer'
                                 "
                               >
@@ -453,7 +456,7 @@
                                 }}
                               </span>
                               <span v-else>
-                                {{ List[index]["key"][ind]["name"] }}:
+                                <span v-if=" List[index]['key'][ind]">{{ List[index]["key"][ind]["name"] }}:</span>
                                 {{ param === "" ? "null" : param }}
                               </span>
                             </li>
@@ -879,7 +882,7 @@ export default {
                 this.tabledataCall["result"][i]["method"]
             );
           }
-          // console.log(this.List)
+
         }
 
       });
