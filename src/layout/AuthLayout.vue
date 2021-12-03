@@ -8,7 +8,7 @@
     >
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="cursor: pointer"
              @click="backHome()"
-             class=" logo" width="99pt" height="22pt" viewBox="0 0 99 22" version="1.1">
+             class=" logo left" width="99pt" height="22pt" viewBox="0 0 99 22" version="1.1">
           <g id="surface1">
             <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 28.433594 7.222656 C 29.46875 7.222656 30.269531 7.4375 30.835938 7.859375 C 31.402344 8.289062 31.820312 8.886719 32.023438 9.574219 C 32.257812 10.351562 32.371094 11.15625 32.363281 11.96875 L 32.363281 18.996094 L 30.117188 18.996094 L 30.117188 12.125 C 30.125 11.617188 30.050781 11.113281 29.898438 10.628906 C 29.765625 10.214844 29.507812 9.851562 29.15625 9.597656 C 28.71875 9.328125 28.203125 9.21875 27.695312 9.289062 C 27.15625 9.28125 26.621094 9.40625 26.148438 9.664062 C 25.714844 9.894531 25.347656 10.230469 25.078125 10.640625 C 24.816406 11.042969 24.679688 11.519531 24.683594 12 L 24.683594 18.996094 L 22.4375 18.996094 L 22.4375 7.464844 L 24.683594 7.464844 L 24.683594 9.289062 C 25.082031 8.699219 25.605469 8.207031 26.210938 7.847656 C 26.878906 7.433594 27.652344 7.214844 28.433594 7.222656 Z M 28.433594 7.222656 "/>
             <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 45.03125 17.480469 L 45.007812 17.480469 C 43.773438 18.578125 42.1875 19.195312 40.539062 19.214844 C 39.441406 19.238281 38.355469 18.980469 37.386719 18.457031 C 36.503906 17.972656 35.769531 17.25 35.269531 16.371094 C 34.75 15.449219 34.488281 14.410156 34.507812 13.351562 C 34.472656 12.195312 34.75 11.050781 35.3125 10.042969 C 35.824219 9.160156 36.5625 8.429688 37.453125 7.9375 C 38.339844 7.445312 39.335938 7.191406 40.351562 7.199219 C 41.269531 7.1875 42.179688 7.433594 42.96875 7.910156 C 43.757812 8.386719 44.40625 9.066406 44.851562 9.875 C 45.335938 10.769531 45.578125 11.777344 45.554688 12.796875 L 45.535156 13.765625 L 36.746094 13.765625 C 36.832031 14.722656 37.289062 15.613281 38.019531 16.234375 C 38.792969 16.859375 39.765625 17.183594 40.757812 17.148438 C 41.429688 17.175781 42.101562 17.023438 42.695312 16.699219 C 43.128906 16.441406 43.539062 16.152344 43.917969 15.828125 Z M 40.34375 9.289062 C 39.550781 9.269531 38.773438 9.476562 38.097656 9.890625 C 37.457031 10.292969 37.035156 10.988281 36.832031 11.96875 L 43.242188 11.96875 L 43.242188 11.824219 C 43.210938 11.34375 43.042969 10.882812 42.757812 10.496094 C 42.476562 10.117188 42.113281 9.8125 41.695312 9.601562 C 41.273438 9.390625 40.8125 9.285156 40.347656 9.289062 Z M 40.34375 9.289062 "/>
@@ -221,50 +221,21 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <div class="mobileMenu "  style="display: none">
-
-        <base-dropdown>
-          <template v-slot:title>
-            <base-button type="default" class="btn btn-sm">
-              <i class="ni ni-align-center"></i>
-            </base-button>
+      <div class="mobileMenu "  style="display: none ;">
+        <el-dropdown>
+          <i class="ni ni-align-center"></i>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="backHome()">{{ $t("authLayout.home") }}</el-dropdown-item>
+              <el-dropdown-item @click="toBlock()">{{ $t("authLayout.blocks") }}</el-dropdown-item>
+              <el-dropdown-item @click="toTransaction()"> {{ $t("authLayout.txs") }}</el-dropdown-item>
+              <el-dropdown-item @click="toAsset()"> {{ $t("authLayout.tokens") }}</el-dropdown-item>
+              <el-dropdown-item @click="toContract()"> {{ $t("authLayout.contracts") }}</el-dropdown-item>
+              <el-dropdown-item @click="toAddress()">  {{ $t("authLayout.address") }}</el-dropdown-item>
+              <el-dropdown-item @click="toCandidate()">  {{ $t("authLayout.committee") }}</el-dropdown-item>
+            </el-dropdown-menu>
           </template>
-          <li>
-            <router-link class="nav-link" to="/homepage">
-              {{ $t("authLayout.home") }}
-            </router-link>
-          </li>
-          <li>
-            <router-link class="nav-link" to="/blocks/1">
-              {{ $t("authLayout.blocks") }}
-            </router-link>
-          </li>
-          <li class="nav-item-1">
-            <router-link class="nav-link" to="/transactions/1">
-              {{ $t("authLayout.txs") }}
-            </router-link>
-          </li>
-          <li class="nav-item-1">
-            <router-link class="nav-link" to="/tokens/Nep17/1">
-              {{ $t("authLayout.tokens") }}
-            </router-link>
-          </li>
-          <li class="nav-item-1">
-            <router-link class="nav-link" to="/contracts/1">
-              {{ $t("authLayout.contracts") }}
-            </router-link>
-          </li>
-          <li class="nav-item-1">
-            <router-link class="nav-link" to="/account/1">
-              {{ $t("authLayout.address") }}
-            </router-link>
-          </li>
-          <li class="nav-item-1">
-            <router-link class="nav-link" to="/candidates/1">
-              {{ $t("authLayout.committee") }}
-            </router-link>
-          </li>
-        </base-dropdown>
+        </el-dropdown>
       </div>
       <el-divider class="mr-3 drophide" direction="vertical"></el-divider>
 
@@ -400,7 +371,7 @@
             <div class="col-lg-3 mb-2 mt-2" >
               <div class="dropbot " style="display: none">
                 <el-dropdown>
-          <el-button size="mini" plain class="el-dropdown-link droptitle">
+          <el-button  size="mini" plain class="el-dropdown-link droptitle">
             {{this.lang}}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
@@ -927,7 +898,6 @@ export default {
   /* identical to box height */
 
 
-  color: #4E5969;
 
   mix-blend-mode: normal;
 

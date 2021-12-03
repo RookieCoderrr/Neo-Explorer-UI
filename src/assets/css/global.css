@@ -373,6 +373,9 @@
     .shortHidden{
         display: none!important;
     }
+    .logo{
+        margin-left: 1% !important;
+    }
 }
 ::placeholder{
     color: rgba(40, 43, 52, 0.3)

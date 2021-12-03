@@ -281,7 +281,9 @@
                               >
                                 <span
                                     v-if="
-                                    this.mapTotalApp.get(item['contract']) &&
+                                     this.mapTotalApp.get(item['contract']) &&this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])&&
                                     this.mapTotalApp
                                       .get(item['contract'])
                                       .get(item['eventname'])[ind] === 'Hash160'
@@ -296,7 +298,9 @@
                                 </span>
                                 <span
                                     v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp.get(item['contract']) &&this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])&&
                                     this.mapTotalApp
                                       .get(item['contract'])
                                       .get(item['eventname'])[ind] === 'String'
@@ -307,7 +311,10 @@
                                 </span>
                                 <span
                                     v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
+
+                                     this.mapTotalApp.get(item['contract']) &&this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])&&
                                     this.mapTotalApp
                                       .get(item['contract'])
                                       .get(item['eventname'])[ind] === 'Array'
@@ -319,7 +326,9 @@
                                 </span>
                                 <span
                                     v-else-if="
-                                    this.mapTotalApp.get(item['contract']) &&
+                                    this.mapTotalApp.get(item['contract']) &&this.mapTotalApp
+                                      .get(item['contract'])
+                                      .get(item['eventname'])&&
                                     this.mapTotalApp
                                       .get(item['contract'])
                                       .get(item['eventname'])[ind] ===
@@ -457,7 +466,8 @@
                                 }}
                               </span>
                               <span v-else>
-                                <span v-if=" List[index]['key'][ind]">{{ List[index]["key"][ind]["name"] }}:</span>
+                                <span v-if=" List[index] &&
+                                  List[index]['key'] &&List[index]['key'][ind]">{{ List[index]["key"][ind]["name"] }}:</span>
                                 {{ param === "" ? "null" : param }}
                               </span>
                             </li>

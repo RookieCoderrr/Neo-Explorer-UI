@@ -26,8 +26,8 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center short">
-              <div class="media-body">
+            <div class="media align-items-center ">
+              <div class="media-body short">
                 <span
                   class="text-muted"
                   v-if="
