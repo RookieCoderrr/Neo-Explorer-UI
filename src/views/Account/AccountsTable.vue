@@ -53,22 +53,25 @@
         <template v-slot:default="row">
 
           <td class="address">
-            <router-link
-              class="mb-0 table-list-item-blue"
-              v-if="this.button.state"
-              style="cursor: pointer;"
-              :to="'/accountprofile/' + row.item.address"
-            >
-              {{ scriptHashToAddress(row.item.address) }}
-            </router-link>
-            <router-link
-              class="mb-0 table-list-item-blue"
-              v-else
-              style="cursor: pointer;"
-              :to="'/accountprofile/' + row.item.address"
-            >
-              {{ row.item.address }}
-            </router-link>
+            <div class="short">
+              <router-link
+                  class="mb-0 table-list-item-blue"
+                  v-if="this.button.state"
+                  style="cursor: pointer;"
+                  :to="'/accountprofile/' + row.item.address"
+              >
+                {{ scriptHashToAddress(row.item.address) }}
+              </router-link>
+              <router-link
+                  class="mb-0 table-list-item-blue"
+                  v-else
+                  style="cursor: pointer;"
+                  :to="'/accountprofile/' + row.item.address"
+              >
+                {{ row.item.address }}
+              </router-link>
+            </div>
+
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->
           </td>
           <td class="table-list-item">

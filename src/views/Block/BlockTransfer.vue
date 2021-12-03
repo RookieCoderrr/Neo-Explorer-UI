@@ -36,20 +36,20 @@
 
         <template v-slot:default="row">
           <td class="table-list-item" style="text-align: center">
-            <div>
-              <div class="text-muted" v-if="row.item.from === null">
+            <div >
+              <div class="text-muted short" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" >
+              <div class="short" v-else-if="fromButton.state" >
                 <router-link
-                  class="  mb-0 table-list-item-blue"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer;"
                   :to="'/accountprofile/'+row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}</router-link>
               </div>
-              <div v-else class="addr">
+              <div v-else class="short" >
                 <router-link
-                  class="  mb-0 table-list-item-blue"
+                  class=" mb-0 table-list-item-blue"
                   style="cursor: pointer;"
                   :to="'/accountprofile/'+row.item.from"
                   >{{ row.item.from }}</router-link>
@@ -82,10 +82,10 @@
           </td>
           <td class="table-list-item" style="text-align: center">
 
-              <div class="text-muted" v-if="row.item.to === null">
+              <div class="short text-muted" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="toButton.state" >
+              <div class="short" v-else-if="toButton.state" >
                 <router-link
                   class=" mb-0 table-list-item-blue"
                   style="cursor: pointer;"
@@ -93,7 +93,7 @@
                   >{{ scriptHashToAddress(row.item.to) }}</router-link
                 >
               </div>
-              <div v-else class="addr">
+              <div  v-else class="short">
                 <router-link
                   class=" mb-0 table-list-item-blue"
                   style="cursor: pointer;"
@@ -224,13 +224,5 @@ export default {
 };
 </script>
 <style>
-.txid {
-  width: 200px !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.addr {
 
-}
 </style>

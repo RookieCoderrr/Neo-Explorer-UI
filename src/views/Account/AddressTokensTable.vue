@@ -42,8 +42,8 @@
               {{ row.item.tokenname }}
             </td>
             <th scope="row">
-              <div class="media align-items-center">
-                <div v-if="row.item.standard==='NEP11'" class="media-body">
+              <div class="media align-items-center ">
+                <div v-if="row.item.standard==='NEP11'" class="media-body short">
                   <router-link
                       class="  mb-0 table-list-item-blue"
                       style="cursor: pointer; "
@@ -52,7 +52,7 @@
                   >
 
                 </div>
-                <div v-else class="media-body">
+                <div v-else class="media-body short">
                   <router-link
                       class="  mb-0 table-list-item-blue"
                       style="cursor: pointer;"
@@ -67,11 +67,14 @@
 
             </td>
             <td v-else class="table-list-item">
-              <router-link
-                  class="  mb-0 table-list-item-blue"
-                  style="cursor: pointer;"
-                  :to="'/NFTinfo/' + row.item.asset+'/'+this.account_address+'/'+base64ToHash(row.item.tokenid)"
-              >{{ row.item.tokenid }}</router-link>
+              <div class="short">
+                <router-link
+                    class="  mb-0 table-list-item-blue"
+                    style="cursor: pointer;"
+                    :to="'/NFTinfo/' + row.item.asset+'/'+this.account_address+'/'+base64ToHash(row.item.tokenid)"
+                >{{ row.item.tokenid }}</router-link>
+              </div>
+
             </td>
             <td class="table-list-item">
               {{ row.item.nftName }}

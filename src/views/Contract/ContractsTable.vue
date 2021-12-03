@@ -82,7 +82,7 @@
           </td>
           <td scope="row" v-if="row.item">
             <div style="text-align: center">
-              <div class="media-body">
+              <div class="media-body short">
                 {{ row.item.hash }}
               </div>
             </div>
@@ -90,31 +90,34 @@
           </td>
 
           <td  class="table-list-item-blue">
-            <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
-              $t("contract.available")
-            }}</span>
-            <router-link
-              class="table-list-item-blue mb-0"
-              v-else-if="button.state"
-              style="cursor: pointer; "
-              :to="
+            <div class="short">
+              <span class="text-muted" v-if="row.item.Transaction.length === 0">{{
+                  $t("contract.available")
+                }}</span>
+              <router-link
+                  class="table-list-item-blue mb-0"
+                  v-else-if="button.state"
+                  style="cursor: pointer; "
+                  :to="
                 '/accountprofile/' +
                 addressToScriptHash(row.item.Transaction[0]['sender'])
               "
-            >
-              {{ row.item.Transaction[0]["sender"] }}
-            </router-link>
-            <router-link
-              class="table-list-item-blue mb-0 "
-              v-else
-              style="cursor: pointer;"
-              :to="
+              >
+                {{ row.item.Transaction[0]["sender"] }}
+              </router-link>
+              <router-link
+                  class="table-list-item-blue mb-0 "
+                  v-else
+                  style="cursor: pointer;"
+                  :to="
                 '/accountprofile/' +
                 addressToScriptHash(row.item.Transaction[0]['sender'])
               "
-            >
-              {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
-            </router-link>
+              >
+                {{ addressToScriptHash(row.item.Transaction[0]["sender"]) }}
+              </router-link>
+            </div>
+
           </td>
           <td  class="table-list-item">
             {{ row.item.updatecounter }}

@@ -54,7 +54,7 @@
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("tokensTable.name") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.symbol") }}</th>
-          <th class="tableHeader">{{ $t("tokensTable.standard") }}</th>
+          <th class="tableHeader shortHidden">{{ $t("tokensTable.standard") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.decimal") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.totalSupply") }}</th>
           <th class="tableHeader">{{ $t("tokensTable.holders") }}</th>
@@ -97,7 +97,7 @@
           <td class="table-list-item">
             {{ row.item.symbol }}
           </td>
-          <td>
+          <td class="shortHidden">
             <el-tag
               v-if="row.item.type === 'NEP17'"
             >

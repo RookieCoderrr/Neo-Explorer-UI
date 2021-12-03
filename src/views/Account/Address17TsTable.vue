@@ -3,25 +3,21 @@
          :class="type==='dark' ?'bg-transparent':''">
       <div class="row align-items-center">
         <div class="col-2">
-          <base-dropdown>
-            <template v-slot:title>
-              <base-button type="default" class="btn btn-sm">
-                {{ this.listButton.buttonName }}
+          <el-dropdown>
+            <el-button size="mini" plain>
+              {{ this.listButton.buttonName }}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+              </svg>
+            </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="switchTransferList('All')"><span>All Types</span></el-dropdown-item>
+                <el-dropdown-item @click="switchTransferList('Only')"> <span>Transfers Only</span></el-dropdown-item>
 
-              </base-button>
+              </el-dropdown-menu>
             </template>
-            <li>
-              <a class="dropdown-item" @click="switchTransferList('All')">
-                <span>All Types</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" @click="switchTransferList('Only')">
-                <span>Transfers Only</span>
-              </a>
-            </li>
-
-          </base-dropdown>
+          </el-dropdown>
         </div>
         <div class="col-10">
 
@@ -97,7 +93,7 @@
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" class="addr">
+              <div v-else-if="fromButton.state" class=" short">
                 <span
                   v-if="row.item.from === this.account_address"
                   >{{ scriptHashToAddress(row.item.from) }}
@@ -110,7 +106,7 @@
                   >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
               </div>
-              <div v-else class="addr">
+              <div v-else class=" short">
                 <span
                   v-if="row.item.from === this.account_address"
                   >{{ row.item.from }}
@@ -192,7 +188,7 @@
             <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>
-            <div v-else-if="toButton.state" class="addr">
+            <div v-else-if="toButton.state" class="short">
               <span
                 v-if="row.item.to === this.account_address">
                {{ scriptHashToAddress(row.item.to) }}
@@ -205,7 +201,7 @@
                 >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
             </div>
-            <div v-else class="addr">
+            <div v-else class="short">
               <span
                 v-if="row.item.to === this.account_address"
 

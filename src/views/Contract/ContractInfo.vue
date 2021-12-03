@@ -9,8 +9,8 @@
                 :opacity="0.9"
                 :active="isLoading"
               ></loading>
-              <div class=" row mt-3  mb-5  title1" > {{ $t('contractDetail') }} </div>
-              <div class=" row mt-3  mb-3 title2">
+              <div class=" row mt-3  mb-5  title1 shortTitle" > {{ $t('contractDetail') }} </div>
+              <div class=" row mt-3  mb-3 title2 shortTitle">
                 {{ $t('overview') }}
                 <div  v-if="this.standard===1">
                   <el-button v-if="isToken" type="info" :plain="true" size="small" style="height: 22px; margin-left: 10px" @click="getNep17Token(this.contract_id)">
@@ -25,7 +25,7 @@
                     Token</el-button>
                 </div>
               </div>
-              <card shadow class="card-style">
+              <card shadow class="card-style list">
 
                 <div class="row  mb-1 " >
                   <div class="col-md-3 lable-title">
@@ -37,8 +37,12 @@
                     <el-tag v-if="this.contract_info['updatecounter'] === -1" type="danger" size="small" >
                       Destroyed
                     </el-tag>
-                    <el-tag v-if="this.nef['compiler']==='neo-core-v3.0'" type="success" size="small" >
+
+                    <el-tag v-else-if="this.nef['compiler']==='neo-core-v3.0'" type="success" size="small" >
                       Native
+                    </el-tag>
+                    <el-tag v-if="this.whiteList.indexOf(this.contract_info['hash']) !== -1" type="success" size="small" >
+                      Verified
                     </el-tag>
                     <i v-else-if="this.nef['compiler']!=='neo-core-v3.0'&&this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
                        Verified
@@ -135,7 +139,7 @@
                 <div class="row mt-3"></div>
                 <div class="row mt-3"></div>
 
-              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;background-color: #f7f8fa" >
+              <el-tabs class="list" v-model="activeName"  style="width:80%;margin-left: 10%;background-color: #f7f8fa" >
                 <el-tab-pane :label="$t('contract.scCallTitle')"  name="first">
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
@@ -311,6 +315,9 @@
                   <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">
                     This is a native contract, and the source code is registered on the blockchain.
                   </card>
+                  <card shadow class="text-center" v-else-if="this.whiteList.indexOf(this.contract_info['hash']) !== -1">
+                    This contract is not OpenSource.
+                  </card>
                   <div v-else-if="this.isVerified" class="text-center">
                     <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>
 <!--                    <card shadow>-->
@@ -378,6 +385,7 @@ export default {
       activeNames2:['0'],
       isVerified:0,
       updatecounter:0,
+      whiteList:[]
     };
   },
   created() {

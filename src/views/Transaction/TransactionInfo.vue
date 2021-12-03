@@ -10,12 +10,12 @@
                 :active="isLoading"
             ></loading>
             <div class="bat">
-              <div class=" row mt-3  mb-5  title1" >
+              <div class=" row mt-3  mb-5  title1 shortTitle" >
                 {{ $t("transactionInfo.txId") }}
               </div>
-              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
+              <div class=" row mt-3  mb-3 title2 shortTitle"> {{ $t('overview') }} </div>
             </div>
-            <card shadow class="card-style">
+            <card shadow class="card-style list">
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("transactionInfo.txId") }}
@@ -186,22 +186,22 @@
 
 
             </card>
-            <div class="row mt-4 mb-3"></div>
+            <div class="row mt-2 mb-2"></div>
 
-            <div class="row mt-5 mb-3 title2">
+            <div class="row mt-3 mb-3 title2 list">
               {{ $t('transactionInfo.nep17') }}
             </div>
-            <div  class="card-style" >
+            <div  class="card-style list" >
               <transfers-list
                   :title="$t('transactionInfo.nep17')"
                   :txhash="this.txhash"
               ></transfers-list>
             </div>
 
-            <div class="row mt-5 mb-3 title2">
+            <div class="row mt-3 mb-3 title2 list">
               {{ $t('transactionInfo.nep11') }}
             </div>
-            <div  class="card-style" >
+            <div  class="card-style list" >
               <nft-table
                   :title="$t('transactionInfo.nep11')"
                   :txhash="this.txhash"
@@ -209,6 +209,7 @@
             </div>
             <div class="row mt-4 mb-3"></div>
             <el-tabs
+                class="list"
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: #f7f8fa"
             >
@@ -472,10 +473,10 @@
               </el-tab-pane>
             </el-tabs>
 
-            <div class="row mt-5 mb-3 title2">
+            <div class="row mt-5 mb-3 title2 list">
               {{ $t("transactionInfo.signers") }}
             </div>
-            <card shadow class="card-style" v-if="this.tabledata.signers">
+            <card shadow class="card-style list" v-if="this.tabledata.signers">
               <el-collapse v-model="activeSignersNames" style="border: white">
                 <el-collapse-item
                     :title="$t('transactionInfo.account')"
@@ -505,10 +506,10 @@
               </el-collapse>
             </card>
 
-            <div class="row mt-4 mb-3 title2">
+            <div class="row mt-4 mb-3 title2 list">
               {{ $t("transactionInfo.witness") }}
             </div>
-            <card shadow class="card-style" v-if="tabledata.witnesses">
+            <card shadow class="card-style list" v-if="tabledata.witnesses">
               <el-collapse v-model="activeWitnessesNames" style="border: white">
                 <el-collapse-item
                     :title="$t('transactionInfo.invocation')"
@@ -537,10 +538,10 @@
                 </el-collapse-item>
               </el-collapse>
             </card>
-            <div class="row mt-4 mb-3 title2">
+            <div class="row mt-4 mb-3 title2 list">
               {{ $t("transactionInfo.script") }}
             </div>
-            <card shadow class="card-style">
+            <card shadow class="card-style list">
               <el-collapse v-model="activeScriptsNames" style="border: white">
                 <el-collapse-item
                     :title="$t('transactionInfo.script')"

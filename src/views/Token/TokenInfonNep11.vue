@@ -12,8 +12,8 @@
               :opacity="0.9"
               :active="isLoading"
             ></loading>
-            <div class="row mt-3 mb-5 title1">{{ $t("tokenDetail") }}</div>
-            <div class="row mt-3 mb-3 title2">
+            <div class="row mt-3 mb-5 title1 shortTitle">{{ $t("tokenDetail") }}</div>
+            <div class="row mt-3 mb-3 title2 shortTitle">
               {{ $t("overview") }}
               <div >
                 <el-button type="info" :plain="true" size="small" style="height: 23px; margin-left: 10px" @click="getContract(this.token_info['hash'])">
@@ -22,7 +22,7 @@
             </div>
             <div class="row mt-3"></div>
 
-            <card shadow class="card-style">
+            <card shadow class="card-style list">
               <div class="row">
                 <div class="col-md-3 lable-title">
                   {{ $t("tokenInfo.name") }}
@@ -120,6 +120,7 @@
 
             <div class="row mt-5"></div>
             <el-tabs
+                class="list"
               v-model="activeName"
               style="
                 width: 80%;

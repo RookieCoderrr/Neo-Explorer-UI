@@ -32,7 +32,7 @@
       >
         <template v-slot:columns>
           <th class="tableHeader">{{ $t("blockinfo.height") }}</th>
-          <th class="tableHeader">{{ $t("blockinfo.hash") }}</th>
+          <th class="tableHeader shortHidden">{{ $t("blockinfo.hash") }}</th>
           <th class="tableHeader">{{ $t("blockinfo.time") }}
             <el-button type="info" :plain="true" size="small" style="height: 19px;margin-left: 4px" @click="switchTime(time)">
               Format</el-button>
@@ -53,8 +53,8 @@
               >{{ row.item.index }}</router-link>
             </div>
           </td>
-          <td style="text-align: center;">
-            <div>
+          <td class="shortHidden" style="text-align: center;">
+            <div >
               {{ row.item.hash }}
             </div>
           </td>

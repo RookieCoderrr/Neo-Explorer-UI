@@ -47,19 +47,22 @@
             </div>
           </th>
           <td class="Address">
-            <router-link
-              v-if="button.state"
-              class="  mb-0 table-list-item-blue"
-              style="cursor: pointer;"
-              :to="'/accountprofile/'+row.item.address"
+            <div class="short">
+              <router-link
+                  v-if="button.state"
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer;"
+                  :to="'/accountprofile/'+row.item.address"
               >{{ scriptHashToAddress(row.item.address) }}</router-link>
-            <router-link
-              v-else
-              class="  mb-0 table-list-item-blue"
-              style="cursor: pointer;"
-              :to="'/accountprofile/'+row.item.address"
+              <router-link
+                  v-else
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer;"
+                  :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
-            </router-link>
+              </router-link>
+            </div>
+
           </td>
           <td class="table-list-item">
             {{ row.item.balance }}

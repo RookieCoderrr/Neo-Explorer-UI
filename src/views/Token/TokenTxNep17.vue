@@ -64,10 +64,10 @@
           </th>
           <td class="table-list-item" style="text-align: center">
             <div>
-              <div class="text-muted" v-if="row.item.from === null">
+              <div class="text-muted short" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" class>
+              <div v-else-if="fromButton.state" class="short">
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer; "
@@ -75,7 +75,7 @@
                   >{{ scriptHashToAddress(row.item.from) }}</router-link
                 >
               </div>
-              <div v-else >
+              <div v-else class="short">
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer; "
@@ -148,10 +148,10 @@
           </td>
           <td class="table-list-item" style="text-align: center">
             <div>
-              <div class="text-muted" v-if="row.item.to === null">
+              <div class="text-muted short" v-if="row.item.to === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="toButton.state" >
+              <div class="short" v-else-if="toButton.state" >
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   style="cursor: pointer;"
@@ -161,7 +161,7 @@
               </div>
               <div v-else >
                 <router-link
-                  class="  mb-0 table-list-item-blue"
+                  class=" short mb-0 table-list-item-blue"
                   style="cursor: pointer;"
                   :to="'/accountprofile/'+row.item.to"
                   >{{ row.item.to }}</router-link

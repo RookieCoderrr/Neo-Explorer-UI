@@ -53,26 +53,33 @@
           <!--            {{ convertTime(row.item.lasttx.timestamp) }}-->
           <!--          </td>-->
           <td class="table-list-item">
-            <router-link
-                class="  mb-0 table-list-item-blue"
-                style="cursor: pointer;"
-                :to="'/NFTinfo/'+row.item.asset+'/'+row.item.address+'/'+base64ToHash(row.item.tokenid)"
-            >{{row.item.tokenid}}</router-link>
+            <div class="short">
+              <router-link
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer;"
+                  :to="'/NFTinfo/'+row.item.asset+'/'+row.item.address+'/'+base64ToHash(row.item.tokenid)"
+              >{{row.item.tokenid}}</router-link>
+            </div>
+
           </td>
           <td class="Address">
-            <router-link
-                v-if="button.state"
-                class="  mb-0 table-list-item-blue"
-                style="cursor: pointer; "
-                :to="'/accountprofile/'+row.item.address"
-            >{{ scriptHashToAddress(row.item.address) }}</router-link>
-            <router-link
-                v-else
-                class="  mb-0 table-list-item-blue"
-                style="cursor: pointer; "
-                :to="'/accountprofile/'+row.item.address"
-            >{{ row.item.address }}
-            </router-link>
+            <div class="short">
+              <router-link
+                  v-if="button.state"
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer; "
+                  :to="'/accountprofile/'+row.item.address"
+              >{{ scriptHashToAddress(row.item.address) }}</router-link>
+              <router-link
+                  v-else
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer; "
+                  :to="'/accountprofile/'+row.item.address"
+              >{{ row.item.address }}
+              </router-link>
+            </div>
+
+
           </td>
           <td>
             {{row.item.description}}

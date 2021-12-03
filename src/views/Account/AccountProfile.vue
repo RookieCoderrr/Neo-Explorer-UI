@@ -13,7 +13,7 @@
                 :active="isLoading"
             ></loading>
             <div class="bat">
-              <div class=" row mt-3  mb-5  title1" >
+              <div class=" row mt-3  mb-5  title1 shortTitle" >
               <span
                   v-if="this.type === 'normal' || this.type === 'candidate'"
                   class="mb-0"
@@ -25,10 +25,10 @@
                 <i class="ni ni-badge"></i>
               </span>
               </div>
-              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
+              <div class=" row mt-3  mb-3 title2 shortTitle"> {{ $t('overview') }} </div>
             </div>
 
-            <card shadow class="card-style">
+            <card shadow class="card-style list">
               <div class="row info mt-3 mb-1">
                 <div class="col-md-3 lable-title">
                   {{ $t("addressPage.addressProfile.address") }}
@@ -123,6 +123,7 @@
           </div>
 
           <el-tabs
+              class="list"
               v-model="activeName"
               style="
                 width: 80%;

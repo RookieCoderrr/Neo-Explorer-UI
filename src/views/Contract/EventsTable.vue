@@ -26,7 +26,7 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center">
+            <div class="media align-items-center short">
               <div class="media-body">
                 <span
                   class="text-muted"
@@ -39,7 +39,7 @@
                 <router-link
                   class="  mb-0 table-list-item-blue"
                   v-else
-                  style="cursor: pointer;color: "
+                  style="cursor: pointer;"
                   :to="'/transactionInfo/'+row.item.txid"
                   >{{ row.item.txid }}</router-link
                 >

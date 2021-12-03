@@ -26,8 +26,8 @@
 
         <template v-slot:default="row">
           <th scope="row">
-            <div class="media align-items-center">
-              <div class="media-body txid">
+            <div class="media align-items-center short">
+              <div class="media-body txid ">
                 <span
                   class="text-muted"
                   v-if="
@@ -47,7 +47,7 @@
             </div>
           </th>
           <td class="Sender">
-            <div class="addr">
+            <div class="short">
               <span class="text-muted" v-if="row.item.originSender === null">
                {{$t('nullAddress')}}
               </span>

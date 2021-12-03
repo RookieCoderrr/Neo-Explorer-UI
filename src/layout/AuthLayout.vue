@@ -266,7 +266,7 @@
           </li>
         </base-dropdown>
       </div>
-      <el-divider class="mr-3" direction="vertical"></el-divider>
+      <el-divider class="mr-3 drophide" direction="vertical"></el-divider>
 
       <div class=" mr-2 mb-1 drophide" v-if="$route.meta.showNet" style="width: 80px" >
         <el-dropdown>
@@ -308,7 +308,7 @@
     <!-- Header -->
 
     <div v-if="$route.meta.HomePage" style="background: #f7f8fa"></div>
-    <div v-else class="header py-7 py-lg-6" style="background: #f7f8fa"></div>
+    <div v-else class="header py-6 " style="background: #f7f8fa"></div>
 
     <router-view></router-view>
     <div v-if="$route.meta.showBot ===true" style="border-top: 1px solid white;;background-color: #fafafa;min-height: 300px;">
@@ -399,48 +399,39 @@
           <div class="row">
             <div class="col-lg-3 mb-2 mt-2" >
               <div class="dropbot " style="display: none">
-                <base-dropdown>
-                  <template v-slot:title>
-                    <base-button type="default" class="btn btn-sm">
-                      {{ this.lang }}
-                    </base-button>
-                  </template>
-                  <li>
-                    <a class="dropdown-item" @click="switch_the_language('en')">
-                      <span>English 🇬🇧</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="switch_the_language('cn')">
-                      <span>中文 🇨🇳</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="switch_the_language('fr')">
-                      <span>Français 🇫🇷</span>
-                    </a>
-                  </li>
-                </base-dropdown>
-              </div>
-              <div class="dropbot " style="display: none" v-if="$route.meta.showNet">
-                <base-dropdown>
-                  <template v-slot:title>
-                    <base-button type="default" class="btn btn-sm">
-                      {{ this.netShow }}
-                    </base-button>
-                  </template>
-                  <li>
-                    <a class="dropdown-item" @click="switchNet('main')">
-                      <span>Mainnet</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="switchNet('test')">
-                      <span>Testnet</span>
-                    </a>
-                  </li>
+                <el-dropdown>
+          <el-button size="mini" plain class="el-dropdown-link droptitle">
+            {{this.lang}}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+            </svg>
 
-                </base-dropdown>
+          </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item @click="switch_the_language('en')">English 🇬🇧</el-dropdown-item>
+                    <el-dropdown-item @click="switch_the_language('cn')">中文 🇨🇳</el-dropdown-item>
+                    <el-dropdown-item @click="switch_the_language('fr')">Français 🇫🇷</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+              </div>
+              <div class="dropbot ml-3 " style="display: none" v-if="$route.meta.showNet">
+                <el-dropdown>
+          <el-button size="mini" plain class=" el-dropdown-link droptitle">
+            {{this.netShow}}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.93387 4.03915C8.73861 3.84388 8.42202 3.84388 8.22676 4.03915L6.04662 6.21929L3.92899 4.10165C3.73372 3.90638 3.41714 3.90638 3.22188 4.10165L2.86833 4.4552C2.67306 4.65046 2.67306 4.96705 2.86833 5.16231L5.69675 7.99074C5.89201 8.186 6.2086 8.186 6.40386 7.99074L6.75741 7.63718C6.77481 7.61979 6.79065 7.60143 6.80495 7.58228L9.28742 5.09981C9.48268 4.90454 9.48268 4.58796 9.28742 4.3927L8.93387 4.03915Z" fill="#4E5969"/>
+            </svg>
+
+          </el-button>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item @click="switchNet('main')">MainNet</el-dropdown-item>
+                      <el-dropdown-item @click="switchNet('test')">TestNet</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown>
               </div>
             </div>
             <div class="col-lg-3 ">

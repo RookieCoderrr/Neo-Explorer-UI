@@ -1,6 +1,6 @@
 <template>
   <div class="home" style="background: #f7f8fa" >
-    <div class="Intro">
+    <div class="Intro list">
       <div class="container-fluid mt--5" >
         <h2 class="Intro-h display-2 ">{{ $t("home") }}</h2>
         <div class=" dropAndSearch mt--5">
@@ -53,9 +53,9 @@
 
     <div class="row mt-5"></div>
 
-    <div class="main">
+    <div class="main list">
       <div class="container-fluid mt--8" style="padding-bottom: 50px;background: #f7f8fa">
-        <div  class="col-md-2 font-weight-bold mb-0 "
+        <div  class="col-md-2 font-weight-bold mb-0  "
               style="font-size: 20px ;color:black;width: 80%">
           <span>{{$t('overview')}}</span>
         </div>
@@ -427,7 +427,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      this.websock = new WebSocket(wsuri);
+      this.websock = new WebSocket(wsuriMain);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
@@ -647,7 +647,8 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        this.contractCount = res["data"]["result"]["total counts"];
+        this.contractCount = res["data"]["result"]["total"];
+        console.log(this.contractCount)
       });
     },
     getCandidateCount() {

@@ -60,18 +60,21 @@
           </td>
 
           <td  class="table-list-item">
-            <router-link
-                class="  mb-0 table-list-item-blue"
-                style="cursor: pointer;"
-                :to="'/NFTinfo/' + row.item.contract+'/'+this.account_address+'/'+base64ToHash(row.item.tokenId)"
-            >{{ row.item.tokenId }}</router-link>
+            <div class="short">
+              <router-link
+                  class="  mb-0 table-list-item-blue"
+                  style="cursor: pointer;"
+                  :to="'/NFTinfo/' + row.item.contract+'/'+this.account_address+'/'+base64ToHash(row.item.tokenId)"
+              >{{ row.item.tokenId }}</router-link>
+            </div>
+
           </td>
           <td class="table-list-item">
             <div>
               <div class="text-muted" v-if="row.item.from === null">
                 {{ $t("nullAddress") }}
               </div>
-              <div v-else-if="fromButton.state" class="addr">
+              <div v-else-if="fromButton.state" class="short">
                 <span
                   v-if="row.item.from === this.account_address">
 
@@ -85,7 +88,7 @@
                   >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
               </div>
-              <div v-else class="addr">
+              <div v-else class="short">
                 <span
                   v-if="row.item.from === this.account_address"
                  >{{ row.item.from }}
@@ -169,7 +172,7 @@
             <div class="text-muted" v-if="row.item.to === null">
               {{ $t("nullAddress") }}
             </div>
-            <div v-else-if="toButton.state" class="addr">
+            <div v-else-if="toButton.state" class="short">
               <span
                 v-if="row.item.to === this.account_address"
                 >{{ scriptHashToAddress(row.item.to) }}
@@ -182,7 +185,7 @@
                 >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
             </div>
-            <div v-else class="addr">
+            <div v-else class="short">
               <span
                 v-if="row.item.to === this.account_address"
                 >{{ row.item.to }}

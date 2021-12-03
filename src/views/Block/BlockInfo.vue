@@ -11,11 +11,11 @@
                 :active="isLoading"
               ></loading>
 <!--              <div class="card-header bg-transparent">-->
-                <div class=" row mt-3  mb-5  title1" > {{ $t('blockDetail') }} </div>
-              <div class=" row mt-3  mb-3 title2"> {{ $t('overview') }} </div>
+                <div class=" row mt-3  mb-5  title1 shortTitle" > {{ $t('blockDetail') }} </div>
+              <div class=" row mt-3  mb-3 title2 shortTitle"> {{ $t('overview') }} </div>
                 <div class="row mt-3"></div>
 
-                <card shadow class="card-style">
+                <card shadow class="card-style list">
                   <div class="row mt-1 mb-1">
                     <div class="col-md-3 lable-title">
                       {{ $t("blockinfo.height") }}
@@ -166,7 +166,7 @@
                   </div>
                 </card>
                 <div class="row mt-3 mb-3"></div>
-              <el-tabs v-model="activeName"  style="width:80%;margin-left: 10%;" >
+              <el-tabs class="list" v-model="activeName"  style="width:80%;margin-left: 10%;" >
 
                 <el-tab-pane :label="$t('blockinfo.trfsList')"  name="first">
                   <div  v-if="
@@ -195,8 +195,8 @@
                     }}</card>
                 </el-tab-pane>
               </el-tabs>
-              <div class=" row mt-3  mb-3 title2"> {{ $t('transactionInfo.witness') }} </div>
-                <card shadow class="card-style" v-if="block_info.witnesses">
+              <div class=" row mt-3  mb-3 title2 list" > {{ $t('transactionInfo.witness') }} </div>
+                <card shadow class="card-style list" v-if="block_info.witnesses">
                   <el-collapse v-model="activeNames"    style="border: white;">
                     <el-collapse-item :title="$t('transactionInfo.invocation')" name="1"  class="text-title3"  >
                       <div  v-html=" block_info['witnesses'][0]['invocation']" style="margin-left: 5%"></div>

@@ -26,7 +26,7 @@
 
         <template v-slot:default="row">
           <td>
-            <div class="txid">
+            <div class="txid short">
               <router-link
                 class="table-list-item-blue mb-0 "
                 style="cursor: pointer; "

@@ -126,8 +126,8 @@
 }
 
 .title2{
-    width: 80%!important;
-    margin-left: 10%!important;
+    width: 80%;
+    margin-left: 10%;
     font-family: Inter,sans-serif;
     font-style: normal;
     font-weight: bold;
@@ -138,8 +138,8 @@
     color: #000000;
 }
 .title1{
-    width: 80%!important;
-    margin-left: 10%!important;
+    width: 80%;
+    margin-left: 10%;
     font-family: Inter;
     font-style: normal;
     font-weight: 800;
@@ -353,6 +353,26 @@
 
 
 
+}
+@media screen and (max-width: 768px ){
+    .list{
+        width: 96% !important;
+        margin-left: 2%!important;
+    }
+    .short{
+        overflow:hidden!important;
+        text-overflow:ellipsis!important;
+        white-space:nowrap!important;
+        width:100px!important; ;
+
+    }
+    .shortTitle{
+        width: 100%;
+        margin-left: 2.5%;
+    }
+    .shortHidden{
+        display: none!important;
+    }
 }
 ::placeholder{
     color: rgba(40, 43, 52, 0.3)

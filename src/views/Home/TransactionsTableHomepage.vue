@@ -45,7 +45,7 @@
         <template v-slot:default="row">
 
           <td class="hometxcontent">
-            <div class="txidhomepage">
+            <div class="txidhomepage ">
               <router-link
                 class="name mb-0 "
                 style="cursor: pointer;"
@@ -164,6 +164,16 @@ export default {
 @media screen and (max-width: 2000px ){
   .txidhomepage {
     width: 160px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px !important;
+  }
+
+}
+@media screen and (max-width: 2000px ){
+  .txidhomepage {
+    width: 90px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
