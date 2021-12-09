@@ -311,12 +311,9 @@
                       </el-collapse>
                     </div>
                 </el-tab-pane>
-                <el-tab-pane :label="$t('contract.sourceCode')" name="forth" v-if="this.nef['compiler']!=='neo-core-v3.0'">
+                <el-tab-pane :label="$t('contract.sourceCode')" name="forth" v-if="this.nef['compiler']!=='neo-core-v3.0' &&this.whiteList.indexOf(this.contract_info['hash']) === -1">
                   <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">
                     This is a native contract, and the source code is registered on the blockchain.
-                  </card>
-                  <card shadow class="text-center" v-else-if="this.whiteList.indexOf(this.contract_info['hash']) !== -1">
-                    This contract is not OpenSource.
                   </card>
                   <div v-else-if="this.isVerified" class="text-center">
                     <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>
@@ -385,7 +382,7 @@ export default {
       activeNames2:['0'],
       isVerified:0,
       updatecounter:0,
-      whiteList:[]
+      whiteList:['0x5ba6c543c5a86a85e9ab3f028a4ad849b924fab9','0x385501cb0288b2953db767b0dc971478539456cb','0xf8465c7a0700c8ee0bfdb932c7586b66938f90d2','0xd1a9f78e1940f6322fef4df2340a963a9ec46f63','0xca2d20610d7982ebe0bed124ee7e9b2d580a6efc','0xfb75a5314069b56e136713d38477f647a13991b4','0xf970f4ccecd765b63732b821775dc38c25d74f23','0x545dee8354823d1bdf4ac524e4092f7405025247','0xc777a8032c1d9d7b885c7357d4c93e7a39f93942','0xedcbe55b04bcc7dad69cfe243bf3d26dc106a1d4','0x3244fcadcccff190c329f7b3083e4da2af60fbce','0x4d5a85b0c83777df72cfb665a933970e4e20c0ec','0x59aa80468a120fe79aa5601de07746275c9ed76a','0x6bcbf09a7193c968d608178a45785967f0721c42','0x1404929a660620869c9cb46ff228ee9d7147959d','0x171d791c0301c332cfe95c6371ee32965e34b606','0x1b3f740240af479f07e44ee3ee78df4c6cb4b1fb','0x45d182227b5d753c7f358594b631838b92caf409']
     };
   },
   created() {

@@ -34,7 +34,8 @@
             <el-image
                 style="width: 100px"
                 :src="row.item.image"
-                :preview-src-list="row.item.imageList">
+                :preview-src-list="row.item.imageList"
+                :hide-on-click-modal="true">
               <template #error>
                 <div class="image-slot">
                   <i class="ni ni-image">

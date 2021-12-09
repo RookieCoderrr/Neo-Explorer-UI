@@ -4,12 +4,21 @@ import Neon from "@cityofzion/neon-js";
 
 function _base64ToArrayBuffer(base64) {
     var binary_string =  window.atob(base64);
+    console.log(binary_string)
+    // var binary_string =  atob(base64);
+    // console.log(binary_string)
     var len = binary_string.length;
     var bytes = new Uint8Array( len );
     for (var i = 0; i < len; i++)        {
         bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes;
+}
+function atob(b64Encoded){
+    var tmp = Neon.u.base642hex(b64Encoded);
+    var res = Neon.u.hexstring2str(tmp);
+    return res
+    // return Buffer.from(b64Encoded, 'base64').toString();
 }
 function b64ToHex(bin) {
     const buffer = Buffer.from(bin, "base64");
