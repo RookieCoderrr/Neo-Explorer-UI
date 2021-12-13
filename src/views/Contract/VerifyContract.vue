@@ -1,4 +1,4 @@
-<template>
+=<template>
   <div class="container-fluid mt--7" style="background-color: #f7f8fa">
     <div class="row">
       <div class="col">
@@ -27,9 +27,11 @@
                 <el-option label ="Neo.Compiler.CSharp 3.0.0" value="Neo.Compiler.CSharp 3.0.0"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.0.2" value="Neo.Compiler.CSharp 3.0.2"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
+                <el-option label ="Neo.Compiler.CSharp 3.1.0" value="Neo.Compiler.CSharp 3.1.0"></el-option>
+                <el-option label ="Neo3-boa" value="neo3-boa"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Compile Command" prop="command">
+            <el-form-item  v-if="this.form.version !== 'neo3-boa'" label="Compile Command" prop="command">
               <el-select  class="contractInput" v-model="form.command" placeholder="please select your compile command" style="width: 400px">
               <el-option label ="nccs" value="nccs"></el-option>
               <el-option label ="dotnet build (nccs --debug --no-optimize)" value="nccs --no-optimize"></el-option>
@@ -58,7 +60,7 @@
                     size="medium"
                     type="primary"
                     @click="uploadFilesAndParams"
-                    :disabled="form.hash===''||form.version===''||fileList.length<=1"
+                    :disabled="form.hash===''||form.version===''||fileList.length<1"
                 >Upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip">
@@ -99,7 +101,7 @@ export default {
         'Content-Type': 'multipart/form-data'
       },
       fileList:[],
-      accept:".cs,.csproj",
+      accept:".cs,.csproj,.py",
       form:{
         hash:this.$route.params.contractHash,
         version:'',
@@ -137,7 +139,9 @@ export default {
       }
 
       formData.append('Version', this.form.version);
-      formData.append('CompileCommand',this.form.command)
+      if (this.form.command!== "") {
+        formData.append('CompileCommand',this.form.command)
+      }
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -146,11 +150,20 @@ export default {
       }
       let node = ""
       if(`${location.hostname}`=== "explorer.onegate.space"){
-        node = "https://neofura.ngd.network/upload"
+        if (this.form.version==="Neo.Compiler.CSharp 3.0.0" || this.form.version==="Neo.Compiler.CSharp 3.0.2" || this.form.version==="Neo.Compiler.CSharp 3.0.3") {
+          node = "https://neofura.ngd.network/upload"
+        } else {
+          node = "http://20.55.40.174:3027/upload"
+        }
+
       }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
-       node = "https://testneofura.ngd.network:444/upload"
+        if (this.form.version==="Neo.Compiler.CSharp 3.0.0" || this.form.version==="Neo.Compiler.CSharp 3.0.2" || this.form.version==="Neo.Compiler.CSharp 3.0.3") {
+          node = "https://testneofura.ngd.network:444/upload"
+        } else {
+          node = "http://20.55.40.174:3026/upload"
+        }
       }
-      // node = "https://testneofura.ngd.network:444/upload"
+      // node = "http://20.55.40.174:3026/upload"
       axios.post(node,formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
@@ -158,7 +171,7 @@ export default {
             showClose:true,
             duration:0,
             type:"error",
-            message:"Compilation failed! Your .cs and .csproj files are not complete, please check and upload again! "
+            message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if they are complete or if the .csproj file is configured in the right way."
           })
           this.isLoading=false;
 
@@ -211,7 +224,7 @@ export default {
             showClose:true,
             duration:0,
             type:"error",
-            message:" Verification failed! Your contract source code doesn't match that on blockchain! please check if you have updated this contract,and upload the latest version!"
+            message:" Verification failed! Your contract source code doesn't match that on the blockchain! please check if you have changed your source code since the deployment !"
           })
           this.isLoading=false;
 

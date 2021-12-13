@@ -334,6 +334,7 @@ export default {
 
   created() {
     window.scroll(0, 0);
+    this.test();
     this.getBlockCount();
     this.getTxCount();
     this.getAccountCount();
@@ -416,6 +417,15 @@ export default {
      this.websocketclose();
   },
   methods: {
+    async test() {
+      const {ethers} = require("ethers");
+
+      const NODE_URL = "https://speedy-nodes-nyc.moralis.io/b9c9a1b11e9b39df1b2c3baf/eth/mainnet";
+      const provider = new ethers.providers.JsonRpcProvider(NODE_URL);
+
+// provider is read-only get a signer for on-chain transactions
+      await provider.getBlockNumber()
+    },
     initWebSocket(){ //初始化weosocket
       const wsuri = "wss://testneofura.ngd.network:3036/home";
       const wsuriMain = "wss://neofura.ngd.network:2027/home";
@@ -427,7 +437,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      // this.websock = new WebSocket(wsuri);
+      this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;

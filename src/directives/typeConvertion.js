@@ -14,12 +14,12 @@ function _base64ToArrayBuffer(base64) {
     }
     return bytes;
 }
-function atob(b64Encoded){
-    var tmp = Neon.u.base642hex(b64Encoded);
-    var res = Neon.u.hexstring2str(tmp);
-    return res
-    // return Buffer.from(b64Encoded, 'base64').toString();
-}
+// function atob(b64Encoded){
+//     var tmp = Neon.u.base642hex(b64Encoded);
+//     var res = Neon.u.hexstring2str(tmp);
+//     return res
+//     // return Buffer.from(b64Encoded, 'base64').toString();
+// }
 function b64ToHex(bin) {
     const buffer = Buffer.from(bin, "base64");
     const hex = buffer.toString("hex");
