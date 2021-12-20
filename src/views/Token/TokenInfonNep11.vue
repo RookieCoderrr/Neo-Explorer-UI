@@ -391,10 +391,8 @@ export default {
     },
     watchrouter() {
       //如果路由有变化，执行的对应的动作
-      if (this.$route.name === "tokeninfo") {
-        this.token_id = this.$route.params.hash;
-        this.getToken(this.$route.params.hash);
-        this.getContractManifest(this.$route.params.hash);
+      if (this.$route.name === "NftInfo") {
+        location.reload()
       }
     },
     getContract(hash) {

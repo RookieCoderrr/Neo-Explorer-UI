@@ -678,11 +678,12 @@ export default {
       //如果路由有变化，执行的对应的动作
       this.isLoading = true;
       if (this.$route.name === "transactionInfo") {
-        this.txhash = this.$route.params.txhash;
-
-        this.getApplicationLogByTransactionHash(this.$route.params.txhash);
-        this.getTransactionByTransactionHash(this.$route.params.txhash);
-        this.getScCallByTransactionHash(this.$route.params.txhash);
+        // this.txhash = this.$route.params.txhash;
+        //
+        // this.getApplicationLogByTransactionHash(this.$route.params.txhash);
+        // this.getTransactionByTransactionHash(this.$route.params.txhash);
+        // this.getScCallByTransactionHash(this.$route.params.txhash);
+        location.reload()
       }
     },
     convertTime(time) {

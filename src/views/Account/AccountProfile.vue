@@ -250,14 +250,15 @@ export default {
       this.isLoading = true;
 
       if (this.$route.name === "AccountProfile") {
-        this.accountAddress = this.$route.params.accountAddress;
-        this.getNep17Transfers();
-        this.getNep11Transfers();
-        this.getNeoBalance();
-        this.getGasBalance();
-        this.getTransactions();
-        this.getCreatedTime();
-        this.getCandidateByAddress();
+        // this.accountAddress = this.$route.params.accountAddress;
+        // this.getNep17Transfers();
+        // this.getNep11Transfers();
+        // this.getNeoBalance();
+        // this.getGasBalance();
+        // this.getTransactions();
+        // this.getCreatedTime();
+        // this.getCandidateByAddress();
+        location.reload()
       }
     },
     getNeoBalance() {

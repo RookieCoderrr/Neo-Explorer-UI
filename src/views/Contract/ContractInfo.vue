@@ -423,9 +423,10 @@ export default {
     watchrouter() {
       this.isLoading = true;
       if (this.$route.name === "contractinfo") {
-        this.contract_id = this.$route.params.hash;
-        this.getContract(this.contract_id);
-        this.getToken(this.contract_id)
+        // this.contract_id = this.$route.params.hash;
+        // this.getContract(this.contract_id);
+        // this.getToken(this.contract_id)
+        location.reload()
       }
     },
     getContract(contract_id) {

@@ -64,7 +64,7 @@
                 >Upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip">
-                    Please upload all files in <span style="font-weight: bold;color: red">cs</span>, <span style="font-weight: bold;color: red">csproj</span> format in your project.
+                    Please upload all files in <span style="font-weight: bold;color: red">cs</span>, <span style="font-weight: bold;color: red">csproj</span> /<span style="font-weight: bold;color: red">.py</span> format in your project.
                   </div>
                 </template>
               </el-upload>
@@ -149,21 +149,22 @@ export default {
         }
       }
       let node = ""
+
       if(`${location.hostname}`=== "explorer.onegate.space"){
         if (this.form.version==="Neo.Compiler.CSharp 3.0.0" || this.form.version==="Neo.Compiler.CSharp 3.0.2" || this.form.version==="Neo.Compiler.CSharp 3.0.3") {
           node = "https://neofura.ngd.network/upload"
         } else {
-          node = "http://20.55.40.174:3027/upload"
+          node = "https://neofura.ngd.network:3027/upload"
         }
 
       }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         if (this.form.version==="Neo.Compiler.CSharp 3.0.0" || this.form.version==="Neo.Compiler.CSharp 3.0.2" || this.form.version==="Neo.Compiler.CSharp 3.0.3") {
           node = "https://testneofura.ngd.network:444/upload"
         } else {
-          node = "http://20.55.40.174:3026/upload"
+          node = "https://testneofura.ngd.network:3026/upload"
         }
       }
-      // node = "http://20.55.40.174:3026/upload"
+      // node = "https://testneofura.ngd.network:3026/upload"
       axios.post(node,formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
@@ -171,7 +172,7 @@ export default {
             showClose:true,
             duration:0,
             type:"error",
-            message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if they are complete or if the .csproj file is configured in the right way."
+            message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if they are complete or if the .csproj file (Csharp) is configured in the right way."
           })
           this.isLoading=false;
 
@@ -197,7 +198,7 @@ export default {
             showClose:true,
             duration:0,
             type:"success",
-            message:"Contract verification success!"
+            message:"Contract verification succeeded!"
           })
           this.isLoading=false;
           this.$router.push({
