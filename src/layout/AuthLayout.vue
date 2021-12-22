@@ -505,17 +505,22 @@ export default {
   methods: {
     // 语言切换
     switch_the_language(language) {
+
       this.$i18n.locale = language;
       if (language === "cn") {
         this.lang = "Cn";
         localStorage.setItem('lang',"cn")
+        this.$refs.tabs.calcPaneInstances(true)
       } else if (language === "en") {
         this.lang = "En";
         localStorage.setItem('lang',"en")
+        this.$refs.tabs.calcPaneInstances(true)
       } else if (language === "fr") {
         this.lang = "Fr";
         localStorage.setItem('lang',"fr")
+        this.$refs.t.calcPaneInstances(true)
       }
+
     },
     switchNet(net){
       if(net=='main'){

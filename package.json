@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@cityofzion/neon-js": "^5.0.0-next.13",
-    "ant-design-vue": "^1.7.8",
     "axios": "^0.21.1",
     "bignumber": "^1.1.0",
     "bootstrap": "4.6.0",
@@ -24,6 +23,7 @@
     "google-maps": "4.3.3",
     "javascript-time-ago": "^2.3.8",
     "jquery": "^3.6.0",
+    "json2csv": "^5.0.6",
     "less-loader": "^10.0.1",
     "neon-js": "^1.1.2",
     "nouislider": "14.6.0",

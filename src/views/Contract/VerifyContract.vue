@@ -10,9 +10,8 @@
         <div class="text-center mb-3">
           <div class="verifyTile">Verify & Publish Contract Source Code</div>
           <p style="width: 60%;margin-left: 20%">
-            Source code verification provides transparency for users interacting with smart contracts.
             By uploading the source code, OneGate Explorer will match the compiled code with that on the blockchain.
-            Just like contracts, a "smart contract" should provide end users with more information on what they are "digitally signing" for and give users an opportunity to audit the code to independently verify that it actually does what it is supposed to do.
+            Please make sure your source code and compiler version is exactly the same as the one when you generate the .nef file and deploy it to the chain. If your contract has been updated, please upload the source code in the latest version. If your contract code has been preprocessed, please upload the processed source code.
           </p>
         </div>
         <hr>
@@ -65,7 +64,9 @@
                 <template #tip>
                   <div class="el-upload__tip">
                     Please upload all files in <span style="font-weight: bold;color: red">cs</span>, <span style="font-weight: bold;color: red">csproj</span> /<span style="font-weight: bold;color: red">.py</span> format in your project.
+
                   </div>
+
                 </template>
               </el-upload>
             </el-form-item>

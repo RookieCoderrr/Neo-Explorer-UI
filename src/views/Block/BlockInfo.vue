@@ -88,10 +88,10 @@
                       <router-link class="name mb-0 " id="speaker" style="cursor: pointer; " :to="'/accountprofile/'+this.block_info.speaker">
                         {{ button.state ? scriptHashToAddress( this.block_info["speaker"]) : this.block_info["speaker"] }}
                       </router-link>
-<span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
+                      <span style="display:-moz-inline-box;display:inline-block;width: 80px!important;vertical-align: center">
                       <i class="ni ni-single-copy-04" id="speakerButton" title="Copy to Clipboard" style="padding-left: 5px; color: grey; cursor: pointer;"  @click="copyItem('speaker','speakerButton','speakerSpan')"></i>
                       <span style="color: #42b983;" id="speakerSpan" ></span>
-</span>
+                      </span>
 
                     </div>
                     <div class="col-2 "  v-if="this.block_info['speaker']" >
@@ -166,7 +166,8 @@
                   </div>
                 </card>
                 <div class="row mt-3 mb-3"></div>
-              <el-tabs class="list" v-model="activeName"  style="width:80%;margin-left: 10%;" >
+
+              <el-tabs  type="card" class="list deleteBorder" v-model="activeName"  style="width:80%;margin-left: 10%;" >
 
                 <el-tab-pane :label="$t('blockinfo.trfsList')"  name="first">
                   <div  v-if="
@@ -250,7 +251,9 @@ export default {
       transfercount: "",
       button: { state: true, buttonName: "Hash" },
       activeNames: ['1','2'],
-      activeName:"first"
+      activeName:"first",
+      activeKey:1,
+      value:0,
     };
   },
   created() {

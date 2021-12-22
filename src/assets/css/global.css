@@ -152,17 +152,31 @@
     font-style: normal;
     font-weight: bold!important;
     font-size: 18px!important;
-    line-height: 22px;
+    /*line-height: 22px;*/
     /* identical to box height */
     color: #000000;
+
 }
 .el-tabs__item.is-active {
     color: #000000;
+
 }
 .el-tabs__item:hover {
     color:  #000000;
     cursor: pointer;
 }
+
+.el-tabs--card>.el-tabs__header .el-tabs__item{
+    border-left: 0!important;
+}
+.el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+    border-bottom: 2px solid #409EFF;
+}.el-tabs--card>.el-tabs__header .el-tabs__nav {
+
+     border: none;
+ }
+
+
 
 .seeMoreButton {
     cursor: pointer;

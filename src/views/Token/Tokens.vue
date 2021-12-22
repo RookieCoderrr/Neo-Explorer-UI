@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col">
           <el-tabs
+              type="card"
               v-model="activeTokenName"
               @tab-click="handleLoad"
           >

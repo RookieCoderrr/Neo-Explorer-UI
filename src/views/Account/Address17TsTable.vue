@@ -19,9 +19,43 @@
             </template>
           </el-dropdown>
         </div>
-        <div class="col-10">
+        <div class="col-8">
+        </div>
+        <div class="col-2" style="text-align: center" >
+
+            <el-button size="mini" plain @click="dialogVisible = true ">CSV Export</el-button>
+            <el-dialog
+                v-model="dialogVisible"
+                title="Export address transfers to csv format "
+            >
+              <loading
+                  :is-full-page="false"
+                  :opacity="0.9"
+                  :active="isLoading"
+              ></loading>
+              <div class="mb-2">Please select the time period of transfer records</div>
+              <el-date-picker
+                  v-model="value1"
+                  type="daterange"
+                  range-separator="-"
+                  start-placeholder="Start date"
+                  end-placeholder="End date"
+                  unlink-panels
+              >
+              </el-date-picker>
+
+              <template #footer>
+                 <span class="dialog-footer">
+                   <el-button @click="dialogVisible = false">Cancel</el-button>
+                    <el-button type="primary" @click="downLoad()">
+                      Export
+                    </el-button>
+                  </span>
+              </template>
+            </el-dialog>
 
         </div>
+
       </div>
 
     </div>
@@ -259,6 +293,8 @@
 </template>
 <script>
 import axios from "axios";
+import Loading from "vue-loading-overlay";
+import json2csv from 'json2csv';
 import {
   changeFormat,
   convertToken,
@@ -269,6 +305,7 @@ import {
   scriptHashToAddress,
 } from "../../store/util";
 import net from "../../store/store";
+// import {ref} from 'vue'
 
 export default {
   name: "address17-ts-table",
@@ -279,12 +316,17 @@ export default {
     title: String,
     account_address: String,
   },
+  components: {
+    Loading
+  },
+
 
   data() {
     return {
       time:{state:true},
       network: net.url,
       tableData: [],
+      exportData:[],
       tableDataTransfer:[],
       resultsPerPage: 10,
       pagination: 1,
@@ -295,6 +337,10 @@ export default {
       totalCountTransfer: 0,
       listButton:{ flag:false,buttonName:"All Types",},
       windowWidth:window.innerWidth,
+      value1:[new Date(2021, 1, 1), new Date()],
+      dialogVisible:false,
+      isLoading:false,
+      fields:['txid','blockhash','timestamp','from','to','contract','value','symbol','decimals','netfee','sysfee','vmstate']
     };
   },
   created() {
@@ -328,6 +374,38 @@ export default {
       this.GetNep17TransferByAddress(skip,this.listButton.flag);
 
 
+    },
+
+    downLoad(){
+      this.isLoading = true;
+      this.GetNep17TransferByAddressExport(0,true)
+
+    },
+    export(){
+      try {
+        console.log(this.exportData)
+        const result = json2csv.parse(this.exportData,{fields:this.fields} );
+        console.log("here")
+        if ((navigator.userAgent.indexOf('compatible') > -1 &&
+            navigator.userAgent.indexOf('MSIE') > -1) ||
+            navigator.userAgent.indexOf('Edge') > -1) {
+          var BOM = "\uFEFF";
+          var csvData = new Blob([BOM + result], {type: "text/csv"});
+          navigator.msSaveBlob(csvData, this.account_address+"_transfers");
+        }
+
+        else {
+          var csvContent = "data:text/csv;charset=utf-8,\uFEFF" + result;
+          var link = document.createElement("a");
+          link.href = encodeURI(csvContent);
+          link.download = this.scriptHashToAddress(this.account_address)+"_transfers";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (err) {
+        alert(err)
+      }
     },
     getContract(ctrHash) {
       this.$router.push({
@@ -374,7 +452,7 @@ export default {
         },
       }).then((res) => {
           this.tableData = res["data"]["result"]["result"];
-          // console.log(this.tableData)
+          console.log(this.tableData)
           this.totalCount = res["data"]["result"]["totalCount"];
           for (let k = 0; k < this.tableData.length; k++) {
             axios({
@@ -401,6 +479,70 @@ export default {
               this.tableData[k]["decimals"] = res["data"]["result"]["decimals"];
             });
           }
+
+      });
+    },
+
+    GetNep17TransferByAddressExport(skip,flag) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.account_address,
+            ExcludeBonusAndBurn:flag,
+            Limit:500,
+            Skip: skip,
+          },
+          // TODO 是否可以按照时间排序，似乎需要修改后端
+          method: "GetNep17TransferByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        this.exportData = res["data"]["result"]["result"];
+        console.log(this.exportData)
+        let count = 0;
+        for (let k = 0; k < this.exportData.length; k++) {
+          axios({
+            method: "post",
+            url: "/api",
+            data: {
+              jsonrpc: "2.0",
+              id: 1,
+              params: {
+                ContractHash: this.exportData[k]["contract"],
+                Limit: this.resultsPerPage,
+                Skip: skip,
+              },
+              method: "GetAssetInfoByContractHash",
+            },
+            headers: {
+              "Content-Type": "application/json",
+              withCredentials: " true",
+              crossDomain: "true",
+            },
+          }).then((res) => {
+            this.exportData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
+            this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
+            count = count +1;
+            if (count === this.exportData.length) {
+              this.isLoading=false
+              this.dialogVisible = false
+              this.export()
+            }
+          });
+        }
+
+
+
+
 
       });
     },

@@ -123,6 +123,7 @@
           </div>
 
           <el-tabs
+              type="card"
               class="list"
               v-model="activeName"
               style="

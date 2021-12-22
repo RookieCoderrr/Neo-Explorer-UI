@@ -209,6 +209,7 @@
             </div>
             <div class="row mt-4 mb-3"></div>
             <el-tabs
+                type="card"
                 class="list"
                 v-model="activeName"
                 style="width: 80%; margin-left: 10%; background-color: #f7f8fa"

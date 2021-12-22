@@ -120,6 +120,7 @@
 
             <div class="row mt-5"></div>
             <el-tabs
+                type="card"
                 class="list"
               v-model="activeName"
               style="
