@@ -437,7 +437,7 @@ export default {
         this.websock = new WebSocket(wsuri);
 
       }
-      // this.websock = new WebSocket(wsuriMain);
+      // this.websock = new WebSocket(wsuri);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
@@ -469,7 +469,7 @@ export default {
         this.assetCount = redata["AssetCount"]["total counts"]
       }else if (Object.keys(redata)[0] ==="ContractCount"){
         this.startContractVal =this.contractCount
-        this.contractCount = redata["ContractCount"]["total counts"]
+        this.contractCount = redata["ContractCount"]["total"]
       }else if (Object.keys(redata)[0] ==="CandidateCount"){
         this.startCandidateVal = this.candidateCount
           this.candidateCount = redata["CandidateCount"]["total counts"]

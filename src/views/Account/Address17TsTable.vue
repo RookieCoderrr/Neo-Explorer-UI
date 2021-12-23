@@ -504,9 +504,8 @@ export default {
           withCredentials: " true",
           crossDomain: "true",
         },
-      }).then((res) => {
-        this.exportData = res["data"]["result"]["result"];
-        console.log(this.exportData)
+      }).then((res1) => {
+        this.exportData = res1["data"]["result"]["result"];
         let count = 0;
         for (let k = 0; k < this.exportData.length; k++) {
           axios({
@@ -529,8 +528,14 @@ export default {
             },
           }).then((res) => {
             this.exportData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            this.exportData[k]["from"] = scriptHashToAddress(this.exportData[k]["from"])
+            this.exportData[k]["to"] = scriptHashToAddress(this.exportData[k]["to"])
+            this.exportData[k]["timestamp"] = convertISOTime(this.exportData[k]["timestamp"])
             this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
             this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
+            this.exportData[k]["value"] = convertToken(this.exportData[k]["value"],res["data"]["result"]["decimals"])
+
+
             count = count +1;
             if (count === this.exportData.length) {
               this.isLoading=false
