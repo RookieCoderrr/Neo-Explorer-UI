@@ -302,7 +302,7 @@ import {
   convertISOTime,
   switchTime,
   addressToScriptHash,
-  scriptHashToAddress,
+  scriptHashToAddress, convertGas,
 } from "../../store/util";
 import net from "../../store/store";
 // import {ref} from 'vue'
@@ -528,10 +528,16 @@ export default {
             },
           }).then((res) => {
             this.exportData[k]["tokenname"] = res["data"]["result"]["tokenname"];
-            this.exportData[k]["from"] = scriptHashToAddress(this.exportData[k]["from"])
-            this.exportData[k]["to"] = scriptHashToAddress(this.exportData[k]["to"])
+            if (this.exportData[k]["from"]!==null) {
+              this.exportData[k]["from"] = scriptHashToAddress(this.exportData[k]["from"])
+            }
+            if (this.exportData[k]["to"]!==null) {
+              this.exportData[k]["to"] = scriptHashToAddress(this.exportData[k]["to"])
+            }
             this.exportData[k]["timestamp"] = convertISOTime(this.exportData[k]["timestamp"])
             this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
+            this.exportData[k]["netfee"] = convertGas(this.exportData[k]["netfee"])
+            this.exportData[k]["sysfee"] = convertGas(this.exportData[k]["sysfee"])
             this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
             this.exportData[k]["value"] = convertToken(this.exportData[k]["value"],res["data"]["result"]["decimals"])
 

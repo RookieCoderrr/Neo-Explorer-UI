@@ -16,6 +16,7 @@
         </div>
         <hr>
         <div  style="margin-left: 20%;width: 60%;display: flex">
+
           <el-form  ref="form" :model="form" :rules="rules" label-width="auto"  style="margin: auto">
 
             <el-form-item label="Contract hash" prop="hash" >
@@ -27,10 +28,11 @@
                 <el-option label ="Neo.Compiler.CSharp 3.0.2" value="Neo.Compiler.CSharp 3.0.2"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.1.0" value="Neo.Compiler.CSharp 3.1.0"></el-option>
-                <el-option label ="Neo3-boa" value="neo3-boa"></el-option>
+                <el-option label ="Neo3-boa (python)" value="neo3-boa"></el-option>
+                <el-option label ="Neow3j (java)" value="neow3j"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item  v-if="this.form.version !== 'neo3-boa'" label="Compile Command" prop="command">
+            <el-form-item  v-if="this.form.version !== 'neo3-boa'&&this.form.version !== 'neow3j'" label="Compile Command" prop="command">
               <el-select  class="contractInput" v-model="form.command" placeholder="please select your compile command" style="width: 400px">
               <el-option label ="nccs" value="nccs"></el-option>
               <el-option label ="dotnet build (nccs --debug --no-optimize)" value="nccs --no-optimize"></el-option>
@@ -62,8 +64,16 @@
                     :disabled="form.hash===''||form.version===''||fileList.length<1"
                 >Upload</el-button>
                 <template #tip>
-                  <div class="el-upload__tip">
-                    Please upload all files in <span style="font-weight: bold;color: red">cs</span>, <span style="font-weight: bold;color: red">csproj</span> /<span style="font-weight: bold;color: red">.py</span> format in your project.
+                  <div v-if="this.form.version==='neow3j'" class="el-upload__tip">
+                   Please upload your source contract file with <span style="color: red">.java </span>extension and the <span style="color: red">build.gradle </span> file in your project.
+
+                  </div>
+                  <div v-else-if="this.form.version==='neo3-boa'" class="el-upload__tip">
+                    Please upload your source contract file with <span style="color: red">.py </span>extension in your project.
+
+                  </div>
+                  <div v-else class="el-upload__tip">
+                    Please upload your source contract file with <span style="color: red">.cs </span> and <span style="color: red">.csproj </span> extension in your project.
 
                   </div>
 
@@ -102,7 +112,7 @@ export default {
         'Content-Type': 'multipart/form-data'
       },
       fileList:[],
-      accept:".cs,.csproj,.py",
+      accept:".cs,.csproj,.py,.java,.gradle",
       form:{
         hash:this.$route.params.contractHash,
         version:'',
@@ -143,6 +153,9 @@ export default {
       if (this.form.command!== "") {
         formData.append('CompileCommand',this.form.command)
       }
+      if (this.form.version=== "neow3j"){
+        formData.append('JavaPackage', "io.examples.HelloWorld");
+      }
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -165,16 +178,33 @@ export default {
           node = "https://testneofura.ngd.network:3026/upload"
         }
       }
-      // node = "https://testneofura.ngd.network:3026/upload"
+      // node = "52.230.106.141:3026/upload"
       axios.post(node,formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
-          ElMessage({
-            showClose:true,
-            duration:0,
-            type:"error",
-            message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if they are complete or if the .csproj file (Csharp) is configured in the right way."
-          })
+          if (this.form.version === "Neo.Compiler.CSharp 3.0.0" ||this.form.version === "Neo.Compiler.CSharp 3.0.2"||this.form.version === "Neo.Compiler.CSharp 3.0.3" || this.form.version === "Neo.Compiler.CSharp 3.1.0") {
+            ElMessage({
+              showClose:true,
+              duration:0,
+              type:"error",
+              message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .cs and .csproj extension in your project."
+            })
+          } else if (this.form.version === "neo3-boa"){
+            ElMessage({
+              showClose:true,
+              duration:0,
+              type:"error",
+              message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .py extension in your project."
+            })
+          } else if (this.form.version === "neow3j"){
+            ElMessage({
+              showClose:true,
+              duration:0,
+              type:"error",
+              message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .java and .gradle extension in your project."
+            })
+          }
+
           this.isLoading=false;
 
         } else if (res.data.Code ===0 || res.data.Code === 1 || res.data.Code ===3){
