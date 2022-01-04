@@ -30,9 +30,10 @@
                 <el-option label ="Neo.Compiler.CSharp 3.1.0" value="Neo.Compiler.CSharp 3.1.0"></el-option>
                 <el-option label ="Neo3-boa (python)" value="neo3-boa"></el-option>
                 <el-option label ="Neow3j (java)" value="neow3j"></el-option>
+                <el-option label ="Neo-go (go)" value="neo-go"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item  v-if="this.form.version !== 'neo3-boa'&&this.form.version !== 'neow3j'" label="Compile Command" prop="command">
+            <el-form-item  v-if="this.form.version !== 'neo3-boa'&&this.form.version !== 'neow3j' &&this.form.version !== 'neo-go'" label="Compile Command" prop="command">
               <el-select  class="contractInput" v-model="form.command" placeholder="please select your compile command" style="width: 400px">
               <el-option label ="nccs" value="nccs"></el-option>
               <el-option label ="dotnet build (nccs --debug --no-optimize)" value="nccs --no-optimize"></el-option>
@@ -63,26 +64,32 @@
                     @click="uploadFilesAndParams"
                     :disabled="form.hash===''||form.version===''||fileList.length<1"
                 >Upload</el-button>
-                <template #tip>
-                  <div v-if="this.form.version==='neow3j'" class="el-upload__tip">
-                   Please upload your source contract file with <span style="color: red">.java </span>extension and the <span style="color: red">build.gradle </span> file in your project.
 
-                  </div>
-                  <div v-else-if="this.form.version==='neo3-boa'" class="el-upload__tip">
-                    Please upload your source contract file with <span style="color: red">.py </span>extension in your project.
-
-                  </div>
-                  <div v-else class="el-upload__tip">
-                    Please upload your source contract file with <span style="color: red">.cs </span> and <span style="color: red">.csproj </span> extension in your project.
-
-                  </div>
-
-                </template>
               </el-upload>
             </el-form-item>
-            <el-form-item>
+            <div class="mb-3">
+              <div v-if="this.form.version==='neow3j'" class="el-upload__tip">
+                Please upload your source contract file with <span style="color: red">.java </span>extension and the <span style="color: red">build.gradle </span> file in your project.
+                <div class="mt-1">The className property of neow3jCompiler in the build.gradle file should be your contract fully qualified name.</div>
 
-            </el-form-item>
+              </div>
+              <div v-else-if="this.form.version==='neo3-boa'" class="el-upload__tip">
+                Please upload your source contract file with <span style="color: red">.py </span>extension in your project.
+
+              </div>
+              <div v-else-if="this.form.version==='neo-go'" class="el-upload__tip">
+                Please upload your source contract file with <span style="color: red">.go </span>extension in your project.
+
+              </div>
+              <div v-else-if="this.form.version==='Neo.Compiler.CSharp 3.0.0' || this.form.version==='Neo.Compiler.CSharp 3.0.2' || this.form.version==='Neo.Compiler.CSharp 3.0.3'||this.form.version==='Neo.Compiler.CSharp 3.1.0'" class="el-upload__tip">
+                Please upload your source contract file with <span style="color: red">.cs </span> and <span style="color: red">.csproj </span> extension in your project.
+
+              </div>
+            </div>
+
+
+
+
 
           </el-form>
         </div>
@@ -112,7 +119,7 @@ export default {
         'Content-Type': 'multipart/form-data'
       },
       fileList:[],
-      accept:".cs,.csproj,.py,.java,.gradle",
+      accept:".cs,.csproj,.py,.java,.gradle,.go",
       form:{
         hash:this.$route.params.contractHash,
         version:'',
@@ -178,7 +185,7 @@ export default {
           node = "https://testneofura.ngd.network:3026/upload"
         }
       }
-      // node = "52.230.106.141:3026/upload"
+      // node = "https://neofura.ngd.network:3027/upload"
       axios.post(node,formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
@@ -202,6 +209,13 @@ export default {
               duration:0,
               type:"error",
               message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .java and .gradle extension in your project."
+            })
+          } else {
+            ElMessage({
+              showClose:true,
+              duration:0,
+              type:"error",
+              message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .go extension in your project."
             })
           }
 

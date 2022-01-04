@@ -23,6 +23,19 @@
             <div class="row mt-3"></div>
 
             <card shadow class="card-style list">
+              <div class="row mb-2">
+                <div class="col-md-3 ">
+                  <el-image
+                      v-if="this.isTokenImageExist()"
+                      style="width: 100px"
+                      :src="this.image"
+                      :preview-src-list="this.imageList">
+
+                  </el-image>
+                </div>
+
+              </div>
+
               <div class="row">
                 <div class="col-md-3 lable-title">
                   {{ $t("tokenInfo.name") }}
@@ -361,6 +374,9 @@ export default {
       activeName: "first",
       activeNames: ['0'],
       activeNames2:['0'],
+      tokenImageList:{"GhostMarketToken":"https://governance.ghostmarket.io/images/gm.png"},
+      image:"",
+      imageList:[],
     };
   },
   created() {
@@ -395,6 +411,15 @@ export default {
     },
     getContract(hash) {
       this.$router.push(`/contractinfo/${hash}`);
+    },
+    isTokenImageExist(){
+      if (this.token_info['tokenname'] in this.tokenImageList){
+        this.image = this.tokenImageList[this.token_info['tokenname']];
+        this.imageList = this.imageList.push(this.image)
+        return true
+      } else {
+        return false
+      }
     },
     getToken(token_id) {
       axios({
