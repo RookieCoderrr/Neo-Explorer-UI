@@ -415,7 +415,7 @@ export default {
     isTokenImageExist(){
       if (this.token_info['tokenname'] in this.tokenImageList){
         this.image = this.tokenImageList[this.token_info['tokenname']];
-        this.imageList = this.imageList.push(this.image)
+        this.imageList.push(this.image)
         return true
       } else {
         return false

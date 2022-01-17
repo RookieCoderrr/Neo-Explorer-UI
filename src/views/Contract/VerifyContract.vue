@@ -70,7 +70,7 @@
             <div class="mb-3">
               <div v-if="this.form.version==='neow3j'" class="el-upload__tip">
                 Please upload your source contract file with <span style="color: red">.java </span>extension and the <span style="color: red">build.gradle </span> file in your project.
-                <div class="mt-1">The className property of neow3jCompiler in the build.gradle file should be your contract fully qualified name.</div>
+                <div class="mt-1">The className property of neow3jCompiler in the build.gradle file should be be consistent with your contract's fully qualified name which is indicated in the first line in your java file.</div>
 
               </div>
               <div v-else-if="this.form.version==='neo3-boa'" class="el-upload__tip">

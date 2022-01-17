@@ -326,7 +326,7 @@
 
                     If you are the contract owner, please <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/VerifyContract/'+contract_id"   >
                     Verify Your Contract Source Code
-                  </router-link>  here. This feature only supports contracts complied by <span style="font-weight: bold">Csharp </span> , <span style="font-weight: bold">Neo3-boa python </span> and<span style="font-weight: bold"> Neow3j java</span> compilers now.
+                  </router-link>  here.
 
                   </card>
                 </el-tab-pane>

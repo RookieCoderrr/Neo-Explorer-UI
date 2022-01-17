@@ -145,9 +145,9 @@
               <router-link class="table-list-item mt-2" style=" display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
 
                 [{{ convertToken(item.value, item.decimals) }}
-                <span v-if="item.tokenname==='NeoToken'" style="color: #2dce89">Neo</span>
-                <span v-else-if="item.tokenname==='GasToken'" style="color: darkorange">Gas</span>
-                <span v-else>{{item.tokenname}}</span>]
+                <span v-if="item.symbol==='NEO'" style="color: #2dce89">NEO</span>
+                <span v-else-if="item.symbol==='GAS'" style="color: darkorange">GAS</span>
+                <span v-else>{{item.symbol}}</span>]
 
               </router-link>
 
@@ -183,9 +183,9 @@
               <router-link class="table-list-item mt-2" style="display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
 
                 [{{ convertToken(item.value, item.decimals) }}
-                <span v-if="item.tokenname==='NeoToken'" style="color: #2dce89">Neo</span>
-                <span v-else-if="item.tokenname==='GasToken'" style="color: darkorange">Gas</span>
-                <span v-else>{{item.tokenname}}</span>]
+                <span v-if="item.symbol==='NEO'" style="color: #2dce89">NEO</span>
+                <span v-else-if="item.symbol==='GAS'" style="color: darkorange">GAS</span>
+                <span v-else>{{item.symbol}}</span>]
 
               </router-link>
 
@@ -218,9 +218,9 @@
 
 
               </div>
-              <router-link v-if="item.tokenname==='NeoToken'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">Neo</router-link>
-              <router-link v-else-if="item.tokenname==='GasToken'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">Gas</router-link>
-              <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.tokenname}}</router-link>
+              <router-link v-if="item.symbol==='NEO'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">NEO</router-link>
+              <router-link v-else-if="item.symbol==='GAS'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">GAS</router-link>
+              <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.symbol}}</router-link>
 
             </div>
             <div v-else style=" height: 170px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 26px"></div>
@@ -257,9 +257,9 @@
 
 
               </router-link>
-              <router-link v-if="item.tokenname==='NeoToken'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">Neo</router-link>
-              <router-link v-else-if="item.tokenname==='GasToken'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">Gas</router-link>
-              <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.tokenname}}</router-link>
+              <router-link v-if="item.symbol==='NEO'" style="color: #2dce89;cursor: pointer" :to="'/contractinfo/' + item['contract']">NEO</router-link>
+              <router-link v-else-if="item.symbol==='GAS'" style="color: darkorange;cursor: pointer" :to="'/contractinfo/' + item['contract']">GAS</router-link>
+              <router-link v-else style="cursor: pointer" :to="'/contractinfo/' + item['contract']">{{item.symbol}}</router-link>
             </div>
             <div v-else style=" height: 170px; text-align: center; padding-left: 10%; padding-right: 10%; padding-top: 26px">
 
