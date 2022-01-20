@@ -427,7 +427,7 @@ export default {
       await provider.getBlockNumber()
     },
     initWebSocket(){ //初始化weosocket
-      const wsuri = "wss://testneofura.ngd.network:3036/home";
+      const wsuri = "wss://testneofura.ngd.network:2026/home";
       const wsuriMain = "wss://neofura.ngd.network:2027/home";
       // console.log(`${location.hostname}`)
       if (`${location.hostname}`=== "explorer.onegate.space"){
