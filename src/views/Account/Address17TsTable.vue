@@ -378,6 +378,7 @@ export default {
 
     downLoad(){
       this.isLoading = true;
+      // this.GetNep17TransferByAddressExportTotal(0,false,1000)
       this.GetNep17TransferByAddressExport(0,true)
 
     },
@@ -482,7 +483,80 @@ export default {
 
       });
     },
+    GetNep17TransferByAddressExportTotal(skip,flag,limit) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: {
+            Address: this.account_address,
+            ExcludeBonusAndBurn:flag,
+            Skip: skip,
+            Limit:limit,
+          },
+          // TODO 是否可以按照时间排序，似乎需要修改后端
+          method: "GetNep17TransferByAddress",
+        },
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res1) => {
+        this.exportData = res1["data"]["result"]["result"];
+        let count = 0;
+        for (let k = 0; k < this.exportData.length; k++) {
+          axios({
+            method: "post",
+            url: "/api",
+            data: {
+              jsonrpc: "2.0",
+              id: 1,
+              params: {
+                ContractHash: this.exportData[k]["contract"],
+                Limit: this.resultsPerPage,
+                Skip: skip,
+              },
+              method: "GetAssetInfoByContractHash",
+            },
+            headers: {
+              "Content-Type": "application/json",
+              withCredentials: " true",
+              crossDomain: "true",
+            },
+          }).then((res) => {
+            this.exportData[k]["tokenname"] = res["data"]["result"]["tokenname"];
+            if (this.exportData[k]["from"]!==null) {
+              this.exportData[k]["from"] = scriptHashToAddress(this.exportData[k]["from"])
+            }
+            if (this.exportData[k]["to"]!==null) {
+              this.exportData[k]["to"] = scriptHashToAddress(this.exportData[k]["to"])
+            }
+            this.exportData[k]["timestamp"] = convertISOTime(this.exportData[k]["timestamp"])
+            this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
+            this.exportData[k]["netfee"] = convertGas(this.exportData[k]["netfee"])
+            this.exportData[k]["sysfee"] = convertGas(this.exportData[k]["sysfee"])
+            this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
+            this.exportData[k]["value"] = convertToken(this.exportData[k]["value"],res["data"]["result"]["decimals"])
 
+
+            count = count +1;
+            if (count === this.exportData.length) {
+              this.isLoading=false
+              this.dialogVisible = false
+              this.export()
+            }
+          });
+        }
+
+
+
+
+
+      });
+    },
     GetNep17TransferByAddressExport(skip,flag) {
       axios({
         method: "post",

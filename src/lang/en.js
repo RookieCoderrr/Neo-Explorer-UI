@@ -211,6 +211,8 @@ const en = {
     Nep11title: "Explore NFTs",
     Nep17title:"Nep17 ",
     NeoTopHolders:"NEO TOP Holders",
+    GasTopHolders:"GAS TOP Holders",
+    BNeoTopHolders:"bNEO TOP Holders",
     decimal:"Decimal",
     totalSupply:"Total Supply",
     hash: "Hash",

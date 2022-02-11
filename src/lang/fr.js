@@ -211,6 +211,8 @@ const fr = {
     Nep11title: "NFTs",
     Nep17title:" Nep17",
     NeoTopHolders:"Top détenteurs NEO",
+    GasTopHolders: "Top détenteurs GAS",
+    BNeoTopHolders:"Top détenteurs bNEO",
     decimal:"Décimal",
     totalSupply:"Production Totale",
     hash: "Hash",

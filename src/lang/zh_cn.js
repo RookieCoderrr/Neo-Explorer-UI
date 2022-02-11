@@ -210,6 +210,8 @@ const zh = {
     Nep11title: "NFT 代币列表",
     Nep17title:"Nep17 代币列表",
     NeoTopHolders:"NEO 资产排名",
+    GasTopHolders:"GAS 资产排名",
+    BNeoTopHolders:"bNEO 资产排名",
     decimal:"小数位数",
     totalSupply:"总供给",
     hash: "哈希",
