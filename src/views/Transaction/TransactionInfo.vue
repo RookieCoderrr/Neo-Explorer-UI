@@ -308,7 +308,11 @@
                                   "
                                 >
                                   {{ param["type"] }}:
-                                  {{ base64ToString(param["value"]) }}
+                                  {{
+                                    param["value"] === null
+                                        ? "Null"
+                                        : base64ToString(param["value"])
+                                  }}
                                 </span>
                                 <span
                                     v-else-if="
@@ -321,8 +325,11 @@
                                       .get(item['eventname'])[ind] === 'Array'
                                   "
                                 >
-                                  {{ param["type"] }}:{{
-                                    base64ToByteArray(param["value"])
+                                  {{ param["type"] }}:
+                                   {{
+                                    param["value"] === null
+                                        ? "Null"
+                                        : base64ToByteArray(param["value"])
                                   }}
                                 </span>
                                 <span
@@ -336,8 +343,11 @@
                                       'ByteArray'
                                   "
                                 >
-                                  {{ param["type"] }}:{{
-                                    base64ToByteArray(param["value"])
+                                  {{ param["type"] }}:
+                                  {{
+                                    param["value"] === null
+                                        ? "Null"
+                                        : base64ToByteArray(param["value"])
                                   }}
                                 </span>
                                 <span v-else>
