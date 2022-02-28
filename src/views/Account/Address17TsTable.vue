@@ -26,14 +26,14 @@
             <el-button size="mini" plain @click="dialogVisible = true ">CSV Export</el-button>
             <el-dialog
                 v-model="dialogVisible"
-                title="Export address transfers to csv format "
+                title="Export address transfers to csv format (Max 500 limit) "
             >
               <loading
                   :is-full-page="false"
                   :opacity="0.9"
                   :active="isLoading"
               ></loading>
-              <div class="mb-2">Please select the time period of transfer records</div>
+              <div class="mb-2">Please select the time period of transfer records (UTC+8)</div>
               <el-date-picker
                   v-model="value1"
                   type="daterange"
@@ -305,6 +305,7 @@ import {
   scriptHashToAddress, convertGas,
 } from "../../store/util";
 import net from "../../store/store";
+import {ElMessage} from "element-plus";
 // import {ref} from 'vue'
 
 export default {
@@ -337,7 +338,7 @@ export default {
       totalCountTransfer: 0,
       listButton:{ flag:false,buttonName:"All Types",},
       windowWidth:window.innerWidth,
-      value1:[new Date(2021, 1, 1), new Date()],
+      value1:[new Date(2021, 0, 1), new Date()],
       dialogVisible:false,
       isLoading:false,
       fields:['txid','blockhash','timestamp','from','to','contract','value','symbol','decimals','netfee','sysfee','vmstate']
@@ -378,8 +379,12 @@ export default {
 
     downLoad(){
       this.isLoading = true;
+      var start = this.value1[0]
+      var end = this.value1[1]
+      console.log(start.getTime())
+      console.log(end.getTime())
       // this.GetNep17TransferByAddressExportTotal(0,false,1000)
-      this.GetNep17TransferByAddressExport(0,true)
+      this.GetNep17TransferByAddressExport(0,true,start.getTime(),end.getTime())
 
     },
     export(){
@@ -557,7 +562,7 @@ export default {
 
       });
     },
-    GetNep17TransferByAddressExport(skip,flag) {
+    GetNep17TransferByAddressExport(skip,flag,start,end ) {
       axios({
         method: "post",
         url: "/api",
@@ -569,6 +574,8 @@ export default {
             ExcludeBonusAndBurn:flag,
             Limit:500,
             Skip: skip,
+            Start: start,
+            End :end,
           },
           // TODO 是否可以按照时间排序，似乎需要修改后端
           method: "GetNep17TransferByAddress",
@@ -581,6 +588,15 @@ export default {
       }).then((res1) => {
         this.exportData = res1["data"]["result"]["result"];
         let count = 0;
+        if (res1["data"]["result"]["totalCount"] === 0) {
+          this.isLoading = false
+          ElMessage({
+            showClose:true,
+            duration:0,
+            type:"error",
+            message:"No data recorded in this period!"
+          })
+        }
         for (let k = 0; k < this.exportData.length; k++) {
           axios({
             method: "post",
