@@ -70,6 +70,9 @@
               >
                 {{ row.item.address }}
               </router-link>
+              <span
+                  v-if="row.item.address === '0x0000000000000000000000000000000000000000'"
+              >（Null Address) </span>
             </div>
 
             <!--a class="name mb-0 text-sm" style="cursor: pointer" @click="getAddress(row.item.address)">{{ row.item.address }}</a-->

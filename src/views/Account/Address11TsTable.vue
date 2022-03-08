@@ -87,6 +87,9 @@
                   :to="'/accountprofile/' + row.item.from"
                   >{{ scriptHashToAddress(row.item.from) }}
                 </router-link>
+                <span
+                    v-if="row.item.from === '0x0000000000000000000000000000000000000000'"
+                >（Null Address) </span>
               </div>
               <div v-else class="short">
                 <span
@@ -100,6 +103,9 @@
                   :to="'/accountprofile/' + row.item.from"
                   >{{ row.item.from }}
                 </router-link>
+                <span
+                    v-if="row.item.from === '0x0000000000000000000000000000000000000000'"
+                >（Null Address) </span>
               </div>
             </div>
           </td>
@@ -184,6 +190,9 @@
                 :to="'/accountprofile/' + row.item.to"
                 >{{ scriptHashToAddress(row.item.to) }}
               </router-link>
+              <span
+                  v-if="row.item.to === '0x0000000000000000000000000000000000000000'"
+              >（Null Address) </span>
             </div>
             <div v-else class="short">
               <span
@@ -197,6 +206,9 @@
                 :to="'/accountprofile/' + row.item.to"
                 >{{ row.item.to }}
               </router-link>
+              <span
+                  v-if="row.item.to === '0x0000000000000000000000000000000000000000'"
+              >（Null Address) </span>
             </div>
           </td>
 

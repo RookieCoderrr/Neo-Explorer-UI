@@ -38,6 +38,9 @@
                     {{ this.scriptHashToAddress(this.accountAddress) }}
 
                   </span>
+                  <span v-if="this.accountAddress==='0x0000000000000000000000000000000000000000'">
+                    (Null Address:0x0000000000000000000000000000000000000000)
+                  </span>
                   <i
                       class="ni ni-single-copy-04"
                       id="addressButton"
@@ -46,6 +49,7 @@
                       @click="copyItem('address', 'addressButton', 'addressSpan')"
                   ></i>
                   <span style="color: #42b983" id="addressSpan"></span>
+
                 </div>
               </div>
               <div class="row info mt-3 mb-1">

@@ -78,9 +78,10 @@
                   :to="'/accountprofile/'+row.item.address"
               >{{ row.item.address }}
               </router-link>
+              <span
+                  v-if="row.item.address === '0x0000000000000000000000000000000000000000'"
+              >（Null Address) </span>
             </div>
-
-
           </td>
           <td>
             {{row.item.description}}
