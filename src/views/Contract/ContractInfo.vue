@@ -44,10 +44,10 @@
                     <el-tag v-if="this.whiteList.indexOf(this.contract_info['hash']) !== -1" type="success" size="small" >
                       Verified
                     </el-tag>
-                    <i v-else-if="this.nef['compiler']!=='neo-core-v3.0'&&this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
+                    <i v-else-if="this.contract_info['updatecounter'] !== -1 &&this.nef['compiler']!=='neo-core-v3.0'&&this.isVerified" class="el-icon-circle-check" style="color: #2dce89;font-weight: bold">
                        Verified
                     </i>
-                    <i v-else-if="this.isVerified===false" class="el-icon-circle-close" style="color:red ;font-weight: bold">
+                    <i v-else-if="this.contract_info['updatecounter'] !== -1 &&this.isVerified===false" class="el-icon-circle-close" style="color:red ;font-weight: bold">
                       Unverified
                     </i>
 
@@ -139,7 +139,7 @@
                 <div class="row mt-3"></div>
                 <div class="row mt-3"></div>
 
-              <el-tabs type="card" class="list" v-model="activeName"  style="width:80%;margin-left: 10%;background-color: #f7f8fa" >
+              <el-tabs type="card" class="list" v-model="activeName" v-if="this.contract_info['updatecounter'] !== -1" style="width:80%;margin-left: 10%;background-color: #f7f8fa" >
                 <el-tab-pane :label="$t('contract.scCallTitle')"  name="first">
                   <div v-if="this.totalsccall != 0">
                     <sc-call-table :contract-hash="contract_id"></sc-call-table>
@@ -352,7 +352,7 @@ import ScCallTable from "./ScCallTable";
 import SourceCode from "./SourceCode";
 import Neon from "@cityofzion/neon-js";
 import ContractJsonView from "./ContractJsonView";
-import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, RPC_NODE_MAIN, copyItem} from "../../store/util";
+import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, RPC_NODE_MAIN,RPC_NODE_MAGNET, copyItem} from "../../store/util";
 import net from "../../store/store";
 
 export default {
@@ -589,6 +589,8 @@ export default {
          client = Neon.create.rpcClient(RPC_NODE_MAIN);
       }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
+      } else if(`${location.hostname}`=== "testmagnet.explorer.onegate.space") {
+        client = Neon.create.rpcClient(RPC_NODE_MAGNET)
       }
 
       client.invokeFunction(this.contract_id, name, contractParams)

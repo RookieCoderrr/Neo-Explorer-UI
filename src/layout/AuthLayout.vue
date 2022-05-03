@@ -239,7 +239,7 @@
       </div>
       <el-divider class="mr-3 drophide" direction="vertical"></el-divider>
 
-      <div class=" mr-2 mb-1 drophide" v-if="$route.meta.showNet" style="width: 80px" >
+      <div class=" mr-2 mb-1 drophide" v-if="$route.meta.showNet" style="width: 100px" >
         <el-dropdown>
           <span class=" el-dropdown-link droptitle">
             {{this.netShow}}
@@ -252,6 +252,7 @@
             <el-dropdown-menu>
               <el-dropdown-item @click="switchNet('main')">MainNet</el-dropdown-item>
               <el-dropdown-item @click="switchNet('test')">TestNet</el-dropdown-item>
+              <el-dropdown-item @click="switchNet('testmagnet')">TestMagnet</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -400,6 +401,7 @@
                     <el-dropdown-menu>
                       <el-dropdown-item @click="switchNet('main')">MainNet</el-dropdown-item>
                       <el-dropdown-item @click="switchNet('test')">TestNet</el-dropdown-item>
+                      <el-dropdown-item @click="switchNet('testmagnet')">TestMagnet</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -494,6 +496,14 @@ export default {
      } else if (this.$i18n.locale === "fr") {
        this.netShow="Testnet"
      }
+   } else if(`${location.hostname}`=== "testmagnet.explorer.onegate.space") {
+     if (this.$i18n.locale === "cn") {
+       this.netShow="测试网一"
+     } else if (this.$i18n.locale === "en") {
+       this.netShow = "Testmagnet"
+     } else if (this.$i18n.locale === "fr") {
+       this.netShow="Testmagnet"
+     }
    }
   },
 
@@ -530,8 +540,8 @@ export default {
 
       } else if(net=='test'){
         location.href = "https://testnet.explorer.onegate.space"+`${location.pathname}`;
-
-
+      }else if(net=='testmagnet'){
+        location.href = "https://testmagnet.explorer.onegate.space"+`${location.pathname}`;
       }
     },
     handleStyle(command){

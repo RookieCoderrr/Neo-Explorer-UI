@@ -427,17 +427,20 @@ export default {
       await provider.getBlockNumber()
     },
     initWebSocket(){ //初始化weosocket
-      const wsuri = "wss://testneofura.ngd.network:2026/home";
-      const wsuriMain = "wss://neofura.ngd.network:2027/home";
+      const wsuri = "wss://mainnet.n3magnet.xyz:2027/home";
+      const wsuriMain = "wss://n3t4.n3magnet.xyz:2026/home";
+      const wsuriMagnet = "wss://n3t5.n3magnet.xyz:2028/home";
       // console.log(`${location.hostname}`)
       if (`${location.hostname}`=== "explorer.onegate.space"){
-        this         .websock = new WebSocket(wsuriMain);
-
+        this.websock = new WebSocket(wsuriMain);
       } else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         this.websock = new WebSocket(wsuri);
+      }else if(`${location.hostname}`=== "testmagnet.explorer.onegate.space") {
+        this.websock = new WebSocket(wsuriMagnet);
 
       }
-      this.websock = new WebSocket(wsuriMain);
+
+      // this.websock = new WebSocket(wsuriMain);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;

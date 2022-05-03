@@ -32,6 +32,9 @@
                     {{ this.token_info["tokenname"] }} &#x1F525;
                   </div>
                   <div v-else>{{ this.token_info["tokenname"] }}</div>
+                  <el-tag v-if="this.updateCounter === -1" type="danger" size="small" >
+                    Destroyed
+                  </el-tag>
                 </div>
 
               </div>
@@ -342,6 +345,7 @@ import {
   responseConverter,
   RPC_NODE,
   copyItem, RPC_NODE_MAIN,
+    RPC_NODE_MAGNET,
 } from "../../store/util";
 import net from "../../store/store";
 import NftToken from "./NftTokens";
@@ -367,12 +371,14 @@ export default {
       activeName: "first",
       activeNames: ['0'],
       activeNames2:['0'],
+      updateCounter: 0,
     };
   },
   created() {
     window.scroll(0,0)
     this.getToken(this.token_id);
     this.getContractManifest(this.token_id);
+    this.getContractUpdateCounter(this.token_id)
   },
   watch: {
     $route: "watchrouter",
@@ -423,6 +429,27 @@ export default {
         this.isLoading = false;
       });
     },
+    getContractUpdateCounter(contract_id) {
+      axios({
+        method: "post",
+        url: "/api",
+        data: {
+          jsonrpc: "2.0",
+          id: 1,
+          params: { ContractHash: contract_id },
+          method: "GetContractByContractHash",
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          withCredentials: " true",
+          crossDomain: "true",
+        },
+      }).then((res) => {
+        const raw = res["data"]["result"];
+        this.updateCounter = raw["updatecounter"]
+        console.log(raw)
+      });
+    },
     onQuery(index) {
       this.manifest["abi"]["methods"][index]["result"] = "";
       this.manifest["abi"]["methods"][index]["error"] = "";
@@ -443,6 +470,8 @@ export default {
         client = Neon.create.rpcClient(RPC_NODE_MAIN);
       }else if(`${location.hostname}`=== "testnet.explorer.onegate.space") {
         client = Neon.create.rpcClient(RPC_NODE)
+      }else if(`${location.hostname}`=== "testmagnet.explorer.onegate.space") {
+        client = Neon.create.rpcClient(RPC_NODE_MAGNET)
       }
 
       client
