@@ -311,25 +311,25 @@
                       </el-collapse>
                     </div>
                 </el-tab-pane>
-                <el-tab-pane :label="$t('contract.sourceCode')" name="forth" v-if="this.nef['compiler']!=='neo-core-v3.0' &&this.whiteList.indexOf(this.contract_info['hash']) === -1">
-                  <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">
-                    This is a native contract, and the source code is registered on the blockchain.
-                  </card>
-                  <div v-else-if="this.isVerified" class="text-center">
-                    <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>
-<!--                    <card shadow>-->
-<!--                      Coming soon ~-->
-<!--                    </card>-->
-                  </div>
-                  <card shadow v-else class="text-center">
-                    Sorry, we were unable to locate a matching SourceCode for this contract.
+<!--                <el-tab-pane :label="$t('contract.sourceCode')" name="forth" v-if="this.nef['compiler']!=='neo-core-v3.0' &&this.whiteList.indexOf(this.contract_info['hash']) === -1">-->
+<!--                  <card shadow class="text-center" v-if="this.isVerified &&this.nef['compiler']==='neo-core-v3.0'">-->
+<!--                    This is a native contract, and the source code is registered on the blockchain.-->
+<!--                  </card>-->
+<!--                  <div v-else-if="this.isVerified" class="text-center">-->
+<!--                    <source-code :contractHash="contract_id" :updatecounter="updatecounter"></source-code>-->
+<!--&lt;!&ndash;                    <card shadow>&ndash;&gt;-->
+<!--&lt;!&ndash;                      Coming soon ~&ndash;&gt;-->
+<!--&lt;!&ndash;                    </card>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                  <card shadow v-else class="text-center">-->
+<!--                    Sorry, we were unable to locate a matching SourceCode for this contract.-->
 
-                    If you are the contract owner, please <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/VerifyContract/'+contract_id"   >
-                    Verify Your Contract Source Code
-                  </router-link>  here.
+<!--                    If you are the contract owner, please <router-link    class="name mb-0 " id="preHash" style="cursor: pointer;" :to="'/VerifyContract/'+contract_id"   >-->
+<!--                    Verify Your Contract Source Code-->
+<!--                  </router-link>  here.-->
 
-                  </card>
-                </el-tab-pane>
+<!--                  </card>-->
+<!--                </el-tab-pane>-->
               </el-tabs>
             </div>
           <div style="margin-top: 30px;margin-bottom: 20px">
@@ -349,7 +349,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import EventsTable from "./EventsTable";
 import ScCallTable from "./ScCallTable";
-import SourceCode from "./SourceCode";
+// import SourceCode from "./SourceCode";
 import Neon from "@cityofzion/neon-js";
 import ContractJsonView from "./ContractJsonView";
 import {addressToScriptHash, convertPreciseTime, changeFormat, responseConverter, RPC_NODE, RPC_NODE_MAIN, copyItem} from "../../store/util";
@@ -358,7 +358,7 @@ import net from "../../store/store";
 export default {
   components: {
     Loading,
-    SourceCode,
+    // SourceCode,
     EventsTable,
     ScCallTable,
     ContractJsonView,

@@ -343,7 +343,7 @@ export default {
     this.getCandidateCount();
     this.getBlockList();
     this.getTransactionList();
-    this.initWebSocket()
+    // this.initWebSocket()
   },
   updated() {
     const nodes = document.getElementsByClassName('timeago')
