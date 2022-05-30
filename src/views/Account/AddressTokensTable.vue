@@ -240,20 +240,10 @@ export default {
             var value = res["data"]["result"]["result"][0]
             // console.log(value["asset"])
             // console.log(value["properties"])
-            if (value["properties"]===""){
-              this.tokenList[k]["nftName"]="——"
-            } else {
-              this.properties = JSON.parse(value["properties"])
-              if ("name" in this.properties) {
-                this.tokenList[k]['nftName'] = this.properties["name"]
-                // console.log( this.tokenList[k]['nftName'])
-              }
-              if ("image" in this.properties) {
-                this.tokenList[k]["image"] = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
-                this.tokenList[k]["imageList"] = [this.tokenList[k]["image"]]
-                // console.log( this.tableData[k]["image"])
-              }
-            }
+            this.tokenList[k]['nftName'] = value["name"]
+            this.tokenList[k]["image"] = value["image"].startsWith('ipfs') ? value['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):value["image"]
+            this.tokenList[k]["imageList"] = [this.tokenList[k]["image"]]
+
           })
         }
         this.getTokenInfo(address_list);

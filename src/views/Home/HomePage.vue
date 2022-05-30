@@ -440,7 +440,7 @@ export default {
 
       }
 
-      this.websock = new WebSocket(wsuriMain);
+      // this.websock = new WebSocket(wsuriMain);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;

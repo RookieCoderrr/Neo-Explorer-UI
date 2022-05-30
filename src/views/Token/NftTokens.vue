@@ -242,28 +242,18 @@ export default {
             this.tableData[k]["nftname"] = "——"
 
             this.tableData[k]["description"]="No description"
-            if (value["properties"]===""){
-              this.properties=null
-            } else {
-              try {
-                this.properties = JSON.parse(value["properties"])
-              } catch (e){
-                this.isLoading = false;
-                return
-              }
-              if("name" in this.properties) {
-                this.tableData[k]["nftname"] = this.properties["name"]
-                // console.log(this.tableData[k]["nftname"])
-              }
-              if ("image" in this.properties) {
-                this.tableData[k]["image"] = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
-                this.tableData[k]["imageList"] = [this.tableData[k]["image"]]
-                // console.log( this.tableData[k]["image"])
-              }
-              if ("description" in this.properties) {
-                this.tableData[k]["description"] =this.properties["description"]
+            if(value["name"] !=="") {
+              this.tableData[k]["nftname"] = value["name"]
+              // console.log(this.tableData[k]["nftname"])
+            }
+            if (value["image"] !== "") {
+              this.tableData[k]["image"] = value["image"].startsWith('ipfs') ? value['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):value["image"]
+              this.tableData[k]["imageList"] = [this.tableData[k]["image"]]
+              // console.log( this.tableData[k]["image"])
+            }
+            if (value["description"] !== "") {
+              this.tableData[k]["description"] =value["description"]
 
-              }
             }
             this.isLoading = false;
 

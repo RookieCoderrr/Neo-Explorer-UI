@@ -365,17 +365,7 @@ export default {
             // console.log(this.tableData)
             this.isLoading = false;
             var value = res["data"]["result"]["result"][0]
-            // console.log(value["asset"])
-            // console.log(value["properties"])
-            if (value["properties"]===""){
-              this.tableData[k]["nftName"]="——"
-            } else {
-              this.properties = JSON.parse(value["properties"])
-              if ("name" in this.properties) {
-                this.tableData[k]['nftName'] = this.properties["name"]
-                // console.log( this.tableData[k]['nftName'])
-              }
-            }
+            this.tableData[k]['nftName'] =value["name"]
           })
         }
       });

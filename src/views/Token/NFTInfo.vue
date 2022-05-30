@@ -238,24 +238,10 @@ export default {
         var value = res["data"]["result"]["result"][0]
         console.log(value["asset"])
         console.log(value["properties"])
-        if (value["properties"]===""){
-          this.properties=null
-        } else {
-          this.properties = JSON.parse(value["properties"])
-          if("name" in this.properties) {
-            this.nftName = this.properties["name"]
-            console.log(this.nftName)
-          }
-          if ("image" in this.properties) {
-            this.image = this.properties["image"].startsWith('ipfs') ? this.properties['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):this.properties["image"]
-            console.log(this.image)
-            this.imageList.push(this.image)
-          }
-          if ("description" in this.properties) {
-            this.description=this.properties["description"]
-            console.log(this.description)
-          }
-        }
+        this.nftName = value["name"]
+        this.image = value["image"].startsWith('ipfs') ? value['image'].replace(/^(ipfs:\/\/)|^(ipfs-video:\/\/)/, 'https://ipfs.infura.io/ipfs/'):value["image"]
+        this.imageList.push(this.image)
+        this.description=value["description"]
 
       });
     },
