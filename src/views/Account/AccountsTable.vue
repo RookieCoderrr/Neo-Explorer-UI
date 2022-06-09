@@ -276,9 +276,9 @@ export default {
           },
         })
           .then((res) => {
-            this.tableData[k]["gasBalance"] = this.convertGas(
+            this.tableData[k]["gasBalance"] =
               res["data"]["result"]["balance"]
-            );
+            ;
           })
           .catch((err) => {
             if (Object.getPrototypeOf(TypeError) === Error) {
@@ -419,7 +419,7 @@ export default {
         },
       })
         .then((res) => {
-          return this.convertGas(res["data"]["result"]["balance"]);
+          return res["data"]["result"]["balance"];
         })
         .catch((err) => {
           console.log("Error", err);

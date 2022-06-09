@@ -132,7 +132,7 @@
                   {{ $t("transactionInfo.netFee") }}
                 </div>
                 <div class="col-md-9 context-black">
-                  {{ convertGas(this.tabledata["netfee"])}} GAS
+                  {{ this.tabledata["netfee"]}} GAS
                 </div>
               </div>
 
@@ -141,7 +141,7 @@
                   {{ $t("transactionInfo.sysFee") }}
                 </div>
                 <div class="col-md-9 context-black">
-                  {{ convertGas(this.tabledata["sysfee"]) }} GAS
+                  {{ this.tabledata["sysfee"] }} GAS
                 </div>
               </div>
 

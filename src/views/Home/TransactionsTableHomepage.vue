@@ -57,7 +57,7 @@
           </td>
           <td class="hometxcontent">
             <div class="">
-              {{ this.convertGas(row.item.netfee + row.item.sysfee) }} gas
+              {{ row.item.netfee + row.item.sysfee }} gas
             </div>
           </td>
           <td class="hometxcontent hometxcontentright" >

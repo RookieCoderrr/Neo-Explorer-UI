@@ -302,7 +302,7 @@ import {
   convertISOTime,
   switchTime,
   addressToScriptHash,
-  scriptHashToAddress, convertGas,
+  scriptHashToAddress,
 } from "../../store/util";
 import net from "../../store/store";
 import {ElMessage} from "element-plus";
@@ -541,8 +541,6 @@ export default {
             }
             this.exportData[k]["timestamp"] = convertISOTime(this.exportData[k]["timestamp"])
             this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
-            this.exportData[k]["netfee"] = convertGas(this.exportData[k]["netfee"])
-            this.exportData[k]["sysfee"] = convertGas(this.exportData[k]["sysfee"])
             this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
             this.exportData[k]["value"] = convertToken(this.exportData[k]["value"],res["data"]["result"]["decimals"])
 
@@ -626,8 +624,6 @@ export default {
             }
             this.exportData[k]["timestamp"] = convertISOTime(this.exportData[k]["timestamp"])
             this.exportData[k]["symbol"] = res["data"]["result"]["symbol"];
-            this.exportData[k]["netfee"] = convertGas(this.exportData[k]["netfee"])
-            this.exportData[k]["sysfee"] = convertGas(this.exportData[k]["sysfee"])
             this.exportData[k]["decimals"] = res["data"]["result"]["decimals"];
             this.exportData[k]["value"] = convertToken(this.exportData[k]["value"],res["data"]["result"]["decimals"])
 

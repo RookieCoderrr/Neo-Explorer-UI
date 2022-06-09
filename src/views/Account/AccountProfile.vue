@@ -312,7 +312,7 @@ export default {
         },
       })
         .then((res) => {
-          this.gasBalance = this.convertGas(res["data"]["result"]["balance"]);
+          this.gasBalance = res["data"]["result"]["balance"];
         })
         .catch((err) => {
           if (Object.getPrototypeOf(TypeError) === Error) {

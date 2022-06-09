@@ -44,7 +44,7 @@
           </td>
 
           <td  class="table-list-item">
-            {{ convertGas(row.item.netfee + row.item.sysfee) }}
+            {{ row.item.netfee + row.item.sysfee }}
           </td>
         </template>
       </base-table>
