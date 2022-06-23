@@ -116,7 +116,10 @@
           <td class="table-list-item">
           {{row.item.decimals}}
           </td>
-          <td class="table-list-item">
+          <td v-if="row.item.symbol==='GAS'" class="table-list-item">
+            {{row.item.totalsupply}}
+          </td>
+          <td v-else class="table-list-item">
             {{convertTotalSupply(row.item.totalsupply,row.item.decimals)}}
           </td>
           <td class="table-list-item">

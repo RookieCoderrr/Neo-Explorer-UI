@@ -144,7 +144,8 @@
               >{{scriptHashToAddress(item.from)}}</router-link>
               <router-link class="table-list-item mt-2" style=" display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
 
-                [{{ convertToken(item.value, item.decimals) }}
+                <span v-if="item.symbol==='GAS'">[{{ item.value }}</span>
+                <span v-else>[{{ convertToken(item.value, item.decimals) }}</span>
                 <span v-if="item.symbol==='NEO'" style="color: #2dce89">NEO</span>
                 <span v-else-if="item.symbol==='GAS'" style="color: darkorange">GAS</span>
                 <span v-else>{{item.symbol}}</span>]
@@ -182,7 +183,8 @@
               </router-link>
               <router-link class="table-list-item mt-2" style="display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
 
-                [{{ convertToken(item.value, item.decimals) }}
+                <span v-if="item.symbol==='GAS'">[{{ item.value }}</span>
+                <span v-else>[{{ convertToken(item.value, item.decimals) }}</span>
                 <span v-if="item.symbol==='NEO'" style="color: #2dce89">NEO</span>
                 <span v-else-if="item.symbol==='GAS'" style="color: darkorange">GAS</span>
                 <span v-else>{{item.symbol}}</span>]
@@ -214,7 +216,8 @@
               >{{scriptHashToAddress(item.from)}}</router-link>
               <div class="table-list-item mt-2" style="text-align: center;">
 
-                [{{ convertToken(item.value, item.decimals) }}]
+                <span v-if="item.symbol==='GAS'">[{{ item.value }}</span>
+                <span v-else>[{{ convertToken(item.value, item.decimals) }}</span>
 
 
               </div>
@@ -253,7 +256,8 @@
               </router-link>
               <router-link class="table-list-item mt-2" style=" display:block;text-align: center;cursor: pointer" :to="'/contractinfo/' + item['contract']">
 
-                [{{ convertToken(item.value, item.decimals) }}]
+                <span v-if="item.symbol==='GAS'">[{{ item.value }}</span>
+                <span v-else>[{{ convertToken(item.value, item.decimals) }}</span>
 
 
               </router-link>

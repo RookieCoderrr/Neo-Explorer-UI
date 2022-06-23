@@ -62,7 +62,10 @@
               >{{ row.item.address }}
             </router-link>
           </td>
-          <td class="table-list-item">
+          <td v-if="row.item.asset==='0xd2a4cff31913016155e38e474a2c06d08be276cf'" class="table-list-item">
+            {{ row.item.balance }}
+          </td>
+          <td v-else class="table-list-item">
             {{ convertToken(row.item.balance, this.decimal) }}
           </td>
           <!--          <td class="firstused">-->

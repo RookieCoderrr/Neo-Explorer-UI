@@ -70,7 +70,7 @@
                     <div class="col-sm-3 lable-title">
                       {{ $t("blockinfo.blockReward") }}
                     </div>
-                    <div class="col-sm-9 context-black">0.5 GAS</div>
+                    <div class="col-sm-9 context-black">50000000 GAS</div>
                   </div>
 
 
@@ -148,7 +148,7 @@
                         {{ $t("blockinfo.totalSysFee") }}
                     </div>
                     <div class="col-sm-9 context-black">
-                      {{ this.block_info.systemFee / 100000000 }} GAS
+                      {{ this.block_info.systemFee }} GAS
                     </div>
                   </div>
 
@@ -157,7 +157,7 @@
                         {{ $t("blockinfo.totalNetFee") }}
                     </div>
                     <div class="col-sm-9 context-black">
-                      {{ this.block_info.networkFee / 100000000 }} GAS
+                      {{ this.block_info.networkFee  }} GAS
                     </div>
                   </div>
 

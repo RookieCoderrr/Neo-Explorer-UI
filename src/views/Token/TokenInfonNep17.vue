@@ -114,7 +114,12 @@
                 <div class="col-md-3 lable-title">
                   {{ $t("tokenInfo.supply") }}
                 </div>
-                <div class="col-md-9 context-black">
+                <div v-if="this.token_info['symbol']==='GAS'" class="col-md-9 context-black">
+                  {{
+                    this.token_info["totalsupply"]
+                  }}
+                </div>
+                <div v-else class="col-md-9 context-black">
                   {{
                     convertToken(this.token_info["totalsupply"], this.decimal)
                   }}

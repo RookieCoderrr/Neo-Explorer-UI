@@ -58,7 +58,7 @@
           </td>
           <td class="pt-4" style="text-align: center">
             <div class="table-list-item mt-2" style="text-align: center">
-              {{ convertToken(row.item.value, 8) }} GAS
+              {{ row.item.value }} GAS
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
             <div class="table-list-item">

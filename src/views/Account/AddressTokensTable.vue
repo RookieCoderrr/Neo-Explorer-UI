@@ -93,7 +93,10 @@
                 <span class="">{{ row.item.standard }}</span>
               </el-tag>
             </td>
-            <td class="table-list-item">
+            <td v-if="row.item.symbol==='GAS'" class="table-list-item">
+              {{ row.item.balance }}
+            </td>
+            <td v-else class="table-list-item">
               {{ convertToken(row.item.balance, row.item.decimals) }}
             </td>
           </template>

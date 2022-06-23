@@ -161,7 +161,10 @@
             <el-tag v-else-if="row.item.from===this.account_address" type="warning" hit color="" ><span style="font-weight: bold;font-size: 15px;">Out</span> </el-tag>
           </td>
           <td class="pt-4" style="text-align: center">
-            <div class="table-list-item mt-2" style="text-align: center">
+            <div v-if="row.item.symbol==='GAS'" class="table-list-item mt-2" style="text-align: center">
+              {{ row.item.value }} {{row.item.symbol}}
+            </div>
+            <div v-else class="table-list-item mt-2" style="text-align: center">
               {{ convertToken(row.item.value, row.item.decimals) }} {{row.item.symbol}}
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>

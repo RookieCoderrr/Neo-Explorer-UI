@@ -86,7 +86,10 @@
             </div>
           </td>
           <td class="pt-4" style="text-align: center">
-            <div class="table-list-item mt-2" style="text-align: center">
+            <div v-if="this.symbol === 'GAS'" class="table-list-item mt-2" style="text-align: center">
+              {{ row.item.value }} {{this.symbol}}
+            </div>
+            <div v-else class="table-list-item mt-2" style="text-align: center">
               {{ convertToken(row.item.value, this.decimal) }} {{this.symbol}}
             </div>
             <span style="color: #42b983;font-size: 30px">&#10230;</span>
