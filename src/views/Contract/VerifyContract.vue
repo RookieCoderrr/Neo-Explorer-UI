@@ -10,7 +10,7 @@
         <div class="text-center mb-3">
           <div class="verifyTile">Verify & Publish Contract Source Code</div>
           <p style="width: 60%;margin-left: 20%">
-            By uploading the source code, OneGate Explorer will match the compiled code with that on the blockchain.
+            By uploading the source code, Jiuquan Explorer will match the compiled code with that on the blockchain.
             Please make sure your source code and compiler version is exactly the same as the one when you generate the .nef file and deploy it to the chain. If your contract has been updated, please upload the source code in the latest version. If your contract code has been preprocessed, please upload the processed source code.
           </p>
         </div>

@@ -1,5 +1,5 @@
 const fr = {
-  home: "Bienvenue sur OneGate Explorer",
+  home: "Bienvenue sur Jiuquan Explorer",
   na: "non disponible",
   blockReward: " Bloc Récompense",
   networkFeeReward: "Récompense de frais de système",
@@ -49,7 +49,7 @@ const fr = {
     developer:"Développeur",
     dApi:"dAPI",
     contractUs: "Nous contacter",
-    oneGate:"OneGate à la blockchain"
+    oneGate:"Jiuquan à la blockchain"
   },
   nftInfo:{
     name:"Nom",

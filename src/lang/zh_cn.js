@@ -1,5 +1,5 @@
 const zh = {
-  home: "欢迎使用OneGate Explorer",
+  home: "欢迎使用 Jiuquan Explorer",
   na: "不适用",
   blockReward: "区块奖励",
   networkFeeReward: "网络费奖励",
