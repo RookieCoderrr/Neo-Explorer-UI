@@ -28,6 +28,7 @@
                 <el-option label ="Neo.Compiler.CSharp 3.0.2" value="Neo.Compiler.CSharp 3.0.2"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.1.0" value="Neo.Compiler.CSharp 3.1.0"></el-option>
+                <el-option label ="Neo.Compiler.CSharp 3.3.0" value="Neo.Compiler.CSharp 3.3.0"></el-option>
                 <el-option label ="Neo3-boa (python)" value="neo3-boa"></el-option>
                 <el-option label ="Neow3j (java)" value="neow3j"></el-option>
                 <el-option label ="Neo-go (go)" value="neo-go"></el-option>
@@ -81,7 +82,7 @@
                 Please upload your source contract file with <span style="color: red">.go </span>extension in your project.
 
               </div>
-              <div v-else-if="this.form.version==='Neo.Compiler.CSharp 3.0.0' || this.form.version==='Neo.Compiler.CSharp 3.0.2' || this.form.version==='Neo.Compiler.CSharp 3.0.3'||this.form.version==='Neo.Compiler.CSharp 3.1.0'" class="el-upload__tip">
+              <div v-else-if="this.form.version==='Neo.Compiler.CSharp 3.0.0' || this.form.version==='Neo.Compiler.CSharp 3.0.2' || this.form.version==='Neo.Compiler.CSharp 3.0.3'||this.form.version==='Neo.Compiler.CSharp 3.1.0' ||this.form.version==='Neo.Compiler.CSharp 3.3.0'" class="el-upload__tip">
                 Please upload your source contract file with <span style="color: red">.cs </span> and <span style="color: red">.csproj </span> extension in your project.
 
               </div>
@@ -195,7 +196,7 @@ export default {
       axios.post(node,formData,config).then((res) => {
         console.log(res)
         if (res.data.Code === 2) {
-          if (this.form.version === "Neo.Compiler.CSharp 3.0.0" ||this.form.version === "Neo.Compiler.CSharp 3.0.2"||this.form.version === "Neo.Compiler.CSharp 3.0.3" || this.form.version === "Neo.Compiler.CSharp 3.1.0") {
+          if (this.form.version === "Neo.Compiler.CSharp 3.0.0" ||this.form.version === "Neo.Compiler.CSharp 3.0.2"||this.form.version === "Neo.Compiler.CSharp 3.0.3" || this.form.version === "Neo.Compiler.CSharp 3.1.0" || this.form.version === "Neo.Compiler.CSharp 3.3.0") {
             ElMessage({
               showClose:true,
               duration:0,
