@@ -29,12 +29,23 @@
                 <el-option label ="Neo.Compiler.CSharp 3.0.3" value="Neo.Compiler.CSharp 3.0.3"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.1.0" value="Neo.Compiler.CSharp 3.1.0"></el-option>
                 <el-option label ="Neo.Compiler.CSharp 3.3.0" value="Neo.Compiler.CSharp 3.3.0"></el-option>
-                <el-option label ="Neo3-boa (python)" value="neo3-boa"></el-option>
+                <el-option label ="Neo3-boa 0.11.3" value="neo3-boa 0.11.3"></el-option>
+                <el-option label ="Neo3-boa 0.11.2" value="neo3-boa 0.11.2"></el-option>
+                <el-option label ="Neo3-boa 0.11.1" value="neo3-boa 0.11.1"></el-option>
+                <el-option label ="Neo3-boa 0.11.0" value="neo3-boa 0.11.0"></el-option>
+                <el-option label ="Neo3-boa 0.10.1" value="neo3-boa 0.10.1"></el-option>
+                <el-option label ="Neo3-boa 0.10.0" value="neo3-boa 0.10.0"></el-option>
+                <el-option label ="Neo3-boa 0.9.0" value="neo3-boa 0.9.0"></el-option>
+                <el-option label ="Neo3-boa 0.8.3" value="neo3-boa 0.8.3"></el-option>
+                <el-option label ="Neo3-boa 0.8.2" value="neo3-boa 0.8.2"></el-option>
+                <el-option label ="Neo3-boa 0.8.1" value="neo3-boa 0.8.1"></el-option>
+                <el-option label ="Neo3-boa 0.8.0" value="neo3-boa 0.8.0"></el-option>
+                <el-option label ="Neo3-boa 0.7.0" value="neo3-boa 0.7.0"></el-option>
                 <el-option label ="Neow3j (java)" value="neow3j"></el-option>
                 <el-option label ="Neo-go (go)" value="neo-go"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item  v-if="this.form.version !== 'neo3-boa'&&this.form.version !== 'neow3j' &&this.form.version !== 'neo-go'" label="Compile Command" prop="command">
+            <el-form-item  v-if="this.form.version === 'Neo.Compiler.CSharp 3.0.0' || this.form.version === 'Neo.Compiler.CSharp 3.0.2' || this.form.version === 'Neo.Compiler.CSharp 3.0.3' || this.form.version === 'Neo.Compiler.CSharp 3.1.0' || this.form.version === 'Neo.Compiler.CSharp 3.3.0'" label="Compile Command" prop="command">
               <el-select  class="contractInput" v-model="form.command" placeholder="please select your compile command" style="width: 400px">
               <el-option label ="nccs" value="nccs"></el-option>
               <el-option label ="dotnet build (nccs --debug --no-optimize)" value="nccs --no-optimize"></el-option>
@@ -74,7 +85,9 @@
                 <div class="mt-1">The className property of neow3jCompiler in the build.gradle file should be be consistent with your contract's fully qualified name which is indicated in the first line in your java file.</div>
 
               </div>
-              <div v-else-if="this.form.version==='neo3-boa'" class="el-upload__tip">
+              <div v-else-if="this.form.version==='neo3-boa 0.11.3' || this.form.version==='neo3-boa 0.11.2' || this.form.version==='neo3-boa 0.11.1' || this.form.version==='neo3-boa 0.11.0'
+              || this.form.version==='neo3-boa 0.10.1' || this.form.version==='neo3-boa 0.10.0' || this.form.version==='neo3-boa 0.9.0' || this.form.version==='neo3-boa 0.8.3' || this.form.version==='neo3-boa 0.8.2'
+              || this.form.version==='neo3-boa 0.8.1' || this.form.version==='neo3-boa 0.8.0' || this.form.version==='neo3-boa 0.7.0'" class="el-upload__tip">
                 Please upload your source contract file with <span style="color: red">.py </span>extension in your project.
 
               </div>
@@ -203,7 +216,9 @@ export default {
               type:"error",
               message:"Compilation failed! We can not generate a .nef file based on the files you uploaded, please check if you have uploaded all files with .cs and .csproj extension in your project."
             })
-          } else if (this.form.version === "neo3-boa"){
+          } else if (this.form.version==='neo3-boa 0.11.3' || this.form.version==='neo3-boa 0.11.2' || this.form.version==='neo3-boa 0.11.1' || this.form.version==='neo3-boa 0.11.0'
+              || this.form.version==='neo3-boa 0.10.1' || this.form.version==='neo3-boa 0.10.0' || this.form.version==='neo3-boa 0.9.0' || this.form.version==='neo3-boa 0.8.3' || this.form.version==='neo3-boa 0.8.2'
+              || this.form.version==='neo3-boa 0.8.1' || this.form.version==='neo3-boa 0.8.0' || this.form.version==='neo3-boa 0.7.0'){
             ElMessage({
               showClose:true,
               duration:0,
