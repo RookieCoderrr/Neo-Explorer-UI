@@ -398,7 +398,7 @@ export default {
       console.log(start.getTime())
       console.log(end.getTime())
       // this.GetNep17TransferByAddressExportTotal(0,false,1000)
-      this.GetNep17TransferByAddressExport(0,true,start.getTime(),end.getTime())
+      this.GetNep17TransferByAddressExport(0,false, start.getTime(), end.getTime())
 
     },
     export(){
